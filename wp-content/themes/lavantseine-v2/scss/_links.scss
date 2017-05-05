@@ -1,0 +1,100 @@
+/* Links */
+a {
+	color: $linkColor;
+	text-decoration: none;
+	border-bottom: 1px dotted $linkColor;
+	@include transition(all 0.2s);
+}
+
+a:visited,
+a:hover,
+a:focus,
+a:active {
+	color: $linkColorHover;
+}
+
+
+/* Buttons */
+
+%button {
+	font-family: $paragraphsFontFamily;
+	line-height: $baseLineHeight;
+	@extend .plain-width;
+	@include box-sizing;
+	display: inline-block;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 0.85em;
+	color: $white;
+	padding: $buttonPadding;
+	margin-bottom: 10px;
+	text-align: center;
+	pointer: cursor;
+	border: none; 
+
+	@include transition(all 0.2s);
+	&:hover {
+		background-color: $white;
+		color: $black;
+		border: none;
+	}
+}
+
+
+a.button {
+	@extend %button;
+}
+
+.widget a.button {
+	width: auto;
+}
+
+.navigation-group,
+.featured-media,
+.paging-navigation {
+	a {
+		border: none;
+	}
+}
+
+.box-post  a,
+.box-event a,
+.site-branding a {
+	border: none;
+	color: inherit;
+
+	&:visited {
+		color: inherit;
+	}
+}
+
+.entry-meta {
+	a {
+		display: inline-block;
+		clear: both;
+		float: left;
+		
+		&:not(.button):hover {
+			margin-left: 5px;
+		}
+	}
+}
+
+.box-footer {
+
+	a {
+		color: inherit;
+		border: none;
+
+		&:before {
+			content: "• ";
+		}
+
+		&:hover {
+			color: $linkColorHover;
+			padding-left: 2px;
+		}	
+	}
+
+}
+

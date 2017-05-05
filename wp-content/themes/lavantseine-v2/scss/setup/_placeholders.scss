@@ -1,0 +1,34 @@
+%clearfix,
+.clearfix {
+	@include clearfix();
+}
+
+%first,
+.first { 
+	margin-left: 0;
+}
+
+%last,
+.last {
+	float: right;
+}
+
+%hidden,
+.hidden {
+  display: none !important;
+}
+
+
+%plain-width,
+.plain-width {
+    @include box-sizing(border);
+    width:100%;
+}
+
+%rotate,
+.rotate {
+	-webkit-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+	-moz-transform:skewx(25deg) translatex(150px);
+	-o-transform:rotate(180deg);
+}
