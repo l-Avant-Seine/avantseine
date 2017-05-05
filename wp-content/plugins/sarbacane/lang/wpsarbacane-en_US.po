@@ -1,0 +1,350 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Sarbacane Plugin\n"
+"POT-Creation-Date: 2013-11-13 16:55+0100\n"
+"PO-Revision-Date: 2013-11-13 16:55+0100\n"
+"Last-Translator: \n"
+"Language-Team: Max. DECONINCK <maximilien.deconinck@sarbacane.com>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;_c\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2;plural=n>1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: C:\\Users\\mdeconinck\\Documents\\Dev\\plugin_WP"
+"\\sarbacane\n"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/index.php:63
+msgid "Paramètres mis à jour"
+msgstr "Updated parameters"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/index.php:75
+msgid "Sarbacane Widget"
+msgstr "Sarbacane Widget"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:30
+msgid "Merci de saisir une URL valide"
+msgstr "Thank you to enter a valid URL"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:61
+msgid "Gestion des réglages Sarbacane WP"
+msgstr "Settings Management WP Sarbacane"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:64
+msgid ""
+"Sarbacane vous propose d’installer sur votre blog un widget d’inscription à "
+"une liste de diffusion."
+msgstr ""
+"Sarbacane 3 suggests you to generate a dynamic script in order to build your "
+"mailing-lists."
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:65
+msgid ""
+"Les adresses récoltées en opt-in sont codées et stockées sur les serveurs "
+"Sarbacane. La confidentialité de ces informations est donc totale."
+msgstr ""
+"Collected addresses in opt-in are crypted and stocked in Sarbacane servers, "
+"thus the confidentiality of these informations is total."
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:66
+msgid ""
+"Vos différentes listes d'adresses e-mail ainsi alimentées peuvent alors être "
+"importées depuis votre logiciel Sarbacane 3 parmi les choix de sources de "
+"destinataires."
+msgstr ""
+"Your different e-mail addresses lists can be imported in your Sarbacane 3 "
+"software among choices of recipients sources."
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:75
+msgid "Clé de licence:"
+msgstr "License key:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:79
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:119
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:201
+msgid "Valider"
+msgstr "Submit"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:83
+msgid "Vous n'avez pas de licence Sarbacane?"
+msgstr "You don’t have Sarbacane license ?"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:83
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:89
+msgid "http://www.sarbacane.com/boutique.asp"
+msgstr "http://www.sarbacane.com/uk-us/store.asp"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:83
+msgid "Découvrez toutes nos offres ici."
+msgstr "Discover all our offers here."
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:85
+msgid "Découvrez Sarbacane, le logiciel emailing leader !"
+msgstr "Sarbacane, the best emailing software for SMEs"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:86
+msgid "Gestion des destinataires"
+msgstr "Recipients’ management"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:87
+msgid "Routage haute délivrabilité"
+msgstr "High delivrability routage"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:88
+msgid "Statistiques détaillées sur <br />les ouvertures, clics..."
+msgstr "Detailed statistics about openings, clicks… and so on"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:89
+msgid "Découvrir"
+msgstr "Try it !"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:91
+msgid ""
+"Pour utiliser le plugin Sarbacane Newsletter, il vous faut un abonnement "
+"Sarbacane"
+msgstr "The Sarbacane Newsletter plug-in requires a Sarbacane license key"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:99
+msgid "Changer de licence"
+msgstr "Change license key"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:106
+msgid "Liste(s) disponible(s)"
+msgstr "List (s) available (s)"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:112
+msgid "Liste à alimenter:"
+msgstr "List to complete"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:125
+msgid "Créer une nouvelle liste"
+msgstr "Create a new list"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:130
+msgid "Nom de votre liste:"
+msgstr "Name your list:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:134
+msgid "Saisissez un mot de passe (appelé clé de liaison):"
+msgstr "Enter a password (called passkey):"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:140
+msgid "Confirmer le mot de passe:"
+msgstr "Confirm password:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:146
+msgid "Créer"
+msgstr "Create"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:152
+msgid "Paramètre d'affichage"
+msgstr "Display settings"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:157
+msgid "Titre du widget:"
+msgstr "Widget title"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:161
+msgid "Texte d'en-tête personnalisable:"
+msgstr "Customizable Text header:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:165
+msgid "Libellé du bouton d'inscription:"
+msgstr "Label of Subscription button :"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:169
+msgid "Validation du formulaire par case à cocher"
+msgstr "Checkbox to submit the form"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:170
+msgid "Texte de la case à cocher"
+msgstr "Text associated with the checkbox"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:171
+msgid "Lien sur le texte ( optionnel )"
+msgstr "Hyperlink on the text (optional)"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:174
+msgid "désactiver"
+msgstr "Deactivate"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:175
+msgid "activer"
+msgstr "Activate"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:182
+msgid "Masquer le formulaire après soumission"
+msgstr "Hide subscription form after submission"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:184
+msgid "Non"
+msgstr "No"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:185
+msgid "Oui"
+msgstr "Yes"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:189
+msgid "Action après soumission:"
+msgstr "Action after submission:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:192
+msgid "Afficher le message générique"
+msgstr "Display the default message of the system"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:193
+msgid "Afficher ce message personnalisé :"
+msgstr "Display this custom message:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:194
+msgid "Rediriger le visiteur sur cette adresse :"
+msgstr "Redirect the visitor on this address:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:208
+msgid "Liste des champs"
+msgstr "List of fields"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:212
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:25
+msgid "email"
+msgstr "Name"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:213
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:26
+msgid "Nom"
+msgstr "Name"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:214
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:27
+msgid "Prenom"
+msgstr "First name"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:215
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:28
+msgid "civilite"
+msgstr "Civility"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:216
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:29
+msgid "naissance"
+msgstr "Birthdate"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:217
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:30
+msgid "Adresse"
+msgstr "Address"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:218
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:31
+msgid "Cplmtadresse"
+msgstr "Additional address"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:219
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:32
+msgid "Cp"
+msgstr "Postal code"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:220
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:33
+msgid "Ville"
+msgstr "City"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:221
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:34
+msgid "Pays"
+msgstr "Country"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:222
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:35
+msgid "Tel"
+msgstr "Phone"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:223
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:36
+msgid "Fax"
+msgstr "Fax"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:224
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:37
+msgid "Portable"
+msgstr "Mobile"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:225
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:38
+msgid "Societe"
+msgstr "Company"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:234
+msgid "Supprimer le champ"
+msgstr "Delete Field"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:243
+msgid "Ajouter le champ:"
+msgstr "Add the fields:"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:256
+msgid "Ajouter"
+msgstr "Add"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:286
+msgid "Merci de saisir un texte de la case à cocher"
+msgstr "Please enter a text associated with the checkbox"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:293
+msgid "Merci de saisir un lien valide"
+msgstr "Please enter a valid hyperlink"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:306
+msgid "Votre navigateur ne gère pas l'AJAX cross-domain !"
+msgstr "Your browser does not support AJAX cross-domain!"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:336
+msgid "Aucun compte associer à votre licence. Merci de recommencer."
+msgstr "No associated account with your licence. Please try again."
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:347
+msgid "Vos mots de passe sont différents"
+msgstr "Your passwords are different"
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:351
+msgid "Merci de remplir tout les champs."
+msgstr "Thank you fill out all fields."
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/admin_settings.php:392
+msgid ""
+"Aucune liste de diffusion. Vous avez la possibilité d’en créer ci-dessous."
+msgstr "No mailing list. You can create one below."
+
+#: C:\Users\mdeconinck\Documents\Dev\plugin_WP\sarbacane/php/widget.php:2
+msgid "Merci de cocher la case pour valider le formulaire"
+msgstr "Please check the box to submit the form"
+
+#~ msgid "Newsletter"
+#~ msgstr "Newsletter"
+
+#~ msgid "Envoyer"
+#~ msgstr "Send"
+
+#~ msgid "Inscription à notre newsletter"
+#~ msgstr "Subscribe to our newsletter"
+
+#~ msgid "Modifier"
+#~ msgstr "Modifier"
+
+#~ msgid "Français"
+#~ msgstr "Français"
+
+#~ msgid "Anglais"
+#~ msgstr "Anglais"
+
+#~ msgid "Espagnol"
+#~ msgstr "Espagnol"
+
+#~ msgid "Allemand"
+#~ msgstr "Allemand"
+
+#~ msgid "Titre du conteneur personnalisable:"
+#~ msgstr "Titre du widget:"

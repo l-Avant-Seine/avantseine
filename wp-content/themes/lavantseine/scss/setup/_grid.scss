@@ -1,0 +1,134 @@
+/*
+ *  Grid setup
+ */
+
+
+@for $i from 1 through $gridColumns {
+    .col-#{$i} {
+        width: ($gridColumnWidth * $i) + ( $gridGutterWidth * ( $i - 1 ));
+        position: relative;
+        float: left;
+        margin-left : $gridGutterWidth ;
+    }
+
+    .col-#{$i}-width {
+        width: ($gridColumnWidth * $i) + ( $gridGutterWidth * ( $i - 1 ));
+    }
+    
+    .push-#{$i} {
+        left: ($gridColumnWidth * $i ) + ( $gridGutterWidth * ( $i ));
+    }
+ 
+    .pull-#{$i} {
+        right: - ($gridColumnWidth * $i ) + ( $gridGutterWidth * ( $i ));
+    }
+
+    .prefix-#{$i} {
+        margin-left: ($gridColumnWidth * $i ) + ( $gridGutterWidth * ( $i ));   
+    }
+
+    .suffix-#{$i} { 
+        margin-right: ( $gridColumnWidth * $i ) + (  $gridGutterWidth * ( $i ));
+    }
+}
+
+$navigationWidth: 779.1px - $logoWidth - $baseLineHeight;
+$navigationMarginLeft: $logoWidth + $baseLineHeight;
+
+/*
+ * SALVATOR PLUGIN SETTINGS
+ */
+
+#homeGrid[data-columns]::before {
+    content: '4 .column.col-1';
+
+    @include breakpoint(medium) {
+        content: '3 .column.col-1';
+    }     
+    @include breakpoint(small) {
+        content: '2 .column.col-1';
+    }
+
+}
+
+
+#secondary[data-columns]::before  {
+    content: '1 .column.col-1';
+
+    @include breakpoint(tablette) {
+        content: '4 .column.col-1';
+    } 
+    @include breakpoint(medium) {
+        content: '3 .column.col-1';
+    }     
+    @include breakpoint(small) {
+        content: '2 .column.col-1';
+    }
+}
+
+
+#homeGrid {
+    .box-event {
+        margin-left: 0;
+    }
+}
+
+#magazineGrid[data-columns]::before {
+    content: '3 .column.col-1';
+
+    @include breakpoint(small) {
+         content: '2 .column.col-1';
+    }   
+}
+
+#related-content[data-columns]::before {
+    content: '4 .column.col-1';
+
+    @include breakpoint(medium) {
+         content: '3 .column.col-1';
+    } 
+
+    @include breakpoint(small) {
+         content: '2 .column.col-1';
+    }     
+
+}
+
+/* These are the classes that are going to be applied: */
+.column {
+    float: left;
+    margin-left: $gridGutterWidth;
+
+    .box {
+        max-width: 100%;
+    }
+
+    @include breakpoint(small) {
+        margin-right: 3%;
+        margin-left: 3%;
+        max-width: 44%;
+        float: left;
+    }
+}
+
+.column.col-1:first-child {
+    margin-left: 0;
+
+    @include breakpoint(small) {
+        margin-left: 3%;
+        float: left;
+        margin-right: 3%;
+    }
+}
+
+#magazineGrid {
+
+}
+
+
+/* Also, don't forget to add this: */
+[data-columns]::before { display: block;
+height: 0;
+visibility: hidden; }
+
+

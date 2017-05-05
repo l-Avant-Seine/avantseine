@@ -1,0 +1,355 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Sarbacane Plugin\n"
+"POT-Creation-Date: 2013-08-02 12:24+0100\n"
+"PO-Revision-Date: 2013-08-02 12:24+0100\n"
+"Last-Translator: \n"
+"Language-Team: Max. DECONINCK <maximilien.deconinck@sarbacane.com>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_e;_c\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2;plural=n>1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: C:\\Program Files\\EasyPHP-12.1\\www\\wordpress\\wp-"
+"content\\plugins\\sarbacane\n"
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/index.php:63
+msgid "Paramètres mis à jour"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/index.php:75
+msgid "Sarbacane Widget"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/index.php:173
+msgid "Newsletter"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/index.php:174
+msgid "Envoyer"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/index.php:175
+msgid "Inscription à notre newsletter"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:30
+msgid "Merci de saisir une URL valide"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:57
+msgid "Gestion des réglages Sarbacane WP"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:60
+msgid ""
+"Sarbacane vous propose d’installer sur votre blog un widget d’inscription à "
+"une liste de diffusion."
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:61
+msgid ""
+"Les adresses récoltées en opt-in sont codées et stockées sur les serveurs "
+"Sarbacane. La confidentialité de ces informations est donc totale."
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:62
+msgid ""
+"Vos différentes listes d'adresses e-mail ainsi alimentées peuvent alors être "
+"importées depuis votre logiciel Sarbacane 3 parmi les choix de sources de "
+"destinataires."
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:71
+msgid "Clé de licence:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:75
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:115
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:184
+msgid "Valider"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:79
+msgid "Vous n'avez pas de licence Sarbacane?"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:79
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:85
+msgid "http://www.sarbacane.com/boutique.asp"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:79
+msgid "Découvrez toutes nos offres ici."
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:81
+msgid "Découvrez Sarbacane, le logiciel emailing leader !"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:82
+msgid "Gestion des destinataires"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:83
+msgid "Routage haute délivrabilité"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:84
+msgid "Statistiques détaillées sur <br />les ouvertures, clics..."
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:85
+msgid "Découvrir"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:87
+msgid ""
+"Pour utiliser le plugin Sarbacane Newsletter, il vous faut un abonnement "
+"Sarbacane"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:95
+msgid "Changer de licence"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:102
+msgid "Liste(s) disponible(s)"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:108
+msgid "Liste à alimenter:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:121
+msgid "Créer une nouvelle liste"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:126
+msgid "Nom de votre liste:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:130
+msgid "Saisissez un mot de passe (appelé clé de liaison):"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:136
+msgid "Confirmer le mot de passe:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:142
+msgid "Créer"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:148
+msgid "Paramètre d'affichage"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:153
+msgid "Titre du widget:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:157
+msgid "Texte d'en-tête personnalisable:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:161
+msgid "Libellé du bouton d'inscription:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:165
+msgid "Masquer le formulaire après soumission"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:167
+msgid "Non"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:168
+msgid "Oui"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:172
+msgid "Action après soumission:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:175
+msgid "Afficher le message générique"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:176
+msgid "Afficher ce message personnalisé :"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:177
+msgid "Rediriger le visiteur sur cette adresse :"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:191
+msgid "Liste des champs"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:195
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:25
+msgid "email"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:196
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:26
+msgid "Nom"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:197
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:27
+msgid "Prenom"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:198
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:28
+msgid "civilite"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:199
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:29
+msgid "naissance"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:200
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:30
+msgid "Adresse"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:201
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:31
+msgid "Cplmtadresse"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:202
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:32
+msgid "Cp"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:203
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:33
+msgid "Ville"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:204
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:34
+msgid "Pays"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:205
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:35
+msgid "Tel"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:206
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:36
+msgid "Fax"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:207
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:37
+msgid "Portable"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:208
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/widget.php:38
+msgid "Societe"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:217
+msgid "Supprimer le champ"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:226
+msgid "Ajouter le champ:"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:239
+msgid "Ajouter"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:272
+msgid "Votre navigateur ne gère pas l'AJAX cross-domain !"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:300
+msgid "Vos mots de passe sont différents"
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:304
+msgid "Merci de remplir tout les champs."
+msgstr ""
+
+#: C:\Program
+#: Files\EasyPHP-12.1\www\wordpress\wp-content\plugins\sarbacane/sarbacane/php/admin_settings.php:345
+msgid ""
+"Aucune liste de diffusion. Vous avez la possibilité d’en créer ci-dessous."
+msgstr ""

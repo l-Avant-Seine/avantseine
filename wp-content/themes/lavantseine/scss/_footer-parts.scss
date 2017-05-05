@@ -1,0 +1,69 @@
+
+
+#inner-footer-navigations {
+	@extend .plain-width;
+}
+
+.box-footer {
+	@extend .box;
+
+	@include breakpoint(medium) {
+		width: 46%;
+		margin: 0 0 $baseLineHeight 0;
+		text-align: center;
+	}
+
+	@include breakpoint(medium) {
+	}
+
+	@include breakpoint(small) {
+		width: 100%;
+	}	
+
+	p {
+		margin-bottom: $baseLineHeight / 2 ;
+	}
+
+}
+
+aside.widget-first {
+	@extend .first;
+}
+
+aside.widget-last {
+	float: right;
+
+	@include breakpoint(tablette) {
+		clear: both;
+		float: none !important;
+		margin: 0 auto;
+	}		
+	
+	a {
+		&:before {
+			content: " " !important;
+		}
+	}
+}
+
+
+aside.widget-odd {
+
+		@include breakpoint(tablette) {
+			float: left;
+		}
+
+		@include breakpoint(medium) {
+			clear: both;
+		}
+	}
+
+
+
+.colombes-logo {
+	background-image: url();
+}
+
+.haut-de-seine-logo {
+	background-image: url();
+}
