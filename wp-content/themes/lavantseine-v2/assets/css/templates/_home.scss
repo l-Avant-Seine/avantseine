@@ -1,0 +1,82 @@
+/* 
+ * templates/home
+ * 
+ * @package elsa
+ */
+
+
+.featured-cover {
+    width: 100%;
+    height: 400px;
+
+    @include up-to(medium) {
+      height: 250px;
+    }
+}
+
+
+.featured-content {
+  background-color: $color_ressources;
+  color: $white;
+  margin-bottom: $base_line_height * 5;
+  padding-top: $base_line_height;
+  padding-bottom: $base_line_height;
+
+  .h2 {
+    margin-bottom: $base_line_height;
+  }
+  .wrap {
+    position: relative;
+  }
+  p {
+    font-weight: $thin;
+    margin-bottom: $base_line_height / 2;
+  }
+}
+  
+  .featured_name {
+    position: absolute;
+    display: inline-block;
+    top: - $base_line_height * 3;
+    left: 0;
+    padding: $base_line_height / 2 $base_line_height * 2;
+    background-color: $color_ressources;
+  }
+  .featured_intro {
+    padding-right: $base_line_height * 3;
+  }
+
+  .featured_actions {
+    margin-top: $base_line_height * 2;
+
+    .btn-primary {
+      margin-right: $base_line_height;
+    }
+  } 
+
+  .featured_btns  {
+    color: $color_primary;
+  }
+
+  .featured-asso,
+  .featured-pays {
+    color: $white;
+
+    a {
+      color: inherit;
+    }
+
+    @include up-to(medium) {
+      margin-top: $base_line_height * 2;
+    }
+  }
+  .home-grid {
+
+    @include at-least(medium) {
+      .group_title {
+        min-height: $bloc_height + $base_line_height * 3;
+      }
+    }
+  }
+
+
