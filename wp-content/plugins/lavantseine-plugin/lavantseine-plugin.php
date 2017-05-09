@@ -38,10 +38,10 @@ define('TWITTER', '');
  */
 require_once(ODY_PT_PATH . 'events-post-type.php');
 require_once(ODY_PT_PATH . 'custom-taxonomies.php');
-require_once(ODY_METAS_PATH . 'attachment-metas.php');
-require_once(ODY_METAS_PATH . 'event-metas.php');
-require_once(ODY_METAS_PATH . 'page-metas.php');
-require_once(ODY_METAS_PATH . 'post-metas.php');
+//require_once(ODY_METAS_PATH . 'attachment-metas.php');
+//require_once(ODY_METAS_PATH . 'event-metas.php');
+//require_once(ODY_METAS_PATH . 'page-metas.php');
+//require_once(ODY_METAS_PATH . 'post-metas.php');
 
 //require_once(ODY_UTILS_PATH . 'custom-widgets.php');
 require_once(ODY_UTILS_PATH . 'options-panel.php');
