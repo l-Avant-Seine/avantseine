@@ -117,12 +117,10 @@
 
 .bx-wrapper .bx-prev {
   right: $base_line_height * 1.5;
-  @extend .icon-arrow_left-big;
 }
 
 .bx-wrapper .bx-next {
   right: 0;
-  @extend .icon-arrow_right-big;
 }
 
 .bx-wrapper .bx-controls-direction a {
