@@ -1,5 +1,10 @@
+/*
+ * Shame
+ *
+ * @package lavantseine-v2
+ */
+
 // ==========================================================================
-// $Shame
 // @see http://csswizardry.com/2013/04/shame-css/
 // Thanks https://github.com/heroheman/shepherd/blob/master/sass/_shame.scss
 // ==========================================================================
@@ -10,8 +15,6 @@
 // be very specific about what each piece of code is doing, and
 // how to better fix it later
 // ==========================================================================
-
-// Try:  $ git blame _shame.scss
 
 // Rules:
 // ---------------
@@ -24,16 +27,3 @@
 //   7. Do not blame the developer; if they explained why they had to do it then their reasons are probably (hopefully) valid.
 //   8. Try and clean _shame.scss up when you have some down time.
 //       Even better, get tech-debt story in which you can dedicate actual sprint time to it.
-
-// Example:
-// ---------------
-   // Nav specificity fix.
-
-   // Someone used an ID in the header code (`#header a{}`) which trumps the
-   // nav selectors (`.site-nav a{}`). Use !important to override it until I
-   // have time to refactor the header stuff.
-
-   // .site-nav a{
-   //     color:#BADA55!important;
-   // }
-
