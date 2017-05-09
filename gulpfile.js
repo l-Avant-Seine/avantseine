@@ -22,8 +22,8 @@ var mainjs = assets_folder + 'js/scripts.js';
 var vendorsjs = assets_folder + 'js/lib/*.js';
 var alljs = [vendorsjs, mainjs];
 
-var scssfiles = assets_folder + 'assets/css/**/*.scss';
-var sassfolder = assets_folder + 'assets/css/';
+var scssfiles = assets_folder + 'css/**/*.scss';
+var sassfolder = assets_folder + 'css/';
 var sassMain = sassfolder + 'style.scss';
 
 
