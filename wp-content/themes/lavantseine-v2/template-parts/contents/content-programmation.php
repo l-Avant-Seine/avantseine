@@ -7,27 +7,27 @@
  * @package lavantseine
  */
 ?>
-			<div class="next-events">
+			<div class="events-grid">
 
 				<?php
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 					$today = time();
 					$previous_month = false;
 
-				$args = array(
-				   	'post_type' => 'event',
-						'posts_per_page' => '4',   
-				   	'meta_key' => 'eventDetail_first_date',
-				   	'orderby' => 'meta_value_num',
-				   	'order' => 'ASC',
-				   	'meta_query' => array(
-				       	array(
-				           'key' => 'eventDetail_last_date',
-				           'value' => $today,
-				           'compare' => '>=',
-				        )
-				    )
-				);
+					$args = array(
+					   	'post_type' => 'event',
+							'posts_per_page' => '4',   
+					   	'meta_key' => 'eventDetail_first_date',
+					   	'orderby' => 'meta_value_num',
+					   	'order' => 'ASC',
+					   	'meta_query' => array(
+					       	array(
+					           'key' => 'eventDetail_last_date',
+					           'value' => $today,
+					           'compare' => '>=',
+					        )
+					    )
+					);
 
 					$query = new WP_Query( $args );
 				?>
@@ -54,7 +54,7 @@
 							endif;
 						?> <!-- end month test -->
 
-						<?php get_template_part( 'boxes', get_post_format() ); ?>
+						<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
 
 					<?php endwhile; ?>
 
