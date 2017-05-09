@@ -44,7 +44,7 @@ function lavantseine_v2_setup() {
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'menu-1' => esc_html__( 'Primary', 'lavantseine-v2' ),
+		'menu-principal' => esc_html__( 'Menu Principal', 'lavantseine-v2' ),
 	) );
 
 	/*
