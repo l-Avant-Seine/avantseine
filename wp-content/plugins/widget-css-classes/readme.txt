@@ -7,8 +7,8 @@ Tags: widgets, classes, css, widget classes, widget css
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
-Tested up to: 3.9
-Stable tag: 1.2.6
+Tested up to: 4.7
+Stable tag: 1.4.0
 
 Add custom classes and ids plus first, last, even, odd, and numbered classes to your widgets.
 
@@ -31,14 +31,14 @@ __Features:__
 
 * Adds a text field to a widget for defining a class
 * You can specify multiple classes by putting a space between them
-* Optionally adds a drop-down menu with predefined classes instead of a text field
+* Optionally adds checkboxes with predefined classes
 * Optionally adds a text field to add an id to a widget
 * Adds first and last classes to the first and last widget instances in a sidebar
 * Adds even/odd classes to widgets
 * Adds number classes to widgets
 * Fully translatable
 * Multi-site compatible
-* Compatible with Widget Logic and Widget Context plugins
+* Compatible with Widget Logic, Widget Context, and WP Page Widget plugins
 * Has filters and hooks for customizing output including class names
 
 [Plugin Website](http://cleverness.org/plugins/widget-css-classes/)
@@ -50,7 +50,7 @@ __Features:__
 3. Configure the settings under __Settings > Widget CSS Classes__
 4. Visit __Appearance > Widgets__ to add or change the custom classes and ids for a widget.
 5. Expand the appropriate widget in the desired sidebar.
-6. You'll see a field labeled __CSS Class__. Depending on your settings, this will be a text field or a drop-down field.
+6. You'll see a field labeled __CSS Class__. Depending on your settings, this will be a text field and/or checkboxes.
 7. If you are using the text field you can enter multiple class names by separating them with a space.
 8. If you've enabled the id field, you will see a text field called __CSS ID__.
 
@@ -88,11 +88,41 @@ Visit [the plugin website](http://cleverness.org/plugins/widget-css-classes/) an
 == Screenshots ==
 
 1. Basic Widget
-2. Widget with ID field and Dropdown
+2. Widget with ID field and Predefined Choices
 3. Settings Page
 4. Generated HTML
 
 == Changelog ==
+
+= 1.4.0 =
+* Feature: Sort Pre-defined classes (thanks Jory Hogeveen)
+* Security: Prevent unauthenticated import of settings
+* Fix: Notice message when classes is empty (thanks Jory Hogeveen)
+
+= 1.3.0 =
+* Feature: Change dropdown to checkboxes for multiple class selection
+* Feature: Option to use both predefined and text input classes
+* Feature: Migrate classes when predefined classes are available
+* Improvement: Do not show previously defined classes that are removed in the settings page when a widget is not updated yet
+* Fix: Only show stored classes if the field-type in the setting page is correct
+* Fix: When predefined is selected, show previous text input classes if they are defined
+* Fix: Ids index notice
+* i18n: Added Dutch translation by [Jory Hogeveen at Keraweb](https://www.keraweb.nl/)
+* i18n: Added Russian translation by Наталия Завьялова
+* i18n: Added Swedish translation by [Olle Gustafsson](http://www.ollegustafsson.com/)
+
+= 1.2.9 =
+* Changed h2 to h1 on settings page
+* Changed plus/minus icons on settings page to dashicons
+
+= 1.2.8 =
+* Added text domain to plugin header in preparation for automatic language translations
+
+= 1.2.7 =
+* Changed class and ID fields to full-width
+* Added missing escaping from settings page
+* Enqueue admin scripts on correct hook
+* Fixed undefined notice when option was not found
 
 = 1.2.6 =
 * Fixed error notice
@@ -133,6 +163,12 @@ Visit [the plugin website](http://cleverness.org/plugins/widget-css-classes/) an
 
 == Upgrade Notice ==
 
+= 1.4 =
+New feature, bug fix, security fix
+
+= 1.2.7 =
+Bug fix
+
 = 1.2.6 =
 Bug fix
 
@@ -163,8 +199,6 @@ First version
 
 [Add .first & .last CSS Class Automatically To WordPress Widgets](http://wpshock.com/add-first-last-css-class-automatically-to-wordpress-widgets/)
 
-Plus/Minus Icons from [Farm Fresh Icons](http://www.fatcow.com/free-icons) by Fat Cow Hosting
-
 Widget Context compatibility fix provided by [Joan Piedra](http://joanpiedra.com/)
 
 Slovak translation by Branco [WebHostingGeeks.com](http://webhostinggeeks.com/user-reviews/)
@@ -174,6 +208,14 @@ Polish translation added, Slovak translation files renamed by [Tomasz Wesołowsk
 Spanish translation by [Maria Ramos at WebHostingHub](http://www.webhostinghub.com/)
 
 Serbo-Croatian translation by [Borisa Djuraskovic at WebHostingHub](http://www.webhostinghub.com/)
+
+Dutch translation and predefined classes fix by [Jory Hogeveen at Keraweb](https://www.keraweb.nl/)
+
+Russian translation by Наталия Завьялова
+
+Swedish translation by [Olle Gustafsson](http://www.ollegustafsson.com/)
+
+Fix ids notice by [Ricardo Lüders](http://www.luders.com.br/)
 
 == License ==
 
