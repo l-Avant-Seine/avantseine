@@ -13,13 +13,14 @@
 
 	</div><!-- #content -->
 
-	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'lavantseine-v2' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'lavantseine-v2' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'lavantseine-v2' ), 'lavantseine-v2', '<a href="https://automattic.com/" rel="designer">Thomas Florentin</a>' ); ?>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
+	<footer id="mastfooter" class="site-footer transparent-background" role="contentinfo">
+	footer
+	
+		<?php get_sidebar( 'footer-widgets' ); ?>
+		<div class="clearfix"></div>
+	</footer><!-- #mastfooter -->
+
+	
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

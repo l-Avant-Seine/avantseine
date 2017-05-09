@@ -25,6 +25,7 @@
 	<div id="" class="module-nextEvents">
 		Les prochains événements
 
+		<button href="/programmation">Voir toute la programmation</button>
 	</div>
 
 
@@ -39,6 +40,7 @@
 	<!-- Derniers articles du magazine -->
 	<div id="" class="module-lastArticles">
 		derniers articles
+		<button href="/magazine">Voir tous les articles du magazine</button>
 
 	</div>
 

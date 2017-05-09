@@ -1,0 +1,25 @@
+<?php
+/**
+ * The template for displaying the Events Programmation
+ *
+ * Template Name: Page Programmation
+ *
+ * @package lavantseine
+ */
+get_header(); ?>
+
+	<div id="" class="">
+		Filtres
+	</div><!-- .filters -->
+
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main backgrounded-box" role="main">
+
+			<?php get_template_part( 'template-parts/contents/content', 'programmation' ); ?>
+
+		<div class="clearfix"></div>
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+<?php get_footer(); ?>
