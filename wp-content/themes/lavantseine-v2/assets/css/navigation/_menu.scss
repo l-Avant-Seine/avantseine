@@ -3,3 +3,18 @@
  * 
  * @package lavantseine-v2
  */
+
+
+.main-navigation {
+	ul {
+		@extend .no-bullets;
+	}
+}
+	.menu-item {
+		float: left;	
+		margin-right: 10px;
+	}
+
+	.sub-menu {
+		display: none;
+	}
