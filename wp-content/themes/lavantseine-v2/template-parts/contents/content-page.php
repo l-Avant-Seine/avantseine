@@ -10,34 +10,37 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
+
+	<?php $page_intro = get_field( 'pageDetail_intro' ); ?>
+	<?php $page_right_col = get_field( 'pageDetail_rightCol' ); ?>
+
+
+	<div class="wrap entry-media">
+		<?php the_post_thumbnail(''); ?>
+	</div>
+
+	<header class="wrap entry-header">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 	</header><!-- .entry-header -->
 
-	<div class="entry-content">
-		<?php
-			the_content();
+		<div class="wrap entry-extract">
+			<?php echo $page_intro; ?>
+		</div>
 
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'lavantseine-v2' ),
-				'after'  => '</div>',
-			) );
-		?>
+	<div class="wrap entry-content">
+		<?php the_content(); ?>
 	</div><!-- .entry-content -->
 
-	<?php if ( get_edit_post_link() ) : ?>
-		<footer class="entry-footer">
-			<?php
-				edit_post_link(
-					sprintf(
-						/* translators: %s: Name of current post */
-						esc_html__( 'Edit %s', 'lavantseine-v2' ),
-						the_title( '<span class="screen-reader-text">"', '"</span>', false )
-					),
-					'<span class="edit-link">',
-					'</span>'
-				);
-			?>
-		</footer><!-- .entry-footer -->
-	<?php endif; ?>
+
+
+
+
+	<div class="wrap entry-aside">
+
+		<?php echo $page_right_col; ?>
+		<?php // echo $page_right_col; ?>
+		
+	</div><!-- .practical-aside -->
+
+
 </article><!-- #post-## -->

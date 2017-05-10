@@ -6,7 +6,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
-		<div class="entry-media">
+		<div class=" wrap entry-media">
 			<?php
 				$eventDetail_mediaMarkup = get_field( 'eventDetail_mediaMarkup' );
 				$eventDetail_showPic = get_field( 'eventDetail_showPic' );
@@ -23,14 +23,14 @@
 		</div>
 
 
-		<header class="entry-header">
+		<header class=" wrap entry-header">
 			<h1 class="entry-title"><?php the_title(); ?></h1>
 		</header><!-- .entry-header -->
 
 
-		<div class="entry-content">
+		<div class="wrap entry-content">
 			
-				<div class="event-tags">
+				<div class="">
 					<?php
 						setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 
@@ -96,7 +96,7 @@
 
 				</div><!-- .event-tags -->
 
-				<div class="event-publics">
+				<div class="">
 					<?php
 					$publics =  get_the_terms( $post->ID, 'public' );
 					if($publics) {
@@ -118,7 +118,7 @@
 				</div>
 
 
-			<div class="inner-entry-main-content">
+			<div class=" ">
 				<?php the_content(); ?>
 			</div>
 		
@@ -127,7 +127,7 @@
 
 
 
-		<div class="entry-meta">
+		<div class=" wrap entry-meta">
 
 			<div class="">
 				<?php
@@ -175,7 +175,7 @@
 		<?php $event_distribution = get_field( 'eventDetail_distribution' ); ?>
 		<?php $event_mentions = get_field( 'eventDetail_mentions' ); ?>
 		<?php if ( $event_distribution || $event_mentions ) : ?>
-		<footer class="entry-mentions">
+		<footer class=" wrap entry-mentions">
 			<p id="display-entry-mentions"><a href="#">+ distributions et mentions complètes</a></p>
 			
 			<div id="inner-entry-mentions">
