@@ -9,9 +9,9 @@ Author URI: http://jtsternberg.com/about
 Author: Jtsternberg
 Donate link: http://j.ustin.co/rYL89n
 Requires at least: 3.1
-Tested up to: 3.9.1
-Stable tag: 1.2.9
-Version: 1.2.9
+Tested up to: 4.7.3
+Stable tag: 1.4.1
+Version: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,11 +31,12 @@ Plugin is built with developers in mind and has many filters to manipulate the i
 
 = Sites That Have Used the Importer =
 
-* [stevenfurtick.com](http://www.stevenfurtick.com/)
+* [bigredfro.com](http://bigredfro.com/category/funny-instagram-pictures/)
 * [instadre.com](http://instadre.com/)
 * [photos.jkudish.com](http://photos.jkudish.com/)
-* [aaronrutley.com](http://www.aaronrutley.com/)
 * [photos.jtsternberg.com](http://photos.jtsternberg.com)
+* [bakersfieldvintage.com](http://bakersfieldvintage.com/recent/)
+* [fernwehblues.de/category/momente](http://www.fernwehblues.de/category/momente)
 
 (send me your site if you want to be featured here)
 
@@ -50,21 +51,36 @@ Like this plugin? Checkout the [DsgnWrks Twitter Importer](http://j.ustin.co/QbM
 
 == Frequently Asked Questions ==
 
-= Plugin gives me an error! help? =
-* Please install the [DsgnWrks Instagram Importer Debug](http://wordpress.org/extend/plugins/dsgnwrks-instagram-importer-debug/) plugin.
+= How do I use these snippets? =
+* Below are some common requests, and some helper snippets to accomplish them. To install these gists, download the gist from github, unzip, and copy the `.php` file inside to your site's `wp-content/mu-plugins` directory. If you do not have the `mu-plugins` directory, simply create it. For more information, [read this post](https://gregrickaby.com/2013/10/create-mu-plugin-for-wordpress/).
 
 = Is it possible to set the default image display size in a post? =
-* If you're importing as the featured image and your theme supports featured images, that is the size that will be used. If you're instead importing the image to the post, there is a filter in the plugin for overriding the image size. If you wanted to instead use the "medium" image size created by WordPress, you would filter the image size like this:
-`add_filter( 'dsgnwrks_instagram_image_size', 'YOURPREFIX_instagram_img_size' );
-function YOURPREFIX_instagram_img_size( $size ) {
-
-	return 'medium';
-}`
-
+* If you're importing as the featured image and your theme supports featured images, that is the size that will be used. If you're instead importing the image to the post, there is a filter in the plugin for overriding the image size. If you wanted to instead use the "medium" image size created by WordPress, you can use this snippet: [https://gist.github.com/jtsternberg/1c6b332b2db6da7e38226b88dff5c6a0](https://gist.github.com/jtsternberg/1c6b332b2db6da7e38226b88dff5c6a0).
 That is a filter on the $size parameter passed to `wp_get_attachment_image_src()` so you can use any values you would use there. `wp_get_attachment_image_src()` on the codex: http://codex.wordpress.org/Function_Reference/wp_get_attachment_image_src
 
 = Is it possible to limit the length of the imported posts? =
-* Yes, use this gist: https://gist.github.com/jtsternberg/6148635
+* Yes, use this snippet: [gist.github.com/jtsternberg/6148635](https://gist.github.com/jtsternberg/6148635)
+
+= Is it possible to set the title of the imported posts to the date of the image? =
+* Yes, use this snippet: [gist.github.com/jtsternberg/1b83e43348cfe4ec08a3](https://gist.github.com/jtsternberg/1b83e43348cfe4ec08a3)
+
+= Can I save my own post-meta fields for each post? =
+* Yes, use this snippet: [gist.github.com/jtsternberg/f784e8d0e8c2da371702](https://gist.github.com/jtsternberg/f784e8d0e8c2da371702)
+
+= Is it possible to automatically center align the imported images? =
+* Yes, use this snippet: [gist.github.com/jtsternberg/60e201662691ec9d4a8e](https://gist.github.com/jtsternberg/60e201662691ec9d4a8e) (will only work if your theme supports the 'aligncenter' class)
+
+= Can I remove the text from the excerpt field? =
+* Yes, use this snippet: [https://gist.github.com/jtsternberg/2797bf20ac6e5cf09417d22098e65c1d](https://https://gist.github.com/jtsternberg/2797bf20ac6e5cf09417d22098e65c1d)
+
+= Is it possible to store the location data in the recommended WordPress GPS coordinates format/standard? =
+* Yes, use this snippet: [https://gist.github.com/jtsternberg/a5914ac04198a57ebfca38567cc382e1](https://https://gist.github.com/jtsternberg/a5914ac04198a57ebfca38567cc382e1)
+
+= Is it possible to modify where the instagram meta data is stored? =
+* Yes, review/use this snippet: [https://gist.github.com/jtsternberg/a5914ac04198a57ebfca38567cc382e1](https://https://gist.github.com/jtsternberg/a5914ac04198a57ebfca38567cc382e1)
+
+= Is it possible to embed the imported videos with WordPress native video player, instead of the Instagram embed? =
+* Yes, review/use this snippet: [https://gist.github.com/jtsternberg/b7c3b5371c6f639693b8f086859ad129](https://https://gist.github.com/jtsternberg/b7c3b5371c6f639693b8f086859ad129)
 
 = ?? =
 * If you run into a problem or have a question, contact me ([contact form](http://j.ustin.co/scbo43) or [@jtsternberg on twitter](http://j.ustin.co/wUfBD3)). I'll add them here.
@@ -77,9 +93,50 @@ That is a filter on the $size parameter passed to `wp_get_attachment_image_src()
 
 == Changelog ==
 
-= 1.2.9 =
-* Bug fix: Made the auto-import feature off by default. Would sometimes be triggered on plugin activation.
-* Saved the Instagram username to post-meta (`instagram_username`) along with the entire Instagram user object (`instagram_user`).
+= 1.4.1 =
+* Add `dsgnwrks_instagram_post_meta_pre_save` filter to allow saving meta to user-defined keys. Fixes [Issue 29](https://github.com/jtsternberg/DsgnWrks-Instagram-Importer/issues/29).
+* Add `alt` attribute to instagram image.
+* Fix bug where other instagram plugin's settings would redirect to our plugin setting page ([forum post](https://wordpress.org/support/topic/get-token-issue-with-other-ig-plugins/#post-9037260)).
+
+= 1.4.0 =
+* Fix condition markup, if condition is the first bit in the content.
+* Allow deletion of users when the key is 0. hat-tip to Pablo de la Vega: [http://dsgnwrks.pro/plugins/dsgnwrks-instagram-importer/#comment-12208](http://dsgnwrks.pro/plugins/dsgnwrks-instagram-importer/#comment-12208)
+* Fix issue w/ cached user data not being stored to transient.
+* Delete user-data transient when deleting user.
+* Cleanup wysiwyg editor instance.
+* No longer need bio, website, fullname, and profile_picture from authentication callback as we fetch in a separate request (or data is not needed).
+
+= 1.3.9 =
+* Fix issues where Instagram usernames with certain characters could not show the settings panel.
+
+= 1.3.8 =
+* Fix issues where Instagram usernames with certain characters could not import media.
+
+= 1.3.7 =
+* Update: fix unit tests.
+* Update: Switch to a singleton for primary plugin class. (this helps address some issues with the debug plugin)
+
+= 1.3.6 =
+* Bug fix: Fix "Call to undefined method DsgnWrksInstagram::get_options()" error.
+
+= 1.3.5 =
+* Bug fix: Fix "Call to undefined method DsgnWrksInstagram_Settings::debugsend()" error.
+
+= 1.3.4 =
+* Bug fix: Some checkboxes were not displaying the saved value.
+
+= 1.3.3 =
+* Occasionally update the stored user's data from the instagram API to keep it fresh.
+* Fix fatal error when deactivating the plugin.
+
+= 1.3.2 =
+* When possible, import the full-resolution non-square instagram images.
+
+= 1.3.1 =
+* Update importer image markup to support coming responsive images update to WordPress core.
+
+= 1.3.0 =
+* When possible, import the full-resolution instagram images (1080x1080).
 
 = 1.2.9 =
 * Bug fix: Made the auto-import feature off by default. Would sometimes be triggered on plugin activation.
@@ -161,6 +218,51 @@ That is a filter on the $size parameter passed to `wp_get_attachment_image_src()
 
 
 == Upgrade Notice ==
+
+= 1.4.1 =
+* Add `dsgnwrks_instagram_post_meta_pre_save` filter to allow saving meta to user-defined keys. Fixes [Issue 29](https://github.com/jtsternberg/DsgnWrks-Instagram-Importer/issues/29).
+* Add `alt` attribute to instagram image.
+* Fix bug where other instagram plugin's settings would redirect to our plugin setting page ([forum post](https://wordpress.org/support/topic/get-token-issue-with-other-ig-plugins/#post-9037260)).
+
+= 1.4.0 =
+* Fix condition markup, if condition is the first bit in the content.
+* Allow deletion of users when the key is 0. hat-tip to Pablo de la Vega: [http://dsgnwrks.pro/plugins/dsgnwrks-instagram-importer/#comment-12208](http://dsgnwrks.pro/plugins/dsgnwrks-instagram-importer/#comment-12208)
+* Fix issue w/ cached user data not being stored to transient.
+* Delete user-data transient when deleting user.
+* Cleanup wysiwyg editor instance.
+* No longer need bio, website, fullname, and profile_picture from authentication callback as we fetch in a separate request (or data is not needed).
+
+= 1.3.9 =
+* Fix issues where Instagram usernames with certain characters could not show the settings panel.
+
+= 1.3.8 =
+* Fix issues where Instagram usernames with certain characters could not import media.
+
+= 1.3.7 =
+* Update: fix unit tests.
+* Update: Switch to a singleton for primary plugin class. (this helps address some issues with the debug plugin)
+
+= 1.3.6 =
+* Bug fix: Fix "Call to undefined method DsgnWrksInstagram::get_options()" error.
+
+= 1.3.5 =
+* Bug fix: Fix "Call to undefined method DsgnWrksInstagram_Settings::debugsend()" error.
+
+= 1.3.4 =
+* Bug fix: Some checkboxes were not displaying the saved value.
+
+= 1.3.3 =
+* Occasionally update the stored user's data from the instagram API to keep it fresh.
+* Fix fatal error when deactivating the plugin.
+
+= 1.3.2 =
+* When possible, import the full-resolution non-square instagram images.
+
+= 1.3.1 =
+* Update importer image markup to support coming responsive images update to WordPress core.
+
+= 1.3.0 =
+* When possible, import the full-resolution instagram images (1080x1080).
 
 = 1.2.9 =
 * Bug fix: Made the auto-import feature off by default. Would sometimes be triggered on plugin activation.
