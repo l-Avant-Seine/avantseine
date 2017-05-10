@@ -240,10 +240,10 @@ class EED_Events_Archive_Filters  extends EED_Module {
 		$this->_elf_month = EED_Events_Archive_Filters::_display_month();
 		$this->_elf_category = EED_Events_Archive_Filters::_event_category_slug();
 		$this->_show_expired = EED_Events_Archive_Filters::_show_expired( TRUE );
-//		printr( EE_Registry::instance()->REQ, 'EE_Registry::instance()->REQ  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
+//		EEH_Debug_Tools::printr( EE_Registry::instance()->REQ, 'EE_Registry::instance()->REQ  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
 //		echo '<h4>$this->_elf_month : ' . $this->_elf_month . '  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span></h4>';
 //		echo '<h4>$this->_elf_category : ' . $this->_elf_category . '  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span></h4>';
-//		printr( $this->_elf_category, '$this->_elf_category  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
+//		EEH_Debug_Tools::printr( $this->_elf_category, '$this->_elf_category  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
 //		echo '<h4>$this->_show_expired : ' . $this->_show_expired . '  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span></h4>';
 //		echo '<h4>$this->_type : ' . $this->_type . '  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span></h4>';
 	}
@@ -381,9 +381,11 @@ class EED_Events_Archive_Filters  extends EED_Module {
 		$SQL= '';
 		if ( ! empty( $month )) {
 			// event start date is LESS than the end of the month ( so nothing that doesn't start until next month )
-			$SQL = ' AND ' . EEM_Datetime::instance()->table() . '.DTT_EVT_start <= "' . date('Y-m-t 23:59:59', strtotime( $month )) . '"';
+			$SQL = ' AND ' . EEM_Datetime::instance()->table() . '.DTT_EVT_start';
+			$SQL .= ' <= "' . date('Y-m-t 23:59:59', \EEH_DTT_Helper::first_of_month_timestamp($month)) . '"';
 			// event end date is GREATER than the start of the month ( so nothing that ended before this month )
-			$SQL .= ' AND ' . EEM_Datetime::instance()->table() . '.DTT_EVT_end >= "' . date('Y-m-d 0:0:00', strtotime( $month )) . '" ';
+			$SQL .= ' AND ' . EEM_Datetime::instance()->table() . '.DTT_EVT_end';
+			$SQL .= ' >= "' . date('Y-m-d 0:0:00', \EEH_DTT_Helper::first_of_month_timestamp($month)) . '" ';
 		}
 		return $SQL;
 	}
@@ -498,7 +500,7 @@ class EED_Events_Archive_Filters  extends EED_Module {
 		add_action( 'loop_start', array( $this, 'event_list_pagination' ));
 		add_action( 'loop_end', array( $this, 'event_list_pagination' ));
 		// if NOT a custom template
-		if ( EE_Front_Controller::instance()->get_selected_template() != 'archive-espresso_events.php' ) {
+		if ( EE_Registry::instance()->load_core( 'Front_Controller', array(), false, true )->get_selected_template() != 'archive-espresso_events.php' ) {
 			// don't know if theme uses the_excerpt
 			add_filter( 'the_excerpt', array( $this, 'event_details' ), 100 );
 			add_filter( 'the_excerpt', array( $this, 'event_tickets' ), 110 );
@@ -591,11 +593,9 @@ class EED_Events_Archive_Filters  extends EED_Module {
 		add_filter( 'FHEE_load_EE_Session', '__return_true' );
 		add_action('wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ), 10 );
 		if ( EE_Registry::instance()->CFG->map_settings->use_google_maps ) {
-			EE_Registry::instance()->load_helper( 'Maps' );
 			add_action('wp_enqueue_scripts', array( 'EEH_Maps', 'espresso_google_map_js' ), 11 );
 		}
 		//add_filter( 'the_excerpt', array( $this, 'the_excerpt' ), 999 );
-		EE_Registry::instance()->load_helper( 'Event_View' );
 	}
 
 
@@ -682,7 +682,6 @@ class EED_Events_Archive_Filters  extends EED_Module {
 		// get some style
 		if ( apply_filters( 'FHEE_enable_default_espresso_css', FALSE ) ) {
 			// first check uploads folder
-			EE_Registry::instance()->load_helper( 'File' );
 			if ( is_readable( get_stylesheet_directory() . EE_Config::get_current_theme() . DS . 'archive-espresso_events.css' )) {
 				wp_register_style( 'archive-espresso_events', get_stylesheet_directory_uri() . EE_Config::get_current_theme() . DS . 'archive-espresso_events.css', array( 'dashicons', 'espresso_default' ));
 			} else {
@@ -743,7 +742,7 @@ class EED_Events_Archive_Filters  extends EED_Module {
 	 *  @return 	void
 	 */
 	public static function set_default_settings( $CFG ) {
-		//printr( $CFG, '$CFG  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
+		//EEH_Debug_Tools::printr( $CFG, '$CFG  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
 		$CFG->display_description = isset( $CFG->display_description ) && ! empty( $CFG->display_description ) ? $CFG->display_description : 1;
 		$CFG->display_address = isset( $CFG->display_address ) && ! empty( $CFG->display_address ) ? $CFG->display_address : TRUE;
 		$CFG->display_venue_details = isset( $CFG->display_venue_details ) && ! empty( $CFG->display_venue_details ) ? $CFG->display_venue_details : TRUE;
@@ -777,8 +776,8 @@ class EED_Events_Archive_Filters  extends EED_Module {
 	 *  @return 	void
 	 */
 	public static function update_template_settings( $CFG, $REQ ) {
-//		printr( $REQ, '$REQ  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
-//		printr( $CFG, '$CFG  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
+//		EEH_Debug_Tools::printr( $REQ, '$REQ  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
+//		EEH_Debug_Tools::printr( $CFG, '$CFG  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
 		//$CFG->template_settings->EED_Events_Archive_Filters = new stdClass();
 		$CFG->EED_Events_Archive_Filters->display_description = isset( $REQ['display_description_in_event_list'] ) ? absint( $REQ['display_description_in_event_list'] ) : 1;
 		$CFG->EED_Events_Archive_Filters->display_address = isset( $REQ['display_address_in_event_list'] ) ? absint( $REQ['display_address_in_event_list'] ) : TRUE;
@@ -910,7 +909,6 @@ class EED_Events_Archive_Filters  extends EED_Module {
 	 */
 	public static function display_venue_details() {
 		$EE = EE_Registry::instance();
-		$EE->load_helper( 'Venue_View' );
 		$display_venue_details= isset( $EE->CFG->template_settings->EED_Events_Archive_Filters->display_venue_details ) ? $EE->CFG->template_settings->EED_Events_Archive_Filters->display_venue_details : TRUE;
 		$venue_name = EEH_Venue_View::venue_name();
 		return $display_venue_details && ! empty( $venue_name ) ? TRUE : FALSE;
@@ -925,7 +923,6 @@ class EED_Events_Archive_Filters  extends EED_Module {
 	 */
 	public static function display_address() {
 		$EE = EE_Registry::instance();
-		$EE->load_helper( 'Venue_View' );
 		$display_address= isset( $EE->CFG->template_settings->EED_Events_Archive_Filters->display_address ) ? $EE->CFG->template_settings->EED_Events_Archive_Filters->display_address : FALSE;
 		$venue_name = EEH_Venue_View::venue_name();
 		return $display_address && ! empty( $venue_name ) ? TRUE : FALSE;

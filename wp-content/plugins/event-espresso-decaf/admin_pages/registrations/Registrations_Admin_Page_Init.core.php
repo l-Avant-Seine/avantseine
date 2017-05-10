@@ -35,15 +35,16 @@ class Registrations_Admin_Page_Init extends EE_Admin_Page_CPT_Init  {
 	 */
 	public function __construct() {
 		do_action( 'AHEE_log', __FILE__, __FUNCTION__, '' );
-
-		define( 'REG_PG_SLUG', 'espresso_registrations' );
-		define( 'REG_PG_NAME', ucwords( str_replace( '_', '', REG_PG_SLUG )));
-		define( 'REG_ADMIN', EE_ADMIN_PAGES . 'registrations' . DS );
-		define( 'REG_ADMIN_URL', admin_url( 'admin.php?page=' . REG_PG_SLUG ));
-		define( 'REG_ASSETS_PATH', REG_ADMIN . 'assets' . DS );
-		define( 'REG_ASSETS_URL', EE_ADMIN_PAGES_URL . 'registrations/assets/' );
-		define( 'REG_TEMPLATE_PATH', REG_ADMIN . 'templates' . DS );
-		define( 'REG_TEMPLATE_URL', EE_ADMIN_PAGES_URL . 'registrations/templates/' );
+		if ( ! defined( 'REG_PG_SLUG' ) ) {
+			define( 'REG_PG_SLUG', 'espresso_registrations' );
+			define( 'REG_PG_NAME', ucwords( str_replace( '_', '', REG_PG_SLUG )));
+			define( 'REG_ADMIN', EE_ADMIN_PAGES . 'registrations' . DS );
+			define( 'REG_ADMIN_URL', admin_url( 'admin.php?page=' . REG_PG_SLUG ));
+			define( 'REG_ASSETS_PATH', REG_ADMIN . 'assets' . DS );
+			define( 'REG_ASSETS_URL', EE_ADMIN_PAGES_URL . 'registrations/assets/' );
+			define( 'REG_TEMPLATE_PATH', REG_ADMIN . 'templates' . DS );
+			define( 'REG_TEMPLATE_URL', EE_ADMIN_PAGES_URL . 'registrations/templates/' );
+		}
 
 		parent::__construct();
 	}
@@ -61,11 +62,11 @@ class Registrations_Admin_Page_Init extends EE_Admin_Page_CPT_Init  {
 		$this->_menu_map = new EE_Admin_Page_Sub_Menu( array(
 			'menu_group' => 'main',
 			'menu_order' => 40,
-			'show_on_menu' => TRUE,
+			'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_ADMIN_ONLY,
 			'parent_slug' => 'espresso_events',
 			'menu_slug' => REG_PG_SLUG,
 			'menu_label' => __('Registrations', 'event_espresso'),
-			'capability' => 'administrator',
+			'capability' => 'ee_read_registrations',
 			'admin_init_page' => $this
 			));
 	}

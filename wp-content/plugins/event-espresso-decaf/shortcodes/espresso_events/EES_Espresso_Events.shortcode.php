@@ -51,13 +51,13 @@ class EES_Espresso_Events  extends EES_Shortcode {
 	 * @return    void
 	 */
 	public function run( WP $WP ) {
-		if ( ! did_action( 'pre_get_posts' )) {
+		if ( did_action( 'pre_get_posts' ) && did_action( 'send_headers' ) ) {
+			EED_Events_Archive::instance()->event_list();
+		} else {
 			// this will trigger the EED_Events_Archive module's event_list() method during the pre_get_posts hook point,
 			// this allows us to initialize things, enqueue assets, etc,
 			// as well, this saves an instantiation of the module in an array using 'espresso_events' as the key, so that we can retrieve it
-			add_action( 'pre_get_posts', array( EED_Events_Archive::instance(), 'event_list' ));
-		} else {
-			EED_Events_Archive::instance()->event_list();
+			add_action( 'pre_get_posts', array( EED_Events_Archive::instance(), 'event_list' ) );
 		}
 	}
 
@@ -84,8 +84,6 @@ class EES_Espresso_Events  extends EES_Shortcode {
 		if ( apply_filters( 'FHEE__fallback_shortcode_processor__EES_Espresso_Events', FALSE )) {
 			EED_Events_Archive::instance()->event_list();
 		}
-		// merge in any attributes passed via fallback shortcode processor
-		$attributes = array_merge( (array)$attributes, (array)$this->_attributes );
 		//set default attributes
 		$default_espresso_events_shortcode_atts = array(
 			'title' => NULL,
@@ -99,11 +97,27 @@ class EES_Espresso_Events  extends EES_Shortcode {
 			'fallback_shortcode_processor' => FALSE
 		);
 		// allow the defaults to be filtered
-		$default_espresso_events_shortcode_atts = apply_filters( 'EES_Espresso_Events__process_shortcode__default_espresso_events_shortcode_atts', $default_espresso_events_shortcode_atts );
+		$default_espresso_events_shortcode_atts = apply_filters(
+			'EES_Espresso_Events__process_shortcode__default_espresso_events_shortcode_atts',
+			$default_espresso_events_shortcode_atts
+		);
 		// grab attributes and merge with defaults, then extract
-		$attributes = array_merge( $default_espresso_events_shortcode_atts, $attributes );
+		$attributes = array_merge( (array) $default_espresso_events_shortcode_atts, (array) $attributes );
+		$attributes = \EES_Shortcode::sanitize_attributes(
+		    $attributes,
+            // the following get sanitized/whitelisted in EEH_Event_Query
+            array(
+                'category_slug' => 'skip_sanitization',
+                'show_expired'  => 'skip_sanitization',
+                'order_by'      => 'skip_sanitization',
+                'month'         => 'skip_sanitization',
+                'sort'          => 'skip_sanitization',
+            )
+        );
 		// make sure we use the_excerpt()
 		add_filter( 'FHEE__EES_Espresso_Events__process_shortcode__true', '__return_true' );
+		// apply query filters
+		add_filter( 'FHEE__EEH_Event_Query__apply_query_filters', '__return_true' );
 		// run the query
 		global $wp_query;
 		$wp_query = new EE_Event_List_Query( $attributes );
@@ -115,6 +129,8 @@ class EES_Espresso_Events  extends EES_Shortcode {
 		wp_reset_query();
 		wp_reset_postdata();
 		EED_Events_Archive::remove_all_events_archive_filters();
+		// remove query filters
+		remove_filter( 'FHEE__EEH_Event_Query__apply_query_filters', '__return_true' );
 		// pull our content from the output buffer and return it
 		return $event_list;
 	}
@@ -157,26 +173,23 @@ class EE_Event_List_Query extends WP_Query {
 	 * sets up a WordPress query
 	 *
 	 * @param array $args
-	 * @return \EE_Event_List_Query
 	 */
-	function __construct( $args = array() ) {
-//		printr( $args, '$args  <br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>', 'auto' );
+	public function __construct( $args = array() ) {
 		// incoming args could be a mix of WP query args + EE shortcode args
 		foreach ( $args as $key =>$value ) {
 			$property = '_' . $key;
 			// if the arg is a property of this class, then it's an EE shortcode arg
-			if ( EEH_Class_Tools::has_property( $this, $property )) {
+			if ( property_exists( $this, $property )) {
 				// set the property value
-				$this->$property = $value;
+				$this->{$property} = $value;
 				// then remove it from the array of args that will later be passed to WP_Query()
 				unset( $args[ $key ] );
 			}
 		}
-		// setup the events list query
-		EE_Registry::instance()->load_helper( 'Event_Query' );
-		EEH_Event_Query::filter_query_parts();
+		//add query filters
+		EEH_Event_Query::add_query_filters();
+		// set params that will get used by the filters
 		EEH_Event_Query::set_query_params( $this->_month, $this->_category_slug, $this->_show_expired, $this->_order_by, $this->_sort );
-
 		// first off, let's remove any filters from previous queries
 		remove_filter( 'FHEE__archive_espresso_events_template__upcoming_events_h1', array( $this, 'event_list_title' ));
 		remove_all_filters( 'FHEE__content_espresso_events__event_class' );
@@ -204,11 +217,10 @@ class EE_Event_List_Query extends WP_Query {
 
 
 	/**
-	 *    event_list_title
+	 * event_list_title
 	 *
-	 * @access    public
 	 * @param string $event_list_title
-	 * @return    string
+	 * @return string
 	 */
 	public function event_list_title( $event_list_title = '' ) {
 		if ( ! empty( $this->_title )) {
@@ -220,11 +232,10 @@ class EE_Event_List_Query extends WP_Query {
 
 
 	/**
-	 *    event_list_css
-	 *
-	 * @access    public
-	 * @param string $event_list_css
-	 * @return    array
+     * event_list_css
+     *
+     * @param string $event_list_css
+	 * @return string
 	 */
 	public function event_list_css( $event_list_css = '' ) {
 		$event_list_css .=  ! empty( $event_list_css ) ? ' ' : '';

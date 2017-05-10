@@ -18,13 +18,13 @@ if (!defined('EVENT_ESPRESSO_VERSION') )
  * ------------------------------------------------------------------------
  *
  * EE_Ticket_List_Shortcodes
- * 
- * this is a child class for the EE_Shortcodes library.  The EE_Ticket_List_Shortcodes lists all shortcodes related to Ticket Lists. 
+ *
+ * this is a child class for the EE_Shortcodes library.  The EE_Ticket_List_Shortcodes lists all shortcodes related to Ticket Lists.
  *
  * This is a special shortcode parser in that it will actually LOAD other parsers and receive a template to parse via the Shortcode Parser.
  *
  * NOTE: if a method doesn't have any phpdoc commenting the details can be found in the comments in EE_Shortcodes parent class.
- * 
+ *
  * @package		Event Espresso
  * @subpackage	libraries/shortcodes/EE_Ticket_List_Shortcodes.lib.php
  * @author		Darren Ethier
@@ -65,8 +65,6 @@ class EE_Ticket_List_Shortcodes extends EE_Shortcodes {
 	 */
 	private function _get_ticket_list() {
 		$this->_validate_list_requirements();
-		$this->_set_shortcode_helper();
-
 
 		if ( $this->_data['data'] instanceof EE_Messages_Addressee )
 			return $this->_get_ticket_list_for_main();
@@ -84,14 +82,14 @@ class EE_Ticket_List_Shortcodes extends EE_Shortcodes {
 
 
 
-	
+
 
 
 	/**
 	 * This returns the parsed ticket list for main template;
 	 */
 	private function _get_ticket_list_for_main() {
-		$valid_shortcodes = array('ticket', 'event_list', 'attendee_list','datetime_list', 'attendee');
+		$valid_shortcodes = array('ticket', 'event_list', 'attendee_list','datetime_list', 'attendee', 'line_item_list', 'primary_registration_details', 'recipient_details' );
 		$template = $this->_data['template'];
 		$data = $this->_data['data'];
 		$tktparsed = '';
@@ -99,7 +97,7 @@ class EE_Ticket_List_Shortcodes extends EE_Shortcodes {
 
 		//now we need to loop through the ticket list and send data to the EE_Parser helper.
 		foreach ( $data->tickets as $ticket ) {
-			$tktparsed .= $this->_shortcode_helper->parse_ticket_list_template($template, $ticket['ticket'], $valid_shortcodes, $this->_data);
+			$tktparsed .= $this->_shortcode_helper->parse_ticket_list_template($template, $ticket['ticket'], $valid_shortcodes, $this->_extra_data);
 		}
 
 		return $tktparsed;
@@ -112,7 +110,7 @@ class EE_Ticket_List_Shortcodes extends EE_Shortcodes {
 	 * @return string
 	 */
 	private function _get_ticket_list_for_event() {
-		$valid_shortcodes = array('ticket', 'attendee_list', 'datetime_list', 'attendee');
+		$valid_shortcodes = array('ticket', 'attendee_list', 'datetime_list', 'attendee', 'venue', 'line_item_list', 'primary_registration_details', 'recipient_details' );
 		$template = is_array($this->_data['template'] ) && isset($this->_data['template']['ticket_list']) ? $this->_data['template']['ticket_list'] : $this->_extra_data['template']['ticket_list'];
 		$event = $this->_data['data'];
 
@@ -138,8 +136,8 @@ class EE_Ticket_List_Shortcodes extends EE_Shortcodes {
 	 * @return string
 	 */
 	private function _get_ticket_list_for_attendee() {
-		$valid_shortcodes = array('ticket', 'event_list', 'datetime_list', 'attendee');
-		
+		$valid_shortcodes = array('ticket', 'event_list', 'datetime_list', 'attendee', 'primary_registration_details', 'recipient_details');
+
 		$template = is_array($this->_data['template']) && isset($this->_data['template']['ticket_list']) ? $this->_data['template']['ticket_list'] : $this->_extra_data['template']['ticket_list'];
 		$registration = $this->_data['data'];
 
@@ -167,5 +165,5 @@ class EE_Ticket_List_Shortcodes extends EE_Shortcodes {
 	}
 
 
-	
+
 } // end EE_Ticket_List_Shortcodes class

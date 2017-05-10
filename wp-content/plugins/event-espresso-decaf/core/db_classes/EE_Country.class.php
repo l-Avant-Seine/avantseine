@@ -47,14 +47,6 @@ class EE_Country extends EE_Base_Class {
 
 
 
-	/**
-	 * Gets the related EE_Region for this EE_Country
-	 * @return EE_Region
-	 */
-	public function region() {
-		return $this->get_first_related( 'Region' );
-	}
-
 
 
 	/**
@@ -83,7 +75,7 @@ class EE_Country extends EE_Base_Class {
 	 */
 	public function currency_sign() {
 		$CNT_cur_sign = $this->get( 'CNT_cur_sign' );
-		return $CNT_cur_sign ? $CNT_cur_sign : '&#164;';
+		return $CNT_cur_sign ? $CNT_cur_sign : '';
 	}
 
 

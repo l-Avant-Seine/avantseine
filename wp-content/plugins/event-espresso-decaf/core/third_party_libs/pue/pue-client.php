@@ -59,6 +59,7 @@ class PluginUpdateEngineChecker {
 	public $slug; //will hold the slug that is being used to check for updates.
 	public $current_domain; //holds what the current domain is that is pinging for updates
 	public $extra_stats; //used to contain an array of key/value pairs that will be sent as extra stats.
+	public $turn_on_notice_saves = false; //used to flag that renewal notices/critical notices are attached to version updates of this plugin.
 
 
 	private $_installed_version = ''; //this will just hold what installed version we have of the plugin right now.
@@ -117,6 +118,7 @@ class PluginUpdateEngineChecker {
 		$this->options_page_slug = $options_verified['options_page_slug'];
 		$this->_use_wp_update = $this->_is_premium || $this->_is_prerelease ? FALSE : $options_verified['use_wp_update'];
 		$this->extra_stats = $options_verified['extra_stats'];
+		$this->turn_on_notice_saves = isset( $options_verified['turn_on_notices_saved'] ) ? $options_verified['turn_on_notices_saved'] : false;
 
 		//set hooks
 		$this->_check_for_forced_upgrade();
@@ -132,8 +134,17 @@ class PluginUpdateEngineChecker {
 	 * @return void
 	 */
 	private function _check_for_forced_upgrade() {
+
+		/**
+		 * We ONLY execute this check if the incoming plugin being checked has a free option.
+		 * If there is no free option, then no forced upgrade will be happening.
+		 */
+		if ( ! isset( $this->_incoming_slug['free'] ) ) {
+			return;
+		}
+
 		//is this premium?  let's delete any saved options for free
-		if ( $this->_is_premium && isset($this->_incoming_slug['free'] ) ) {
+		if ( $this->_is_premium  ) {
 			delete_site_option( 'pue_force_upgrade_' . $this->_incoming_slug['free'][key($this->_incoming_slug['free'])]);
 		} else {
 			$force_upgrade = get_site_option( 'pue_force_upgrade_' . $this->slug );
@@ -421,6 +432,10 @@ class PluginUpdateEngineChecker {
 		//dashboard message "dismiss upgrade" link
 		add_action( "wp_ajax_".$this->dismiss_upgrade, array($this, 'dashboard_dismiss_upgrade'));
 
+		if ( ! has_action( "wp_ajax_pue_dismiss_persistent_notice" ) ) {
+			add_action( "wp_ajax_pue_dismiss_persistent_notice", array( $this, 'dismiss_persistent_notice' ) );
+		}
+
 
 		if ( !$this->_use_wp_update ) {
 			add_filter( 'upgrader_pre_install', array( $this, 'pre_upgrade_setup'), 10, 2 );
@@ -529,19 +544,21 @@ class PluginUpdateEngineChecker {
 	function hook_into_wp_update_api() {
 		$this->set_api();
 		$this->maybeCheckForUpdates();
+		$ver_option_key = 'puvererr_' . basename( $this->pluginFile );
 
-
-		//possible update checks on an option page save that is setting the license key. Note we're not actually using the response yet for this triggered update check but we might at some later date.
-		$triggered = $this->trigger_update_check();
-
+		//possible update checks on an option page save that is setting the license key.
+        //Note we're not actually using the response yet for this triggered update check but we might at some later date.
+        $this->trigger_update_check();
 
 		//if we've got a forced premium upgrade then let's add an admin notice for this with a nice button to do the upgrade right away.  We'll also handle the display of any json errors in this admin_notice.
 		if ( $this->_force_premium_upgrade ) {
 			add_action('admin_notices', array($this, 'show_premium_upgrade') );
 		}
 
+
 		//this injects info into the returned Plugin info popup but we ONLY inject if we're not doing wp_updates
-		if ( !$this->_use_wp_update ) {
+		$this->json_error = $this->get_json_error_string();
+		if ( ! $this->_use_wp_update ) {
 			add_filter('plugins_api', array( $this, 'injectInfo' ), 10, 3);
 
 			//Insert our update info into the update array maintained by WP
@@ -550,15 +567,37 @@ class PluginUpdateEngineChecker {
 		}
 
 
-		if ( !$this->_use_wp_update ) {
-			$this->json_error = get_site_option('pue_json_error_'.$this->pluginFile);
+		add_action( 'admin_notices', array( $this, 'maybe_display_extra_notices' ) );
+
+
+		if ( ! $this->_use_wp_update ) {
 			if ( !empty($this->json_error) && !$this->_force_premium_upgrade ) {
 				add_action('admin_notices', array($this, 'display_json_error'), 10, 3);
 			} else if ( empty( $this->json_error ) ) {
 				//no errors so let's get rid of any error option if present BUT ONLY if there are no json_errors!
-				delete_site_option( 'pue_verification_error_' . $this->pluginFile );
+				delete_site_option( $ver_option_key );
 			}
 		}
+	}
+
+
+
+	function get_json_error_string() {
+		$option_name = substr( 'pue_json_error_' . $this->pluginFile, 0, 40 );
+		return get_site_option( $option_name );
+	}
+
+
+	function set_json_error_string( $error_message ) {
+		$option_name = substr( 'pue_json_error_' . $this->pluginFile, 0, 40 );
+		update_site_option( $option_name, $error_message );
+	}
+
+
+
+	function delete_json_error_string() {
+		$option_name = substr( 'pue_json_error_' . $this->pluginFile, 0, 40 );
+		delete_site_option( $option_name );
 	}
 
 
@@ -585,6 +624,13 @@ class PluginUpdateEngineChecker {
 		//we're just using this to trigger a PUE ping whenever an option matching the given $this->option_key is saved..
 
 		$has_triggered = FALSE;
+
+		if (
+            ( defined( 'DOING_WP_CRON' ) && DOING_WP_CRON )
+            || ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) )
+        ) {
+		    return $has_triggered;
+        }
 
 		if ( !empty($_POST) && !empty( $this->option_key ) ) {
 			foreach ( $_POST as $key => $value ) {
@@ -648,7 +694,7 @@ class PluginUpdateEngineChecker {
 		if ( !empty($this->api_secret_key) )
 			$queryArgs['pu_plugin_api'] = $this->api_secret_key;
 
-		if ( !empty($this->install_key) && $this->_is_premium )
+		if ( ! empty($this->install_key) && $this->_is_premium )
 			$queryArgs['pue_install_key'] = $this->install_key;
 
 		//todo: this can be removed in a later version of PUE when majority of EE users are using more recent versions.
@@ -686,6 +732,16 @@ class PluginUpdateEngineChecker {
 
 		//Try to parse the response
 		$pluginInfo = null;
+
+		//any special notices in the return package?
+		if ( ! is_wp_error( $result ) && isset( $result['body'] ) ) {
+			$response = json_decode( $result['body'] );
+			if ( isset( $response->extra_notices ) ) {
+				$this->add_persistent_notice( $response->extra_notices );
+			}
+		}
+
+
 		if ( !is_wp_error($result) && isset($result['response']['code']) && ($result['response']['code'] == 200) && !empty($result['body']) ){
 
 			$pluginInfo = PU_PluginInfo::fromJson($result['body']);
@@ -694,6 +750,205 @@ class PluginUpdateEngineChecker {
 		$pluginInfo = apply_filters('puc_request_info_result-'.$this->slug, $pluginInfo, $result);
 
 		return $pluginInfo;
+	}
+
+
+	/**
+	 * Utility method for adding a persistent notice to users admin.
+	 *
+	 * @param array $message Expect an array of ['error'], ['attention'], ['success'] notices to add to the persistent
+	 *                       array.
+	 * @param bool $overwrite Whether to force overwriting existing notices or just append to any existing notices
+	 *                           (default).
+	 */
+	protected function add_persistent_notice( $message, $overwrite = false ) {
+		//renewal notices are only saved ONCE per version update and we only do this for plugins that have "turned on"
+		// notice saves (typically the main plugin).
+		if ( ! $this->turn_on_notice_saves ) {
+			return;
+		}
+
+		//get existing notices
+		$notice_prefix = 'pue_special_notices_';
+		$notice_ref = $notice_prefix . $this->_installed_version;
+
+		$existing_notices = get_option( $notice_ref, array() );
+
+		//if we don't have existing notices for the current plugin version then let's just make sure all older notices
+		//are removed from the db.
+		if ( empty( $existing_notices ) ) {
+			global $wpdb;
+			$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE '%s'", '%' . $notice_prefix . '%' ) );
+		}
+
+
+		//k make sure there are no existing notices matching the incoming notices and only append new notices (unless overwrite is set to true).
+		foreach ( (array) $message as $notice_type => $notices ) {
+			if ( isset( $existing_notices[$notice_type] ) && ! $overwrite ) {
+				foreach ( (array) $notices as $notice_id => $notice ) {
+					if (  empty( $notice ) || ( isset( $existing_notices[$notice_type][$notice_id] ) &&  ! $existing_notices[$notice_type][$notice_id]['active'] ) ) {
+						//first let's check the message (if not empty) and if it matches what's already present then we continue, otherwise we replace and make active.
+						if ( ! empty( $notice ) && $existing_notices[$notice_type][$notice_id]['msg'] && $existing_notices[$notice_type][$notice_id]['msg'] != $notice ) {
+							$existing_notices[$notice_type][$notice_id]['msg'] = $notice;
+							$existing_notices[$notice_type][$notice_id]['active'] = 1;
+						}
+						continue;
+					} else {
+						$existing_notices[$notice_type][$notice_id]['msg'] = $notice;
+						$existing_notices[$notice_type][$notice_id]['active'] = 1;
+					}
+				}
+			} else {
+				foreach ( (array) $notices as $notice_id => $notice ) {
+					if ( ! empty( $notice ) ) {
+						$existing_notices[$notice_type][$notice_id]['msg'] = $notice;
+						$existing_notices[ $notice_type ][ $notice_id ]['active'] = 1;
+					}
+				}
+			}
+		}
+
+		//update notices option
+		update_option( $notice_ref, $existing_notices );
+	}
+
+
+	/**
+	 * This basically dismisses all persistent notices of a given type (note this only dismisses the notice for the
+	 * duration of the current plugins version
+	 *
+	 */
+	public function dismiss_persistent_notice() {
+
+		//if no $type in the request then exit
+		$type = isset( $_REQUEST['type'] ) ? $_REQUEST['type'] : null;
+
+		if ( empty( $type ) ) {
+			return;
+		}
+
+
+		$notice_ref = 'pue_special_notices_' . $this->_installed_version;
+		$existing_notices = get_option( $notice_ref, array() );
+
+		if ( isset( $existing_notices[$type] ) ) {
+			foreach ( $existing_notices[$type] as $notice_id => $details ) {
+				$existing_notices[$type][$notice_id]['active'] = 0;
+			}
+		}
+
+		update_option( $notice_ref, $existing_notices );
+	}
+
+
+	/**
+	 * This method determines whether or not to display extra notices that might have come back from the request.
+	 */
+	public function maybe_display_extra_notices() {
+
+		//nothing should happen if this plugin doesn't save extra notices
+		if ( ! $this->turn_on_notice_saves || ! is_main_site() ) {
+			return;
+		}
+
+		//okay let's get any extra notices
+		$notices = get_option( 'pue_special_notices_' . $this->_installed_version, array() );
+
+		//setup the message content for each notice;
+		$errors = $attentions = $successes = '';
+		foreach ( $notices as $type => $notes ) {
+			switch( $type ) {
+				case 'error' :
+					foreach ( (array) $notes as $noteref ) {
+						if ( ! $noteref['active'] || empty( $noteref['msg'] ) ) {
+							continue;
+						}
+						$errors .= '<p>' . trim( stripslashes( $noteref['msg'] ) ) . '</p>';
+					}
+					break;
+				case 'attention' :
+					foreach ( (array) $notes as $noteref ) {
+						if ( ! $noteref['active'] || empty( $noteref['msg'] ) ) {
+							continue;
+						}
+						$attentions .= '<p>' . trim( stripslashes( $noteref['msg'] ) ) . '</p>';
+					}
+					break;
+				case 'success' :
+					foreach ( (array) $notes as $noteref ) {
+						if ( ! $noteref['active'] || empty( $noteref['msg'] ) ) {
+							continue;
+						}
+						$successes .= '<p>' . trim( stripslashes( $noteref['msg'] ) ) . '</p>';
+					}
+					break;
+			}
+		}
+
+		//now let's setup the containers but only if we HAVE message to use :)
+		if ( empty( $errors ) && empty( $attentions ) && empty( $successes ) ) {
+			return '';
+		}
+
+		$content = '';
+		if ( !empty( $errors ) ) {
+			ob_start();
+			?>
+			<div class="error" id="pue_error_notices">
+				<?php echo $this->_sanitize_notices( $errors ); ?>
+				<a class="button-secondary" href="javascript:void(0);" onclick="PUEDismissNotice( 'error' );" style="float:right; margin-bottom: 10px;">
+					<?php _e("Dismiss"); ?>
+				</a>
+				<div style="clear:both"></div>
+			</div>
+			<?php
+			$content .= ob_get_contents();
+			ob_end_clean();
+		}
+
+		if ( !empty( $attentions ) ) {
+			ob_start();
+			?>
+			<div class="notice notice-info" id="pue_attention_notices">
+				<?php echo $this->_sanitize_notices( $attentions ); ?>
+				<a class="button-secondary" href="javascript:void(0);" onclick="PUEDismissNotice( 'attention' );" style="float:right; margin-bottom: 10px;">
+					<?php _e("Dismiss"); ?>
+				</a>
+				<div style="clear:both"></div>
+			</div>
+			<?php
+			$content .= ob_get_contents();
+			ob_end_clean();
+		}
+
+		if ( !empty( $successes ) ) {
+			ob_start();
+			?>
+			<div class="success" id="pue_success_notices">
+				<?php echo $this->_sanitize_notices( $successes ); ?>
+				<a class="button-secondary" href="javascript:void(0);" onclick="PUEDismissNotice( 'success' );" style="float:right; margin-bottom: 10px;">
+					<?php _e("Dismiss"); ?>
+				</a>
+				<div style="clear:both"></div>
+			</div>
+			<?php
+			$content .= ob_get_contents();
+			ob_end_clean();
+		}
+
+		//add inline script for dismissing notice
+		ob_start();
+		?>
+		<script type="text/javascript">
+            function PUEDismissNotice( type ){
+                jQuery("#pue_" + type + "_notices").slideUp();
+                jQuery.post(ajaxurl, {action:"pue_dismiss_persistent_notice", type:type, cookie: encodeURIComponent(document.cookie)});
+            }
+        </script>
+		<?php
+		$content .= ob_get_contents();
+		ob_end_clean();
+		echo $content;
 	}
 
 
@@ -741,7 +996,7 @@ class PluginUpdateEngineChecker {
 		//For the sake of simplicity, this function just calls requestInfo()
 		//and transforms the result accordingly.
 		$pluginInfo = $this->requestInfo(array('pu_checking_for_updates' => '1'));
-		delete_site_option('pue_json_error_'.$this->pluginFile);
+		$this->delete_json_error_string();
 		if ( $pluginInfo == null ){
 			return null;
 		}
@@ -750,7 +1005,7 @@ class PluginUpdateEngineChecker {
 		//admin display for if the update check reveals that there is a new version but the API key isn't valid.
 		if ( isset($pluginInfo->api_invalid) )  { //we have json_error returned let's display a message
 			$this->json_error = $pluginInfo;
-			update_site_option('pue_json_error_'.$this->pluginFile, $this->json_error);
+			$this->set_json_error_string( $this->json_error );
 			return $this->json_error;
 		}
 
@@ -775,6 +1030,7 @@ class PluginUpdateEngineChecker {
 
 	function in_plugin_update_message($plugin_data) {
 		$plugininfo = $this->json_error;
+
 		//only display messages if there is a new version of the plugin.
 		if ( is_object($plugininfo) ) {
 			if ( version_compare($plugininfo->version, $this->_installed_version, '>') ) {
@@ -782,7 +1038,7 @@ class PluginUpdateEngineChecker {
 					$msg = str_replace('%plugin_name%', $this->pluginName, $plugininfo->api_inline_invalid_message);
 					$msg = str_replace('%version%', $plugininfo->version, $msg);
 					$msg = str_replace('%changelog%', '<a class="thickbox" title="'.$this->pluginName.'" href="plugin-install.php?tab=plugin-information&plugin='.$this->slug.'&TB_iframe=true&width=640&height=808">What\'s New</a>', $msg);
-					echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $msg . '</div></td>';
+					echo '</tr><tr class="plugin-update-tr"><td colspan="3" class="plugin-update"><div class="update-message">' . $this->_sanitize_notices( $msg ) . '</div></td>';
 				}
 			}
 		}
@@ -796,13 +1052,15 @@ class PluginUpdateEngineChecker {
 	function display_json_error($echo = TRUE, $ignore_version_check = FALSE, $alt_content = '') {
 		$pluginInfo = $this->json_error;
 		$update_dismissed = get_site_option($this->dismiss_upgrade);
+		$ver_option_key = 'puvererr_' . basename( $this->pluginFile );
 		$msg = '';
 
 		$is_dismissed = !empty($update_dismissed) && in_array($pluginInfo->version, $update_dismissed) ? true : false;
 
 		//add in pue_verification_error option for when the api_key is blank
-		if ( empty( $this->api_secret_key ) )
-			update_site_option( 'pue_verification_error_' . $this->pluginFile, __('No API key is present', $this->lang_domain) );
+		if ( empty( $this->api_secret_key ) ) {
+			update_site_option( $ver_option_key, __('No API key is present', $this->lang_domain) );
+		}
 
 		if ( $pluginInfo->api_invalid ) {
 			$msg = str_replace('%plugin_name%', $this->pluginName, $pluginInfo->api_invalid_message);
@@ -810,7 +1068,7 @@ class PluginUpdateEngineChecker {
 		}
 
 		//let's add an option for plugin developers to display some sort of verification message on their options page.
-		update_site_option( 'pue_verification_error_' . $this->pluginFile, $msg );
+		update_site_option( $ver_option_key, $msg );
 
 		if ($is_dismissed)
 			return;
@@ -821,7 +1079,7 @@ class PluginUpdateEngineChecker {
 			//Dismiss code idea below is obtained from the Gravity Forms Plugin by rocketgenius.com
 			ob_start();
 			?>
-				<div class="updated" style="padding:15px; position:relative;" id="pu_dashboard_message"><?php echo $msg ?>
+				<div class="updated" style="padding:15px; position:relative;" id="pu_dashboard_message"><?php echo $this->_sanitize_notices( $msg ); ?>
 				<a class="button-secondary" href="javascript:void(0);" onclick="PUDismissUpgrade();" style='float:right;'><?php _e("Dismiss") ?></a>
 				<div style="clear:both;"></div>
             </div>
@@ -842,6 +1100,39 @@ class PluginUpdateEngineChecker {
 	}
 
 
+	/**
+	 * This just receives a content string and uses wp_kses to sanitize the incoming string so it only allows a small
+	 * subset of tags.
+	 *
+	 * @param string $content Content to sanitize
+	 * @return string
+	 */
+	protected function _sanitize_notices( $content ) {
+		$allowed_tags = array(
+			'a' => array(
+				'href' => array(),
+				'title' => array()
+			),
+			'br' => array(),
+			'em' => array(),
+			'strong' => array(),
+			'abbr' => array(),
+			'acronym' => array(),
+			'b' => array(),
+			'blockquote' => array(),
+			'cite' => array(),
+			'code' => array(),
+			'strike' => array(),
+			'ol' => array(),
+			'ul' => array(),
+			'li' => array(),
+			'p' => array()
+		);
+
+		return wp_kses( $content, $allowed_tags );
+	}
+
+
 
 	/**
 	 * This admin_notice shows a message immediately to users who have successfully entered a valid api_key and allows them to click a button to get the premium version.
@@ -852,6 +1143,7 @@ class PluginUpdateEngineChecker {
 	 */
 	public function show_premium_upgrade() {
 		global $current_screen;
+		$ver_option_key = 'puvererr_' . basename( $this->pluginFile );
 		if ( empty( $current_screen ) )
 			set_current_screen();
 
@@ -861,6 +1153,7 @@ class PluginUpdateEngineChecker {
 
 		$update_dismissed = get_site_option($this->dismiss_upgrade);
 		$is_dismissed = !empty($update_dismissed) && !empty( $this->json_error ) && in_array( $this->json_error->version, $update_dismissed ) ? true : false;
+		$show_dismissal_button = false;
 
 		//first any json errors?
 		if ( !empty( $this->json_error ) && isset($this->json_error->api_invalid) ) {
@@ -870,27 +1163,30 @@ class PluginUpdateEngineChecker {
 				$msg = str_replace('%version%', $this->json_error->version, $msg);
 				$msg = sprintf( __('It appears you\'ve tried entering an api key to upgrade to the premium version of %s, however, the key does not appear to be valid.  This is the message received back from the server:', $this->lang_domain ), $this->pluginName ) . '</p><p>' . $msg;
 				//let's add an option for plugin developers to display some sort of verification message on their options page.
-				update_site_option( 'pue_verification_error_' . $this->pluginFile, $msg );
-
+				update_site_option( $ver_option_key, $msg );
+                $show_dismissal_button = true;
 		} else {
 			$msg = sprintf( __('Congratulations!  You have entered in a valid api key for the premium version of %s.  You can click the button below to upgrade to this version immediately.', $this->lang_domain), $this->pluginName );
-			delete_site_option( 'pue_verification_error_' . $this->pluginFile, $msg );
+			delete_site_option( $ver_option_key );
 		}
 
-		//todo add in upgrade button in here.
 		$button_link = wp_nonce_url( self_admin_url('update.php?action=upgrade-plugin&plugin=') . $this->pluginFile, 'upgrade-plugin_' . $this->pluginFile );
 		$button = '<a href="' . $button_link . '" class="button-secondary pue-upgrade-now-button" value="no">' . __('Upgrade Now', $this->lang_domain) . '</a>';
 
 		$content = '<div class="updated" style="padding:15px; position:relative;" id="pue_update_now_container"><p>' . $msg . '</p>';
 		$content .= empty($this->json_error) ? $button : '';
-		$content .= '<a class="button-secondary" href="javascript:void(0);" onclick="PUDismissUpgrade();" style="float:right;">' . __("Dismiss") . '</a>';
+		$content .= $show_dismissal_button
+            ? '<a class="button-secondary" href="javascript:void(0);" onclick="PUDismissUpgrade();" style="float:right;">' . __("Dismiss") . '</a>'
+            : '';
 		$content .= '<div style="clear:both;"></div></div>';
-		$content .= '<script type="text/javascript">
-			function PUDismissUpgrade(){
-				jQuery("#pue_update_now_container").slideUp();
-				jQuery.post( ajaxurl, {action:"' . $this->dismiss_upgrade .'", version:"' . $this->json_error->version . '", cookie: encodeURIComponent(document.cookie)});
-			}
-			</script>';
+		$content .= $show_dismissal_button
+            ? '<script type="text/javascript">
+                function PUDismissUpgrade(){
+                    jQuery("#pue_update_now_container").slideUp();
+                    jQuery.post( ajaxurl, {action:"' . $this->dismiss_upgrade .'", version:"' . $this->json_error->version . '", cookie: encodeURIComponent(document.cookie)});
+                }
+                </script>'
+            : '';
 
 		echo $content;
 	}
@@ -1027,7 +1323,9 @@ class PluginUpdateEngineChecker {
 		if ( !empty($state) && isset($state->update) && !empty($state->update) ){
 			//Only insert updates that are actually newer than the currently installed version.
 			if ( version_compare($state->update->version, $this->_installed_version, '>') ){
-				$updates->response[$this->pluginFile] = $state->update->toWpFormat();
+				$updated = $state->update->toWPFormat();
+				$updated->plugin = $this->pluginFile;
+				$updates->response[$this->pluginFile] = $updated;
 			}
 		}
 
@@ -1148,7 +1446,7 @@ class PU_PluginInfo {
 
 		foreach(get_object_vars($apiResponse) as $key => $value){
 			$key = str_replace('plugin_', '', $key); //let's strip out the "plugin_" prefix we've added in plugin-updater-classes.
-			$info->$key = $value;
+			$info->{$key} = $value;
 		}
 
 		return $info;
@@ -1170,9 +1468,11 @@ class PU_PluginInfo {
 			'num_ratings', 'downloaded', 'homepage', 'last_updated',
 		);
 		foreach($sameFormat as $field){
-			if ( isset($this->$field) ) {
-				$info->$field = $this->$field;
-			}
+			if ( isset($this->{$field}) ) {
+				$info->{$field} = $this->{$field};
+			} else {
+			    $info->{$field} = '';
+            }
 		}
 
 		//Other fields need to be renamed and/or transformed.
@@ -1248,7 +1548,7 @@ class PluginUpdateUtility {
 		$update = new PluginUpdateUtility();
 		$copyFields = array('id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'sections');
 		foreach($copyFields as $field){
-			$update->$field = $info->$field;
+			$update->{$field} = $info->{$field};
 		}
 		return $update;
 	}

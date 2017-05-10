@@ -1,25 +1,10 @@
-<?php if ( ! defined('EVENT_ESPRESSO_VERSION')) exit('No direct script access allowed');
+<?php if ( ! defined('EVENT_ESPRESSO_VERSION')) {exit('No direct script access allowed');}
 /**
- * Event Espresso
- *
- * Event Registration and Management Plugin for WordPress
- *
- * @ package			Event Espresso
- * @ author			Seth Shoultes
- * @ copyright		(c) 2008-2011 Event Espresso  All Rights Reserved.
- * @ license			http://eventespresso.com/support/terms-conditions/   * see Plugin Licensing *
- * @ link					http://www.eventespresso.com
- * @ version		 	4.0
- *
- * ------------------------------------------------------------------------
- *
  * EES_Espresso_Txn_Page
  *
- * @package			Event Espresso
+ * @package     Event Espresso
  * @subpackage	/shortcodes/
- * @author				Brent Christensen
- *
- * ------------------------------------------------------------------------
+ * @author      Brent Christensen
  */
 class EES_Espresso_Txn_Page  extends EES_Shortcode {
 
@@ -27,7 +12,13 @@ class EES_Espresso_Txn_Page  extends EES_Shortcode {
 	 * The transaction specified by the reg_url_link passed from the Request, or from the Session
 	 * @var EE_Transaction $_current_txn
 	 */
-	protected $_current_txn = NULL;
+	protected $_current_txn;
+
+	/**
+	 * The current payment method for the IPN
+	 * @var EE_Payment_Method $_current_pm
+	 */
+	protected $_current_pm;
 
 	/**
 	 * 	set_hooks - for hooking into EE Core, modules, etc
@@ -64,19 +55,51 @@ class EES_Espresso_Txn_Page  extends EES_Shortcode {
 
 
 	/**
-	 * 	run - initial shortcode module setup called during "wp_loaded" hook
-	 * 	this method is primarily used for loading resources that will be required by the shortcode when it is actually processed
+	 * run
 	 *
-	 *  @access 	public
-	 *  @param 	 WP $WP
-	 *  @return 	void
+	 * initial shortcode module setup called during "wp_loaded" hook
+	 * this method is primarily used for loading resources that will be required by the shortcode when it is actually processed
+	 *
+	 * @access public
+	 * @param  WP $WP
+	 * @return void
+	 * @throws \Exception
+	 * @throws \EE_Error
 	 */
 	public function run( WP $WP ) {
-		if ( EE_Registry::instance()->REQ->is_set('e_reg_url_link' ) && EE_Registry::instance()->REQ->is_set('ee_gateway') ){
-			$this->_current_txn = EE_Registry::instance()->load_model( 'Transaction' )->get_transaction_from_reg_url_link();
-			EEM_Gateways::instance()->set_selected_gateway( EE_Registry::instance()->REQ->get('ee_gateway') );
-			EEM_Gateways::instance()->handle_ipn_for_transaction( $this->_current_txn );
+		$this->_current_txn = null;
+		if ( EE_Registry::instance()->REQ->is_set('e_reg_url_link' )){
+			/** @var EEM_Transaction $EEM_Transaction */
+			$EEM_Transaction = EE_Registry::instance()->load_model( 'Transaction' );
+			$this->_current_txn = $EEM_Transaction->get_transaction_from_reg_url_link();
 		}
+		if ( $this->_current_txn instanceof EE_Transaction ) {
+			$payment_method = null;
+			$payment_method_slug = EE_Registry::instance()->REQ->get( 'ee_payment_method', null );
+			if( $payment_method_slug ) {
+				$payment_method = EEM_Payment_Method::instance()->get_one_by_slug( $payment_method_slug );
+			}
+
+			if ( $payment_method instanceof EE_Payment_Method && $payment_method->is_off_site() ) {
+				$gateway = $payment_method->type_obj()->get_gateway();
+				if (
+					$gateway instanceof EE_Offsite_Gateway
+				    && $gateway->handle_IPN_in_this_request(
+						\EE_Registry::instance()->REQ->params(),
+						true
+					)
+				) {
+					/** @type EE_Payment_Processor $payment_processor */
+					$payment_processor = EE_Registry::instance()->load_core( 'Payment_Processor' );
+					$payment_processor->process_ipn( $_REQUEST, $this->_current_txn, $payment_method );
+				}
+			}
+			//allow gateways to add a filter to stop rendering the page
+			if( apply_filters( 'FHEE__EES_Espresso_Txn_Page__run__exit', FALSE ) ){
+				exit;
+			}
+		}
+
 	}
 
 
@@ -87,15 +110,13 @@ class EES_Espresso_Txn_Page  extends EES_Shortcode {
 	 *
 	 *  @access 	public
 	 *  @param		array 	$attributes
-	 *  @return 	void
+	 *  @return 	string
 	 */
 	public function process_shortcode( $attributes = array() ) {
-		if($this->_current_txn){
-			printf(__("IPN successfully received for Transaction with ID '%d'", "event_espresso"),$this->_current_txn->ID());
-		}else{
-			printf(__("No IPN (or incomplete IPN) received.", "event_espresso"));
-		}
+		return __( 'This is the Event Espresso Transactions page. This page receives instant payment notification (IPN) requests and should have a status of published, but should not be easily accessible by site visitors. Do not add it to your website\'s navigation menu or link to it from another page. Also, do not delete it or change its status to private.', 'event_espresso' );
 	}
+
+
 
 }
 // End of file EES_Espresso_Txn_Page.shortcode.php

@@ -15,7 +15,7 @@ if ( ! defined('EVENT_ESPRESSO_VERSION')) { exit('NO direct script access allowe
  *
  * ------------------------------------------------------------------------
  *
- * EE_Qtip_Config	
+ * EE_Qtip_Config
  *
  * This is the parent class for the Qtip PHP library for interfacing with the qTip2 js library.
  *
@@ -162,7 +162,7 @@ abstract class EE_Qtip_Config extends EE_Base {
 					'offset' => 0, //use to set the offset of the tip in relation to its corner position.
 					)
 				),
-			
+
 			);
 	}
 
@@ -178,7 +178,7 @@ abstract class EE_Qtip_Config extends EE_Base {
 		foreach ( $this->_qtipsa as $qt ) {
 			//make sure we have what we need.
 			if ( !isset( $qt['content_id'] ) || !isset( $qt['target'] ) || !isset( $qt['content'] ) )
-				throw new EE_Error( sprintf( __('There is something wrong with the _qtipsa property setup for the %s qtip config class.  The dump of the current array index is: %s.<br /><br />Please check that it\'s setup correctly.', 'event_espresso'), get_class($this), var_export($qt, true) ) );
+				throw new EE_Error( sprintf( __('There is something wrong with the _qtipsa property setup for the %s qtip config class.  The dump of the current array index is: %s.<br /><br />Please check that it is setup correctly.', 'event_espresso'), get_class($this), var_export($qt, true) ) );
 
 			//make sure the options include defaults and just override via set config.
 			$options_override = isset( $qt['options'] ) ? (array) $qt['options'] : array();
@@ -247,7 +247,7 @@ abstract class EE_Qtip_Config extends EE_Base {
  *
  * ------------------------------------------------------------------------
  *
- * EE_Qtip	
+ * EE_Qtip
  *
  * All Qtips should be derivatives of this object.
  *
@@ -267,7 +267,7 @@ class EE_Qtip extends EE_Base {
 	public function __construct( $setup_array ) {
 		foreach ( $setup_array as $prop => $value ) {
 			if ( EEH_Class_Tools::has_property( $this, $prop ) )
-				$this->$prop = $value;
+				$this->{$prop} = $value;
 		}
 	}
 }

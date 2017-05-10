@@ -40,7 +40,7 @@ class EE_Register_Widget implements EEI_Plugin_API {
 	 * @since    4.3.0
 	 * @param string $widget_id			a unique identifier for this set of widgets
 	 * @param  array $setup_args  		an array of arguments provided for registering widgets
-	 * @internal param string widget_paths 		an array of full server paths to folders containing any EED_Widgets, or to the EED_Widget files themselves
+	 * @type array widget_paths 		an array of full server paths to folders containing any EED_Widgets, or to the EED_Widget files themselves
 	 * @throws EE_Error
 	 * @return void
 	 */
@@ -49,6 +49,11 @@ class EE_Register_Widget implements EEI_Plugin_API {
 		//required fields MUST be present, so let's make sure they are.
 		if ( empty( $widget_id ) || ! is_array( $setup_args ) || empty( $setup_args['widget_paths'] )) {
 			throw new EE_Error( __( 'In order to register Widgets with EE_Register_Widget::register(), you must include a "widget_id" (a unique identifier for this set of widgets), and an array containing the following keys: "widget_paths" (an array of full server paths to folders that contain widgets, or to the widget files themselves)', 'event_espresso' ));
+		}
+
+		//make sure we don't register twice
+		if( isset( self::$_settings[ $widget_id ] ) ){
+			return;
 		}
 
 

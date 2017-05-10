@@ -16,7 +16,7 @@
  *
  * EEM_Message_Template
  *
- * 
+ *
  *
  * @package		Event Espresso
  * @subpackage	includes/models/EEM_Message_Template.model.php
@@ -27,37 +27,22 @@
  */
 class EEM_Message_Template extends EEM_Base {
 	//private instance of the EEM_Message_Template object
-	private static $_instance = NULL;
+	protected static $_instance = NULL;
+
+
 
 	/**
-	 * 		This function is a singleton method used to instantiate the EEM_Message_Template object
+	 * private constructor to prevent direct creation
 	 *
-	 * 		@access public
-	 * 		@return EEM_Message_Template instance
+	 * @Constructor
+	 * @access protected
+	 * @param string $timezone
+	 * @throws \EE_Error
 	 */
-	public static function instance() {
-
-		// check if instance of EEM_Message_Template already exists
-		if (self::$_instance === NULL) {
-			// instantiate Message Template Model
-			self::$_instance = new self();
-		}
-		// EEM_Price object
-		return self::$_instance;
-	}
-	
-	
-
-	/**
-	 * 		private constructor to prevent direct creation
-	 * 		@Constructor
-	 * 		@access protected
-	 * 		@return void
-	 */
-	protected function __construct() {
+	protected function __construct( $timezone = NULL ) {
 		$this->singular_item = __('Message Template','event_espresso');
-		$this->plural_item = __('Message Templates','event_espresso');		
-		
+		$this->plural_item = __('Message Templates','event_espresso');
+
 		$this->_tables = array(
 			'Message_Template' => new EE_Primary_Table('esp_message_template', 'MTP_ID' )
 		);
@@ -68,13 +53,18 @@ class EEM_Message_Template extends EEM_Base {
 				'MTP_template_field'=>new EE_Plain_Text_Field('MTP_template_field', __('Field Name for this Template', 'event_espresso'), false, 'default' ),
 				'MTP_context'=>new EE_Plain_Text_Field('MTP_context', __('Message Type Context for this field', 'event_espresso'),false,'admin' ),
 				'MTP_content'=>new EE_Serialized_Text_Field('MTP_content', __('The field content for the template', 'event_espresso'), false, ''),
-				)
+			)
 		);
 
 		$this->_model_relations = array(
 			'Message_Template_Group' => new EE_Belongs_To_Relation()
 			);
-		parent::__construct();
+		$this->_model_chain_to_wp_user = 'Message_Template_Group';
+		foreach( $this->_cap_contexts_to_cap_action_map as $context => $action ){
+			$this->_cap_restriction_generators[ $context ] = new EE_Restriction_Generator_Global( 'Message_Template_Group.MTP_is_global');
+		}
+		$this->_caps_slug = 'messages';
+		parent::__construct( $timezone );
 	}
 
 

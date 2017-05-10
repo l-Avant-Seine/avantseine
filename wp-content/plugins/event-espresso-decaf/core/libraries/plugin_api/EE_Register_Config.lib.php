@@ -52,6 +52,11 @@ class EE_Register_Config implements EEI_Plugin_API {
 			throw new EE_Error( __( 'In order to register a Config Class with EE_Register_Config::register(), you must include a "config_class" (the actual class name for this config class). As well, you can supply an array containing the following keys: "config_section" the main section of the config object the settings will be saved under (by default the new config will be registered under EE_Config::instance()->modules or EE_Config::instance()->addons depending on what type of class is calling this), "config_name" (by default the new config will be registered to EE_Config::instance()->{config_section}->{config_class}, but supplying a "config_name" will set the property name that this variable is accessible by. ie: EE_Config::instance()->{config_section}->{config_name})', 'event_espresso' ));
 		}
 
+		//make sure we don't register twice
+		if( isset( self::$_ee_config_registry[ $config_class ] ) ){
+			return;
+		}
+
 
 		//first find out if this happened too late.
 		if ( did_action( 'AHEE__EE_System__load_core_configuration__begin' ) ) {
@@ -64,14 +69,14 @@ class EE_Register_Config implements EEI_Plugin_API {
 				'4.3'
 				);
 		}
-
 		//add incoming stuff to our registry property
 		self::$_ee_config_registry[ $config_class ] = array(
 			'section' => $setup_args['config_section'],
 			'name' => $setup_args['config_name']
 		);
 
-		add_filter( 'AHEE__EE_Config___load_core_config__end', array( 'EE_Register_Config', 'set_config' ), 10 );
+		add_action( 'AHEE__EE_Config___load_core_config__end', array( 'EE_Register_Config', 'set_config' ), 15, 1 );
+		add_action( 'AHEE__EE_Config__update_espresso_config__end', array( 'EE_Register_Config', 'set_config' ), 15, 1 );
 	}
 
 
@@ -88,7 +93,7 @@ class EE_Register_Config implements EEI_Plugin_API {
 	public static function set_config( EE_Config $EE_Config ) {
 		foreach ( self::$_ee_config_registry as $config_class => $settings ) {
 			//first some validation of our incoming class_name.  We'll throw an error early if its' not registered correctly
-			if ( ! class_exists( $config_class ) ) {
+			if ( ! class_exists( $config_class )) {
 				throw new EE_Error(
 					sprintf(
 						__( 'The "%s" config class can not be registered with EE_Config because it does not exist.  Verify that an autoloader has been set for this class', 'event_espresso' ),

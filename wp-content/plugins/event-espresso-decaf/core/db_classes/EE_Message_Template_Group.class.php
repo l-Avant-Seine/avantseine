@@ -2,22 +2,6 @@
 	exit( 'No direct script access allowed' );
 }
 /**
- * Event Espresso
- *
- * Event Registration and Management Plugin for WordPress
- *
- * @ package 		Event Espresso
- * @ author 		Event Espresso
- * @ copyright 	(c) 2008-2011 Event Espresso  All Rights Reserved.
- * @ license 		{@link http://eventespresso.com/support/terms-conditions/}   * see Plugin Licensing *
- * @ link 				{@link http://www.eventespresso.com}
- * @ since 			4.0
- *
- */
-
-
-
-/**
  * EE_Message_Template_Group class
  *
  *
@@ -115,6 +99,19 @@ class EE_Message_Template_Group extends EE_Soft_Delete_Base_Class {
 
 
 	/**
+	 * Wrapper for the user function() (preserve backward compat)
+	 *
+	 * @since  4.5.0
+	 *
+	 * @return int
+	 */
+	public function wp_user() {
+		return $this->user();
+	}
+
+
+
+	/**
 	 * This simply returns a count of all related events to this message template group
 	 * @return int
 	 */
@@ -169,12 +166,23 @@ class EE_Message_Template_Group extends EE_Soft_Delete_Base_Class {
 	/**
 	 * get Message Messenger OBJECT
 	 *
+	 * If an attempt to get the corresponding messenger object fails, then we set this message
+	 * template group to inactive, and save to db.  Then return null so client code can handle
+	 * appropriately.
+	 *
 	 * @return EE_messenger
 	 */
 	public function messenger_obj() {
 		$messenger = $this->messenger();
-		EE_Registry::instance()->load_helper( 'MSG_Template' );
-		return EEH_MSG_Template::messenger_obj( $messenger );
+		try {
+			$messenger = EEH_MSG_Template::messenger_obj( $messenger );
+		} catch( EE_Error $e ) {
+			//if an exception was thrown then let's deactivate this message template group because it means there is no class for this messenger in this group.
+			$this->set( 'MTP_is_active', false );
+			$this->save();
+			return null;
+		}
+		return $messenger;
 	}
 
 
@@ -194,12 +202,24 @@ class EE_Message_Template_Group extends EE_Soft_Delete_Base_Class {
 	/**
 	 * get Message type OBJECT
 	 *
-	 * @return EE_message_type
+	 * If an attempt to get the corresponding message type object fails, then we set this message
+	 * template group to inactive, and save to db.  Then return null so client code can handle
+	 * appropriately.
+	 *
+	 * @throws EE_Error
+	 * @return EE_message_type|false if exception thrown.
 	 */
 	public function message_type_obj() {
 		$message_type = $this->message_type();
-		EE_Registry::instance()->load_helper( 'MSG_Template' );
-		return EEH_MSG_Template::message_type_obj( $message_type );
+		try {
+			$message_type = EEH_MSG_Template::message_type_obj( $message_type );
+		} catch(EE_Error $e) {
+			//if an exception was thrown then let's deactivate this message template group because it means there is no class for the message type in this group.
+			$this->set( 'MTP_is_active', false );
+			$this->save();
+			return null;
+		}
+		return $message_type;
 	}
 
 
@@ -236,7 +256,7 @@ class EE_Message_Template_Group extends EE_Soft_Delete_Base_Class {
 		if ( empty( $mtps ) ) {
 			return array();
 		}
-		//note contexts could have MULTIPLE fields per context. So we return the objects indexed by context AND field.
+		//note contexts could have CHECKBOX fields per context. So we return the objects indexed by context AND field.
 		foreach ( $mtps as $mtp ) {
 			$mtps_arr[ $mtp->get( 'MTP_context' ) ][ $mtp->get( 'MTP_template_field' ) ] = $mtp;
 		}
@@ -279,7 +299,6 @@ class EE_Message_Template_Group extends EE_Soft_Delete_Base_Class {
 	public function get_shortcodes( $context, $fields = array(), $merged = FALSE ) {
 		$messenger = $this->messenger();
 		$message_type = $this->message_type();
-		EE_Registry::instance()->load_helper( 'MSG_Template' );
 		return EEH_MSG_Template::get_shortcodes( $message_type, $messenger, $fields, $context, $merged );
 	}
 
@@ -293,22 +312,90 @@ class EE_Message_Template_Group extends EE_Soft_Delete_Base_Class {
 	 * @throws EE_Error
 	 * @return array    an array of EE_Shortcode objects
 	 */
-	private function _get_shortcode_objects( $sc_refs ) {
-		$sc_objs = array();
-		EE_Messages_Init::set_autoloaders();
-		foreach ( $sc_refs as $shortcode_ref ) {
-			$ref = ucwords( str_replace( '_', ' ', $shortcode_ref ) );
-			$ref = str_replace( ' ', '_', $ref );
-			$classname = 'EE_' . $ref . '_Shortcodes';
-			if ( ! class_exists( $classname ) ) {
-				$msg[ ] = __( 'Shortcode library loading fail.', 'event_espresso' );
-				$msg[ ] = sprintf( __( 'The class name checked was "%s". Please check the spelling and case of this reference and make sure it matches the appropriate shortcode library file name (minus the extension) in the "/library/shortcodes/" directory', 'event_espresso' ), $classname );
-				throw new EE_Error( implode( '||', $msg ) );
-			}
-			$a = new ReflectionClass( $classname );
-			$sc_objs[ ] = $a->newInstance();
-		}
-		return $sc_objs;
+	//private function _get_shortcode_objects( $sc_refs ) {
+	//	$sc_objs = array();
+	//	EED_Messages::set_autoloaders();
+	//	foreach ( $sc_refs as $shortcode_ref ) {
+	//		$ref = ucwords( str_replace( '_', ' ', $shortcode_ref ) );
+	//		$ref = str_replace( ' ', '_', $ref );
+	//		$classname = 'EE_' . $ref . '_Shortcodes';
+	//		if ( ! class_exists( $classname ) ) {
+	//			$msg[ ] = __( 'Shortcode library loading fail.', 'event_espresso' );
+	//			$msg[ ] = sprintf( __( 'The class name checked was "%s". Please check the spelling and case of this reference and make sure it matches the appropriate shortcode library file name (minus the extension) in the "/library/shortcodes/" directory', 'event_espresso' ), $classname );
+	//			throw new EE_Error( implode( '||', $msg ) );
+	//		}
+	//		$a = new ReflectionClass( $classname );
+	//		$sc_objs[ ] = $a->newInstance();
+	//	}
+	//	return $sc_objs;
+	//}
+
+
+
+	/**
+	 * This just gets the template pack name assigned to this message template group.  If it's not set, then we just use the default template pack.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return string
+	 */
+	public function get_template_pack_name() {
+		return $this->get_extra_meta( 'MTP_template_pack', true, 'default' );
+	}
+
+
+
+
+	/**
+	 * This returns the specific template pack object referenced by the template pack name attached to this message template group.  If no template pack is assigned then the default template pack is retrieved.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return EE_Messages_Template_Pack
+	 */
+	public function get_template_pack() {
+		$pack_name = $this->get_template_pack_name();
+		EE_Registry::instance()->load_helper( 'MSG_Template' );
+		return EEH_MSG_Template::get_template_pack( $pack_name );
+	}
+
+
+
+	/**
+	 * This retrieves the template variation assigned to this message template group.  If it's not set, then we just use the default template variation.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return string
+	 */
+	public function get_template_pack_variation() {
+		return $this->get_extra_meta( 'MTP_variation', TRUE, 'default' );
+	}
+
+
+
+	/**
+	 * This just sets the template pack name attached to this message template group.
+	 *
+	 * @since 4.5.0
+	 * @param string $template_pack_name What message template pack is assigned.
+	 * @return int
+	 */
+	public function set_template_pack_name( $template_pack_name ) {
+		return $this->update_extra_meta( 'MTP_template_pack', $template_pack_name );
+	}
+
+
+
+	/**
+	 * This just sets the template pack variation attached to this message template group.
+	 *
+	 * @since 4.5.0
+	 * @param string $variation What variation is being set on the message template group.
+	 * @return int
+	 */
+	public function set_template_pack_variation( $variation ) {
+		return $this->update_extra_meta( 'MTP_variation', $variation );
 	}
 }
 //end EE_Message_Template_Group class

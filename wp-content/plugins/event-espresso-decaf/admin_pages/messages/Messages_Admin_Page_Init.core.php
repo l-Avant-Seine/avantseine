@@ -35,14 +35,17 @@ class Messages_Admin_Page_Init extends EE_Admin_Page_Init  {
 
 		do_action( 'AHEE_log', __FILE__, __FUNCTION__, '' );
 
-		define( 'EE_MSG_PG_SLUG', 'espresso_messages' );
-		define( 'EE_MSG_PG_NAME', ucwords( str_replace( '_', '', EE_MSG_PG_SLUG )));
-		define( 'EE_MSG_ADMIN', EE_ADMIN_PAGES . 'messages' . DS );
-		define( 'EE_MSG_ADMIN_URL', admin_url( 'admin.php?page=' . EE_MSG_PG_SLUG ));
-		define( 'EE_MSG_ASSETS_PATH', EE_MSG_ADMIN . 'assets' . DS );
-		define( 'EE_MSG_ASSETS_URL', EE_ADMIN_PAGES_URL  . 'messages/assets/' );
-		define( 'EE_MSG_TEMPLATE_PATH', EE_MSG_ADMIN . 'templates' . DS );
-		define( 'EE_MSG_TEMPLATE_URL', EE_ADMIN_PAGES_URL . 'messages/templates/' );
+		if ( ! defined( 'EE_MSG_PG_SLUG' ) ) {
+
+			define( 'EE_MSG_PG_SLUG', 'espresso_messages' );
+			define( 'EE_MSG_PG_NAME', ucwords( str_replace( '_', '', EE_MSG_PG_SLUG ) ) );
+			define( 'EE_MSG_ADMIN', EE_ADMIN_PAGES . 'messages' . DS );
+			define( 'EE_MSG_ADMIN_URL', admin_url( 'admin.php?page=' . EE_MSG_PG_SLUG ) );
+			define( 'EE_MSG_ASSETS_PATH', EE_MSG_ADMIN . 'assets' . DS );
+			define( 'EE_MSG_ASSETS_URL', EE_ADMIN_PAGES_URL . 'messages/assets/' );
+			define( 'EE_MSG_TEMPLATE_PATH', EE_MSG_ADMIN . 'templates' . DS );
+			define( 'EE_MSG_TEMPLATE_URL', EE_ADMIN_PAGES_URL . 'messages/templates/' );
+		}
 
 		parent::__construct();
 	}
@@ -60,11 +63,11 @@ class Messages_Admin_Page_Init extends EE_Admin_Page_Init  {
 		$this->_menu_map = new EE_Admin_Page_Sub_Menu( array(
 			'menu_group' => 'management',
 			'menu_order' => 10,
-			'show_on_menu' => TRUE,
+			'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_ADMIN_ONLY,
 			'parent_slug' => 'espresso_events',
 			'menu_slug' => EE_MSG_PG_SLUG,
 			'menu_label' => __('Messages', 'event_espresso'),
-			'capability' => 'administrator',
+			'capability' => 'ee_read_global_messages',
 			'admin_init_page' => $this
 			));
 	}

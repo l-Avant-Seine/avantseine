@@ -42,8 +42,11 @@ class EE_CPT_Venue_Strategy {
 	public function __construct( $arguments = array() ) {
 		$this->CPT = isset( $arguments['CPT'] ) ? $arguments['CPT'] : NULL;
 		$WP_Query = isset( $arguments['WP_Query'] ) ? $arguments['WP_Query'] : NULL;
-		$WP_Query->is_espresso_venue_single = is_single() ? TRUE : FALSE;
-		$WP_Query->is_espresso_venue_archive = is_archive() ? TRUE : FALSE;
+		if ( $WP_Query instanceof WP_Query && ! $WP_Query->is_tag ) {
+			$WP_Query->is_espresso_venue_single = is_singular() && isset( $WP_Query->query->post_type ) && $WP_Query->query->post_type == 'espresso_venues' ? TRUE : FALSE;
+			$WP_Query->is_espresso_venue_archive = is_post_type_archive('espresso_venues') ? TRUE : FALSE;
+			$WP_Query->is_espresso_venue_taxonomy = is_tax( 'espresso_venue_categories' ) ? TRUE : FALSE;
+		}
 		add_filter( 'the_posts', array( $this, 'the_posts' ), 1, 2 );
 	}
 
@@ -59,9 +62,7 @@ class EE_CPT_Venue_Strategy {
 	 */
 	public function the_posts( $posts, WP_Query $wp_query) {
 		// automagically load the EEH_Venue_View helper so that it's functions are available
-		EE_Registry::instance()->load_helper('Venue_View');
 		if ( isset( EE_Registry::instance()->CFG->map_settings->use_google_maps ) && EE_Registry::instance()->CFG->map_settings->use_google_maps ) {
-			EE_Registry::instance()->load_helper( 'Maps' );
 			EEH_Maps::espresso_google_map_js();
 		}
 		remove_filter( 'the_posts', array( $this, 'the_posts' ), 1, 2 );

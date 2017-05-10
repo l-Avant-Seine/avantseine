@@ -40,7 +40,7 @@ class EE_Register_Shortcode implements EEI_Plugin_API {
 	 * @since    4.3.0
 	 * @param string $shortcode_id		a unique identifier for this set of modules Required.
 	 * @param  array $setup_args  						an array of arguments provided for registering shortcodes Required.
-	 * @internal param string shortcode_paths 		an array of full server paths to folders containing any EES_Shortcodes, or to the EES_Shortcode files themselves
+	 * @type array shortcode_paths 		an array of full server paths to folders containing any EES_Shortcodes, or to the EES_Shortcode files themselves
 	 * @throws EE_Error
 	 * @return void
 	 */
@@ -51,6 +51,10 @@ class EE_Register_Shortcode implements EEI_Plugin_API {
 			throw new EE_Error( __( 'In order to register Modules with EE_Register_Shortcode::register(), you must include a "shortcode_id" (a unique identifier for this set of shortcodes), and an array containing the following keys: "shortcode_paths" (an array of full server paths to folders that contain shortcodes, or to the shortcode files themselves)', 'event_espresso' ));
 		}
 
+		//make sure we don't register twice
+		if( isset( self::$_settings[ $shortcode_id ] ) ){
+			return;
+		}
 
 		//make sure this was called in the right place!
 		if ( ! did_action( 'AHEE__EE_System__load_espresso_addons' ) || did_action( 'AHEE__EE_System__register_shortcodes_modules_and_widgets' )) {

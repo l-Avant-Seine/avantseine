@@ -120,7 +120,7 @@ class EE_Admin_Page_Loader {
 		$this->_get_installed_pages();
 		//set menus (has to be done on every load - we're not actually loading the page just setting the menus and where they point to).
 		add_action('admin_menu', array( $this, 'set_menus' ));
-
+		add_action( 'network_admin_menu', array( $this, 'set_network_menus' ) );
 	}
 
 
@@ -133,12 +133,14 @@ class EE_Admin_Page_Loader {
 	 * @return void
 	 */
 	private function _define_caffeinated_constants() {
-		define( 'EE_CORE_CAF_ADMIN', EE_PLUGIN_DIR_PATH . 'caffeinated/admin/');
-		define( 'EE_CORE_CAF_ADMIN_URL', EE_PLUGIN_DIR_URL . 'caffeinated/admin/');
-		define( 'EE_CORE_CAF_ADMIN_NEW', EE_CORE_CAF_ADMIN . 'new/');
-		define( 'EE_CORE_CAF_ADMIN_EXTEND', EE_CORE_CAF_ADMIN . 'extend/');
-		define( 'EE_CORE_CAF_ADMIN_EXTEND_URL', EE_CORE_CAF_ADMIN_URL . 'extend/');
-		define( 'EE_CORE_CAF_ADMIN_HOOKS', EE_CORE_CAF_ADMIN . 'hooks/');
+		if ( ! defined( 'EE_CORE_CAF_ADMIN'  ) ) {
+			define( 'EE_CORE_CAF_ADMIN', EE_PLUGIN_DIR_PATH . 'caffeinated/admin/');
+			define( 'EE_CORE_CAF_ADMIN_URL', EE_PLUGIN_DIR_URL . 'caffeinated/admin/');
+			define( 'EE_CORE_CAF_ADMIN_NEW', EE_CORE_CAF_ADMIN . 'new/');
+			define( 'EE_CORE_CAF_ADMIN_EXTEND', EE_CORE_CAF_ADMIN . 'extend/');
+			define( 'EE_CORE_CAF_ADMIN_EXTEND_URL', EE_CORE_CAF_ADMIN_URL . 'extend/');
+			define( 'EE_CORE_CAF_ADMIN_HOOKS', EE_CORE_CAF_ADMIN . 'hooks/');
+		}
 	}
 
 
@@ -158,58 +160,58 @@ class EE_Admin_Page_Loader {
 		$groups = array(
 			'main' => new EE_Admin_Page_Menu_Group( array(
 				'menu_label' => __('Main', 'event_espresso'),
-				'show_on_menu' => FALSE,
+				'show_on_menu' => EE_Admin_Page_Menu_Map::NONE,
 				'menu_slug' => 'main',
-				'capability' => 'administrator',
+				'capability' => 'ee_read_ee',
 				'menu_order' => 0,
-				'parent_slug' => 'espresso_events'
+				'parent_slug' => 'espresso_events',
 				)),
 			'management' => new EE_Admin_Page_Menu_Group( array(
 				'menu_label' => __('Management', 'event_espresso'),
-				'show_on_menu' => TRUE,
+				'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_ADMIN_ONLY,
 				'menu_slug' => 'management',
-				'capability' => 'administrator',
+				'capability' => 'ee_read_ee',
 				'menu_order' => 10,
 				'parent_slug' => 'espresso_events'
 				)),
 			'settings' => new EE_Admin_Page_Menu_Group( array(
 				'menu_label' => __('Settings', 'event_espresso'),
-				'show_on_menu' => TRUE,
+				'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_ADMIN_ONLY,
 				'menu_slug' => 'settings',
-				'capability' => 'administrator',
+				'capability' => 'ee_read_ee',
 				'menu_order' => 30,
 				'parent_slug' => 'espresso_events'
 				)),
 			'templates' => new EE_Admin_Page_Menu_Group( array(
 				'menu_label' => __('Templates', 'event_espresso'),
-				'show_on_menu' => TRUE,
+				'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_ADMIN_ONLY,
 				'menu_slug' => 'templates',
-				'capability' => 'administrator',
+				'capability' => 'ee_read_ee',
 				'menu_order' => 40,
 				'parent_slug' => 'espresso_events'
 				)),
 			'extras' => new EE_Admin_Page_Menu_Group( array(
 				'menu_label' => __('Extras', 'event_espresso'),
-				'show_on_menu' => TRUE,
+				'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_AND_NETWORK_ADMIN,
 				'menu_slug' => 'extras',
-				'capability' => 'administrator',
+				'capability' => 'ee_read_ee',
 				'menu_order' => 50,
 				'parent_slug' => 'espresso_events',
 				'maintenance_mode_parent' => 'espresso_maintenance_settings'
 				)),
 			'tools' => new EE_Admin_Page_Menu_Group( array(
 				'menu_label' => __("Tools", "event_espresso"),
-				'show_on_menu' => TRUE,
+				'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_ADMIN_ONLY,
 				'menu_slug' => 'tools',
-				'capability' => 'administrator',
+				'capability' => 'ee_read_ee',
 				'menu_order' => 60,
 				'parent_slug' => 'espresso_events'
 				)),
 			'addons' => new EE_Admin_Page_Menu_Group( array(
+				'show_on_menu' => EE_Admin_Page_Menu_Map::BLOG_AND_NETWORK_ADMIN,
 				'menu_label' => __('Add-ons', 'event_espresso'),
-				'show_on_menu' => TRUE,
 				'menu_slug' => 'addons',
-				'capability' => 'administrator',
+				'capability' => 'ee_read_ee',
 				'menu_order' => 20,
 				'parent_slug' => 'espresso_events'
 				))
@@ -220,7 +222,6 @@ class EE_Admin_Page_Loader {
 
 
 
-
 	/**
 	 * This takes all the groups in the _admin_menu_groups array and returns the array indexed by group
 	 * slug.  The other utility with this function is it validates that all the groups are instances of
@@ -228,11 +229,12 @@ class EE_Admin_Page_Loader {
 	 *
 	 * @since  4.4.0
 	 *
+	 * @throws \EE_Error
 	 * @return EE_Admin_Page_Menu_Group[]
 	 */
 	private function _rearrange_menu_groups() {
 		$groups = array();
-		//first let's order the menu groups by their internal menu order (note usort typehinting to ensure the incoming array is EE_Admin_Page_Menu_Map objects )
+		//first let's order the menu groups by their internal menu order (note usort type hinting to ensure the incoming array is EE_Admin_Page_Menu_Map objects )
 		usort( $this->_admin_menu_groups, array( $this, '_sort_menu_maps' ) );
 		foreach ( $this->_admin_menu_groups as $group ) {
 			if ( ! $group instanceof EE_Admin_Page_Menu_Group )
@@ -277,6 +279,7 @@ class EE_Admin_Page_Loader {
 		$installed_refs = $this->_set_caffeinated($installed_refs);
 		//allow plugins to add in their own pages (note at this point they will need to have an autoloader defined for their class) OR hook into EEH_Autoloader::load_admin_page() to add their path.;
 		$installed_refs = apply_filters( 'FHEE__EE_Admin_Page_Loader___get_installed_pages__installed_refs', $installed_refs );
+		$this->_caffeinated_extends = apply_filters( 'FHEE__EE_Admin_Page_Loader___get_installed_pages__caffeinated_extends', $this->_caffeinated_extends );
 
 		//loop through admin pages and setup the $_installed_pages array.
 		$hooks_ref = array();
@@ -339,6 +342,9 @@ class EE_Admin_Page_Loader {
 				$this->_installed_pages[$page]->do_initial_loads();
 			}
 		}
+
+		do_action( 'AHEE__EE_Admin_Page_Loader___get_installed_pages_loaded', $this->_installed_pages );
+
 	}
 
 
@@ -396,8 +402,21 @@ class EE_Admin_Page_Loader {
 		$class_name = $this->_get_classname_for_admin_init_page( $page );
  		EE_Registry::instance()->load_file( $path, $class_name, 'core' );
 		if ( ! class_exists( $class_name )) {
+            $inner_error_msg = '<br />' . sprintf(
+                esc_html__(
+                    'Make sure you have %1$s defined. If this is a non-EE-core admin page then you also must have an autoloader in place for your class',
+                    'event_espresso'
+                ),
+                '<strong>' . $class_name . '</strong>'
+            );
 			$error_msg[] = sprintf( __('Something went wrong with loading the %s admin page.', 'event_espresso' ), $page);
-			$error_msg[] = $error_msg[0] . "\r\n" . sprintf( __( 'There is no Init class in place for the %s admin page.', 'event_espresso') . '<br />' . __( 'Make sure you have <strong>%s</strong> defined. If this is a non-EE-core admin page then you also must have an autoloader in place for your class', 'event_espresso'), $page, $class_name );
+			$error_msg[] = $error_msg[0]
+                           . "\r\n"
+                           . sprintf(
+                               esc_html__( 'There is no Init class in place for the %s admin page.', 'event_espresso'),
+                               $page
+                           )
+                           . $inner_error_msg;
 			throw new EE_Error( implode( '||', $error_msg ));
 		}
 		$a = new ReflectionClass($class_name);
@@ -418,7 +437,26 @@ class EE_Admin_Page_Loader {
 		//prep the menu pages (sort, group.)
 		$this->_prep_pages();
 		foreach( $this->_prepped_menu_maps as $menu_map ) {
-			$menu_map->add_menu_page();
+			if ( EE_Registry::instance()->CAP->current_user_can( $menu_map->capability, $menu_map->menu_slug ) ) {
+				$menu_map->add_menu_page( FALSE );
+			}
+		}
+	}
+
+	/**
+	 * set_network_menus
+	 * This method sets up the menus for network EE Admin Pages.
+	 * Almost identical to EE_Admin_Page_Loader::set_menus() except pages
+	 * are only added to the menu map if they are intended for the admin menu
+	 *
+	 * @return void
+	 */
+	public function set_network_menus(){
+		$this->_prep_pages();
+		foreach( $this->_prepped_menu_maps as $menu_map ) {
+			if ( EE_Registry::instance()->CAP->current_user_can( $menu_map->capability, $menu_map->menu_slug ) ) {
+				$menu_map->add_menu_page( TRUE );
+			}
 		}
 	}
 
@@ -449,7 +487,7 @@ class EE_Admin_Page_Loader {
 
 				//if page map is NOT a EE_Admin_Page_Menu_Map object then throw error.
 				if ( ! $page_map instanceof EE_Admin_Page_Menu_Map ) {
-					throw new EE_Error( sprintf( __('The menu map for %s must be an EE_Admin_Page_Menu_Map object.  Instead it is %s.  Please doublecheck that the menu map has been configured correctly.', 'event_espresso'), $page->label, $page_map ) );
+					throw new EE_Error( sprintf( __('The menu map for %s must be an EE_Admin_Page_Menu_Map object.  Instead it is %s.  Please double check that the menu map has been configured correctly.', 'event_espresso'), $page->label, $page_map ) );
 				}
 
 				//use the maintenance_mode_parent property and maintenance mode status to determine if this page even gets added to array.
@@ -571,12 +609,9 @@ class EE_Admin_Page_Loader {
 					}
 				}
 			}
-		}
+		}/**/
 
-		//if we've got _caf_autoloaders set then let's register the autoloader method
-//		if ( !empty( $this->_caf_autoloader ) ) {
-//			spl_autoload_register(array( $this, 'caffeinated_autoloaders') );
-//		}
+		$ee_admin_hooks = apply_filters( 'FHEE__EE_Admin_Page_Loader__set_caffeinated__ee_admin_hooks', $ee_admin_hooks );
 
 		return $installed_refs;
 
@@ -596,7 +631,6 @@ class EE_Admin_Page_Loader {
 //		$dir_ref = array(
 //			EE_ADMIN => array('core', 'class')
 //		);
-//		EE_Registry::instance()->load_helper( 'Autoloader' );
 //		EEH_Autoloader::try_autoload($dir_ref, $className );
 //	}
 
@@ -618,7 +652,6 @@ class EE_Admin_Page_Loader {
 //			$dir_ref[ EE_CORE_CAF_ADMIN . $pathinfo['dir'] . DS . $pathinfo['folder'] . DS] = array('core', 'class');
 //		}
 //
-//		EE_Registry::instance()->load_helper( 'Autoloader' );
 //		EEH_Autoloader::try_autoload($dir_ref, $className );
 //	}
 

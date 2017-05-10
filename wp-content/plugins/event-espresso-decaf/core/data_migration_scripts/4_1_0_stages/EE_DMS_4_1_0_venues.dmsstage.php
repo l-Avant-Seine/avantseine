@@ -3,7 +3,7 @@
 /**
  * Converts old venues to Venue Custom Post Types.
  * Must be run after state and country default values have been added
- * Does NOT add relation to Events, but does ensure the state and countries 
+ * Does NOT add relation to Events, but does ensure the state and countries
  * indicated on the venue exist
  * //		for reference, this is the 3.1 table we're expecting
 //CREATE TABLE `wp_events_venue` (
@@ -33,9 +33,9 @@
 //				'VNU_name'=>new EE_Plain_Text_Field('post_title', __("Venue Name", "event_espresso"), false, ''),
 //				'VNU_desc'=>new EE_Simple_HTML_Field('post_content', __("Venue Description", "event_espresso"), true),
 //				'VNU_identifier'=>new EE_Slug_Field('post_name', __("Venue Identifier", "event_espresso"), false,''),
-//				'VNU_created'=>new EE_Datetime_Field('post_date', __("Date Venue Created", "event_espresso"), true,current_time('timestamp')),
+//				'VNU_created'=>new EE_Datetime_Field('post_date', __("Date Venue Created", "event_espresso"), true,time()),
 //				'VNU_short_desc'=>new EE_Plain_Text_Field('post_excerpt', __("Short Description of Venue", "event_espresso"), true),
-//				'VNU_modified'=>new EE_Datetime_Field('post_modified', __("Venue Modified Date", "event_espresso"), true,current_time('timestamp')),
+//				'VNU_modified'=>new EE_Datetime_Field('post_modified', __("Venue Modified Date", "event_espresso"), true,time()),
 //				'VNU_wp_user'=>new EE_Integer_Field('post_author', __("Venue Creator", "event_espresso"), false, 1),
 //				'parent'=>new EE_Integer_Field('post_parent', __("Venue Parent ID", "event_espresso"), true),
 //				'VNU_order'=>new EE_Integer_Field('menu_order', __("Venue order", "event_espresso"), false, 1),
@@ -57,9 +57,9 @@
 //				'VNU_virtual_url'=>new EE_Plain_Text_Field('VNU_virtual_url', __('Virtual URL', 'event_espresso'), true ),
 //				'VNU_google_map_link'=>new EE_Plain_Text_Field('VNU_google_map_link', __('Google Map Link', 'event_espresso'), true ),
 //				'VNU_enable_for_gmap'=>new EE_Boolean_Field('VNU_enable_for_gmap', __('Show Google Map?', 'event_espresso'), false, false )
-//				
+//
 //			));
- * 
+ *
  */
 class EE_DMS_4_1_0_venues extends EE_Data_Migration_Script_Stage{
 	private $_old_table;
@@ -93,7 +93,7 @@ function _migration_step($num_items=50){
 		}
 		$items_actually_migrated++;
 		if($guid){
-			//if there was an image, we may have had to download it etc and it may have taken 
+			//if there was an image, we may have had to download it etc and it may have taken
 			//longer, then let's not bother migrating anymore on this step
 			break;
 		}
@@ -125,17 +125,18 @@ function __construct() {
 	private function _insert_into_posts($old_venue){
 		global $wpdb;
 		$meta = maybe_unserialize($old_venue['meta']);
+		$slug = $this->_find_unique_slug( $old_venue[ 'name' ], $old_venue[ 'identifier' ] );
 		$insertion_array = array(
 					'post_title'=>stripslashes($old_venue['name']),//VNU_name
 					'post_content'=>isset($meta['description']) ? stripslashes(strip_tags($meta['description'])) : '',//VNU_desc
-					'post_name'=>$old_venue['identifier'],//VNU_identifier
+					'post_name'=> $slug,//VNU_identifier
 					'post_date'=>current_time('mysql'),//VNU_created
 					'post_date_gmt'=>  current_time('mysql',true),
 					'post_excerpt'=>'',//wp_trim_words($meta['description'] ? $meta['description'] : '',50),//VNU_short_desc arbitraty only 50 characters
 					'post_modified'=>current_time('mysql'),//VNU_modified
 					'post_modified_gmt'=>current_time('mysql',true),
 					'post_author'=>$old_venue['wp_user'],//VNU_wp_user
-					'post_parent'=>null,//parent
+					'post_parent'=>0,//parent
 					'menu_order'=>0,//VNU_order
 					'post_type'=>'espresso_venues'//post_type
 				);
@@ -157,10 +158,40 @@ function __construct() {
 				$insertion_array,
 				$datatypes_array);
 		if( ! $success ){
-			$this->add_error($this->get_migration_script->_create_error_message_for_db_insertion($this->_old_table, $old_venue, $this->_new_table, $insertion_array, $datatypes_array));
+			$this->add_error($this->get_migration_script()->_create_error_message_for_db_insertion($this->_old_table, $old_venue, $this->_new_table, $insertion_array, $datatypes_array));
 			return 0;
 		}
 		return $wpdb->insert_id;
+	}
+
+	/**
+	 * Finds a unique slug for this venue, given its name (we could have simply used
+	 * the old unique_identifier column, but it added a long string of seemingly random characters onto the end
+	 * and really wasn't that pretty for a slug, so we decided we'd make our own slug again)
+	 * @param string $post_name
+	 * @return string
+	 */
+	private function _find_unique_slug($post_name, $old_identifier = '' ){
+		$count = 0;
+		$original_name = $post_name ? sanitize_title( $post_name ) : $old_identifier;
+		$event_slug = $original_name;
+		while( $this->_other_post_exists_with_that_slug($event_slug) && $count<50){
+			$event_slug = sanitize_title($original_name."-".++$count);
+		}
+		return $event_slug;
+	}
+
+	/**
+	 * returns whether or not there is a post that has this same slug (post_title)
+	 * @global type $wpdb
+	 * @param type $slug
+	 * @return boolean
+	 */
+	private function _other_post_exists_with_that_slug($slug){
+		global $wpdb;
+		$query = $wpdb->prepare("SELECT COUNT(ID) FROM ".$this->_new_table." WHERE post_name = %s",$slug);
+		$count = $wpdb->get_var($query);
+		return (boolean)intval($count);
 	}
 
 	/**
