@@ -18,7 +18,7 @@ jQuery(function($) {
 
 		$(window).scroll(function(){
 
-			if (jQuery(this).scrollTop() > 20) {
+			if ( jQuery(this).scrollTop() != 0 ) {
 	      $('.site-header').addClass('sticky');
 	    } else {
 	    	$('.site-header').removeClass('sticky');
