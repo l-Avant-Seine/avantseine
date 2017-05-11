@@ -4,3 +4,16 @@
  * @package lavantseine-v2
  */
 
+.site-header {
+
+	&.sticky {
+		position: fixed;
+		left: 0;
+		right: 0;
+	}
+}
+
+
+.site-logo {
+	float: left;
+}
