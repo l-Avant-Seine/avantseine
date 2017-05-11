@@ -44,14 +44,14 @@ require_once(ODY_PT_PATH . 'custom-taxonomies.php');
 //require_once(ODY_METAS_PATH . 'post-metas.php');
 
 //require_once(ODY_UTILS_PATH . 'custom-widgets.php');
-require_once(ODY_UTILS_PATH . 'options-panel.php');
+//require_once(ODY_UTILS_PATH . 'options-panel.php');
 require_once(ODY_UTILS_PATH . 'template-tags.php');
 require_once(ODY_UTILS_PATH . 'queries-filters.php');
 
 /**
  * Post Types & Taxonomies & metas
  */
-//require_once(ODY_UTILS_PATH . 'acf.php');
+require_once(ODY_UTILS_PATH . 'acf.php');
 
 
 
