@@ -14,10 +14,14 @@
 	</div><!-- #content -->
 
 	<footer id="mastfooter" class="site-footer transparent-background" role="contentinfo">
-	footer
-	
-		<?php get_sidebar( 'footer-widgets' ); ?>
-		<div class="clearfix"></div>
+		<div class="wrap">
+			
+			footer
+		
+			<?php get_sidebar( 'footer-widgets' ); ?>
+			
+		</div>
+
 	</footer><!-- #mastfooter -->
 
 	

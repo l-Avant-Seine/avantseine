@@ -16,10 +16,10 @@
 
 
 	
-	<div id="" class="clearfix wrap">
+	<div id="" class="clearfix wrap row">
 
 		<!-- Spectacle à venir -->
-		<div class="">
+		<div class="m-6col">
 			<?php 
 				$args = array(
 					'post_type' 		=> 'event',
@@ -39,7 +39,7 @@
 
 
 		<!-- Carde à votre service -->
-		<div class="module-service">
+		<div class="module-service m-2col is-on-right">
 		<?php 
 			$services_pages = get_field('services_pages', 'option'); 
 			set_query_var('services_pages', $services_pages);
