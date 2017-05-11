@@ -25,12 +25,24 @@
 	<header id="masthead" class="site-header" role="banner">
 		<div class="site-branding">
 
-				<img src="" alt="l'Avant-Seine logo">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img class="site-logo" src="<?php bloginfo( 'template_url' ); ?>/assets/img/home_logo_avant_seine.png" alt="<?php bloginfo( 'name' ); ?>" title=""></a>
+
 
 		</div><!-- .site-branding -->
+	
+	<div class="menu-top">
+		<?php wp_nav_menu( array( 'theme_location' => 'top', 'menu_id' => 'top-menu' ) ); ?>
+	</div>
+		
 
-		<nav id="site-navigation" class="main-navigation" role="navigation">
+		<nav id="site-navigation" class=" main-navigation" role="navigation">
+			<a href="#" class="btn js-menuTrigger">Menu</a>
+			<div id="ham-menu" class="ham-menu">
+				<?php wp_nav_menu( array( 'theme_location' => 'all', 'menu_id' => 'hamburger-menu' ) ); ?>
+			</div>
+			
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
 
