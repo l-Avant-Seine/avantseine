@@ -145,7 +145,7 @@ add_action( 'wp_enqueue_scripts', 'lavantseine_v2_scripts' );
 
 
 /**
- * ELoad more events
+ * Load more events
  */
 add_action( 'wp_ajax_load_more', 'load_more' );
 add_action( 'wp_ajax_nopriv_load_more', 'load_more' );
@@ -168,6 +168,33 @@ function load_more() {
 			get_template_part( 'template-parts/blocs/bloc', 'event' );
 
 		endwhile;
+	endif;
+
+	die();
+}
+
+
+
+/**
+ * Load Search results
+ */
+add_action( 'wp_ajax_search', 'search' );
+add_action( 'wp_ajax_nopriv_search', 'search' );
+
+function search() {
+
+	$keyword = $_POST['keyword'];
+
+	$args = array(
+		'post_type' => array('event', 'post', 'page'),
+		's' => $keyword
+	);
+
+	$ajax_query = new WP_Query($args);
+
+	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
+		get_template_part( 'template-parts/blocs/bloc', 'search' );
+	endwhile;
 	endif;
 
 	die();

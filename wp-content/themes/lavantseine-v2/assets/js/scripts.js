@@ -29,6 +29,13 @@ jQuery(function($) {
 
 
 
+
+
+
+/*
+ * AJAX STUFFS
+ */
+
     // LOAD MORE EVENTS
     var step = 6;
     var offset = step; 
@@ -48,6 +55,25 @@ jQuery(function($) {
           }
       );
     });
+
+
+    // LOAD SEARCH RESULTS
+    $('#searchform').on('submit', function(event) {
+      event.preventDefault();
+      var keyword = $(this).find('input[type="text"]').val();
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'search',
+              'keyword': keyword
+          },
+          function(response){
+            $('.emptyModal-inner').html(response);
+          }
+      );
+    });
+
 
 
   });

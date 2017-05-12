@@ -6,6 +6,7 @@
 
 .site-header {
 
+
 	&.sticky {
 		position: fixed;
 		left: 0;
@@ -14,6 +15,12 @@
 }
 
 
-.site-logo {
+.site-branding {
 	float: left;
+}
+
+.site-menus {
+	display: inline-block;
+	background-color: $white;
+	opacity: 0.98;
 }
