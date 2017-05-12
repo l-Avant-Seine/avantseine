@@ -11,10 +11,7 @@
 // =============
 
 // Descriptive colors (example)
-$orange                       : rgb(255, 153, 0);
-$rouge                        : rgb(193, 41, 46);
-$bleu                         : rgb(17, 75, 95);
-$vert                         : rgb(26, 159, 128);
+$gold                       	: rgb(196, 151, 84);
 
 // Grey nuances
 $black                        : #000 !default;
@@ -26,10 +23,8 @@ $gray_lighter                 : rgb(241, 244, 245) !default;
 $white                        : #fff !default;
 
 // Main color palette
-$color_primary                : $bleu;
-$color_ressources             : $orange;
-$color_medias                 : $rouge;
-$color_metas                  : $vert;
+$color_primary                : $gold;
+$color_metas                  : $gold;
 
 // Common colors
 $color_background             : $white;

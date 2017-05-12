@@ -24,7 +24,7 @@ textarea {
 	}
 
   &.error {
-    border-color: $color_medias;
+    border-color: $color_primary;
   }
 }
 
@@ -57,7 +57,7 @@ input[type="search"]::-webkit-search-decoration { /* Corrects inner padding disp
 
 label.error {
   @include type-setting(-1);
-  color: $color_medias;
+  color: $color_primary;
   margin-top: - $base_line_height / 2;
   display: block;
   margin-bottom: $base_line_height / 2;
