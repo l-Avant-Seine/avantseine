@@ -9,7 +9,7 @@
 function add_event_details_meta_box() {  
     add_meta_box(  
         'custom_meta_box', // $id  
-        'Détails de l\'événement', // $title   
+        'Dates (ancienne méthode)', // $title   
         'show_custom_meta_box', // $callback  
         'event', // $page  
         'normal', // $context  
@@ -21,36 +21,36 @@ add_action('add_meta_boxes', 'add_event_details_meta_box');
 // Field Array  
 $prefix = 'eventDetail_';  
 $event_details_fields = array(  
-    array(  
-        'label'=> 'Texte court',  
-        'desc'  => 'Pour page d\'accueil, listes, résultats recherche',  
-        'id'    => $prefix.'shortText',  
-        'type'  => 'textarea'  
-    ),
-    array(  
-        'label'=> 'Texte complémentaire',  
-        'desc'  => 'Texte en bas des infos pratiques (dates, durée...)',  
-        'id'    => $prefix.'text2',  
-        'type'  => 'textarea'  
-    ),  
-    array(  
-        'label'=> 'Distribution',  
-        'desc'  => '',  
-        'id'    => $prefix.'distribution',  
-        'type'  => 'textarea'  
-    ),  
-    array(  
-        'label'=> 'Mentions de production',  
-        'desc'  => '',  
-        'id'    => $prefix.'mentions',  
-        'type'  => 'textarea'  
-    ),  
-    array(  
-        'label'=> 'Durée',  
-        'desc'  => '',  
-        'id'    => $prefix.'duration',  
-        'type'  => 'text'  
-    ), 
+    // array(  
+    //     'label'=> 'Texte court',  
+    //     'desc'  => 'Pour page d\'accueil, listes, résultats recherche',  
+    //     'id'    => $prefix.'shortText',  
+    //     'type'  => 'textarea'  
+    // ),
+    // array(  
+    //     'label'=> 'Texte complémentaire',  
+    //     'desc'  => 'Texte en bas des infos pratiques (dates, durée...)',  
+    //     'id'    => $prefix.'text2',  
+    //     'type'  => 'textarea'  
+    // ),  
+    // array(  
+    //     'label'=> 'Distribution',  
+    //     'desc'  => '',  
+    //     'id'    => $prefix.'distribution',  
+    //     'type'  => 'textarea'  
+    // ),  
+    // array(  
+    //     'label'=> 'Mentions de production',  
+    //     'desc'  => '',  
+    //     'id'    => $prefix.'mentions',  
+    //     'type'  => 'textarea'  
+    // ),  
+    // array(  
+    //     'label'=> 'Durée',  
+    //     'desc'  => '',  
+    //     'id'    => $prefix.'duration',  
+    //     'type'  => 'text'  
+    // ), 
     array(  
         'label'=> 'Dates',  
         'desc'  => 'Dates en texte plein. Exemple : Les 4 et 6 janvier 2014.',  
@@ -75,36 +75,36 @@ $event_details_fields = array(
 	    'id'    => $prefix.'otherdates',  
 	    'type'  => 'repeatable'  
 	),
-    array(  
-        'label'=> 'Lien revendeur',  
-        'desc'  => 'Lien vers l\'achat billet, avec le http://....',  
-        'id'    => $prefix.'dealer-link',  
-        'type'  => 'text' 
-    ),
-    array(  
-        'label'=> 'Nom revendeur',  
-        'desc'  => 'Digitiket / FNAC / etc.',  
-        'id'    => $prefix.'dealer-name',  
-        'type'  => 'text' 
-    ),
-    array(  
-        'name'  => 'Image Portrait',  
-        'desc'  => 'Emplacement affiche dans la page de l\'événement',  
-        'id'    => $prefix.'portraitMedia',  
-        'type'  => 'image' 
-    ),
-    array(  
-        'label'  => 'Code media',  
-        'desc'  => '(vimeo/dailymotion/soundcloud)',  
-        'id'    => $prefix.'mediaMarkup',  
-        'type'  => 'textarea' 
-    ),
-    array(  
-        'label'  => 'Ne pas afficher le visuel principal',  
-        'desc'  => '(si code vidéo ou slide)',  
-        'id'    => $prefix.'showPic',  
-        'type'  => 'checkbox' 
-    ),
+    // array(  
+    //     'label'=> 'Lien revendeur',  
+    //     'desc'  => 'Lien vers l\'achat billet, avec le http://....',  
+    //     'id'    => $prefix.'dealer-link',  
+    //     'type'  => 'text' 
+    // ),
+    // array(  
+    //     'label'=> 'Nom revendeur',  
+    //     'desc'  => 'Digitiket / FNAC / etc.',  
+    //     'id'    => $prefix.'dealer-name',  
+    //     'type'  => 'text' 
+    // ),
+    // array(  
+    //     'name'  => 'Image Portrait',  
+    //     'desc'  => 'Emplacement affiche dans la page de l\'événement',  
+    //     'id'    => $prefix.'portraitMedia',  
+    //     'type'  => 'image' 
+    // ),
+    // array(  
+    //     'label'  => 'Code media',  
+    //     'desc'  => '(vimeo/dailymotion/soundcloud)',  
+    //     'id'    => $prefix.'mediaMarkup',  
+    //     'type'  => 'textarea' 
+    // ),
+    // array(  
+    //     'label'  => 'Ne pas afficher le visuel principal',  
+    //     'desc'  => '(si code vidéo ou slide)',  
+    //     'id'    => $prefix.'showPic',  
+    //     'type'  => 'checkbox' 
+    // ),
 );  
 
 
@@ -266,7 +266,7 @@ function save_custom_meta($post_id) {
         }  
     } // end foreach  
 }  
-add_action('save_post', 'save_custom_meta');    
+//add_action('save_post', 'save_custom_meta');    
 
 
 
@@ -287,7 +287,7 @@ function add_attachement_meta_boxes() {
     );  
 
 } // end add_attachement_meta_boxes  
-add_action('add_meta_boxes', 'add_attachement_meta_boxes'); 
+//add_action('add_meta_boxes', 'add_attachement_meta_boxes'); 
 
 function wp_custom_attachment() {  
   
@@ -389,7 +389,7 @@ function save_custom_meta_data($id) {
     } // end if/else 
       
 } // end save_custom_meta_data  
-add_action('save_post', 'save_custom_meta_data');
+//add_action('save_post', 'save_custom_meta_data');
 
 
 function update_edit_form() {  

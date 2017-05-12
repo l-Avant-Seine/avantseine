@@ -45,30 +45,47 @@
 						$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 						$event_other_dates = unserialize($post_meta_data['eventDetail_otherdates'][0]);
 						$event_landscape_media = get_field( 'eventDetail_landscapeMedia' );
-						?>
-						
 
-						<?php // if ( $event_dates ) : echo "<span class='date-main'>". $event_dates ."</span>" ; endif; ?>
 
-						<?php if ( $event_first_date ) : 
-							echo '<ul class="event-repeatable-dates">';
-							    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date ) .'.</li>'; 
+							// IF NEW DATE METHOD IS SET 
 
-							if ( $event_other_dates ) : 
-								foreach ($event_other_dates as $date) { 
-									$date = strtotime($date);
-								    if ( $date != '' ) : 
-								    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
-								    endif;
-								} 
-							endif; 
+							if( have_rows('eventDetail_newdates') ):
 
-							if ( $event_last_date && $event_last_date != $event_first_date ) : 
-							    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date ) .'.</li>'; 							    
-							endif;
+						    while ( have_rows('eventDetail_newdates') ) : the_row();
 
-							echo '</ul>';
-						endif; ?>
+					        the_sub_field('date');
+					        echo ' - ';
+									the_sub_field('horaire');
+									echo '<br>';
+
+							   endwhile;
+
+							else :
+
+							// IF OLD DATE METHOD 
+								// if ( $event_dates ) : echo "<span class='date-main'>". $event_dates ."</span>" ; endif; 
+								if ( $event_first_date ) : 
+									echo '<ul class="event-repeatable-dates">';
+									    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date ) .'.</li>'; 
+
+									if ( $event_other_dates ) : 
+										foreach ($event_other_dates as $date) { 
+											$date = strtotime($date);
+										    if ( $date != '' ) : 
+										    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
+										    endif;
+										} 
+									endif; 
+
+									if ( $event_last_date && $event_last_date != $event_first_date ) : 
+									    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date ) .'.</li>'; 							    
+									endif;
+
+									echo '</ul>';
+								endif; 
+
+
+							endif; ?>
 
 						<?php 
 						$count = count($tags);
