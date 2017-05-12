@@ -127,7 +127,7 @@
 
 
 
-		<div class=" wrap entry-meta">
+		<div class="wrap entry-meta">
 
 			<div class="">
 				<?php

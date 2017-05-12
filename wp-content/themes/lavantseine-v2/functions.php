@@ -135,8 +135,40 @@ add_action( 'widgets_init', 'lavantseine_v2_widgets_init' );
 function lavantseine_v2_scripts() {
 	wp_enqueue_style( 'lavantseine-v2-style', get_stylesheet_uri() );
 	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
+
+	// pass Ajax Url to script.js
+	wp_localize_script('lavantseine-v2-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 }
 add_action( 'wp_enqueue_scripts', 'lavantseine_v2_scripts' );
 
 
 
+
+/**
+ * ELoad more events
+ */
+add_action( 'wp_ajax_load_more', 'load_more' );
+add_action( 'wp_ajax_nopriv_load_more', 'load_more' );
+
+function load_more() {
+	global $post; 
+
+	$offset = $_POST['offset'];
+	$step = $_POST['step'];
+
+	$args = array(
+	    'post_type' =>'event',
+	    'offset' => $offset,
+	    'posts_per_page' => $step
+	);
+
+	$ajax_query = new WP_Query($args);
+
+	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
+			get_template_part( 'template-parts/blocs/bloc', 'event' );
+
+		endwhile;
+	endif;
+
+	die();
+}

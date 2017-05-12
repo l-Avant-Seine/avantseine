@@ -18,14 +18,37 @@ jQuery(function($) {
 
 		$(window).scroll(function(){
 
-			if ( jQuery(this).scrollTop() != 0 ) {
+			if ( jQuery(this).scrollTop() !== 0 ) {
 	      $('.site-header').addClass('sticky');
 	    } else {
 	    	$('.site-header').removeClass('sticky');
 	    }
 
       
-    })
+    });
+
+
+
+    // LOAD MORE EVENTS
+    var step = 6;
+    var offset = step; 
+    $('.load-more').on('click', function(event) {
+      event.preventDefault();
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'load_more',
+              'offset': offset,
+              'step': step
+          },
+          function(response){
+            offset = offset + step;
+            $('.events-grid').append(response);
+          }
+      );
+    });
+
 
   });
 });

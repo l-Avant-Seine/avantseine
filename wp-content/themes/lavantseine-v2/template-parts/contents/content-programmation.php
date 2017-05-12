@@ -7,7 +7,7 @@
  * @package lavantseine
  */
 ?>
-			<div class="events-grid">
+			<div class="events-grid wrap">
 
 				<?php
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
@@ -16,7 +16,7 @@
 
 					$args = array(
 					   	'post_type' => 'event',
-							'posts_per_page' => '10',   
+							'posts_per_page' => '6',   
 					   	'meta_key' => 'eventDetail_first_date',
 					   	'orderby' => 'meta_value_num',
 					   	'order' => 'ASC',
@@ -48,7 +48,7 @@
 									<h2 class="entry-title">
 										<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
 									</h2>
-								</div><!-- .box -->
+								</div><!-- .box-month -->
 								<?php
 								$previous_month = $month;
 							endif;
@@ -58,7 +58,7 @@
 
 					<?php endwhile; ?>
 
-					<?php lavantseine_paging_nav(); ?>
+					
 
 				<?php else : ?>
 
@@ -67,6 +67,8 @@
 				<?php endif; ?>
 
 				<?php wp_reset_postdata(); ?>
-			</div>
+			</div><!-- end .events-grid -->
 
+
+		<a class="load-more btn" href="#">load more</a>
 
