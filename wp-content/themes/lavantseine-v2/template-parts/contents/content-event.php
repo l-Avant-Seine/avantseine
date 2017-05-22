@@ -30,6 +30,29 @@
 
 		<div class="wrap entry-content">
 			
+			<div title="Add to Calendar" class="addeventatc">
+		    Ajouter à mon calendrier
+		    <span class="start">06/05/2017 09:00 AM</span>
+		    <span class="end">06/05/2017 11:00 AM</span>
+		    <span class="timezone">Europe/Paris</span>
+		    <span class="title"><?php the_title(); ?></span>
+		    <span class="description">Description of the event</span>
+		    <span class="location">l'Avant-Seine, théâtre de Colombes</span>
+		    <span class="organizer">l'Avant-Seine, théâtre de Colombes</span>
+		    <span class="organizer_email">Organizer e-mail</span>
+		    <span class="facebook_event">https://www.facebook.com/events/703782616363133</span>
+		    <span class="all_day_event">true</span>
+		    <span class="date_format">MM/DD/YYYY</span>
+		    <span class="alarm_reminder">15</span>
+		    <span class="recurring">FREQ=DAILY;COUNT=10</span>
+		    <span class="calname">Custom event filename</span>
+		    <span class="uid">event123</span>
+		    <span class="status">confirmed</span>
+		    <span class="client">asIudnvhizljTCuevmzc28585</span>
+		    <span class="method">REQUEST</span>
+			</div> 
+
+
 				<div class="">
 					<?php
 						setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
