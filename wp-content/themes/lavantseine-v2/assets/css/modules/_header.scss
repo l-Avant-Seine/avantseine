@@ -5,7 +5,10 @@
  */
 
 .site-header {
-
+	background-color: $black;
+	color: $white;
+	height: 75px;
+	opacity: 0.98;
 
 	&.sticky {
 		position: fixed;
@@ -20,7 +23,5 @@
 }
 
 .site-menus {
-	display: inline-block;
-	background-color: $white;
-	opacity: 0.98;
+	display: block;
 }

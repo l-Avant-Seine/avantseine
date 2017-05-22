@@ -2,12 +2,65 @@
 /**
  * The template part for displaying the event listing for programmation pages.
  *
- * Learn more: http://codex.wordpress.org/Template_Hierarchy
- *
  * @package lavantseine
  */
+
+function custom_taxonomy_dropdown( $taxonomy, $orderby = 'date', $order = 'DESC', $limit = '-1', $name, $show_option_all = null, $show_option_none = null  ) {
+
+		$args = array(
+			'orderby' => $orderby,
+			'order' => $order,
+			'number' => $limit,
+		);
+		$terms = get_terms( $taxonomy, $args );
+		$name = ( $name ) ? $name : $taxonomy;
+		if ( $terms ) {
+			printf( '<select name="%s" class="postform">', esc_attr( $name ) );
+			if ( $show_option_all ) {
+				printf( '<option value="0">%s</option>', esc_html( $show_option_all ) );
+			}
+			if ( $show_option_none ) {
+				printf( '<option value="-1">%s</option>', esc_html( $show_option_none ) );
+			}
+			foreach ( $terms as $term ) {
+				printf( '<option value="%s">%s</option>', esc_attr( $term->slug ), esc_html( $term->name ) );
+			}
+			print( '</select>' );
+		}
+
+
+}
+
+
 ?>
-			<div class="events-grid wrap">
+
+
+
+		<div class="prog-filters">
+			
+			<form action="" id="" class="">
+
+				<div class="switch">
+					<p>passés</p>
+				  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( isset($_GET['is_archives']) ) : echo 'checked'; endif; ?> name="is_archives" type="checkbox">
+				  <label for="cmn-toggle-1">à venir</label>
+				  <p>à venir</p>
+				</div>
+
+				<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
+				<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
+				<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
+				<?php custom_taxonomy_dropdown('saison', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
+				<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
+
+				<input type="submit" value="Ok">
+
+			</form>
+
+		</div>
+		
+
+		<div class="prog-grid wrap">
 
 				<?php
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
