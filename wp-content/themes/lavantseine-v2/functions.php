@@ -199,3 +199,49 @@ function search() {
 
 	die();
 }
+
+
+
+
+/**
+ * Load more events
+ */
+add_action( 'wp_ajax_get_posts_from_term', 'get_posts_from_term' );
+add_action( 'wp_ajax_nopriv_get_posts_from_term', 'get_posts_from_term' );
+
+function get_posts_from_term() {
+
+	$term = $_POST['term'];
+
+	if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
+	elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
+	else { $paged = 1; }
+
+	$args = array(
+	    'post_type' 			=>'post',
+	    'category_name' 				=> $term,
+			'order'						=> 'DESC',
+			'posts_per_page'	=> '12',
+			'paged'						=> $paged		
+	);
+
+	$ajax_query = new WP_Query($args);
+
+
+ 	if ( $ajax_query->have_posts() ) : 
+		while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); 
+	 		get_template_part( 'template-parts/blocs/bloc', 'article' );
+		endwhile; 
+	
+	else : 
+		get_template_part( 'content', 'none' ); 
+
+	endif; 
+
+		lavantseine_paging_nav(); 
+
+	die();
+}
+
+
+

@@ -75,6 +75,24 @@ jQuery(function($) {
     });
 
 
+    // GET POSTS FROM CAT TERM
+    $('.get-term').on('click', function(event) {
+      event.preventDefault();
+
+      var term = $(this).attr('cat-slug');
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'get_posts_from_term',
+              'term': term
+          },
+          function(response){
+            $('#webmag-grid').html(response);
+          }
+      );
+    });
+
 
   });
 });
