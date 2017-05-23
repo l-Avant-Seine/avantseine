@@ -33,8 +33,6 @@
 
 
 
-
-
 	<div class="wrap entry-aside">
 
 		<?php echo $page_right_col; ?>
@@ -43,4 +41,38 @@
 	</div><!-- .practical-aside -->
 
 
+
 </article><!-- #post-## -->
+
+
+
+	
+	<?php
+	$posts = get_field('rebonds');
+
+	if($posts): ?>
+
+		<div class="page-rebonds wrap">
+		<h3>Ces pages pourraient vous intéresser</h3>
+		<ul>
+			<?php 
+				foreach( $posts as $post): // ne pas changer $post IMPORTANT
+					setup_postdata($post); 
+			?>
+
+			<li>
+				<?php the_post_thumbnail(); ?>
+				<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+				<?php the_excerpt(); ?>
+			</li>
+
+			<?php endforeach; ?>
+		</ul>
+
+		<?php 
+				wp_reset_postdata(); ?>
+		</div>
+			<?php endif; ?>
+
+
+
