@@ -1,0 +1,24 @@
+<?php 
+
+global $wp;
+$current_url = home_url(add_query_arg(array(),$wp->request)) . '/';
+
+$childpages = new WP_Query( array(
+  'post_type'      => 'page', 
+  'post_parent'    => $root,
+  'posts_per_page' => -1,
+  'orderby'        => 'menu_order'
+)); ?>
+
+
+  <ul class="pages-menu no-bullet">
+
+    <?php while ( $childpages->have_posts() ) : $childpages->the_post(); ?>
+
+      <li class="pages-menu-item <?php if( strpos($current_url, get_permalink() ) !== false ) { echo 'active'; } ?>">
+        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+      </li>
+
+    <?php endwhile; wp_reset_query(); ?>  
+
+  </ul>    
