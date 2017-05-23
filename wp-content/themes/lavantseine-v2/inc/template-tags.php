@@ -7,6 +7,43 @@
  * @package lavantseine
  */
 
+
+
+
+if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
+/**
+ * Display navigation to next/previous set of posts when applicable.
+ *
+ * @return void
+ */
+	function custom_taxonomy_dropdown( $taxonomy, $orderby = 'date', $order = 'DESC', $limit = '-1', $name, $show_option_all = null, $show_option_none = null  ) {
+
+			$args = array(
+				'orderby' 	=> $orderby,
+				'order' 		=> $order,
+				'number' 		=> $limit,
+			);
+			$terms = get_terms( $taxonomy, $args );
+			$name = ( $name ) ? $name : $taxonomy;
+			if ( $terms ) {
+				printf( '<select name="%s" class="postform">', esc_attr( $name ) );
+				if ( $show_option_all ) {
+					printf( '<option value="0">%s</option>', esc_html( $show_option_all ) );
+				}
+				if ( $show_option_none ) {
+					printf( '<option value="-1">%s</option>', esc_html( $show_option_none ) );
+				}
+				foreach ( $terms as $term ) {
+					printf( '<option value="%s">%s</option>', esc_attr( $term->slug ), esc_html( $term->name ) );
+				}
+				print( '</select>' );
+			}
+	}
+endif;
+
+
+
+
 if ( ! function_exists( 'lavantseine_paging_nav' ) ) :
 /**
  * Display navigation to next/previous set of posts when applicable.
@@ -155,37 +192,4 @@ function lavantseine_posted_on() {
 }
 endif;
 
-/**
- * Returns true if a blog has more than 1 category.
- */
-function lavantseine_categorized_blog() {
-	if ( false === ( $all_the_cool_cats = get_transient( 'all_the_cool_cats' ) ) ) {
-		// Create an array of all the categories that are attached to posts.
-		$all_the_cool_cats = get_categories( array(
-			'hide_empty' => 1,
-		) );
 
-		// Count the number of categories that are attached to the posts.
-		$all_the_cool_cats = count( $all_the_cool_cats );
-
-		set_transient( 'all_the_cool_cats', $all_the_cool_cats );
-	}
-
-	if ( '1' != $all_the_cool_cats ) {
-		// This blog has more than 1 category so lavantseine_categorized_blog should return true.
-		return true;
-	} else {
-		// This blog has only 1 category so lavantseine_categorized_blog should return false.
-		return false;
-	}
-}
-
-/**
- * Flush out the transients used in lavantseine_categorized_blog.
- */
-function lavantseine_category_transient_flusher() {
-	// Like, beat it. Dig?
-	delete_transient( 'all_the_cool_cats' );
-}
-add_action( 'edit_category', 'lavantseine_category_transient_flusher' );
-add_action( 'save_post',     'lavantseine_category_transient_flusher' );

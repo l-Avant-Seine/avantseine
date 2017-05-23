@@ -102,9 +102,9 @@ jQuery(function($) {
       var rdv_value = $(this).find('select[name="rdv"]').val();
       var public_value = $(this).find('select[name="public"]').val();
       var tarif_value = $(this).find('select[name="tarif"]').val();
-      var is_archives_value = $(this).find('input[name="is_archives"]').val();
+      var is_archives_value = $(this).find('input[name="is_archives"]').attr('checked');
 
-
+      
       jQuery.post(
           ajaxurl,
           {

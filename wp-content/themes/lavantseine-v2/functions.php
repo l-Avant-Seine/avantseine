@@ -19,6 +19,14 @@ $today = time();
 $previous_month = false;
 
 
+
+/**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';
+
+
+
 if ( ! function_exists( 'lavantseine_v2_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -278,6 +286,17 @@ function get_events_filtered() {
 	        )
 	    )
 	);
+
+	if( $is_archives_value === NULL ) {
+		$args['order'] = 'DESC';
+		$args['meta_query'] = array(
+	       	array(
+	           'key' => 'eventDetail_last_date',
+	           'value' => $today,
+	           'compare' => '<=',
+	        )
+	    );
+	}
 
 	if( $rdv_value !== 0 ) {
 		$args['rdv'] = $rdv_value;
