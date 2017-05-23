@@ -3,11 +3,19 @@
 .prog-filters {
 	margin-top: 50px;
 	padding: 20px 0;
-	background-color: $gray;
 }
 
 .box-month {
 	background-color: $gray_light;
 	color: $white;
 	padding: 20px;
+}
+
+.progFilterForm-upper {
+	background-color: $gray;
+}
+
+.progFilterForm-lower {
+	//display: none;
+	background-color: $gray_lighter;
 }

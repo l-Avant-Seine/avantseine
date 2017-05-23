@@ -5,12 +5,8 @@
 jQuery(function($) {
   $(document).ready(function() {
  
-    var ham_trigger = $('.js-menuTrigger');
-    var ham_menu = $('#ham-menu');
-    ham_trigger.on('click', function(event) {
-      event.preventDefault();
-      ham_menu.toggleClass('active');
-    });
+
+
 
 
 
@@ -24,7 +20,32 @@ jQuery(function($) {
 	    	$('.site-header').removeClass('sticky');
 	    }
 
-      
+    });
+
+
+    // HAM MENU
+
+    var ham_trigger = $('.js-menuTrigger');
+    var ham_menu = $('#ham-menu');
+    ham_trigger.on('click', function(event) {
+      event.preventDefault();
+      ham_menu.toggleClass('active');
+    });
+
+
+
+    // PROG FILTER
+
+    $('input[name="is_archives"]').on('change', function(){
+
+      console.log( $(this).attr('checked') );
+
+      if( $(this).attr('checked') === undefined ) {
+        $('.progFilterForm-lower').show();
+      } else {
+        $('.progFilterForm-lower').hide();
+      }
+
     });
 
 
@@ -103,8 +124,8 @@ jQuery(function($) {
       var public_value = $(this).find('select[name="public"]').val();
       var tarif_value = $(this).find('select[name="tarif"]').val();
       var is_archives_value = $(this).find('input[name="is_archives"]').attr('checked');
+      var saison_value = $(this).find('input[name="saison"]:checked').val();
 
-      
       jQuery.post(
           ajaxurl,
           {
@@ -114,6 +135,7 @@ jQuery(function($) {
               'public_value': public_value,
               'tarif_value': tarif_value,
               'is_archives_value': is_archives_value,
+              'saison_value': saison_value,
           },
           function(response){
             $('#prog-grid').html(response);

@@ -11,18 +11,24 @@
 			
 			<form action="" id="progFilter-form" class="">
 
-				<div class="switch">
-					<p>passés</p>
-				  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
-				  <label for="cmn-toggle-1">à venir</label>
-				  <p>à venir</p>
+				<div class="progFilterForm-upper">
+					<div class="switch">
+						<p>passés</p>
+					  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
+					  <label for="cmn-toggle-1">à venir</label>
+					  <p>à venir</p>
+					</div>
+
+					<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
+					<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
+					<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'A partir de quel âge ?', ''); ?>
+					<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
+
 				</div>
 
-				<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
-				<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
-				<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'A partir de quel âge ?', ''); ?>
-				<?php //custom_taxonomy_dropdown('saison', 'date', 'DESC', '', 'saison', 'Select All', ''); ?>
-				<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
+				<div class="progFilterForm-lower">
+					<?php custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
+				</div>
 
 				<input type="submit" value="Ok">
 

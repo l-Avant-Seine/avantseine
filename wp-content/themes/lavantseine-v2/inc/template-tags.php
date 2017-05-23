@@ -42,6 +42,39 @@ if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
 endif;
 
 
+if ( ! function_exists( 'custom_taxonomy_list' ) ) :
+/**
+ * Display terms in list for filter or else
+ *
+ * @return void
+ */
+	function custom_taxonomy_list( $taxonomy, $orderby = 'date', $order = 'DESC', $limit = '-1', $name, $show_option_all = null ) {
+
+			$args = array(
+				'orderby' 	=> $orderby,
+				'order' 		=> $order,
+				'number' 		=> $limit,
+				'hide_empty' => false,
+			);
+
+			$terms = get_terms( $taxonomy, $args ); 
+			$name = ( $name ) ? $name : $taxonomy;
+				
+			if ( $show_option_all ) {
+				printf( '<input type="radio" value="0" name="%s" checked><label for="">%s</label>', esc_html( $taxonomy ), esc_html( $show_option_all ) );
+			}
+
+			if ( $terms ) {
+				foreach ( $terms as $term ) {
+					printf( '<input type="radio" value="%s" name="%s"><label for="">%s</label>', esc_attr( $term->slug ), esc_html( $taxonomy ), esc_html( $term->name ) );
+				}
+			}
+
+	}
+endif;
+
+
+
 
 
 if ( ! function_exists( 'lavantseine_paging_nav' ) ) :

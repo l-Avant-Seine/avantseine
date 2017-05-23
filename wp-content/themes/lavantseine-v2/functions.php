@@ -271,6 +271,7 @@ function get_events_filtered() {
 	$public_value = $_POST['public_value'];
 	$tarif_value = $_POST['tarif_value'];
 	$is_archives_value = $_POST['is_archives_value'];
+	$saison_value = $_POST['saison_value'];
 
 	$args = array(
 	   	'post_type' => 'event',
@@ -296,6 +297,10 @@ function get_events_filtered() {
 	           'compare' => '<=',
 	        )
 	    );
+	}
+
+	if( $saison_value !== 0 ) {
+		$args['saison'] = $saison_value;
 	}
 
 	if( $rdv_value !== 0 ) {
