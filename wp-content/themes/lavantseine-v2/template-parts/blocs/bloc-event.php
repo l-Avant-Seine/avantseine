@@ -7,40 +7,81 @@
 <?php global $filter; ?>
 <?php global $i; ?>
 
-<article id="post-<?php the_ID(); ?>" class="">
+
+<article id="event-<?php the_ID(); ?>" class="bloc-event">
 
 
 
-				<div class="entry-meta">
-					<?php
-						/* Get Meta Values if event */
-						if ( 'event' == get_post_type() ) :
-							$event_dates = get_post_meta( $post->ID, 'eventDetail_dates', true );
-							$event_hour = get_post_meta( $post->ID, 'eventDetail_hour', true );
-							$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
+		<div class="entry-meta">
+			<?php
+				/* Get Meta Values if event */
 
-							if ( isset( $event_dates ) ) {
-								echo "<span class='date-main'>". $event_dates . "</span>";
-							}
-							if ( isset( $event_hour ) ) {
-								echo " - <span class='date-main'>". $event_hour . "</span>";
-							}	
-							if ( isset( $eventMedia_landscape ) ) {
-								echo $event_dates;
-							}
-							the_post_thumbnail('box-thumbnail');
-						endif; // End if 'event' == get_post_type()  
-					?>
-			
-				</div><!-- .entry-meta -->
+						$event_dates = get_field( 'eventDetail_dates' );
+						$event_duration = get_field( 'eventDetail_duration' );
+						$event_text2 = get_field( 'eventDetail_text2' );
+						$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
+						$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
+						$event_other_dates = unserialize( get_field('eventDetail_otherdates')[0]);
 
-				<h2 class="entry-title">	
-					<a href="<?php the_permalink(); ?>" <?php if ( $filter ) { echo 'target="_blank"'; } ?>rel="bookmark">
-		<?php the_title(); ?></a>
-				</h2>
+					$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
+
+					the_post_thumbnail('box-thumbnail');
+
+
+
+					// IF NEW DATE METHOD IS SET 
+
+							if( have_rows('eventDetail_newdates') ):
+
+						    while ( have_rows('eventDetail_newdates') ) : the_row();
+
+					        the_sub_field('date');
+					        echo ' - ';
+									the_sub_field('horaire');
+									echo '<br>';
+
+							   endwhile;
+
+							else :
+
+							// IF OLD DATE METHOD 
+								// if ( $event_dates ) : echo "<span class='date-main'>". $event_dates ."</span>" ; endif; 
+								if ( $event_first_date ) : 
+									echo '<ul class="event-repeatable-dates">';
+									    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date ) .'.</li>'; 
+
+									if ( $event_other_dates ) : 
+										foreach ($event_other_dates as $date) { 
+											$date = strtotime($date);
+										    if ( $date != '' ) : 
+										    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
+										    endif;
+										} 
+									endif; 
+
+									if ( $event_last_date && $event_last_date != $event_first_date ) : 
+									    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date ) .'.</li>'; 							    
+									endif;
+
+									echo '</ul>';
+								endif; 
+
+
+							endif; ?>
+
+
+		
+		</div><!-- .entry-meta -->
+
+
+
+		<h2 class="entry-title">	
+			<a href="<?php the_permalink(); ?>" <?php if ( $filter ) { echo 'target="_blank"'; } ?>rel="bookmark">
+				<?php the_title(); ?>
+			</a>
+		</h2>
 				
-			
-
+		
 
 		<div class="entry-summary">
 			<?php
@@ -70,4 +111,4 @@
 				?>
 
 
-</article><!-- #post-## -->
+</article><!-- #event-## -->

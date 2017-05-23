@@ -66,7 +66,7 @@
 						$event_text2 = get_field( 'eventDetail_text2' );
 						$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
 						$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
-						$event_other_dates = unserialize($post_meta_data['eventDetail_otherdates'][0]);
+						$event_other_dates = unserialize( get_field('eventDetail_otherdates')[0]);
 						$event_landscape_media = get_field( 'eventDetail_landscapeMedia' );
 
 

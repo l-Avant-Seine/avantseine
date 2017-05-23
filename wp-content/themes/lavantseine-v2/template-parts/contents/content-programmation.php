@@ -38,20 +38,20 @@ function custom_taxonomy_dropdown( $taxonomy, $orderby = 'date', $order = 'DESC'
 
 		<div class="prog-filters">
 			
-			<form action="" id="" class="">
+			<form action="" id="progFilter-form" class="">
 
 				<div class="switch">
 					<p>passés</p>
-				  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( isset($_GET['is_archives']) ) : echo 'checked'; endif; ?> name="is_archives" type="checkbox">
+				  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
 				  <label for="cmn-toggle-1">à venir</label>
 				  <p>à venir</p>
 				</div>
 
-				<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
-				<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
-				<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
-				<?php custom_taxonomy_dropdown('saison', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
-				<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'my_custom_taxonomy', 'Select All', 'Select None'); ?>
+				<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
+				<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
+				<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'A partir de quel âge ?', ''); ?>
+				<?php //custom_taxonomy_dropdown('saison', 'date', 'DESC', '', 'saison', 'Select All', ''); ?>
+				<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
 
 				<input type="submit" value="Ok">
 
@@ -60,7 +60,7 @@ function custom_taxonomy_dropdown( $taxonomy, $orderby = 'date', $order = 'DESC'
 		</div>
 		
 
-		<div class="prog-grid wrap">
+		<div id="prog-grid" class="prog-grid wrap">
 
 				<?php
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
@@ -83,43 +83,13 @@ function custom_taxonomy_dropdown( $taxonomy, $orderby = 'date', $order = 'DESC'
 					);
 
 					$query = new WP_Query( $args );
+					
+					set_query_var('query', $query);
+					set_query_var('previous_month', $previous_month);
+					get_template_part('template-parts/loops/loop', 'events');
 				?>
 
-				<?php if ( $query->have_posts() ) : ?>
 
-					<?php while ( $query->have_posts() ) : $query->the_post(); ?>
-
-						<?php
-							// Month Test
-							$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-							$month = date( 'Y/m', $event_first_date );
-
-							// Test month of event. Display Month Date
-							if ( $previous_month != $month ):
-								?>
-								<div class="box-month" data-date="<?php print strtotime($month.'/01') ?>">
-									<h2 class="entry-title">
-										<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
-									</h2>
-								</div><!-- .box-month -->
-								<?php
-								$previous_month = $month;
-							endif;
-						?> <!-- end month test -->
-
-						<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
-
-					<?php endwhile; ?>
-
-					
-
-				<?php else : ?>
-
-					<?php get_template_part( 'content', 'none' ); ?>
-
-				<?php endif; ?>
-
-				<?php wp_reset_postdata(); ?>
 			</div><!-- end .events-grid -->
 
 

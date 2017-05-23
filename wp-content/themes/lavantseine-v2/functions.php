@@ -204,7 +204,7 @@ function search() {
 
 
 /**
- * Load more events
+ * Get posts filtered by term
  */
 add_action( 'wp_ajax_get_posts_from_term', 'get_posts_from_term' );
 add_action( 'wp_ajax_nopriv_get_posts_from_term', 'get_posts_from_term' );
@@ -242,6 +242,71 @@ function get_posts_from_term() {
 
 	die();
 }
+
+
+
+
+/**
+ * Get events filtered
+ */
+add_action( 'wp_ajax_get_events_filtered', 'get_events_filtered' );
+add_action( 'wp_ajax_nopriv_get_events_filtered', 'get_events_filtered' );
+
+function get_events_filtered() {
+
+	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+	$today = time();
+	$previous_month = false;
+
+	$rdv_value = $_POST['rdv_value'];
+	$discipline_value = $_POST['discipline_value'];
+	$public_value = $_POST['public_value'];
+	$tarif_value = $_POST['tarif_value'];
+	$is_archives_value = $_POST['is_archives_value'];
+
+	$args = array(
+	   	'post_type' => 'event',
+			'posts_per_page' => '6',   
+	   	'meta_key' => 'eventDetail_first_date',
+	   	'orderby' => 'meta_value_num',
+	   	'order' => 'ASC',
+	   	'meta_query' => array(
+	       	array(
+	           'key' => 'eventDetail_last_date',
+	           'value' => $today,
+	           'compare' => '>=',
+	        )
+	    )
+	);
+
+	if( $rdv_value !== 0 ) {
+		$args['rdv'] = $rdv_value;
+	}
+
+	if( $discipline_value !== 0 ) {
+		$args['discipline'] = $discipline_value;
+	}
+
+	if( $public_value !== 0 ) {
+		$args['public'] = $public_value;
+	}
+
+	if( $tarif_value !== 0 ) {
+		$args['tarif'] = $tarif_value;
+	}
+
+	$ajax_query = new WP_Query($args);
+	$previous_month = false;
+
+	set_query_var('query', $ajax_query);
+	set_query_var('previous_month', $previous_month);
+	get_template_part('template-parts/loops/loop', 'events');
+
+	die();
+}
+
+
+
 
 
 

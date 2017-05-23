@@ -8,10 +8,6 @@
  */
 get_header(); ?>
 
-	<div id="" class="">
-		Filtres
-	</div><!-- .filters -->
-
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main backgrounded-box" role="main">
