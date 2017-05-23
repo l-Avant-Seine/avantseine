@@ -38,8 +38,6 @@ jQuery(function($) {
 
     $('input[name="is_archives"]').on('change', function(){
 
-      console.log( $(this).attr('checked') );
-
       if( $(this).attr('checked') === undefined ) {
         $('.progFilterForm-lower').show();
       } else {
