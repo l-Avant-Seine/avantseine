@@ -15,6 +15,7 @@ textarea {
 
 
 p {
+  @include type-setting(0);
   margin: 0 0 $base_line_height 0;
 }
 

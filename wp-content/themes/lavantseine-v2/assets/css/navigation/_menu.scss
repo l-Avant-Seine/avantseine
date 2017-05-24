@@ -13,7 +13,8 @@ $logo_width		: 100px;
 	display: block;
 	padding-left: $logo_width;
 	position: relative;
-
+	font-family: $font_family_nav;
+	
 	ul {
 		@extend .no-bullets;
 	}
@@ -23,11 +24,12 @@ $logo_width		: 100px;
 	.menu-principal-container,
 	.menu-menu-top-container {
 		.menu-item {
-			@include type-setting(1);
+			@include type-setting(-2);
 			float: left;	
 			text-transform: uppercase;
 			line-height: inherit !important;
 			padding: 0 0.7em;
+			font-weight: $bold;
 		}
 	}
 
@@ -77,10 +79,17 @@ $logo_width		: 100px;
 
 		& > .menu-item {
 			padding-left: $base_line_height;
+
+			& > a {
+				@include type-setting(3);
+				font-weight: $bold;
+			}
 		}
 
 		.sub-menu {
 			margin-top: $base_line_height;
+			@include type-setting(0);
+			font-family: $font_family_paragraph;
 		}
 	}
 

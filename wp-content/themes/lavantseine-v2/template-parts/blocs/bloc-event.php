@@ -34,7 +34,7 @@
 
 		<div class="blocEvent-lower">
 
-			<div class="blocEvent-dates">
+			<div class="blocEvent-dates meta-date">
 				<?php
 					// if ( $event_dates ) : echo "<span class='date-main'>". $event_dates ."</span>" ; endif; 
 					if ( $event_dates ) : 
@@ -44,7 +44,7 @@
 
 			</div><!-- .blocEvent-dates -->
 
-			<h3 class="blocEvent-title" itemprop="name">	
+			<h3 class="h4 blocEvent-title" itemprop="name">	
 					<?php the_title(); ?>
 			</h3>		
 		</div>

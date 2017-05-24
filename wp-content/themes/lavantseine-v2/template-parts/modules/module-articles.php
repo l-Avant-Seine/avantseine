@@ -3,7 +3,7 @@
 
 <section class="module module-articles">
 	
-	<h2 class="moduleArticles-title">
+	<h2 class="moduleArticles-title  h2">
 		<span>le Magazine</span> <br>de l'Avant-Seine
 	</h2>
 
@@ -19,7 +19,7 @@
 						break;
 					
 					case 3:
-						$class = 'm-first m-3col clearfix';
+						$class = 'm-first m-3col clearfix blocArticle--big';
 						$excerpt = true;
 						break;
 
@@ -29,7 +29,7 @@
 						break;	
 
 					default:
-						$class = 'm-3col';
+						$class = 'm-3col blocArticle--big';
 						$excerpt = true;
 						break;
 				} ?>

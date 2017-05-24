@@ -9,6 +9,11 @@
 
 
 <section class="module module-events">
+
+	<h2 class="moduleEvents-title h2">
+		<span>la Programmation</span> <br>de l'Avant-Seine
+	</h2>
+
 	<div class="moduleInner row">
 
 		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>

@@ -36,7 +36,7 @@
 				wp_reset_postdata(); 
 			?>
 
-			<a href="/programmation" class="btn is-centered	">Voir toute la programmation</a>
+			<a href="/programmation" class="btn--big is-centered	">Voir toute la programmation</a>
 		</div>
 
 
@@ -80,7 +80,7 @@
 				wp_reset_postdata(); 
 			?>
 
-		<a href="/magazine" class="btn is-centered">Voir tous les articles du magazine</a>
+		<a href="/magazine" class="btn--big is-centered">Voir tous les articles du magazine</a>
 	
 	</section>
 

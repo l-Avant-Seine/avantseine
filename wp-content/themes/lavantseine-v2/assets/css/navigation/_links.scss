@@ -10,10 +10,6 @@ a {
   @include transition(all, 0.2s);
   color: inherit;
   text-decoration: none;
-
-  .dark & {
-    color: $white;
-  }
 }
 
 a:focus,
@@ -21,7 +17,27 @@ a:active {
 
 }
 
-a.btn {
+
+
+.btn {
 	border: 1px solid;
-	padding: 0.5em 0.4em 0.3em;
+}
+
+.btn--big {
+	@extend .btn;
+	@include type-setting(1);
+	background-color: $color_primary;
+	color: $white;
+	font-weight: $bold;
+	padding: 0.5em 1em;
+	text-transform: lowercase;
+	font-family: $font_family_btn;
+}
+
+.btn--little {
+	@extend .btn;
+	@include type-setting(-1);
+	font-weight: $bold;
+	padding: 0.5em 1em;
+	font-family: $font_family_btn;
 }

@@ -17,8 +17,8 @@
 	    	<div class="focusEvent_infos m-3col m-1col-push">
 	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
 	    			<span>Le prochain rendez-vous</span>
-	    			<h3><?php echo get_the_title($focus_event_id); ?></h3>
-						<span>Dates</span>
+	    			<h3 class="h1 no-margin"><?php echo get_the_title($focus_event_id); ?></h3>
+						<span class="meta-date">Dates</span>
 	    		</a>
 	    	</div>
 
@@ -36,7 +36,7 @@
 								<div class="focusElement_media bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_page->ID ), 'large' )[0]; ?>);">
 								</div>
 								
-					    	<h3><a href="<?php echo get_permalink( $focusElements_page->ID ); ?>"><?php echo $focusElements_page->post_title; ?></a></h3>
+					    	<h3 class="h5"><a href="<?php echo get_permalink( $focusElements_page->ID ); ?>"><?php echo $focusElements_page->post_title; ?></a></h3>
 
 					    	<p><?php echo 'chapo chapo chapo'; ?></p>
 					    </div>
@@ -46,7 +46,7 @@
 
 							<div class="focusElement_item m-1col m-1col-push">
 								<img src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_article->ID ), 'large' )[0]; ?>" alt="">
-					    	<h3><a href="<?php echo get_permalink( $focusElements_article->ID ); ?>"><?php echo $focusElements_article->post_title; ?></a></h3>
+					    	<h3 class="h5"><a href="<?php echo get_permalink( $focusElements_article->ID ); ?>"><?php echo $focusElements_article->post_title; ?></a></h3>
 					    	<p><?php echo 'chapo chapo chapo'; ?></p>
 					    </div>
 

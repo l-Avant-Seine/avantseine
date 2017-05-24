@@ -8,7 +8,7 @@
 // EVENTS
 
 .bloc-event {
-	margin-bottom: $base_line_height;
+	margin-bottom: $base_line_height * 2;
 	padding: 0;
 
 	&:hover {
@@ -42,13 +42,27 @@
 	// ARTICLES
 
 	.bloc-article {
-		background-color: $gray_light;
-		margin-bottom: $base_line_height;
+		margin-bottom: $base_line_height * 2;
 		min-height: 400px;
 
 		.blocArticle--little & {
 			background-color: $black;
 			color: $white;
+
+			.blocArticle-title {
+				@include type-setting(4);
+				max-width: none;
+			}
+		}
+
+		.blocArticle--big & {
+			background-color: $gray_light;
+
+			.blocArticle-title {
+				max-width: 70%;
+				text-align: right;
+				float: right;
+			}
 		}
 	}
 
