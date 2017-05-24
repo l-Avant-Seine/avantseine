@@ -1,0 +1,39 @@
+/* 
+ * Articles
+ * 
+ * @package lavantseine-v2
+ */
+
+
+$focusElement_height: 300px;
+
+
+.module-focus {
+	height: 500px;
+
+	.moduleInner {
+		width: 100%;
+		height: 100%;
+		align-items: flex-end;
+	}
+}
+
+	.focusEvent_infos {
+		background-color: rgba(0,0,0,0.9);
+		color: $white;
+		padding: $base_line_height;
+	}
+
+	.focusElement_item  {
+		height: $focusElement_height;
+		background-color: $white;
+		padding: 0.5em; 
+		padding-top: 120px;
+	}
+		.focusElement_media {
+			height: 100px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+		}
