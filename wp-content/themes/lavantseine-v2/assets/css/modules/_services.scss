@@ -7,6 +7,29 @@
 
 
 .module-services {
-	background-color: $gray_lighter;
+	background-color: $color_primary;
 	padding: $base_line_height;
+	position: relative;
+
+	.module-title {
+		color: $white;
+	}
+
+	.btn {
+		color: $white;
+	}
+
+	&:after {
+		content: '';
+		position: absolute;
+		right: -50px;
+		background-color: $color_primary;
+		top: 0;
+		bottom: 0;
+		width: 50px;
+	}
 }
+
+	.moduleService-item {
+		margin-bottom: $base_line_height * 2;
+	}	

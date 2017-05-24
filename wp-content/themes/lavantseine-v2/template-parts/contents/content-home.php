@@ -12,11 +12,13 @@
 	
 
 	<!-- Focus -->
-	<?php get_template_part('template-parts/modules/module', 'focus'); ?>
+	<div class="layer">
+		<?php get_template_part('template-parts/modules/module', 'focus'); ?>
+	</div>
 
 
 	
-	<div id="" class="clearfix wrap row">
+	<div id="" class="layer clearfix wrap row">
 
 		<!-- Spectacle à venir -->
 		<div class="m-6col">
@@ -39,7 +41,7 @@
 
 
 		<!-- Carde à votre service -->
-		<div class="module-service m-2col is-on-right">
+		<div class="m-2col is-on-right">
 		<?php 
 			$services_pages = get_field('services_pages', 'option'); 
 			set_query_var('services_pages', $services_pages);
@@ -51,7 +53,7 @@
 
 
 	<!-- Pages -->
-	<div id="" class="clearfix">
+	<div id="" class="layer clearfix">
 		<?php
 			$pages = get_field('home_pages', 'option'); 
 			set_query_var('pages_list', $pages);
@@ -61,7 +63,7 @@
 
 
 	<!-- Derniers articles du magazine -->
-	<div id="" class="clearfix wrap module-lastArticles">
+	<div id="" class="layer clearfix wrap module-lastArticles">
 
 		<?php 
 			$args = array(
