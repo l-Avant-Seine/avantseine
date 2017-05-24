@@ -8,4 +8,10 @@
 
 .module-events {
 
+	.item {
+		&:nth-child(odd) {
+			margin-left: 0 !important;
+			clear: both;
+		}
+	}
 }

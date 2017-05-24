@@ -6,8 +6,27 @@
 
 
 .bloc-event {
-	border-bottom: 2px solid;
-	margin: $base_line_height 0;
-	padding: $base_line_height 0;
+	margin-bottom: $base_line_height;
+	padding: 0;
+
+	&:hover {
+		.blocEvent-infos {
+			display: block;
+		}
+	}
 }
 
+	.blocEvent-media {
+		position: relative;
+	}
+		.blocEvent-infos {
+			display: none;
+			background-color: rgba(0,0,0,0.9);
+			color: $white;
+			text-align: justify;
+			padding: 0.5em;
+		}
+
+	.blocEvent-lower {
+
+	}

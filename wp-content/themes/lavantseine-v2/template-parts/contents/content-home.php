@@ -34,7 +34,7 @@
 				wp_reset_postdata(); 
 			?>
 
-			<a href="/programmation" class="btn">Voir toute la programmation</a>
+			<a href="/programmation" class="btn is-centered">Voir toute la programmation</a>
 		</div>
 
 

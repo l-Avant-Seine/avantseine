@@ -10,7 +10,8 @@ $focusElement_height: 300px;
 
 .module-focus {
 	height: 500px;
-
+	margin-bottom: $base_line_height * 2;
+	
 	.moduleInner {
 		width: 100%;
 		height: 100%;

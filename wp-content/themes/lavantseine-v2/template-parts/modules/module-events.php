@@ -9,14 +9,13 @@
 
 
 <section class="module module-events">
-	<div class="moduleInner">
-		
-		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>
-			<div class="moduleItem-event">
+	<div class="moduleInner row">
 
-				<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>
+			<div class="m-3col item">
+				<?php get_template_part('template-parts/blocs/bloc', 'event'); ?>
 			</div>
-		<?php endforeach; ?>
+		<?php endforeach; ?>	
 
 	</div>
 </section>
