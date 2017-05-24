@@ -12,7 +12,7 @@
 	
 
 	<!-- Focus -->
-	<div class="layer">
+	<div id="" class="layer">
 		<?php get_template_part('template-parts/modules/module', 'focus'); ?>
 	</div>
 
@@ -63,26 +63,26 @@
 
 
 	<!-- Derniers articles du magazine -->
-	<div id="" class="layer clearfix wrap module-lastArticles">
+	<section id="" class="layer clearfix wrap">
 
-		<?php 
-			$args = array(
-				'post_type' 		=> 'post',
-				'posts_per_page'	=> 6,
-				'orderby'			=> 'post_date',
-				'order' 			=> 'DESC'	
-			);
+			<?php 
+				$args = array(
+					'post_type' 		=> 'post',
+					'posts_per_page'	=> 6,
+					'orderby'			=> 'post_date',
+					'order' 			=> 'DESC'	
+				);
 
-			$last_posts = get_posts( $args );
+				$last_posts = get_posts( $args );
 
-			set_query_var('posts_list', $last_posts);
-			get_template_part('template-parts/modules/module', 'articles'); 
-			wp_reset_postdata(); 
-		?>
+				set_query_var('posts_list', $last_posts);
+				get_template_part('template-parts/modules/module', 'articles'); 
+				wp_reset_postdata(); 
+			?>
 
-		<a href="/magazine" class="btn">Voir tous les articles du magazine</a>
+		<a href="/magazine" class="btn is-centered">Voir tous les articles du magazine</a>
 	
-	</div>
+	</section>
 
 
 </div>

@@ -39,7 +39,7 @@ $wide_breakpoint:                   1400px !default;
         width: 90%;
     }
     @include at-least(medium) {
-        width: 95%;
+        width: 90%;
     }
     @include at-least(large) {
         width: $max_width;

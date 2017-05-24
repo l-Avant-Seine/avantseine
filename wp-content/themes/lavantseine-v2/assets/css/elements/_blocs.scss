@@ -5,6 +5,8 @@
  */
 
 
+// EVENTS
+
 .bloc-event {
 	margin-bottom: $base_line_height;
 	padding: 0;
@@ -34,3 +36,29 @@
 	.blocEvent-lower {
 
 	}
+
+
+
+	// ARTICLES
+
+	.bloc-article {
+		background-color: $gray_light;
+		margin-bottom: $base_line_height;
+		min-height: 400px;
+
+		.blocArticle--little & {
+			background-color: $black;
+			color: $white;
+		}
+	}
+
+		.blocArticle-upper {
+
+		}
+
+		.blocArticle-lower {
+			padding: 1em;
+		}
+
+
+
