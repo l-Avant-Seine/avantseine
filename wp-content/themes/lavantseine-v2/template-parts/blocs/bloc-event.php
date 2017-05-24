@@ -44,9 +44,9 @@
 
 			</div><!-- .blocEvent-dates -->
 
-			<h2 class="entry-title" itemprop="name">	
+			<h3 class="blocEvent-title" itemprop="name">	
 					<?php the_title(); ?>
-			</h2>		
+			</h3>		
 		</div>
 	
 
