@@ -4,27 +4,87 @@
  * @package lavantseine-v2
  */
 
+$menu_height 	: 50px;
+$logo_width		: 100px;
 
-.main-navigation {
+
+
+.site-menus {
+	display: block;
+	padding-left: $logo_width;
+	position: relative;
+
 	ul {
 		@extend .no-bullets;
 	}
 }
-	.menu-item {
-		float: left;	
-		margin-right: 10px;
-	}
 
-
-	.ham-menu {
-		background-color: $white;
-		display: none;
-		position: absolute;
-		left: 0;
-		right: 0;
-		color: $black;
-
-		&.active {
-			display: block;
+	
+	.menu-principal-container,
+	.menu-menu-top-container {
+		.menu-item {
+			@include type-setting(1);
+			float: left;	
+			text-transform: uppercase;
+			line-height: inherit !important;
+			padding: 0 0.7em;
 		}
 	}
+
+
+
+.siteMenus-primary {
+	float: left;
+}
+	.js-menuTrigger {
+		background-color: $color_primary;
+		color: $white;
+	}
+
+
+
+.siteMenus-secondary {
+	float: right;
+}
+	.siteMenus-searchform {
+		display: none;
+	}
+	.booking-link {
+		background-color: $color_primary;
+		color: $white;
+	}
+
+
+
+.ham-menu {
+	display: none;
+	background-color: $color_primary;
+	color: $white;
+	position: absolute;
+	left: 100px;
+	right: 0;
+	top: $menu_height;
+	padding-top: $base_line_height;
+	padding-bottom: $base_line_height;
+
+	&.active {
+		display: block;
+	}
+}
+	.menu-menu-hamburger-container > ul {
+		display: flex;
+		line-height: normal;
+
+		& > .menu-item {
+			padding-left: $base_line_height;
+		}
+
+		.sub-menu {
+			margin-top: $base_line_height;
+		}
+	}
+
+
+
+
+

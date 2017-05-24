@@ -4,11 +4,14 @@
  * @package lavantseine-v2
  */
 
+
+
 .site-header {
 	background-color: $black;
 	color: $white;
-	height: 75px;
 	opacity: 0.98;
+	height: $menu_height;
+	line-height: $menu_height;
 
 	&.sticky {
 		position: fixed;
@@ -20,9 +23,12 @@
 
 
 .site-branding {
-	float: left;
-}
+	width: $logo_width;
+	position: absolute;
+	left: 0;
+	top: 0;
 
-.site-menus {
-	display: block;
+	img {
+		width: 100%;
+	}
 }

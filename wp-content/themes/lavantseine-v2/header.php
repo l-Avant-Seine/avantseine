@@ -31,23 +31,28 @@
 
 		<div class="site-menus">
 
-			<div class="menu-top">
 
-				<?php get_search_form(); ?>
+			<nav id="site-navigation" class="siteMenus-primary" role="navigation">
 
-				<?php wp_nav_menu( array( 'theme_location' => 'top', 'menu_id' => 'top-menu' ) ); ?>
+				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
 
-			</div>
-
-			<nav id="site-navigation" class=" main-navigation" role="navigation">
-				<a href="#" class="btn js-menuTrigger">Menu</a>
 				<div id="ham-menu" class="ham-menu">
 					<?php wp_nav_menu( array( 'theme_location' => 'all', 'menu_id' => 'hamburger-menu' ) ); ?>
 				</div>
-				
-				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
 
 			</nav><!-- #site-navigation -->
+
+
+			<nav class="siteMenus-secondary" role="navigation">
+
+				<?php wp_nav_menu( array( 'theme_location' => 'top', 'menu_id' => 'top-menu' ) ); ?>
+
+				<div class="siteMenus-searchform">
+					<?php get_search_form(); ?>
+				</div>
+				
+
+			</nav>
 
 		</div>
 
