@@ -9,12 +9,15 @@
 
 
 <section class="module module-pages">
-	<div class="wrap moduleInner">
+	<div class="wrap moduleInner row">
 		
 		<?php foreach ( $pages_list as $post ) : setup_postdata( $post ); ?>
-			<div class="moduleItem-page">
+			<div class="moduleItem-page m-2col">
+				
+				<h3 class="moduleService-title">&#x02666;<br><?php the_title(); ?></h3>
+				<p class="moduleService-excerpt"><?php the_excerpt(); ?></p>
+				<a href="<?php the_permalink(); ?>" class="btn"><span class="icon-arrow"></span>En savoir plus</a>
 
-				<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 			</div>
 		<?php endforeach; ?>
 

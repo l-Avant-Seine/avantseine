@@ -9,4 +9,17 @@
 .module-pages {
 	background-color: $gray_lighter;
 	padding: $base_line_height * 2 0;
+
+	.moduleInner {
+
+	}
 }
+
+	.moduleItem-page {
+		background-color: $white;
+		padding: 0.7em;
+
+		.moduleService-title {
+			color: $color_primary;
+		}
+	}

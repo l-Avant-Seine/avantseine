@@ -16,8 +16,8 @@
 
 		<?php foreach ( $services_pages as $post ) : setup_postdata( $post ); ?>
 			<div class="moduleService-item">
-				<h5><?php the_title(); ?></h5>
-				<p><?php the_excerpt(); ?></p>
+				<h5 class="moduleService-title"><?php the_title(); ?></h5>
+				<p class="moduleService-excerpt"><?php the_excerpt(); ?></p>
 				<a href="<?php the_permalink(); ?>" class="btn">En savoir plus</a>
 			</div>
 		<?php endforeach; ?>
