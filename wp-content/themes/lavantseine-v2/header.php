@@ -25,7 +25,7 @@
 	<header id="masthead" class="site-header" role="banner">
 
 		<div class="site-branding">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img class="site-logo" src="<?php bloginfo( 'template_url' ); ?>/assets/img/home_logo_avant_seine.png" alt="<?php bloginfo( 'name' ); ?>" title=""></a>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img class="site-logo" src="<?php bloginfo( 'template_url' ); ?>/assets/img/logo_avtseine_horizontal.png" alt="<?php bloginfo( 'name' ); ?>" title=""></a>
 		</div><!-- .site-branding -->
 	
 

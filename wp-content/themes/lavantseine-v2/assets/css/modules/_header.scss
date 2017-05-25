@@ -24,12 +24,10 @@
 
 
 .site-branding {
-	width: $logo_width;
-	position: absolute;
-	left: 0;
-	top: 0;
-
+	background-color: $color_primary;	
+	float: left;
+	
 	img {
-		width: 100%;
+		height: $menu_height;
 	}
 }
