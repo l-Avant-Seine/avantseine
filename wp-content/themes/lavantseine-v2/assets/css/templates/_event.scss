@@ -1,0 +1,48 @@
+/* 
+ * event template
+ * 
+ * @package lavantseine-v2
+ *
+ */
+
+
+.event-header {
+	height: 500px;
+}
+	.event-layer {
+		margin-bottom: $base_line_height * 2;
+	}
+	.eventHeader-inner {
+		align-items: flex-end;
+		height: 100%;
+	}
+		.eventHeader-title {
+			background-color: rgba(0,0,0,0.85);
+			color: $white;
+			padding: $base_line_height;
+		}
+		.eventHeader-dates {
+			background-color: rgba(255,255,255,0.99);
+			padding: $base_line_height;
+		}
+
+	.event-meta {
+		
+	}
+	.event-content {
+		p:first-child {
+			@include type-setting(4);
+			color: $color_primary;
+
+			&:after {
+				content: '';
+			}
+		}
+	}
+	.event-details {
+		background-color: $gray_light;
+
+		.row {
+			margin-top: $base_line_height * 2;
+		}
+	}

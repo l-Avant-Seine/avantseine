@@ -37,9 +37,22 @@ h1, h2, h3, h4, h5, h6 {
   @include type-setting(2);
 }
 
+.meta {
+  font-family: $font_family_title;
+  text-transform: uppercase;
+  font-weight: $bold;
+  display: inline-block;
+}
+
 .meta-date {
+  @extend .meta;
 	@include type-setting(2);
-	font-family: $font_family_title;
-	text-transform: uppercase;
-	font-weight: $bold;
+}
+
+.meta-term {
+  @extend .meta;
+  @include type-setting(1);
+  background-color: $color_primary;
+  padding: 0.5em 1em;
+  color: $white;
 }
