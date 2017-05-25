@@ -85,27 +85,18 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 				?>
 
 
-				<div title="Add to Calendar" class="addeventatc">
-			    Ajouter à mon calendrier
-			    <span class="start">06/05/2017 09:00 AM</span>
-			    <span class="end">06/05/2017 11:00 AM</span>
-			    <span class="timezone">Europe/Paris</span>
-			    <span class="title"><?php the_title(); ?></span>
-			    <span class="description">Description of the event</span>
-			    <span class="location">l'Avant-Seine, théâtre de Colombes</span>
-			    <span class="organizer">l'Avant-Seine, théâtre de Colombes</span>
-			    <span class="organizer_email">Organizer e-mail</span>
-			    <span class="facebook_event">https://www.facebook.com/events/703782616363133</span>
-			    <span class="all_day_event">true</span>
-			    <span class="date_format">MM/DD/YYYY</span>
-			    <span class="alarm_reminder">15</span>
-			    <span class="recurring">FREQ=DAILY;COUNT=10</span>
-			    <span class="calname">Custom event filename</span>
-			    <span class="uid">event123</span>
-			    <span class="status">confirmed</span>
-			    <span class="client">asIudnvhizljTCuevmzc28585</span>
-			    <span class="method">REQUEST</span>
-				</div> 
+			   <span class="addtocalendar atc-style-blue">
+			        <var class="atc_event">
+			            <var class="atc_date_start">2017-05-04 12:00:00</var>
+			            <var class="atc_date_end">2017-05-04 18:00:00</var>
+			            <var class="atc_timezone">Europe/London</var>
+			            <var class="atc_title">Star Wars Day Party</var>
+			            <var class="atc_description">May the force be with you</var>
+			            <var class="atc_location">Tatooine</var>
+			            <var class="atc_organizer">Luke Skywalker</var>
+			            <var class="atc_organizer_email">luke@starwars.com</var>
+			        </var>
+			    </span>
 
 			</div>
 
