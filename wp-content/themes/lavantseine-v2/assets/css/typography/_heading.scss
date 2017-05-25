@@ -11,26 +11,32 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: $base_line_height;
   font-family: $font_family_title;
+  text-transform: lowercase;
 }
 
 .h1 {
   @include type-setting(7);
+  font-weight: 900;
 }
 
 .h2 {
   @include type-setting(6);
+  font-weight: 900;
 }
 
 .h3 {
   @include type-setting(5);
+  font-weight: 900;
 }
 
 .h4 {
   @include type-setting(4);
+  font-weight: 900;
 }
 
 .h5 {
   @include type-setting(3);
+  font-weight: 900;
 }
 
 .h6 {

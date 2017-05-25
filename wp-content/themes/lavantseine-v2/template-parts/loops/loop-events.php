@@ -2,33 +2,49 @@
 
 
 				<?php if ( $query->have_posts() ) : ?>
+					<div class="row_alt">
 
-					<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+						<div class="m-2coll m-last prog-aside">
 
-						<?php
-							// Month Test
-							$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-							$month = date( 'Y/m', $event_first_date );
+							<div>
+								<h3 class="h2">La <br>brochure</h3>
+							</div>
 
-							// Test month of event. Display Month Date
-							if ( $previous_month != $month ):
-								?>
-								<div class="box-month" data-date="<?php print strtotime($month.'/01') ?>">
-									<h2 class="entry-title">
-										<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
-									</h2>
-								</div><!-- .box-month -->
+							<div>	
+								<h3 class="h2">cette <br>semaine</h3>
+							</div>
+
+						</div>
+
+						<div id="prog-grid" >
+							<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+
 								<?php
-								$previous_month = $month;
-							endif;
-						?> <!-- end month test -->
+									$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
+									$month = date( 'Y/m', $event_first_date );
 
-						<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
+									if ( $previous_month != $month ): ?>
 
-					<?php endwhile; ?>
+											<?php if($previous_month) : ?>
+												</div>
+											<?php endif; ?>
 
-					
+											<div class="h3 box-month m-first" data-date="<?php print strtotime($month.'/01') ?>">
+												<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
+											</div>
+											<div class="row_alt event-row">
+										<?php
+										$previous_month = $month;
+									endif;
+								?>
 
+								<div class="m-2coll">
+									<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
+								</div>
+							<?php endwhile; ?>
+
+						</div>
+					</div>
 				<?php else : ?>
 
 					<?php get_template_part( 'content', 'none' ); ?>

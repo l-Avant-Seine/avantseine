@@ -7,11 +7,29 @@
 ?>
 
 
+		<div class="prog-pagetitle">
+			
+			<div class="wrap">
+				<h1 class="h1">La programmation<br>
+				<span>à venir</span></h1>
+			</div>
+
+		</div>
+
+
+
 		<div class="prog-filters">
 			
 			<form action="" id="progFilter-form" class="">
 
-				<div class="progFilterForm-upper">
+				<div class="progFilterForm-upper wrap">
+
+
+					<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
+					<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
+					<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'A partir de quel âge ?', ''); ?>
+					<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
+
 					<div class="switch">
 						<p>passés</p>
 					  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
@@ -19,14 +37,9 @@
 					  <p>à venir</p>
 					</div>
 
-					<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
-					<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
-					<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'A partir de quel âge ?', ''); ?>
-					<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
-
 				</div>
 
-				<div class="progFilterForm-lower">
+				<div class="progFilterForm-lower wrap">
 					<?php custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
 				</div>
 
@@ -39,7 +52,7 @@
 
 
 
-		<div id="prog-grid" class="prog-grid wrap">
+		<div class="prog-grid wrap">
 
 				<?php
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
@@ -47,8 +60,9 @@
 					$previous_month = false;
 
 					$args = array(
-					   	'post_type' => 'event',
-							'posts_per_page' => '6',   
+					   	'post_type' 			=> 'event',
+							'posts_per_page' 	=> '12',
+							'post_status'			=> 'publish', 
 					   	'meta_key' => 'eventDetail_first_date',
 					   	'orderby' => 'meta_value_num',
 					   	'order' => 'ASC',

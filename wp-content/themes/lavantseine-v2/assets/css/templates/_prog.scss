@@ -1,21 +1,56 @@
 
 
-.prog-filters {
-	margin-top: 50px;
-	padding: 20px 0;
+.prog-pagetitle {
+	padding: 3em 0;
+	background-color: $black;
+	color: $white;
 }
+
+
+.prog-filters {
+	background-color: $gray_lighter;
+	padding: 20px 0;
+	margin-bottom: $base_line_height * 2;
+}		
+	.progFilterForm-upper {
+	}
+
+	.progFilterForm-lower {
+		display: none;
+		background-color: $gray_lighter;
+	}
+
+
+.prog-aside {
+	
+	& > div {
+		background-color: $gray_lighter;
+		padding: 1em;
+		margin-bottom: $base_line_height;
+	}
+}
+
 
 .box-month {
-	background-color: $gray_light;
-	color: $white;
-	padding: 20px;
+	color: $color_primary;
+	padding-bottom: $base_line_height;
+	margin-bottom: $base_line_height * 2;
+	border-bottom: 7px solid;
+
+	& + div {
+		margin-left: 0 !important;
+	}
 }
 
-.progFilterForm-upper {
-	background-color: $gray;
+.event-row {
+	margin-bottom: $base_line_height * 2;
+	clear: none !important;
+	
+	& > div:nth-child(3n + 1) {
+		margin-left: 0 !important;
+	}
 }
 
-.progFilterForm-lower {
-	display: none;
-	background-color: $gray_lighter;
-}
+
+
+

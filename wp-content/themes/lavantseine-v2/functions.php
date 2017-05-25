@@ -173,8 +173,29 @@ function load_more() {
 	$ajax_query = new WP_Query($args);
 
 	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
-			get_template_part( 'template-parts/blocs/bloc', 'event' );
 
+									$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
+									$month = date( 'Y/m', $event_first_date );
+
+									if ( $previous_month != $month ): ?>
+
+											<?php if($previous_month) : ?>
+												</div>
+											<?php endif; ?>
+
+											<div class="h3 box-month m-first" data-date="<?php print strtotime($month.'/01') ?>">
+												<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
+											</div>
+											<div class="row_alt event-row">
+										<?php
+										$previous_month = $month;
+									endif;
+								?>
+
+								<div class="m-2coll">
+									<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
+								</div>
+<?php 
 		endwhile;
 	endif;
 
@@ -274,12 +295,13 @@ function get_events_filtered() {
 	$saison_value = $_POST['saison_value'];
 
 	$args = array(
-	   	'post_type' => 'event',
-			'posts_per_page' => '6',   
-	   	'meta_key' => 'eventDetail_first_date',
-	   	'orderby' => 'meta_value_num',
-	   	'order' => 'ASC',
-	   	'meta_query' => array(
+	   	'post_type' 			=> 'event',
+			'posts_per_page' 	=> '12',
+			'post_status'			=> 'publish', 
+	   	'meta_key' 				=> 'eventDetail_first_date',
+	   	'orderby' 				=> 'meta_value_num',
+	   	'order' 					=> 'ASC',
+	   	'meta_query' 			=> array(
 	       	array(
 	           'key' => 'eventDetail_last_date',
 	           'value' => $today,
@@ -292,9 +314,9 @@ function get_events_filtered() {
 		$args['order'] = 'DESC';
 		$args['meta_query'] = array(
 	       	array(
-	           'key' => 'eventDetail_last_date',
-	           'value' => $today,
-	           'compare' => '<=',
+	           'key' 			=> 'eventDetail_last_date',
+	           'value' 		=> $today,
+	           'compare' 	=> '<=',
 	        )
 	    );
 	}
