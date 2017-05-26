@@ -23,9 +23,12 @@
 
 .prog-aside {
 	
+	.h2 {
+		color: $white;
+	}
 	& > div {
-		background-color: $gray_lighter;
-		padding: 1em;
+		background-color: $color_primary;
+		padding: 2em;
 		margin-bottom: $base_line_height;
 	}
 }
@@ -37,8 +40,10 @@
 	margin-bottom: $base_line_height * 2;
 	border-bottom: 7px solid;
 
-	& + div {
+	& + .m-2coll:nth-child(4n + 0) {
 		margin-left: 0 !important;
+
+
 	}
 }
 

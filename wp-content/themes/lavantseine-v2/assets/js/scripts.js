@@ -56,21 +56,31 @@ jQuery(function($) {
  */
 
     // LOAD MORE EVENTS
-    var step = 6;
+    var step = 12;
     var offset = step; 
     $('.load-more').on('click', function(event) {
       event.preventDefault();
+
+      var posts_found = $(this).attr('posts_found');
+      var month = $('.box-month').last().attr('month');
+
+      console.log(month);
 
       jQuery.post(
           ajaxurl,
           {
               'action': 'load_more',
               'offset': offset,
-              'step': step
+              'step': step,
+              'previous_month': month,
           },
           function(response){
             offset = offset + step;
             $('#prog-grid').append(response);
+
+            if(posts_found < offset) {
+              $('.load-more').hide();
+            }
           }
       );
     });

@@ -11,11 +11,10 @@
 			
 			<div class="wrap">
 				<h1 class="h1">La programmation<br>
-				<span>à venir</span></h1>
+				<span id="archives">à venir</span></h1>
 			</div>
 
 		</div>
-
 
 
 		<div class="prog-filters">
@@ -76,6 +75,7 @@
 					);
 
 					$query = new WP_Query( $args );
+					$posts_found = $query->found_posts;
 					
 					set_query_var('query', $query);
 					set_query_var('previous_month', $previous_month);
@@ -85,9 +85,9 @@
 
 		</div><!-- end .events-grid -->
 
+
 		<div class="wrap">
-			
-			<a class="load-more btn" href="#">load more</a>
+			<a class="load-more btn" href="#" posts_found="<?php echo $posts_found; ?>">load more</a>
 		</div>
 		
 

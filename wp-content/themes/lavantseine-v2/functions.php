@@ -161,46 +161,64 @@ add_action( 'wp_ajax_nopriv_load_more', 'load_more' );
 function load_more() {
 	global $post; 
 
+	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+	$today = time();
+
 	$offset = $_POST['offset'];
 	$step = $_POST['step'];
+	$previous_month = $_POST['previous_month'];
 
 	$args = array(
 	    'post_type' =>'event',
 	    'offset' => $offset,
-	    'posts_per_page' => $step
+	    'posts_per_page' => $step,
+			'post_status'			=> 'publish', 
+			'meta_key' => 'eventDetail_first_date',
+			'orderby' => 'meta_value_num',
+			'order' => 'ASC',
+			'meta_query' => array(
+			   	array(
+			       'key' => 'eventDetail_last_date',
+			       'value' => $today,
+			       'compare' => '>=',
+			    )
+			)	    
 	);
-
 	$ajax_query = new WP_Query($args);
 
+	
 	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
 
-									$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-									$month = date( 'Y/m', $event_first_date );
+		$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
+		$month = date( 'Y/m', $event_first_date );
 
-									if ( $previous_month != $month ): ?>
+		if ( $previous_month != $month ): ?>
 
-											<?php if($previous_month) : ?>
-												</div>
-											<?php endif; ?>
+				<?php if($previous_month) : ?>
+<!-- 					</div>
+ -->				<?php endif; ?>
 
-											<div class="h3 box-month m-first" data-date="<?php print strtotime($month.'/01') ?>">
-												<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
-											</div>
-											<div class="row_alt event-row">
-										<?php
-										$previous_month = $month;
-									endif;
-								?>
+				<div class="h3 box-month clearfix m-first" month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
+					<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
+				</div>
+<!-- 				<div class="row_alt event-row">
+ -->			<?php
+			$previous_month = $month;
+		endif;
+	?>
 
-								<div class="m-2coll">
-									<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
-								</div>
-<?php 
-		endwhile;
+	<div class="m-2coll">
+		<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
+	</div>
+
+	<?php 
+		endwhile; 
 	endif;
 
 	die();
 }
+
+
 
 
 
