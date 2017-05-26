@@ -250,6 +250,7 @@ function get_before_sidebar( ) {
 add_action( 'before_sidebar', 'get_before_sidebar', 10, 2 );
 
 
+
 /*
  * Social Buttons Sharing
  */

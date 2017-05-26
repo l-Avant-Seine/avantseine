@@ -55,10 +55,17 @@ h1, h2, h3, h4, h5, h6 {
 	@include type-setting(2);
 }
 
-.meta-term {
+.eventmeta-term {
   @extend .meta;
   @include type-setting(1);
   background-color: $color_primary;
+  padding: 0.5em 1em;
+  color: $white;
+}
+.postmeta-term {
+  @extend .meta;
+  @include type-setting(1);
+  background-color: $black;
   padding: 0.5em 1em;
   color: $white;
 }

@@ -5,12 +5,12 @@
  */
 
 
-$focusElement_height: 300px;
+$focusElement_height: 400px;
 
 
 .module-focus {
-	height: 500px;
-	margin-bottom: $base_line_height * 2;
+	height: 550px;
+	margin-bottom: $base_line_height * 3;
 	
 	.moduleInner {
 		width: 100%;
@@ -32,8 +32,11 @@ $focusElement_height: 300px;
 	.focusElement_item  {
 		height: $focusElement_height;
 		background-color: $white;
-		padding: 0.5em; 
-		padding-top: 120px;
+		position: relative;
+
+		.inner {
+			padding: 0.5em;
+		}
 	}
 		.focusElement_media {
 			height: 100px;

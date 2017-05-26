@@ -11,6 +11,19 @@
 
 
 
+/*
+ * Social Buttons Sharing
+ */
+if ( ! function_exists( 'lavantseine_display_share_buttons' ) ) :
+	function lavantseine_display_share_buttons() {
+		echo '<div class="one-button fb-share-button" data-type="button_count"></div>';
+		echo '<a href="https://twitter.com/share" class="one-button twitter-share-button" data-lang="fr">Tweeter</a>';
+		echo '<div class="one-button g-plusone"></div>';
+	}
+endif;
+
+
+
 
 if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
 /**

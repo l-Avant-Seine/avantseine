@@ -48,6 +48,21 @@ $wide_breakpoint:                   1400px !default;
     }
 }
 
+.square {
+  position: relative;
+  width: 100%;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.square-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 
 .is-flex {
     display: flex;
@@ -123,19 +138,20 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
  * SECONDARY GRID
  */
 
-$cols_alt:                          6 !default; 
+$cols_alt:                  6 !default; 
+$gutter_alt:                0.5% !default; 
 
-$one_col_alt: (100% - ($gutter * ($cols_alt - 1))) / $cols_alt;
+$one_col_alt: (100% - ($gutter_alt * ($cols_alt - 1))) / $cols_alt;
 
 @mixin cols_alt($num) {
     @include box-sizing();
-    width: ($one_col_alt * $num) + ($gutter * ($num - 1));
+    width: ($one_col_alt * $num) + ($gutter_alt * ($num - 1));
 }
 
 @mixin sub_cols($num_child, $num_parent) {
-    $parent_size: ($one_col_alt * $num_parent) + ($gutter * ($num_parent - 1));
-    $child_size: ($one_col_alt * $num_child) + ($gutter * ($num_child - 1));
-    margin-left: ($gutter / $parent_size) * 100%;
+    $parent_size: ($one_col_alt * $num_parent) + ($gutter_alt * ($num_parent - 1));
+    $child_size: ($one_col_alt * $num_child) + ($gutter_alt * ($num_child - 1));
+    margin-left: ($gutter_alt / $parent_size) * 100%;
     width: ($child_size / $parent_size) * 100%;
 }
 
@@ -146,7 +162,7 @@ $one_col_alt: (100% - ($gutter * ($cols_alt - 1))) / $cols_alt;
             .#{$suffix}-#{$i}coll{
                 @include cols_alt($i);
                 float: left;
-                margin-left: $gutter;
+                margin-left: $gutter_alt;
 
                 .row_alt {
                     @for $j from 1 through ($i - 1) {

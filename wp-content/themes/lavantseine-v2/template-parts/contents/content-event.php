@@ -19,6 +19,7 @@ $event_landscape_media = get_field( 'eventDetail_landscapeMedia' );
 
 $eventDetail_mediaMarkup = get_field( 'eventDetail_mediaMarkup' );
 $eventDetail_showPic = get_field( 'eventDetail_showPic' );
+$noms_principaux = get_field( 'noms_principaux' );
 
 $attached = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
 
@@ -36,73 +37,44 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 			
 			<div class="eventHeader-title m-5col">
 				<h1 class="h1 entry-title"><?php the_title(); ?></h1>
+				<div class="eventHeader-name"><?php echo $noms_principaux; ?></div>
 			</div>
 
-			<div class="eventHeader-dates m-3col">
-				<?php 
+			<div class="eventHeader-date m-3col">
+				<div class="inner">
+					<?php 
+						if ( $event_dates ) : echo "<h4 class='h3'>". $event_dates ."</h4>" ; endif; 
+					?>
 
-					// if ( $event_dates ) : echo "<span class='date-main'>". $event_dates ."</span>" ; endif; 
-					if ( $event_first_date ) : 
-						echo '<ul class="event-repeatable-dates">';
-						    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date ) .'.</li>'; 
+					<?php if ( $event_duration ) : echo "<span class='eventHeader-duration'> Durée : ". $event_duration ."</p>"; endif; ?>
 
-						if ( $event_other_dates ) : 
-							foreach ($event_other_dates as $date) { 
-								$date = strtotime($date);
-							    if ( $date != '' ) : 
-							    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
-							    endif;
-							} 
-						endif; 
+					<a href="#" class="btn--big">Réservation</a>
+				</div>
 
-						if ( $event_last_date && $event_last_date != $event_first_date ) : 
-						    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date ) .'.</li>'; 							    
-						endif;
+				<div class="eventHeader-actions inner">
+					<span class="addtocalendar atc-style-blue">
+				    <var class="atc_event">
+				        <var class="atc_date_start">2017-05-04 12:00:00</var>
+				        <var class="atc_date_end">2017-05-04 18:00:00</var>
+				        <var class="atc_timezone">Europe/London</var>
+				        <var class="atc_title">Star Wars Day Party</var>
+				        <var class="atc_description">May the force be with you</var>
+				        <var class="atc_location">Tatooine</var>
+				        <var class="atc_organizer">Luke Skywalker</var>
+				        <var class="atc_organizer_email">luke@starwars.com</var>
+				    </var>
+				  </span>
 
-						echo '</ul>';
-					endif; 
-				?>
+					<div class="">
+						<?php lavantseine_display_share_buttons(); ?>
+					</div><!-- .event-social -->
 
-				<?php if ( $event_duration ) : echo "<span class='eventHeader-duration'> Durée : ". $event_duration ."</p>"; endif; ?>
-
-
-				<?php
-					$publics =  get_the_terms( $post->ID, 'public' );
-					if($publics) {
-					  foreach ($publics as $public) {
-					  	echo '<div class="event-public-item">';
-						    $tax_term_id = $public->term_taxonomy_id;
-						    $images = get_option('taxonomy_image_plugin');
-						    
-						    echo '<p class="public-label">A partir de</p>';
-						    echo '<div class="public-img">';
-						    	echo wp_get_attachment_image( $images[$tax_term_id], '' );
-						    	echo '<p class="public-name">'. $public->name .'</p>';
-						    echo '</div>';
-   					  echo '</div>';
-					  }
-					}
-				?>
-
-
-			   <span class="addtocalendar atc-style-blue">
-			        <var class="atc_event">
-			            <var class="atc_date_start">2017-05-04 12:00:00</var>
-			            <var class="atc_date_end">2017-05-04 18:00:00</var>
-			            <var class="atc_timezone">Europe/London</var>
-			            <var class="atc_title">Star Wars Day Party</var>
-			            <var class="atc_description">May the force be with you</var>
-			            <var class="atc_location">Tatooine</var>
-			            <var class="atc_organizer">Luke Skywalker</var>
-			            <var class="atc_organizer_email">luke@starwars.com</var>
-			        </var>
-			    </span>
-
+				</div>
+			  
 			</div>
 
 		</div>
 	</header><!-- .event-header -->
-
 
 
 	<div class="event-meta event-layer wrap">
@@ -112,7 +84,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 			    echo "<ul class='no-bullets'>";
 			    foreach ( $tags as $term ) {
 		  			$term_link = get_term_link( $term, '' );
-			    	echo "<li class='meta-term'>" . $term->name . "</li>";
+			    	echo "<li class='eventmeta-term'>" . $term->name . "</li>";
 			    	echo $term->description;
 			    }
 			    echo "</ul>";
@@ -121,28 +93,46 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 	</div><!-- .event-meta -->
 
 
-	
 
-	<div class="event-content event-layer wrap row">
+	<div class="event-layer wrap row">
 		
-		<div class="m-5col">
+		<div class="m-5col event-content">
 			<?php 
 				the_content(); 
-				
 				if ( $eventDetail_mediaMarkup ) {
 					echo $eventDetail_mediaMarkup;
 				}
-
 				get_template_part( 'part', 'postslide' );
 			?>
 			
-			<a class="btn--big" href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="button saisoned-on-bg">Réservation</a>
 
+				<?php
+					$publics =  get_the_terms( $post->ID, 'public' );
+					if($publics) {
+					  foreach ($publics as $public) {
+					  	echo '<div class="event-public-item">';
+						    $tax_term_id = $public->term_taxonomy_id;
+						    $images = get_option('taxonomy_image_plugin');
+						    
+						    echo '<span class="public-label">A partir de</span>';
+						    echo '<div class="public-img">';
+						    	echo wp_get_attachment_image( $images[$tax_term_id], '' );
+						    	echo '<p class="public-name">'. $public->name .'</p>';
+						    echo '</div>';
+   					  echo '</div>';
+					  }
+					}
+				?>
+
+			<a class="btn--big" href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="button saisoned-on-bg">Réservation</a>
 		</div>
 
 
-		<div class="m-3col">
+		<div class="m-3col event-aside">
 			<h3 class="h2">autour du <br>spectacle</h3>
+
+				<?php set_query_var('taxo', 'relational_tag'); ?>
+				<?php get_template_part( 'template-parts/modules/module', 'relatedposts' ); ?>
 
 		</div>
 	</div><!-- .event-content -->
@@ -168,17 +158,36 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 						    echo "</ul>";
 						}
 					?>
-
 				</div>
 
 				<div class="m-3col">
 					<h4 class="h5">Dates</h4>
 
+					<?php 
+						if ( $event_first_date ) : 
+							echo '<ul class="no-bullets">';
+							    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date ) .'.</li>'; 
+
+							if ( $event_other_dates ) : 
+								foreach ($event_other_dates as $date) { 
+									$date = strtotime($date);
+								    if ( $date != '' ) : 
+								    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
+								    endif;
+								} 
+							endif; 
+
+							if ( $event_last_date && $event_last_date != $event_first_date ) : 
+							    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date ) .'.</li>'; 							    
+							endif;
+
+							echo '</ul>';
+						endif; 
+					?>
 
 				</div>
 			</div>
 			
-
 
 			<div class="row clearfix">
 				<h4 class="h5">Distribution et mentions complètes</h4>
@@ -190,7 +199,6 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 							if ( $event_distribution || $event_mentions ) : 
 								echo $event_distribution;
 							endif; ?>
-
 				</div>
 
 				<div class="m-3col">
@@ -208,46 +216,8 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 				</div>
 			</div>
 
-
-
-
-	
 		</div>
 	</div><!-- .event-details -->
-
-
-
-
-
-			</div><!-- .event-price -->
-
-
-
-			<div class="">
-				<?php
-					$event_dealer_link = get_field( 'eventDetail_dealer-link' );
-					$event_dealer_name = get_field( 'eventDetail_dealer-name' );
-				?>		
-
-				
-				<?php 
-					if ( $event_dealer_name ) : ?>
-						<button href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">Réservez sur <?php echo $event_dealer_name; ?></button>
-				<?php endif; ?>
-			</div><!-- .event-dealers -->
-
-
-			<div class="">
-				<?php // lavantseine_display_share_buttons(); ?>
-			</div><!-- .event-social -->
-
-		</div><!-- .entry-meta -->
-
-
-
-
-
-
 
 
 </article><!-- #post-## -->
