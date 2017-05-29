@@ -41,7 +41,8 @@ if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
 			$terms = get_terms( $taxonomy, $args );
 			$name = ( $name ) ? $name : $taxonomy;
 			if ( $terms ) {
-				printf( '<select name="%s" class="postform">', esc_attr( $name ) );
+				printf( '<div class="c-select">' );
+				printf( '<select name="%s" class="">', esc_attr( $name ) );
 				if ( $show_option_all ) {
 					printf( '<option value="0">%s</option>', esc_html( $show_option_all ) );
 				}
@@ -51,7 +52,7 @@ if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
 				foreach ( $terms as $term ) {
 					printf( '<option value="%s">%s</option>', esc_attr( $term->slug ), esc_html( $term->name ) );
 				}
-				print( '</select>' );
+				print( '</select></div>' );
 			}
 	}
 endif;
@@ -74,14 +75,19 @@ if ( ! function_exists( 'custom_taxonomy_list' ) ) :
 
 			$terms = get_terms( $taxonomy, $args ); 
 			$name = ( $name ) ? $name : $taxonomy;
-				
+			
 			if ( $show_option_all ) {
-				printf( '<input type="radio" value="0" name="%s" checked><label for="">%s</label>', esc_html( $taxonomy ), esc_html( $show_option_all ) );
+				printf( '<div class="c-radio">' );
+				printf( '<input id="radio-%s" type="radio" value="0" name="radio-%s" checked><label for="radio-%s">%s</label>', esc_html( $taxonomy ), esc_html( $taxonomy ), esc_html( $taxonomy ), esc_html( $show_option_all ) );
+				printf( '</div>' );
+
 			}
 
 			if ( $terms ) {
 				foreach ( $terms as $term ) {
-					printf( '<input type="radio" value="%s" name="%s"><label for="">%s</label>', esc_attr( $term->slug ), esc_html( $taxonomy ), esc_html( $term->name ) );
+					printf( '<div class="c-radio">' );
+					printf( '<input id="radio-%s" type="radio" value="%s" name="radio-%s"><label for="radio-%s">%s</label>', esc_attr( $term->slug ), esc_attr( $term->slug ), esc_attr( $taxonomy ), esc_html( $term->slug ), esc_html( $term->name ) );
+					printf( '</div>' );
 				}
 			}
 

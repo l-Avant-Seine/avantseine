@@ -4,18 +4,6 @@
 				<?php if ( $query->have_posts() ) : ?>
 					<div class="row_alt">
 
-						<div class="m-2coll m-last prog-aside">
-
-							<div class="offset-right is-relative">
-								<h3 class="h2">La <br>brochure</h3>
-							</div>
-
-							<div class="offset-right is-relative">	
-								<h3 class="h2">cette <br>semaine</h3>
-							</div>
-
-						</div>
-
 						<div id="prog-grid" >
 							<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
@@ -46,6 +34,8 @@
 						</div>
 					</div>
 				<?php else : ?>
+					
+					<p>Il n'y a aucun spectacle correspondant à votre recherche.</p>
 
 					<?php get_template_part( 'content', 'none' ); ?>
 

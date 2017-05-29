@@ -64,14 +64,78 @@ label.error {
 }
 
 
+.c-select {
+  @include type-setting(1);
+    padding: 0 30px 0 0;
+    margin: 0;
+    border: none;
+    width: auto;
+    margin-right: 15px;
+    border-radius: 0;
+    overflow: hidden;
+    background-color: #fff;
+    float: left;
+
+    background: #fff url("assets/img/select-arrow.png") no-repeat 96% 50%;
+}
+
+.c-select select {
+    padding: 0.7em 0 0.7em 0.7em;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+.c-select select:focus {
+    outline: none;
+}
+
+
+.c-radio {
+  margin:0 1em 0 0;
+  float: left;
+
+  input[type="radio"] {
+    display:none;
+  }
+  input[type="radio"] + label {
+    @include type-setting(2);
+    font-family: $font_family_nav;
+    color: $black;
+    display:inline-block;
+    margin:-1px 4px 0 0;
+    cursor:pointer;
+  }
+  input[type="radio"]:checked + label {
+    border-bottom: 2px solid;
+  }
+  input[type="radio"]:not(:checked) + label {
+    border-bottom: none;
+  }
+}
+
+
+
+
+
+
 
 // SWITCH BUTTON
 
 .switch {
   display: inline-block;
+  padding: 3px 0;
 
   & > * {
     float: left;
+  }
+  span {
+    padding: 6px 2px;
   }
 }
 

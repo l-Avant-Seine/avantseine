@@ -124,7 +124,7 @@ jQuery(function($) {
 
 
     // GET EVENTS FROM FILTERS
-    $('#progFilter-form').on('submit', function(event) {
+    $('#progFilter-form').on('change', function(event) {
       event.preventDefault();
 
       var discipline_value = $(this).find('select[name="discipline"]').val();
@@ -132,7 +132,7 @@ jQuery(function($) {
       var public_value = $(this).find('select[name="public"]').val();
       var tarif_value = $(this).find('select[name="tarif"]').val();
       var is_archives_value = $(this).find('input[name="is_archives"]').attr('checked');
-      var saison_value = $(this).find('input[name="saison"]:checked').val();
+      var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
 
       jQuery.post(
           ajaxurl,
@@ -150,7 +150,6 @@ jQuery(function($) {
           }
       );
     });
-
 
 
 

@@ -9,15 +9,17 @@
 
 .prog-filters {
 	background-color: $gray_lighter;
-	padding: 20px 0;
 	margin-bottom: $base_line_height * 2;
 }		
 	.progFilterForm-upper {
+		background-color: $gray_light;
+		padding: 20px 0;
 	}
 
 	.progFilterForm-lower {
 		display: none;
-		background-color: $gray_lighter;
+		background-color: $gray;
+		padding: 10px 0;
 	}
 
 
