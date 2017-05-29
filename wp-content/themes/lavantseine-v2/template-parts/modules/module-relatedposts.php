@@ -9,11 +9,13 @@
 	$tax_args = array('orderby' => 'none' );
 
 	$tags = wp_get_post_terms( $post->ID , $taxonomy, $tax_args);
-	$tag_slug = $tags[0]->slug;
-
-
+	
 
 	if ( !empty($tag_slug) ) {
+			
+			echo '<h3 class="h2">autour du <br>spectacle</h3>';
+
+			$tag_slug = $tags[0]->slug;
 
 			// STAR POST
 			$star_post = new WP_Query(array(
@@ -126,5 +128,59 @@
 			endif; 
 
 
-	} ?>
+	} else {
+	
+			echo '<h3 class="h2">l\'actualité de <br>l\'Avant-Seine</h3>';
+
+			// OTHER POSTS
+			$default_posts = new WP_Query(array(
+				'post_type' 			=> 'post',
+				'posts_per_page'	=> 3,
+				'order' 					=> 'DESC',
+			));
+
+ 			if ( $default_posts->have_posts() ) : 
+			 	while ( $default_posts->have_posts() ) : $default_posts->the_post(); ?>
+					<div class="relatedPost">
+					<?php 
+						$terms = wp_get_post_terms( $post->ID, array('category') );
+						$count = count($terms);
+						if ( $count > 0 ){
+						    echo "<ul class='no-bullets'>";
+						    foreach ( $terms as $term ) {
+						    	$term_link = get_term_link( $term, '' );
+							    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
+						    }
+						    echo "</ul>";
+						}
+
+						if( is_paged()) {
+							echo 'paged ! ';
+						}
+					?>
+
+					<div class="entry-meta">
+						<span class="meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
+					</div><!-- .entry-meta -->
+					<h4 class="h5 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+					<?php 
+						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
+						echo "<p>".$post_shortText. "</p>"; 
+					?>
+				</div>
+			<?php endwhile; 
+			$found_posts = $default_posts->found_posts;
+			$max_pages = $default_posts->max_num_pages;
+
+			if( $found_posts > $max_pages) : ?>
+				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big">Voir tous les articles</a>
+			<?php endif; 
+
+			wp_reset_postdata();
+			endif; 
+
+
+
+	}
+		?>
 
