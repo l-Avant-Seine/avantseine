@@ -14,7 +14,7 @@ $event_duration = get_field( 'eventDetail_duration' );
 $event_text2 = get_field( 'eventDetail_text2' );
 $event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
 $event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
-$event_other_dates = unserialize( get_field('eventDetail_otherdates')[0]);
+$event_other_dates = get_field('eventDetail_otherdates');
 $event_landscape_media = get_field( 'eventDetail_landscapeMedia' );
 
 $eventDetail_mediaMarkup = get_field( 'eventDetail_mediaMarkup' );
@@ -42,29 +42,35 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 			<div class="eventHeader-date m-3col">
 				<div class="inner">
 					<?php 
-						if ( $event_dates ) : echo "<h4 class='h3'>". $event_dates ."</h4>" ; endif; 
+						echo "<h4 class='h3'>". get_event_dates($event_first_date, $event_last_date, $event_other_dates = false) ."</h4>" ;
 					?>
+					<a href="#event-details">voir toutes les da	tesq</a>
+
 
 					<?php if ( $event_duration ) : echo "<span class='eventHeader-duration'> Durée : ". $event_duration ."</p>"; endif; ?>
 
 					<a href="#" class="btn--big">Réservation</a>
 				</div>
 
-				<div class="eventHeader-actions inner">
-					<span class="addtocalendar atc-style-blue">
-				    <var class="atc_event">
-				        <var class="atc_date_start">2017-05-04 12:00:00</var>
-				        <var class="atc_date_end">2017-05-04 18:00:00</var>
-				        <var class="atc_timezone">Europe/London</var>
-				        <var class="atc_title">Star Wars Day Party</var>
-				        <var class="atc_description">May the force be with you</var>
-				        <var class="atc_location">Tatooine</var>
-				        <var class="atc_organizer">Luke Skywalker</var>
-				        <var class="atc_organizer_email">luke@starwars.com</var>
-				    </var>
-				  </span>
+				<div class="eventHeader-actions inner clearfix">
+					<div class="eventActions-tocalendar">
+						<span class="icon-calendar"> </span>
+						<span class="addtocalendar atc-style-blue">
+					    <var class="atc_event">
+					        <var class="atc_date_start"><?php echo strftime('%Y-%m-%d %H:%M:00', $event_first_date ); ?></var>
+					        <var class="atc_date_end"><?php echo strftime('%Y-%m-%d %H:%M:00', $event_last_date ); ?></var>
 
-					<div class="">
+					        <var class="atc_timezone">Europe/Paris</var>
+					        <var class="atc_title">S<?php the_title(); ?>rty</var>
+					        <var class="atc_description"><?php echo $noms_principaux; ?></var>
+					        <var class="atc_location">l'Avant-Seine - Théâtre de Colombes - Parvis des Droits de l'Homme, 88 rue Saint Denis, 92700 Colombes</var>
+					        <var class="atc_organizer">'Avant-Seine</var>
+					        <var class="atc_organizer_email">anne.legall@lavant-seine.com</var>
+					    </var>
+					  </span>
+					</div>
+
+					<div class="eventActions-share">
 						<?php lavantseine_display_share_buttons(); ?>
 					</div><!-- .event-social -->
 
@@ -130,7 +136,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 				<a class="btn--big" href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="button saisoned-on-bg">Réservation</a>
 
 
-				<div class="event-details offset-left offset-right">
+				<div id="event-details" class="event-details offset-left offset-right">
 					<div class="">
 						
 						<div class="row clearfix">
@@ -210,19 +216,13 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 					</div>
 				</div><!-- .event-details -->
 
-
-
-
-			</div>
-
+			</div><!-- .event-details -->
 
 			<div class="m-3col event-aside offset-right">
-				<h3 class="h2">autour du <br>spectacle</h3>
-
 					<?php set_query_var('taxo', 'relational_tag'); ?>
 					<?php get_template_part( 'template-parts/modules/module', 'relatedposts' ); ?>
-
 			</div>
+
 		</div>
 
 	</div><!-- .event-layer -->

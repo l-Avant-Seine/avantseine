@@ -9,6 +9,63 @@
 
 
 
+/*
+ * Social Buttons Sharing
+ */
+if ( ! function_exists( 'get_event_dates' ) ) :
+	function get_event_dates($event_first_date, $event_last_date, $event_other_dates = array()) {
+		$event_dates = '';
+
+//var_dump($event_other_dates);
+
+
+		if( $event_other_dates[0] != '' ) {
+			// Si plus de 2 jours 
+			$event_dates .= 'Du ';
+			$event_dates .= strftime('%e', $event_first_date );
+			if( strcmp( strftime('%b', $event_first_date ), strftime('%b', $event_last_date ) ) ) {
+				$event_dates .= strftime(' %B', $event_first_date );
+			}
+			if( strcmp( strftime('%G', $event_first_date ), strftime('%G', $event_last_date ) ) ) {
+				$event_dates .= strftime(' %G', $event_first_date );
+			}
+			$event_dates .= ' au ';
+			$event_dates .= strftime('%e %B %G', $event_last_date );
+		}
+		elseif( $event_first_date != $event_last_date ) {
+
+			if( !strcmp( strftime('%A %e %b %G', $event_first_date ), strftime('%A %e %b %G', $event_last_date ) ) ) {
+				// Si même date mais 2 horaires dans la journée
+				$event_dates .= 'Le ';
+				$event_dates .= strftime('%A %e %B %G', $event_first_date );
+			}
+			else {
+				// Si 2 jours différents
+				$event_dates .= 'Les ';
+				$event_dates .= strftime('%e', $event_first_date );
+
+				if( strcmp( strftime('%b', $event_first_date ), strftime('%b', $event_last_date ) ) ) {
+					$event_dates .= strftime(' %B', $event_first_date );
+				}
+
+				if( strcmp( strftime('%G', $event_first_date ), strftime('%G', $event_last_date ) ) ) {
+					$event_dates .= strftime(' %G', $event_first_date );
+				}
+
+				$event_dates .= ' et ';
+				$event_dates .= strftime('%e %B %G', $event_last_date );
+			}
+		}
+		else {
+			// Si 1 seul représentation
+			$event_dates .= strftime('%A %e %B %G - %kh%M', $event_first_date );
+		}
+
+		return $event_dates;
+	}
+endif;
+
+
 
 
 /*
@@ -16,9 +73,12 @@
  */
 if ( ! function_exists( 'lavantseine_display_share_buttons' ) ) :
 	function lavantseine_display_share_buttons() {
-		echo '<div class="one-button fb-share-button" data-type="button_count"></div>';
-		echo '<a href="https://twitter.com/share" class="one-button twitter-share-button" data-lang="fr">Tweeter</a>';
-		echo '<div class="one-button g-plusone"></div>';
+		echo '<a href="#" id="js-shareTrigger"><span class="icon-share"></span>Partager !</a>';
+		echo '<div class="box-share-list">';
+		echo '<ul class="inner no-bullets">';
+		echo '<li><a class="twitter customer share" href="https://twitter.com/share?url='. get_the_permalink() .'&amp;hashtags=lavantseine" title="Twitter share" target="_blank">Twitter</a></li>';
+		echo '<li><a class="facebook customer share" href="https://www.facebook.com/sharer.php?u='. get_the_permalink() .'" title="Partager sur Facebook" target="_blank">Facebook</a></li>';
+		echo '</ul></div>';
 	}
 endif;
 
