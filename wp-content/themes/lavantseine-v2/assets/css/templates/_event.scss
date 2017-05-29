@@ -63,7 +63,7 @@
 	}
 	.event-content {
 
-		p:first-child {
+		strong:first-child {
 			@include type-setting(4);
 			color: $color_primary;
 			font-family: $font_family_title;

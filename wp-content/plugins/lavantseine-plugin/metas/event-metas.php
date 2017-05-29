@@ -51,12 +51,12 @@ $event_details_fields = array(
     //     'id'    => $prefix.'duration',  
     //     'type'  => 'text'  
     // ), 
-    array(  
-        'label'=> 'Dates',  
-        'desc'  => 'Dates en texte plein. Exemple : Les 4 et 6 janvier 2014.',  
-        'id'    => $prefix.'dates',  
-        'type'  => 'text' 
-    ),
+    // array(  
+    //     'label'=> 'Dates',  
+    //     'desc'  => 'Dates en texte plein. Exemple : Les 4 et 6 janvier 2014.',  
+    //     'id'    => $prefix.'dates',  
+    //     'type'  => 'text' 
+    // ),
     array(  
         'label' => 'Première date et Heure de représentation',  
         'desc'  => 'Renseigner la date et horaire au format 20.05.2014 20:00',  
@@ -71,7 +71,7 @@ $event_details_fields = array(
     ),
     array( 
 	    'label' => 'Autres Dates et Horaires de représentation',  
-	    'desc'  => 'Ajouter chaque date et horaire au format 20.05.2014 20:00',  
+	    'desc'  => 'Ajouter chaque date et horaire au format 20.05.2014 20:00 (Attention : ne plus utiliser cette méthode !!!)',  
 	    'id'    => $prefix.'otherdates',  
 	    'type'  => 'repeatable'  
 	),
