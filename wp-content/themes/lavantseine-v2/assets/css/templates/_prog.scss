@@ -62,3 +62,47 @@
 
 
 
+.pdf-list {
+
+}
+li[class^="pdfItem"] {
+	@include box-sizing;
+	width: 100%;
+	clear: both;
+}
+
+.pdfItem-first {
+	background-color: $black;
+	border: none;
+	margin-bottom: $base_line_height / 2;
+
+	span {
+		margin-right: $base_line_height / 2;
+	}
+}
+.pdfItem-others {
+	background: none;
+	color: $black;
+
+	span {
+		margin-left: $base_line_height;
+		float: right;
+	}
+
+	& + ul {
+		border: 1px solid;
+		border-top: none;
+		padding: 1em;
+
+		span {
+			margin-right: $base_line_height / 2;
+		}
+	}
+	&.open {
+		border-bottom: none;
+	}
+	&:not(.open) + ul {
+		display: none;
+	}
+}
+

@@ -53,17 +53,47 @@
 		
 
 		<div class="row_alt">
-						<div class="m-2coll m-last prog-aside">
+			<div class="m-2coll m-last prog-aside">
 
-							<div class="offset-right is-relative">
-								<h3 class="h2">La <br>brochure</h3>
-							</div>
+				<div class="offset-right is-relative">
+					<h3 class="h2">La <br>brochure</h3>
 
-							<div class="offset-right is-relative">	
-								<h3 class="h2">cette <br>semaine</h3>
-							</div>
 
+
+					<?php if( have_rows('brochures_de_saison', 'option') ): ?>
+						<?php $i = 0; ?>
+						
+						<p>Télécharer les brochures au format pdf</p>
+						<ul class="no-bullets pdf-list">
+
+					    <?php while ( have_rows('brochures_de_saison', 'option') ) : the_row(); ?>
+								
+								<?php if( $i == 0) : ?>
+								<li class="pdfItem-first btn--big"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>Saison <?php the_sub_field('saison'); ?></a></li>
+
+								<li class="pdfItem-others btn--big js-pdfTrigger"><a href="#" class=" ">Autres Saisons	<span class="icon-dropdown"></span></a></li>
+
+								<ul class="no-bullets">
+								<?php else : ?>
+
+									<li class=""><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>Saison <?php the_sub_field('saison'); ?></a></li>
+
+								<?php endif; ?>
+								
+							<?php $i++; endwhile; ?>
+							</ul>
+						</ul>
+					<?php endif; ?>
+
+
+
+			</div>
+
+			<div class="offset-right is-relative">	
+				<h3 class="h2">cette <br>semaine</h3>
 						</div>
+
+		</div>
 </div>
 
 		<div class="prog-grid wrap">
