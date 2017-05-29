@@ -31,13 +31,21 @@
 
 		<div class="site-menus">
 
-
 			<nav id="site-navigation" class="siteMenus-primary" role="navigation">
 
-				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+				<?php 
+					wp_nav_menu( array( 
+						'theme_location' => 'primary', 
+						'menu_id' => 'primary-menu',
+						'walker' => new Microdot_Walker_Nav_Menu(), 
+						'container' => false, 
+						'items_wrap' => '<nav id="%1$s"><ul class="no-bullets"><li class="js-menuTrigger menu-item"><a href="#"> <span class="icon-menu"></span> Menu</a></li>%3$s</ul></nav>'
+					) ); ?>
 
 				<div id="ham-menu" class="ham-menu">
-					<?php wp_nav_menu( array( 'theme_location' => 'all', 'menu_id' => 'hamburger-menu' ) ); ?>
+					<?php wp_nav_menu( array( 
+						'theme_location' => 'all', 
+						'menu_id' => 'hamburger-menu' ) ); ?>
 				</div>
 
 			</nav><!-- #site-navigation -->
@@ -45,7 +53,28 @@
 
 			<nav class="siteMenus-secondary" role="navigation">
 
-				<?php wp_nav_menu( array( 'theme_location' => 'top', 'menu_id' => 'top-menu' ) ); ?>
+				<div class="menu-menu-top-container">
+					<ul id="top-menu" class="menu">
+						<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+							<a href="https://facebook.fr" target="_blank"><span class="icon-facebook">
+								</span></a>
+						</li>
+
+						<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+							<a href="https://twitter.fr" target="_blank"><span class="icon-twitter">
+								</span></a>
+						</li>
+
+						<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavantseine.dev/pratique/contacts/">Contacts</a></li>
+
+						<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://www2.aparteweb.com/awprod/SEINE/AWCatalogSub.aspx?INS=SEINE" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
+
+						<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+							<a href="#" id="js-searchTrigger"><span class="icon-search">
+								</span></a>
+						</li>
+
+				</ul></div>
 
 				<div class="siteMenus-searchform">
 					<?php get_search_form(); ?>

@@ -30,17 +30,16 @@
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('assets/fonts/icomoon/icomoon.eot?n11hpb');
-  src:  url('assets/fonts/icomoon/icomoon.eot?n11hpb#iefix') format('embedded-opentype'),
-    url('assets/fonts/icomoon/icomoon.ttf?n11hpb') format('truetype'),
-    url('assets/fonts/icomoon/icomoon.woff?n11hpb') format('woff'),
-    url('assets/fonts/icomoon/icomoon.svg?n11hpb#icomoon') format('svg');
+  src:  url('assets/fonts/icomoon/fonts/icomoon.eot?v0mx0f');
+  src:  url('assets/fonts/icomoon/fonts/icomoon.eot?v0mx0f#iefix') format('embedded-opentype'),
+    url('assets/fonts/icomoon/fonts/icomoon.ttf?v0mx0f') format('truetype'),
+    url('assets/fonts/icomoon/fonts/icomoon.woff?v0mx0f') format('woff'),
+    url('assets/fonts/icomoon/fonts/icomoon.svg?v0mx0f#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-.icon,
-[class^="icon-"], [class*="icon-"] {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: none;
@@ -55,3 +54,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-calendar:before {
+  content: "\e900";
+}
+.icon-download:before {
+  content: "\e901";
+}
+.icon-facebook:before {
+  content: "\e903";
+}
+.icon-dropdown:before {
+  content: "\e904";
+}
+.icon-horloge:before {
+  content: "\e905";
+}
+.icon-close:before {
+  content: "\e906";
+}
+.icon-menu:before {
+  content: "\e907";
+}
+.icon-pop-out:before {
+  content: "\e908";
+}
+.icon-search:before {
+  content: "\e909";
+}
+.icon-arrow-right:before {
+  content: "\e90a";
+}
+.icon-share:before {
+  content: "\e90c";
+}
+.icon-twitter:before {
+  content: "\e90d";
+}
