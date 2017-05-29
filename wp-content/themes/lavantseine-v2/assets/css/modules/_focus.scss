@@ -23,6 +23,7 @@ $focusElement_height: 400px;
 		background-color: rgba(0,0,0,0.9);
 		color: $white;
 		padding: $base_line_height;
+		height: 30%;
 
 			span {
 				color: $color_primary;
@@ -33,7 +34,8 @@ $focusElement_height: 400px;
 		height: $focusElement_height;
 		background-color: $white;
 		position: relative;
-
+		height: 60%;
+		
 		.inner {
 			padding: 0.5em;
 		}

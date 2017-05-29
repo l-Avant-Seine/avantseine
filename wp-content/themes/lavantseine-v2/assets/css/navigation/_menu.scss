@@ -16,10 +16,17 @@ $logo_width		: 100px;
 	ul {
 		@extend .no-bullets;
 	}
+
+	.icon-menu,
+	.icon-pop-out,
+	.icon-close {
+		font-size: 15px;
+		margin-right: 5px;
+	}
 }
 
 	
-	.menu-principal-container,
+	#primary-menu,
 	.menu-menu-top-container {
 		.menu-item {
 			@include type-setting(-2);
@@ -28,6 +35,11 @@ $logo_width		: 100px;
 			line-height: inherit !important;
 			padding: 0 0.7em;
 			font-weight: $bold;
+
+			a {
+				font-family: $font_family_nav;
+
+			}
 		}
 	}
 

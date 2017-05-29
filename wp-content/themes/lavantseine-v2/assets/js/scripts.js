@@ -30,6 +30,8 @@ jQuery(function($) {
     ham_trigger.on('click', function(event) {
       event.preventDefault();
       ham_menu.toggleClass('active');
+      $(this).find('span').toggleClass('icon-close');
+      $(this).find('span').toggleClass('icon-menu');
     });
 
 
