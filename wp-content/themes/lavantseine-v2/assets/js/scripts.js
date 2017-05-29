@@ -1,4 +1,31 @@
+;(function($){
+  
+  /**
+   * jQuery function to prevent default anchor event and take the href * and the title to make a share popup
+   *
+   * @param  {[object]} e           [Mouse event]
+   * @param  {[integer]} intWidth   [Popup width defalut 500]
+   * @param  {[integer]} intHeight  [Popup height defalut 400]
+   * @param  {[boolean]} blnResize  [Is popup resizeabel default true]
+   */
+  $.fn.customerPopup = function (e, intWidth, intHeight, blnResize) {
+    
+    // Prevent default anchor event
+    e.preventDefault();
+    
+    // Set values for window
+    intWidth = intWidth || '500';
+    intHeight = intHeight || '400';
+    strResize = (blnResize ? 'yes' : 'no');
 
+    // Set title and open popup with focus on it
+    var strTitle = ((typeof this.attr('title') !== 'undefined') ? this.attr('title') : 'Social Share'),
+        strParam = 'width=' + intWidth + ',height=' + intHeight + ',resizable=' + strResize,            
+        objWindow = window.open(this.attr('href'), strTitle, strParam).focus();
+  };
+  
+    
+}(jQuery));
 
 
 
@@ -6,7 +33,9 @@ jQuery(function($) {
   $(document).ready(function() {
  
 
-
+    $('.customer.share').on("click", function(e) {
+      $(this).customerPopup(e);
+    });
 
 
 
@@ -36,6 +65,28 @@ jQuery(function($) {
 
 
 
+    // Socials
+    $('#js-shareTrigger').on('click', function(event) {
+      event.preventDefault();
+
+      $(this).parent().toggleClass('open');
+      $('.box-share-list').css('height', 'auto');
+    });
+
+
+    $(document).mouseup(function(event) {
+        var container = $(".eventActions-share");
+
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(event.target) && container.has(event.target).length === 0) 
+        {
+            container.find('.box-share-list').css('height', '0');
+            container.removeClass('open');
+        }
+    });
+
+
+
     // PROG FILTER
 
     $('input[name="is_archives"]').on('change', function(){
@@ -49,6 +100,11 @@ jQuery(function($) {
     });
 
 
+
+    $('.js-pdfTrigger').on('click', function(event) {
+      event.preventDefault();
+      $(this).toggleClass('open');
+    });
 
 
 

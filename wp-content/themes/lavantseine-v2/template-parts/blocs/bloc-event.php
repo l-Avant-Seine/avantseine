@@ -8,6 +8,7 @@
 	$event_text2 = get_field( 'eventDetail_text2' );
 	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
+	$event_other_dates = get_field('eventDetail_otherdates');
 
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 ?>
@@ -36,10 +37,7 @@
 
 			<div class="blocEvent-dates meta-date">
 				<?php
-					// if ( $event_dates ) : echo "<span class='date-main'>". $event_dates ."</span>" ; endif; 
-					if ( $event_dates ) : 
-						echo $event_dates; 
-					endif; 
+					echo get_event_dates($event_first_date, $event_last_date, $event_other_dates);
 				?>
 
 			</div><!-- .blocEvent-dates -->

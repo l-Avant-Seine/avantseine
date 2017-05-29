@@ -25,7 +25,7 @@
 		.eventHeader-date {
 			background-color: rgba(255,255,255,0.99);
 
-			.inner {
+			& > .inner {
 				padding: $base_line_height;
 			}			
 
@@ -36,6 +36,14 @@
 			.eventHeader-actions {
 				background-color: $gray_lighter;
 			}
+				.eventActions-tocalendar {
+					width: 65%;
+					float: left;
+				}
+				.eventActions-share {
+					position: relative;
+					float: right;
+				}
 
 		.eventHeader-name {
 			@include type-setting(-1);
@@ -49,7 +57,9 @@
 		}
 
 	.event-meta {
-		
+		.eventmeta-term {
+			margin-right: 10px;
+		}
 	}
 	.event-content {
 
@@ -78,6 +88,11 @@
 		}
 			.relatedPost {
 				margin-bottom: $base_line_height * 2;
+
+				.entry-meta {
+					margin-top: $base_line_height / 2;
+					margin-bottom: $base_line_height / 2;
+				}
 			}
 				.relatedPost-media {
 					position: relative;
