@@ -1,14 +1,7 @@
-<?php
-
-	// TODO 
-	// _> get variable passed
-	// _> loop
-
-?>
 
 
 
-<section class="module-services">
+<section class="module-services offset-right">
 	<div class="moduleInner">
 		
 		<h4 class="h4 module-title">à votre <br>service &#x02666;</h4>

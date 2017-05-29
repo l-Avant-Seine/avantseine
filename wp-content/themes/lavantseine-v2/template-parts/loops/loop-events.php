@@ -6,11 +6,11 @@
 
 						<div class="m-2coll m-last prog-aside">
 
-							<div>
+							<div class="offset-right is-relative">
 								<h3 class="h2">La <br>brochure</h3>
 							</div>
 
-							<div>	
+							<div class="offset-right is-relative">	
 								<h3 class="h2">cette <br>semaine</h3>
 							</div>
 

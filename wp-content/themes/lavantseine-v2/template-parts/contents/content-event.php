@@ -95,14 +95,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 
 	<div class="event-layer ">
 
-		<div class="layer-bg">
-			<div class="row">
-				<div class="m-5col"></div>
-				<div class="m-3col m-last"></div>
-			</div>
-		</div>
-
-		<div class="wrap row">
+		<div class="wrap row is-flex">
 				
 			<div class="m-5col ">
 				<div class="event-content"><?php 
@@ -137,7 +130,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 				<a class="btn--big" href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="button saisoned-on-bg">Réservation</a>
 
 
-				<div class="event-details clearfix">
+				<div class="event-details offset-left offset-right">
 					<div class="">
 						
 						<div class="row clearfix">
@@ -223,7 +216,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 			</div>
 
 
-			<div class="m-3col event-aside">
+			<div class="m-3col event-aside offset-right">
 				<h3 class="h2">autour du <br>spectacle</h3>
 
 					<?php set_query_var('taxo', 'relational_tag'); ?>

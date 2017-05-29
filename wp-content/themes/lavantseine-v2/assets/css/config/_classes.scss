@@ -37,7 +37,9 @@
   position: fixed;
   top: 0;
   z-index: 99; }
-
+.is-relative {
+  position: relative;
+}
 .is-bordered { 
   border: 1px solid #000;
 }
