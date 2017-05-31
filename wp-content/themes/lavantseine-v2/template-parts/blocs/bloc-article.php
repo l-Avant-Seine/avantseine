@@ -2,27 +2,47 @@
 /**
  * @package lavantseine
  */
+
+$terms = get_the_terms( get_the_ID(), 'relational_tag' );
+
+
 ?>
 
 
-<article id="post-<?php the_ID(); ?>" class="bloc-article" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" class="bloc-article <?php if(!$terms) { echo 'blocArticle--big'; } ?>" <?php post_class(); ?>>
 	<a href="<?php the_permalink(); ?>" rel="bookmark">
 		<div class="inner-box">
 
-			<header class="blocArticle-upper">
-					<?php the_post_thumbnail('box-thumbnail'); ?>
-			</header><!-- .entry-header -->
+			<header class="blocArticle-upper square ">
 
+				<div class="blocArticle-terms">
+					<?php
+						$categories = get_the_category();
+						$separator = ' ';
+						$output = '';
+						if($categories){
+							foreach($categories as $category) {
+								$output .= '<span class="postmeta-term">'.$category->cat_name.'</span>';
+							}
+						echo trim($output, $separator);
+						}
+					?>
+				</div><!-- .post-categories -->
+
+				<div class="square-content bg_cover" style="background-image: url(<?php the_post_thumbnail_url(''); ?>);">
+					
+				</div>
+			</header><!-- .entry-header -->
 
 			<div class="blocArticle-lower">
 
-				<h2 class="h5 blocArticle-title clearfix">	
+				<h2 class="<?php if(!$terms) { echo 'h4'; } else { echo 'h5'; } ?> blocArticle-title clearfix">	
 						<?php the_title(); ?>
 						<br>&#x02666;
 				</h2>
 
 				<?php
-					if( $excerpt) : 
+					if( $terms) : 
 						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
 						echo "<p class='clearfix blocArticle-intro'>".$post_shortText. "</p>";
 					endif;

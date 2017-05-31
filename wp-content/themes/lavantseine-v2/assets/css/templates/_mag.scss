@@ -1,0 +1,44 @@
+/* 
+ * templates/mag
+ * 
+ * @package lavantseine-v2
+ */
+
+
+.webmag-layer {
+	margin-bottom: $base_line_height * 2;
+}
+
+.webmag-title {
+	padding: $base_line_height * 2 0;
+}
+
+.webmag-filters {
+	background-color: $gray_lighter;
+	padding: $base_line_height 0 $base_line_height / 2 0;
+	margin-bottom: $base_line_height * 2;
+
+	.postmeta-term {
+		margin-right: $base_line_height / 2;
+		margin-bottom: $base_line_height / 2;
+	}
+}
+
+.webmag-featured {
+	background-color: $gray_lighter;
+}
+	.featured-content {
+		padding: 2em 2em 2em 1em;
+
+		h2 {
+			color: $color_primary;
+		}
+	}
+
+
+
+#webmag-innergrid[data-columns]::before {
+  content: '4 .m-2col';
+  display: none;
+}
+

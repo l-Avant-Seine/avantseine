@@ -7,7 +7,7 @@
 		<span>le Magazine</span> <br>de l'Avant-Seine
 	</h2>
 
-	<div class="row">
+	<div id="webmag-innergrid" data-columns class="row">
 		<?php $i = 0; $excerpt = true; ?>
 		<?php foreach ( $posts_list as $post ) : setup_postdata( $post ); ?>
 
@@ -34,11 +34,11 @@
 						break;
 				} ?>
 
-			<div class="<?php echo $class; ?> moduleArticles-item">
-				<?php set_query_var('excerpt', $excerpt); ?>
+<!-- 			<div class="<?php echo $class; ?> moduleArticles-item">
+ -->				<?php set_query_var('excerpt', $excerpt); ?>
 				<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>
-			</div>
-
+<!-- 			</div>
+ -->
 			<?php $i++; ?>
 
 		<?php endforeach; ?>
