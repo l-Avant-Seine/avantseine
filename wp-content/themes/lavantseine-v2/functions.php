@@ -144,6 +144,8 @@ function lavantseine_v2_scripts() {
 	wp_enqueue_style( 'lavantseine-v2-style', get_stylesheet_uri() );
 	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
 
+	wp_register_script( 'salvatorre', get_template_directory_uri() .'/assets/js/salvatorre.js' , 'jquery', '', true );
+
 	// pass Ajax Url to script.js
 	wp_localize_script('lavantseine-v2-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 }
@@ -274,13 +276,14 @@ function get_posts_from_term() {
 
 	$ajax_query = new WP_Query($args);
 
-
- 	if ( $ajax_query->have_posts() ) : 
-		while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); 
+ 	if ( $ajax_query->have_posts() ) : ?>
+ 		<div id="webmag-innergrid" data-columns class="row">
+			<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); 
 	 		get_template_part( 'template-parts/blocs/bloc', 'article' );
-		endwhile; 
-	
-	else : 
+			endwhile; ?>
+		</div>
+
+	<?php else : 
 		get_template_part( 'content', 'none' ); 
 
 	endif; 

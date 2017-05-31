@@ -110,6 +110,13 @@ jQuery(function($) {
 
 
 /*
+ * GRIDS
+ */
+
+
+
+
+/*
  * AJAX STUFFS
  */
 
@@ -163,7 +170,7 @@ jQuery(function($) {
 
 
     // GET POSTS FROM CAT TERM
-    $('.get-term').on('click', function(event) {
+    $('.js-postmeta-term').on('click', function(event) {
       event.preventDefault();
 
       var term = $(this).attr('cat-slug');
@@ -175,7 +182,10 @@ jQuery(function($) {
               'term': term
           },
           function(response){
-            $('#webmag-grid').html(response);
+            $('#webmag-mainGrid').html(response);
+            
+            var grid = document.getElementById('webmag-innergrid');
+            salvattore.rescanMediaQueries(grid);
           }
       );
     });

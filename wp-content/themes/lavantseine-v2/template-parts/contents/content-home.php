@@ -5,6 +5,9 @@
  * @package l\'Avant-Seine_v2.0
  */
 
+wp_enqueue_script( 'salvatorre' );
+
+
 ?>
 
 
@@ -36,7 +39,7 @@
 				wp_reset_postdata(); 
 			?>
 
-			<a href="/programmation" class="btn--big is-centered	">Voir toute la programmation</a>
+			<a href="/programmation" class="btn--big is-centered">Voir toute la programmation</a>
 		</div>
 
 
@@ -68,7 +71,7 @@
 			<?php 
 				$args = array(
 					'post_type' 		=> 'post',
-					'posts_per_page'	=> 6,
+					'posts_per_page'	=> 8,
 					'orderby'			=> 'post_date',
 					'order' 			=> 'DESC'	
 				);
