@@ -6,3 +6,30 @@
 
 
 
+.single-header {
+	height: 550px;
+	position: relative;
+	align-items: flex-end;
+}
+	.single-title {
+		background-color: rgba(0,0,0,0.98);
+		color: $white;
+		position: relative;
+	}
+	.single-share {
+		position: relative;
+		display: inline-block;
+	}
+	.single-metas {
+		margin-bottom: $base_line_height * 2;
+	}
+
+		.single-aside {
+			background-color: $color_primary;
+			padding: 2em;
+			position: relative;
+
+			h3 {
+				color: $white;
+			}
+		}
