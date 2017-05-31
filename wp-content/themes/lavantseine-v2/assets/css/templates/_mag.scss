@@ -21,6 +21,10 @@
 	.postmeta-term {
 		margin-right: $base_line_height / 2;
 		margin-bottom: $base_line_height / 2;
+
+		&.active {
+			background-color: $color_primary;
+		}
 	}
 }
 

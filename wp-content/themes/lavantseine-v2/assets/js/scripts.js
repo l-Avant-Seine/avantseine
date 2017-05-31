@@ -174,6 +174,9 @@ jQuery(function($) {
       event.preventDefault();
 
       var term = $(this).attr('cat-slug');
+      
+      $('.js-postmeta-term').removeClass('active');
+      $(this).addClass('active');
 
       jQuery.post(
           ajaxurl,
@@ -184,6 +187,7 @@ jQuery(function($) {
           function(response){
             $('#webmag-mainGrid').html(response);
             
+
             var grid = document.getElementById('webmag-innergrid');
             salvattore.rescanMediaQueries(grid);
           }
