@@ -24,7 +24,9 @@
 
 
 .prog-aside {
-	position: relative;
+	position: absolute;
+	border-left: 20px solid $white;
+	right: 20px;
 	
 	.h2 {
 		color: $white;
@@ -43,10 +45,8 @@
 	margin-bottom: $base_line_height * 2;
 	border-bottom: 7px solid;
 
-	& + .m-2coll:nth-child(4n + 0) {
+	& + .m-2coll:nth-child(1) {
 		margin-left: 0 !important;
-
-
 	}
 }
 
@@ -56,6 +56,7 @@
 	
 	& > div:nth-child(3n + 1) {
 		margin-left: 0 !important;
+		clear: both;
 	}
 }
 
