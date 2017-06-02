@@ -268,7 +268,7 @@ function get_posts_from_term() {
 
 	$args = array(
 	    'post_type' 			=>'post',
-	    'category_name' 				=> $term,
+	    'category_name' 	=> $term,
 			'order'						=> 'DESC',
 			'posts_per_page'	=> '12',
 			'paged'						=> $paged		

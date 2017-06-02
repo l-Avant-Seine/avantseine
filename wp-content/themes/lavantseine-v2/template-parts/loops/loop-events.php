@@ -35,7 +35,9 @@
 					</div>
 				<?php else : ?>
 					
-					<p>Il n'y a aucun spectacle correspondant à votre recherche.</p>
+					<h3 class="h3 no-posts m-3coll">
+						Désolé, il n'y a aucun spectacle correspondant à votre recherche.
+					</h3>
 
 					<?php get_template_part( 'content', 'none' ); ?>
 

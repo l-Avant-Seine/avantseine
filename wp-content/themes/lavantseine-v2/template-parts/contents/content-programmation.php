@@ -52,13 +52,13 @@
 		</div>
 		
 
-		<div class="row_alt">
+		<div class="wrap row_alt">
+
+
 			<div class="m-2coll m-last prog-aside is-absolute">
 
 				<div class="offset-right is-relative">
 					<h3 class="h2">La <br>brochure</h3>
-
-
 
 					<?php if( have_rows('brochures_de_saison', 'option') ): ?>
 						<?php $i = 0; ?>
@@ -92,10 +92,9 @@
 				<h3 class="h2">cette <br>semaine</h3>
 			</div>
 
-		</div>
-</div>
 
-		<div class="prog-grid wrap">
+		</div>
+
 
 				<?php
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
@@ -127,7 +126,11 @@
 				?>
 
 
-		</div><!-- end .events-grid -->
+
+
+</div>
+
+
 
 
 		<div class="wrap">

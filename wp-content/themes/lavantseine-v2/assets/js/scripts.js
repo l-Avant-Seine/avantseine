@@ -24,7 +24,49 @@
         objWindow = window.open(this.attr('href'), strTitle, strParam).focus();
   };
   
-    
+
+
+  jQuery.fn.extend({
+      alignProgGrid: function () {
+
+        // Prog layout
+        var progGrid_items = $('#prog-grid .m-2coll');
+        var progAside = $('.prog-aside ');
+        var progAside_left = $('.prog-aside ').offset().left;
+        var progAside_top = $('.prog-aside ').offset().top;
+        var progAside_bottom = progAside_top + progAside.outerHeight();
+
+        // console.log( 'aside left : ' + progAside_left );
+        // console.log( 'aside height : ' + progAside.outerHeight() );
+        // console.log( 'aside bottom : ' + progAside_bottom );
+
+        if( progGrid_items.length == 0 ) {
+            progAside.css('position', 'relative');
+        }
+
+        jQuery.each( progGrid_items, function( i, val ) {
+
+          var item_left = $(this).offset().left;
+          var item_right = item_left + $(this).outerWidth();
+          var item_top = $(this).offset().top;
+
+          // console.log( val );
+          // console.log( 'item top : ' +  item_top);
+          // console.log( 'item right : ' +  item_right);
+
+          if( item_right > progAside_left) {
+            if( item_top < progAside_bottom) {
+              $(this).css('clear', 'both');
+              $(this).css('margin-left', '0');
+            }
+
+          }
+        });
+
+      }
+  });
+
+
 }(jQuery));
 
 
@@ -109,11 +151,12 @@ jQuery(function($) {
 
 
 
+
 /*
  * GRIDS
  */
 
-
+  $(window).alignProgGrid();
 
 
 /*
@@ -128,8 +171,6 @@ jQuery(function($) {
 
       var posts_found = $(this).attr('posts_found');
       var month = $('.box-month').last().attr('month');
-
-      console.log(month);
 
       jQuery.post(
           ajaxurl,
@@ -218,7 +259,16 @@ jQuery(function($) {
               'saison_value': saison_value,
           },
           function(response){
+
             $('#prog-grid').html(response);
+
+            if( $('.no-posts').length == 1 ) {
+              $('.no-posts').height( $('.prog-aside').height() );
+              $('.load-more').hide();
+            } else {
+              $(window).alignProgGrid();
+            }
+
           }
       );
     });
