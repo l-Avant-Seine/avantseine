@@ -131,10 +131,8 @@
 </div>
 
 
-
-
 		<div class="wrap">
-			<a class="load-more btn" href="#" posts_found="<?php echo $posts_found; ?>">load more</a>
+			<a class="load-more btn--big" href="#" posts_found="<?php echo $posts_found; ?>"><span class="icon-arrow-right"></span>load more</a>
 		</div>
 		
 
