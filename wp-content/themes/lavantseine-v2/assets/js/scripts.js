@@ -34,7 +34,7 @@
         var progAside = $('.prog-aside ');
         var progAside_left = $('.prog-aside ').offset().left;
         var progAside_top = $('.prog-aside ').offset().top;
-        var progAside_bottom = progAside_top + progAside.outerHeight();
+        var progAside_bottom = progAside_top + progAside.innerHeight();
 
         // console.log( 'aside left : ' + progAside_left );
         // console.log( 'aside height : ' + progAside.outerHeight() );
@@ -157,7 +157,10 @@ jQuery(function($) {
  * GRIDS
  */
 
+ if( $('#prog-grid').length == 1 ) {
   $(window).alignProgGrid();
+ }
+  
 
 
 /*
