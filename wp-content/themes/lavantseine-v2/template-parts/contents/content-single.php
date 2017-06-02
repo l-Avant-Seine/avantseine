@@ -9,18 +9,9 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header class="single-header bg_cover is-flex" style="background-image: url(<?php if ( !$postDetail_showPic ) { the_post_thumbnail_url(''); } ?>);">
+	<header class="single-header bg_cover is-flex" style="background-image: url(<?php  the_post_thumbnail_url(''); ?>);">
 
-		<?php
-
-			//get_template_part( 'part', 'postslide' );
-
-			if ( $postDetail_mediaMarkup ) {
-				echo $postDetail_mediaMarkup;
-			}
-		?>
-
-		<div class="wrap single-title">
+		<div class="wrap single-title offset-right">
 			<h1 class="h1 clearfix"><?php the_title(); ?></h1>
 			<div class="meta-date clearfix">Publié le <?php the_date('d/m/Y', '', ''); ?></div>
 			<div class="single-share clearfix">
@@ -46,7 +37,17 @@
 
 
 	<div class="wrap single-content row">
-		<div class="m-5col">
+		<div class="m-5col entry-content ">
+
+			<?php
+
+				get_template_part( 'part', 'postslide' );
+
+				if ( $postDetail_mediaMarkup ) {
+					echo $postDetail_mediaMarkup;
+				}
+			?>
+
 			<?php the_content(); ?>
 		</div>
 

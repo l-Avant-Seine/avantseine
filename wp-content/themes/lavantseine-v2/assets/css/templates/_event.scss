@@ -63,19 +63,6 @@
 	}
 	.event-content {
 
-		strong:first-child {
-			@include type-setting(4);
-			color: $color_primary;
-			font-family: $font_family_title;
-			max-width: 75%;
-
-			&:after {
-				content: '';
-			}
-		}
-		iframe { 
-			max-width: 100%;
-		}
 	}
 		.event-aside {
 			background-color: $color_primary;

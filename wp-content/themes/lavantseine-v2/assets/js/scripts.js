@@ -279,7 +279,16 @@ jQuery(function($) {
 
 
 
+    // ACCORDEON
 
+    var accordeon = $('.entry-accordeon');
+
+    accordeon.on('click', function(event){
+      event.preventDefault();
+
+      $(this).toggleClass('open close');
+
+    });
 
 
   });

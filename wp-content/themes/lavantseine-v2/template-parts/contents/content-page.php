@@ -30,39 +30,37 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 
-	<h1><?php echo $root_title; ?></h1>
-
-	<div class="page-nav">
-		
-		<?php set_query_var( 'root', $root ); ?>
-		<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
-
-	</div>
-
-	<div class="wrap entry-media">
-		<?php the_post_thumbnail(''); ?>
-	</div>
-
-	<header class="wrap entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+	<header class=" page-header bg_cover is-flex layer" style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
+		<div class="wrap page-title">
+			<h1 class="h1"><?php echo $root_title; ?></h1>
+		</div>
 	</header><!-- .entry-header -->
 
-		<div class="wrap entry-extract">
-			<?php echo $page_intro; ?>
+	<div class="wrap row">
+
+		<div class="m-5col page-content entry-content">
+			
+			<?php if( isset($page_intro) && $page_intro !== '') : ?>
+			<div class="wrap page-extract">
+				<?php echo $page_intro; ?>
+			</div>
+			<?php endif; ?>
+
+			<?php the_content(); ?>
+		</div><!-- .entry-content -->
+
+		<div class="m-3col m-last page-aside offset-right">
+
+			<div class="page-nav">
+				<?php set_query_var( 'root', $root ); ?>
+				<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
+			</div>
+
+			<?php echo $page_right_col; ?>
+			<?php // echo $page_right_col; ?>
+			
 		</div>
-
-	<div class="wrap entry-content">
-		<?php the_content(); ?>
-	</div><!-- .entry-content -->
-
-
-	<div class="wrap entry-aside">
-
-		<?php echo $page_right_col; ?>
-		<?php // echo $page_right_col; ?>
-		
-	</div><!-- .practical-aside -->
-
+	</div>
 
 
 </article><!-- #post-## -->

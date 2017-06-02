@@ -79,7 +79,8 @@ $logo_width		: 100px;
 	top: $menu_height;
 	padding-top: $base_line_height;
 	padding-bottom: $base_line_height;
-
+	z-index: 9999;
+	
 	&.active {
 		display: block;
 	}

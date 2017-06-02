@@ -80,3 +80,26 @@ big {
   font-size: 125%;
 }
 
+
+
+  .entry-content {
+
+    & > p:first-child {
+      @include type-setting(4);
+      color: $color_primary;
+      font-family: $font_family_title;
+      max-width: 75%;
+      
+      strong {
+        font-weight: $regular;
+      }
+      
+      &:after {
+        content: '';
+      }
+    }
+    iframe { 
+      max-width: 100%;
+      margin-bottom: $base_line_height * 2;
+    }
+  }

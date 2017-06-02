@@ -104,16 +104,17 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 		<div class="wrap row is-flex">
 				
 			<div class="m-5col ">
-				<div class="event-content"><?php 
-					the_content(); ?></div>
-				<div>
-					<?php
+				<div class="event-content entry-content"><?php 
+					the_content(); ?>
+											<?php
 					if ( $eventDetail_mediaMarkup ) {
 						echo $eventDetail_mediaMarkup;
 					}
 					get_template_part( 'part', 'postslide' );
 				?>
-				</div>
+
+					</div>
+
 
 					<?php
 						$publics =  get_the_terms( $post->ID, 'public' );

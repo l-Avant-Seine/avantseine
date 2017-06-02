@@ -375,12 +375,17 @@ function get_events_filtered() {
 
 
 
+// CUSTOM EXCERPT LENGTH
+
 function custom_excerpt_length( $length ) {
 	return 20;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 
+
+
+// CUSTOM MENU WALKER
 
 class Microdot_Walker_Nav_Menu extends Walker_Nav_Menu {
     public function start_lvl( &$output, $depth = 0, $args = array() ) {
@@ -421,3 +426,64 @@ class Microdot_Walker_Nav_Menu extends Walker_Nav_Menu {
     }
 }
 
+
+
+
+// Add ACCORDEON Shortcode
+
+function accordeon_shortcode( $atts , $content = null ) {
+
+	// Attributes
+	$atts = shortcode_atts(
+		array(
+			'titre' => 'Le titre de l\'accordéon ici',
+		),
+		$atts
+	);
+	$titre = $atts['titre'];
+
+  $return_string = '<div class="entry-accordeon close">'; 
+
+   	$return_string .= '<div class="accordeon-title is-flex"><h3 class="h3">'.$titre.'</h3><span class="icon-arrow-right"></span></div>';
+   	$return_string .= '<div class="accordeon-content">'; 
+
+   	$return_string .= $content; 
+   	$return_string .= '</div>'; 
+  
+   $return_string .= '</div>'; 
+
+   return $return_string;
+
+
+}
+add_shortcode( 'accordeon', 'accordeon_shortcode' );
+
+
+ // init process for registering our button
+ add_action('init', 'wpse72394_shortcode_button_init');
+ function wpse72394_shortcode_button_init() {
+
+      //Abort early if the user will never see TinyMCE
+      if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
+           return;
+
+      //Add a callback to regiser our tinymce plugin   
+      add_filter("mce_external_plugins", "wpse72394_register_tinymce_plugin"); 
+
+      // Add a callback to add our button to the TinyMCE toolbar
+      add_filter('mce_buttons', 'wpse72394_add_tinymce_button');
+}
+
+
+//This callback registers our plug-in
+function wpse72394_register_tinymce_plugin($plugin_array) {
+    $plugin_array['accordeon'] = get_template_directory_uri() . '/assets/js/accordeon.js';
+    return $plugin_array;
+}
+
+//This callback adds our button to the toolbar
+function wpse72394_add_tinymce_button($buttons) {
+            //Add the button ID to the $button array
+    $buttons[] = "accordeon";
+    return $buttons;
+}
