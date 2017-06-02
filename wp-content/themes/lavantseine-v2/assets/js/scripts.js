@@ -57,6 +57,7 @@
           if( item_right > progAside_left) {
             if( item_top < progAside_bottom) {
               $(this).css('clear', 'both');
+              $(this).next().css('clear', 'none');
               $(this).css('margin-left', '0');
             }
 
