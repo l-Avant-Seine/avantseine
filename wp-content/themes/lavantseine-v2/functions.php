@@ -62,6 +62,12 @@ function lavantseine_v2_setup() {
 	 */
 	add_theme_support( 'post-thumbnails' );
 
+	//add_image_size( 'box-thumbnail', 168, 9999 );
+	add_image_size( 'featured-post-thumbnail', 578, 9999 );
+	add_image_size( 'top-thumbnail', 779, 9999 );
+	add_image_size( '2col-thumbnail', 369, 9999 );
+  add_image_size( 'box-plain', 176, 350, array( 'center', 'center' ) );
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => __( 'Menu principal', 'lavantseine-v2' ),
@@ -145,6 +151,7 @@ function lavantseine_v2_scripts() {
 	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
 
 	wp_register_script( 'salvatorre', get_template_directory_uri() .'/assets/js/salvatorre.js' , 'jquery', '', true );
+	wp_register_script( 'bxslider', get_template_directory_uri() .'/assets/js/bxslider.js' , 'jquery', '', true );
 
 	// pass Ajax Url to script.js
 	wp_localize_script('lavantseine-v2-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
@@ -283,7 +290,7 @@ function get_posts_from_term() {
 	 		get_template_part( 'template-parts/blocs/bloc', 'article' );
 			endwhile; ?>
 		</div>
-
+		
 	<?php else : 
 		get_template_part( 'content', 'none' ); 
 
