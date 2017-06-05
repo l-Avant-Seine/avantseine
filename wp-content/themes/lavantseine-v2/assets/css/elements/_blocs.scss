@@ -22,8 +22,12 @@
 	}
 }
 
-	.blocEvent-media {
+	.blocEvent-upper {
+		height: 200px;
 		position: relative;
+	}
+	.blocEvent-media {
+		height: 100%;
 	}
 		.blocEvent-infos {
 			display: none;
@@ -31,7 +35,16 @@
 			color: $white;
 			text-align: justify;
 			padding: 0.5em;
+		}
+		.blocEvent-actions {
+			a {
+				display: block;
+				text-align: center;
 
+				&:first-child {
+					margin-bottom: $base_line_height / 2;
+				}
+			}
 		}
 
 	.blocEvent-lower {

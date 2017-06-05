@@ -17,36 +17,40 @@
 
 
 <article id="event-<?php the_ID(); ?>" class="bloc-event" itemscope itemtype="http://schema.org/Event">
-	<a href="<?php the_permalink(); ?>" rel="bookmark"><div>
+	<div>
 		
 		<div class="blocEvent-upper">
 			
-			<div class="blocEvent-media">
-				<?php the_post_thumbnail('box-thumbnail'); ?>
+			<div class="blocEvent-media bg_cover" style="background-image: url(<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>)"></div>	
 				
-				<div class="blocEvent-infos full_absolute">
-					<?php echo "<p>". $event_shortText. "</p>"; ?>
+
+			<div class="blocEvent-infos full_absolute">
+				<?php echo "<p>". $event_shortText. "</p>"; ?>
+
+				<div class="blocEvent-actions">
+					<a href="<?php the_permalink(); ?>" class="btn--big">En savoir plus</a>
+					<a href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="btn--big">Réserver</a>
 				</div>
-
-			</div>			
+			</div>
 
 		</div>
 
+		<a href="<?php the_permalink(); ?>" rel="bookmark">
+			<div class="blocEvent-lower">
 
-		<div class="blocEvent-lower">
+				<div class="blocEvent-dates meta-date">
+					<?php
+						echo get_event_dates($event_first_date, $event_last_date, $event_other_dates);
+					?>
 
-			<div class="blocEvent-dates meta-date">
-				<?php
-					echo get_event_dates($event_first_date, $event_last_date, $event_other_dates);
-				?>
+				</div><!-- .blocEvent-dates -->
 
-			</div><!-- .blocEvent-dates -->
-
-			<h3 class="h4 blocEvent-title" itemprop="name">	
-					<?php the_title(); ?>
-			</h3>		
-		</div>
+				<h3 class="h4 blocEvent-title" itemprop="name">	
+						<?php the_title(); ?>
+				</h3>		
+			</div>
+		</a>
 	
 
-	</div></a>
+	</div>
 </article><!-- #event-## -->
