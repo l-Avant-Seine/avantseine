@@ -239,9 +239,8 @@ jQuery(function($) {
           function(response){
             $('#webmag-mainGrid').html(response);
             
-
             var grid = document.getElementById('webmag-innergrid');
-            salvattore.rescanMediaQueries(grid);
+            salvattore.registerGrid(grid);
           }
       );
     });
