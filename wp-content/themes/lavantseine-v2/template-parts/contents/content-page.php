@@ -7,6 +7,12 @@
  * @package l\'Avant-Seine_v2.0
  */
 
+wp_enqueue_script( 'salvatorre' );
+
+	$tax_args = array('orderby' => 'none', );
+	$tags = wp_get_post_terms( $post->ID , 'arborescence', $tax_args);
+$tag = $tags[0];
+
 	$ancestors = get_post_ancestors($post);
 	$level = count($ancestors);
 	$ariane = '';
@@ -61,6 +67,31 @@
 			
 		</div>
 	</div>
+
+
+	<!-- Les articles liés à la page par le tag 'arborescence' -->
+	<section id="" class="layer clearfix wrap">
+
+			<?php 
+				$args = array(
+					'post_type' 			=> 'post',
+					'posts_per_page'	=> 8,
+					'orderby'					=> 'post_date',
+					'order' 					=> 'DESC',
+					'arborescence'		=> $tag->slug,
+				);
+
+				$related_posts_query = new WP_Query( $args );
+				$posts_found = $related_posts_query->found_posts;
+
+				set_query_var('query', $related_posts_query);
+				get_template_part('template-parts/modules/module', 'articles'); 
+				wp_reset_postdata(); 
+			?>
+	
+			<a href="/magazine/?tag=<?php echo $tag->slug; ?>" class="btn--big is-centered">Voir tous les articles du magazine</a>
+
+	</section>
 
 
 </article><!-- #post-## -->

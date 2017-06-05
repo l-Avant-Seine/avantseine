@@ -3,13 +3,15 @@
 
 <section class="module module-articles">
 	
+	<?php if ( $query->have_posts() ) : ?>
+
 	<h2 class="moduleArticles-title  h2">
 		<span>le Magazine</span> <br>de l'Avant-Seine
 	</h2>
 
 	<div id="webmag-innergrid" data-columns class="row">
 		<?php $i = 0; $excerpt = true; ?>
-		<?php foreach ( $posts_list as $post ) : setup_postdata( $post ); ?>
+		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
 			<?php 
 				switch ($i) {
@@ -41,7 +43,8 @@
  -->
 			<?php $i++; ?>
 
-		<?php endforeach; ?>
+		<?php endwhile; ?>
 	</div>
 
+	<?php endif; ?>
 </section>

@@ -76,9 +76,9 @@ wp_enqueue_script( 'salvatorre' );
 					'order' 			=> 'DESC'	
 				);
 
-				$last_posts = get_posts( $args );
+				$last_posts_query = new WP_Query( $args );
 
-				set_query_var('posts_list', $last_posts);
+				set_query_var('query', $last_posts_query);
 				get_template_part('template-parts/modules/module', 'articles'); 
 				wp_reset_postdata(); 
 			?>

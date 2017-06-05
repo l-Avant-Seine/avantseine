@@ -47,6 +47,9 @@ $today = time();
 
 					<?php $exclude_ids = array(); ?>
 
+<?php if( !isset($_GET['tag']) ) : ?>
+
+
 					<div class="webmag-featured webmag-layer row is-flex">
 						<?php
 							// Display last Featured Post
@@ -97,6 +100,10 @@ $today = time();
 						?>
 					</div><!-- end .featured-post -->
 
+<?php endif; ?>
+
+
+
 					<div id="webmag-innergrid" data-columns class="row">
 
 						<?php
@@ -104,13 +111,19 @@ $today = time();
 							if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
 							elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
 							else { $paged = 1; }
+
 							$args = array(
 								'post_type' 		=> 'post',
 								'order'				=> 'DESC',
 								'post__not_in'		=> $exclude_ids,
 								'posts_per_page'	=> '12',
-								'paged'				=> $paged							
+								'paged'				=> $paged,						
 							);
+
+ 							if( isset($_GET['tag']) ) : 
+								$args['arborescence'] = $_GET['tag'];
+							endif;
+
 							$wp_query = new WP_Query( $args );
 
 						?>
