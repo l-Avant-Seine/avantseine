@@ -45,10 +45,10 @@
 	margin-bottom: $base_line_height * 2;
 	border-bottom: 7px solid;
 
-	& + .m-2coll:nth-child(1) {
+	& + .m-2coll {
 		margin-left: 0 !important;
 	}
-}
+}	
 
 .event-row {
 	margin-bottom: $base_line_height * 2;

@@ -204,14 +204,14 @@ function load_more() {
 		if ( $previous_month != $month ): ?>
 
 				<?php if($previous_month) : ?>
-<!-- 					</div>
- -->				<?php endif; ?>
+					</div>
+				<?php endif; ?>
 
 				<div class="h3 box-month clearfix m-first" month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
 					<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
 				</div>
-<!-- 				<div class="row_alt event-row">
- -->			<?php
+				<div class="row_alt event-row">
+			<?php
 			$previous_month = $month;
 		endif;
 	?>
