@@ -9,13 +9,11 @@
 	$tax_args = array('orderby' => 'none' );
 
 	$tags = wp_get_post_terms( $post->ID , $taxonomy, $tax_args);
-	
+	$tag_slug = $tags[0]->slug;
 
 	if ( !empty($tag_slug) ) {
 			
 			echo '<h3 class="h2">autour du <br>spectacle</h3>';
-
-			$tag_slug = $tags[0]->slug;
 
 			// STAR POST
 			$star_post = new WP_Query(array(
