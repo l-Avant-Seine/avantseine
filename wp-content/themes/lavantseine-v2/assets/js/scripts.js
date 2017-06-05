@@ -150,6 +150,10 @@ jQuery(function($) {
     });
 
 
+    if( $('.bxslider-with-controls').length > 0 ) {
+      $('.bxslider-with-controls').bxSlider();
+    }
+
 
 
 

@@ -47,12 +47,14 @@ $tag = $tags[0];
 		<div class="m-5col page-content entry-content">
 			
 			<?php if( isset($page_intro) && $page_intro !== '') : ?>
-			<div class="wrap page-extract">
+			<div class="page-extract">
 				<?php echo $page_intro; ?>
 			</div>
 			<?php endif; ?>
 
 			<?php the_content(); ?>
+
+			<?php echo $page_right_col; ?>
 		</div><!-- .entry-content -->
 
 		<div class="m-3col m-last page-aside offset-right">
@@ -62,8 +64,7 @@ $tag = $tags[0];
 				<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
 			</div>
 
-			<?php echo $page_right_col; ?>
-			<?php // echo $page_right_col; ?>
+			
 			
 		</div>
 	</div>
@@ -86,10 +87,12 @@ $tag = $tags[0];
 
 				set_query_var('query', $related_posts_query);
 				get_template_part('template-parts/modules/module', 'articles'); 
-				wp_reset_postdata(); 
+				wp_reset_postdata();
+
+				if( $posts_found > 0 ) { ?>
+					<a href="/magazine/?tag=<?php echo $tag->slug; ?>" class="btn--big is-centered">Voir tous les articles du magazine</a>
+				<?php }
 			?>
-	
-			<a href="/magazine/?tag=<?php echo $tag->slug; ?>" class="btn--big is-centered">Voir tous les articles du magazine</a>
 
 	</section>
 

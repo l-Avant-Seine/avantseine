@@ -3,6 +3,7 @@
  * @package lavantseine
  */
 
+
 			$postDetail_mediaMarkup = get_post_meta( $post->ID, 'postDetail_mediaMarkup', true );
 			$postDetail_showPic = get_post_meta( $post->ID, 'postDetail_showPic', true );
 ?>
@@ -41,7 +42,30 @@
 
 			<?php
 
-				get_template_part( 'part', 'postslide' );
+			$media_items = get_posts(array(
+				'post_type'		=>	'attachment',
+				'post_parent' 	=> get_the_ID(),
+				'posts_per_page' => -1,
+				'meta_key'      => '_media_tag',
+				'meta_value'	=> 'slide'
+			));
+
+			if ($media_items):
+				wp_enqueue_script( 'bxslider' );
+				 ?>
+				<ul class="slider bxslider-with-controls no-bullets">
+					<?php foreach ( $media_items as $media_item ) : ?>
+						<li class="slide">
+							<?php the_attachment_link( $media_item->ID, true, false, false ); ?>
+						</li>
+					<?php endforeach; ?>
+				</ul><!-- slides -->
+
+			<?php endif;
+
+
+
+
 
 				if ( $postDetail_mediaMarkup ) {
 					echo $postDetail_mediaMarkup;
