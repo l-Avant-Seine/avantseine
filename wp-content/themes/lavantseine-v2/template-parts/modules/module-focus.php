@@ -124,7 +124,7 @@
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
         event.target.playVideo();
-        player.toggleSound()
+         player.mute();
       }
 
       // 5. The API calls this function when the player's state changes.
