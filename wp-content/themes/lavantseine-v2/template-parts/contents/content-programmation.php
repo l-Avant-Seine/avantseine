@@ -90,6 +90,8 @@
 
 			<div class="offset-right is-relative">	
 				<h3 class="h2">cette <br>semaine</h3>
+
+				<?php the_field('cette_semaine', 'options'); ?>
 			</div>
 
 
