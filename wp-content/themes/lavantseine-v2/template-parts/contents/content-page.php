@@ -64,12 +64,14 @@ $tag = $tags[0];
 				<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
 			</div>
 
-			<div class="offset-right module-week">	
-				<h3 class="h2">cette <br>semaine</h3>
+			<?php if( get_field('display_semaine') == '1' ) : ?>
+				<div class="offset-right module-week">	
+					<h3 class="h2">cette <br>semaine</h3>
 
-				<?php the_field('cette_semaine', 'options'); ?>
-			</div>
-			
+					<?php the_field('cette_semaine', 'options'); ?>
+				</div>
+			<?php endif; ?>
+
 		</div>
 
 	</div>
@@ -91,10 +93,11 @@ $tag = $tags[0];
 				$posts_found = $related_posts_query->found_posts;
 
 				set_query_var('query', $related_posts_query);
+				set_query_var('module_title', '');
 				get_template_part('template-parts/modules/module', 'articles'); 
 				wp_reset_postdata();
 
-				if( $posts_found > 0 ) { ?>
+				if( $posts_found > 8 ) { ?>
 					<a href="/magazine/?tag=<?php echo $tag->slug; ?>" class="btn--big is-centered">Voir tous les articles du magazine</a>
 				<?php }
 			?>

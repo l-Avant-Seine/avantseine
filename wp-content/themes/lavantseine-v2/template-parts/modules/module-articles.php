@@ -5,9 +5,15 @@
 	
 	<?php if ( $query->have_posts() ) : ?>
 
-	<h2 class="moduleArticles-title  h2">
-		<span>le Magazine</span> <br>de l'Avant-Seine
-	</h2>
+	<?php if( !isset($module_title) ) : ?>
+		<h2 class="moduleArticles-title h2">
+			<span>le Magazine</span> <br>de l'Avant-Seine
+		</h2>
+	<?php else : ?>
+		<h2 class="moduleArticles-title h2">
+			<?php echo $module_title; ?>
+		</h2>
+	<?php endif; ?>
 
 	<div id="webmag-innergrid" data-columns class="row">
 		<?php $i = 0; $excerpt = true; ?>

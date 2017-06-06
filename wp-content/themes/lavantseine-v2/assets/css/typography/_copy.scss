@@ -98,6 +98,16 @@ big {
         content: '';
       }
     }
+
+    h2 {
+      @include type-setting(4);
+      color: $color_primary;
+    }
+
+    h3 {
+      @include type-setting(3);
+      color: $black;
+    }
     iframe { 
       max-width: 100%;
       margin-bottom: $base_line_height * 2;
