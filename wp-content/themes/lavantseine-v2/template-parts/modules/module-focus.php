@@ -4,6 +4,8 @@
 	$focus_event = get_field('focus_event', 'option'); 
 	$focus_event_id = $focus_event->ID;
 	$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $focus_event_id ), 'large' );
+	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $focus_event->ID ) );
+	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $focus_event->ID ) );
 
 
 	if( $focus_event ): ?>
@@ -25,7 +27,7 @@
 	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
 	    			<span>Le prochain rendez-vous</span>
 	    			<h3 class="h1 no-margin"><?php echo get_the_title($focus_event_id); ?></h3>
-						<span class="meta-date">Dates</span>
+						<span class="meta-date"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates = false); ?></span>
 	    		</a>
 	    	</div>
 
