@@ -157,6 +157,33 @@ jQuery(function($) {
 
 
 
+    /*
+     * Smooth scrolling
+     * Add smooth when clicking an anchor
+     */
+    var hashTagActive = "";
+    $(".scroll").click(function (event) {
+        if(hashTagActive != this.hash) { //this will prevent if the user click several times the same link to freeze the scroll.
+            event.preventDefault();
+            //calculate destination place
+            var dest = 0;
+            if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
+                dest = $(document).height() - $(window).height() - 200;
+            } else {
+                dest = $(this.hash).offset().top - 150;
+            }
+
+            //go to destination
+            $('html,body').animate({
+                scrollTop: dest
+            }, 1000, 'swing');
+            hashTagActive = this.hash;
+        }
+    });
+
+
+
+
 /*
  * GRIDS
  */

@@ -44,7 +44,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 					<?php 
 						echo "<h4 class='h3'>". get_event_dates($event_first_date, $event_last_date, $event_other_dates = false) ."</h4>" ;
 					?>
-					<p><a href="#event-details"><span class="icon-arrow-right"></span><strong>voir toutes les dates</strong></a></p>
+					<p><a href="#event-details" class="scroll"><span class="icon-arrow-right"></span><strong>voir toutes les dates</strong></a></p>
 
 
 					<?php if ( $event_duration ) : echo "<span class='eventHeader-duration'> Durée : ". $event_duration ."</p>"; endif; ?>
