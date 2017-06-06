@@ -25,11 +25,13 @@
 				
 
 			<div class="blocEvent-infos full_absolute">
-				<?php echo "<p>". $event_shortText. "</p>"; ?>
+				<div class="is-flex inner">
+					<?php echo "<p>". $event_shortText. "</p>"; ?>
 
-				<div class="blocEvent-actions">
-					<a href="<?php the_permalink(); ?>" class="btn--big">En savoir plus</a>
-					<a href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="btn--big">Réserver</a>
+					<div class="blocEvent-actions">
+						<a href="<?php the_permalink(); ?>" class="btn--big empty">En savoir plus</a>
+						<a href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="btn--big">Réserver</a>
+					</div>
 				</div>
 			</div>
 

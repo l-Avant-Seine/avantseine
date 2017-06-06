@@ -33,16 +33,22 @@
 			display: none;
 			background-color: rgba(0,0,0,0.9);
 			color: $white;
-			text-align: justify;
-			padding: 0.5em;
+			padding: 1em;
+
+			.inner {
+				height: 100%;
+				flex-direction: column;
+				align-content: space-between;
+				justify-content: flex-end;
+			}
 		}
 		.blocEvent-actions {
 			a {
 				display: block;
 				text-align: center;
 
-				&:first-child {
-					margin-bottom: $base_line_height / 2;
+				&:last-child {
+					margin-bottom: 0;
 				}
 			}
 		}

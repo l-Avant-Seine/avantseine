@@ -4,7 +4,7 @@
 <section class="module-services offset-right">
 	<div class="moduleInner">
 		
-		<h4 class="h4 module-title">à votre <br>service &#x02666;</h4>
+		<h4 class="h4 module-title">à votre <br>service <br><span class="title-diamond">&#x02666;</span></h4>
 
 
 		<?php foreach ( $services_pages as $post ) : setup_postdata( $post ); ?>

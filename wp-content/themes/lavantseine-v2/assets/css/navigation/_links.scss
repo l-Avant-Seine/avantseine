@@ -20,7 +20,6 @@ a:active {
 
 
 .btn {
-	border: 1px solid;
 	text-align: center;
 	margin-bottom: $base_line_height / 2;
 	
@@ -28,6 +27,11 @@ a:active {
 		background-color: $black;
 		color: $white;
 		border-color: $black;
+	}
+	&.empty {
+		background: none;
+		border: 1px solid $color_primary;
+		color: $color_primary;
 	}
 }
 
@@ -45,6 +49,7 @@ a:active {
 .btn--little {
 	@extend .btn;
 	@include type-setting(-1);
+	border: 1px solid;
 	font-weight: $bold;
 	padding: 0.5em 1em;
 	font-family: $font_family_btn;
@@ -53,11 +58,12 @@ a:active {
 
 .btn-soundToggle {
 	position: absolute;
-	height: 40px;
-	width: 40px;
+	height: 50px;
+	width: 50px;
 	top: 20px;
 	right: 20px;
 	background-color: $color_primary;
 	color: $white;
 	text-align: center;
+	border-radius: 50%;
 }
