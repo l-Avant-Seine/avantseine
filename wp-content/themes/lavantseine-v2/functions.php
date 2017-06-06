@@ -244,14 +244,24 @@ function search() {
 
 	$args = array(
 		'post_type' => array('event', 'post', 'page'),
-		's' => $keyword
+		's' => $keyword,
+		'posts_per_page' 	=> '10',
 	);
 
 	$ajax_query = new WP_Query($args);
 
-	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
-		get_template_part( 'template-parts/blocs/bloc', 'search' );
-	endwhile;
+	if ( $ajax_query->have_posts() ) : ?>
+
+		<h2 class="h2">Il y a <span><?php echo $ajax_query->found_posts; ?></span> résultat<?php if( $ajax_query->found_posts > 1 ) : echo 's'; endif; ?> pour la recherche <em><?php echo $keyword; ?></em></h2>
+
+		<?php if( $ajax_query->found_posts > 10 ) : ?>
+			<p>Voici les 10 premiers...</p>
+		<?php endif; ?>
+
+		<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
+			get_template_part( 'template-parts/blocs/bloc', 'search' );
+
+		endwhile;
 	endif;
 
 	die();

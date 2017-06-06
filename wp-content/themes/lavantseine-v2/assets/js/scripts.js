@@ -40,7 +40,7 @@
         // console.log( 'aside height : ' + progAside.outerHeight() );
         // console.log( 'aside bottom : ' + progAside_bottom );
 
-        if( progGrid_items.length == 0 ) {
+        if( progGrid_items.length === 0 ) {
             progAside.css('position', 'relative');
         }
 
@@ -155,6 +155,20 @@ jQuery(function($) {
     }
 
 
+    /*
+     * Search Bar
+     */
+    $('#js-searchTrigger').on('click', function(event) {
+      event.preventDefault();
+
+      $(this).find('span').toggleClass('icon-search icon-close')
+      $('.siteMenus-searchform').toggle();
+
+      if( $('.emptyModal').is(':visible') ) {
+        $('.emptyModal').hide();
+      }
+    });
+
 
 
     /*
@@ -243,6 +257,7 @@ jQuery(function($) {
           },
           function(response){
             $('.emptyModal-inner').html(response);
+            $('.emptyModal').show();
           }
       );
     });

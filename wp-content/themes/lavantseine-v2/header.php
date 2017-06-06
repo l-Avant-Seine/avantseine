@@ -88,7 +88,7 @@
 	</header><!-- #masthead -->
 
 	<div class="emptyModal">
-		<div class="emptyModal-inner"></div>
+		<div class="emptyModal-inner wrap"></div>
 	</div>
 
 	<div id="content" class="site-content">

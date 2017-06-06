@@ -34,3 +34,39 @@ input::-moz-focus-inner { /* Corrects inner padding and border displayed oddly i
 
 
 
+/*
+ * Search Bar
+ */
+
+.siteMenus-searchform {
+	display: none;
+	position: absolute;
+	right: 40px;
+	top: 0;
+	bottom: 0;
+}
+	.searchbar {
+		border: none;
+		background-color: $white;
+    height: $menu_height;
+
+		input {
+			border: none;
+			background: none;
+
+		}
+		input[type="text"] {
+			width: 250px;
+			padding: 0 10px;
+			margin-bottom: 0;
+		}
+		input[type="text"] {
+			width: 250px;
+			padding: 0 10px;
+			margin-bottom: 0;
+		}
+	}
+
+
+
+
