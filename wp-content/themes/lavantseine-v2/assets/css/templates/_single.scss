@@ -17,8 +17,12 @@
 	.single-title {
 		background-color: rgba(0,0,0,0.98);
 		color: $white;
-		position: relative;
 		padding: 2em;
+		margin-top: 0;
+		margin-bottom: 0;
+		& > div {
+			float: left;
+		}
 	}
 	.single-share {
 		position: relative;
@@ -42,5 +46,15 @@
 
 		iframe {
 			max-width: 100%;
+		}
+	}
+
+
+	.post-navigation {
+		margin-top: $base_line_height * 2;
+		a {
+			@extend .btn--big;
+			margin-right: 5px;
+			float: left;
 		}
 	}

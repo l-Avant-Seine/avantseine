@@ -64,9 +64,6 @@
 			<?php endif;
 
 
-
-
-
 				if ( $postDetail_mediaMarkup ) {
 					echo $postDetail_mediaMarkup;
 				}
@@ -82,12 +79,6 @@
 			</div>
 
 
-		<?php
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'lavantseine' ),
-				'after'  => '</div>',
-			) );
-		?>
 	</div><!-- .entry-content -->
 
 

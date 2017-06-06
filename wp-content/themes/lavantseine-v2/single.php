@@ -16,8 +16,7 @@ get_header(); ?>
 			get_template_part( 'template-parts/contents/content', 'single' ); ?>
 
 			<div class="wrap">
-				<?php the_post_navigation(); ?>
-
+				<?php lavantseine_post_nav(); ?>
 			</div>			
 
 		<?php endwhile; // End of the loop.
