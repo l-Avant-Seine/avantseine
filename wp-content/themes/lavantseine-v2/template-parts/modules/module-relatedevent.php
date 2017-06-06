@@ -16,7 +16,7 @@
 
 	if ( !empty($tags) ) {
 			
-			echo '<h3 class="h2">à voir sur <br>scène <br>&#x02666;</h3>';
+			echo '<h3 class="h2">à voir sur <br>scène <br><span class="title-diamond">&#x02666;</span></h3>';
 
 			$tag_slug = $tags[0]->slug;
 
@@ -50,15 +50,19 @@
 					</div>
 					
 					<span class="relatedPost-date meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
-					<h4 class="h5 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+
+					<h4 class="h4 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+					
 					<div class="relatedPost-text">
 						<?php 
 							$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
 							echo "<p>".$post_shortText. "</p>"; 
 						?>
 					</div>
-					<a href="" class="btn--big"><span class="icon-arrow-right"></span>en savoir plus</a>
-					<a href="" class="btn--big">réserver</a>
+
+					<div class="clearfix"><a href="" class="btn--big"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+					<div class="clearfix"><a href="" class="btn--big black">réserver</a></div>
+					
 				</div>
 			<?php endwhile; 
 			wp_reset_postdata();

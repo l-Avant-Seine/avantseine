@@ -12,12 +12,11 @@
 
 	if( !empty($tags) ) {
 		$tag_slug = $tags[0]->slug;
+		$tag_count = $tags[0]->count;
 	}
 
-	if ( !empty($tag_slug) ) {
+	if ( !empty($tag_slug) && $tag_count > 1 ) {
 			
-			echo '<h3 class="h2">autour du <br>spectacle</h3>';
-
 			// STAR POST
 			$star_post = new WP_Query(array(
 				"$param_type" 			=> $tag_slug,
@@ -36,6 +35,9 @@
 
 
 			 if ( $star_post->have_posts() ) : 
+
+				echo '<h3 class="h2">autour du <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
+
 			 	while ( $star_post->have_posts() ) : $star_post->the_post(); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
@@ -131,7 +133,7 @@
 
 	} else {
 	
-			echo '<h3 class="h2">l\'actualité de <br>l\'Avant-Seine</h3>';
+			echo '<h3 class="h2">l\'actualité de <br>l\'Avant-Seine <br><span class="title-diamond">&#x02666;</span></h3>';
 
 			// OTHER POSTS
 			$default_posts = new WP_Query(array(

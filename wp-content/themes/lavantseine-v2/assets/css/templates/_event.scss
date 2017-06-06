@@ -78,17 +78,26 @@
 
 				.entry-meta {
 					margin-top: $base_line_height / 2;
-					margin-bottom: $base_line_height / 2;
+					margin-bottom: 0;
+				}
+
+				.btn--big {
+					min-width: 50%;
+					display: inline-block;
 				}
 			}
 				.relatedPost-media {
 					position: relative;
+					margin-bottom: $base_line_height / 2;
 
 					& > ul {
 						position: absolute;
 						top: 0;
 						left: 0;
 					}
+				}
+				.relatedPost-title {
+					//color: $white;
 				}
 
 

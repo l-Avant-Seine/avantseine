@@ -58,7 +58,7 @@
 			<div class="m-2coll m-last prog-aside is-absolute">
 
 				<div class="offset-right module-brochure layer">
-					<h3 class="h2">La <br>brochure</h3>
+					<h3 class="h2">La <br>brochure <br><span class="title-diamond">&#x02666;</span></h3>
 
 					<?php if( have_rows('brochures_de_saison', 'option') ): ?>
 						<?php $i = 0; ?>
@@ -88,7 +88,7 @@
 			</div>
 
 			<div class="offset-right module-week">	
-				<h3 class="h2">cette <br>semaine</h3>
+				<h3 class="h2">cette <br>semaine <br><span class="title-diamond">&#x02666;</span></h3>
 
 				<?php the_field('cette_semaine', 'options'); ?>
 			</div>
