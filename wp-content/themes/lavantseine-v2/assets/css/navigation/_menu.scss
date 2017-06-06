@@ -4,8 +4,6 @@
  * @package lavantseine-v2
  */
 
-$menu_height 	: 50px;
-$logo_width		: 100px;
 
 
 
@@ -33,7 +31,7 @@ $logo_width		: 100px;
 			float: left;	
 			text-transform: uppercase;
 			line-height: inherit !important;
-			padding: 0 0.7em;
+			padding: 0 0.5em;
 			font-weight: $bold;
 
 			a {
@@ -57,10 +55,8 @@ $logo_width		: 100px;
 
 .siteMenus-secondary {
 	float: right;
+	position: relative;
 }
-	.siteMenus-searchform {
-		display: none;
-	}
 	.booking-link {
 		background-color: $color_primary;
 		color: $white;
