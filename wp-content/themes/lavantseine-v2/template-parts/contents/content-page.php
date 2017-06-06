@@ -57,16 +57,21 @@ $tag = $tags[0];
 			<?php echo $page_right_col; ?>
 		</div><!-- .entry-content -->
 
-		<div class="m-3col m-last page-aside offset-right">
+		<div class="m-3col m-last page-aside">
 
-			<div class="page-nav">
+			<div class="page-nav module-childpages offset-right layer">
 				<?php set_query_var( 'root', $root ); ?>
 				<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
 			</div>
 
-			
+			<div class="offset-right module-week">	
+				<h3 class="h2">cette <br>semaine</h3>
+
+				<?php the_field('cette_semaine', 'options'); ?>
+			</div>
 			
 		</div>
+
 	</div>
 
 

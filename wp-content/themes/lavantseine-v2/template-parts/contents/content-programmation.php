@@ -57,7 +57,7 @@
 
 			<div class="m-2coll m-last prog-aside is-absolute">
 
-				<div class="offset-right is-relative">
+				<div class="offset-right module-brochure layer">
 					<h3 class="h2">La <br>brochure</h3>
 
 					<?php if( have_rows('brochures_de_saison', 'option') ): ?>
@@ -87,8 +87,7 @@
 
 			</div>
 
-
-			<div class="offset-right is-relative">	
+			<div class="offset-right module-week">	
 				<h3 class="h2">cette <br>semaine</h3>
 
 				<?php the_field('cette_semaine', 'options'); ?>

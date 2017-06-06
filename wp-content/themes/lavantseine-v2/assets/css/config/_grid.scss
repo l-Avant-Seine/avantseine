@@ -86,13 +86,21 @@ $wide_breakpoint:                   1400px !default;
   width: 5000px;          
 
 }
-.offset-right:after {
-  @extend %offset;
-  right: -5000px;
+.offset-right {
+  position: relative;
+
+  &:after {
+    @extend %offset;
+    right: -5000px;
+  }
 }
-.offset-left:before {
-  @extend %offset;
-  left: -5000px;       
+.offset-left {
+  position: relative;
+  
+  &:before {
+    @extend %offset;
+    left: -5000px;
+  }      
 }
 
 

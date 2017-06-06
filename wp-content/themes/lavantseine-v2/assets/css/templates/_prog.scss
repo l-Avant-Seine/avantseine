@@ -27,15 +27,6 @@
 	position: absolute;
 	border-left: 20px solid $white;
 	right: 20px;
-	
-	.h2 {
-		color: $white;
-	}
-	& > div {
-		background-color: $color_primary;
-		padding: 2em;
-		margin-bottom: $base_line_height;
-	}
 }
 
 

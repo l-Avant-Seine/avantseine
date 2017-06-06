@@ -9,7 +9,10 @@
 	$tax_args = array('orderby' => 'none' );
 
 	$tags = wp_get_post_terms( $post->ID , $taxonomy, $tax_args);
-	$tag_slug = $tags[0]->slug;
+
+	if( !empty($tags) ) {
+		$tag_slug = $tags[0]->slug;
+	}
 
 	if ( !empty($tag_slug) ) {
 			

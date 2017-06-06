@@ -23,3 +23,17 @@
 	margin-bottom: $base_line_height * 2;
 }
 
+.module-week,
+.module-brochure {
+	background-color: $color_primary;
+	padding: 2em;
+
+	.h2 {
+		color: $white;
+	}
+}
+
+.module-childpages {
+	background-color: $gray_lighter;
+	padding: 2em;
+}
