@@ -31,7 +31,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
 
-	<header class="event-header bg_cover" style="background-image: url(<?php the_post_thumbnail_url('top-thumbnail'); ?>);">
+	<header class="event-header bg_cover" style="background-image: url(<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>);">
 		<div class="eventHeader-inner row wrap is-flex">
 			
 			<div class="eventHeader-title m-5col">

@@ -110,6 +110,7 @@ big {
     }
     iframe { 
       max-width: 100%;
+      min-height: 300px;
       margin-bottom: $base_line_height * 2;
     }
   }
