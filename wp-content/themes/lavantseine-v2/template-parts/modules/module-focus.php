@@ -8,11 +8,18 @@
 
 	if( $focus_event ): ?>
 
+	<section class="module-focus bg_cover" style="background-image: url(<?php if( get_field('gif', $focus_event_id ) ) : the_field('gif', $focus_event_id); else : echo $focus_event_media_url[0]; endif; ?>);">
 
-	<section class="module-focus bg_cover" style="background-image: url(<?php echo $focus_event_media_url[0]; ?>);">
+
+		<?php if( get_field( 'eventDetail_mediaMarkup', $focus_event_id ) ) : ?>
+
+			<?php the_field( 'eventDetail_mediaMarkup', $focus_event_id ); ?>
+			<a href="#" id="js-soundToggle" class="btn-soundToggle">le son !</a>
+
+		<?php endif; ?>
+
 
 		<div class="moduleInner is-flex row_alt">
-
 
 	    	<div class="focusEvent_infos m-3coll">
 	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
@@ -23,11 +30,9 @@
 	    	</div>
 
 
+			<?php if( have_rows('focus_elements', 'option') ): ?>
 
-		<?php if( have_rows('focus_elements', 'option') ): ?>
-
-
-		   <?php while ( have_rows('focus_elements', 'option') ) : the_row();
+		   	<?php while ( have_rows('focus_elements', 'option') ) : the_row();
 
 		        if( get_row_layout() == 'focusElements_page' ):
 		        	$focusElements_page = get_sub_field('focusElements_page'); ?>
@@ -83,3 +88,57 @@
 		<?php endif; ?>
 
 
+
+
+<script>
+	
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+
+
+      function toggleSound() {
+        if (player.isMuted()) {
+          player.unMute()
+        } else {
+          player.mute()
+        }
+      }
+
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          playerVars: { 'autoplay': 1, 'controls': 0, 'loop': 1, 'showinfo': 0, 'modestbranding': 1, 'start': 1, 'enablejsapi': 1 },
+          events: {
+            'onReady': onPlayerReady, toggleSound,
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+        player.toggleSound()
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+
+</script>

@@ -41,3 +41,15 @@ a:active {
 	padding: 0.5em 1em;
 	font-family: $font_family_btn;
 }
+
+
+.btn-soundToggle {
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	top: 20px;
+	right: 20px;
+	background-color: $color_primary;
+	color: $white;
+	text-align: center;
+}

@@ -5,9 +5,7 @@
  * @package l\'Avant-Seine_v2.0
  */
 
-wp_enqueue_script( 'salvatorre' );
-
-
+	wp_enqueue_script( 'salvatorre' );
 ?>
 
 
@@ -18,7 +16,6 @@ wp_enqueue_script( 'salvatorre' );
 	<div id="" class="layer">
 		<?php get_template_part('template-parts/modules/module', 'focus'); ?>
 	</div>
-
 
 	
 	<div id="" class="layer clearfix wrap row">

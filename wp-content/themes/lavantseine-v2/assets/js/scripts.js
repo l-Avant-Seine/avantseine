@@ -171,6 +171,17 @@ jQuery(function($) {
 
 
 
+
+
+
+    $('#js-soundToggle').on('click', function(event) {
+      event.preventDefault()
+      toggleSound();
+    });
+
+
+
+
     /*
      * Smooth scrolling
      * Add smooth when clicking an anchor
