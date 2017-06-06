@@ -14,12 +14,17 @@
 	</div><!-- #content -->
 
 	<footer id="mastfooter" class="site-footer transparent-background" role="contentinfo">
-		<div class="wrap">
+		<div class="wrap row">
 			
-			footer
-		
-			<?php get_sidebar( 'footer-widgets' ); ?>
-			
+			<?php
+				if( have_rows('footer_cols', 'options') ):
+			    while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
+						<div class="m-2col">
+			        <?php the_sub_field('colonne'); ?>
+						</div>
+			    <?php endwhile;
+			endif;
+			?>			
 		</div>
 
 	</footer><!-- #mastfooter -->
