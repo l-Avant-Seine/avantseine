@@ -5,7 +5,9 @@
 
 setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 
-$post_meta_data = get_post_custom($post->ID);
+$babysitting = false;
+
+//$post_meta_data = get_post_custom($post->ID);
 
 $tags = wp_get_post_terms($post->ID, array('discipline', 'rdv'), array("fields" => "all"));
 
@@ -13,7 +15,10 @@ $event_dates = get_field( 'eventDetail_dates' );
 $event_duration = get_field( 'eventDetail_duration' );
 $event_text2 = get_field( 'eventDetail_text2' );
 $event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
+$event_first_date_babysitting = get_field( 'eventDetail_first_date_babysitting' );
 $event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
+$event_last_date_babysitting = get_field( 'eventDetail_last_date_babysitting' );
+
 $event_other_dates = get_field('eventDetail_otherdates');
 $event_landscape_media = get_field( 'eventDetail_landscapeMedia' );
 
@@ -22,9 +27,32 @@ $eventDetail_showPic = get_field( 'eventDetail_showPic' );
 $noms_principaux = get_field( 'noms_principaux' );
 
 $attached = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
+$presskit = get_field( 'presskit' );
 
 $event_distribution = get_field( 'eventDetail_distribution' );
 $event_mentions = get_field( 'eventDetail_mentions' );
+
+if( $event_first_date_babysitting || $event_last_date_babysitting ) {
+	$babysitting = true;
+}
+										
+if( have_rows('eventDetail_otherdates') ):
+	$otherdates = '';
+
+  while ( have_rows('eventDetail_otherdates') ) : the_row();
+		$otherdates .= '<li>';
+      $otherdates .= get_sub_field('date');
+
+			if( get_sub_field('baby-sitting') ) : 
+				$otherdates .= '<span class="event-babysitting"><span class="icon-cocarde"></span>Service Baby-Sitting</span>';
+				$babysitting = true;
+			endif; 
+
+		$otherdates .= '</li>';
+  endwhile;	
+
+endif; 
+
 
 ?>
 
@@ -40,6 +68,13 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 			</div>
 
 			<div class="eventHeader-date m-3col">
+				
+				<?php if($babysitting) : ?>
+					<a class="focusElement-pastille is-flex scroll" href="#event-details">
+						<span>Baby<br>Sitting</span>
+					</a>
+				<?php endif; ?>
+
 				<div class="inner">
 					<?php 
 						echo "<h4 class='h3'>". get_event_dates($event_first_date, $event_last_date, $event_other_dates = false) ."</h4>" ;
@@ -167,14 +202,18 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 										echo '<ul class="no-bullets">';
 										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date ) .'.</li>'; 
 
-										if ( $event_other_dates ) : 
-											foreach ($event_other_dates as $date) { 
-												$date = strtotime($date);
-											    if ( $date != '' ) : 
-											    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
-											    endif;
-											} 
-										endif; 
+										  if( isset($otherdates)) {
+										  	echo $otherdates;
+										  }
+
+											if ( $event_other_dates ) : 
+												foreach ($event_other_dates as $date) { 
+													$date = strtotime($date);
+												    if ( $date != '' ) : 
+												    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
+												    endif;
+												} 
+											endif; 
 
 										if ( $event_last_date && $event_last_date != $event_first_date ) : 
 										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date ) .'.</li>'; 							    
@@ -208,10 +247,17 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 										endif; ?>
 
 									<?php if ($attached) : ?>
-									<p class="attached-file"><a href="<?php echo $attached['url']; ?>">  
-									    Téléchargez le dossier de presse
-									</a></p>
+									<p class="attached-file">
+										<a href="<?php echo $attached['url']; ?>" class="btn--big">  
+									    Dossier de presse
+										</a>
+									</p>
 									<?php endif; ?>
+
+									<?php if( $presskit ): ?>
+										<a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
+									<?php endif; ?>
+
 							</div>
 						</div>
 

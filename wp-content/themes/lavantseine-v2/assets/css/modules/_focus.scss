@@ -30,6 +30,7 @@ $focusElement_height: 400px;
 		@include box-sizing;
 		padding: 0.5em;
 		font-size: 0.8em;
+		color: $white;
 		line-height: 1;
 		position: absolute;
 		height: 73px;
@@ -39,6 +40,14 @@ $focusElement_height: 400px;
 		background-image: url('assets/img/cocarde.png');
 		text-align: center;
 		align-items: center;
+		text-transform: uppercase;
+		font-weight: $bold;
+		font-family: $font_family_title;
+		
+		span {
+			display: inline-block;
+			width: 100%;
+		}
 	}
 
 	.focusEvent_infos {

@@ -71,7 +71,7 @@ $event_details_fields = array(
     ),
     array( 
 	    'label' => 'Autres Dates et Horaires de représentation',  
-	    'desc'  => 'Ajouter chaque date et horaire au format 20.05.2014 20:00 (Attention : ne plus utiliser cette méthode !!!)',  
+	    'desc'  => '(Attention : ne plus utiliser cette méthode !!!)<br>Ajouter chaque date et horaire au format 20.05.2014 20:00',  
 	    'id'    => $prefix.'otherdates',  
 	    'type'  => 'repeatable'  
 	),

@@ -24,7 +24,8 @@
 		}
 		.eventHeader-date {
 			background-color: rgba(255,255,255,0.99);
-
+			position: relative;
+			
 			& > .inner {
 				padding: $base_line_height;
 			}			
@@ -112,7 +113,14 @@
 		}
 	}
 
-
+	.event-babysitting {
+		@include type-setting(0);
+		font-family: $font_family_title;
+		font-weight: $bold;
+		color: $color_primary;
+		text-transform: uppercase;
+		margin-left: 10px;
+	}
 
 
 

@@ -43,7 +43,7 @@
 								
 								<?php if( get_sub_field('pastille') != '' ) : ?>
 									<div class="focusElement-pastille is-flex">
-										<?php the_sub_field('pastille'); ?>
+										<span><?php the_sub_field('pastille'); ?></span>
 									</div>
 								<?php endif; ?>
 
@@ -66,7 +66,7 @@
 
 								<?php if( get_sub_field('pastille') != '' ) : ?>
 									<div class="focusElement-pastille is-flex">
-										<?php the_sub_field('pastille'); ?>
+										<span><?php the_sub_field('pastille'); ?></span>
 									</div>
 								<?php endif; ?>
 
@@ -88,7 +88,7 @@
 
 								<?php if( get_sub_field('pastille') != '' ) : ?>
 									<div class="focusElement-pastille is-flex">
-										<?php the_sub_field('pastille'); ?>
+										<span><?php the_sub_field('pastille'); ?></span>
 									</div>
 								<?php endif; ?>
 
