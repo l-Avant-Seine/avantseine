@@ -89,7 +89,7 @@
 				)
 			));
 
-			echo '<h3 class="h2">le prochain <br>spectacle <br>&#x02666;</h3>';
+			echo '<h3 class="h2">le prochain <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
 
 
 			 if ( $next_event->have_posts() ) : 
