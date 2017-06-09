@@ -40,20 +40,36 @@
 		        	$focusElements_page = get_sub_field('focusElements_page'); ?>
 
 							<div class="focusElement_item m-1coll">
+								
+								<?php if( get_sub_field('pastille') != '' ) : ?>
+									<div class="focusElement-pastille is-flex">
+										<?php the_sub_field('pastille'); ?>
+									</div>
+								<?php endif; ?>
+
 								<div class="square">
 									<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_page->ID ), 'large' )[0]; ?>);"">
 									</div>
 								</div>
+								
 								<div class="inner">
 						    	<h3 class="h5"><a href="<?php echo get_permalink( $focusElements_page->ID ); ?>"><?php echo $focusElements_page->post_title; ?></a></h3>
-						    	<p><?php echo 'chapo chapo chapo'; ?></p>
+						    	<p><?php echo $focusElements_page->excerpt; ?></p>
 						    </div>
+
 					    </div>
 
 		        <?php elseif( get_row_layout() == 'focusElements_article' ): 
 		        	$focusElements_article = get_sub_field('focusElements_article'); ?>
 
 							<div class="focusElement_item m-1coll">
+
+								<?php if( get_sub_field('pastille') != '' ) : ?>
+									<div class="focusElement-pastille is-flex">
+										<?php the_sub_field('pastille'); ?>
+									</div>
+								<?php endif; ?>
+
 								<div class="square">
 									<div class="square-content bg_cover style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_article->ID ), 'large' )[0]; ?>);"">
 									</div>
@@ -69,6 +85,13 @@
 		        	$focusElements_libre = get_sub_field('focusElements_libre'); ?>
 							
 							<div class="focusElement_item m-1coll">
+
+								<?php if( get_sub_field('pastille') != '' ) : ?>
+									<div class="focusElement-pastille is-flex">
+										<?php the_sub_field('pastille'); ?>
+									</div>
+								<?php endif; ?>
+
 		        		<?php echo $focusElements_libre; ?>
 							</div>
 

@@ -26,6 +26,20 @@ $focusElement_height: 400px;
 		align-items: flex-end;
 	}
 }
+	.focusElement-pastille {
+		@include box-sizing;
+		padding: 0.5em;
+		font-size: 0.8em;
+		line-height: 1;
+		position: absolute;
+		height: 73px;
+		width: 73px;
+		top: -35px;
+		right: 30px;
+		background-image: url('assets/img/cocarde.png');
+		text-align: center;
+		align-items: center;
+	}
 
 	.focusEvent_infos {
 		background-color: rgba(0,0,0,0.9);
