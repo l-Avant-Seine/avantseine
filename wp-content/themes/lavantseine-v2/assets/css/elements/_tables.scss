@@ -35,3 +35,28 @@ th {
       height: auto;
     }
   }
+
+
+
+
+  .entry-content {
+    table {
+      border: none;
+    }
+      tr {
+        background-color: $gray_lighter;
+      }
+      tr:first-child {
+        background-color: $color_primary;
+        color: $white;
+        text-transform: uppercase;
+        font-weight: $bold;
+      }
+      td {
+        padding: 0.5em 1em;
+        border-bottom: 1px solid $white;
+      }
+  }
+
+
+

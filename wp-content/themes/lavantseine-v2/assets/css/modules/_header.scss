@@ -12,13 +12,14 @@
 	opacity: 0.98;
 	height: $menu_height;
 	line-height: $menu_height;
+	position: relative;
+	z-index: 9999;
 
 	&.sticky {
 		position: fixed;
 		left: 0;
 		right: 0;
 		top: 0;
-		z-index: 9999;
 	}
 }
 
