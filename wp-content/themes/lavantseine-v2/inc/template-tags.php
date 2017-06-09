@@ -41,7 +41,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 			}
 			else {
 				// Si 2 jours différents
-				$event_dates .= 'Les ';
+				$event_dates .= 'Le ';
 				$event_dates .= strftime('%e', $event_first_date );
 
 				if( strcmp( strftime('%b', $event_first_date ), strftime('%b', $event_last_date ) ) ) {
