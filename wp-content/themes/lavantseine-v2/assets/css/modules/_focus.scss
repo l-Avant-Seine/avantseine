@@ -34,10 +34,11 @@ $focusElement_height: 400px;
 		line-height: 1;
 		position: absolute;
 		height: 73px;
-		width: 73px;
+		width: 72px;
 		top: -35px;
-		right: 30px;
+		left: 1em;
 		background-image: url('assets/img/cocarde.png');
+		background-repeat: no-repeat;
 		text-align: center;
 		align-items: center;
 		text-transform: uppercase;
@@ -55,7 +56,9 @@ $focusElement_height: 400px;
 		color: $white;
 		padding: $base_line_height;
 		height: 30%;
-		z-index: 999;
+		left: 5%;
+		position: relative;
+		z-index: 0;
 
 			span {
 				color: $color_primary;
@@ -69,7 +72,8 @@ $focusElement_height: 400px;
 		height: 60%;
 		
 		.inner {
-			padding: 0.5em;
+			padding: 1em;
+			word-wrap: break-word;
 		}
 	}
 		.focusElement_media {

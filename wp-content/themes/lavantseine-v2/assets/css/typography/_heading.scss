@@ -38,6 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 .h5 {
   @include type-setting(3);
   font-weight: 900;
+  margin-bottom: $base_line_height / 2;
 }
 
 .h6 {

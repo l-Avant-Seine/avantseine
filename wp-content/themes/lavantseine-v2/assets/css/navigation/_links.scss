@@ -48,11 +48,15 @@ a:active {
 
 .btn--little {
 	@extend .btn;
-	@include type-setting(-1);
+	@include type-setting(0);
 	border: 1px solid;
 	font-weight: $bold;
 	padding: 0.5em 1em;
 	font-family: $font_family_btn;
+
+	.icon-arrow-right::before {
+	    font-size: 7px;
+	}
 }
 
 
