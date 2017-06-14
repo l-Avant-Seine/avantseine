@@ -124,7 +124,7 @@
 			$max_pages = $other_posts->max_num_pages;
 
 			if( $found_posts > $max_pages) : ?>
-				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big">Voir tous les articles</a>
+				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>Voir tous les articles</a>
 			<?php endif; 
 
 			wp_reset_postdata();
@@ -176,7 +176,7 @@
 			$max_pages = $default_posts->max_num_pages;
 
 			if( $found_posts > $max_pages) : ?>
-				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big">Voir tous les articles</a>
+				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big bordered-black"><span class="icon-arrow-right"></span>voir tous les articles</a>
 			<?php endif; 
 
 			wp_reset_postdata();

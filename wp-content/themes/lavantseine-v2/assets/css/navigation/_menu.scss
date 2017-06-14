@@ -73,8 +73,8 @@
 	right: 0;
 	left: 0;
 	top: $menu_height;
-	padding-top: $base_line_height;
-	padding-bottom: $base_line_height;
+	padding-top: $base_line_height * 2;
+	padding-bottom: $base_line_height * 2;
 	z-index: 9999;
 	
 	&.active {
@@ -85,14 +85,13 @@
 		display: flex;
 		line-height: normal;
 
-		& > .menu-item {
+		& > .menu-item:not(:first-child) {
 			padding-left: $base_line_height;
-
-			& > a {
+		}
+			& > .menu-item > a {
 				@include type-setting(3);
 				font-weight: $bold;
 			}
-		}
 
 		.sub-menu {
 			margin-top: $base_line_height;

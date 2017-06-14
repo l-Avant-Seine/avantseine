@@ -14,7 +14,6 @@ get_header(); ?>
 
 			<?php get_template_part( 'template-parts/contents/content', 'programmation' ); ?>
 
-		<div class="clearfix"></div>
 		</main><!-- #main -->
 	</div><!-- #primary -->
 

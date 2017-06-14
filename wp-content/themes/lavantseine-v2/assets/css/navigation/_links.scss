@@ -33,6 +33,10 @@ a:active {
 		border: 1px solid $color_primary;
 		color: $color_primary;
 	}
+	&.bordered-black {
+		color: $black;
+		border: 1px solid;
+	}
 }
 
 .btn--big {

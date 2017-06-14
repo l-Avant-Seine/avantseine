@@ -59,7 +59,7 @@
 
 	.event-meta {
 		.eventmeta-term {
-			margin-right: 10px;
+			margin-right: 5px;
 		}
 	}
 	.event-content {
@@ -72,6 +72,7 @@
 
 			h3 {
 				color: $white;
+				margin-bottom: 40px;
 			}
 		}
 			.relatedPost {
@@ -110,6 +111,10 @@
 
 		.row:not(:last-child) {
 			margin-bottom: $base_line_height * 2;
+		}
+
+		.h5 {
+			color: $color_primary;
 		}
 	}
 

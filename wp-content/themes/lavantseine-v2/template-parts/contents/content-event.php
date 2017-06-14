@@ -62,7 +62,7 @@ endif;
 	<header class="event-header bg_cover" style="background-image: url(<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>);">
 		<div class="eventHeader-inner row wrap is-flex">
 			
-			<div class="eventHeader-title m-5col">
+			<div class="eventHeader-title m-5col offset-right">
 				<h1 class="h1 entry-title"><?php the_title(); ?></h1>
 				<div class="eventHeader-name"><?php echo $noms_principaux; ?></div>
 			</div>
@@ -178,7 +178,7 @@ endif;
 						
 						<div class="row clearfix">
 							<div class="m-2col">
-								<h4 class="h5">Tarifs</h4>
+								<h4 class="h5"><span class="title-diamond">♦</span><br>Tarifs</h4>
 
 								<?php				
 									$term_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all"));
@@ -195,7 +195,7 @@ endif;
 							</div>
 
 							<div class="m-3col">
-								<h4 class="h5">Date(s)</h4>
+								<h4 class="h5"><span class="title-diamond">♦</span><br>Date(s)</h4>
 
 								<?php 
 									if ( $event_first_date ) : 
@@ -228,9 +228,9 @@ endif;
 						
 
 						<div class="row clearfix">
-							<h4 class="h5">Distribution et mentions complètes</h4>
+							<h4 class="h5"><span class="title-diamond">♦</span><br>Distribution et mentions complètes</h4>
 				
-							<div class="m-2col m-first">
+							<div class="l-3col l-first layer">
 									<?php if ( $event_text2 ) : echo "<p class=''>". $event_text2 ."</p>"; endif; ?>
 
 									<?php 
@@ -239,7 +239,7 @@ endif;
 										endif; ?>
 							</div>
 
-							<div class="m-3col">
+							<div class="l-4col">
 
 									<?php 
 										if (  $event_mentions ) : 

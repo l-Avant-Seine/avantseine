@@ -10,8 +10,9 @@
 		<div class="prog-pagetitle">
 			
 			<div class="wrap">
-				<h1 class="h1">La programmation<br>
-				<span id="archives">à venir</span></h1>
+				<h1 class="h1">
+					La programmation<br>
+					à venir</h1>
 			</div>
 
 		</div>
@@ -69,9 +70,9 @@
 					    <?php while ( have_rows('brochures_de_saison', 'option') ) : the_row(); ?>
 								
 								<?php if( $i == 0) : ?>
-								<li class="pdfItem-first btn--big"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>Saison <?php the_sub_field('saison'); ?></a></li>
+								<li class="pdfItem-first btn--big text-on-left"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>Saison <?php the_sub_field('saison'); ?></a></li>
 
-								<li class="pdfItem-others btn--big js-pdfTrigger"><a href="#" class=" ">Autres Saisons	<span class="icon-dropdown"></span></a></li>
+								<li class="pdfItem-others btn--big js-pdfTrigger text-on-left"><a href="#" class=" ">Autres Saisons	<span class="icon-dropdown"></span></a></li>
 
 								<ul class="no-bullets">
 								<?php else : ?>
@@ -130,8 +131,8 @@
 </div>
 
 
-		<div class="wrap">
-			<a class="load-more btn--big" href="#" posts_found="<?php echo $posts_found; ?>"><span class="icon-arrow-right"></span>load more</a>
+		<div class="wrap module-actions">
+			<a class="load-more btn--big m-4coll is-centered" href="#" posts_found="<?php echo $posts_found; ?>">voir plus de spectacles</a>
 		</div>
 		
 

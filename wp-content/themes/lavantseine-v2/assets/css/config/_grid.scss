@@ -43,7 +43,7 @@ $logo_width     : 100px;
         width: 90%;
     }
     @include at-least(medium) {
-        width: 90%;
+        width: 95%;
     }
     @include at-least(large) {
         width: $max_width;
@@ -167,6 +167,7 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
     }
 
     .is-centered {
+        display: inline-block;
       margin-left: auto !important;
       margin-right: auto !important;
       float: none !important;

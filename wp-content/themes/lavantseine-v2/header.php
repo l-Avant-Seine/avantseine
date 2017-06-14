@@ -43,9 +43,11 @@
 					) ); ?>
 
 				<div id="ham-menu" class="ham-menu">
-					<?php wp_nav_menu( array( 
+					<div class="wrap">
+						<?php wp_nav_menu( array( 
 						'theme_location' => 'all', 
 						'menu_id' => 'hamburger-menu' ) ); ?>
+					</div>
 				</div>
 
 			</nav><!-- #site-navigation -->

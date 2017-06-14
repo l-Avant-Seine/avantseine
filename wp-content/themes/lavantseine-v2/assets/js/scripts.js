@@ -113,7 +113,7 @@ jQuery(function($) {
       event.preventDefault();
 
       $(this).parent().toggleClass('open');
-      $('.box-share-list').css('height', 'auto');
+      $('.box-share-list').css('height', 'auto').css('visibility', 'visible');
     });
 
 
@@ -123,7 +123,7 @@ jQuery(function($) {
         // if the target of the click isn't the container nor a descendant of the container
         if (!container.is(event.target) && container.has(event.target).length === 0) 
         {
-            container.find('.box-share-list').css('height', '0');
+            container.find('.box-share-list').css('height', '0').css('visibility', 'hidden');
             container.removeClass('open');
         }
     });
@@ -136,8 +136,10 @@ jQuery(function($) {
 
       if( $(this).attr('checked') === undefined ) {
         $('.progFilterForm-lower').show();
+        $('.prog-pagetitle h1').html('Les <br>archives');
       } else {
         $('.progFilterForm-lower').hide();
+        $('.prog-pagetitle h1').html('La programmation <br>à venir');
       }
 
     });
