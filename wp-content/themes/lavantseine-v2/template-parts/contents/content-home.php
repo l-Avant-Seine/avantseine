@@ -35,8 +35,10 @@
 				get_template_part('template-parts/modules/module', 'events'); 
 				wp_reset_postdata(); 
 			?>
-
-			<a href="/programmation" class="btn--big is-centered">Voir toute la programmation</a>
+			
+			<div class="module-actions">
+				<a href="/programmation" class="btn--big is-centered">Voir toute la programmation</a>
+			</div>
 		</div>
 
 
@@ -80,8 +82,10 @@
 				wp_reset_postdata(); 
 			?>
 
-		<a href="/magazine" class="btn--big is-centered">Voir tous les articles du magazine</a>
-	
+		<div class="module-actions">
+			<a href="/magazine" class="btn--big is-centered">Voir tous les articles du magazine</a>
+		</div>
+
 	</section>
 
 

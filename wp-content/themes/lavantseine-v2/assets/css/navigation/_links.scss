@@ -37,7 +37,7 @@ a:active {
 
 .btn--big {
 	@extend .btn;
-	@include type-setting(2);
+	@include type-setting(-2);
 	background-color: $color_primary;
 	color: $white;
 	font-weight: $bold;
