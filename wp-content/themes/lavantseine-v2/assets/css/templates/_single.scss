@@ -17,8 +17,16 @@
 		padding: 2em;
 		margin-top: 0;
 		margin-bottom: 0;
+
+		h1 {
+			margin-bottom: $base_line_height;
+			max-width: 75%;
+		}
 		& > div {
 			float: left;
+		}
+		.meta-date {
+			margin-bottom: $base_line_height / 2;
 		}
 	}
 	.single-share {
@@ -46,6 +54,10 @@
 		}
 	}
 
+
+	.relatedPost-title {
+		color: $white;
+	}
 
 	.post-navigation {
 		margin-top: $base_line_height * 2;

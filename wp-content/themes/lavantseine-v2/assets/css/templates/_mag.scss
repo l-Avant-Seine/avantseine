@@ -11,6 +11,10 @@
 
 .webmag-title {
 	padding: $base_line_height * 2 0;
+
+	span {
+		color: $color_primary;
+	}
 }
 
 .webmag-filters {
@@ -30,12 +34,34 @@
 
 .webmag-featured {
 	background-color: $gray_lighter;
+	@include transition(all 0.2s);
+
+	&:hover {
+    box-shadow: 0px 0px 12px -4px $black;
+	}
 }
+	.featured-meta {
+		margin-bottom: 10px;
+	}
 	.featured-content {
 		padding: 2em 2em 2em 1em;
 
 		h2 {
 			color: $color_primary;
+		}
+		p {
+			margin-bottom: 0;	
+		}
+	}
+
+
+	.paging-navigation {
+		margin-top: $base_line_height * 2;
+		
+		a {
+			@extend .btn--big;
+			margin-right: 5px;
+			float: left;
 		}
 	}
 

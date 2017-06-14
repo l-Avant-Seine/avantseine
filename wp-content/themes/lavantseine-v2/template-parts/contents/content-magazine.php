@@ -15,7 +15,7 @@ $today = time();
 
 
 				<div class="webmag-title wrap">
-						<h1 class="h1">le Magazine<br> de l'Avant-Seine</h1>
+						<h1 class="h1"><span>Le Magazine</span><br> de l'Avant-Seine</h1>
 
 				</div>
 
@@ -47,8 +47,7 @@ $today = time();
 
 					<?php $exclude_ids = array(); ?>
 
-<?php if( !isset($_GET['tag']) ) : ?>
-
+					<?php if( !isset($_GET['tag']) ) : ?>
 
 					<div class="webmag-featured webmag-layer row is-flex">
 						<?php
@@ -84,7 +83,7 @@ $today = time();
 									<a href="<?php the_permalink(); ?>">
 										<h2 class="h2">
 											<?php the_title(); ?>
-											<br>&#x02666;
+											<br><span class="title-diamond">&#x02666;</span>
 										</h2>
 									</a>
 
@@ -100,7 +99,7 @@ $today = time();
 						?>
 					</div><!-- end .featured-post -->
 
-<?php endif; ?>
+				<?php endif; ?>
 
 
 

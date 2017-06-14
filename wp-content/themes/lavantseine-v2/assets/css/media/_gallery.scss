@@ -30,15 +30,20 @@
   margin: 0 auto 60px;
   padding: 0;
   *zoom: 1;
+  height: 400px;
 
   img {
     width: 100%;
     display: block;
+    max-height: 400px;
+    width: auto;
+    margin: auto;
   }
 }
 
-.page_media {
-  text-align: right;
+.slider {
+  display: flex;
+  align-items: center;
 }
 
 
@@ -58,7 +63,7 @@
 .bx-wrapper .bx-pager,
 .bx-wrapper .bx-controls-auto {
   position: absolute;
-  bottom: -30px;
+  bottom: -5px;
   width: 100%;
 }
 
@@ -95,59 +100,75 @@
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a {
-  background: #666;
+  background: $gray;
   text-indent: -9999px;
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 7px;
+  height: 7px;
   margin: 0 5px;
   outline: 0;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a:hover,
 .bx-wrapper .bx-pager.bx-default-pager a.active {
-  background: #000;
+  background: $white;
 }
 
 
 /* DIRECTION CONTROLS (NEXT / PREV) */
 
 .bx-wrapper .bx-prev {
-  right: $base_line_height * 1.5;
+  @extend .icon-fleche_accordeon-left;
+  left: 0;
+
+  &:before {
+    left: 10px;
+  }
 }
 
 .bx-wrapper .bx-next {
+  @extend .icon-fleche_accordeon;
   right: 0;
+  
+  &:before {
+    right: 10px;
+  }
 }
 
 .bx-wrapper .bx-controls-direction a {
   position: absolute;
-  opacity: 0.1;
+  display: flex;
+  align-items: center;
+  z-index: 999;
+  opacity: 0.4;
   top: 0;
-  margin-top: 0;
+  bottom: 0;
   outline: 0;
   line-height: $base_line_height * 1.5;
   font-family: 'icomoon' !important;
-  color: $black;
-  text-align: center;  
-  width: $base_line_height * 1.5;
-  height: $base_line_height * 1.5;
-  z-index: 999;
-  background-color: $white;
+  width: 49%;
+  color: $white;
+  font-size: 30px;
+  
+  &:before {
+    position: absolute;
+    top: 47%;
+  }
 }
 
   .bx-wrapper:hover {
     .bx-controls-direction a {
-      opacity: 0.7;
+      opacity: 0.9;
     }
   }
 
 .bx-wrapper .bx-controls-direction a.disabled {
   display: none;
 }
+
 
 /* AUTO CONTROLS (START / STOP) */
 

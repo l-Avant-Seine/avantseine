@@ -89,13 +89,16 @@ big {
       color: $color_primary;
       font-family: $font_family_title;
       max-width: 75%;
-      
+      font-weight: $bold;
+
       strong {
         font-weight: $regular;
       }
       
       &:after {
-        content: '&diam;';
+        content: '♦';
+        display: block;
+        clear: both;
       }
     }
 

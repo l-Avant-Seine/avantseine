@@ -153,7 +153,10 @@ jQuery(function($) {
 
 
     if( $('.bxslider-with-controls').length > 0 ) {
-      $('.bxslider-with-controls').bxSlider();
+      $('.bxslider-with-controls').bxSlider({
+        'prevText': '',
+        'nextText': '',
+      });
     }
 
 

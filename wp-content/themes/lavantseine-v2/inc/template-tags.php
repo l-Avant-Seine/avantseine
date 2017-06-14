@@ -175,11 +175,11 @@ function lavantseine_paging_nav() {
 		<div class="nav-links">
 
 			<?php if ( get_next_posts_link() ) : ?>
-			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Eléments plus anciens', 'lavantseine' ) ); ?></div>
+			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> articles plus anciens', 'lavantseine' ) ); ?></div>
 			<?php endif; ?>
 
 			<?php if ( get_previous_posts_link() ) : ?>
-			<div class="nav-next"><?php previous_posts_link( __( 'Eléments plus récents <span class="meta-nav">&rarr;</span>', 'lavantseine' ) ); ?></div>
+			<div class="nav-next"><?php previous_posts_link( __( 'articles plus récents <span class="meta-nav">&rarr;</span>', 'lavantseine' ) ); ?></div>
 			<?php endif; ?>
 
 		</div><!-- .nav-links -->

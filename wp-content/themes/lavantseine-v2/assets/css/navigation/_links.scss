@@ -33,6 +33,9 @@ a:active {
 		border: 1px solid $color_primary;
 		color: $color_primary;
 	}
+	&.bordered {
+		border: 1px solid;
+	}
 	&.bordered-black {
 		color: $black;
 		border: 1px solid;

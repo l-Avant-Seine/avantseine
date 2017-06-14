@@ -21,7 +21,7 @@
 			$tag_slug = $tags[0]->slug;
 
 			// STAR POST
-			$star_post = new WP_Query(array(
+			$star_event = new WP_Query(array(
 				"$param_type" 			=> $tag_slug,
 				'post_status'    => 'publish',
 				'post_type' 			=> 'event',
@@ -30,8 +30,8 @@
 			));
 
 
-			 if ( $star_post->have_posts() ) : 
-			 	while ( $star_post->have_posts() ) : $star_post->the_post(); ?>
+			 if ( $star_event->have_posts() ) : 
+			 	while ( $star_event->have_posts() ) : $star_event->the_post(); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
 						<?php the_post_thumbnail(); ?>
@@ -49,7 +49,9 @@
 						?>						
 					</div>
 					
-					<span class="relatedPost-date meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
+					<span class="relatedPost-date meta-date">
+						<?php the_time('D d M Y'); ?>
+					</span>
 
 					<h4 class="h4 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					
@@ -60,7 +62,7 @@
 						?>
 					</div>
 
-					<div class="clearfix"><a href="" class="btn--big"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+					<div class="clearfix"><a href="" class="btn--big bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
 					<div class="clearfix"><a href="" class="btn--big black">réserver</a></div>
 					
 				</div>
