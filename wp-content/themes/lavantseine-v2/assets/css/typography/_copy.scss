@@ -102,6 +102,10 @@ big {
       }
     }
 
+    a {
+      border-bottom: 1px dashed $color_primary;
+    }
+    
     h2 {
       @include type-setting(4);
       color: $color_primary;
@@ -109,6 +113,7 @@ big {
 
     h3 {
       @include type-setting(3);
+      display: inline-block;
       color: $black;
     }
     iframe { 

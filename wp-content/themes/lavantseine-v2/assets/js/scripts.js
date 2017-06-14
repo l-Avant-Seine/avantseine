@@ -351,7 +351,7 @@ jQuery(function($) {
       event.preventDefault();
 
       $(this).toggleClass('open close');
-
+      $(this).find('span').toggleClass('icon-fleche_accordeon icon-fleche_accordeon-bottom');
     });
 
 

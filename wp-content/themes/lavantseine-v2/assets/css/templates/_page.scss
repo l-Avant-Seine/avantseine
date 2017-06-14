@@ -47,11 +47,10 @@
 
 	.entry-accordeon {
 		background-color: $gray_lighter;
-
 	}
 	
 		.accordeon-title {
-			padding: 1em;
+			padding: 1.5em 1em;
 			cursor: pointer;
 
 			.open & {
@@ -61,6 +60,13 @@
 			
 			& > * {
 				margin-bottom: 0;
+			}
+
+			[class^="icon-fleche_accordeon"] {
+				display: inline-block;
+				float: right;
+				font-size: 20px;
+				font-weight: bold;
 			}
 		}
 
