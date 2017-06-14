@@ -11,7 +11,9 @@ wp_enqueue_script( 'salvatorre' );
 
 	$tax_args = array('orderby' => 'none', );
 	$tags = wp_get_post_terms( $post->ID , 'arborescence', $tax_args);
-$tag = $tags[0];
+	if( !empty($tags) ) :
+		$tag = $tags[0];
+	endif; 
 
 	$ancestors = get_post_ancestors($post);
 	$level = count($ancestors);
@@ -77,6 +79,7 @@ $tag = $tags[0];
 	</div>
 
 
+	<?php if( $tag != '' ) : ?>
 	<!-- Les articles liés à la page par le tag 'arborescence' -->
 	<section id="" class="layer clearfix wrap">
 
@@ -103,7 +106,7 @@ $tag = $tags[0];
 			?>
 
 	</section>
-
+	<?php endif; ?>
 
 </article><!-- #post-## -->
 

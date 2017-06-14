@@ -83,7 +83,7 @@ endif;
 						<p><a href="#event-details" class="scroll"><span class="icon-arrow-right"></span><strong>voir toutes les dates</strong></a></p>
 					<?php endif; ?>
 
-					<?php if ( $event_duration ) : echo "<span class='eventHeader-duration'> Durée : ". $event_duration ."</p>"; endif; ?>
+					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
 
 					<a href="#" class="btn--big">Réservation</a>
 				</div>
