@@ -66,13 +66,51 @@ wp_enqueue_script( 'salvatorre' );
 				<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
 			</div>
 
-			<?php if( get_field('display_semaine') == '1' ) : ?>
-				<div class="offset-right module-week">	
-					<h3 class="h2">cette <br>semaine</h3>
 
-					<?php the_field('cette_semaine', 'options'); ?>
-				</div>
-			<?php endif; ?>
+
+				<?php
+
+				// check if the flexible content field has rows of data
+				if( have_rows('add_blocs') ):
+
+				     // loop through the rows of data
+				    while ( have_rows('add_blocs') ) : the_row();
+
+				        if( get_row_layout() == 'bloc_texte' ): ?>
+
+									<div class="offset-right module-infos layer">	
+										<h3 class="h2"><?php the_sub_field('titre'); ?><br><span class="title-diamond">&#x02666;</span></h3>
+
+										<?php the_sub_field('texte'); ?>
+									</div>
+				        	
+
+				        <?php elseif( get_row_layout() == 'la_brochure' ): ?>
+
+									<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
+
+
+				        <?php elseif( get_row_layout() == 'cette_semaine' ): ?>
+
+									<div class="offset-right module-week layer">	
+										<h3 class="h2">cette <br>semaine<br><span class="title-diamond">&#x02666;</span></h3>
+
+										<?php the_field('cette_semaine', 'options'); ?>
+									</div>
+
+
+				        <?php endif;
+
+				    endwhile;
+
+				else :
+
+				    // no layouts found
+
+				endif;
+
+				?>
+
 
 		</div>
 
