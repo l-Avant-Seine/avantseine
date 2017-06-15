@@ -6,6 +6,8 @@
  */
 
 	wp_enqueue_script( 'salvatorre' );
+					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+					$today = time();
 ?>
 
 
@@ -24,10 +26,19 @@
 		<div class="m-6col">
 			<?php 
 				$args = array(
-					'post_type' 		=> 'event',
-					'posts_per_page'	=> 4,
-					'orderby'			=> 'post_date',
-					'order' 			=> 'DESC'	
+					'post_type' 			=> 'event',
+					'posts_per_page' 	=> '4',
+					'post_status'			=> 'publish', 
+					'meta_key' => 'eventDetail_first_date',
+					'orderby' => 'meta_value_num',
+					'order' => 'ASC',
+					'meta_query' => array(
+					   	array(
+					       'key' => 'eventDetail_last_date',
+					       'value' => $today,
+					       'compare' => '>=',
+					    )
+					)
 				);
 
 				$last_events = get_posts( $args );

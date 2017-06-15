@@ -1,14 +1,38 @@
-
-
 <?php
-	$focus_event = get_field('focus_event', 'option'); 
-	$focus_event_id = $focus_event->ID;
+
+
+	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+	$today = time();
+
+	$args = array(
+		'post_type' 			=> 'event',
+		'posts_per_page' 	=> '1',
+		'post_status'			=> 'publish', 
+		'meta_key' => 'eventDetail_first_date',
+		'orderby' => 'meta_value_num',
+		'order' => 'ASC',
+		'meta_query' => array(
+		   	array(
+		       'key' => 'eventDetail_last_date',
+		       'value' => $today,
+		       'compare' => '>=',
+		    )
+		)	
+	);
+	$last_event = get_posts( $args );
+	$last_event = $last_event[0];
+	$focus_event_id = $last_event->ID;
+
+	// $focus_event = get_field('focus_event', 'option'); 
+	// $focus_event_id = $focus_event->ID;
+	
 	$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $focus_event_id ), 'large' );
-	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $focus_event->ID ) );
-	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $focus_event->ID ) );
+	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $focus_event_id ) );
+	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $focus_event_id ) );
 
 
-	if( $focus_event ): ?>
+
+	if( $focus_event_id ): ?>
 
 	<section class="module-focus bg_cover" style="background-image: url(<?php if( get_field('gif', $focus_event_id ) ) : the_field('gif', $focus_event_id); else : echo $focus_event_media_url[0]; endif; ?>);">
 
@@ -23,7 +47,7 @@
 
 		<div class="moduleInner is-flex row_alt">
 
-	    	<div class="focusEvent_infos m-3coll">
+	    	<div class="focusEvent_infos m-3coll offset-right">
 	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
 	    			<span>Le prochain rendez-vous</span>
 	    			<h3 class="h1 no-margin"><?php echo get_the_title($focus_event_id); ?></h3>

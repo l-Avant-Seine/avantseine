@@ -25,7 +25,7 @@
 				"$param_type" 			=> $tag_slug,
 				'post_status'    => 'publish',
 				'post_type' 			=> 'event',
-				'posts_per_page'	=> 3,
+				'posts_per_page'	=> 1,
 				'order' 					=> 'DESC',
 			));
 
@@ -34,19 +34,7 @@
 			 	while ( $star_event->have_posts() ) : $star_event->the_post(); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
-						<?php the_post_thumbnail(); ?>
-						<?php 
-							$terms = wp_get_post_terms( $post->ID, array('category') );
-							$count = count($terms);
-							if ( $count > 0 ){
-							    echo "<ul class='no-bullets'>";
-							    foreach ( $terms as $term ) {
-							    	$term_link = get_term_link( $term, '' );
-								    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
-							    }
-							    echo "</ul>";
-							}
-						?>						
+						<?php the_post_thumbnail(); ?>					
 					</div>
 					
 					<span class="relatedPost-date meta-date">
@@ -62,7 +50,7 @@
 						?>
 					</div>
 
-					<div class="clearfix"><a href="" class="btn--big bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
 					<div class="clearfix"><a href="" class="btn--big black">réserver</a></div>
 					
 				</div>
