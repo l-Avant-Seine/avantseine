@@ -30,11 +30,11 @@
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('assets/fonts/icomoon/fonts/icomoon.eot?ibvpee');
-  src:  url('assets/fonts/icomoon/fonts/icomoon.eot?ibvpee#iefix') format('embedded-opentype'),
-    url('assets/fonts/icomoon/fonts/icomoon.ttf?ibvpee') format('truetype'),
-    url('assets/fonts/icomoon/fonts/icomoon.woff?ibvpee') format('woff'),
-    url('assets/fonts/icomoon/fonts/icomoon.svg?ibvpee#icomoon') format('svg');
+  src:  url('assets/fonts/icomoon/fonts/icomoon.eot?jx3wej');
+  src:  url('assets/fonts/icomoon/fonts/icomoon.eot?jx3wej#iefix') format('embedded-opentype'),
+    url('assets/fonts/icomoon/fonts/icomoon.ttf?jx3wej') format('truetype'),
+    url('assets/fonts/icomoon/fonts/icomoon.woff?jx3wej') format('woff'),
+    url('assets/fonts/icomoon/fonts/icomoon.svg?jx3wej#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -53,6 +53,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 .icon-fleche_accordeon-bottom:before {
   content: "\e911";
@@ -98,6 +99,11 @@
 }
 .icon-arrow-right:before {
   content: "\e90a";
+  margin-right: 7px;
+  font-size: 10px;
+}
+.icon-arrow-left:before {
+  content: "\e910";
   margin-right: 7px;
   font-size: 10px;
 }

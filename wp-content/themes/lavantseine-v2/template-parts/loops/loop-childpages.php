@@ -16,7 +16,7 @@ $childpages = new WP_Query( array(
     <?php while ( $childpages->have_posts() ) : $childpages->the_post(); ?>
 
       <li class="pages-menu-item <?php if( strpos($current_url, get_permalink() ) !== false ) { echo 'active'; } ?>">
-        <a href="<?php the_permalink(); ?>"><span class="icon-arrow-right"></span><?php the_title(); ?></a>
+        <a href="<?php the_permalink(); ?>"><span class="icon-arrow-left"></span><?php the_title(); ?></a>
       </li>
 
     <?php endwhile; wp_reset_query(); ?>  
