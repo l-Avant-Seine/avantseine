@@ -163,6 +163,7 @@ jQuery(function($) {
     /*
      * Search Bar
      */
+
     $('#js-searchTrigger').on('click', function(event) {
       event.preventDefault();
 
@@ -177,12 +178,23 @@ jQuery(function($) {
 
 
 
+    /*
+     * Home
+     */
+
+      var focus_el = $('.focusElement_item').first();
+      var focus_el_height = focus_el.innerHeight();
+      var focus_square_height = focus_el.find('.square').innerHeight();
+      var focus_height = focus_el_height - focus_square_height;
+
+      $('.focusEvent_infos').outerHeight( focus_height );
 
 
-    $('#js-soundToggle').on('click', function(event) {
-      event.preventDefault()
-      toggleSound();
-    });
+
+      $('#js-soundToggle').on('click', function(event) {
+        event.preventDefault()
+        toggleSound();
+      });
 
 
 
@@ -315,6 +327,8 @@ jQuery(function($) {
       var is_archives_value = $(this).find('input[name="is_archives"]').attr('checked');
       var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
 
+      $('#prog-grid').fadeOut();
+
       jQuery.post(
           ajaxurl,
           {
@@ -336,6 +350,8 @@ jQuery(function($) {
             } else {
               $(window).alignProgGrid();
             }
+
+            $('#prog-grid').fadeIn();
 
           }
       );
