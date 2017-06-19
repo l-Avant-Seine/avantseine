@@ -343,6 +343,9 @@ jQuery(function($) {
           function(response){
 
             $('#prog-grid').html(response);
+            var prog_aside_height = $('.prog-aside').outerHeight();
+            
+            $('#prog-grid').fadeIn().css('min-height', prog_aside_height);
 
             if( $('.no-posts').length == 1 ) {
               $('.no-posts').height( $('.prog-aside').height() );
@@ -350,8 +353,6 @@ jQuery(function($) {
             } else {
               $(window).alignProgGrid();
             }
-
-            $('#prog-grid').fadeIn();
 
           }
       );
