@@ -85,7 +85,7 @@ endif;
 
 					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
 
-					<a href="#" class="btn--big">Réservation</a>
+					<a href="#" class="btn--big">Acheter mes places</a>
 				</div>
 
 				<div class="eventHeader-actions inner clearfix">
@@ -170,7 +170,7 @@ endif;
 						}
 					?>
 
-				<a class="btn--big" href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="button saisoned-on-bg">Réservation</a>
+				<a class="btn--big" href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="button saisoned-on-bg">Acheter mes places</a>
 
 
 				<div id="event-details" class="event-details offset-left offset-right">
