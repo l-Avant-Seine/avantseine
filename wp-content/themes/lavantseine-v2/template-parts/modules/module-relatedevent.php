@@ -31,7 +31,8 @@
 
 
 			 if ( $star_event->have_posts() ) : 
-			 	while ( $star_event->have_posts() ) : $star_event->the_post(); ?>
+			 	while ( $star_event->have_posts() ) : $star_event->the_post(); 
+			 		$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
 						<?php the_post_thumbnail(); ?>					
@@ -51,7 +52,9 @@
 					</div>
 
 					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
-					<div class="clearfix"><a href="" class="btn--big black">réserver</a></div>
+					<div class="clearfix">
+						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big black">Acheter mes places</a>
+					</div>
 					
 				</div>
 			<?php endwhile; 

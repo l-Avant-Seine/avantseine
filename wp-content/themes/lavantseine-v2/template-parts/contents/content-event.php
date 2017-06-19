@@ -25,6 +25,7 @@ $event_landscape_media = get_field( 'eventDetail_landscapeMedia' );
 $eventDetail_mediaMarkup = get_field( 'eventDetail_mediaMarkup' );
 $eventDetail_showPic = get_field( 'eventDetail_showPic' );
 $noms_principaux = get_field( 'noms_principaux' );
+$event_dealer_link = get_field( 'eventDetail_dealer-link' );
 
 $attached = get_post_meta(get_the_ID(), 'wp_custom_attachment', true);
 $presskit = get_field( 'presskit' );
@@ -85,7 +86,7 @@ endif;
 
 					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
 
-					<a href="#" class="btn--big">Acheter mes places</a>
+					<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">Acheter mes places</a>
 				</div>
 
 				<div class="eventHeader-actions inner clearfix">
@@ -170,7 +171,7 @@ endif;
 						}
 					?>
 
-				<a class="btn--big" href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="button saisoned-on-bg">Acheter mes places</a>
+				<a class="btn--big" href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">Acheter mes places</a>
 
 
 				<div id="event-details" class="event-details offset-left offset-right">
