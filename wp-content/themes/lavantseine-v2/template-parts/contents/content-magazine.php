@@ -15,7 +15,7 @@ $today = time();
 
 
 				<div class="webmag-title wrap">
-						<h1 class="h1"><span>Le Magazine</span><br> de l'Avant-Seine</h1>
+						<h1 class="h1">Le Magazine<br> de l'Avant-Seine</h1>
 
 				</div>
 

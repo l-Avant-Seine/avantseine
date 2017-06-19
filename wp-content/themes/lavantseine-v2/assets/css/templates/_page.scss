@@ -53,7 +53,8 @@
 			padding: 1.5em 1em;
 			cursor: pointer;
 
-			.open & {
+			.open &,
+			.open & .h3 {
 				background-color: $color_primary;
 				color: $white;
 			}
