@@ -30,7 +30,7 @@
 
 					<div class="blocEvent-actions">
 						<a href="<?php the_permalink(); ?>" class="btn--big empty">En savoir plus</a>
-						<a href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="btn--big">Réserver</a>
+						<a href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="btn--big">Acheter vos places</a>
 					</div>
 				</div>
 			</div>
