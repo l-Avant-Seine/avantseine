@@ -27,6 +27,22 @@
 			?>			
 		</div>
 
+	<div class="footer-logos">
+		<?php 
+
+		$images = get_field('logos_partenaires', 'options');
+
+		if( $images ): ?>
+		    <ul class="no-bullets table">
+		        <?php foreach( $images as $image ): ?>
+		            <li class="logo-item table-cell">
+									<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
+		            </li>
+		        <?php endforeach; ?>
+		    </ul>
+		<?php endif; ?>
+	</div>
+
 	</footer><!-- #mastfooter -->
 
 	
