@@ -23,6 +23,7 @@ $wide_breakpoint:                   1400px !default;
 
 
 $menu_height    : 50px;
+$menu_height_max    : 65px;
 $logo_width     : 100px;
 
 
@@ -168,9 +169,9 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 
     .is-centered {
         display: inline-block;
-      margin-left: auto !important;
-      margin-right: auto !important;
-      float: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        float: none !important;
     }
 }
 

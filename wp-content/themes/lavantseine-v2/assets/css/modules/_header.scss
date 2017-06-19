@@ -10,25 +10,26 @@
 	background-color: $black;
 	color: $white;
 	opacity: 0.98;
-	height: $menu_height;
-	line-height: $menu_height;
+	height: $menu_height_max;
+	line-height: $menu_height_max;
 	position: relative;
 	z-index: 9999;
 
 	&.sticky {
+		height: $menu_height;
+		line-height: $menu_height;
 		position: fixed;
 		left: 0;
 		right: 0;
 		top: 0;
+
+		.site-branding {			
+			img {
+				height: $menu_height;
+			}
+		}
+
 	}
 }
 
 
-.site-branding {
-	background-color: $color_primary;	
-	float: left;
-	
-	img {
-		height: $menu_height;
-	}
-}
