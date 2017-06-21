@@ -5,53 +5,12 @@
  */
 
 
-
-/* 
- * GRID VARIABLES SETTING
- */ 
-
-$max_width:                         1080px;
-$max_width_large:                   1200px;
-$cols:                              8 !default; 
-$gutter:                            1.5% !default; 
-        
-$mobile_first:                      true !default; 
-$minimal_breakpoint:                320px !default; 
-$medium_breakpoint:                 760px !default; 
-$large_breakpoint:                  1120px !default; 
-$wide_breakpoint:                   1400px !default; 
-
-
-$menu_height    : 50px;
-$menu_height_max    : 65px;
-$logo_width     : 100px;
-
-
 .plain {
     @include box-sizing;
     display: block;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-}
-
-.wrap {
-    @include box-sizing;
-    margin-left: auto;
-    margin-right: auto;
-
-    @include up-to(medium) {
-        width: 90%;
-    }
-    @include at-least(medium) {
-        width: 95%;
-    }
-    @include at-least(large) {
-        width: $max_width;
-    }
-    @include at-least(wide) {
-        width: $max_width_large;
-    }
 }
 
 .square {
@@ -71,7 +30,7 @@ $logo_width     : 100px;
 }
 
 .is-flex {
-    display: flex;
+  display: flex;
 }
 
 .layer-bg {
@@ -109,6 +68,47 @@ $logo_width     : 100px;
   }      
 }
 
+
+
+/* 
+ * GRID VARIABLES SETTING
+ */ 
+
+$max_width:                         1080px;
+$max_width_large:                   1200px;
+$cols:                              8 !default; 
+$gutter:                            1.5% !default; 
+        
+$mobile_first:                      true !default; 
+$minimal_breakpoint:                320px !default; 
+$medium_breakpoint:                 760px !default; 
+$large_breakpoint:                  1120px !default; 
+$wide_breakpoint:                   1400px !default; 
+
+
+$menu_height:           50px;
+$menu_height_max:       65px;
+$logo_width:            100px;
+
+
+.wrap {
+    @include box-sizing;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include up-to(medium) {
+        width: 90%;
+    }
+    @include at-least(medium) {
+        width: 95%;
+    }
+    @include at-least(large) {
+        width: $max_width;
+    }
+    @include at-least(wide) {
+        width: $max_width_large;
+    }
+}
 
 /* 
  * DON'T TOUCHE THIS !

@@ -100,7 +100,7 @@
 								</div>
 								<div class="inner">
 						    	<h3 class="h5"><a href="<?php echo get_permalink( $focusElements_article->ID ); ?>"><?php echo $focusElements_article->post_title; ?></a></h3>
-						    	<p><?php echo 'chapo chapo chapo'; ?></p>
+						    	<p><?php echo $focusElements_article->excerpt; ?></p>
 						    </div>
 					    </div>
 

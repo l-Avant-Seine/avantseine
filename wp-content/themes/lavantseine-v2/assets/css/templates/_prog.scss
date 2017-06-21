@@ -10,6 +10,16 @@
 .prog-filters {
 	background-color: $gray_lighter;
 	margin-bottom: $base_line_height * 2;
+
+	.c-select {
+
+		@include at-least(medium) {
+			margin-right: 20px;
+		}
+		@include up-to(large) {
+			margin-right: 5px;
+		}
+	}
 }		
 	.progFilterForm-upper {
 		background-color: $gray_light;

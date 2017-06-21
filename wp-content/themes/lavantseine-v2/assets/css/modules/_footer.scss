@@ -24,7 +24,11 @@
 	}
 
 		.logo-item {
-			max-height: 150px;
-			max-width: 150px;
-
+			max-height: 175px;
+			max-width: 175px;
+			
+			@include at-least(large) {
+				max-height: 250px;
+				max-width: 250px;
+			}
 		}
