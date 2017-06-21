@@ -60,10 +60,10 @@ endif;
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
 
-	<header class="event-header bg_cover" style="background-image: url(<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>);">
+	<header class="event-header bg_cover" itemprop="image"  style="background-image: url(<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>);">
 		<div class="eventHeader-inner row wrap is-flex">
 			
-			<div class="eventHeader-title m-5col offset-right">
+			<div class="eventHeader-title m-5col offset-right" itemprop="name">
 				<h1 class="h1 entry-title"><?php the_title(); ?></h1>
 				<div class="eventHeader-name"><?php echo $noms_principaux; ?></div>
 			</div>
@@ -84,7 +84,7 @@ endif;
 						<p><a href="#event-details" class="scroll"><span class="icon-arrow-right"></span><strong>voir toutes les dates</strong></a></p>
 					<?php endif; ?>
 
-					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
+					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration' itemprop='duration' content='T1M33S'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
 
 					<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">Acheter mes places</a>
 				</div>
@@ -94,9 +94,8 @@ endif;
 						<span class="icon-calendar"> </span>
 						<span class="addtocalendar atc-style-blue">
 					    <var class="atc_event">
-					        <var class="atc_date_start"><?php echo strftime('%Y-%m-%d %H:%M:00', $event_first_date ); ?></var>
+					        <var class="atc_date_start" itemprop="startDate" datetime="<?php echo strftime('%Y-%m-%dT%H:%M:00', $event_first_date ); ?>"><?php echo strftime('%Y-%m-%d %H:%M:00', $event_first_date ); ?></var>
 					        <var class="atc_date_end"><?php echo strftime('%Y-%m-%d %H:%M:00', $event_last_date ); ?></var>
-
 					        <var class="atc_timezone">Europe/Paris</var>
 					        <var class="atc_title">S<?php the_title(); ?>rty</var>
 					        <var class="atc_description"><?php echo $noms_principaux; ?></var>
@@ -140,7 +139,7 @@ endif;
 
 		<div class="wrap row is-flex">
 				
-			<div class="m-5col ">
+			<div class="m-5col"  itemprop="mainContentOfPage">
 				<div class="event-content entry-content"><?php 
 					the_content(); ?>
 											<?php
@@ -277,8 +276,28 @@ endif;
 	</div><!-- .event-layer -->
 
 
-
-
-
-
 </article><!-- #post-## -->
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Event",
+      "location": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Colombes",
+          "postalCode": "92700",
+          "streetAddress": "Parvis des Droits de l’Homme - 88 rue Saint Denis"
+        },
+        "name": "l'Avant Seine, Théatre de Colombes"
+      },
+      "name": "<?php echo get_the_title(); ?>",
+      "startDate": "<?php echo strftime('%Y-%m-%dT%H:%M:00', $event_first_date ); ?>",
+      "duration": "<?php echo $event_duration; ?>"
+    }
+    </script>
+
+
+

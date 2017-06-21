@@ -38,15 +38,15 @@ wp_enqueue_script( 'salvatorre' );
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 
-	<header class=" page-header bg_cover is-flex layer" style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
-		<div class="wrap page-title">
+	<header class=" page-header bg_cover is-flex layer" itemprop="image"  style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
+		<div class="wrap page-title" itemprop="name">
 			<h1 class="h1"><?php echo $root_title; ?></h1>
 		</div>
 	</header><!-- .entry-header -->
 
 	<div class="wrap row">
 
-		<div class="m-5col page-content entry-content">
+		<div class="m-5col page-content entry-content"  itemprop="mainContentOfPage">
 			
 			<?php if( isset($page_intro) && $page_intro !== '') : ?>
 			<div class="page-extract">
@@ -165,4 +165,20 @@ wp_enqueue_script( 'salvatorre' );
 	<?php endif; ?>
 
 
-
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebPage",
+      "location": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Colombes",
+          "postalCode": "92700",
+          "streetAddress": "Parvis des Droits de l’Homme - 88 rue Saint Denis"
+        },
+        "name": "l'Avant Seine, Théatre de Colombes"
+      },
+      "name": "<?php echo get_the_title(); ?>"
+    }
+    </script>

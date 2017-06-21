@@ -10,10 +10,10 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header class="single-header bg_cover is-flex" style="background-image: url(<?php  the_post_thumbnail_url(''); ?>);">
+	<header class="single-header bg_cover is-flex" itemprop="image" style="background-image: url(<?php  the_post_thumbnail_url(''); ?>);">
 
 		<div class="wrap single-title offset-right">
-			<h1 class="h1 clearfix"><?php the_title(); ?></h1>
+			<h1 class="h1 clearfix" itemprop="name"><?php the_title(); ?></h1>
 			<div class="meta-date clearfix">Publié le <?php the_date('d/m/Y', '', ''); ?></div>
 			<div class="single-share clearfix">
 			<?php lavantseine_display_share_buttons(); ?>
@@ -38,7 +38,7 @@
 
 
 	<div class="wrap single-content row">
-		<div class="m-5col entry-content ">
+		<div class="m-5col entry-content"  itemprop="mainContentOfPage">
 
 			<?php
 
@@ -83,3 +83,22 @@
 
 
 </article><!-- #post-## -->
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Article",
+      "location": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Colombes",
+          "postalCode": "92700",
+          "streetAddress": "Parvis des Droits de l’Homme - 88 rue Saint Denis"
+        },
+        "name": "l'Avant Seine, Théatre de Colombes"
+      },
+      "name": "<?php echo get_the_title(); ?>",
+    }
+    </script>
