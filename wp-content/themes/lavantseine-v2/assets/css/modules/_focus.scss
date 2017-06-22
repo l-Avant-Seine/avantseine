@@ -73,7 +73,7 @@ $focusElement_height: 400px;
 	.focusEvent_infos {
 		@include box-sizing;
 
-		background-color: rgba(0,0,0,0.9);
+		background-color: rgba(0,0,0,0.6);
 		color: $white;
 		padding: $base_line_height;
 		height: 30%;
@@ -82,6 +82,8 @@ $focusElement_height: 400px;
 		z-index: 0;
 
 			span {
+				@include type-setting(-2);
+				font-family: $font_family_title;
 				color: $color_primary;
 			}
 	}

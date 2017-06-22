@@ -50,7 +50,7 @@ a:active {
 	@include type-setting(-2);
 	background-color: $color_primary;
 	color: $white;
-	font-weight: $bold;
+	font-weight: $regular;
 	padding: 0.5em 1em;
 	text-transform: lowercase;
 	font-family: $font_family_btn;
@@ -60,7 +60,7 @@ a:active {
 	@extend .btn;
 	@include type-setting(0);
 	border: 1px solid;
-	font-weight: $bold;
+	font-weight: $regular;
 	padding: 0.5em 1em;
 	font-family: $font_family_btn;
 
