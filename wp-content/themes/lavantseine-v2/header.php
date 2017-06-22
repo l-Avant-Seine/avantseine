@@ -10,7 +10,7 @@
  */
 
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html  <?php html_tag_schema(); ?> <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,9 +24,7 @@
 
 	<header id="masthead" class="site-header" role="banner">
 
-		<div class="site-branding">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img class="site-logo" src="<?php bloginfo( 'template_url' ); ?>/assets/img/logo_avtseine_horizontal.png" alt="<?php bloginfo( 'name' ); ?>" title=""></a>
-		</div><!-- .site-branding -->
+
 	
 
 		<div class="site-menus">
@@ -39,11 +37,52 @@
 						'menu_id' => 'primary-menu',
 						'walker' => new Microdot_Walker_Nav_Menu(), 
 						'container' => false, 
-						'items_wrap' => '<nav id="%1$s"><ul class="no-bullets"><li class="js-menuTrigger menu-item"><a href="#"> <span class="icon-menu"></span> Menu</a></li>%3$s</ul></nav>'
+						'items_wrap' => '<ul class="no-bullets">
+																<li class="site-branding menu-item">
+																	<a href="'. esc_url( home_url( '/' ) ) .'" rel="home">
+																		<img class="site-logo" src="' . get_bloginfo( 'template_url' ) . '/assets/img/logo_avtseine_horizontal.png" alt="'. get_bloginfo( 'name' ) .'" title="">
+																	</a>
+																</li>
+
+																<li class="js-menuTrigger menu-item">
+																	<a href="#"> <span class="icon-menu"></span> Menu</a>
+																</li>
+
+																<ul class="siteMenuPrimary-inner menu-item no-bullets">
+																	%3$s
+																</ul>
+															
+																<ul class="siteMenus-secondary no-bullets" role="navigation">
+
+																			<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+																				<a href="https://facebook.fr" target="_blank"><span class="icon-facebook">
+																					</span></a>
+																			</li>
+
+																			<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+																				<a href="https://twitter.fr" target="_blank"><span class="icon-twitter">
+																					</span></a>
+																			</li>
+
+																			<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavantseine.dev/pratique/contacts/">Contacts</a></li>
+
+																			<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://www2.aparteweb.com/awprod/SEINE/AWCatalogSub.aspx?INS=SEINE" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
+
+																			<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+																				<a href="#" id="js-searchTrigger"><span class="icon-search">
+																					</span></a>
+																			</li>
+
+																	<div class="siteMenus-searchform">
+																		<?php get_search_form(); ?>
+																	</div>
+																	
+																</ul>
+															</ul>'
 					) ); ?>
 
 				<div id="ham-menu" class="ham-menu">
-					<div class="wrap">
+					<div class="wrap row">
 						<?php wp_nav_menu( array( 
 						'theme_location' => 'all', 
 						'menu_id' => 'hamburger-menu' ) ); ?>
@@ -52,38 +91,6 @@
 
 			</nav><!-- #site-navigation -->
 
-
-			<nav class="siteMenus-secondary" role="navigation">
-
-				<div class="menu-menu-top-container">
-					<ul id="top-menu" class="menu">
-						<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-							<a href="https://facebook.fr" target="_blank"><span class="icon-facebook">
-								</span></a>
-						</li>
-
-						<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-							<a href="https://twitter.fr" target="_blank"><span class="icon-twitter">
-								</span></a>
-						</li>
-
-						<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavantseine.dev/pratique/contacts/">Contacts</a></li>
-
-						<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://www2.aparteweb.com/awprod/SEINE/AWCatalogSub.aspx?INS=SEINE" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
-
-						<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-							<a href="#" id="js-searchTrigger"><span class="icon-search">
-								</span></a>
-						</li>
-
-				</ul></div>
-
-				<div class="siteMenus-searchform">
-					<?php get_search_form(); ?>
-				</div>
-				
-
-			</nav>
 
 		</div>
 

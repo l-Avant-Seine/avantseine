@@ -24,43 +24,102 @@
 }
 
 	
-	#primary-menu,
-	.menu-menu-top-container {
+	.siteMenus-primary {
 		.menu-item {
 			@include type-setting(-2);
 			float: left;	
 			text-transform: uppercase;
 			line-height: inherit !important;
-			padding: 0 0.5em;
 			font-weight: $bold;
 
 			a {
 				font-family: $font_family_nav;
-
 			}
+
+
+			@include up-to(medium) {
+				float: none;
+				padding-left: 3em;
+				border-bottom: 1px solid $black;
+			}
+
+			@include at-least(medium) {
+				font-size: 16px;
+				font-size: 1.6rem;
+
+				&:not(:first-child) {
+					padding: 0 0.5em;
+				}
+			}
+
+			@include at-least(large) {
+				font-size: 18px;
+				font-size: 1.8rem;
+
+				&:not(:first-child) {
+					padding: 0 0.7em;
+				}
+			}
+
+
+			@include at-least(wide) {
+				font-size: 20px;
+				font-size: 2rem;
+
+				&:not(:first-child) {
+					padding: 0 1.5em;
+				}
+			}
+
+
 		}
 	}
-
+		.site-branding {
+			background-color: $color_primary;	
+			
+			img {
+				height: $menu_height_max;
+				@include transition(all 0.2s);
+			}
+		}
 
 
 .siteMenus-primary {
-	float: left;
 }
 	.js-menuTrigger {
 		background-color: $color_primary;
 		color: $white;
+	
+		@include up-to(medium) {
+			float: right !important;
+		}
 	}
+	.siteMenuPrimary-inner {
 
+		@include up-to(medium) {
+			display: none;
+			background-color: $color_primary;
+			width: 100%;
+		}
+	}
 
 
 .siteMenus-secondary {
 	float: right;
 	position: relative;
+
+	@include up-to(medium) {
+		display: none;
+		width: 100%;
+		background-color: $color_primary;
+	}
 }
 	.booking-link {
 		background-color: $color_primary;
 		color: $white;
 	}
+
+
 
 
 
@@ -76,15 +135,25 @@
 	padding-top: $base_line_height * 2;
 	padding-bottom: $base_line_height * 2;
 	z-index: 9999;
+
+	li.menu-item {
+		text-transform: none;
+		font-weight: $regular;
+	}
 	
+
 	&.active {
 		display: block;
 	}
 }
 	.menu-menu-hamburger-container > ul {
-		display: flex;
 		line-height: normal;
 
+
+		& > .menu-item {
+			//@extend .m-2col;
+			width: 17%;
+		}
 		& > .menu-item:not(:first-child) {
 			padding-left: $base_line_height;
 		}
@@ -97,8 +166,14 @@
 			margin-top: $base_line_height;
 			@include type-setting(0);
 			font-family: $font_family_paragraph;
+
+			li.menu-item {
+				float: none;
+				padding: 0 !important;
+			}
 		}
 	}
+
 
 
 
