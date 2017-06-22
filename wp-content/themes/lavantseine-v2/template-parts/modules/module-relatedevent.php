@@ -16,7 +16,7 @@
 
 	if ( !empty($tags) ) {
 			
-			echo '<h3 class="h2">à voir sur <br>scène <br><span class="title-diamond">&#x02666;</span></h3>';
+			echo '<h3 class="h4">à voir sur <br>scène <br><span class="title-diamond">&#x02666;</span></h3>';
 
 			$tag_slug = $tags[0]->slug;
 
@@ -42,7 +42,7 @@
 						<?php the_time('D d M Y'); ?>
 					</span>
 
-					<h4 class="h4 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					
 					<div class="relatedPost-text">
 						<?php 
@@ -82,7 +82,7 @@
 				)
 			));
 
-			echo '<h3 class="h2">le prochain <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
+			echo '<h3 class="h4">le prochain <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
 
 
 			 if ( $next_event->have_posts() ) : 
@@ -105,7 +105,7 @@
 					</div>
 					
 					<span class="relatedPost-date meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
-					<h4 class="h5 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					<div class="relatedPost-text">
 						<?php 
 							$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );

@@ -36,7 +36,7 @@
 
 			 if ( $star_post->have_posts() ) : 
 
-				echo '<h3 class="h2">autour du <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
+				echo '<h3 class="h4">autour du <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
 
 			 	while ( $star_post->have_posts() ) : $star_post->the_post(); ?>
 				<div class="relatedPost star">
@@ -57,7 +57,7 @@
 					</div>
 					
 					<span class="relatedPost-date meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
-					<h4 class="h5 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					<div class="relatedPost-text">
 						<?php 
 							$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
@@ -113,7 +113,7 @@
 					<div class="entry-meta">
 						<span class="meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
 					</div><!-- .entry-meta -->
-					<h4 class="h5 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					<?php 
 						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
 						echo "<p>".$post_shortText. "</p>"; 
@@ -133,7 +133,7 @@
 
 	} else {
 	
-			echo '<h3 class="h2">l\'actualité de <br>l\'Avant-Seine <br><span class="title-diamond">&#x02666;</span></h3>';
+			echo '<h3 class="h4">l\'actualité de <br>l\'Avant-Seine <br><span class="title-diamond">&#x02666;</span></h3>';
 
 			// OTHER POSTS
 			$default_posts = new WP_Query(array(
@@ -165,7 +165,7 @@
 					<div class="entry-meta">
 						<span class="meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
 					</div><!-- .entry-meta -->
-					<h4 class="h5 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					<?php 
 						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
 						echo "<p>".$post_shortText. "</p>"; 

@@ -27,9 +27,11 @@
 		margin-bottom: $base_line_height / 2;
 		background-color: $color_primary;
 
-		&.active {
+		&.active,
+		&:hover  {
 			background-color: $black;
 		}
+
 	}
 }
 

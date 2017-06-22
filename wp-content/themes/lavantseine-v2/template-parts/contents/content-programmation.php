@@ -62,7 +62,7 @@
 
 
 			<div class="offset-right module-week">	
-				<h3 class="h2">cette <br>semaine <br><span class="title-diamond">&#x02666;</span></h3>
+				<h3 class="h4">cette <br>semaine <br><span class="title-diamond">&#x02666;</span></h3>
 
 				<?php the_field('cette_semaine', 'options'); ?>
 			</div>

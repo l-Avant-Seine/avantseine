@@ -15,7 +15,7 @@ textarea {
 
 
 p {
-  @include type-setting(0);
+  @include type-setting(1);
   margin: 0 0 $base_line_height 0;
 }
 
@@ -90,10 +90,6 @@ big {
       font-family: $font_family_title;
       max-width: 75%;
       font-weight: $bold;
-
-      strong {
-        font-weight: $regular;
-      }
       
       &:after {
         content: '♦';

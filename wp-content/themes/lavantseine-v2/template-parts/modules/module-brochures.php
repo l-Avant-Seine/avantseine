@@ -5,7 +5,7 @@
 
 
 <div class="offset-right module-brochure layer">
-	<h3 class="h2">La <br>brochure <br><span class="title-diamond">&#x02666;</span></h3>
+	<h3 class="h4">La <br>brochure <br><span class="title-diamond">&#x02666;</span></h3>
 
 	<?php if( have_rows('brochures_de_saison', 'option') ): ?>
 		<?php $i = 0; ?>
