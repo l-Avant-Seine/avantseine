@@ -71,7 +71,6 @@
 				}
 			}
 
-
 		}
 	}
 		.site-branding {
@@ -148,12 +147,12 @@
 }
 	.menu-menu-hamburger-container > ul {
 		line-height: normal;
-
+		display: flex;
+		justify-content: space-between;
 
 		& > .menu-item {
-			//@extend .m-2col;
-			width: 17%;
 		}
+
 		& > .menu-item:not(:first-child) {
 			padding-left: $base_line_height;
 		}
@@ -172,7 +171,18 @@
 				padding: 0 !important;
 			}
 		}
+		.menu-item-has-children {
+			padding: 0 !important;
+			flex: 1;
+		}
+		.menu-item-has-children > a {
+			cursor: initial;
+		}
+
 	}
+
+
+	
 
 
 

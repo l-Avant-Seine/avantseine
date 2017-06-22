@@ -106,6 +106,9 @@ jQuery(function($) {
       $(this).find('span').toggleClass('icon-menu');
     });
 
+    ham_menu.find('.menu-item-has-children > a').on('click', function(event) {
+      event.preventDefault();
+    });
 
 
     // Socials

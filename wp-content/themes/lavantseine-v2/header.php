@@ -83,9 +83,12 @@
 
 				<div id="ham-menu" class="ham-menu">
 					<div class="wrap row">
-						<?php wp_nav_menu( array( 
-						'theme_location' => 'all', 
-						'menu_id' => 'hamburger-menu' ) ); ?>
+						<?php 
+							wp_nav_menu( array( 
+								'theme_location' => 'all', 
+								'menu_id' => 'hamburger-menu' ) 
+							); 
+						?>
 					</div>
 				</div>
 
