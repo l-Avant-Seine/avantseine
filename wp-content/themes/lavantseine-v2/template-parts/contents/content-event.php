@@ -86,7 +86,7 @@ endif;
 
 					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration' itemprop='duration' content='T1M33S'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
 
-					<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">Acheter mes places</a>
+					<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">réserver mes places</a>
 				</div>
 
 				<div class="eventHeader-actions inner clearfix">
@@ -170,7 +170,7 @@ endif;
 						}
 					?>
 
-				<a class="btn--big" href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">Acheter mes places</a>
+				<a class="btn--big" href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">réserver mes places</a>
 
 
 				<div id="event-details" class="event-details offset-left offset-right">
@@ -192,6 +192,8 @@ endif;
 									    echo "</ul>";
 									}
 								?>
+
+								<?php if ( $event_text2 ) : echo "<p class=''>". $event_text2 ."</p>"; endif; ?>
 							</div>
 
 							<div class="m-3col">
@@ -200,7 +202,11 @@ endif;
 								<?php 
 									if ( $event_first_date ) : 
 										echo '<ul class="no-bullets">';
-										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date ) .'.</li>'; 
+										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
+										    if( get_field('eventDetail_first_date_babysitting')) : 
+										    	echo '<span class="event-babysitting"><span class="icon-cocarde"></span>Service Baby-Sitting</span>';
+										    endif; 
+										    echo '.</li>'; 
 
 										  if( isset($otherdates)) {
 										  	echo $otherdates;
@@ -231,7 +237,7 @@ endif;
 							<h4 class="h5"><span class="title-diamond">♦</span><br>Distribution et mentions complètes</h4>
 				
 							<div class="l-3col l-first layer">
-									<?php if ( $event_text2 ) : echo "<p class=''>". $event_text2 ."</p>"; endif; ?>
+									
 
 									<?php 
 										if ( $event_distribution || $event_mentions ) : 

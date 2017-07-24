@@ -36,7 +36,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 
 			<div class="blocArticle-lower">
 
-				<h2 class="<?php if(!$terms) { echo 'h4'; } else { echo 'h5'; } ?> blocArticle-title clearfix">	
+				<h2 class="<?php if(!$terms) { echo 'h4'; } else { echo 'h4'; } ?> blocArticle-title clearfix">	
 						<?php the_title(); ?>
 						<br><span class="title-diamond">&#x02666;</span>
 				</h2>

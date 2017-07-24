@@ -61,11 +61,13 @@
 				<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
 
 
-			<div class="offset-right module-week">	
-				<h3 class="h4">cette <br>semaine <br><span class="title-diamond">&#x02666;</span></h3>
+			<?php if( get_field('cette_semaine', 'options' ) ) : ?>
+				<div class="offset-right module-week">	
+					<h3 class="h4">cette <br>semaine <br><span class="title-diamond">&#x02666;</span></h3>
 
-				<?php the_field('cette_semaine', 'options'); ?>
-			</div>
+					<?php the_field('cette_semaine', 'options'); ?>
+				</div>
+			<?php endif; ?>
 
 
 		</div>

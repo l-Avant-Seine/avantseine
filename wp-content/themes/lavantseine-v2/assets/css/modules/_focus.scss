@@ -72,7 +72,7 @@ $focusElement_height: 400px;
 		height: 73px;
 		width: 72px;
 		top: -35px;
-		left: 1em;
+		right: 1em;
 		background-image: url('assets/img/cocarde.png');
 		background-repeat: no-repeat;
 		text-align: center;
@@ -80,6 +80,7 @@ $focusElement_height: 400px;
 		text-transform: uppercase;
 		font-weight: $bold;
 		font-family: $font_family_title;
+		z-index: 99;
 		
 		span {
 			display: inline-block;
