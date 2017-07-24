@@ -21,6 +21,7 @@ $focusElement_height: 400px;
 	}
 
 	.moduleInner {
+		//max-width: 1250px;
 		width: 100%;
 		height: 100%;
 		align-items: flex-end;
@@ -97,6 +98,9 @@ $focusElement_height: 400px;
 		.inner {
 			padding: 1em;
 			word-wrap: break-word;
+		}
+		h3 {
+			color: $color_primary;
 		}
 	}
 		.focusElement_media {
