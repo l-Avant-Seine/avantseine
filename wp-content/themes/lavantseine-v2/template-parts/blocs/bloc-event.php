@@ -10,6 +10,8 @@
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 	$event_other_dates = get_field('eventDetail_otherdates');
 
+	$event_dealer_link = get_field( 'eventDetail_dealer-link' );
+
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 ?>
 
@@ -29,8 +31,8 @@
 					<?php echo "<p>". $event_shortText. "</p>"; ?>
 
 					<div class="blocEvent-actions">
-						<a href="<?php the_permalink(); ?>" class="btn--big empty">En savoir plus</a>
-						<a href="<?php bloginfo('url'); ?>/les-infos-pratiques/tarifs-et-reservations/" class="btn--big">Acheter vos places</a>
+						<a href="<?php the_permalink(); ?>" class="btn--big empty">en savoir plus</a>
+						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">réserver mes places</a>
 					</div>
 				</div>
 			</div>

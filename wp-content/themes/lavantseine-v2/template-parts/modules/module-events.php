@@ -11,7 +11,7 @@
 <section class="module module-events">
 
 	<h2 class="moduleEvents-title h2">
-		<span>la Programmation</span> <br>de l'Avant-Seine
+		<span>la Programmation</span> <br><br>
 	</h2>
 
 	<div class="moduleInner row">

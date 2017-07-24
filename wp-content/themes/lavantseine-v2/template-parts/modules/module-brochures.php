@@ -10,7 +10,7 @@
 	<?php if( have_rows('brochures_de_saison', 'option') ): ?>
 		<?php $i = 0; ?>
 		
-		<p>Télécharer les brochures au format pdf</p>
+		<p>Télécharger les brochures au format pdf</p>
 		<ul class="no-bullets pdf-list">
 
 	    <?php while ( have_rows('brochures_de_saison', 'option') ) : the_row(); ?>

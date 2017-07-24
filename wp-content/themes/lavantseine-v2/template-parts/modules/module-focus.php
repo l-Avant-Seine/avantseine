@@ -37,12 +37,12 @@
 	<section class="module-focus bg_cover" style="background-image: url(<?php if( get_field('gif', $focus_event_id ) ) : the_field('gif', $focus_event_id); else : echo $focus_event_media_url[0]; endif; ?>);">
 
 
-		<?php if( get_field( 'eventDetail_mediaMarkup', $focus_event_id ) ) : ?>
+		<?php //if( get_field( 'eventDetail_mediaMarkup', $focus_event_id ) ) : ?>
 
-			<?php the_field( 'eventDetail_mediaMarkup', $focus_event_id ); ?>
-			<a href="#" id="js-soundToggle" class="btn-soundToggle">le son !</a>
+			<?php //the_field( 'eventDetail_mediaMarkup', $focus_event_id ); ?>
+			<!-- <a href="#" id="js-soundToggle" class="btn-soundToggle">le son !</a> -->
 
-		<?php endif; ?>
+		<?php // endif; ?>
 
 
 		<div class="moduleInner is-flex row_alt">
@@ -72,53 +72,102 @@
 								<?php endif; ?>
 
 								<div class="square">
-									<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_page->ID ), 'large' )[0]; ?>);"">
-									</div>
+									<a href="<?php echo get_permalink( $focusElements_page->ID ); ?>">
+										<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_page->ID ), 'large' )[0]; ?>);">
+										</div>
+									</a>
 								</div>
 								
 								<div class="inner">
-						    	<h3 class="h5"><a href="<?php echo get_permalink( $focusElements_page->ID ); ?>"><?php echo $focusElements_page->post_title; ?></a></h3>
-						    	<p><?php echo $focusElements_page->excerpt; ?></p>
+									<a href="<?php echo get_permalink( $focusElements_page->ID ); ?>">
+						    		<h3 class="h5"><?php echo $focusElements_page->post_title; ?></a></h3>
+						    		<p><?php echo $focusElements_page->excerpt; ?></p>
+						    	</a>
 						    </div>
 
 					    </div>
 
 		        <?php elseif( get_row_layout() == 'focusElements_article' ): 
 		        	$focusElements_article = get_sub_field('focusElements_article'); ?>
-
-							<div class="focusElement_item m-1coll">
-
-								<?php if( get_sub_field('pastille') != '' ) : ?>
-									<div class="focusElement-pastille is-flex">
-										<span><?php the_sub_field('pastille'); ?></span>
-									</div>
-								<?php endif; ?>
-
-								<div class="square">
-									<div class="square-content bg_cover style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_article->ID ), 'large' )[0]; ?>);"">
-									</div>
-								</div>
-								<div class="inner">
-						    	<h3 class="h5"><a href="<?php echo get_permalink( $focusElements_article->ID ); ?>"><?php echo $focusElements_article->post_title; ?></a></h3>
-						    	<p><?php echo $focusElements_article->excerpt; ?></p>
-						    </div>
-					    </div>
-
-
-		        <?php elseif( get_row_layout() == 'focusElements_libre' ): 
-		        	$focusElements_libre = get_sub_field('focusElements_libre'); ?>
 							
-							<div class="focusElement_item m-1coll">
+								<div class="focusElement_item m-1coll">
 
-								<?php if( get_sub_field('pastille') != '' ) : ?>
-									<div class="focusElement-pastille is-flex">
-										<span><?php the_sub_field('pastille'); ?></span>
+									<?php if( get_sub_field('pastille') != '' ) : ?>
+										<div class="focusElement-pastille is-flex">
+											<span><?php the_sub_field('pastille'); ?></span>
+										</div>
+									<?php endif; ?>
+
+									<div class="square">
+										<a href="<?php echo get_permalink( $focusElements_article->ID ); ?>">
+											<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_article->ID ), 'large' )[0]; ?>);"">
+											</div>
+										</a>
 									</div>
-								<?php endif; ?>
 
-		        		<?php echo $focusElements_libre; ?>
-							</div>
+									<div class="inner">
+										<a href="<?php echo get_permalink( $focusElements_article->ID ); ?>">
+							    		<h3 class="h5"><?php echo $focusElements_article->post_title; ?></h3>
+							    		<p><?php echo $focusElements_article->excerpt; ?></p>
+							    	</a>
+							    </div>
+						    </div>
 
+
+
+		        <?php elseif( get_row_layout() == 'focusElements_event' ): 
+		        	$focusElements_event = get_sub_field('focusElements_page');  ?>
+							
+								<div class="focusElement_item m-1coll">
+
+									<?php if( get_sub_field('pastille') != '' ) : ?>
+										<div class="focusElement-pastille is-flex">
+											<span><?php the_sub_field('pastille'); ?></span>
+										</div>
+									<?php endif; ?>
+
+									<div class="square">
+										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
+											<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_event->ID ), 'large' )[0]; ?>);"">
+											</div>
+										</a>
+									</div>
+
+									<div class="inner">
+										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
+							    		<h3 class="h5"><?php echo $focusElements_event->post_title; ?></h3>
+							    		<p><?php echo $focusElements_event->excerpt; ?></p>
+							    	</a>
+							    </div>
+						    </div>
+						   
+
+
+
+		        <?php elseif( get_row_layout() == 'focusElements_libre' ): ?>
+							
+								<div class="focusElement_item m-1coll">
+
+									<?php if( get_sub_field('pastille') != '' ) : ?>
+										<div class="focusElement-pastille is-flex">
+											<span><?php the_sub_field('pastille'); ?></span>
+										</div>
+									<?php endif; ?>
+
+									<div class="square">
+										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
+											<div class="square-content bg_cover" style="background-image: url(<?php the_sub_field('focusElements_libre_image'); ?>);"">
+											</div>
+										</a>
+									</div>
+
+									<div class="inner">
+										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
+							    		<h3 class="h5"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
+							    		<p><?php the_sub_field('focusElements_libre_texte'); ?></p>
+							    	</a>
+							    </div>
+						    </div>
 
 		        <?php endif;
 

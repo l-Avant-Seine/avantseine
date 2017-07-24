@@ -45,7 +45,23 @@ $focusElement_height: 400px;
 			}
 		}
 	}
+
+
+	.free-item {
+
+		h2 {
+			@extend .h5;
+			padding: 0.4em;
+			clear: both;
+			color: $color_primary;
+		}
+		p {
+			padding: 0 0.4em;
+		}
+	}
+
 }
+
 	.focusElement-pastille {
 		@include box-sizing;
 		padding: 0.5em;
