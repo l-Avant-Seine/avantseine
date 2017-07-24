@@ -60,13 +60,20 @@
               $(this).next().css('clear', 'none');
               $(this).css('margin-left', '0');
             }
-
           }
         });
+      },
 
+      adaptFocusHeight: function () {
+
+        var focus_el = $('.focusElement_item').first();
+        var focus_el_height = focus_el.innerHeight();
+        var focus_square_height = focus_el.find('.square').innerHeight();
+        var focus_height = focus_el_height - focus_square_height;
+
+        $('.focusEvent_infos').outerHeight( focus_height );
       }
   });
-
 
 }(jQuery));
 
@@ -185,19 +192,14 @@ jQuery(function($) {
      * Home
      */
 
-      var focus_el = $('.focusElement_item').first();
-      var focus_el_height = focus_el.innerHeight();
-      var focus_square_height = focus_el.find('.square').innerHeight();
-      var focus_height = focus_el_height - focus_square_height;
+    if( $('.module-focus').length == 1 ) {
+      $(window).adaptFocusHeight();
+    }
 
-      $('.focusEvent_infos').outerHeight( focus_height );
-
-
-
-      $('#js-soundToggle').on('click', function(event) {
-        event.preventDefault()
-        toggleSound();
-      });
+    $('#js-soundToggle').on('click', function(event) {
+      event.preventDefault()
+      toggleSound();
+    });
 
 
 
@@ -206,6 +208,7 @@ jQuery(function($) {
      * Smooth scrolling
      * Add smooth when clicking an anchor
      */
+
     var hashTagActive = "";
     $(".scroll").click(function (event) {
         if(hashTagActive != this.hash) { //this will prevent if the user click several times the same link to freeze the scroll.
@@ -229,19 +232,19 @@ jQuery(function($) {
 
 
 
-/*
- * GRIDS
- */
+    /*
+     * GRIDS
+     */
 
- if( $('#prog-grid').length == 1 ) {
-  $(window).alignProgGrid();
- }
-  
+    if( $('#prog-grid').length == 1 ) {
+      $(window).alignProgGrid();
+    }
+      
 
 
-/*
- * AJAX STUFFS
- */
+    /*
+     * AJAX STUFFS
+     */
 
     // LOAD MORE EVENTS
     var step = 12;
@@ -272,8 +275,7 @@ jQuery(function($) {
     });
 
 
-    
-
+  
 
     // LOAD SEARCH RESULTS
     $('#searchform').on('submit', function(event) {
@@ -292,6 +294,7 @@ jQuery(function($) {
           }
       );
     });
+
 
 
     // GET POSTS FROM CAT TERM
@@ -317,6 +320,7 @@ jQuery(function($) {
           }
       );
     });
+
 
 
     // GET EVENTS FROM FILTERS
@@ -375,7 +379,18 @@ jQuery(function($) {
     });
 
 
-  });
+
+    /*
+     * All scripts triggered on resize
+     */
+
+    $( window ).resize(function() {
+      $(window).adaptFocusHeight();
+    });
+
+
+
+  }); // end ready
 });
 
 

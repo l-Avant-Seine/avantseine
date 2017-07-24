@@ -112,8 +112,12 @@
 							echo "<p>".$post_shortText. "</p>"; 
 						?>
 					</div>
-					<a href="" class="btn--big"><span class="icon-arrow-right"></span>en savoir plus</a>
-					<a href="" class="btn--big">réserver</a>
+
+					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+					<div class="clearfix">
+						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big black">Acheter mes places</a>
+					</div>
+					
 				</div>
 			<?php endwhile; 
 			wp_reset_postdata();
