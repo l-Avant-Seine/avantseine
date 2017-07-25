@@ -51,7 +51,8 @@
 
 				<h3 class="h4 blocEvent-title" itemprop="name">	
 						<?php the_title(); ?>
-				</h3>		
+				</h3>
+				<span class="meta-name"><?php the_field( 'noms_principaux' ); ?></span><br>
 			</div>
 		</a>
 	

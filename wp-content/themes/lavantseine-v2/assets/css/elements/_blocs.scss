@@ -19,6 +19,13 @@
 
 	.blocEvent-title {
 		color: $color_primary;
+		margin-bottom:  0 ;
+	}
+	.meta-name p {
+		@include type-setting(-1);
+		font-weight: $bold;
+		color: $color_primary;
+		text-transform: uppercase;
 	}
 }
 

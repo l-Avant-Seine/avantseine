@@ -71,7 +71,7 @@
         var focus_square_height = focus_el.find('.square').innerHeight();
         var focus_height = focus_el_height - focus_square_height;
 
-        $('.focusEvent_infos').outerHeight( focus_height );
+        //$('.focusEvent_infos').outerHeight( focus_height );
       }
   });
 

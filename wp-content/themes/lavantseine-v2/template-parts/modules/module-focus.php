@@ -49,8 +49,9 @@
 
 	    	<div class="focusEvent_infos m-3coll offset-right">
 	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
-	    			<span>Le prochain rendez-vous</span>
+	    			<span>Le prochain rendez-vous</span><br><br>
 	    			<h3 class="h1 no-margin"><?php echo get_the_title($focus_event_id); ?></h3>
+	    			<span class="meta-date"><?php the_field( 'noms_principaux', $focus_event_id ); ?></span><br>
 						<span class="meta-date"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates = false); ?></span>
 	    		</a>
 	    	</div>

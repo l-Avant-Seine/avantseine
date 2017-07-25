@@ -56,7 +56,7 @@
 						?>						
 					</div>
 					
-					<span class="relatedPost-date meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
+					<!-- <span class="relatedPost-date meta-date">Publié le <?php //the_time('d/m/Y'); ?></span> -->
 					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					<div class="relatedPost-text">
 						<?php 
@@ -64,6 +64,9 @@
 							echo "<p>".$post_shortText. "</p>"; 
 						?>
 					</div>
+
+					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+
 				</div>
 			<?php endwhile; 
 			wp_reset_postdata();
@@ -118,6 +121,9 @@
 						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
 						echo "<p>".$post_shortText. "</p>"; 
 					?>
+
+					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+
 				</div>
 			<?php endwhile; 
 			$found_posts = $other_posts->found_posts;
@@ -133,7 +139,7 @@
 
 	} else {
 	
-			echo '<h3 class="h4">l\'actualité de <br>l\'Avant-Seine <br><span class="title-diamond">&#x02666;</span></h3>';
+			echo '<h3 class="h4">dans <br>le magazine<br><span class="title-diamond">&#x02666;</span></h3>';
 
 			// OTHER POSTS
 			$default_posts = new WP_Query(array(
@@ -151,25 +157,29 @@
 						if ( $count > 0 ){
 						    echo "<ul class='no-bullets'>";
 						    foreach ( $terms as $term ) {
-						    	$term_link = get_term_link( $term, '' );
-							    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
+						    	//$term_link = get_term_link( $term, '' );
+							    echo "<li class='postmeta-term'>" . $term->name . "</li><br>";
 						    }
 						    echo "</ul>";
 						}
 
 						if( is_paged()) {
-							echo 'paged ! ';
+							//echo 'paged ! ';
 						}
 					?>
 
-					<div class="entry-meta">
-						<span class="meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
-					</div><!-- .entry-meta -->
+<!-- 					<div class="entry-meta">
+						<span class="meta-date">Publié le <?php //the_time('d/m/Y'); ?></span>
+					</div> -->
+
 					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					<?php 
 						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
 						echo "<p>".$post_shortText. "</p>"; 
 					?>
+
+					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+					
 				</div>
 			<?php endwhile; 
 			$found_posts = $default_posts->found_posts;

@@ -3,9 +3,9 @@
  * @package lavantseine
  */
 
+	$postDetail_mediaMarkup = get_post_meta( $post->ID, 'postDetail_mediaMarkup', true );
+	$postDetail_showPic = get_post_meta( $post->ID, 'postDetail_showPic', true );
 
-			$postDetail_mediaMarkup = get_post_meta( $post->ID, 'postDetail_mediaMarkup', true );
-			$postDetail_showPic = get_post_meta( $post->ID, 'postDetail_showPic', true );
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -78,9 +78,7 @@
 					<?php get_template_part( 'template-parts/modules/module', 'relatedevent' ); ?>
 			</div>
 
-
 	</div><!-- .entry-content -->
-
 
 </article><!-- #post-## -->
 

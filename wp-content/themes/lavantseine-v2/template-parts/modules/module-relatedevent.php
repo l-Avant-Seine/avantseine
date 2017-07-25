@@ -1,6 +1,7 @@
 <?php
 
 	// Remontée des événements puis des articles liés à l'événement en cours.
+
 	global $post; // for current $post backup
 	
 	$backup = $post;  // backup the current object
@@ -16,7 +17,7 @@
 
 	if ( !empty($tags) ) {
 			
-			echo '<h3 class="h4">à voir sur <br>scène <br><span class="title-diamond">&#x02666;</span></h3>';
+			echo '<h3 class="h4">dans <br> la programmation <br><span class="title-diamond">&#x02666;</span></h3>';
 
 			$tag_slug = $tags[0]->slug;
 

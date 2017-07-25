@@ -47,19 +47,6 @@ $focusElement_height: 400px;
 	}
 
 
-	.free-item {
-
-		h2 {
-			@extend .h5;
-			padding: 0.4em;
-			clear: both;
-			color: $color_primary;
-		}
-		p {
-			padding: 0 0.4em;
-		}
-	}
-
 }
 
 	.focusElement-pastille {
@@ -103,6 +90,10 @@ $focusElement_height: 400px;
 				@include type-setting(-2);
 				font-family: $font_family_title;
 				color: $color_primary;
+
+				p {
+					margin: 0;
+				}
 			}
 	}
 
