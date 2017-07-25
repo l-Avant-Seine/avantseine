@@ -48,6 +48,10 @@
 				flex-direction: column;
 				justify-content: space-between;
 			}
+			
+			p {
+				@include type-setting(-1);
+			}
 		}
 		.blocEvent-actions {
 			a {

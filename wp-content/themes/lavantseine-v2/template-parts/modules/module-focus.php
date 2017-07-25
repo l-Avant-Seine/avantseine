@@ -82,7 +82,7 @@
 								<div class="inner">
 									<a href="<?php echo get_permalink( $focusElements_page->ID ); ?>">
 						    		<h3 class="h5"><?php echo $focusElements_page->post_title; ?></a></h3>
-						    		<p><?php echo $focusElements_page->excerpt; ?></p>
+						    		<p><?php the_field('pageDetail_intro', $focusElements_page->ID ); ?></p>
 						    	</a>
 						    </div>
 

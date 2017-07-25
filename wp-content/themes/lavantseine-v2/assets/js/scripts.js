@@ -57,7 +57,7 @@
           if( item_right > progAside_left) {
             if( item_top < progAside_bottom) {
               $(this).css('clear', 'both');
-              $(this).next().css('clear', 'none');
+              $(this).next().css('clear', 'none').css('margin-left', '0.5% !important');
               $(this).css('margin-left', '0');
             }
           }
@@ -116,6 +116,17 @@ jQuery(function($) {
     ham_menu.find('.menu-item-has-children > a').on('click', function(event) {
       event.preventDefault();
     });
+
+
+    // MENU MOBILE
+
+    $('.menu-item-has-children > a').on('click', function(event) {
+      event.preventDefault();
+      $('.sub-menu').hide();
+      $(this).parent().find('.sub-menu').show();
+    });
+
+
 
 
     // Socials

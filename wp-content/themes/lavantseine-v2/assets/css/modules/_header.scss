@@ -30,6 +30,14 @@
 		}
 
 	}
+
+
+
+	@include up-to(medium) {
+		background-color: $color_primary;
+	}
+
+
 }
 
 

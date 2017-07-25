@@ -40,7 +40,15 @@
 			@include up-to(medium) {
 				float: none;
 				padding-left: 3em;
-				border-bottom: 1px solid $black;
+
+				&.site-branding {
+					padding-left: 0;
+					float: left;
+					border-bottom: none;
+				}
+				&.js-menuTrigger {
+
+				}
 			}
 
 			@include at-least(medium) {
@@ -91,6 +99,8 @@
 	
 		@include up-to(medium) {
 			float: right !important;
+			padding-right: 2em;
+			border-bottom: none !important;
 		}
 	}
 	.siteMenuPrimary-inner {
@@ -140,9 +150,16 @@
 		font-weight: $regular;
 	}
 	
-
 	&.active {
 		display: block;
+	}
+
+	@include up-to(medium) {
+		padding-top: 0;
+
+		.wrap {
+			width: 100%;
+		}
 	}
 }
 	.menu-menu-hamburger-container > ul {
@@ -177,6 +194,33 @@
 		}
 		.menu-item-has-children > a {
 			cursor: initial;
+		}
+
+
+		@include up-to(medium) {
+			display: block;
+
+
+			.sub-menu {
+				display: none;
+				background-color: $black;
+				margin-top: 0;
+
+				.menu-item > a {
+					display: block;
+					@include type-setting(3);
+					padding: 1em 2em !important;
+					border-bottom: 1px solid $gray_dark;
+			
+				}
+			}
+
+			.menu-item-has-children > a {
+				display: block;
+				border-bottom: 1px solid $black;
+				padding: 1em 2em !important;
+				cursor: pointer;
+			}
 		}
 
 	}

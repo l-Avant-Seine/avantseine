@@ -27,16 +27,15 @@ $focusElement_height: 400px;
 		align-items: flex-end;
 
 		@include up-to(medium) {
-			flex-direction: column;
-			position: absolute;
-			bottom: -540px;
+			display: block;
+			height: auto;
 
 			.focusEvent_infos {
 				width: 100%;
 				left: 0;
 			}
 			.focusElement_item {
-				height: 300px;
+				height: auto;
 				width: 100%;
 
 				.square {
@@ -46,7 +45,10 @@ $focusElement_height: 400px;
 		}
 	}
 
+	@include up-to(medium) {
+		height: auto;
 
+	}
 }
 
 	.focusElement-pastille {
