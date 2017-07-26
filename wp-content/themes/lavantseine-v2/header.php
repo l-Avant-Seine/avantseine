@@ -86,7 +86,23 @@
 						<?php 
 							wp_nav_menu( array( 
 								'theme_location' => 'all', 
-								'menu_id' => 'hamburger-menu' ) 
+								'menu_id' => 'hamburger-menu',
+								'items_wrap' => '<ul id="hamburger-menu" class="menu">
+																	<li class="menu-item menu-item-has-children ham-prog"><a href="/programmation">Programmation</a></li>
+																	<li class="menu-item menu-item-has-children ham-mag"><a href="/magazine">Magazine</a></li>
+																	%3$s
+
+																	<li id="menu-item-9455" class="black-bg menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavantseine.dev/pratique/contacts/">Contacts</a></li>
+
+																	<li id="menu-item-9454 " class="black-bg  booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://www2.aparteweb.com/awprod/SEINE/AWCatalogSub.aspx?INS=SEINE" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
+
+																	<li  class="menu-item black-bg menu-item-type-post_type menu-item-object-page menu-item-9455">
+																		<a href="https://facebook.fr" target="_blank"><span class="icon-facebook"></span></a>
+																		<a href="https://twitter.fr" target="_blank"><span class="icon-twitter"></span></a>
+																	</li>
+
+																</ul>'
+								 ) 
 							); 
 						?>
 					</div>

@@ -111,6 +111,7 @@ jQuery(function($) {
       ham_menu.toggleClass('active');
       $(this).find('span').toggleClass('icon-close');
       $(this).find('span').toggleClass('icon-menu');
+      $('body').toggleClass('no-scroll');
     });
 
     ham_menu.find('.menu-item-has-children > a').on('click', function(event) {
@@ -121,9 +122,16 @@ jQuery(function($) {
     // MENU MOBILE
 
     $('.menu-item-has-children > a').on('click', function(event) {
-      event.preventDefault();
-      $('.sub-menu').hide();
-      $(this).parent().find('.sub-menu').show();
+      if( $(this).hasClass('ham-prog') || $(this).hasClass('ham-mag') ) {
+        console.log('mag or prog !');
+      } 
+      else {
+        event.preventDefault();
+        $(this).prepend('<span class="icon-arrow"></span>')
+        $('.sub-menu').hide();
+        $(this).parent().find('.sub-menu').show();
+      }
+
     });
 
 

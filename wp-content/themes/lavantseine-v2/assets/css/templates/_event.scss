@@ -12,10 +12,23 @@
 	.event-layer {
 		margin-bottom: $base_line_height * 2;
 		position: relative;
+
+		@include up-to(medium) {
+			.is-flex {
+				display: block;
+			}
+		}
+
 	}
 	.eventHeader-inner {
 		align-items: flex-end;
 		height: 100%;
+
+		@include up-to(medium) {
+			align-items: baseline;
+			flex-direction: column;
+
+		}
 	}
 		.eventHeader-title {
 			background-color: rgba(0,0,0,0.6);

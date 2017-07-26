@@ -18,11 +18,12 @@
 body {
   position: relative;
   overflow-x: hidden;
+
 }
 
   .no-scroll {
 
-    @include at-least(medium) {
+    @include up-to(medium) {
       overflow: hidden;
     }
   }

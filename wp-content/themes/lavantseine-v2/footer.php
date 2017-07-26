@@ -42,7 +42,7 @@
 			<?php
 				if( have_rows('footer_cols', 'options') ):
 			    while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
-						<div class="m-2col">
+						<div class="s-4col m-2col">
 			        <?php the_sub_field('colonne'); ?>
 						</div>
 			    <?php endwhile;

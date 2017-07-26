@@ -36,6 +36,17 @@
 				font-family: $font_family_nav;
 			}
 
+			&.black-bg {
+				background-color: black;
+				color: $white;
+				border-bottom: 1px solid $gray_dark;
+				padding-left: 0 !important;
+
+				a {
+					display: inline-block;
+					padding: 1em 2em !important;
+				}
+			}
 
 			@include up-to(medium) {
 				float: none;
@@ -140,7 +151,7 @@
 	left: 100px;
 	right: 0;
 	left: 0;
-	top: $menu_height;
+	top: $menu_height_max;
 	padding-top: $base_line_height * 2;
 	padding-bottom: $base_line_height * 2;
 	z-index: 9999;
@@ -156,9 +167,18 @@
 
 	@include up-to(medium) {
 		padding-top: 0;
-
+		height: 82vh;
+		overflow: scroll;
+		
 		.wrap {
 			width: 100%;
+		}
+	}
+
+	@include at-least(medium) {
+		.ham-mag, 
+		.ham-prog {
+			display: none;
 		}
 	}
 }
@@ -220,6 +240,7 @@
 				border-bottom: 1px solid $black;
 				padding: 1em 2em !important;
 				cursor: pointer;
+				text-transform: uppercase;
 			}
 		}
 
