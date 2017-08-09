@@ -81,13 +81,13 @@ $gutter:                            1.5% !default;
         
 $mobile_first:                      true !default; 
 $minimal_breakpoint:                320px !default; 
-$medium_breakpoint:                 900px !default; 
+$medium_breakpoint:                 820px !default; 
 $large_breakpoint:                  1080px !default; 
 $wide_breakpoint:                   1400px !default; 
 
 
-$menu_height:           45px;
-$menu_height_max:       65px;
+$menu_height:           40px;
+$menu_height_max:       50px;
 $logo_width:            100px;
 
 
@@ -184,7 +184,7 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
  */
 
 $cols_alt:                  6 !default; 
-$gutter_alt:                0.5% !default; 
+$gutter_alt:                2% !default; 
 
 $one_col_alt: (100% - ($gutter_alt * ($cols_alt - 1))) / $cols_alt;
 

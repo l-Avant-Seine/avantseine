@@ -37,9 +37,9 @@ $focusElement_height: 400px;
 			}
 			.focusElement_item {
 				height: auto;
-				width: 75%;
-				margin: $base_line_height auto;
-
+				width: 60%;
+				margin: $base_line_height auto  !important;
+				
 				.square {
 					
 				}
@@ -106,7 +106,8 @@ $focusElement_height: 400px;
 		background-color: $white;
 		position: relative;
 		height: 60%;
-		
+		margin-left: 0.5% !important;
+
 		.inner {
 			padding: 1em;
 			word-wrap: break-word;

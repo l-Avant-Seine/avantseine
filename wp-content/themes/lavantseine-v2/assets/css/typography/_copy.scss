@@ -96,6 +96,10 @@ big {
         display: block;
         clear: both;
       }
+
+      @include up-to(medium) {
+        max-width: none;
+      }
     }
 
     a {
