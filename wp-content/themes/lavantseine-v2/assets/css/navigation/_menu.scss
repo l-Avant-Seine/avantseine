@@ -173,6 +173,27 @@
 		.wrap {
 			width: 100%;
 		}
+
+			.icon-arrow-left {
+				display: none;
+			}
+
+		.open {
+			& + .sub-menu {
+				display: block;
+			}
+			.icon-fleche_accordeon {
+				display: none;
+			}
+			.icon-arrow-left {
+				display: inline-block;
+			}
+		}
+
+		.icon-arrow-left:before {
+			margin-right: 18px;
+			font-size: 15px;
+		}
 	}
 
 	@include at-least(medium) {
@@ -206,6 +227,10 @@
 			li.menu-item {
 				float: none;
 				padding: 0 !important;
+			}
+
+			[class^="icon-arrow-left"] {
+				display: none;
 			}
 		}
 		.menu-item-has-children {

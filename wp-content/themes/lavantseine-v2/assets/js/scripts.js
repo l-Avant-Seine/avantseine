@@ -115,21 +115,51 @@ jQuery(function($) {
     });
 
     ham_menu.find('.menu-item-has-children > a').on('click', function(event) {
-      event.preventDefault();
+
+      if( $(this).parent().hasClass('ham-prog') || $(this).parent().hasClass('ham-mag') ) {
+        console.log('mag or prog !');
+      } 
+      else {
+        event.preventDefault();
+      }
     });
 
 
     // MENU MOBILE
 
     $('.menu-item-has-children > a').on('click', function(event) {
-      if( $(this).hasClass('ham-prog') || $(this).hasClass('ham-mag') ) {
+      if( $(this).parent().hasClass('ham-prog') || $(this).parent().hasClass('ham-mag') ) {
         console.log('mag or prog !');
       } 
       else {
         event.preventDefault();
-        $(this).prepend('<span class="icon-arrow"></span>')
-        $('.sub-menu').hide();
-        $(this).parent().find('.sub-menu').show();
+        
+        
+
+        if( $(this).hasClass('open') ) {
+          $('.menu-item a').removeClass('open');
+        }
+        else {
+          $('.menu-item a').removeClass('open');
+
+          $(this).addClass('open');
+
+        }
+
+
+        // if( $(this).parent().find('.sub-menu').is(':visible') ) {
+
+        //   $(this).find('.icon-arrow-left').remove();
+        //   $('.sub-menu').hide();
+        // }
+        // else {
+
+        //   $('.sub-menu').hide();
+        //   $('.icon-arrow-left').remove();
+
+        //   $(this).parent().find('.sub-menu').show();
+        //   $(this).prepend('<span class="icon-arrow-left"></span>');
+        // }
       }
 
     });

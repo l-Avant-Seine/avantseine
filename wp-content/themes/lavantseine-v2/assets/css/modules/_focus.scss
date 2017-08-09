@@ -33,13 +33,15 @@ $focusElement_height: 400px;
 			.focusEvent_infos {
 				width: 100%;
 				left: 0;
+				margin-top: $base_line_height;
 			}
 			.focusElement_item {
 				height: auto;
-				width: 100%;
+				width: 75%;
+				margin: $base_line_height auto;
 
 				.square {
-					width: 30%;
+					
 				}
 			}
 		}
