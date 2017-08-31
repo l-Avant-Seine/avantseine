@@ -22,7 +22,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 						$output = '';
 						if($categories){
 							foreach($categories as $category) {
-								$output .= '<span class="postmeta-term">'.$category->cat_name.'</span>';
+								$output .= '<span class="postmeta-term">'. $category->cat_name .'</span>';
 							}
 						echo trim($output, $separator);
 						}
@@ -30,7 +30,18 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 				</div><!-- .post-categories -->
 
 				<div class="square-content bg_cover" style="background-image: url(<?php the_post_thumbnail_url(''); ?>);">
-					
+					<?php 
+						$findme   = 'Vidéo';
+						$pos = strpos($output, $findme);
+						if ($pos === false) {
+						    
+						} else { ?>
+						    <div>
+						    	<img src="<?php echo get_template_directory_uri(); ?>/assets/img/play_boutontransparent.png" alt="">
+						    </div>
+						<?php }
+
+					?>
 				</div>
 			</header><!-- .entry-header -->
 
