@@ -40,7 +40,7 @@
 						'items_wrap' => '<ul class="no-bullets">
 																<li class="site-branding menu-item">
 																	<a href="'. esc_url( home_url( '/' ) ) .'" rel="home">
-																		<img class="site-logo" src="' . get_bloginfo( 'template_url' ) . '/assets/img/logo_avtseine_horizontal.png" alt="'. get_bloginfo( 'name' ) .'" title="">
+																		<img class="site-logo" src="' . get_bloginfo( 'template_url' ) . '/assets/img/LOGO_Avant_seine_horizontal.gif" alt="'. get_bloginfo( 'name' ) .'" title="">
 																	</a>
 																</li>
 
