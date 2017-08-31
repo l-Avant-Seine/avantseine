@@ -65,6 +65,33 @@
 	</div>
 
 
+
+	<div class="layer">
+
+		<div class="footer-newsletter">
+			<div class="wrap">
+				
+				<aside id="wp_mailjet_subscribe_widget-2" class="widget-7 widget-odd box-sidebar widget WP_Mailjet_Subscribe_Widget">
+				<h1 class="footer-title">la Newsletter</h1>
+        <!--WIDGET CODE GOES HERE-->
+        <form class="subscribe-form">
+                                                                        
+            <input id="email" name="email" placeholder="votre@email.com" autocomplete="off" type="text">
+            <input name="list_id" value="568010" type="hidden">
+            <input name="action" value="mailjet_subscribe_ajax_hook" type="hidden">
+            <input name="submit" class="mailjet-subscribe btn--big" value="S'inscrire" type="submit">
+        </form>
+        <div class="response"></div>
+        </aside>
+
+
+			</div>
+		</div>
+
+	</div>
+
+
+
 	<!-- Pages -->
 	<div id="" class="layer clearfix">
 		<?php
