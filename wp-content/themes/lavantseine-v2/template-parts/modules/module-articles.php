@@ -7,7 +7,7 @@
 
 	<?php if( !isset($module_title) ) : ?>
 		<h2 class="moduleArticles-title h2">
-			<span>le Magazine</span> <br>de l'Avant-Seine
+			<span>le Magazine</span> <br>de l'Avant Seine
 		</h2>
 	<?php else : ?>
 		<h2 class="moduleArticles-title h2">
