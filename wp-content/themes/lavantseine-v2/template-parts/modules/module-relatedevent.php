@@ -9,6 +9,8 @@
 	$param_type = $taxo;
 	$tax_args = array('orderby' => 'none' );
 
+	$arborescence = wp_get_post_terms($post->ID , 'arborescence', $tax_args);
+
 	$tags = wp_get_post_terms( $post->ID , $taxonomy, $tax_args);
 
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
@@ -62,9 +64,52 @@
 			wp_reset_postdata();
 			endif; 
 
+	} 
 
+	elseif ( !empty($arborescence) ) {
 
-	} else {
+			$arborescence_page = new WP_Query(array(
+				'post_status'    	=> 'publish',
+				'post_type' 			=> 'page',
+				'posts_per_page'	=> 1,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'arborescence',
+						'field'    => 'term_id',
+						'terms'    => $arborescence[0]->term_id,
+					),
+				),
+			));
+			//var_dump($arborescence_page);
+
+				if ( $arborescence_page->have_posts() ) : 
+				 	while ( $arborescence_page->have_posts() ) : $arborescence_page->the_post(); ?>
+					<div class="relatedPost star">
+						<div class="relatedPost-media">
+							<?php the_post_thumbnail(); ?>					
+						</div>
+						
+						<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+						<div class="relatedPost-text">
+							<?php 
+								$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
+								echo "<p>".$post_shortText. "</p>"; 
+							?>
+						</div>
+
+						<div class="clearfix">
+							<a href="<?php the_permalink(); ?>" class="btn--little bordered">
+								<span class="icon-arrow-right"></span>en savoir plus
+							</a>
+						</div>
+						
+					</div>
+				<?php endwhile; 
+				wp_reset_postdata();
+				endif; 
+	}
+
+	else {
 
 			// next_event
 			$next_event = new WP_Query(array(
