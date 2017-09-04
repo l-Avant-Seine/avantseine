@@ -109,7 +109,7 @@
 									<div class="inner">
 										<a href="<?php echo get_permalink( $focusElements_article->ID ); ?>">
 							    		<h3 class="h5"><?php echo $focusElements_article->post_title; ?></h3>
-							    		<p><?php echo $focusElements_article->excerpt; ?></p>
+							    		<div class="focusElement_p"><?php echo $focusElements_article->excerpt; ?></div>
 							    	</a>
 							    </div>
 						    </div>
@@ -137,7 +137,7 @@
 									<div class="inner">
 										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
 							    		<h3 class="h5"><?php echo $focusElements_event->post_title; ?></h3>
-							    		<p><?php echo $focusElements_event->excerpt; ?></p>
+							    		<div class="focusElement_p"><?php echo $focusElements_event->excerpt; ?></div>
 							    	</a>
 							    </div>
 						    </div>
@@ -165,7 +165,7 @@
 									<div class="inner">
 										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
 							    		<h3 class="h5"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
-							    		<p><?php the_sub_field('focusElements_libre_texte'); ?></p>
+							    		<div class="focusElement_p"><?php the_sub_field('focusElements_libre_texte'); ?></div>
 							    	</a>
 							    </div>
 						    </div>
