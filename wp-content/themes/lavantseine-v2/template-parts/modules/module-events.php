@@ -1,12 +1,3 @@
-<?php
-
-	// TODO 
-	// _> get variable passed
-	// _> loop
-
-?>
-
-
 
 <section class="module module-events">
 
