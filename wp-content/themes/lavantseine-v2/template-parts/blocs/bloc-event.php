@@ -28,7 +28,7 @@
 
 			<div class="blocEvent-infos full_absolute">
 				<div class="is-flex inner">
-					<?php echo "<p>". $event_shortText. "</p>"; ?>
+					<?php echo "<div>". $event_shortText. "</div>"; ?>
 
 					<div class="blocEvent-actions">
 						<a href="<?php the_permalink(); ?>" class="btn--big empty">en savoir plus</a>
