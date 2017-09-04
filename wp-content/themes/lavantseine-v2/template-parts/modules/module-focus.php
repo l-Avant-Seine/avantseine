@@ -109,7 +109,9 @@
 									<div class="inner">
 										<a href="<?php echo get_permalink( $focusElements_article->ID ); ?>">
 							    		<h3 class="h5"><?php echo $focusElements_article->post_title; ?></h3>
-							    		<div class="focusElement_p"><?php echo $focusElements_article->excerpt; ?></div>
+							    		<div class="focusElement_p">
+							    			<p><?php the_sub_field('focusElements_article_texte'); ?></p>
+							    		</div>
 							    	</a>
 							    </div>
 						    </div>
@@ -117,7 +119,7 @@
 
 
 		        <?php elseif( get_row_layout() == 'focusElements_event' ): 
-		        	$focusElements_event = get_sub_field('focusElements_page');  ?>
+		        	$focusElements_event = get_sub_field('focusElements_event');  ?>
 							
 								<div class="focusElement_item m-1coll">
 
@@ -126,7 +128,7 @@
 											<span><?php the_sub_field('pastille'); ?></span>
 										</div>
 									<?php endif; ?>
-
+ 
 									<div class="square">
 										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
 											<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_event->ID ), 'large' )[0]; ?>);"">
@@ -137,7 +139,9 @@
 									<div class="inner">
 										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
 							    		<h3 class="h5"><?php echo $focusElements_event->post_title; ?></h3>
-							    		<div class="focusElement_p"><?php echo $focusElements_event->excerpt; ?></div>
+							    		<div class="focusElement_p">
+							    			<p><?php the_sub_field('focusElements_event_texte'); ?></p>
+							    		</div>
 							    	</a>
 							    </div>
 						    </div>
