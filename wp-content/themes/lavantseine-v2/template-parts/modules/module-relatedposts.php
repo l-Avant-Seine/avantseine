@@ -148,8 +148,47 @@
 				'order' 					=> 'DESC',
 			));
 
+			$j = 0; 
+
  			if ( $default_posts->have_posts() ) : 
-			 	while ( $default_posts->have_posts() ) : $default_posts->the_post(); ?>
+			 	while ( $default_posts->have_posts() ) : $default_posts->the_post();?>
+
+
+					<?php if( $j === 0 ) : ?>
+
+						<div class="relatedPost star">
+							<div class="relatedPost-media">
+								<?php the_post_thumbnail(); ?>
+								<?php 
+									$terms = wp_get_post_terms( $post->ID, array('category') );
+									$count = count($terms);
+									if ( $count > 0 ){
+									    echo "<ul class='no-bullets'>";
+									    foreach ( $terms as $term ) {
+									    	$term_link = get_term_link( $term, '' );
+										    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
+									    }
+									    echo "</ul>";
+									}
+								?>						
+							</div>
+							
+							<!-- <span class="relatedPost-date meta-date">Publié le <?php //the_time('d/m/Y'); ?></span> -->
+							<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+							<div class="relatedPost-text">
+								<?php 
+									$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
+									echo "<p>".$post_shortText. "</p>"; 
+								?>
+							</div>
+
+							<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+
+						</div>
+
+					<?php else : ?>
+
+
 					<div class="relatedPost">
 					<?php 
 						$terms = wp_get_post_terms( $post->ID, array('category') );
@@ -181,9 +220,14 @@
 					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
 					
 				</div>
-			<?php endwhile; 
-			$found_posts = $default_posts->found_posts;
-			$max_pages = $default_posts->max_num_pages;
+
+			<?php 
+				endif;
+				$j++;
+
+				endwhile; 
+				$found_posts = $default_posts->found_posts;
+				$max_pages = $default_posts->max_num_pages;
 
 			if( $found_posts > $max_pages) : ?>
 				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big bordered-black"><span class="icon-arrow-right"></span>voir tous les articles</a>
