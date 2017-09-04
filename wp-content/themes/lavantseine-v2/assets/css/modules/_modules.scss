@@ -45,4 +45,15 @@
 
 .module-actions {
 	text-align: center;
+	
+	&.goto {
+	}
+
+	&.newsletter {
+		input[type=text] {
+		}
+		input[type=submit] {
+		}
+	}
+
 }
