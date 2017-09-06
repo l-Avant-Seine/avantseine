@@ -48,22 +48,27 @@ input::-moz-focus-inner { /* Corrects inner padding and border displayed oddly i
 	.searchbar {
 		border: none;
 		background-color: $white;
-    height: $menu_height;
+    height: $menu_height_max;
+		width: 300px;
 
 		input {
+			@include type-setting(1);
 			border: none;
 			background: none;
+			height: 100%;
+		}
+		input[type="text"] {
+			width: 78%;
+			padding: 0 10px;
+			margin-bottom: 0;
+		}
+		input[type="submit"] {
+			width: 20%;
+			float: right;
+		}
 
-		}
-		input[type="text"] {
-			width: 250px;
-			padding: 0 10px;
-			margin-bottom: 0;
-		}
-		input[type="text"] {
-			width: 250px;
-			padding: 0 10px;
-			margin-bottom: 0;
+		.sticky & {
+			height: $menu_height;
 		}
 	}
 

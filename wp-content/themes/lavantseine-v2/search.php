@@ -7,7 +7,10 @@
  * @package l\'Avant-Seine_v2.0
  */
 
-get_header(); ?>
+get_header(); 
+wp_enqueue_script( 'salvatorre' );
+
+?>
 
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -15,34 +18,55 @@ get_header(); ?>
 		<?php
 		if ( have_posts() ) : ?>
 
-			<header class="page-header">
-				<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'lavantseine-v2' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+			<header class="search-pagetitle">
+				<div class="wrap page-title" itemprop="name">
+					<h1 class="h1"><?php printf( esc_html__( 'Résultats de votre recherche : %s', 'lavantseine-v2' ), '<br><em>' . get_search_query() . '</em>' ); ?></h1>
+				</div>
 			</header><!-- .page-header -->
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
+			<div id="webmag-innergrid" data-columns class="wrap row">
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+				<?php
 
-			endwhile;
+				while ( have_posts() ) : the_post();
+				$post_type = get_post_type(); 
 
-			the_posts_navigation();
+				switch ($post_type) {
+					case 'event':
+						get_template_part( 'template-parts/blocs/bloc', 'event' );
+						break;
 
-		else :
+					case 'post':
+						get_template_part( 'template-parts/blocs/bloc', 'article' );
+						break;
 
-			get_template_part( 'template-parts/content', 'none' );
+					case 'page':
+						get_template_part( 'template-parts/blocs/bloc', 'page' );
+						break;
 
-		endif; ?>
+					default:
+						get_template_part( 'template-parts/blocs/bloc', 'page' );
+						break;
+				}
+
+				endwhile;
+				?>
+			</div>
+
+			<div class="clearfix wrap layer">
+				<?php lavantseine_paging_nav(); ?>
+			</div>
+
+		<?php else :
+			get_template_part( 'template-parts/contents/content', 'none' ); ?>
+		
+		
+
+		<?php endif; ?>
+
 
 		</main><!-- #main -->
 	</section><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();

@@ -10,11 +10,17 @@
 ?>
 
 <section class="no-results not-found">
-	<header class="page-header">
-		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'lavantseine-v2' ); ?></h1>
-	</header><!-- .page-header -->
 
-	<div class="page-content">
+
+	<header class="prog-pagetitle is-flex layer">
+		<div class="wrap page-title" itemprop="name">
+			<h1 class="h1"><?php esc_html_e( 'Aucun résulat...', 'lavantseine-v2' ); ?></h1>
+		</div>
+	</header><!-- .entry-header -->
+
+
+
+	<div class="page-content wrap">
 		<?php
 		if ( is_home() && current_user_can( 'publish_posts' ) ) : ?>
 
@@ -22,7 +28,7 @@
 
 		<?php elseif ( is_search() ) : ?>
 
-			<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'lavantseine-v2' ); ?></p>
+			<p><?php esc_html_e( 'Désolé, il n\'y aucun résultat pour la recherche demandée. Merci d\'essayer un autre terme.', 'lavantseine-v2' ); ?></p>
 			<?php
 				get_search_form();
 

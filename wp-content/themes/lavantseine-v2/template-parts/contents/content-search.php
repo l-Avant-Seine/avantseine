@@ -24,7 +24,5 @@
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->
 
-	<footer class="entry-footer">
-		<?php lavantseine_v2_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
+
 </article><!-- #post-## -->

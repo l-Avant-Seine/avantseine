@@ -24,9 +24,6 @@
 
 	<header id="masthead" class="site-header" role="banner">
 
-
-	
-
 		<div class="site-menus">
 
 			<nav id="site-navigation" class="siteMenus-primary" role="navigation">
@@ -74,7 +71,10 @@
 																			</li>
 
 																	<div class="siteMenus-searchform">
-																		<?php get_search_form(); ?>
+																		<form id="searchform" class="searchbar" action="/" method="get">
+																	    <input type="text" name="s" id="search" placeholder="votre recherche" value="" />
+																	    <input type="submit" alt="Search" class="" value="ok" />
+																	</form>
 																	</div>
 																	
 																</ul>
@@ -119,7 +119,10 @@
 	</header><!-- #masthead -->
 
 	<div class="emptyModal">
-		<div class="emptyModal-inner wrap"></div>
+		<div class="emptyModal-inner wrap">
+			Nous cherchons...
+
+		</div>
 	</div>
 
 	<div id="content" class="site-content">

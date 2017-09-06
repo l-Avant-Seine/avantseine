@@ -251,6 +251,7 @@ function search() {
 
 	$ajax_query = new WP_Query($args);
 
+
 	if ( $ajax_query->have_posts() ) : ?>
 
 		<h2 class="h2">Il y a <span><?php echo $ajax_query->found_posts; ?></span> résultat<?php if( $ajax_query->found_posts > 1 ) : echo 's'; endif; ?> pour la recherche <em><?php echo $keyword; ?></em></h2>
@@ -258,15 +259,43 @@ function search() {
 		<?php if( $ajax_query->found_posts > 10 ) : ?>
 			<p>Voici les 10 premiers...</p>
 		<?php endif; ?>
-
+		
+		<div id="webmag-innergrid" data-columns class="row">
 		<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
-			get_template_part( 'template-parts/blocs/bloc', 'search' );
+			
+			$post_type = get_post_type(); 
 
-		endwhile;
-	endif;
+				switch ($post_type) {
+					case 'event':
+						get_template_part( 'template-parts/blocs/bloc', 'event' );
+						break;
+
+					case 'post':
+						get_template_part( 'template-parts/blocs/bloc', 'article' );
+						break;
+
+					case 'page':
+						get_template_part( 'template-parts/blocs/bloc', 'page' );
+						break;
+
+					default:
+						get_template_part( 'template-parts/blocs/bloc', 'page' );
+						break;
+				}
+
+		endwhile; ?>
+		</div>
+		
+		<div class="row">
+			<a href="/?s=<?php echo $keyword ?>" class="btn--big is-centered">Voir tous les résulats</a>
+		</div>
+	<?php endif;
 
 	die();
 }
+
+
+
 
 
 

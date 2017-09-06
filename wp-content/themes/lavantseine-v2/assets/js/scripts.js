@@ -338,8 +338,16 @@ jQuery(function($) {
               'keyword': keyword
           },
           function(response){
-            $('.emptyModal-inner').html(response);
+            if( response ) {
+              $('.emptyModal-inner').html(response);      
+            }
+            else {
+              $('.emptyModal-inner').html('<p>Désolé, il n\'y a aucun résulat pour votre recherche...</p>');
+            }
             $('.emptyModal').show();
+            var grid = document.getElementById('webmag-innergrid');
+            salvattore.registerGrid(grid);
+
           }
       );
     });
@@ -427,6 +435,10 @@ jQuery(function($) {
       $(this).find('span').toggleClass('icon-fleche_accordeon icon-fleche_accordeon-bottom');
     });
 
+
+
+    var searchgrid = document.getElementById('search-grid');
+    salvattore.registerGrid(searchgrid);
 
 
     /*
