@@ -44,8 +44,10 @@
 
 		<?php // endif; ?>
 
-
+		
 		<div class="moduleInner is-flex row_alt">
+				
+				<a href="<?php echo get_permalink($focus_event_id); ?>" class="full_absolute">
 
 	    	<div class="focusEvent_infos m-3coll offset-right">
 	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
