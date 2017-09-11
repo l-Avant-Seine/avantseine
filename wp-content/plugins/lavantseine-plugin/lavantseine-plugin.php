@@ -5,7 +5,7 @@
  * Plugin Name: Plugin pour le site de l'Avant-Seine
  * Plugin URI: 
  * Description: Post types, metas, etc.
- * Version: 1.0.0
+ * Version: 2.0.0
  * Author: Thomas Florentin
  * Author URI: http://thomasflorentin.net
  * Text Domain: lavantseine-plugin
@@ -43,8 +43,6 @@ require_once(ODY_METAS_PATH . 'event-metas.php');
 //require_once(ODY_METAS_PATH . 'page-metas.php');
 //require_once(ODY_METAS_PATH . 'post-metas.php');
 
-//require_once(ODY_UTILS_PATH . 'custom-widgets.php');
-//require_once(ODY_UTILS_PATH . 'options-panel.php');
 require_once(ODY_UTILS_PATH . 'template-tags.php');
 require_once(ODY_UTILS_PATH . 'queries-filters.php');
 
