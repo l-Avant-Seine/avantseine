@@ -1,32 +1,33 @@
 ;(function($){
   
-  /**
-   * jQuery function to prevent default anchor event and take the href * and the title to make a share popup
-   *
-   * @param  {[object]} e           [Mouse event]
-   * @param  {[integer]} intWidth   [Popup width defalut 500]
-   * @param  {[integer]} intHeight  [Popup height defalut 400]
-   * @param  {[boolean]} blnResize  [Is popup resizeabel default true]
-   */
-  $.fn.customerPopup = function (e, intWidth, intHeight, blnResize) {
-    
-    // Prevent default anchor event
-    e.preventDefault();
-    
-    // Set values for window
-    intWidth = intWidth || '500';
-    intHeight = intHeight || '400';
-    strResize = (blnResize ? 'yes' : 'no');
-
-    // Set title and open popup with focus on it
-    var strTitle = ((typeof this.attr('title') !== 'undefined') ? this.attr('title') : 'Social Share'),
-        strParam = 'width=' + intWidth + ',height=' + intHeight + ',resizable=' + strResize,            
-        objWindow = window.open(this.attr('href'), strTitle, strParam).focus();
-  };
-  
 
 
   jQuery.fn.extend({
+
+    /**
+     * jQuery function to prevent default anchor event and take the href * and the title to make a share popup
+     *
+     * @param  {[object]} e           [Mouse event]
+     * @param  {[integer]} intWidth   [Popup width defalut 500]
+     * @param  {[integer]} intHeight  [Popup height defalut 400]
+     * @param  {[boolean]} blnResize  [Is popup resizeabel default true]
+     */
+      customerPopup: function (e, intWidth, intHeight, blnResize) {
+    
+        // Prevent default anchor event
+        e.preventDefault();
+        
+        // Set values for window
+        intWidth = intWidth || '500';
+        intHeight = intHeight || '400';
+        strResize = (blnResize ? 'yes' : 'no');
+
+        // Set title and open popup with focus on it
+        var strTitle = ((typeof this.attr('title') !== 'undefined') ? this.attr('title') : 'Social Share'),
+            strParam = 'width=' + intWidth + ',height=' + intHeight + ',resizable=' + strResize,            
+            objWindow = window.open(this.attr('href'), strTitle, strParam).focus();
+      },
+
       alignProgGrid: function () {
 
         // Prog layout
@@ -72,7 +73,31 @@
         var focus_height = focus_el_height - focus_square_height;
 
         //$('.focusEvent_infos').outerHeight( focus_height );
+      },
+
+
+      getPostsFromTerm: function ( term_slug ) {
+
+        
+        $('.js-postmeta-term').removeClass('active');
+        $(".postmeta-term[cat-slug='" +term_slug +"']").addClass('active');
+
+        jQuery.post(
+            ajaxurl,
+            {
+                'action': 'get_posts_from_term',
+                'term': term_slug
+            },
+            function(response){
+              $('#webmag-mainGrid').html(response);
+              
+              var grid = document.getElementById('webmag-innergrid');
+              salvattore.registerGrid(grid);
+            }
+        );
       }
+
+
   });
 
 }(jQuery));
@@ -133,8 +158,6 @@ jQuery(function($) {
       } 
       else {
         event.preventDefault();
-        
-        
 
         if( $(this).hasClass('open') ) {
           $('.menu-item a').removeClass('open');
@@ -358,25 +381,20 @@ jQuery(function($) {
     $('.js-postmeta-term').on('click', function(event) {
       event.preventDefault();
 
-      var term = $(this).attr('cat-slug');
-      
-      $('.js-postmeta-term').removeClass('active');
-      $(this).addClass('active');
+      var term_slug = $(this).attr('cat-slug');
+      $(window).getPostsFromTerm( term_slug );
 
-      jQuery.post(
-          ajaxurl,
-          {
-              'action': 'get_posts_from_term',
-              'term': term
-          },
-          function(response){
-            $('#webmag-mainGrid').html(response);
-            
-            var grid = document.getElementById('webmag-innergrid');
-            salvattore.registerGrid(grid);
-          }
-      );
     });
+
+
+    if( $('.page-category').length == 1 ) {
+      
+      var term_slug = $('.page-category').attr('cat-slug');
+      $(window).getPostsFromTerm( term_slug );
+
+    }
+
+
 
 
 
