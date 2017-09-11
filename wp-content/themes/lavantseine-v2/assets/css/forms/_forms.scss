@@ -52,10 +52,11 @@ input::-moz-focus-inner { /* Corrects inner padding and border displayed oddly i
 		width: 300px;
 
 		input {
-			@include type-setting(1);
+			@include type-setting(2);
 			border: none;
 			background: none;
 			height: 100%;
+			color: $black
 		}
 		input[type="text"] {
 			width: 78%;
