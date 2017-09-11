@@ -176,7 +176,8 @@ function load_more() {
 
 	$offset = $_POST['offset'];
 	$step = $_POST['step'];
-	$previous_month = $_POST['previous_month'];
+	//$previous_month = $_POST['previous_month'];
+	$pastEvents = $_POST['pastEvents'];
 
 	$args = array(
 	    'post_type' =>'event',
@@ -185,15 +186,29 @@ function load_more() {
 			'post_status'			=> 'publish', 
 			'meta_key' => 'eventDetail_first_date',
 			'orderby' => 'meta_value_num',
-			'order' => 'ASC',
-			'meta_query' => array(
-			   	array(
-			       'key' => 'eventDetail_last_date',
-			       'value' => $today,
-			       'compare' => '>=',
-			    )
-			)	    
 	);
+
+	if( $pastEvents === 'true' ) {
+		$args['order'] = 'DESC';
+		$args['meta_query'] = array(
+			array(
+	    	'key' => 'eventDetail_last_date',
+			  'value' => $today,
+		    'compare' => '<=',
+	    )
+		);
+	}
+	else {
+		$args['meta_query'] = array(
+			array(
+	    	'key' => 'eventDetail_last_date',
+			  'value' => $today,
+		    'compare' => '>=',
+	    )
+		);
+		$args['order'] = 'ASC';
+	}
+
 	$ajax_query = new WP_Query($args);
 
 	
@@ -365,7 +380,7 @@ function get_events_filtered() {
 
 	$args = array(
 	   	'post_type' 			=> 'event',
-			'posts_per_page' 	=> '12',
+			'posts_per_page' 	=> '18',
 			'post_status'			=> 'publish', 
 	   	'meta_key' 				=> 'eventDetail_first_date',
 	   	'orderby' 				=> 'meta_value_num',

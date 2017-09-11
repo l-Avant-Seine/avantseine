@@ -28,6 +28,7 @@
             objWindow = window.open(this.attr('href'), strTitle, strParam).focus();
       },
 
+
       alignProgGrid: function () {
 
         // Prog layout
@@ -44,7 +45,7 @@
         if( progGrid_items.length === 0 ) {
             progAside.css('position', 'relative');
         }
-
+  
         jQuery.each( progGrid_items, function( i, val ) {
 
           var item_left = $(this).offset().left;
@@ -54,16 +55,18 @@
           // console.log( val );
           // console.log( 'item top : ' +  item_top);
           // console.log( 'item right : ' +  item_right);
-
+ 
           if( item_right > progAside_left) {
             if( item_top < progAside_bottom) {
               $(this).css('clear', 'both');
-              $(this).next().css('clear', 'none').css('margin-left', '0.5% !important');
               $(this).css('margin-left', '0');
+              $(this).next().css('clear', 'none');
+               $(this).next().css('margin-left', '2%');
             }
           }
         });
       },
+
 
       adaptFocusHeight: function () {
 
@@ -78,7 +81,6 @@
 
       getPostsFromTerm: function ( term_slug ) {
 
-        
         $('.js-postmeta-term').removeClass('active');
         $(".postmeta-term[cat-slug='" + term_slug + "']").addClass('active');
 
@@ -97,9 +99,7 @@
         );
       }
 
-
   });
-
 }(jQuery));
 
 
@@ -219,6 +219,7 @@ jQuery(function($) {
       if( $(this).attr('checked') === undefined ) {
         $('.progFilterForm-lower').show();
         $('.prog-pagetitle h1').html('Les <br>archives');
+
       } else {
         $('.progFilterForm-lower').hide();
         $('.prog-pagetitle h1').html('La programmation <br>à venir');
@@ -316,38 +317,7 @@ jQuery(function($) {
 
     /*
      * AJAX STUFFS
-     */
-
-    // LOAD MORE EVENTS
-    var step = 12;
-    var offset = step; 
-    $('.load-more').on('click', function(event) {
-      event.preventDefault();
-
-      var posts_found = $(this).attr('posts_found');
-      var month = $('.box-month').last().attr('month');
-
-      jQuery.post(
-          ajaxurl,
-          {
-              'action': 'load_more',
-              'offset': offset,
-              'step': step,
-              'previous_month': month,
-          },
-          function(response){
-            offset = offset + step;
-            $('#prog-grid').append(response);
-
-            if(posts_found < offset) {
-              $('.load-more').hide();
-            }
-          }
-      );
-    });
-
-
-  
+     */  
 
     // LOAD SEARCH RESULTS
     $('#searchform').on('submit', function(event) {
@@ -380,25 +350,54 @@ jQuery(function($) {
     // GET POSTS FROM CAT TERM
     $('.js-postmeta-term').on('click', function(event) {
       event.preventDefault();
-
       var term_slug = $(this).attr('cat-slug');
       $(window).getPostsFromTerm( term_slug );
-
     });
 
-
     if( $('.page-category').length == 1 ) {
-      
       var term_slug = $('.page-category').attr('cat-slug');
       $(window).getPostsFromTerm( term_slug );
-
     }
 
 
 
+    // EVENTS >> LOAD MORE
+    var step = 18;
+    var offset = step; 
+    $('.load-more').on('click', function(event) {
+      event.preventDefault();
+
+      var posts_found = $(this).attr('posts_found');
+      var month = $('.box-month').last().attr('month');
+      var archives_value = $('input[name="is_archives"]').attr('checked');
+
+      if( archives_value === undefined ) {
+        var pastEvents = true;
+      }
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'load_more',
+              'offset': offset,
+              'step': step,
+              'previous_month': month,
+              'pastEvents': pastEvents
+          },
+          function(response){
+            offset = offset + step;
+            $('#prog-grid').append(response);
+
+            if(posts_found < offset) {
+              $('.load-more').hide();
+            }
+          }
+      );
+    });
 
 
-    // GET EVENTS FROM FILTERS
+
+    // EVENTS >> GET EVENTS FROM FILTERS
     $('#progFilter-form').on('change', function(event) {
       event.preventDefault();
 
@@ -409,6 +408,7 @@ jQuery(function($) {
       var is_archives_value = $(this).find('input[name="is_archives"]').attr('checked');
       var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
 
+      $('#prog-grid').html('Nous traitons votre demande...');
       $('#prog-grid').fadeOut();
 
       jQuery.post(
@@ -442,7 +442,10 @@ jQuery(function($) {
 
 
 
-    // ACCORDEON
+
+    /*
+     * ACCORDEON
+     */
 
     var accordeon = $('.entry-accordeon');
 
@@ -454,11 +457,14 @@ jQuery(function($) {
     });
 
 
+
     /*
-     * All scripts triggered on resize
+     * Salvattore the search results
      */
+
     var searchgrid = document.getElementById('search-grid');
     salvattore.registerGrid(searchgrid);
+
 
 
     /*

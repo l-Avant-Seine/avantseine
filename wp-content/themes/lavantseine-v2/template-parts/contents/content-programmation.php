@@ -80,7 +80,7 @@
 
 					$args = array(
 					   	'post_type' 			=> 'event',
-							'posts_per_page' 	=> '12',
+							'posts_per_page' 	=> '18',
 							'post_status'			=> 'publish', 
 					   	'meta_key' => 'eventDetail_first_date',
 					   	'orderby' => 'meta_value_num',
