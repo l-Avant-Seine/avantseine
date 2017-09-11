@@ -80,7 +80,7 @@
 
         
         $('.js-postmeta-term').removeClass('active');
-        $(".postmeta-term[cat-slug='" +term_slug +"']").addClass('active');
+        $(".postmeta-term[cat-slug='" + term_slug + "']").addClass('active');
 
         jQuery.post(
             ajaxurl,
@@ -249,7 +249,7 @@ jQuery(function($) {
     $('#js-searchTrigger').on('click', function(event) {
       event.preventDefault();
 
-      $(this).find('span').toggleClass('icon-search icon-close')
+      $(this).find('span').toggleClass('icon-search icon-close');
       $('.siteMenus-searchform').toggle();
 
       if( $('.emptyModal').is(':visible') ) {
@@ -269,7 +269,7 @@ jQuery(function($) {
     }
 
     $('#js-soundToggle').on('click', function(event) {
-      event.preventDefault()
+      event.preventDefault();
       toggleSound();
     });
 
@@ -454,7 +454,9 @@ jQuery(function($) {
     });
 
 
-
+    /*
+     * All scripts triggered on resize
+     */
     var searchgrid = document.getElementById('search-grid');
     salvattore.registerGrid(searchgrid);
 

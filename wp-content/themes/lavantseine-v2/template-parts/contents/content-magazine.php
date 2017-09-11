@@ -4,7 +4,6 @@
  *
  * @package lavantseine
  */
-wp_enqueue_script( 'salvatorre' );
 
 $today = time();
 

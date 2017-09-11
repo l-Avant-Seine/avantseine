@@ -8,7 +8,6 @@
  */
 
 get_header(); 
-wp_enqueue_script( 'salvatorre' );
 
 ?>
 

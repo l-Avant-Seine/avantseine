@@ -9,6 +9,7 @@
  * @package l\'Avant-Seine_v2.0
  */
 
+
 ?><!DOCTYPE html>
 <html  <?php html_tag_schema(); ?> <?php language_attributes(); ?>>
 <head>
