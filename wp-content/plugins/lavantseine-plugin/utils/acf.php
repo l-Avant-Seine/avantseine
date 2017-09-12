@@ -599,7 +599,7 @@ acf_add_local_field_group(array (
 		),
 		array (
 			'key' => 'field_5913063209be7',
-			'label' => 'Introduction de la page',
+			'label' => 'Résumé d\'accroche de la page',
 			'name' => 'pageDetail_intro',
 			'type' => 'wysiwyg',
 			'instructions' => '',

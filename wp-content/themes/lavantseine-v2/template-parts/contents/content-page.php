@@ -7,7 +7,6 @@
  * @package l\'Avant-Seine_v2.0
  */
 
-wp_enqueue_script( 'salvatorre' );
 
 	$tax_args = array('orderby' => 'none', );
 	$tags = wp_get_post_terms( $post->ID , 'arborescence', $tax_args);
@@ -47,12 +46,6 @@ wp_enqueue_script( 'salvatorre' );
 	<div class="wrap row">
 
 		<div class="m-5col page-content entry-content"  itemprop="mainContentOfPage">
-			
-			<?php if( isset($page_intro) && $page_intro !== '') : ?>
-			<div class="page-extract">
-				<?php echo $page_intro; ?>
-			</div>
-			<?php endif; ?>
 
 			<?php the_content(); ?>
 

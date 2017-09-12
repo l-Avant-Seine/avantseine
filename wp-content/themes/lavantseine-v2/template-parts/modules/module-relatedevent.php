@@ -73,7 +73,7 @@
 				'post_type' 			=> 'page',
 				'posts_per_page'	=> 1,
 				'tax_query' => array(
-					array(
+					array( 
 						'taxonomy' => 'arborescence',
 						'field'    => 'term_id',
 						'terms'    => $arborescence[0]->term_id,
@@ -90,11 +90,15 @@
 						</div>
 						
 						<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
-						<div class="relatedPost-text">
+						
+						<div class="modulePages-excerpt">
 							<?php 
-								$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-								echo "<p>".$post_shortText. "</p>"; 
-							?>
+								if( get_field('pageDetail_intro') != '' ) : 
+									the_field('pageDetail_intro'); 
+								else : 
+									the_excerpt(); 
+								endif; 
+								?>
 						</div>
 
 						<div class="clearfix">
