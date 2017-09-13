@@ -3,13 +3,17 @@
 Contributors: mailjet
 Tags: email, marketing, signup, newsletter, widget, smtp, mailjet
 Requires at least: 3.3.0
-Tested up to: 4.7
-Stable tag: 4.1.16
+Tested up to: 4.8
+Stable tag: 4.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Use Mailjet to create, send and track beautiful and engaging marketing and transactional emails directly from within your WordPress admin. 
 
+== What's new ==
+* Now it is possible to subscribe all existing Wordpress users to a selected Mailjet contact list
+* The user role is added to Mailjet as a contact property, so you can filter and target marketing emails to the proper group
+* New feature to subscribe comment authors to a selected Mailjet contact list provides a second channel for collection of subscribers
 
 == Description ==
 
@@ -39,17 +43,13 @@ Mailjet is EU-data compliant, meaning that it guarantees an optimal level of ema
 * International UI and Support: 
 Mailjet offers user interfaces, documentation and 24/7 customer support in 4 languages (English, Spanish, French and German).
 
-*** SECURITY UPDATE *** if you connect your Mailjet account and get a "php_network_getaddresses: getaddrinfo failed" or if you try to open "contacts", "statistics"  and the login form appears AND your Mailjet account was created prior to August 2014, please go to [Account API keys](https://www.mailjet.com/account/api_keys) to regenerate a new Secret Key for the plug-in.
-
 == Installation ==
  
 1. Log in as administrator in Wordpress.
 2. Go to Extensions > Add and send `mailjet-for-wordpress.zip`.
 3. Activate the Mailjet extension through the 'Plugins' menu in WordPress.
 
-You must have cURL extension enabled.
-
-*** SECURITY UPDATE *** if you connect your Mailjet account and get a "php_network_getaddresses: getaddrinfo failed" or if you try to open "contacts", "statistics"  and the login form appears AND your Mailjet account was created prior to August 2014, please go to [Account API keys](https://www.mailjet.com/account/api_keys) to regenerate a new Secret Key for the plug-in.
+You must have cURL extension enabled. PHP 5.3 or later version is required.
 
 ## Frequently Asked Questions
 
@@ -89,6 +89,35 @@ Need help? Our multilingual support team is here to answer your questions in any
 4. Get instant insight on your campaign's performance with detailed statistics
 
 == Changelog ==
+
+= 4.2.5 =
+* Replace site_url with home_url for subscription confirmation links
+
+= 4.2.4 =
+* Fix widget subscription issue
+
+= 4.2.3 =
+* Replace short array definition usage with long one for backward compatibility
+
+= 4.2.2 =
+* Rename some function to avoid conflict with 3rd party ones
+
+= 4.2.1 =
+* Updated widget connection over SSL
+
+= 4.2.0 =
+* Added Initial Wordpress user synchronization to Mailjet
+* Added Wordpress user role as a contact property and synced to Mailjet
+* Changes on Mailjet plugin configuration page
+
+= 4.1.19 =
+* Updated text description, icon, screenshots and style
+
+= 4.1.18 =
+* Updated text description, icon, screenshots and style
+
+= 4.1.17 =
+* Updated Readme file
 
 = 4.1.16 =
 * Updated Readme file

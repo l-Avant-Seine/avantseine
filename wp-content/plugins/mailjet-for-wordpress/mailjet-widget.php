@@ -481,8 +481,8 @@ class WP_Mailjet_Subscribe_Widget extends WP_Widget
         $emailParams = array(
             '__EMAIL_TITLE__' => __('Confirm your mailing list subscription', 'wp-mailjet-subscription-widget'),
             '__EMAIL_HEADER__' => __('Please Confirm Your Subscription To', 'wp-mailjet-subscription-widget'),
-            '__WP_URL__' => sprintf('<a href="%s" target="_blank">%s</a>', get_site_url(), get_site_url()),
-            '__CONFIRM_URL__' => get_site_url() . '?' . $params . '&mj_sub_token=' . sha1($params . self::WIDGET_HASH),
+            '__WP_URL__' => sprintf('<a href="%s" target="_blank">%s</a>', get_home_url(), get_home_url()),
+            '__CONFIRM_URL__' => get_home_url() . '?' . $params . '&mj_sub_token=' . sha1($params . self::WIDGET_HASH),
             '__CLICK_HERE__' => __('Click here to confirm', 'wp-mailjet-subscription-widget'),
             '__COPY_PASTE_LINK__' => __('You may copy/paste this link into your browser:', 'wp-mailjet-subscription-widget'),
             '__FROM_NAME__' => get_option('blogname'),
@@ -517,10 +517,15 @@ class WP_Mailjet_Subscribe_Widget extends WP_Widget
 
         $email = $_GET['email'];
 
+        $contacts[] = array(
+            'Email' => $email
+        );
+
         // Add the contact to the contact list
         $result = $this->api->addContact(array(
-            'Email' => $email,
-            'ListID' => $_GET['list_id']
+            'action' => 'addforce',
+            'ListID' => $_GET['list_id'],
+            'contacts' => $contacts
         ));
 
         $metaProperties = $this->getContactMetaProperties(false);
@@ -546,23 +551,10 @@ class WP_Mailjet_Subscribe_Widget extends WP_Widget
             ));
         }
 
-        // Check what is the response and display proper message
-        if (isset($result->Status)) {
-            if ($result->Status == 'DUPLICATE') {
-                echo '<p class="error" listId="' . $_GET['list_id'] . '">';
-                echo sprintf(__("The contact %s is already subscribed", 'wp-mailjet-subscription-widget'), $email);
-                echo '</p>';
-            } else if ($result->Status == 'OK') {
-                echo '<p class="success" listId="' . $_GET['list_id'] . '">';
-                echo sprintf(__("Thanks for subscribing with %s", 'wp-mailjet-subscription-widget'), $email);
-                echo '</p>';
-            } else {
-                echo '<p class="error" listId="' . $_GET['list_id'] . '">';
-                echo sprintf(__("The contact %s is already subscribed", 'wp-mailjet-subscription-widget'), $email);
-                echo '</p>';
-            }
-            die();
-        }
+        echo '<p class="success" listId="' . $_GET['list_id'] . '">';
+        echo sprintf(__("Thanks for subscribing with %s", 'wp-mailjet-subscription-widget'), $email);
+        echo '</p>';
+        die();
     }
 
     function widget($args, $instance)
@@ -570,7 +562,7 @@ class WP_Mailjet_Subscribe_Widget extends WP_Widget
         $this->getContactMetaProperties(false);
         // enqueue the scripts required for the widget (only if the widget is active)
         // scripts will appear in the footer which is good for speed
-        wp_enqueue_script('ajax-example', $this->pluginUrl . '/assets/js/ajax.js', array('jquery'));
+        wp_enqueue_script('ajax-example', plugins_url('/assets/js/ajax.js', __FILE__), array('jquery'));
         wp_localize_script('ajax-example', 'WPMailjet', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('ajax-example-nonce'),
