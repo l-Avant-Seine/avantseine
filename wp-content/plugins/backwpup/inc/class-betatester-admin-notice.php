@@ -51,13 +51,6 @@ class BackWPup_BetaTester_Admin_Notice {
 			self::$should_show = ! $option->is_dismissed( self::NOTICE_ID );
 		}
 
-		$expiration_date = new DateTime('2017-05-02 00:00:00');
-		$now = new DateTime('now');
-
-		if ( $now < $expiration_date ) {
-			self::$should_show = false;
-		}
-
 		return self::$should_show;
 	}
 
@@ -89,7 +82,7 @@ class BackWPup_BetaTester_Admin_Notice {
 			</p>
 			<p>
 				<a
-					style="background: #8fba2b; border-color: #7ba617 #719c0d #719c0d; -webkit-box-shadow: 0 1px 0 #719c0d; box-shadow: 0 1px 0 #719c0d; text-shadow: 0 -1px 1px #719c0d, 1px 0 1px #719c0d, 0 1px 1px #719c0d, -1px 0 1px #719c0d;"
+					style="background: #9FC65D; border-color: #7ba617 #719c0d #719c0d; -webkit-box-shadow: 0 1px 0 #719c0d; box-shadow: 0 1px 0 #719c0d; text-shadow: 0 -1px 1px #719c0d, 1px 0 1px #719c0d, 0 1px 1px #719c0d, -1px 0 1px #719c0d;"
 					class="button button-primary"
 					href="<?php echo esc_url( $join_us_url ) ?>"
 					target="_blank">
