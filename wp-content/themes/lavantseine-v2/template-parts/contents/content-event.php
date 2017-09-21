@@ -78,7 +78,7 @@ endif;
 
 				<div class="inner">
 					<?php 
-						echo "<h4 class='h3'>". get_event_dates($event_first_date, $event_last_date, $event_other_dates = false) ."</h4>" ;
+						echo "<h4 class='h3'>". get_event_dates($event_first_date, $event_last_date, $event_other_dates) ."</h4>" ;
 					?>
 					<?php if( $event_first_date != $event_last_date ) : ?>
 						<p><a href="#event-details" class="scroll"><span class="icon-arrow-right"></span><strong>voir toutes les dates</strong></a></p>
@@ -214,7 +214,7 @@ endif;
 
 											if ( $event_other_dates ) : 
 												foreach ($event_other_dates as $date) { 
-													$date = strtotime($date);
+													$date = strtotime($date['date']);
 												    if ( $date != '' ) : 
 												    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
 												    endif;

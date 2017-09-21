@@ -9,7 +9,7 @@
 function add_event_details_meta_box() {  
     add_meta_box(  
         'custom_meta_box', // $id  
-        'Dates (ancienne méthode)', // $title   
+        'Dates (première et dernière représentation', // $title   
         'show_custom_meta_box', // $callback  
         'event', // $page  
         'normal', // $context  
@@ -69,12 +69,12 @@ $event_details_fields = array(
         'id'    => $prefix.'last_date',  
         'type'  => 'text-date'  
     ),
-    array( 
-	    'label' => 'Autres Dates et Horaires de représentation',  
-	    'desc'  => '(Attention : ne plus utiliser cette méthode !!!)<br>Ajouter chaque date et horaire au format 20.05.2014 20:00',  
-	    'id'    => $prefix.'otherdates',  
-	    'type'  => 'repeatable'  
-	),
+ //    array( 
+	//     'label' => 'Autres Dates et Horaires de représentation',  
+	//     'desc'  => '(Attention : ne plus utiliser cette méthode !!!)<br>Ajouter chaque date et horaire au format 20.05.2014 20:00',  
+	//     'id'    => $prefix.'otherdates',  
+	//     'type'  => 'repeatable'  
+	// ),
     // array(  
     //     'label'=> 'Lien revendeur',  
     //     'desc'  => 'Lien vers l\'achat billet, avec le http://....',  
@@ -237,8 +237,10 @@ function save_custom_meta($post_id) {
       
     // loop through fields and save the data  
     foreach ($event_details_fields as $field) {  
+        
         $old = get_post_meta($post_id, $field['id'], true);  
-        $new = $_POST[$field['id']]; 
+        $new = $_POST[$field['id']];
+
         if ($new && $new != $old) {
             if ( $field['id'] == 'eventDetail_first_date' ) {
                 $updatefirstdate = strtotime( $new );
@@ -249,15 +251,15 @@ function save_custom_meta($post_id) {
                 update_post_meta($post_id, $field['id'], $updatelastdate );
             }
             elseif( $field['id'] == 'eventDetail_otherdates' ) {
-               update_post_meta($post_id, $field['id'], $new); 
+                update_post_meta($post_id, $field['id'], $new); 
             }
             else {
                 update_post_meta($post_id, $field['id'], $new); 
             }
-        } elseif ('' == $new && !$old ) {
+        }
+        elseif ('' == $new && !$old ) {
             if( $field['id'] == 'eventDetail_last_date' ) {
-                $firstdate = $_POST[ $event_details_fields[6]['id'] ];
-                // exit( var_dump( $event_details_fields[6]['id'] ) );
+                $firstdate = $_POST[ $event_details_fields[0]['id'] ];
                 $updatefirstdate = strtotime( $firstdate );
                 update_post_meta($post_id, $field['id'], $updatefirstdate );
             }
@@ -266,7 +268,7 @@ function save_custom_meta($post_id) {
         }  
     } // end foreach  
 }  
-//add_action('save_post', 'save_custom_meta');    
+add_action('save_post', 'save_custom_meta');    
 
 
 

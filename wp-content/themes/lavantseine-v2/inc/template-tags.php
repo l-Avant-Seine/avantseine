@@ -8,6 +8,12 @@
  */
 
 
+function validateDate($date, $format = 'Y-m-d H:i:s')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
+
 
 
 function html_tag_schema()
@@ -45,14 +51,11 @@ function html_tag_schema()
 
 
 /*
- * Social Buttons Sharing
+ * Display event date from start to end
  */
 if ( ! function_exists( 'get_event_dates' ) ) :
 	function get_event_dates($event_first_date, $event_last_date, $event_other_dates = array()) {
 		$event_dates = '';
-
-//var_dump($event_other_dates);
-
 
 		if( $event_other_dates[0] != '' ) {
 			// Si plus de 2 jours 
@@ -92,8 +95,10 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 			}
 		}
 		else {
-			// Si 1 seul représentation
+
+			var_dump($event_first_date);
 			$event_dates .= strftime('%A %e %B %G - %kh%M', $event_first_date );
+
 		}
 
 		return $event_dates;
