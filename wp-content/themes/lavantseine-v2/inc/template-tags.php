@@ -95,10 +95,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 			}
 		}
 		else {
-
-			var_dump($event_first_date);
 			$event_dates .= strftime('%A %e %B %G - %kh%M', $event_first_date );
-
 		}
 
 		return $event_dates;

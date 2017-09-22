@@ -1216,7 +1216,7 @@ acf_add_local_field_group(array (
 		),
 		array (
 			'key' => 'field_591456d72d8cf',
-			'label' => 'Etage événements',
+			'label' => 'A votre service',
 			'name' => '',
 			'type' => 'tab',
 			'instructions' => '',
