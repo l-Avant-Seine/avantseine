@@ -45,7 +45,7 @@ if( have_rows('eventDetail_otherdates') ):
       $otherdates .= get_sub_field('date');
 
 			if( get_sub_field('baby-sitting') ) : 
-				$otherdates .= '<span class="event-babysitting"><span class="icon-cocarde"></span>Service Baby-Sitting</span>';
+				$otherdates .= '<span class="event-babysitting" alt="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting" title="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting"><span class="icon-cocarde"></span>Service Baby-Sitting</span>';
 				$babysitting = true;
 			endif; 
 
@@ -71,7 +71,7 @@ endif;
 			<div class="eventHeader-date m-3col">
 				
 				<?php if($babysitting) : ?>
-					<a class="focusElement-pastille is-flex scroll" href="#event-details">
+					<a class="focusElement-pastille is-flex scroll" alt="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting" title="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting" href="#event-details">
 						<span>Baby<br>Sitting</span>
 					</a>
 				<?php endif; ?>

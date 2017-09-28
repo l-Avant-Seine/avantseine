@@ -4,10 +4,11 @@ global $wp;
 $current_url = home_url(add_query_arg(array(),$wp->request)) . '/';
 
 $childpages = new WP_Query( array(
-  'post_type'      => 'page', 
-  'post_parent'    => $root,
-  'posts_per_page' => -1,
-  'orderby'        => 'menu_order'
+  'post_type'       => 'page', 
+  'post_parent'     => $root,
+  'posts_per_page'  => -1,
+  'orderby'         => 'date',
+  'order'           => 'ASC'
 )); ?>
 
 

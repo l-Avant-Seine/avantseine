@@ -520,7 +520,7 @@ Remplacer le code media (ici DqgO81g3DwQ) par celui de votre vidéo.',
 			'min' => '',
 			'max' => '',
 			'layout' => 'table',
-			'button_label' => 'Ajouter un élément',
+			'button_label' => 'Ajouter une date',
 			'sub_fields' => array (
 				array (
 					'key' => 'field_592c7c7143ee5',
