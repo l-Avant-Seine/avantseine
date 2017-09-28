@@ -40,7 +40,7 @@
 			 	while ( $star_post->have_posts() ) : $star_post->the_post(); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
-						<?php the_post_thumbnail(); ?>
+						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
 						<?php 
 							$terms = wp_get_post_terms( $post->ID, array('category') );
 							$count = count($terms);
@@ -105,7 +105,7 @@
 
 							<div class="relatedPost star">
 								<div class="relatedPost-media">
-									<?php the_post_thumbnail(); ?>
+									<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
 									<?php 
 										$terms = wp_get_post_terms( $post->ID, array('category') );
 										$count = count($terms);
@@ -205,7 +205,7 @@
 
 						<div class="relatedPost star">
 							<div class="relatedPost-media">
-								<?php the_post_thumbnail(); ?>
+								<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
 								<?php 
 									$terms = wp_get_post_terms( $post->ID, array('category') );
 									$count = count($terms);

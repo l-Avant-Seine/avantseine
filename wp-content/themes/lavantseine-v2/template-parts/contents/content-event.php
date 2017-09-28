@@ -45,7 +45,7 @@ if( have_rows('eventDetail_otherdates') ):
       $otherdates .= get_sub_field('date');
 
 			if( get_sub_field('baby-sitting') ) : 
-				$otherdates .= '<span class="event-babysitting" alt="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting" title="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting"><span class="icon-cocarde"></span>Service Baby-Sitting</span>';
+				$otherdates .= '<a class="event-babysitting" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant • Informations et réservations" title="dès 3 ans / 6 € par enfant • Informations et réservations"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
 				$babysitting = true;
 			endif; 
 
@@ -71,7 +71,7 @@ endif;
 			<div class="eventHeader-date m-3col">
 				
 				<?php if($babysitting) : ?>
-					<a class="focusElement-pastille is-flex scroll" alt="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting" title="dès 3 ans / 6 € par enfant • Informations et réservations qui renvoie vers la page Baby-sitting" href="#event-details">
+					<a class="focusElement-pastille is-flex scroll" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant" title="dès 3 ans / 6 € par enfant" href="#event-details">
 						<span>Baby<br>Sitting</span>
 					</a>
 				<?php endif; ?>
@@ -125,7 +125,7 @@ endif;
 			    echo "<ul class='no-bullets'>";
 			    foreach ( $tags as $term ) {
 		  			$term_link = get_term_link( $term, '' );
-			    	echo "<li class='eventmeta-term'>" . $term->name . "</li>";
+			    	echo "<li class='eventmeta-term'><a href='". $term_link ."'>" . $term->name . "</a></li>";
 			    	echo $term->description;
 			    }
 			    echo "</ul>";
@@ -204,7 +204,7 @@ endif;
 										echo '<ul class="no-bullets">';
 										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
 										    if( get_field('eventDetail_first_date_babysitting')) : 
-										    	echo '<span class="event-babysitting"><span class="icon-cocarde"></span>Service Baby-Sitting</span>';
+										    	echo '<a class="event-babysitting" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
 										    endif; 
 										    echo '.</li>'; 
 

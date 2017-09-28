@@ -311,6 +311,15 @@ function search() {
 
 
 
+function add_query_vars_filter( $vars ){
+  $vars[] = "rdv";
+  $vars[] = "discipline";
+ 	return $vars;
+}
+
+//Add custom query vars
+add_filter( 'query_vars', 'add_query_vars_filter' );
+
 
 
 

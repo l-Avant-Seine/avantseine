@@ -35,6 +35,10 @@
 
 			 if ( $star_event->have_posts() ) : 
 			 	while ( $star_event->have_posts() ) : $star_event->the_post(); 
+			 		$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
+					$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
+					$event_other_dates = get_field('eventDetail_otherdates');
+
 			 		$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
@@ -42,7 +46,7 @@
 					</div>
 					
 					<span class="relatedPost-date meta-date">
-						<?php the_time('D d M Y'); ?>
+						<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates); ?>
 					</span>
 
 					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>

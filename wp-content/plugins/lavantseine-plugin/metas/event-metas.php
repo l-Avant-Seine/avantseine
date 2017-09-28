@@ -251,7 +251,7 @@ function save_custom_meta($post_id) {
                 update_post_meta($post_id, $field['id'], $updatelastdate );
             }
             elseif( $field['id'] == 'eventDetail_otherdates' ) {
-                update_post_meta($post_id, $field['id'], $new); 
+               //update_post_meta($post_id, $field['id'], $new); 
             }
             else {
                 update_post_meta($post_id, $field['id'], $new); 

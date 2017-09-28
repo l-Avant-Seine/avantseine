@@ -4,6 +4,7 @@
  *
  * @package lavantseine
  */
+
 ?>
 
 
@@ -13,6 +14,8 @@
 				<h1 class="h1">
 					La programmation<br>
 					à venir</h1>
+					<bR>
+					<?php if( is_tax() ) : echo get_the_archive_title(); endif; ?>
 			</div>
 
 		</div>
@@ -93,6 +96,24 @@
 					        )
 					    )
 					);
+
+			    if ( is_tax() ) {
+			    	if( isset($discipline) OR isset($rdv) ) {
+							$args['tax_query'] = array(
+								'relation' => 'OR',
+				        array(
+				            'taxonomy' => 'discipline',
+				            'field' => 'slug',
+				            'terms' => $discipline
+				        ),
+				        array(
+				            'taxonomy' => 'rdv',
+				            'field' => 'slug',
+				            'terms' => $rdv
+				        ),
+				      );
+				    }
+			    }
 
 					$query = new WP_Query( $args );
 					$posts_found = $query->found_posts;
