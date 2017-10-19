@@ -32,7 +32,7 @@
       alignProgGrid: function () {
 
         // Prog layout
-        var progGrid_items = $('#prog-grid .m-2coll');
+        var progGrid_items = $('#prog-grid .m-2coll').not( ".m-first, .el-second, .el-thrid" );
         var progAside = $('.prog-aside ');
         var progAside_left = $('.prog-aside ').offset().left;
         var progAside_top = $('.prog-aside ').offset().top;
@@ -53,7 +53,6 @@
           var item_left = $(this).offset().left;
           var item_right = item_left + $(this).outerWidth();
           var item_top = $(this).offset().top;
-
 
           $(this).removeClass('m-first el-second el-thrid');
 
@@ -437,8 +436,6 @@ var bLazy = new Blazy({
       var tarif_value = $(this).find('select[name="tarif"]').val();
       var is_archives_value = $(this).find('input[name="is_archives"]').is(':checked');
       var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
-
-      console.log(is_archives_value);
 
       $('#prog-grid').html('Nous cherchons dans nos archives...');
 

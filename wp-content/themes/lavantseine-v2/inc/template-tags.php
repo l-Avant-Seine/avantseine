@@ -57,7 +57,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 	function get_event_dates($event_first_date, $event_last_date, $event_other_dates = array()) {
 		$event_dates = '';
 
-		if( $event_other_dates[0] != '' ) {
+		if( $event_other_dates[0] != '' &&  $event_first_date != $event_last_date ) {
 			// Si plus de 2 jours 
 			$event_dates .= 'Du ';
 			$event_dates .= strftime('%e', $event_first_date );
