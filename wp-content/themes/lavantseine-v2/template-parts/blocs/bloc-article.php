@@ -29,7 +29,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 					?>
 				</div><!-- .post-categories -->
 
-				<div class="square-content bg_cover" style="background-image: url(<?php the_post_thumbnail_url(''); ?>);">
+				<div class="square-content bg_cover b-lazy" data-src="<?php the_post_thumbnail_url(''); ?>">
 					<?php 
 						$findme   = 'Vidéo';
 						$pos = strpos($output, $findme);

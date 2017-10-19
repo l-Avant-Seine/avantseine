@@ -12,8 +12,10 @@
 	opacity: 0.98;
 	height: $menu_height_max;
 	line-height: $menu_height_max;
-	position: relative;
+	position: fixed;
 	z-index: 9999;
+	float: left;
+	width: 100%;
 
 	&.sticky {
 		height: $menu_height;
@@ -26,6 +28,7 @@
 		.site-branding {			
 			img {
 				height: $menu_height;
+				background-color: $color_primary;
 			}
 		}
 		.ham-menu {

@@ -49,8 +49,6 @@
 					</div>
 				</div>
 
-<!-- 				<input type="submit" value="Ok">
- -->
 			</form>
 
 		</div>

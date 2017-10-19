@@ -41,6 +41,11 @@
 .module-childpages {
 	background-color: $gray_lighter;
 	padding: 2em;
+
+	h1 {
+		text-align: left;
+		margin-bottom: 0.4em;
+	}
 }
 
 .module-actions {

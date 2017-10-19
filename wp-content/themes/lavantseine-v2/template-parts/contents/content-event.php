@@ -201,7 +201,7 @@ endif;
 
 								<?php 
 									if ( $event_first_date ) : 
-										echo '<ul class="no-bullets">';
+										echo '<ul class="no-bullets lowercase">';
 										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
 										    if( get_field('eventDetail_first_date_babysitting')) : 
 										    	echo '<a class="event-babysitting" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
@@ -273,7 +273,8 @@ endif;
 			</div><!-- .event-details -->
 
 			<div class="m-3col event-aside offset-right">
-					<?php set_query_var('taxo', 'relational_tag'); ?>
+					<?php set_query_var('relational_tag', 'relational_tag'); ?>
+					<?php set_query_var('arborescence', 'arborescence'); ?>
 					<?php get_template_part( 'template-parts/modules/module', 'relatedposts' ); ?>
 			</div>
 

@@ -55,16 +55,9 @@
 				</div>
 
 				<div class="m-3col">
-					<div class="module-actions newsletter">
-						<form class="subscribe-form">
-		                                                                        
-		            <input id="email" name="email" placeholder="votre@email.com" autocomplete="off" type="text">
-		            <input name="list_id" value="568010" type="hidden">
-		            <input name="action" value="mailjet_subscribe_ajax_hook" type="hidden">
-		            <input name="submit" class="mailjet-subscribe btn--big" value="Recevoir la programmation mensuelle par email" type="submit">
-		        </form>
-		        <div class="response"></div>
-					</div>
+
+					<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+				
 				</div>
 
 			</div>

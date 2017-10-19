@@ -176,7 +176,7 @@ function load_more() {
 
 	$offset = $_POST['offset'];
 	$step = $_POST['step'];
-	//$previous_month = $_POST['previous_month'];
+//	$previous_month = $_POST['previous_month'];
 	$pastEvents = $_POST['pastEvents'];
 
 	$args = array(
@@ -343,7 +343,8 @@ function get_posts_from_term() {
 	    'category_name' 	=> $term,
 			'order'						=> 'DESC',
 			'posts_per_page'	=> '12',
-			'paged'						=> $paged		
+			'paged'						=> $paged, 
+			'post_status'			=> 'publish',
 	);
 
 	$ajax_query = new WP_Query($args);
@@ -403,7 +404,7 @@ function get_events_filtered() {
 	    )
 	);
 
-	if( $is_archives_value === NULL ) {
+	if( $is_archives_value === 'true' ) {
 		$args['order'] = 'DESC';
 		$args['meta_query'] = array(
 	       	array(

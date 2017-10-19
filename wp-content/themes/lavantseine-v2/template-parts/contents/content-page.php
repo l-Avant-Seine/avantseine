@@ -35,12 +35,10 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
+<div class="layer">
+	
 
 	<header class=" page-header bg_cover is-flex layer" itemprop="image"  style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
-		<div class="wrap page-title" itemprop="name">
-			<h1 class="h1"><?php echo $root_title; ?></h1>
-		</div>
 	</header><!-- .entry-header -->
 
 	<div class="wrap row">
@@ -56,14 +54,14 @@
 
 			<div class="page-nav module-childpages offset-right layer">
 				<?php set_query_var( 'root', $root ); ?>
+				<?php set_query_var( 'root_title', $root_title ); ?>
+				<?php set_query_var( 'root_title_url', $root_title_url ); ?>
 				<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
 			</div>
 
 
-
 				<?php
 
-				// check if the flexible content field has rows of data
 				if( have_rows('add_blocs') ):
 
 				     // loop through the rows of data
@@ -109,36 +107,64 @@
 
 	</div>
 
+	<?php if( isset($tag) ) : ?>
+	<!-- Les articles et événements liés à la page par le tag 'arborescence' -->
 
-	<?php if( $tag != '' ) : ?>
-	<!-- Les articles liés à la page par le tag 'arborescence' -->
-	<section id="" class="layer clearfix wrap">
+				<?php 
+					$args = array(
+						'post_type' 			=> array('post', 'event'),
+						'posts_per_page'	=> -1,
+						'orderby'					=> 'post_date',
+						'order' 					=> 'DESC',
+						'arborescence'		=> $tag->slug,
+					);
 
-			<?php 
-				$args = array(
-					'post_type' 			=> 'post',
-					'posts_per_page'	=> 8,
-					'orderby'					=> 'post_date',
-					'order' 					=> 'DESC',
-					'arborescence'		=> $tag->slug,
-				);
+					$related_posts_query = new WP_Query( $args );
+					$posts_found = $related_posts_query->found_posts; ?>
 
-				$related_posts_query = new WP_Query( $args );
-				$posts_found = $related_posts_query->found_posts;
+		<?php if ( $related_posts_query->have_posts() ) : ?>
 
-				set_query_var('query', $related_posts_query);
-				set_query_var('module_title', '');
-				get_template_part('template-parts/modules/module', 'articles'); 
-				wp_reset_postdata();
+		<section id="" class="layer clearfix page_related">
+			<div class="wrap">
+				<div id="webmag-innergrid" data-columns class="row">
+				<?php while ( $related_posts_query->have_posts() ) : $related_posts_query->the_post();
 
-				if( $posts_found > 8 ) { ?>
+					$post_type = get_post_type(); 
+
+						switch ($post_type) {
+							case 'event':
+								get_template_part( 'template-parts/blocs/bloc', 'event' );
+								break;
+
+							case 'post':
+								get_template_part( 'template-parts/blocs/bloc', 'article' );
+								break;
+
+							case 'page':
+								get_template_part( 'template-parts/blocs/bloc', 'page' );
+								break;
+
+							default:
+								get_template_part( 'template-parts/blocs/bloc', 'page' );
+								break;
+						}
+						
+						endwhile;
+						wp_reset_postdata(); ?>
+
+				</div>
+
+				<?php if( $posts_found > 8 ) { ?>
 					<a href="/magazine/?tag=<?php echo $tag->slug; ?>" class="btn--big is-centered">Voir tous les articles du magazine</a>
-				<?php }
-			?>
+				<?php } ?>
 
-	</section>
+			</div> 
+		</section>
+
+		<?php endif; ?>
+
 	<?php endif; ?>
-
+</div>
 </article><!-- #post-## -->
 
 	

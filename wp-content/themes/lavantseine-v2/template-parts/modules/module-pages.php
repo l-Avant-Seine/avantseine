@@ -1,8 +1,5 @@
 <?php
 
-	// TODO 
-	// _> get variable passed
-	// _> loop
 
 ?>
 

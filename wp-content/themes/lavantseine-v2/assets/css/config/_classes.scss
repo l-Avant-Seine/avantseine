@@ -81,7 +81,9 @@
 .text-justify {
   text-align: justify !important; }
 
-
+.lowercase {
+  text-transform: lowercase;
+}
 
 
 // make sure container is [position: relative]

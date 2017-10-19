@@ -124,9 +124,15 @@ $focusElement_height: 400px;
 			color: $color_primary;
 		}
 	}
-		.focusElement_p p {
+		.focusElement_p {
 			font-size: 13px;
 			line-height: 16px;
+			
+			p {
+				font-size: inherit;
+				line-height: inherit;
+				margin: 0;
+			}
 		}
 		.focusElement_media {
 			height: 100px;

@@ -46,7 +46,7 @@ $today = time();
 
 					<?php $exclude_ids = array(); ?>
 
-					<?php if( !isset($_GET['tag']) ) : ?>
+					<?php if( !isset($_GET['tag']) && !isset($_GET['relational_tag']) ) : ?>
 
 					<div class="webmag-featured webmag-layer row is-flex">
 						<?php
@@ -120,6 +120,10 @@ $today = time();
 
  							if( isset($_GET['tag']) ) : 
 								$args['arborescence'] = $_GET['tag'];
+							endif;
+
+ 							if( isset($_GET['relational_tag']) ) : 
+								$args['relational_tag'] = explode(' ', $_GET['relational_tag']);
 							endif;
 
 							$wp_query = new WP_Query( $args );

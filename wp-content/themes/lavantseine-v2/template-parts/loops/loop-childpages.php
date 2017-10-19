@@ -14,6 +14,10 @@ $childpages = new WP_Query( array(
 
   <ul class="pages-menu no-bullets">
 
+    <div class="wrap page-title" itemprop="name">
+      <h1 class="h1"><?php echo $root_title; ?></h1>
+    </div>
+    
     <?php while ( $childpages->have_posts() ) : $childpages->the_post(); ?>
 
       <li class="pages-menu-item <?php if( strpos($current_url, get_permalink() ) !== false ) { echo 'active'; } ?>">

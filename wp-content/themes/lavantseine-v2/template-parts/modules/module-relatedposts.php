@@ -1,25 +1,54 @@
 <?php
 
-	// Remontée des événements puis des articles liés à l'événement en cours.
-	global $post; // for current $post backup
-	
-	$backup = $post;  // backup the current object
-	$taxonomy = $taxo; 
-	$param_type = $taxo;
+	global $post;
+	$backup = $post;
+
+	$taxonomy = $relational_tag; 
+	$param_type = $relational_tag;
+
 	$tax_args = array('orderby' => 'none' );
 
-	$tags = wp_get_post_terms( $post->ID , $taxonomy, $tax_args);
+	$relational_tags_slug = array();
+	$arborescence_tags_slug = array();
 
-	if( !empty($tags) ) {
-		$tag_slug = $tags[0]->slug;
-		$tag_count = $tags[0]->count;
-	}
+	$relational_tags = wp_get_post_terms( $post->ID , $relational_tag, $tax_args);
+	$arborescence_tags = wp_get_post_terms( $post->ID , $arborescence, $tax_args);
 
-	if ( !empty($tag_slug) && $tag_count > 1 ) {
-			
+foreach ($relational_tags as $tag) {
+	$relational_tags_slug[] = $tag->slug;
+}
+foreach ($arborescence_tags as $tag) {
+	$arborescence_tags_slug[] = $tag->slug;
+}
+
+$relational_tags_slug_string = implode(',', $relational_tags_slug);
+$arborescence_tags_slug_string = implode(',', $arborescence_tags_slug);
+
+
+
+			$other_posts = new WP_Query(array(
+				"$param_type" 			=> $relational_tags_slug_string,
+				'post_status'				=> 'publish',
+				'post_type' 			=> 'post',
+				'posts_per_page'	=> 3,
+				'order' 					=> 'DESC',
+				'meta_query' => array(
+					'relation'	=> 'OR',
+					array(
+						'key' => 'star_article',
+						'compare' => '==',
+						'value' => '0'
+					),
+					array(
+						'key' => 'star_article',
+						'compare' => 'NOT EXISTS'
+					)
+				)
+			));
+
 			// STAR POST
 			$star_post = new WP_Query(array(
-				"$param_type" 			=> $tag_slug,
+				"$param_type" 			=> $relational_tags_slug_string,
 				'post_status'    => 'publish',
 				'post_type' 			=> 'post',
 				'posts_per_page'	=> 1,
@@ -32,6 +61,12 @@
 					)
 				)
 			));
+
+
+
+// Il y a un tag relationnel et des posts liés
+
+	if ( ( $other_posts->have_posts() || $star_post->have_posts() ) && !empty($relational_tags_slug) ) {
 
 			 if ( $star_post->have_posts() ) : 
 
@@ -74,24 +109,7 @@
 
 
 			// OTHER POSTS
-			$other_posts = new WP_Query(array(
-				"$param_type" 			=> $tag_slug,
-				'post_type' 			=> 'post',
-				'posts_per_page'	=> 2,
-				'order' 					=> 'DESC',
-				'meta_query' => array(
-					'relation'	=> 'OR',
-					array(
-						'key' => 'star_article',
-						'compare' => '==',
-						'value' => '0'
-					),
-					array(
-						'key' => 'star_article',
-						'compare' => 'NOT EXISTS'
-					)
-				)
-			));
+
 
 			$k = 0;
 
@@ -177,14 +195,64 @@
 				$max_pages = $other_posts->max_num_pages;
 
 			if( $found_posts > $max_pages) : ?>
-				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>Voir tous les articles</a>
+				<a href="/magazine/?relational_tag=<?php echo $relational_tags_slug_string; ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>Voir tous les articles</a>
 			<?php endif; 
 
 			wp_reset_postdata();
 			endif; 
 
 
-	} else {
+	} 
+
+
+
+
+// Il n'y a pas de tag relationnel, mais il y a une page (taxo arborescence)
+
+
+	elseif( isset($arborescence_tags_slug) && !empty($arborescence_tags_slug) ) {
+
+			$arbo_pages = new WP_Query(array(
+				'post_type' 				=> 'page',
+				'posts_per_page'		=> 1,
+				'order' 						=> 'DESC',
+				'post_status'				=> 'publish',
+				'arborescence'	=> $arborescence_tags_slug
+			));
+
+ 			if ( $arbo_pages->have_posts() ) : 
+			 	while ( $arbo_pages->have_posts() ) : $arbo_pages->the_post(); ?>
+
+					<div class="">
+						
+						<h4 class="h3 relatedPost-title">
+							&#x02666;<br><?php the_title(); ?>
+						</h4>
+						
+						<div class="modulePages-excerpt">
+							<?php 
+								if( get_field('pageDetail_intro') != '' ) : 
+									the_field('pageDetail_intro'); 
+								else : 
+									the_excerpt(); 
+								endif; 
+								?>
+						</div>
+
+						<a href="<?php the_permalink(); ?>" class="btn--little"><span class="icon-arrow-right"></span>En savoir plus</a>
+
+					</div>
+
+			 	<?php endwhile;
+			endif;
+
+		
+	}
+
+
+// Il n'y a ni tag relationnel, ni tag arborescence
+
+	elseif(false) {
 	
 			echo '<h3 class="h4">dans <br>le magazine<br><span class="title-diamond">&#x02666;</span></h3>';
 
@@ -193,6 +261,7 @@
 				'post_type' 			=> 'post',
 				'posts_per_page'	=> 3,
 				'order' 					=> 'DESC',
+				'post_status'				=> 'publish',
 			));
 
 			$j = 0; 
@@ -254,17 +323,17 @@
 						}
 					?>
 
-<!-- 					<div class="entry-meta">
-						<span class="meta-date">Publié le <?php //the_time('d/m/Y'); ?></span>
-					</div> -->
-
 					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 					<?php 
 						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
 						echo "<p>".$post_shortText. "</p>"; 
 					?>
 
-					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+					<div class="clearfix">
+						<a href="<?php the_permalink(); ?>" class="btn--little bordered">
+							<span class="icon-arrow-right"></span>en savoir plus
+						</a>
+					</div>
 					
 				</div>
 
@@ -277,7 +346,7 @@
 				$max_pages = $default_posts->max_num_pages;
 
 			if( $found_posts > $max_pages) : ?>
-				<a href="/magazine/?taxo=<?php echo $tag_slug; ?>" class="btn--big bordered-black"><span class="icon-arrow-right"></span>voir tous les articles</a>
+				<a href="/magazine/?relational_tag=<?php echo $tag_slug; ?>" class="btn--big bordered-black"><span class="icon-arrow-right"></span>voir tous les articles</a>
 			<?php endif; 
 
 			wp_reset_postdata();

@@ -49,7 +49,7 @@
 				
 				<a href="<?php echo get_permalink($focus_event_id); ?>" class="full_absolute">
 
-	    	<div class="focusEvent_infos m-3coll offset-right">
+	    	<div class="focusEvent_infos m-3coll offset-right m-first">
 	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
 	    			<span>Le prochain rendez-vous</span><br><br>
 	    			<h3 class="h1 no-margin"><?php echo get_the_title($focus_event_id); ?></h3>
@@ -76,7 +76,7 @@
 
 								<div class="square">
 									<a href="<?php echo get_permalink( $focusElements_page->ID ); ?>">
-										<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_page->ID ), 'large' )[0]; ?>);">
+										<div class="square-content bg_cover b-lazy" data-src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_page->ID ), 'large' )[0]; ?>">
 										</div>
 									</a>
 								</div>
@@ -84,7 +84,7 @@
 								<div class="inner">
 									<a href="<?php echo get_permalink( $focusElements_page->ID ); ?>">
 						    		<h3 class="h5"><?php echo $focusElements_page->post_title; ?></a></h3>
-						    		<div><?php the_field('pageDetail_intro', $focusElements_page->ID ); ?></div>
+						    		<div class="focusElement_p"><?php the_sub_field( 'focusElements_page_texte' ); ?></div>
 						    	</a>
 						    </div>
 
@@ -103,7 +103,7 @@
 
 									<div class="square">
 										<a href="<?php echo get_permalink( $focusElements_article->ID ); ?>">
-											<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_article->ID ), 'large' )[0]; ?>);"">
+											<div class="square-content bg_cover b-lazy" data-src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_article->ID ), 'large' )[0]; ?>">
 											</div>
 										</a>
 									</div>
@@ -133,7 +133,7 @@
  
 									<div class="square">
 										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
-											<div class="square-content bg_cover" style="background-image: url(<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_event->ID ), 'large' )[0]; ?>);"">
+											<div class="square-content bg_cover b-lazy" data-src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_event->ID ), 'large' )[0]; ?>">
 											</div>
 										</a>
 									</div>
@@ -163,7 +163,7 @@
 
 									<div class="square">
 										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
-											<div class="square-content bg_cover" style="background-image: url(<?php the_sub_field('focusElements_libre_image'); ?>);"">
+											<div class="square-content bg_cover b-lazy" data-src="<?php the_sub_field('focusElements_libre_image'); ?>">
 											</div>
 										</a>
 									</div>

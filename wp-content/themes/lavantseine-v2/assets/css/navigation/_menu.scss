@@ -93,11 +93,14 @@
 		}
 	}
 		.site-branding {
-			background-color: $color_primary;	
-			
+
 			img {
-				height: $menu_height_max;
-				@include transition(all 0.2s);
+				max-height: 230px;
+				@include transition(all 0.1s);
+
+				.home & {
+				max-height: 300px;
+				}
 			}
 		}
 

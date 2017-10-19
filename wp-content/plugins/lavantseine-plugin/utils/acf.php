@@ -536,7 +536,7 @@ Remplacer le code media (ici DqgO81g3DwQ) par celui de votre vidéo.',
 						'id' => '',
 					),
 					'display_format' => 'd/m/Y g:i a',
-					'return_format' => 'l d M Y - G:i',
+					'return_format' => 'l d M Y - G\hi',
 					'first_day' => 1,
 				),
 				array (

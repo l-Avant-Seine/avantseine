@@ -42,7 +42,7 @@
 			 		$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
-						<?php the_post_thumbnail(); ?>					
+						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
 					</div>
 					
 					<span class="relatedPost-date meta-date">
@@ -90,7 +90,7 @@
 				 	while ( $arborescence_page->have_posts() ) : $arborescence_page->the_post(); ?>
 					<div class="relatedPost star">
 						<div class="relatedPost-media">
-							<?php the_post_thumbnail(); ?>					
+							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?>		</a>			
 						</div>
 						
 						<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
@@ -143,7 +143,7 @@
 			 	while ( $next_event->have_posts() ) : $next_event->the_post(); ?>
 				<div class="relatedPost star">
 					<div class="relatedPost-media">
-						<?php the_post_thumbnail(); ?>
+						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
 						<?php 
 							$terms = wp_get_post_terms( $post->ID, array('category') );
 							$count = count($terms);

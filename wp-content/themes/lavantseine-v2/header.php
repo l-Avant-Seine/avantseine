@@ -29,6 +29,14 @@
 
 			<nav id="site-navigation" class="siteMenus-primary" role="navigation">
 
+				<?php
+				if ( wp_is_mobile() ) {
+					$header_file = get_bloginfo( 'template_url' ) . '/assets/img/logo_avtseine_horizontal.png';
+				} else {
+					$header_file = get_bloginfo( 'template_url' ) . '/assets/img/logo_avtseine_vertical.png';
+				}
+				?>
+
 				<?php 
 					wp_nav_menu( array( 
 						'theme_location' => 'primary', 
@@ -38,7 +46,7 @@
 						'items_wrap' => '<ul class="no-bullets">
 																<li class="site-branding menu-item">
 																	<a href="'. esc_url( home_url( '/' ) ) .'" rel="home">
-																		<img class="site-logo" src="' . get_bloginfo( 'template_url' ) . '/assets/img/LOGO_Avant_seine_horizontal.gif" alt="'. get_bloginfo( 'name' ) .'" title="">
+																		<img class="site-logo" src="' . $header_file . '" alt="'. get_bloginfo( 'name' ) .'" title="">
 																	</a>
 																</li>
 
@@ -53,12 +61,12 @@
 																<ul class="siteMenus-secondary no-bullets" role="navigation">
 
 																			<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-																				<a href="https://facebook.fr" target="_blank"><span class="icon-facebook">
+																				<a href="https://www.facebook.com/lAvantSeine/" target="_blank"><span class="icon-facebook">
 																					</span></a>
 																			</li>
 
 																			<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-																				<a href="https://twitter.fr" target="_blank"><span class="icon-twitter">
+																				<a href="https://twitter.com/AvantSeine" target="_blank"><span class="icon-twitter">
 																					</span></a>
 																			</li>
 
@@ -101,8 +109,8 @@
 																	<li id="menu-item-9454 " class="m-hide black-bg  booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://www2.aparteweb.com/awprod/SEINE/AWCatalogSub.aspx?INS=SEINE" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
 
 																	<li  class="m-hide menu-item black-bg menu-item-type-post_type menu-item-object-page menu-item-9455">
-																		<a href="https://facebook.fr" target="_blank"><span class="icon-facebook"></span></a>
-																		<a href="https://twitter.fr" target="_blank"><span class="icon-twitter"></span></a>
+																		<a href="https://www.facebook.com/lAvantSeine/" target="_blank"><span class="icon-facebook"></span></a>
+																		<a href="https://twitter.com/AvantSeine" target="_blank"><span class="icon-twitter"></span></a>
 																	</li>
 
 																</ul>'

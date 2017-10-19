@@ -7,7 +7,7 @@
 
 
 .page-header {
-	height: 200px;
+	height: 260px;
 	width: 100%;
 	align-items: center;
 	background-color: $gray_lighter;
@@ -80,6 +80,11 @@
 		}
 
 
+.page_related {
+	margin-top: 2em;
+	padding: 3em 0;
+	background-color: $gray;
+}
 
 
 

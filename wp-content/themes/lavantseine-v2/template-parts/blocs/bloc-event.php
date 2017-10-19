@@ -23,7 +23,7 @@
 		
 		<div class="blocEvent-upper">
 			
-			<div class="blocEvent-media bg_cover" style="background-image: url(<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>)"></div>	
+			<div class="blocEvent-media bg_cover b-lazy" data-src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>"></div>	
 				
 
 			<div class="blocEvent-infos full_absolute">

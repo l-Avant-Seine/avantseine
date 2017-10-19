@@ -46,24 +46,41 @@
             progAside.css('position', 'relative');
         }
   
+        var j = 1;
+
         jQuery.each( progGrid_items, function( i, val ) {
 
           var item_left = $(this).offset().left;
           var item_right = item_left + $(this).outerWidth();
           var item_top = $(this).offset().top;
 
-          // console.log( val );
-          // console.log( 'item top : ' +  item_top);
-          // console.log( 'item right : ' +  item_right);
- 
+
+          $(this).removeClass('m-first el-second el-thrid');
+
           if( item_right > progAside_left) {
             if( item_top < progAside_bottom) {
-              $(this).css('clear', 'both');
-              $(this).css('margin-left', '0');
-              $(this).next().css('clear', 'none');
-               $(this).next().css('margin-left', '2%');
+              j = 1;
             }
           }
+          if ( $(this).is(':first-child') ) {
+            j = 1;
+          }
+
+          if( j == 1 ) {
+            $(this).addClass('m-first');
+            j++;
+          }
+
+          else if( j == 2 ) {
+            $(this).addClass('el-second');
+            j++;
+          }
+
+          else if( j % 3 == 0 ) {
+            $(this).addClass('el-thrid');
+            j = 1;
+          }
+
         });
       },
 
@@ -120,11 +137,20 @@ jQuery(function($) {
 
 			if ( jQuery(this).scrollTop() !== 0 ) {
 	      $('.site-header').addClass('sticky');
+        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_horizontal.png')
 	    } else {
 	    	$('.site-header').removeClass('sticky');
+        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_vertical.png')
 	    }
 
     });
+
+
+
+var bLazy = new Blazy({
+    // options
+});
+
 
 
     // HAM MENU
@@ -142,7 +168,6 @@ jQuery(function($) {
     ham_menu.find('.menu-item-has-children > a').on('click', function(event) {
 
       if( $(this).parent().hasClass('ham-prog') || $(this).parent().hasClass('ham-mag') ) {
-        console.log('mag or prog !');
       } 
       else {
         event.preventDefault();
@@ -154,7 +179,6 @@ jQuery(function($) {
 
     $('.menu-item-has-children > a').on('click', function(event) {
       if( $(this).parent().hasClass('ham-prog') || $(this).parent().hasClass('ham-mag') ) {
-        console.log('mag or prog !');
       } 
       else {
         event.preventDefault();
@@ -216,13 +240,12 @@ jQuery(function($) {
 
     $('input[name="is_archives"]').on('change', function(){
 
-      if( $(this).attr('checked') === undefined ) {
-        $('.progFilterForm-lower').show();
-        $('.prog-pagetitle h1').html('Les <br>archives');
-
-      } else {
+      if( $(this).is(':checked') ) {
         $('.progFilterForm-lower').hide();
         $('.prog-pagetitle h1').html('La programmation <br>à venir');
+      } else {
+        $('.progFilterForm-lower').show();
+        $('.prog-pagetitle h1').html('Les <br>archives');
       }
 
     });
@@ -391,8 +414,15 @@ jQuery(function($) {
             if(posts_found < offset) {
               $('.load-more').hide();
             }
+            
+            $(window).alignProgGrid();
+            bLazy.revalidate();
+
           }
       );
+
+      
+
     });
 
 
@@ -405,11 +435,12 @@ jQuery(function($) {
       var rdv_value = $(this).find('select[name="rdv"]').val();
       var public_value = $(this).find('select[name="public"]').val();
       var tarif_value = $(this).find('select[name="tarif"]').val();
-      var is_archives_value = $(this).find('input[name="is_archives"]').attr('checked');
+      var is_archives_value = $(this).find('input[name="is_archives"]').is(':checked');
       var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
 
-      $('#prog-grid').html('Nous traitons votre demande...');
-      $('#prog-grid').fadeOut();
+      console.log(is_archives_value);
+
+      $('#prog-grid').html('Nous cherchons dans nos archives...');
 
       jQuery.post(
           ajaxurl,
@@ -419,7 +450,7 @@ jQuery(function($) {
               'rdv_value': rdv_value,
               'public_value': public_value,
               'tarif_value': tarif_value,
-              'is_archives_value': is_archives_value,
+              'is_archives_value': !is_archives_value,
               'saison_value': saison_value,
           },
           function(response){
@@ -447,12 +478,12 @@ jQuery(function($) {
      * ACCORDEON
      */
 
-    var accordeon = $('.entry-accordeon');
+    var accordeon = $('.entry-accordeon .accordeon-title');
 
     accordeon.on('click', function(event){
       event.preventDefault();
 
-      $(this).toggleClass('open close');
+      $(this).parent().toggleClass('open close');
       $(this).find('span').toggleClass('icon-fleche_accordeon icon-fleche_accordeon-bottom');
     });
 
