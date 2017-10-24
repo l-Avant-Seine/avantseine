@@ -14,7 +14,7 @@ $today = time();
 
 
 				<div class="webmag-title wrap">
-						<h1 class="h1">Le Magazine<br> de l'Avant-Seine</h1>
+						<h1 class="h1">Le Magazine<br> de l'Avant Seine</h1>
 
 				</div>
 
@@ -57,9 +57,12 @@ $today = time();
 								'meta_query' => array(
 									array(
 										'key' => 'postDetail_featured',
-										'value' => 'on',
+										'compare' => '==',
+											'value' => '1'
 									)
-								)
+								),
+								'orderby'			=> 'post_date',
+								'order' 			=> 'DESC'	
 							);
 							$featuredPost = get_posts( $args );
 

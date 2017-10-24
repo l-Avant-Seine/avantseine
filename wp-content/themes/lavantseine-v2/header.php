@@ -70,7 +70,7 @@
 																					</span></a>
 																			</li>
 
-																			<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavantseine.dev/pratique/contacts/">Contacts</a></li>
+																			<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://staging.lavant-seine.com/lieu/equipe//">Contacts</a></li>
 
 																			<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://www2.aparteweb.com/awprod/SEINE/AWCatalogSub.aspx?INS=SEINE" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
 
@@ -104,7 +104,7 @@
 
 																	%3$s
 
-																	<li id="menu-item-9455" class="m-hide black-bg menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavantseine.dev/pratique/contacts/">Contacts</a></li>
+																	<li id="menu-item-9455" class="m-hide black-bg menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://staging.lavant-seine.com/lieu/equipe/">Contacts</a></li>
 
 																	<li id="menu-item-9454 " class="m-hide black-bg  booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://www2.aparteweb.com/awprod/SEINE/AWCatalogSub.aspx?INS=SEINE" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
 

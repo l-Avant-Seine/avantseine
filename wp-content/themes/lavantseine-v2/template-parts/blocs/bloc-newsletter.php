@@ -13,7 +13,7 @@
             <input type="hidden" name="primary_type" id="primary_type" value="email">
             
 
-            <form class="description" id="theform" name="theform" action="http://rooting.arenametrix.fr/users/subscribeembed/js_id/5gwh/id/1" onsubmit="return false;">
+            <form class="description" id="theform" name="theform" action="http://rooting.arenametrix.fr/users/subscribeembed/js_id/5gwh/id/1" onsubmit="return false;" style="text-align: center;">
                 <input type="hidden" name="js_id" id="js_id" value="5gwh">
                 <input type="hidden" name="listid" id="listid" value="30">
                 <input type="hidden" name="from_url" id="from_url" value="yes">
@@ -26,23 +26,15 @@
                     <div class="view-messages">
                     </div>
 
-                    <!-- an email as primary -->
-                    <div class="primary-group email-group forms-builder-group ui-sortable" style="">
                     
-                        <div class="row mandatory-email">
-                            <input name="email" id="email" value="" placeholder="votre_email@exemple.com" type="text">
+                    <input name="email" id="email" value="" placeholder="votre_email@exemple.com" type="text">
 
-                            <div class="hidden-btns">
-                                <a class="btn move" href="#"><i class="fa fa-arrows"></i></a><br>
-                                <!--<a class="btn btn-danger delete"  href="#"><i class="fa fa-trash-o fa-inverse"></i></a>-->
-                            </div>
-                        </div>
-                    
-                    </div><!-- end of primary -->
-
-                    <div class="byline">
-                        <button class="button editable btn--big" type="submit"  data-editfield="subscribe">Recevoir la programmation mensuelle par email</button>
+                    <div class="hidden-btns">
+                        <a class="btn move" href="#"><i class="fa fa-arrows"></i></a><br>
+                        <!--<a class="btn btn-danger delete"  href="#"><i class="fa fa-trash-o fa-inverse"></i></a>-->
                     </div>
+                    
+                    <button class="button editable btn--big" type="submit"  data-editfield="subscribe">Recevoir la programmation par email</button>
             
                     </div>
             </form>

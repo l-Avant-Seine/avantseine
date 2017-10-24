@@ -45,7 +45,7 @@ if( have_rows('eventDetail_otherdates') ):
       $otherdates .= get_sub_field('date');
 
 			if( get_sub_field('baby-sitting') ) : 
-				$otherdates .= '<a class="event-babysitting" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant • Informations et réservations" title="dès 3 ans / 6 € par enfant • Informations et réservations"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+				$otherdates .= '<a class="event-babysitting" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant • Informations et réservations" title="dès 3 ans / 6 € par enfant • Informations et réservations"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
 				$babysitting = true;
 			endif; 
 
@@ -71,7 +71,7 @@ endif;
 			<div class="eventHeader-date m-3col">
 				
 				<?php if($babysitting) : ?>
-					<a class="focusElement-pastille is-flex scroll" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant" title="dès 3 ans / 6 € par enfant" href="#event-details">
+					<a class="focusElement-pastille is-flex scroll" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant" title="dès 3 ans / 6 € par enfant" href="#event-details">
 						<span>Baby<br>Sitting</span>
 					</a>
 				<?php endif; ?>
@@ -99,8 +99,8 @@ endif;
 					        <var class="atc_timezone">Europe/Paris</var>
 					        <var class="atc_title"><?php the_title(); ?></var>
 					        <var class="atc_description"><?php echo $noms_principaux; ?></var>
-					        <var class="atc_location">l'Avant-Seine - Théâtre de Colombes - Parvis des Droits de l'Homme, 88 rue Saint Denis, 92700 Colombes</var>
-					        <var class="atc_organizer">'Avant-Seine</var>
+					        <var class="atc_location">l'Avant Seine - Théâtre de Colombes - Parvis des Droits de l'Homme, 88 rue Saint Denis, 92700 Colombes</var>
+					        <var class="atc_organizer">'Avant Seine</var>
 					        <var class="atc_organizer_email">anne.legall@lavant-seine.com</var>
 					    </var>
 					  </span>
@@ -204,7 +204,7 @@ endif;
 										echo '<ul class="no-bullets lowercase">';
 										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
 										    if( get_field('eventDetail_first_date_babysitting')) : 
-										    	echo '<a class="event-babysitting" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+										    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
 										    endif; 
 										    echo '.</li>'; 
 

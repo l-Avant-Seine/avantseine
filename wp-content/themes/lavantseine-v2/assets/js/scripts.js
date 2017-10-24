@@ -75,7 +75,7 @@
             j++;
           }
 
-          else if( j % 3 == 0 ) {
+          else if( j % 3 === 0 ) {
             $(this).addClass('el-thrid');
             j = 1;
           }
@@ -136,10 +136,10 @@ jQuery(function($) {
 
 			if ( jQuery(this).scrollTop() !== 0 ) {
 	      $('.site-header').addClass('sticky');
-        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_horizontal.png')
+        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_horizontal.png');
 	    } else {
 	    	$('.site-header').removeClass('sticky');
-        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_vertical.png')
+        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_vertical.png');
 	    }
 
     });
@@ -388,14 +388,17 @@ var bLazy = new Blazy({
     var offset = step; 
     $('.load-more').on('click', function(event) {
       event.preventDefault();
-
+      var pastEvents;
       var posts_found = $(this).attr('posts_found');
       var month = $('.box-month').last().attr('month');
       var archives_value = $('input[name="is_archives"]').attr('checked');
 
       if( archives_value === undefined ) {
-        var pastEvents = true;
+         pastEvents = true;
+      } else {
+         pastEvents = false;
       }
+
 
       jQuery.post(
           ajaxurl,

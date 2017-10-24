@@ -166,11 +166,11 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols;
 
     > div:first-child, 
     .row > div:first-child { 
-        margin-left: 0 !important;
+        margin-left: 0;
     }
 
     .is-centered {
-        display: inline-block;
+        display: block;
         margin-left: auto !important;
         margin-right: auto !important;
         float: none !important;
@@ -236,7 +236,7 @@ $one_col_alt: (100% - ($gutter_alt * ($cols_alt - 1))) / $cols_alt;
 
     > div:first-child, 
     .row_alt > div:first-child { 
-        margin-left: 0 !important;
+        margin-left: 0;
     }
 
     .is-centered {

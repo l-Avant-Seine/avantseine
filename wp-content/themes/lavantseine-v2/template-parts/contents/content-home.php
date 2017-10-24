@@ -48,13 +48,16 @@
 			
 			<div class="row">
 				
-				<div class="m-3col">
+				<div class="m-4col is-centered">
 					<div class="module-actions goto">
 						<a href="/programmation" class="btn--big is-centered">Voir toute la programmation</a>
 					</div>
 				</div>
+			</div>
 
-				<div class="m-3col">
+			<div class="row">
+				
+				<div class="m-4col is-centered">
 
 					<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
 				
