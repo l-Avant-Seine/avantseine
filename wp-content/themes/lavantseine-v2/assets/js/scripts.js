@@ -440,7 +440,7 @@ var bLazy = new Blazy({
       var is_archives_value = $(this).find('input[name="is_archives"]').is(':checked');
       var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
 
-      $('#prog-grid').html('Nous cherchons dans nos archives...');
+      $('#prog-grid').html('Nous recherchons dans la programmation...');
 
       jQuery.post(
           ajaxurl,
