@@ -58,26 +58,40 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 		$event_dates = '';
 
 		if( $event_other_dates[0] != '' &&  $event_first_date != $event_last_date ) {
-			// Si plus de 2 jours 
-			$event_dates .= 'Du ';
-			$event_dates .= strftime('%e', $event_first_date );
-			if( strcmp( strftime('%b', $event_first_date ), strftime('%b', $event_last_date ) ) ) {
-				$event_dates .= strftime(' %B', $event_first_date );
+
+			if( !strcmp( strftime('%A %e %b %G', $event_first_date ), strftime('%A %e %b %G', $event_last_date ) ) ) {
+
+				// Si même date mais plusieurs horaires dans la journée
+				$event_dates .= 'Le ';
+				$event_dates .= strftime('%A %e %B %G', $event_first_date );
+
 			}
-			if( strcmp( strftime('%G', $event_first_date ), strftime('%G', $event_last_date ) ) ) {
-				$event_dates .= strftime(' %G', $event_first_date );
+			else {
+
+				// Si plus de 2 jours 
+				$event_dates .= 'Du ';
+				$event_dates .= strftime('%e', $event_first_date );
+
+				if( strcmp( strftime('%b', $event_first_date ), strftime('%b', $event_last_date ) ) ) {
+
+					$event_dates .= strftime(' %B', $event_first_date );
+
+				}
+
+				if( strcmp( strftime('%G', $event_first_date ), strftime('%G', $event_last_date ) ) ) {
+
+					$event_dates .= strftime(' %G', $event_first_date );
+
+				}
+				
+				$event_dates .= ' au ';
+				$event_dates .= strftime('%e %B %G', $event_last_date );
+
 			}
-			$event_dates .= ' au ';
-			$event_dates .= strftime('%e %B %G', $event_last_date );
+
 		}
 		elseif( $event_first_date != $event_last_date ) {
 
-			if( !strcmp( strftime('%A %e %b %G', $event_first_date ), strftime('%A %e %b %G', $event_last_date ) ) ) {
-				// Si même date mais 2 horaires dans la journée
-				$event_dates .= 'Le ';
-				$event_dates .= strftime('%A %e %B %G', $event_first_date );
-			}
-			else {
 				// Si 2 jours différents
 				$event_dates .= 'Le ';
 				$event_dates .= strftime('%e', $event_first_date );
@@ -92,7 +106,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 
 				$event_dates .= ' et ';
 				$event_dates .= strftime('%e %B %G', $event_last_date );
-			}
+
 		}
 		else {
 			$event_dates .= strftime('%A %e %B %G - %kh%M', $event_first_date );
