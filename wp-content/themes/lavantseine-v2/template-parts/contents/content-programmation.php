@@ -8,7 +8,8 @@
 ?>
 
 
-		<div class="prog-pagetitle">
+
+		<div class="prog-pagetitle bg_cover" style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
 			
 			<div class="wrap">
 				<h1 class="h1">

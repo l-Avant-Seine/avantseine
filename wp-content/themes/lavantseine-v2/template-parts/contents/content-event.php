@@ -177,7 +177,7 @@ endif;
 					<div class="">
 						
 						<div class="row clearfix">
-							<div class="m-2col">
+							<div class="m-2col m-first">
 								<h4 class="h5"><span class="title-diamond">♦</span><br>Tarifs</h4>
 
 								<?php				
