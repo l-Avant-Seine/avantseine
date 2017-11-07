@@ -5,7 +5,7 @@
  * Description: WordPress Backup Plugin
  * Author: Inpsyde GmbH
  * Author URI: http://inpsyde.com
- * Version: 3.4.1
+ * Version: 3.4.4
  * Text Domain: backwpup
  * Domain Path: /languages/
  * Network: true
@@ -64,14 +64,16 @@ if ( ! class_exists( 'BackWPup' ) ) {
 		private function __construct() {
 
 			// Nothing else matters if we're not on the main site
-			if ( ! is_main_site() ) {
+			if ( ! is_main_network() && ! is_main_site() ) {
 				return;
 			}
 			//auto loader
 			spl_autoload_register( array( $this, 'autoloader' ) );
 
 			//start upgrade if needed
-			if ( get_site_option( 'backwpup_version' ) !== self::get_plugin_data( 'Version' ) || ! wp_next_scheduled( 'backwpup_check_cleanup' ) ) {
+			if ( get_site_option( 'backwpup_version' ) !== self::get_plugin_data( 'Version' )
+				|| ! wp_next_scheduled( 'backwpup_check_cleanup' )
+				|| ! wp_next_scheduled( 'backwpup_update_message' ) ) {
 				BackWPup_Install::activate();
 			}
 			//load pro features
@@ -89,6 +91,7 @@ if ( ! class_exists( 'BackWPup' ) ) {
 					//add cron actions
 					add_action( 'backwpup_cron', array( 'BackWPup_Cron', 'run' ) );
 					add_action( 'backwpup_check_cleanup', array( 'BackWPup_Cron', 'check_cleanup' ) );
+					add_action( 'backwpup_update_message', array( 'BackWPup_Cron', 'update_message' ) );
 				}
 				//if in cron the rest is not needed
 				return;
@@ -111,45 +114,13 @@ if ( ! class_exists( 'BackWPup' ) ) {
 			// Notices and messages in admin
 			if ( is_admin() && current_user_can( 'backwpup' ) ) {
 
-				// Work for Inpsyde widget
-/*
-				$inpsyder_widget = new BackWPup_Become_Inpsyder_Widget();
-				add_action( 'wp_dashboard_setup', array( $inpsyder_widget, 'setup_widget' ) );
-				add_action( 'backwpup_admin_messages', array( $inpsyder_widget, 'print_plugin_widget_markup' ), 0 );
-				BackWPup_Dismissible_Notice_Option::setup_actions(
-					false,
-					BackWPup_Become_Inpsyder_Widget::NOTICE_ID,
-					'backwpup'
-				);
-*/
-
-				$rate_us = new BackWPup_Admin_Notice(
-					'rate_us',
-					esc_html__( 'Make Us Happy and Give Your Rating', 'backwpup' ),
-					esc_html__( 'https://wordpress.org/support/plugin/backwpup/reviews/', 'backwpup' )
-				);
-				$rate_us->initiate();
+				$admin_notice = new BackWPup_Admin_Notice();
+				$admin_notice->initiate();
 				
-				$now = new DateTime();
-				$end_discount = new DateTime( '2017-07-06' );
-				if ( $now < $end_discount ) {
-					$independence_day = new BackWPup_Admin_Notice(
-						'independence_day',
-						esc_html__( 'Save Now!', 'backwpup' ),
-						esc_html__( 'https://backwpup.com/?utm_source=BackWPup&utm_campaign=IndependenceDay&utm_medium=Link', 'backwpup' )
-					);
-					$independence_day->initiate();
-				} else {
-					$beta_tester = new BackWPup_Admin_Notice(
-						'beta_tester',
-						esc_html__( 'Join Us as a Beta Tester', 'backwpup' ),
-						esc_html__( 'https://backwpup.com/become-backwpup-beta-tester/', 'backwpup' )
-					);
-					$beta_tester->initiate();
-				}
 			}
 
 			// Phone Home
+/*
 			require_once dirname( __FILE__ ) . '/vendor/inpsyde/phone-home-client/inc/autoload.php';
 			Inpsyde_PhoneHome_FrontController::initialize_for_network(
 				'BackWPup',
@@ -163,6 +134,7 @@ if ( ! class_exists( 'BackWPup' ) ) {
 					Inpsyde_PhoneHome_Configuration::SERVER_ADDRESS     => 'https://backwpup.com/wp-json',
 				)
 			);
+*/
 
 		}
 
@@ -278,6 +250,11 @@ if ( ! class_exists( 'BackWPup' ) ) {
 				if ( file_exists( $filePath ) ) {
 					require $filePath;
 				}
+			}
+			
+			// Base32 autoloading
+			if ( strpos( $class, 'Base32' ) !== false ) {
+				require_once self::get_plugin_data( 'plugindir' ) . '/vendor/base32/src/Base32.php';
 			}
 
 		}

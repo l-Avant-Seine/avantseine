@@ -1,5 +1,10 @@
 ;(function($){
   
+  var bLazy = new Blazy({
+    // options
+});
+
+
 
 
   jQuery.fn.extend({
@@ -111,6 +116,7 @@
               
               var grid = document.getElementById('webmag-innergrid');
               salvattore.registerGrid(grid);
+              bLazy.revalidate();
             }
         );
       }
@@ -146,9 +152,6 @@ jQuery(function($) {
 
 
 
-var bLazy = new Blazy({
-    // options
-});
 
 
 
@@ -375,6 +378,7 @@ var bLazy = new Blazy({
       event.preventDefault();
       var term_slug = $(this).attr('cat-slug');
       $(window).getPostsFromTerm( term_slug );
+
     });
 
     if( $('.page-category').length == 1 ) {

@@ -2,10 +2,8 @@
 
 namespace EventEspresso\core\services\loaders;
 
-use EE_Registry;
 use EventEspresso\core\exceptions\InvalidDataTypeException;
 use EventEspresso\core\exceptions\InvalidInterfaceException;
-use EventEspresso\core\services\collections\LooseCollection;
 use InvalidArgumentException;
 
 defined('EVENT_ESPRESSO_VERSION') || exit;
@@ -25,13 +23,13 @@ class Loader implements LoaderInterface
 
 
     /**
-     * @var LoaderInterface $new_loader
+     * @var LoaderDecoratorInterface $new_loader
      */
     private $new_loader;
 
 
     /**
-     * @var LoaderInterface $shared_loader
+     * @var LoaderDecoratorInterface $shared_loader
      */
     private $shared_loader;
 
@@ -40,59 +38,22 @@ class Loader implements LoaderInterface
     /**
      * Loader constructor.
      *
-     * @param LoaderInterface|null $new_loader
-     * @param LoaderInterface|null $shared_loader
+     * @param LoaderDecoratorInterface|null $new_loader
+     * @param LoaderDecoratorInterface|null $shared_loader
      * @throws InvalidInterfaceException
      * @throws InvalidArgumentException
      * @throws InvalidDataTypeException
      */
-    public function __construct(LoaderInterface $new_loader = null, LoaderInterface $shared_loader = null)
+    public function __construct(LoaderDecoratorInterface $new_loader, LoaderDecoratorInterface $shared_loader)
     {
-        $this->new_loader = $this->setupNewLoader($new_loader);
-        $this->shared_loader = $this->setupSharedLoader($shared_loader);
+        $this->new_loader = $new_loader;
+        $this->shared_loader = $shared_loader;
     }
 
 
 
     /**
-     * @param LoaderInterface|null $new_loader
-     * @return CoreLoader|LoaderInterface
-     * @throws InvalidArgumentException
-     */
-    private function setupNewLoader(LoaderInterface $new_loader = null)
-    {
-        // if not already generated, create a standard loader
-        if (! $new_loader instanceof LoaderInterface) {
-            $new_loader = new CoreLoader(EE_Registry::instance());
-        }
-        return $new_loader;
-    }
-
-
-
-    /**
-     * @param LoaderInterface|null $shared_loader
-     * @return CoreLoader|LoaderInterface
-     * @throws InvalidDataTypeException
-     * @throws InvalidInterfaceException
-     * @throws InvalidArgumentException
-     */
-    private function setupSharedLoader(LoaderInterface $shared_loader = null)
-    {
-        // if not already generated, create a caching loader
-        if (! $shared_loader instanceof LoaderInterface) {
-            $shared_loader = new CachingLoader(
-                new CoreLoader(EE_Registry::instance()),
-                new LooseCollection('')
-            );
-        }
-        return $shared_loader;
-    }
-
-
-
-    /**
-     * @return LoaderInterface
+     * @return LoaderDecoratorInterface
      */
     public function getNewLoader()
     {
@@ -102,7 +63,7 @@ class Loader implements LoaderInterface
 
 
     /**
-     * @return LoaderInterface
+     * @return LoaderDecoratorInterface
      */
     public function getSharedLoader()
     {
@@ -120,8 +81,8 @@ class Loader implements LoaderInterface
     public function load($fqcn, $arguments = array(), $shared = true)
     {
         return $shared
-            ? $this->getSharedLoader()->load($fqcn, $arguments)
-            : $this->getNewLoader()->load($fqcn, $arguments);
+            ? $this->getSharedLoader()->load($fqcn, $arguments, $shared)
+            : $this->getNewLoader()->load($fqcn, $arguments, $shared);
     }
 
 
@@ -133,7 +94,7 @@ class Loader implements LoaderInterface
      */
     public function getNew($fqcn, $arguments = array())
     {
-        return $this->getNewLoader()->load($fqcn, $arguments);
+        return $this->getNewLoader()->load($fqcn, $arguments, false);
     }
 
 
@@ -145,7 +106,7 @@ class Loader implements LoaderInterface
      */
     public function getShared($fqcn, $arguments = array())
     {
-        return $this->getSharedLoader()->load($fqcn, $arguments);
+        return $this->getSharedLoader()->load($fqcn, $arguments, true);
     }
 
 

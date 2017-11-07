@@ -101,14 +101,38 @@ class EEH_DTT_Helper
     public static function get_timezone_string_from_gmt_offset($gmt_offset = '')
     {
         $timezone_string = 'UTC';
-        $gmt_offset      = ! empty($gmt_offset) ? $gmt_offset : get_option('gmt_offset');
+        //if there is no incoming gmt_offset, then because WP hooks in on timezone_string, we need to see if that is
+        //set because it will override `gmt_offset` via `pre_get_option` filter.  If that's set, then let's just use
+        //that!  Otherwise we'll leave timezone_string at the default of 'UTC' before doing other logic.
+        if ($gmt_offset === '') {
+            //autoloaded so no need to set to a variable.  There will not be multiple hits to the db.
+            if (get_option('timezone_string')) {
+                return get_option('timezone_string');
+            }
+        }
+        $gmt_offset = $gmt_offset !== '' ? $gmt_offset : get_option('gmt_offset');
+        $gmt_offset = (float) $gmt_offset;
+
+        //if $gmt_offset is 0, then just return UTC
+        if ($gmt_offset === (float) 0) {
+            return $timezone_string;
+        }
+
+
         if ($gmt_offset !== '') {
             // convert GMT offset to seconds
             $gmt_offset = $gmt_offset * HOUR_IN_SECONDS;
-            // account for WP offsets that aren't valid UTC
-            $gmt_offset = EEH_DTT_Helper::adjust_invalid_gmt_offsets($gmt_offset);
             // although we don't know the TZ abbreviation, we know the UTC offset
             $timezone_string = timezone_name_from_abbr(null, $gmt_offset);
+            //only use this timezone_string IF it's current offset matches the given offset
+            try {
+                $offset = self::get_timezone_offset(new DateTimeZone($timezone_string));
+                if ($offset !== $gmt_offset) {
+                    $timezone_string = false;
+                }
+            } catch (Exception $e) {
+                $timezone_string = false;
+            }
         }
         // better have a valid timezone string by now, but if not, sigh... loop thru  the timezone_abbreviations_list()...
         $timezone_string = $timezone_string !== false
@@ -140,7 +164,11 @@ class EEH_DTT_Helper
 
 
     /**
-     * _create_timezone_object_from_timezone_name
+     * Depending on PHP version, there might not bevalid current timezone strings to match these gmt_offsets in its
+     * timezone tables.
+     * To get around that, for these fringe timezones we bump them to a known valid offset.
+     *
+     * This method should ONLY be called after first verifying an timezone_string cannot be retrieved for the offset.
      *
      * @access public
      * @param int $gmt_offset
@@ -151,43 +179,95 @@ class EEH_DTT_Helper
         //make sure $gmt_offset is int
         $gmt_offset = (int)$gmt_offset;
         switch ($gmt_offset) {
-
-            //			case -30600 :
-            //				$gmt_offset = -28800;
-            //				break;
-
-            case -27000 :
+            //-12
+            case -43200:
+                $gmt_offset = -39600;
+                break;
+            //-11.5
+            case -41400:
+                $gmt_offset = -39600;
+                break;
+            //-10.5
+            case -37800:
+                $gmt_offset = -39600;
+                break;
+            //-8.5
+            case -30600:
+                $gmt_offset = -28800;
+                break;
+            //-7.5
+            case -27000:
                 $gmt_offset = -25200;
                 break;
-
-            case -23400 :
+            //-6.5
+            case -23400:
                 $gmt_offset = -21600;
                 break;
-
-            case -19800 :
+            //-5.5
+            case -19800:
                 $gmt_offset = -18000;
                 break;
-
-            case -9000 :
+            //-4.5
+            case -16200:
+                $gmt_offset = -14400;
+                break;
+            //-3.5
+            case -12600:
+                $gmt_offset = -10800;
+                break;
+            //-2.5
+            case -9000:
                 $gmt_offset = -7200;
                 break;
-
-            case -5400 :
+            //-1.5
+            case -5400:
                 $gmt_offset = -3600;
                 break;
-
-            case -1800 :
+            //-0.5
+            case -1800:
                 $gmt_offset = 0;
                 break;
-
-            case 1800 :
+            //.5
+            case 1800:
                 $gmt_offset = 3600;
                 break;
-
-            case 49500 :
-                $gmt_offset = 50400;
+            //1.5
+            case 5400:
+                $gmt_offset = 7200;
+                break;
+            //2.5
+            case 9000:
+                $gmt_offset = 10800;
+                break;
+            //3.5
+            case 12600:
+                $gmt_offset = 14400;
                 break;
 
+            //7.5
+            case 27000:
+                $gmt_offset = 28800;
+                break;
+            //8.5
+            case 30600:
+                $gmt_offset = 31500;
+                break;
+            //10.5
+            case 37800:
+                $gmt_offset = 39600;
+                break;
+            //11.5
+            case 41400:
+                $gmt_offset = 43200;
+                break;
+            //12.75
+            case 45900:
+                $gmt_offset = 46800;
+                break;
+            //13.75
+            case 49500:
+                $gmt_offset = 50400;
+                break;
         }
         return $gmt_offset;
     }
@@ -197,21 +277,38 @@ class EEH_DTT_Helper
      * get_timezone_string_from_abbreviations_list
      *
      * @access public
-     * @param int $gmt_offset
+     * @param int  $gmt_offset
+     * @param bool $coerce   If true, we attempt to coerce with our adjustment table @see self::adjust_invalid_gmt_offset.
      * @return string
      * @throws \EE_Error
      */
-    public static function get_timezone_string_from_abbreviations_list($gmt_offset = 0)
+    public static function get_timezone_string_from_abbreviations_list($gmt_offset = 0, $coerce = true)
     {
         $abbreviations = timezone_abbreviations_list();
         foreach ($abbreviations as $abbreviation) {
             foreach ($abbreviation as $city) {
                 if ($city['offset'] === $gmt_offset && $city['dst'] === false) {
-                    // check if the timezone is valid but don't throw any errors if it isn't
-                    if (EEH_DTT_Helper::validate_timezone($city['timezone_id'], false)) {
-                        return $city['timezone_id'];
+                    try {
+                        $offset = self::get_timezone_offset(new DateTimeZone($city['timezone_id']));
+                        if ($offset !== $gmt_offset) {
+                            continue;
+                        } else {
+                            return $city['timezone_id'];
+                        }
+                    } catch (Exception $e) {
+                        continue;
                     }
                 }
+            }
+        }
+        //if $coerce is true, let's see if we can get a timezone string after the offset is adjusted
+        if ($coerce == true) {
+            $timezone_string = self::get_timezone_string_from_abbreviations_list(
+                self::adjust_invalid_gmt_offsets($gmt_offset),
+                false
+            );
+            if ($timezone_string) {
+                return $timezone_string;
             }
         }
         throw new EE_Error(
@@ -223,6 +320,40 @@ class EEH_DTT_Helper
                 '</a>'
             )
         );
+    }
+
+
+
+    /**
+     * Get Timezone Transitions
+     * @param \DateTimeZone $date_time_zone
+     * @param null          $time
+     * @param bool          $first_only
+     * @return array|mixed
+     */
+    public static function get_timezone_transitions(DateTimeZone $date_time_zone, $time = null, $first_only = true)
+    {
+        $time = is_int($time) || $time === null ? $time : strtotime($time);
+        $time = preg_match(EE_Datetime_Field::unix_timestamp_regex, $time) ? $time : time();
+        $transitions = $date_time_zone->getTransitions($time);
+        return $first_only && ! isset($transitions['ts']) ? reset($transitions) : $transitions;
+    }
+
+
+    /**
+     * Get Timezone Offset for given timezone object.
+     * @param \DateTimeZone $date_time_zone
+     * @param null          $time
+     * @return mixed
+     * @throws \DomainException
+     */
+    public static function get_timezone_offset(DateTimeZone $date_time_zone, $time = null)
+    {
+        $transitions = self::get_timezone_transitions($date_time_zone, $time);
+        if (! isset($transitions['offset'])) {
+            throw new DomainException();
+        }
+        return $transitions['offset'];
     }
 
 
@@ -974,5 +1105,137 @@ class EEH_DTT_Helper
 		//final timestamp is equivalent to midnight in this timezone as represented in GMT.
 		return strtotime('tomorrow') + (self::get_site_timezone_gmt_offset()*-1);
 	}
+
+
+    /**
+     * **
+     * Gives a nicely-formatted list of timezone strings.
+     * Copied from the core wp function by the same name so we could customize to remove UTC offsets.
+     *
+     * @since     4.9.40.rc.008
+     * @staticvar bool $mo_loaded
+     * @staticvar string $locale_loaded
+     * @param string $selected_zone Selected timezone.
+     * @param string $locale        Optional. Locale to load the timezones in. Default current site locale.
+     * @return string
+     */
+    public static function wp_timezone_choice($selected_zone, $locale = null)
+    {
+        static $mo_loaded = false, $locale_loaded = null;
+
+        $continents = array(
+            'Africa',
+            'America',
+            'Antarctica',
+            'Arctic',
+            'Asia',
+            'Atlantic',
+            'Australia',
+            'Europe',
+            'Indian',
+            'Pacific',
+        );
+
+        // Load translations for continents and cities.
+        if (! $mo_loaded || $locale !== $locale_loaded) {
+            $locale_loaded = $locale ? $locale : get_locale();
+            $mofile        = WP_LANG_DIR . '/continents-cities-' . $locale_loaded . '.mo';
+            unload_textdomain('continents-cities');
+            load_textdomain('continents-cities', $mofile);
+            $mo_loaded = true;
+        }
+
+        $zonen = array();
+        foreach (timezone_identifiers_list() as $zone) {
+            $zone = explode('/', $zone);
+            if (! in_array($zone[0], $continents)) {
+                continue;
+            }
+
+            // This determines what gets set and translated - we don't translate Etc/* strings here, they are done later
+            $exists    = array(
+                0 => (isset($zone[0]) && $zone[0]),
+                1 => (isset($zone[1]) && $zone[1]),
+                2 => (isset($zone[2]) && $zone[2]),
+            );
+            $exists[3] = ($exists[0] && 'Etc' !== $zone[0]);
+            $exists[4] = ($exists[1] && $exists[3]);
+            $exists[5] = ($exists[2] && $exists[3]);
+
+            $zonen[] = array(
+                'continent'   => ($exists[0] ? $zone[0] : ''),
+                'city'        => ($exists[1] ? $zone[1] : ''),
+                'subcity'     => ($exists[2] ? $zone[2] : ''),
+                't_continent' => ($exists[3] ? translate(str_replace('_', ' ', $zone[0]), 'continents-cities') : ''),
+                't_city'      => ($exists[4] ? translate(str_replace('_', ' ', $zone[1]), 'continents-cities') : ''),
+                't_subcity'   => ($exists[5] ? translate(str_replace('_', ' ', $zone[2]), 'continents-cities') : ''),
+            );
+        }
+        usort($zonen, '_wp_timezone_choice_usort_callback');
+
+        $structure = array();
+
+        if (empty($selected_zone)) {
+            $structure[] = '<option selected="selected" value="">' . __('Select a city') . '</option>';
+        }
+
+        foreach ($zonen as $key => $zone) {
+            // Build value in an array to join later
+            $value = array($zone['continent']);
+
+            if (empty($zone['city'])) {
+                // It's at the continent level (generally won't happen)
+                $display = $zone['t_continent'];
+            } else {
+                // It's inside a continent group
+
+                // Continent optgroup
+                if (! isset($zonen[$key - 1]) || $zonen[$key - 1]['continent'] !== $zone['continent']) {
+                    $label       = $zone['t_continent'];
+                    $structure[] = '<optgroup label="' . esc_attr($label) . '">';
+                }
+
+                // Add the city to the value
+                $value[] = $zone['city'];
+
+                $display = $zone['t_city'];
+                if (! empty($zone['subcity'])) {
+                    // Add the subcity to the value
+                    $value[] = $zone['subcity'];
+                    $display .= ' - ' . $zone['t_subcity'];
+                }
+            }
+
+            // Build the value
+            $value    = join('/', $value);
+            $selected = '';
+            if ($value === $selected_zone) {
+                $selected = 'selected="selected" ';
+            }
+            $structure[] = '<option ' . $selected . 'value="' . esc_attr($value) . '">' . esc_html($display) . "</option>";
+
+            // Close continent optgroup
+            if (! empty($zone['city']) && (! isset($zonen[$key + 1]) || (isset($zonen[$key + 1]) && $zonen[$key + 1]['continent'] !== $zone['continent']))) {
+                $structure[] = '</optgroup>';
+            }
+        }
+
+        return join("\n", $structure);
+    }
+
+
+    /**
+     * Shim for the WP function `get_user_locale` that was added in WordPress 4.7.0
+     *
+     * @param int|WP_User $user_id
+     * @return string
+     */
+    public static function get_user_locale($user_id = 0)
+    {
+        if (function_exists('get_user_locale')) {
+            return get_user_locale($user_id);
+        }
+        return get_locale();
+    }
 
 }// end class EEH_DTT_Helper

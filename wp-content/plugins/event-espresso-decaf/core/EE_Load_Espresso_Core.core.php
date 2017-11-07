@@ -1,8 +1,10 @@
 <?php
+use EventEspresso\core\exceptions\InvalidDataTypeException;
+use EventEspresso\core\exceptions\InvalidInterfaceException;
+use EventEspresso\core\services\loaders\LoaderFactory;
 
-if (! defined('EVENT_ESPRESSO_VERSION')) {
-    exit('No direct script access allowed');
-}
+
+defined('EVENT_ESPRESSO_VERSION') || exit;
 
 
 
@@ -46,9 +48,10 @@ class EE_Load_Espresso_Core implements EEI_Request_Decorator, EEI_Request_Stack_
     /**
      * EE_Load_Espresso_Core constructor
      */
-    public function __construct()
-    {
-        espresso_load_required('EventEspresso\core\Factory', EE_CORE . 'Factory.php');
+	public function __construct() {
+        // deprecated functions
+        espresso_load_required('EE_Base', EE_CORE . 'EE_Base.core.php');
+        espresso_load_required('EE_Deprecated', EE_CORE . 'EE_Deprecated.core.php');
     }
 
 
@@ -63,6 +66,9 @@ class EE_Load_Espresso_Core implements EEI_Request_Decorator, EEI_Request_Stack_
      * @param EE_Response $response
      * @return EE_Response
      * @throws EE_Error
+     * @throws InvalidDataTypeException
+     * @throws InvalidInterfaceException
+     * @throws InvalidArgumentException
      */
     public function handle_request(EE_Request $request, EE_Response $response)
     {
@@ -73,32 +79,20 @@ class EE_Load_Espresso_Core implements EEI_Request_Decorator, EEI_Request_Stack_
         // central repository for classes
         $this->registry = $this->_load_registry();
         do_action('EE_Load_Espresso_Core__handle_request__initialize_core_loading');
-        // PSR4 Autoloaders
-        $this->registry->load_core('EE_Psr4AutoloaderInit');
+        $loader = LoaderFactory::getLoader($this->registry);
+        $this->dependency_map->setLoader($loader);
         // build DI container
-        $OpenCoffeeShop = new EventEspresso\core\services\container\OpenCoffeeShop();
-        $OpenCoffeeShop->addRecipes();
+        // $OpenCoffeeShop = new EventEspresso\core\services\container\OpenCoffeeShop();
+        // $OpenCoffeeShop->addRecipes();
         // $CoffeeShop = $OpenCoffeeShop->CoffeeShop();
-        // create and cache the CommandBus, and also add the CapChecker middleware
-        $this->registry->create(
-            'CommandBusInterface',
-            array(
-                null,
-                $this->registry->create('CapChecker'),
-            ),
-            true
-        );
         // workarounds for PHP < 5.3
         $this->_load_class_tools();
-        // load interfaces
-        espresso_load_required('EEI_Payment_Method_Interfaces',
-            EE_LIBRARIES . 'payment_methods' . DS . 'EEI_Payment_Method_Interfaces.php');
         // deprecated functions
         espresso_load_required('EE_Deprecated', EE_CORE . 'EE_Deprecated.core.php');
         // WP cron jobs
-        $this->registry->load_core('Cron_Tasks');
-        $this->registry->load_core('EE_Request_Handler');
-        $this->registry->load_core('EE_System');
+        $loader->getShared('EE_Cron_Tasks');
+        $loader->getShared('EE_Request_Handler');
+        $loader->getShared('EE_System');
         return $this->response;
     }
 
