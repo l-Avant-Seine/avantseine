@@ -162,6 +162,7 @@ var bLazy = new Blazy({
       $(this).find('span').toggleClass('icon-close');
       $(this).find('span').toggleClass('icon-menu');
       $('body').toggleClass('no-scroll');
+      $('.site-logo').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_horizontal.png');
     });
 
     ham_menu.find('.menu-item-has-children > a').on('click', function(event) {

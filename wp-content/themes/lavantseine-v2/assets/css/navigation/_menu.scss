@@ -233,7 +233,9 @@
 			@include type-setting(0);
 			margin-top: $base_line_height / 2;
 			font-family: $font_family_paragraph;
-			float: left;
+
+			@include at-least(medium) {
+			}
 
 			li.menu-item {
 				float: none;

@@ -565,8 +565,8 @@ function wpse72394_add_tinymce_button($buttons) {
 
 
 
-add_filter( 'wp_nav_menu_objects',      't5_add_has_children_to_nav_items' );
-add_filter( 'walker_nav_menu_start_el', 't5_unlink_parent_item', 10, 4 );
+// add_filter( 'wp_nav_menu_objects',      't5_add_has_children_to_nav_items' );
+// add_filter( 'walker_nav_menu_start_el', 't5_unlink_parent_item', 10, 4 );
 
 /**
  * Add aproperty 'has_children' to menu items
