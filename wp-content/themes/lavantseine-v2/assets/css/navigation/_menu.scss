@@ -97,9 +97,11 @@
 			img {
 				max-height: 230px;
 				@include transition(all 0.1s);
+				z-index: 99999;
+				position: relative;
 
 				.home & {
-				max-height: 300px;
+					max-height: 300px;
 				}
 			}
 		}
@@ -221,13 +223,17 @@
 				@include type-setting(3);
 				font-weight: $bold;
 				text-transform: none;
+				float: left;
+				clear: both;
+				display: block;
 			}
 
 		.sub-menu {
 			@extend .clearfix; 
 			@include type-setting(0);
-			margin-top: $base_line_height;
+			margin-top: $base_line_height / 2;
 			font-family: $font_family_paragraph;
+			float: left;
 
 			li.menu-item {
 				float: none;

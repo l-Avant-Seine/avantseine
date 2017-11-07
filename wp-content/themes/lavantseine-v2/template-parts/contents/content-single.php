@@ -57,6 +57,7 @@
 					<?php foreach ( $media_items as $media_item ) : ?>
 						<li class="slide">
 							<?php the_attachment_link( $media_item->ID, true, false, false ); ?>
+							<div class="bx-caption"><?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></div>
 						</li>
 					<?php endforeach; ?>
 				</ul><!-- slides -->

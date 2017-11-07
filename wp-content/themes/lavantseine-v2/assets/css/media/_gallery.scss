@@ -225,9 +225,8 @@
 
 .bx-caption {
   @include type-setting(-1);
-  color: $gray_light;
+  color: $gray_dark;
   text-align: center;
-  font-weight: $thin; 
   margin-top: $base_line_height / 2;
   margin-bottom: 0;
 }
