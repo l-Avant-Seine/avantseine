@@ -467,6 +467,8 @@ var bLazy = new Blazy({
               $(window).alignProgGrid();
             }
 
+            bLazy.revalidate();
+
           }
       );
     });
