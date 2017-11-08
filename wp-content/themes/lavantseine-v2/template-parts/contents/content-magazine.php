@@ -25,6 +25,7 @@ $today = time();
 								'category', 
 								array(
 						    	'hide_empty' => false,
+						    	'exclude'	=> array('1'),
 								)
 							); 
 
