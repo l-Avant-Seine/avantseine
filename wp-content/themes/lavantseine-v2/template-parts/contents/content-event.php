@@ -153,21 +153,21 @@ endif;
 
 
 					<?php
-						$publics =  get_the_terms( $post->ID, 'public' );
-						if($publics) {
-						  foreach ($publics as $public) {
-						  	echo '<div class="event-public-item">';
-							    $tax_term_id = $public->term_taxonomy_id;
-							    $images = get_option('taxonomy_image_plugin');
+						// $publics =  get_the_terms( $post->ID, 'public' );
+						// if($publics) {
+						//   foreach ($publics as $public) {
+						//   	echo '<div class="event-public-item">';
+						// 	    $tax_term_id = $public->term_taxonomy_id;
+						// 	    $images = get_option('taxonomy_image_plugin');
 							    
-							    echo '<span class="public-label">A partir de</span>';
-							    echo '<div class="public-img">';
-							    	echo wp_get_attachment_image( $images[$tax_term_id], '' );
-							    	echo '<p class="public-name">'. $public->name .'</p>';
-							    echo '</div>';
-	   					  echo '</div>';
-						  }
-						}
+						// 	    echo '<span class="public-label">A partir de</span>';
+						// 	    echo '<div class="public-img">';
+						// 	    	echo wp_get_attachment_image( $images[$tax_term_id], '' );
+						// 	    	echo '<p class="public-name">'. $public->name .'</p>';
+						// 	    echo '</div>';
+	   		// 			  echo '</div>';
+						//   }
+						// }
 					?>
 
 				<a class="btn--big" href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">réserver mes places</a>
