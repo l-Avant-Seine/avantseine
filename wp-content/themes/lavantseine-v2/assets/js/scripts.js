@@ -1,8 +1,16 @@
+
+
+  var bLazy = new Blazy({
+      // options
+  });
+
+
+
 ;(function($){
   
-  var bLazy = new Blazy({
-    // options
-});
+
+
+
 
 
 
@@ -117,8 +125,56 @@
               var grid = document.getElementById('webmag-innergrid');
               salvattore.registerGrid(grid);
               bLazy.revalidate();
+
+
+             // POSTS CAT >> LOAD MORE
+              var posts_step = 12;
+              var posts_offset = posts_step; 
+              $('.load-more-posts').on('click', function(event) {
+                event.preventDefault();
+
+                var posts_found = $(this).attr('posts_found');
+
+                jQuery.post(
+                    ajaxurl,
+                    {
+                        'action': 'load_more_posts',
+                        'offset': posts_offset,
+                        'step': posts_step,
+                        'cat': term_slug
+                    },
+                    function(response){
+                      posts_offset = posts_offset + posts_step;
+
+                      var grid = document.querySelector('#webmag-innergrid');
+                      var mydata =  $($.parseHTML(response)).filter(".bloc-article"); 
+
+                      salvattore.appendElements(grid, mydata);
+
+                      console.log(posts_found);
+                      console.log(posts_offset);
+
+                      if(posts_found < posts_offset) {
+                        $('.load-more-posts').hide();
+                      }
+                      
+                      bLazy.revalidate();
+
+                    }
+                );
+              });
+
+
             }
         );
+
+
+
+
+
+
+
+
       }
 
   });
@@ -366,7 +422,8 @@ jQuery(function($) {
             $('.emptyModal').show();
             var grid = document.getElementById('webmag-innergrid');
             salvattore.registerGrid(grid);
-
+            bLazy.revalidate();
+            
           }
       );
     });
@@ -385,6 +442,11 @@ jQuery(function($) {
       var term_slug = $('.page-category').attr('cat-slug');
       $(window).getPostsFromTerm( term_slug );
     }
+
+
+
+
+
 
 
 

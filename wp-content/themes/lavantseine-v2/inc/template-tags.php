@@ -217,6 +217,8 @@ if ( ! function_exists( 'lavantseine_paging_nav' ) ) :
  */
 function lavantseine_paging_nav() {
 	// Don't print empty markup if there's only one page.
+	var_dump( $GLOBALS['wp_query']->max_num_pages );
+	
 	if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
 		return;
 	}

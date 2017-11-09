@@ -247,7 +247,6 @@ function load_more() {
 
 
 
-
 /**
  * Load Search results
  */
@@ -334,16 +333,11 @@ function get_posts_from_term() {
 
 	$term = $_POST['term'];
 
-	if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
-	elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
-	else { $paged = 1; }
-
 	$args = array(
 	    'post_type' 			=>'post',
 	    'category_name' 	=> $term,
 			'order'						=> 'DESC',
 			'posts_per_page'	=> '12',
-			'paged'						=> $paged, 
 			'post_status'			=> 'publish',
 	);
 
@@ -355,16 +349,57 @@ function get_posts_from_term() {
 	 		get_template_part( 'template-parts/blocs/bloc', 'article' );
 			endwhile; ?>
 		</div>
-		
+
+		<div class="row">
+			<a href="#" posts_found="<?php echo $ajax_query->found_posts; ?>" class="load-more-posts btn--big is-centered m-3col">Charger plus d'articles <br>(il y a <?php echo $ajax_query->found_posts; ?> articles au total)</a>
+		</div>
+
 	<?php else : 
 		get_template_part( 'content', 'none' ); 
 
 	endif; 
 
-		lavantseine_paging_nav(); 
 
 	die();
 }
+
+
+
+/**
+ * Load more posts from category
+ */
+add_action( 'wp_ajax_load_more_posts', 'load_more_posts' );
+add_action( 'wp_ajax_nopriv_load_more_posts', 'load_more_posts' );
+
+function load_more_posts() {
+	global $post; 
+
+	$offset = $_POST['offset'];
+	$step = $_POST['step'];
+	$cat = $_POST['cat'];
+
+	$args = array(
+	    'post_type' 			=>'post',
+	    'category_name' 	=> $cat,
+	    'offset' 					=> $offset,
+	    'posts_per_page' 	=> $step,
+			'post_status'			=> 'publish', 
+			'order'						=> 'DESC',
+	);
+
+	$ajax_query = new WP_Query($args);
+
+	if ( $ajax_query->have_posts() ) : 
+		while ( $ajax_query->have_posts() ) : 
+			$ajax_query->the_post(); 
+	 		get_template_part( 'template-parts/blocs/bloc', 'article' );
+		endwhile; 
+	endif;
+
+	die();
+}
+
+
 
 
 

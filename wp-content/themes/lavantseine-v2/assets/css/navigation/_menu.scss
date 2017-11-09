@@ -228,6 +228,10 @@
 				display: block;
 			}
 
+		.menu-item-has-children > a {
+			font-size: 1.4em;
+			font-weight: $bold;
+		}
 		.sub-menu {
 			@extend .clearfix; 
 			@include type-setting(0);
