@@ -151,9 +151,6 @@
 
                       salvattore.appendElements(grid, mydata);
 
-                      console.log(posts_found);
-                      console.log(posts_offset);
-
                       if(posts_found < posts_offset) {
                         $('.load-more-posts').hide();
                       }
