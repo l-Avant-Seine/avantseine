@@ -75,8 +75,11 @@ label.error {
     overflow: hidden;
     background-color: #fff;
     float: left;
-
     background: #fff url("assets/img/select-arrow.png") no-repeat 96% 50%;
+
+    @include up-to(medium) {
+      margin-bottom: 10px;
+    }
 }
 
 .c-select select {
@@ -116,6 +119,14 @@ label.error {
   }
   input[type="radio"]:not(:checked) + label {
     border-bottom: none;
+  }
+
+  @include up-to(medium) {
+    margin-bottom: 10px;
+
+    &:nth-child(2) {
+      clear: both;
+    }
   }
 }
 

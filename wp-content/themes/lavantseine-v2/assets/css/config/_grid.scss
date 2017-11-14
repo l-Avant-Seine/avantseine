@@ -5,6 +5,30 @@
  */
 
 
+
+
+
+
+/* 
+ * GRID VARIABLES SETTING
+ */ 
+
+$max_width:                         1080px;
+$max_width_large:                   1200px;
+$cols:                              8 !default; 
+$gutter:                            1.5% !default; 
+        
+$mobile_first:                      true !default; 
+$minimal_breakpoint:                320px !default; 
+$medium_breakpoint:                 820px !default; 
+$large_breakpoint:                  1080px !default; 
+$wide_breakpoint:                   1400px !default; 
+
+
+$menu_height:           40px;
+$menu_height_max:       50px;
+$logo_width:            100px;
+
 .plain {
     @include box-sizing;
     display: block;
@@ -50,6 +74,9 @@
   bottom: 0;
   width: 5000px;          
 
+    @include up-to(medium) {
+        width: auto;
+    }
 }
 .offset-right {
   position: relative;
@@ -67,28 +94,6 @@
     left: -5000px;
   }      
 }
-
-
-
-/* 
- * GRID VARIABLES SETTING
- */ 
-
-$max_width:                         1080px;
-$max_width_large:                   1200px;
-$cols:                              8 !default; 
-$gutter:                            1.5% !default; 
-        
-$mobile_first:                      true !default; 
-$minimal_breakpoint:                320px !default; 
-$medium_breakpoint:                 820px !default; 
-$large_breakpoint:                  1080px !default; 
-$wide_breakpoint:                   1400px !default; 
-
-
-$menu_height:           40px;
-$menu_height_max:       50px;
-$logo_width:            100px;
 
 
 .wrap {

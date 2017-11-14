@@ -40,6 +40,17 @@
 
 	@include up-to(medium) {
 		background-color: $color_primary;
+		height: 32px;
+		line-height: 32px;
+		
+		&.sticky {
+			height: 32px;
+			line-height: 32px;
+		}
+		&.sticky .site-branding img {
+			height: 32px;
+			padding-right: 0;
+		}
 	}
 
 

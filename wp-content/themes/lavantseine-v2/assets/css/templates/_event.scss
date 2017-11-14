@@ -8,6 +8,12 @@
 
 .event-header {
 	height: 500px;
+
+	@include up-to(medium) {
+		height: auto;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
 }
 	.event-layer {
 		margin-bottom: $base_line_height * 2;
@@ -34,6 +40,12 @@
 			background-color: rgba(0,0,0,0.6);
 			color: $white;
 			padding: $base_line_height;
+
+			@include up-to(medium) {
+				width: 100%;
+				box-sizing: border-box;
+				margin-bottom: 20px;
+			}
 		}
 		.eventHeader-date {
 			background-color: rgba(255,255,255,0.99);

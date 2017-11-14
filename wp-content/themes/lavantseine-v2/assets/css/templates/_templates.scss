@@ -31,3 +31,14 @@ body {
     }
   }
 
+
+.home,
+.single-event {
+
+	@include up-to(medium) {
+
+		.site-content {
+			padding-top: 30px;
+		}
+	}
+}

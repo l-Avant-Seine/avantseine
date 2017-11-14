@@ -19,6 +19,10 @@
 	.btn {
 		color: $white;
 	}
+
+	@include up-to(medium) {
+		margin-top: $base_line_height * 2;
+	}
 }
 
 	.moduleService-item {

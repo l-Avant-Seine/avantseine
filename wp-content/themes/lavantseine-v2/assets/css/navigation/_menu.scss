@@ -50,7 +50,8 @@
 
 			@include up-to(medium) {
 				float: none;
-				padding-left: 3em;
+				padding-left: 1em;
+				padding-right: 1em;
 
 				&.site-branding {
 					padding-left: 0;
@@ -103,6 +104,13 @@
 				.home & {
 					max-height: 300px;
 				}
+			}
+
+			@include up-to(medium) {
+
+				 img {
+				 	height: 32px;
+				 }
 			}
 		}
 
@@ -174,7 +182,8 @@
 		padding-top: 0;
 		height: 82vh;
 		overflow: scroll;
-		
+		top: 35px;
+
 		.wrap {
 			width: 100%;
 		}

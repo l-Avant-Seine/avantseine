@@ -37,6 +37,12 @@
 	position: absolute;
 	border-left: 20px solid $white;
 	right: 20px;
+
+	@include up-to(medium) {
+		position: relative;
+		right: 0;
+		border-left: none;
+	}
 }
 
 

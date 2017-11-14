@@ -4,14 +4,30 @@
       // options
   });
 
+  var isMobile = {
+      Android: function() {
+          return navigator.userAgent.match(/Android/i);
+      },
+      BlackBerry: function() {
+          return navigator.userAgent.match(/BlackBerry/i);
+      },
+      iOS: function() {
+          return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+      },
+      Opera: function() {
+          return navigator.userAgent.match(/Opera Mini/i);
+      },
+      Windows: function() {
+          return navigator.userAgent.match(/IEMobile/i);
+      },
+      any: function() {
+          return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+      }
+  };
 
 
 ;(function($){
   
-
-
-
-
 
 
 
@@ -126,15 +142,22 @@
               salvattore.registerGrid(grid);
               bLazy.revalidate();
 
+              var posts_found = $('.load-more-posts').attr('posts_found');
 
              // POSTS CAT >> LOAD MORE
               var posts_step = 12;
               var posts_offset = posts_step; 
+              var message = $('.load-more-posts').html();
+
+              if(posts_found < posts_offset) {
+                $('.load-more-posts').hide();
+              }
+
               $('.load-more-posts').on('click', function(event) {
                 event.preventDefault();
-
-                var posts_found = $(this).attr('posts_found');
-
+                
+                $(this).html('Nous recherchons les articles...');
+                
                 jQuery.post(
                     ajaxurl,
                     {
@@ -150,6 +173,8 @@
                       var mydata =  $($.parseHTML(response)).filter(".bloc-article"); 
 
                       salvattore.appendElements(grid, mydata);
+
+                      $('.load-more-posts').html( message );
 
                       if(posts_found < posts_offset) {
                         $('.load-more-posts').hide();
@@ -195,10 +220,16 @@ jQuery(function($) {
 
 			if ( jQuery(this).scrollTop() !== 0 ) {
 	      $('.site-header').addClass('sticky');
-        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_horizontal.png');
+
+        if( !isMobile.any() ) {
+          $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_horizontal.png');
+        }
 	    } else {
 	    	$('.site-header').removeClass('sticky');
-        $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_vertical.png');
+
+        if( !isMobile.any() ) {
+          $('.site-branding img').attr('src', '/wp-content/themes/lavantseine-v2/assets/img/logo_avtseine_vertical.png');
+        }
 	    }
 
     });
