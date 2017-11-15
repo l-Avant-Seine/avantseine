@@ -11,14 +11,16 @@
 
 
 <div class="clearfix">
-	
 
 	<!-- Focus -->
 	<div id="" class="layer">
-		<?php get_template_part('template-parts/modules/module', 'focus'); ?>
+		<?php 
+			global $focus_event_id;
+			set_query_var('focus_event_id', $focus_event_id);
+			get_template_part('template-parts/modules/module', 'focus'); 
+		?>
 	</div>
 
-	
 	<div id="" class="layer clearfix wrap row">
 
 		<!-- Spectacle à venir -->
@@ -31,6 +33,7 @@
 					'meta_key' => 'eventDetail_first_date',
 					'orderby' => 'meta_value_num',
 					'order' => 'ASC',
+					'post__not_in'	=> array($focus_event_id),
 					'meta_query' => array(
 					   	array(
 					       'key' => 'eventDetail_last_date',
