@@ -24,11 +24,12 @@
 
 		<div class="prog-filters">
 			
-			<form action="" id="progFilter-form" class="">
+			<form action="" id="progFilter-form" class="" name="progFilter-form">
 
 				<div class="progFilterForm-upper">
 
 					<div class="wrap">
+						<div class="label">Filtrer : </div>
 						<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
 						<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
 						<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'Pour quel âge ?', ''); ?>

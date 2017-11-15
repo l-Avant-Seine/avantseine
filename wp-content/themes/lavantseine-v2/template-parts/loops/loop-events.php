@@ -37,7 +37,6 @@
 					
 					<div class="no-posts m-3coll clearfix ">
 						<h3 class="h3 ">
-							Perdu !<br>
 							Il n'y a aucun événement correspondant à votre recherche.
 						</h3>
 						<div class="clearfix">

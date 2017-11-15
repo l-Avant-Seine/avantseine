@@ -27,8 +27,12 @@
 
 
 ;(function($){
-  
 
+
+
+  function resetForms() {
+      document.forms['progFilter-form'].reset();
+  }
 
 
   jQuery.fn.extend({
@@ -592,6 +596,10 @@ jQuery(function($) {
 
     var searchgrid = document.getElementById('search-grid');
     salvattore.registerGrid(searchgrid);
+
+
+
+    resetForms();
 
 
 

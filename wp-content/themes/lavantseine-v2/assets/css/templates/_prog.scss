@@ -24,6 +24,20 @@
 	.progFilterForm-upper {
 		background-color: $gray_light;
 		padding: 20px 0;
+
+		.label {
+			background-color: $white;
+			float: left;
+			margin-right: 5px;
+			padding: 0.7em;
+		}
+
+		@include at-least(large) {
+			.label {
+				margin-right: 20px;
+				padding: 0.8em;
+			}
+		}
 	}
 
 	.progFilterForm-lower {
