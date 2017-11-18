@@ -148,7 +148,7 @@ add_action( 'widgets_init', 'lavantseine_v2_widgets_init' );
  * Enqueue scripts and styles.
  */
 function lavantseine_v2_scripts() {
-	wp_enqueue_style( 'lavantseine-v2-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'lavantseine-v2-style', get_template_directory_uri() . '/style.min.css' );
 	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/all.min.js', array(), '', true );
 
 	wp_register_script( 'salvatorre', get_template_directory_uri() .'/assets/js/salvatorre.js' , 'jquery', '', true );

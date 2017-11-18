@@ -32,13 +32,12 @@ body {
   }
 
 
-.home,
-.single-event {
 
-	@include up-to(medium) {
+  .site-content {
+    padding-top: $menu_height_max;
+    
+    @include up-to(medium) {
+      padding-top: 30px;
+    }
+  }
 
-		.site-content {
-			padding-top: 30px;
-		}
-	}
-}

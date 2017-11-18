@@ -27,6 +27,10 @@
 		color: $color_primary;
 		text-transform: uppercase;
 	}
+
+	@include up-to(medium) {
+	margin-bottom: $base_line_height;
+	}
 }
 
 	.blocEvent-upper {
