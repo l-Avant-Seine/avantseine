@@ -14,7 +14,7 @@
 	.c-select {
 
 		@include at-least(medium) {
-			margin-right: 20px;
+			margin-right: 10px;
 		}
 		@include up-to(large) {
 			margin-right: 5px;
