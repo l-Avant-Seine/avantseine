@@ -84,6 +84,7 @@ $focusElement_height: 400px;
 		}
 	}
 
+
 	.focusEvent_infos {
 		@include box-sizing;
 
@@ -106,6 +107,10 @@ $focusElement_height: 400px;
 				}
 			}
 	}
+		.focusEvent_title {
+			margin-bottom: $base_line_height;
+		}
+
 
 	.focusElement_item  {
 		//height: $focusElement_height;
