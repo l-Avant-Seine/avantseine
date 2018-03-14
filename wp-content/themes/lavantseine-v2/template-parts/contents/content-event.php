@@ -6,7 +6,7 @@
 setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 
 $babysitting = false;
-
+$today = time();
 //$post_meta_data = get_post_custom($post->ID);
 
 $tags = wp_get_post_terms($post->ID, array('discipline', 'rdv'), array("fields" => "all"));
@@ -36,7 +36,7 @@ $event_mentions = get_field( 'eventDetail_mentions' );
 if( $event_first_date_babysitting || $event_last_date_babysitting ) {
 	$babysitting = true;
 }
-										
+
 if( have_rows('eventDetail_otherdates') ):
 	$otherdates = '';
 
@@ -85,8 +85,10 @@ endif;
 					<?php endif; ?>
 
 					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration' itemprop='duration' content='T1M33S'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
-
-					<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">réserver mes places</a>
+					
+					<?php if( intval($event_first_date) > $today ) : ?>
+						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">réserver mes places</a>
+					<?php endif; ?>
 				</div>
 
 				<div class="eventHeader-actions inner clearfix">
@@ -170,7 +172,10 @@ endif;
 						// }
 					?>
 
-				<a class="btn--big" href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">réserver mes places</a>
+					<?php if( intval($event_first_date) > $today ) : ?>
+						<a class="btn--big" href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">réserver mes places</a>
+					<?php endif; ?>
+
 
 
 				<div id="event-details" class="event-details offset-left offset-right">
