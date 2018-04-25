@@ -227,7 +227,12 @@ endif;
 											endif; 
 
 										if ( $event_last_date && $event_last_date != $event_first_date ) : 
-										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date ) .'.</li>'; 							    
+										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date );	
+										    if( get_field('eventDetail_last_date_babysitting')) : 
+										    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+										    endif; 
+										    echo '.</li>'; 
+
 										endif;
 
 										echo '</ul>';
