@@ -206,38 +206,44 @@ endif;
 								<h4 class="h5"><span class="title-diamond">♦</span><br>Date(s)</h4>
 
 								<?php 
-									if ( $event_first_date ) : 
-										echo '<ul class="no-bullets lowercase">';
-										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
-										    if( get_field('eventDetail_first_date_babysitting')) : 
-										    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
-										    endif; 
-										    echo '.</li>'; 
+									if( $exhibition ) {
+										echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
+									}
+									else {
 
-										  if( isset($otherdates)) {
-										  	echo $otherdates;
-										  }
+										if ( $event_first_date ) : 
+											echo '<ul class="no-bullets lowercase">';
+											    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
+											    if( get_field('eventDetail_first_date_babysitting')) : 
+											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+											    endif; 
+											    echo '.</li>'; 
 
-											if ( $event_other_dates ) : 
-												foreach ($event_other_dates as $date) { 
-													$date = strtotime($date['date']);
-												    if ( $date != '' ) : 
-												    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
-												    endif;
-												} 
-											endif; 
+											  if( isset($otherdates)) {
+											  	echo $otherdates;
+											  }
 
-										if ( $event_last_date && $event_last_date != $event_first_date ) : 
-										    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date );	
-										    if( get_field('eventDetail_last_date_babysitting')) : 
-										    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
-										    endif; 
-										    echo '.</li>'; 
+												if ( $event_other_dates ) : 
+													foreach ($event_other_dates as $date) { 
+														$date = strtotime($date['date']);
+													    if ( $date != '' ) : 
+													    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
+													    endif;
+													} 
+												endif; 
 
+											if ( $event_last_date && $event_last_date != $event_first_date ) : 
+											    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date );	
+											    if( get_field('eventDetail_last_date_babysitting')) : 
+											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+											    endif; 
+											    echo '.</li>'; 
+
+											endif;
+
+											echo '</ul>';
 										endif;
-
-										echo '</ul>';
-									endif; 
+									}
 								?>
 
 							</div>
