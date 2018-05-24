@@ -28,6 +28,7 @@
 	// $focus_event_id = $focus_event->ID;
 	
 	$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $focus_event_id ), 'large' );
+	$exhibition = get_field( 'eventDetail_exhibition', $focus_event_id );
 	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $focus_event_id ) );
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $focus_event_id ) );
 	$event_other_dates = get_field('eventDetail_otherdates', $focus_event_id);
@@ -56,7 +57,7 @@
 	    			<span>Le prochain rendez-vous</span><br><br>
 	    			<h3 class="h1 focusEvent_title"><?php echo get_the_title($focus_event_id); ?></h3>
 	    			<span class="meta-date"><?php the_field( 'noms_principaux', $focus_event_id ); ?></span><br>
-						<span class="meta-date"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates); ?></span>
+						<span class="meta-date"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></span>
 	    		</a>
 	    	</div>
 
