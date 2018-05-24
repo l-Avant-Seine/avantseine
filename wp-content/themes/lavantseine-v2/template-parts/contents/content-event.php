@@ -6,6 +6,7 @@
 setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 
 $babysitting = false;
+
 $today = time();
 //$post_meta_data = get_post_custom($post->ID);
 
@@ -18,6 +19,8 @@ $event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
 $event_first_date_babysitting = get_field( 'eventDetail_first_date_babysitting' );
 $event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 $event_last_date_babysitting = get_field( 'eventDetail_last_date_babysitting' );
+
+$exhibition = get_field( 'eventDetail_exhibition' );
 
 $event_other_dates = get_field('eventDetail_otherdates');
 $event_landscape_media = get_field( 'eventDetail_landscapeMedia' );
@@ -53,8 +56,6 @@ if( have_rows('eventDetail_otherdates') ):
   endwhile;	
 
 endif; 
-
-
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -78,7 +79,7 @@ endif;
 
 				<div class="inner">
 					<?php 
-						echo "<h4 class='h3'>". get_event_dates($event_first_date, $event_last_date, $event_other_dates) ."</h4>" ;
+						echo "<h4 class='h3'>". get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition) ."</h4>" ;
 					?>
 					<?php if( $event_first_date != $event_last_date ) : ?>
 						<p><a href="#event-details" class="scroll"><span class="icon-arrow-right"></span><strong>voir toutes les dates</strong></a></p>
