@@ -8,12 +8,13 @@ use Base32\Base32;
 class BackWPup_Cron {
 
 	/**
-	 * @static
-	 *
-	 * @param $arg
-	 * @internal param $args
+	 * @param string $arg
 	 */
 	public static function run( $arg = 'restart' ) {
+
+		if ( ! is_main_site( get_current_blog_id() ) ) {
+			return;
+		}
 
 		if ( $arg === 'restart' ) {
 			//reschedule restart
@@ -50,11 +51,10 @@ class BackWPup_Cron {
 		//start job
 		self::cron_active( array(
 			'run'   => 'cronrun',
-			'jobid' => $arg
+			'jobid' => $arg,
 		) );
 
 	}
-
 
 	/**
 	 * Check Jobs worked and Cleanup logs and so on
@@ -67,9 +67,12 @@ class BackWPup_Cron {
 
 		// check aborted jobs for longer than a tow hours, abort them courtly and send mail
 		if ( is_object( $job_object ) && ! empty( $job_object->logfile ) ) {
-			$not_worked_time = microtime( TRUE ) - $job_object->timestamp_last_update;
+			$not_worked_time = microtime( true ) - $job_object->timestamp_last_update;
 			if ( $not_worked_time > 3600 ) {
-				$job_object->log( E_USER_ERROR, __( 'Aborted, because no progress for one hour!', 'backwpup' ), __FILE__, __LINE__ );
+				$job_object->log( E_USER_ERROR,
+					__( 'Aborted, because no progress for one hour!', 'backwpup' ),
+					__FILE__,
+					__LINE__ );
 				unlink( BackWPup::get_plugin_data( 'running_file' ) );
 				$job_object->update_working_data();
 			}
@@ -77,31 +80,32 @@ class BackWPup_Cron {
 
 		//Compress not compressed logs
 		if ( is_readable( $log_folder ) && function_exists( 'gzopen' )
-			&& get_site_option( 'backwpup_cfg_gzlogs' ) && ! is_object( $job_object ) ) {
+		     && get_site_option( 'backwpup_cfg_gzlogs' ) && ! is_object( $job_object ) ) {
 			//Compress old not compressed logs
 			try {
 				$dir = new BackWPup_Directory( $log_folder );
-			
+
 				$jobids = BackWPup_Option::get_job_ids();
 				foreach ( $dir as $file ) {
-					if ( $file->isWritable() && '.html' == substr( $file->getFilename(), -5 ) ) {
+					if ( $file->isWritable() && '.html' == substr( $file->getFilename(), - 5 ) ) {
 						$compress = new BackWPup_Create_Archive( $file->getPathname() . '.gz' );
 						if ( $compress->add_file( $file->getPathname() ) ) {
 							unlink( $file->getPathname() );
 							//change last logfile in jobs
-							foreach( $jobids as $jobid ) {
+							foreach ( $jobids as $jobid ) {
 								$job_logfile = BackWPup_Option::get( $jobid, 'logfile' );
 								if ( ! empty( $job_logfile ) && $job_logfile === $file->getPathname() ) {
 									BackWPup_Option::update( $jobid, 'logfile', $file->getPathname() . '.gz' );
 								}
 							}
 						}
+						$compress->close();
 						unset( $compress );
 					}
 				}
-			}
-			catch ( UnexpectedValueException $e ) {
-				$job_object->log( sprintf( __( "Could not open path: %s", 'backwpup' ), $e->getMessage() ), E_USER_WARNING );
+			} catch ( UnexpectedValueException $e ) {
+				$job_object->log( sprintf( __( "Could not open path: %s", 'backwpup' ), $e->getMessage() ),
+					E_USER_WARNING );
 			}
 		}
 
@@ -125,34 +129,46 @@ class BackWPup_Cron {
 		}
 
 	}
-	
+
 	/**
-    	 * Update the backend message.
-    	 */
+	 * Update the backend message.
+	 *
+	 * @return void
+	 */
 	public static function update_message() {
+
 		// Fetch message from API
-		$api_request = esc_url( 'http://backwpup.com/wp-json/inpsyde-messages/v1/message/' );
-		$api_response = wp_remote_get( $api_request );
-		$api_data = json_decode( wp_remote_retrieve_body( $api_response ), true );
-		
+		$api_request  = esc_url( 'http://backwpup.com/wp-json/inpsyde-messages/v1/message/' );
+		$api_response = wp_remote_get( $api_request ); // phpcs:ignore
+		$api_data     = json_decode( wp_remote_retrieve_body( $api_response ), true );
+
+		if ( is_wp_error( $api_response ) ) {
+			return;
+		}
+		if ( 200 !== $api_response['response']['code'] ) {
+			return;
+		}
+
 		// Add messages to options
 		foreach ( $api_data as $lang => $value ) {
 			$content = $value['content'];
-			$button = $value['button-text'];
-			$url = $value['url'];
-			
+			$button  = $value['button-text'];
+			$url     = $value['url'];
+
 			// Calculate ID based on button text and URL
 			$id = "$button|$url";
-			// Padd to nearest 5 bytes for base32
-			$pad = strlen($id);
+
+			// Pad to nearest 5 bytes for base32
+			$pad = strlen( $id );
+
 			if ( $pad % 5 > 0 ) {
-				$pad += 5 - ($pad % 5);
-				$id = str_pad( $id, $pad, '|' );
+				$pad += 5 - ( $pad % 5 );
+				$id  = str_pad( $id, $pad, '|' );
 			}
-			
+
 			// Encode $id so it will be unique
 			$id = Base32::encode( $id );
-			
+
 			// Save in site options
 			update_site_option( "backwpup_message_id_$lang", $id );
 			update_site_option( "backwpup_message_content_$lang", $content );
@@ -160,7 +176,6 @@ class BackWPup_Cron {
 			update_site_option( "backwpup_message_url_$lang", $url );
 		}
 	}
-
 
 	/**
 	 * Start job if in cron and run query args are set.
@@ -176,25 +191,28 @@ class BackWPup_Cron {
 			$args = array();
 		}
 
-		if ( isset( $_GET[ 'backwpup_run' ] ) ) {
-			$args[ 'run' ] = sanitize_text_field( $_GET[ 'backwpup_run' ] );
+		if ( isset( $_GET['backwpup_run'] ) ) {
+			$args['run'] = sanitize_text_field( $_GET['backwpup_run'] );
 		}
 
-		if ( isset( $_GET[ '_nonce' ] ) ) {
-			$args[ 'nonce' ] = sanitize_text_field( $_GET[ '_nonce' ] );
+		if ( isset( $_GET['_nonce'] ) ) {
+			$args['nonce'] = sanitize_text_field( $_GET['_nonce'] );
 		}
 
-		if ( isset( $_GET[ 'jobid' ] ) ) {
-			$args[ 'jobid' ] = absint( $_GET[ 'jobid' ] );
+		if ( isset( $_GET['jobid'] ) ) {
+			$args['jobid'] = absint( $_GET['jobid'] );
 		}
 
 		$args = array_merge( array(
-			'run' => '',
+			'run'   => '',
 			'nonce' => '',
 			'jobid' => 0,
-		), $args );
+		),
+			$args );
 
-		if ( ! in_array( $args[ 'run' ], array( 'test','restart', 'runnow', 'runnowalt', 'runext', 'cronrun' ), true ) ) {
+		if ( ! in_array( $args['run'],
+			array( 'test', 'restart', 'runnow', 'runnowalt', 'runext', 'cronrun' ),
+			true ) ) {
 			return;
 		}
 
@@ -214,12 +232,14 @@ class BackWPup_Cron {
 			// Restart if cannot find job
 			if ( ! $job_object ) {
 				BackWPup_Job::start_http( 'restart' );
+
 				return;
 			}
 			//restart job if not working or a restart wished
-			$not_worked_time = microtime( TRUE ) - $job_object->timestamp_last_update;
+			$not_worked_time = microtime( true ) - $job_object->timestamp_last_update;
 			if ( ! $job_object->pid || $not_worked_time > 300 ) {
 				BackWPup_Job::start_http( 'restart' );
+
 				return;
 			}
 		}
@@ -240,7 +260,7 @@ class BackWPup_Cron {
 
 		//check runext is allowed for job
 		if ( $args['run'] === 'runext' ) {
-			$jobids_link = BackWPup_Option::get_job_ids( 'activetype', 'link' );
+			$jobids_link     = BackWPup_Option::get_job_ids( 'activetype', 'link' );
 			$jobids_easycron = BackWPup_Option::get_job_ids( 'activetype', 'easycron' );
 			$jobids_external = array_merge( $jobids_link, $jobids_easycron );
 			if ( ! in_array( $args['jobid'], $jobids_external, true ) ) {
@@ -252,20 +272,22 @@ class BackWPup_Cron {
 		BackWPup_Job::start_http( $args['run'], $args['jobid'] );
 	}
 
-
 	/**
 	 *
 	 * Get the local time timestamp of the next cron execution
 	 *
-	 * @param string $cronstring  cron (* * * * *)
-	 * @return int timestamp
+	 * @param string $cronstring cron (* * * * *).
+	 *
+	 * @return int Timestamp
 	 */
 	public static function cron_next( $cronstring ) {
 
 		$cron      = array();
 		$cronarray = array();
 		//Cron string
-		list( $cronstr[ 'minutes' ], $cronstr[ 'hours' ], $cronstr[ 'mday' ], $cronstr[ 'mon' ], $cronstr[ 'wday' ] ) = explode( ' ', trim( $cronstring ), 5 );
+		list( $cronstr['minutes'], $cronstr['hours'], $cronstr['mday'], $cronstr['mon'], $cronstr['wday'] ) = explode( ' ',
+			trim( $cronstring ),
+			5 );
 
 		//make arrays form string
 		foreach ( $cronstr as $key => $value ) {
@@ -300,43 +322,41 @@ class BackWPup_Cron {
 					}
 					$range = array();
 					for ( $i = $first; $i <= $last; $i = $i + $step ) {
-						$range[ ] = $i;
+						$range[] = $i;
 					}
 					$cron[ $cronarraykey ] = array_merge( $cron[ $cronarraykey ], $range );
-				}
-				elseif ( $value === '*' ) {
+				} elseif ( $value === '*' ) {
 					$range = array();
 					if ( $cronarraykey === 'minutes' ) {
 						if ( $step < 10 ) { //set step minimum to 5 min.
 							$step = 10;
 						}
 						for ( $i = 0; $i <= 59; $i = $i + $step ) {
-							$range[ ] = $i;
+							$range[] = $i;
 						}
 					}
 					if ( $cronarraykey === 'hours' ) {
 						for ( $i = 0; $i <= 23; $i = $i + $step ) {
-							$range[ ] = $i;
+							$range[] = $i;
 						}
 					}
 					if ( $cronarraykey === 'mday' ) {
 						for ( $i = $step; $i <= 31; $i = $i + $step ) {
-							$range[ ] = $i;
+							$range[] = $i;
 						}
 					}
 					if ( $cronarraykey === 'mon' ) {
 						for ( $i = $step; $i <= 12; $i = $i + $step ) {
-							$range[ ] = $i;
+							$range[] = $i;
 						}
 					}
 					if ( $cronarraykey === 'wday' ) {
 						for ( $i = 0; $i <= 6; $i = $i + $step ) {
-							$range[ ] = $i;
+							$range[] = $i;
 						}
 					}
 					$cron[ $cronarraykey ] = array_merge( $cron[ $cronarraykey ], $range );
-				}
-				else {
+				} else {
 					if ( ! is_numeric( $value ) || (int) $value > 60 ) {
 						return PHP_INT_MAX;
 					}
@@ -348,21 +368,25 @@ class BackWPup_Cron {
 		//generate years
 		$year = (int) gmdate( 'Y' );
 		for ( $i = $year; $i < $year + 100; $i ++ ) {
-			$cron[ 'year' ][ ] = $i;
+			$cron['year'][] = $i;
 		}
 
 		//calc next timestamp
 		$current_timestamp = (int) current_time( 'timestamp' );
-		foreach ( $cron[ 'year' ] as $year ) {
-			foreach ( $cron[ 'mon' ] as $mon ) {
-				foreach ( $cron[ 'mday' ] as $mday ) {
+		foreach ( $cron['year'] as $year ) {
+			foreach ( $cron['mon'] as $mon ) {
+				foreach ( $cron['mday'] as $mday ) {
 					if ( ! checkdate( $mon, $mday, $year ) ) {
 						continue;
 					}
-					foreach ( $cron[ 'hours' ] as $hours ) {
-						foreach ( $cron[ 'minutes' ] as $minutes ) {
+					foreach ( $cron['hours'] as $hours ) {
+						foreach ( $cron['minutes'] as $minutes ) {
 							$timestamp = gmmktime( $hours, $minutes, 0, $mon, $mday, $year );
-							if ( $timestamp && in_array( (int) gmdate( 'j', $timestamp ), $cron[ 'mday' ], true ) && in_array( (int) gmdate( 'w', $timestamp ), $cron[ 'wday' ], true ) && $timestamp > $current_timestamp ) {
+							if ( $timestamp && in_array( (int) gmdate( 'j', $timestamp ),
+									$cron['mday'],
+									true ) && in_array( (int) gmdate( 'w', $timestamp ),
+									$cron['wday'],
+									true ) && $timestamp > $current_timestamp ) {
 								return $timestamp - ( (int) get_option( 'gmt_offset' ) * 3600 );
 							}
 						}
