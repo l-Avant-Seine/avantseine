@@ -450,8 +450,9 @@ function get_events_filtered() {
 	    );
 	}
 
-	if( $saison_value !== 0 ) {
+	if( $saison_value !== '0' ) {
 		$args['saison'] = $saison_value;
+		$args['posts_per_page'] = '-1';
 	}
 
 	if( $rdv_value !== 0 ) {

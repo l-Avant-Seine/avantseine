@@ -497,7 +497,9 @@ jQuery(function($) {
       } else {
          pastEvents = false;
       }
+      console.log(archives_value);
 
+      console.log(pastEvents);
 
       jQuery.post(
           ajaxurl,
@@ -553,6 +555,13 @@ jQuery(function($) {
               'saison_value': saison_value,
           },
           function(response){
+
+            console.log(saison_value);
+            console.log(is_archives_value);
+
+            if( saison_value !== '0' ) {
+              $('.load-more').hide();
+            }
 
             $('#prog-grid').html(response);
             var prog_aside_height = $('.prog-aside').outerHeight();
