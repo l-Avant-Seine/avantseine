@@ -2,7 +2,7 @@
 
 /*
 Plugin Name:	Mailjet for Wordpress
-Version:		4.2.9
+Version:		4.3.0
 Plugin URI:		https://www.mailjet.com/plugin/wordpress.htm
 Description:	Use mailjet SMTP to send email, manage lists and contacts within wordpress
 Author:			Mailjet SAS
@@ -35,6 +35,24 @@ require('mailjet-options.php');
 require('mailjet-widget.php');
 require('mailjet-api-strategy.php');
 require('mailjet-utils.php');
+
+
+/**
+ * Change plugin locale to de_DE if the current locale is de_DE_formal
+ *
+ * @param $locale
+ * @return string
+ */
+function mailjet_change_language($locale)
+{
+    if (in_array($locale, array('de_DE', 'de_DE_formal'))) {
+        $locale = 'de_DE';
+    }
+    return $locale;
+}
+// commented as it change the locale for other plugins as well, which sometimes is not the desired solution. - we have local logic for locale for widget and plugin
+//add_filter('plugin_locale', 'mailjet_change_language');
+
 
 # Define mailjet options object
 $optionsMj = new WP_Mailjet_Options();

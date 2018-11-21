@@ -3,8 +3,8 @@
 Contributors: mailjet
 Tags: email, marketing, signup, newsletter, widget, smtp, mailjet
 Requires at least: 3.3.0
-Tested up to: 4.8
-Stable tag: 4.2.9
+Tested up to: 4.9
+Stable tag: 4.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,38 @@ Need help? Our multilingual support team is here to answer your questions in any
 4. Get instant insight on your campaign's performance with detailed statistics
 
 == Changelog ==
+
+= 4.3.0 =
+* Update the confirmation email template for English, French, German and Spanish
+* Add new filter 'mailjet_subscription_widget_email_params' that enable the users to replace the email confirmation message parameters
+* Add new filter 'mailjet_confirmation_email_filename' that enable the users to replace the email confirmation template
+* Add new field 'From name' in Mailjet General Settings
+* Add event delegation that allow widget to work if it is loaded via AJAX
+
+= 4.2.16 =
+* Update the confirmation email template
+* Add new filter 'mailjet_subscription_widget_email_params' that enable the users to replace the email confirmation message parameters
+* Add new filter 'mailjet_confirmation_email_filename' that enable the users to replace the email confirmation template
+* Add new field 'From name' in Mailjet General Settings
+* Add event delegation that allow widget to work if it is loaded via AJAX
+
+= 4.2.15 =
+* Remove changing plugins locale globally
+
+= 4.2.14 =
+* Update tracking parameter
+
+= 4.2.13 =
+* Added support for de_DE_formal locale
+
+= 4.2.12 =
+* Translation update
+
+= 4.2.11 =
+* Updated 'Tested up to' version to include WordPress 4.9
+
+= 4.2.10 =
+* Translations update
 
 = 4.2.9 =
 * Fix strtotime() function when format is dd/mm/YYYY
