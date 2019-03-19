@@ -11,64 +11,76 @@
 
 ?>
 
-	</div><!-- #content -->
+		</div><!-- #content -->
 
-	<footer id="mastfooter" class="site-footer transparent-background" role="contentinfo">
+		<footer id="mastfooter" class="site-footer transparent-background" role="contentinfo">
 
 
-		<div class="footer-newsletter">
-			<div class="wrap">
-				
-					<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+			<div class="footer-newsletter">
+				<div class="wrap">
+					
+						<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
 
+				</div>
 			</div>
-		</div>
 
 
-		<div class="footer-infos wrap row">
-			
-			<?php
-				if( have_rows('footer_cols', 'options') ):
-			    while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
-						<div class="s-4col m-2col">
-			        <?php the_sub_field('colonne'); ?>
-						</div>
-			    <?php endwhile;
-			endif;
-			?>			
-		</div>
+			<div class="footer-infos wrap row">
+				
+				<?php
+					if( have_rows('footer_cols', 'options') ):
+				    while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
+							<div class="s-4col m-2col">
+				        <?php the_sub_field('colonne'); ?>
+							</div>
+				    <?php endwhile;
+				endif;
+				?>			
+			</div>
 
-		<div class="footer-logos">
-			<?php 
+			<div class="footer-logos">
+				<?php 
 
-			$images = get_field('logos_partenaires', 'options');
+				$images = get_field('logos_partenaires', 'options');
 
-			if( $images ): ?>
-			    <ul class="no-bullets table">
-			        <?php foreach( $images as $image ): ?>
-			            <li class="logo-item table-cell">
-										<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
-			            </li>
-			        <?php endforeach; ?>
-			    </ul>
-			<?php endif; ?>
-		</div>
+				if( $images ): ?>
+				    <ul class="no-bullets table">
+				        <?php foreach( $images as $image ): ?>
+				            <li class="logo-item table-cell">
+											<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
+				            </li>
+				        <?php endforeach; ?>
+				    </ul>
+				<?php endif; ?>
+			</div>
 
-	</footer><!-- #mastfooter -->
+		</footer><!-- #mastfooter -->
 
-	
-</div><!-- #page -->
+		
+	</div><!-- #page -->
 
-<?php wp_footer(); ?>
+	<?php wp_footer(); ?>
 
-<!-- http://addtocalendar.com/-->
-    <script type="text/javascript">(function () {
-            if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
-            if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
-                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-                s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
-                s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
-                var h = d[g]('body')[0];h.appendChild(s); }})();
-    </script>
-</body>
+
+		<?php if( is_home() ) : ?>
+			<img src="https://secure.adnxs.com/seg?add=17307151&t=2" width="1" height="1" />
+		<?php elseif( is_page( 'programmation' ) ) : ?>
+			<img src="https://secure.adnxs.com/seg?add=17307153&t=2" width="1" height="1" />
+		<?php else : ?>
+			<img src="https://secure.adnxs.com/seg?add=17307149&t=2" width="1" height="1" />	
+		<?php endif; ?>
+
+
+		<!-- http://addtocalendar.com/-->
+	  <script type="text/javascript">(function () {
+	    if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
+	    if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
+	        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+	        s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
+	        s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
+	        var h = d[g]('body')[0];h.appendChild(s); }})();
+	  </script>
+
+
+	</body>
 </html>
