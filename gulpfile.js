@@ -12,10 +12,10 @@ var cssnano = require('gulp-cssnano');
 var notify = require('gulp-notify');
 
 // Set up project
-var app_folder = 'wp-content/themes/lavantseine-v2/';
-var public_folder = 'wp-content/themes/lavantseine-v2/';
-var theme_folder = 'wp-content/themes/lavantseine-v2/';
-var assets_folder = 'wp-content/themes/lavantseine-v2/assets/';
+var app_folder = 'wp-content/themes/lavantseine-v3/';
+var public_folder = 'wp-content/themes/lavantseine-v3/';
+var theme_folder = 'wp-content/themes/lavantseine-v3/';
+var assets_folder = 'wp-content/themes/lavantseine-v3/assets/';
 
 var jsfolder = assets_folder + 'js/';
 var mainjs = assets_folder + 'js/scripts.js';
