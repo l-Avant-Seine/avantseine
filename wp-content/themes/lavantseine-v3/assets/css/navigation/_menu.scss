@@ -1,0 +1,308 @@
+/* 
+ * Menu
+ * 
+ * @package lavantseine-v2
+ */
+
+
+
+
+.site-menus {
+	display: block;
+	font-family: $font_family_nav;
+	
+	ul {
+		@extend .no-bullets;
+	}
+
+	.icon-menu,
+	.icon-pop-out,
+	.icon-close {
+		font-size: 15px;
+		margin-right: 5px;
+	}
+}
+
+	
+	.siteMenus-primary {
+		.menu-item {
+			@include type-setting(-2);
+			float: left;	
+			text-transform: uppercase;
+			line-height: inherit !important;
+			font-weight: $bold;
+
+			a {
+				font-family: $font_family_nav;
+			}
+
+			&.black-bg {
+				background-color: black;
+				color: $white;
+				border-bottom: 1px solid $gray_dark;
+				padding-left: 0 !important;
+
+				a {
+					display: inline-block;
+					padding: 1em 2em !important;
+				}
+			}
+
+			@include up-to(medium) {
+				float: none;
+				padding-left: 1em;
+				padding-right: 1em;
+
+				&.site-branding {
+					padding-left: 0;
+					float: left;
+					border-bottom: none;
+				}
+				&.js-menuTrigger {
+
+				}
+			}
+
+			@include at-least(medium) {
+				font-size: 16px;
+				font-size: 1.6rem;
+
+				&:not(:first-child) {
+					padding: 0 0.5em;
+				}
+			}
+
+			@include at-least(large) {
+				font-size: 18px;
+				font-size: 1.8rem;
+
+				&:not(:first-child) {
+					padding: 0 1em;
+				}
+			}
+
+
+			@include at-least(wide) {
+				font-size: 20px;
+				font-size: 2rem;
+
+				&:not(:first-child) {
+					padding: 0 1.5em;
+				}
+			}
+
+		}
+	}
+		.site-branding {
+
+			img {
+				max-height: 230px;
+				@include transition(all 0.1s);
+				z-index: 99999;
+				position: relative;
+
+				.home & {
+					max-height: 300px;
+				}
+			}
+
+			@include up-to(medium) {
+
+				 img {
+				 	height: 32px;
+				 }
+			}
+		}
+
+
+.siteMenus-primary {
+}
+	.js-menuTrigger {
+		background-color: $color_primary;
+		color: $white;
+	
+		@include up-to(medium) {
+			float: right !important;
+			padding-right: 2em;
+			border-bottom: none !important;
+		}
+	}
+	.siteMenuPrimary-inner {
+
+		@include up-to(medium) {
+			display: none;
+			background-color: $color_primary;
+			width: 100%;
+		}
+	}
+
+
+.siteMenus-secondary {
+	float: right;
+	position: relative;
+
+	@include up-to(medium) {
+		display: none;
+		width: 100%;
+		background-color: $color_primary;
+	}
+}
+	.booking-link {
+		background-color: $color_primary;
+		color: $white;
+	}
+
+
+
+
+
+.ham-menu {
+	display: none;
+	background-color: $color_primary;
+	color: $white;
+	position: absolute;
+	left: 100px;
+	right: 0;
+	left: 0;
+	top: $menu_height_max;
+	padding-top: $base_line_height * 2;
+	padding-bottom: $base_line_height * 2;
+	z-index: 9999;
+
+	li.menu-item {
+		text-transform: none;
+		font-weight: $regular;
+	}
+	
+	&.active {
+		display: block;
+	}
+
+	@include up-to(medium) {
+		padding-top: 0;
+		height: 82vh;
+		overflow: scroll;
+		top: 35px;
+
+		.wrap {
+			width: 100%;
+		}
+
+			.icon-arrow-left {
+				display: none;
+			}
+
+		.open {
+			& + .sub-menu {
+				display: block;
+			}
+			.icon-fleche_accordeon {
+				display: none;
+			}
+			.icon-arrow-left {
+				display: inline-block;
+			}
+		}
+
+		.icon-arrow-left:before {
+			margin-right: 18px;
+			font-size: 15px;
+		}
+	}
+
+	@include at-least(medium) {
+		.ham-mag, 
+		.ham-prog {
+			display: none;
+		}
+	}
+}
+	.menu-menu-hamburger-container > ul {
+		line-height: normal;
+		display: flex;
+		justify-content: space-between;
+
+		& > .menu-item {
+		}
+
+		& > .menu-item:not(:first-child) {
+			padding-left: $base_line_height;
+		}
+			& .has-children {
+				@include type-setting(3);
+				font-weight: $bold;
+				text-transform: none;
+				float: left;
+				clear: both;
+				display: block;
+			}
+
+		.menu-item-has-children > a {
+			font-size: 1.4em;
+			font-weight: $bold;
+		}
+		.sub-menu {
+			@extend .clearfix; 
+			@include type-setting(0);
+			margin-top: $base_line_height / 2;
+			font-family: $font_family_paragraph;
+
+			@include at-least(medium) {
+			}
+
+			li.menu-item {
+				float: none;
+				padding: 0 !important;
+			}
+
+			[class^="icon-arrow-left"] {
+				display: none;
+			}
+		}
+		.menu-item-has-children {
+			padding: 0 !important;
+			flex: 1;
+		}
+		.menu-item-has-children > a,
+		.menu > .has-children {
+			cursor: pointer;
+		}
+
+
+		@include up-to(medium) {
+			display: block;
+
+
+			.sub-menu {
+				display: none;
+				background-color: $black;
+				margin-top: 0;
+
+				.menu-item > a {
+					display: block;
+					@include type-setting(3);
+					padding: 1em 2em !important;
+					border-bottom: 1px solid $gray_dark;
+			
+				}
+			}
+
+			.menu-item-has-children > a {
+				display: block;
+				border-bottom: 1px solid $black;
+				padding: 1em 2em !important;
+				cursor: pointer;
+				text-transform: uppercase;
+			}
+		}
+
+	}
+
+
+	
+
+
+
+
+
+

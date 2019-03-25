@@ -1,0 +1,163 @@
+/* 
+ * event template
+ * 
+ * @package lavantseine-v2
+ *
+ */
+
+
+.event-header {
+	height: 500px;
+
+	@include up-to(medium) {
+		height: auto;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+}
+	.event-layer {
+		margin-bottom: $base_line_height * 2;
+		position: relative;
+
+		@include up-to(medium) {
+			.is-flex {
+				display: block;
+			}
+		}
+
+	}
+	.eventHeader-inner {
+		align-items: flex-end;
+		height: 100%;
+
+		@include up-to(medium) {
+			align-items: baseline;
+			flex-direction: column;
+
+		}
+	}
+		.eventHeader-title {
+			background-color: rgba(0,0,0,0.6);
+			color: $white;
+			padding: $base_line_height;
+
+			@include up-to(medium) {
+				width: 100%;
+				box-sizing: border-box;
+				margin-bottom: 20px;
+			}
+		}
+		.eventHeader-date {
+			background-color: rgba(255,255,255,0.99);
+			position: relative;
+			
+			& > .inner {
+				padding: $base_line_height;
+			}			
+
+			.h3 {
+				color: $color_primary;
+				padding-right: 1.5em;
+			}
+		}
+			.eventHeader-actions {
+				background-color: $gray_lighter;
+			}
+				.eventActions-tocalendar {
+					width: 65%;
+					float: left;
+				}
+				.eventActions-share {
+					position: relative;
+					float: right;
+				}
+
+		.eventHeader-name {
+			text-transform: uppercase;
+			color: $color_primary;
+			margin-top: 10px;
+			font-weight: $bold;
+			@include type-setting(-1);
+
+			p {
+				font-weight: $bold;
+				@include type-setting(-1);
+				margin: 0;
+			}
+		}
+
+	.event-meta {
+		.eventmeta-term {
+			margin-right: 5px;
+		}
+	}
+	.event-content {
+
+	}
+		.event-aside {
+			background-color: $color_primary;
+			padding: 2em;
+			position: relative;
+
+			h3 {
+				color: $white;
+				margin-bottom: 20px;
+			}
+			.postmeta-term {
+				background-color: $black;
+			}
+		}
+			.relatedPost {
+				margin-bottom: $base_line_height * 2;
+
+				.entry-meta {
+					margin-top: $base_line_height / 2;
+					margin-bottom: 0;
+				}
+
+				.btn--big {
+					min-width: 50%;
+					display: inline-block;
+				}
+			}
+				.relatedPost-media {
+					position: relative;
+					margin-bottom: $base_line_height / 2;
+
+					& > ul {
+						position: absolute;
+						top: 0;
+						left: 0;
+					}
+				}
+				.relatedPost-title {
+					//color: $white;
+				}
+
+
+	.event-details {
+		background-color: $gray_light;
+		position: relative;
+		padding: $base_line_height * 2 0;
+		margin-top: $base_line_height * 3;
+
+		.row:not(:last-child) {
+			margin-bottom: $base_line_height * 2;
+		}
+
+		.h5 {
+			color: $color_primary;
+		}
+	}
+
+	.event-babysitting {
+		@include type-setting(0);
+		font-family: $font_family_title;
+		font-weight: $bold;
+		color: $color_primary;
+		text-transform: uppercase;
+		margin-left: 10px;
+	}
+
+
+

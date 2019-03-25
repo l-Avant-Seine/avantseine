@@ -1,0 +1,90 @@
+/* 
+ * templates/single
+ * 
+ * @package lavantseine-v2
+ */
+
+
+
+.page-header {
+	height: 260px;
+	width: 100%;
+	align-items: center;
+	background-color: $gray_lighter;
+}
+	.page-title {
+//		background-color: rgba(0,0,0,0.98);
+		color: $white;
+//		padding: 2em;
+	}
+
+.page-content {
+
+}
+	.page-extract {
+		@include type-setting(3);
+		color: $color_primary;
+	}
+
+.page-aside {
+	position: relative;
+}
+	.pages-menu-item  {
+		@include type-setting(4);
+		font-family: $font_family_nav;
+		font-weight: $bold;
+
+		span:before {
+			@include rotate(90deg);
+		}
+
+		&.active {
+			color: $color_primary;
+		}
+	}
+
+
+
+	.entry-accordeon {
+		background-color: $gray_lighter;
+	}
+	
+		.accordeon-title {
+			padding: 1.5em 1em;
+			cursor: pointer;
+
+			.open &,
+			.open & .h3 {
+				background-color: $color_primary;
+				color: $white;
+			}
+			
+			& > * {
+				margin-bottom: 0;
+			}
+
+			[class^="icon-fleche_accordeon"] {
+				display: inline-block;
+				float: right;
+				font-size: 20px;
+				font-weight: bold;
+			}
+		}
+
+		.accordeon-content {
+			.close & {
+				display: none;
+			}
+
+			padding: 2em;
+		}
+
+
+.page_related {
+	margin-top: 2em;
+	padding: 3em 0;
+	background-color: $gray;
+}
+
+
+

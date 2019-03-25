@@ -1,0 +1,61 @@
+/* 
+ * Footer
+ * 
+ * @package lavantseine-v2
+ */
+
+
+.site-footer {
+	margin-top: $base_line_height * 2;
+	color: $white;
+	background-color: $black;
+}
+
+
+	.footer-newsletter {
+		text-align: center;
+		background-color: $gray_lighter;
+		padding: 3em 0;
+		margin-top: $base_line_height * 2;
+
+		.footer-title {
+			color: $black;
+		}
+	}
+
+	.footer-infos {
+		padding: 3em 0;
+
+		@include up-to(medium) {
+
+			& > div {
+				margin-bottom: $base_line_height * 2;
+			}
+			& > div:nth-child(odd) {
+
+				clear: both;
+				margin-left: 0 !important;
+			}
+		}
+
+	}
+
+	.footer-logos {
+		background-color: $gray_lighter;
+		padding: 3em 0;
+		margin-top: $base_line_height * 2;
+		
+		ul {
+			margin: auto;
+		}
+	}
+
+		.logo-item {
+			max-height: 175px;
+			max-width: 175px;
+			
+			@include at-least(large) {
+				max-height: 250px;
+				max-width: 250px;
+			}
+		}

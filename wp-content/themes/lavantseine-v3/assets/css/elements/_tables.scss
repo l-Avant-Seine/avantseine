@@ -1,0 +1,62 @@
+/* 
+ * Tables
+ * 
+ * @package lavantseine-v2
+ */
+
+$table_background:                  transparent !default;
+$table_background_accent:           $gray_light !default; // for striping
+$table_background_hover:            $gray_dark !default;
+$table_border:                      $gray_dark !default;
+
+
+table {
+	margin: 0 0 1.5em;
+	width: 100%;
+}
+th {
+	font-weight: bold;
+}
+
+.table {
+  display: table;
+  table-layout: fixed;
+  vertical-align: middle;
+}
+
+  .table-cell {
+    display: table-cell;
+    vertical-align: middle;
+
+    img {
+      display: block;
+      margin: auto;
+      max-width: 80%;
+      height: auto;
+    }
+  }
+
+
+
+
+  .entry-content {
+    table {
+      border: none;
+    }
+      tr {
+        background-color: $gray_lighter;
+      }
+      tr:first-child {
+        background-color: $color_primary;
+        color: $white;
+        text-transform: uppercase;
+        font-weight: $bold;
+      }
+      td {
+        padding: 0.5em 1em;
+        border-bottom: 1px solid $white;
+      }
+  }
+
+
+

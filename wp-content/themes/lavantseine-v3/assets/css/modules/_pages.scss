@@ -1,0 +1,26 @@
+/* 
+ * Articles
+ * 
+ * @package lavantseine-v2
+ */
+
+
+
+.module-pages {
+	background-color: $gray_lighter;
+	padding: $base_line_height * 2 0;
+
+	.moduleInner {
+
+	}
+}
+
+	.moduleItem-page {
+		background-color: $white;
+		padding: 1.5em;
+
+	}
+		.modulePages-title {
+			color: $color_primary;
+			max-width: 70%;
+		}	

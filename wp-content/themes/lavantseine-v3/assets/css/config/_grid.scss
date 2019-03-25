@@ -1,0 +1,319 @@
+/* 
+ * Grid system
+ * 
+ * @package sasskit
+ */
+
+
+
+
+
+
+/* 
+ * GRID VARIABLES SETTING
+ */ 
+
+$max_width:                         1080px;
+$max_width_large:                   1200px;
+$cols:                              8 !default; 
+$gutter:                            1.5% !default; 
+        
+$mobile_first:                      true !default; 
+$minimal_breakpoint:                320px !default; 
+$medium_breakpoint:                 820px !default; 
+$large_breakpoint:                  1080px !default; 
+$wide_breakpoint:                   1400px !default; 
+
+
+$menu_height:           40px;
+$menu_height_max:       50px;
+$logo_width:            100px;
+
+.plain {
+    @include box-sizing;
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.square {
+  position: relative;
+  width: 100%;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.square-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.is-flex {
+  display: flex;
+}
+
+.layer-bg {
+  position: absolute;
+  top: 0;
+  left: 0 ;
+  right: 0;
+  bottom: 0;
+  z-index: -999;
+}
+
+%offset {
+  position: absolute;
+  content: '';
+  background-color: inherit;
+  top: 0;
+  bottom: 0;
+  width: 5000px;          
+
+    @include up-to(medium) {
+        width: auto;
+    }
+}
+.offset-right {
+  position: relative;
+
+  &:after {
+    @extend %offset;
+    right: -5000px;
+  }
+}
+.offset-left {
+  position: relative;
+  
+  &:before {
+    @extend %offset;
+    left: -5000px;
+  }      
+}
+
+
+.wrap {
+    @include box-sizing;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include up-to(medium) {
+        width: 90%;
+    }
+    @include at-least(medium) {
+        width: 95%;
+    }
+    @include at-least(large) {
+        width: $max_width;
+    }
+    @include at-least(wide) {
+        width: $max_width_large;
+    }
+}
+
+/* 
+ * DON'T TOUCHE THIS !
+ */
+
+$one_col: (100% - ($gutter * ($cols - 1))) / $cols;
+
+@mixin cols($num) {
+    @include box-sizing();
+    width: ($one_col * $num) + ($gutter * ($num - 1));
+}
+
+
+
+@mixin sub_cols($num_child, $num_parent) {
+    $parent_size: ($one_col * $num_parent) + ($gutter * ($num_parent - 1));
+    $child_size: ($one_col * $num_child) + ($gutter * ($num_child - 1));
+    margin-left: ($gutter / $parent_size) * 100%;
+    width: ($child_size / $parent_size) * 100%;
+}
+
+@mixin parse-columns($suffix: ''){
+    .row {
+        @for $i from 1 through $cols {
+            %#{$suffix}-#{$i}col,
+            .#{$suffix}-#{$i}col{
+                @include cols($i);
+                float: left;
+                margin-left: $gutter;
+
+                .row {
+                    @for $j from 1 through ($i - 1) {
+                        %#{$suffix}-#{$j}col,
+                        .#{$suffix}-#{$j}col {
+                            @include sub_cols($j, $i);
+                        }
+                    }
+                }   
+            }
+            
+
+            %#{$suffix}-#{$i}col-push, .#{$suffix}-#{$i}col-push { left: $i / $cols * 100%; position: relative; right: auto; }
+            %#{$suffix}-#{$i}col-pull, .#{$suffix}-#{$i}col-pull { right: $i / $cols * 100%; position: relative; left: auto; }
+        }
+        .#{$suffix}-clearfix { margin-left: 0 !important; clear: both; }
+        %#{$suffix}-hide, .#{$suffix}-hide { display: none; }
+        %#{$suffix}-show, .#{$suffix}-show { display: block; }
+        %#{$suffix}-first, .#{$suffix}-first { margin-left: 0 !important; }
+        %#{$suffix}-last, .#{$suffix}-last { float: right !important; }
+    }
+}
+
+.row {
+    @include clearfix;
+
+    > div:first-child, 
+    .row > div:first-child { 
+        margin-left: 0;
+    }
+
+    .is-centered {
+        display: block;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        float: none !important;
+    }
+}
+
+
+
+/* 
+ * SECONDARY GRID
+ */
+
+$cols_alt:                  6 !default; 
+$gutter_alt:                2% !default; 
+
+$one_col_alt: (100% - ($gutter_alt * ($cols_alt - 1))) / $cols_alt;
+
+@mixin cols_alt($num) {
+    @include box-sizing();
+    width: ($one_col_alt * $num) + ($gutter_alt * ($num - 1));
+}
+
+@mixin sub_cols($num_child, $num_parent) {
+    $parent_size: ($one_col_alt * $num_parent) + ($gutter_alt * ($num_parent - 1));
+    $child_size: ($one_col_alt * $num_child) + ($gutter_alt * ($num_child - 1));
+    margin-left: ($gutter_alt / $parent_size) * 100%;
+    width: ($child_size / $parent_size) * 100%;
+}
+
+@mixin parse-columns-alt($suffix: ''){
+    .row_alt {
+        @for $i from 1 through $cols_alt {
+            %#{$suffix}-#{$i}coll,
+            .#{$suffix}-#{$i}coll{
+                @include cols_alt($i);
+                float: left;
+                margin-left: $gutter_alt;
+
+                .row_alt {
+                    @for $j from 1 through ($i - 1) {
+                        %#{$suffix}-#{$j}coll,
+                        .#{$suffix}-#{$j}coll {
+                            @include sub_cols($j, $i);
+                        }
+                    }
+                }   
+            }
+            
+
+            %#{$suffix}-#{$i}coll-push, .#{$suffix}-#{$i}coll-push { left: $i / $cols_alt * 100%; position: relative; right: auto; }
+            %#{$suffix}-#{$i}coll-pull, .#{$suffix}-#{$i}coll-pull { right: $i / $cols_alt * 100%; position: relative; left: auto; }
+        }
+        .#{$suffix}-clearfix { margin-left: 0 !important; clear: both; }
+        %#{$suffix}-hide, .#{$suffix}-hide { display: none; }
+        %#{$suffix}-show, .#{$suffix}-show { display: block; }
+        %#{$suffix}-first, .#{$suffix}-first { margin-left: 0 !important; }
+        %#{$suffix}-last, .#{$suffix}-last { float: right !important; }
+    }
+}
+
+.row_alt {
+    @include clearfix;
+
+    > div:first-child, 
+    .row_alt > div:first-child { 
+        margin-left: 0;
+    }
+
+    .is-centered {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      float: none !important;
+    }
+}
+
+/* 
+ * GRID GENERATOR
+ */
+
+@if $mobile_first {
+    @include at-least(minimal) {
+        @include parse-columns-alt('s');
+    }
+    @include at-least(medium) {
+        @include parse-columns-alt('m');
+    }
+    @include at-least(large) {
+        @include parse-columns-alt('l');
+    }
+    @include at-least(wide) {
+        @include parse-columns-alt('w');
+    }
+}
+@else {
+    @include parse-columns-alt('w');
+
+    @include up-to(wide) {
+        @include parse-columns-alt('l');
+    }
+    @include up-to(large) {
+        @include parse-columns-alt('m');
+    }
+    @include up-to(medium) {
+        @include parse-columns-alt('s');
+    }
+}
+
+
+
+
+/* 
+ * GRID GENERATOR
+ */
+
+@if $mobile_first {
+    @include at-least(minimal) {
+        @include parse-columns('s');
+    }
+    @include at-least(medium) {
+        @include parse-columns('m');
+    }
+    @include at-least(large) {
+        @include parse-columns('l');
+    }
+    @include at-least(wide) {
+        @include parse-columns('w');
+    }
+}
+@else {
+    @include parse-columns('w');
+
+    @include up-to(wide) {
+        @include parse-columns('l');
+    }
+    @include up-to(large) {
+        @include parse-columns('m');
+    }
+    @include up-to(medium) {
+        @include parse-columns('s');
+    }
+}

@@ -1,0 +1,54 @@
+/* 
+ * Colors
+ * 
+ * @package sasskit
+ */
+
+
+
+// Color Scheme
+// examples based on the official Sass styleguide
+// =============
+
+// Descriptive colors (example)
+$gold                       	: #b89f7c;
+
+// Grey nuances
+$black                        : #000 !default;
+$gray_darker                  : rgb(26, 23, 20) !default;
+$gray_dark                    : #333 !default;
+$gray                         : #e6e6e6 !default;
+$gray_light                   : #f2f2f2 !default;
+$gray_lighter                 : #f2f2f2 !default;
+$white                        : #fff !default;
+
+// Main color palette
+$color_primary                : $gold;
+$color_metas                  : $gold;
+
+// Common colors
+$color_background             : $white;
+$color_text                   : $gray_darker;
+
+// Links
+$color_link                   : $color_primary;
+
+// Code
+$color_code                   : #333;
+$color_code_background        : #f3f3f3;
+$color_pre                    : #d4d4d4;
+$color_pre_background         : #333;
+
+// Selections
+$color_selection              : #b3d4fc;
+
+// Messages
+$color_message                : #f4ecbb;
+$color_success                : #2cde2c;
+$color_warning                : #cf8600;
+$color_important              : #d00;
+$color_notice                 : #66b;
+
+
+
+

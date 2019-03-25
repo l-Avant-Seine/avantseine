@@ -1,0 +1,64 @@
+/* 
+ * Set up general & particulars modules : headers, contents, footers
+ * 
+ * @package lavantseine-v2
+ *
+ */
+
+
+
+@import "header";
+@import "footer";
+@import "modals";
+@import "articles";
+@import "pages";
+@import "events";
+@import "services";
+@import "focus";
+
+
+//Commun stuffs
+
+.layer {
+	margin-bottom: $base_line_height * 2;
+}
+
+.module-week,
+.module-brochure {
+	background-color: $color_primary;
+	padding: 2em;
+
+	.h4 {
+		color: $white;
+	}
+}
+
+.module-infos {
+	background-color: $black;
+	color: $color_primary;
+	padding: 2em;
+}
+.module-childpages {
+	background-color: $gray_lighter;
+	padding: 2em;
+
+	h1 {
+		text-align: left;
+		margin-bottom: 0.4em;
+	}
+}
+
+.module-actions {
+	text-align: center;
+	
+	&.goto {
+	}
+
+	&.newsletter {
+		input[type=text] {
+		}
+		input[type=submit] {
+		}
+	}
+
+}

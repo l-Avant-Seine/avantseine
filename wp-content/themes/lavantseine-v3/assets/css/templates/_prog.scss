@@ -1,0 +1,135 @@
+
+
+.prog-pagetitle {
+	padding: 6em 0 3em;
+	background-color: $black;
+	color: $white;
+}
+
+
+.prog-filters {
+	background-color: $gray_lighter;
+	margin-bottom: $base_line_height * 2;
+
+	.c-select {
+
+		@include at-least(medium) {
+			margin-right: 10px;
+		}
+		@include up-to(large) {
+			margin-right: 5px;
+		}
+	}
+}		
+	.progFilterForm-upper {
+		background-color: $gray_light;
+		padding: 20px 0;
+
+		.label {
+			background-color: $white;
+			float: left;
+			margin-right: 5px;
+			padding: 0.7em;
+		}
+
+		@include at-least(large) {
+			.label {
+				margin-right: 20px;
+				padding: 0.8em;
+			}
+		}
+	}
+
+	.progFilterForm-lower {
+		display: none;
+		background-color: $gray;
+		padding: 10px 0;
+	}
+
+
+.prog-aside {
+	position: absolute;
+	border-left: 20px solid $white;
+	right: 20px;
+
+	@include up-to(medium) {
+		position: relative;
+		right: 0;
+		border-left: none;
+	}
+}
+
+
+.box-month {
+	color: $color_primary;
+	padding-bottom: $base_line_height;
+	margin-bottom: $base_line_height * 2;
+	border-bottom: 7px solid;
+
+	& + .m-2coll {
+		margin-left: 0 !important;
+	}
+}	
+
+.event-row {
+	margin-bottom: $base_line_height * 2;
+	clear: none !important;
+	
+	.m-first {
+		clear: both;
+	}
+	
+}
+
+.no-posts {
+	padding: 2em 0;
+}
+
+
+
+.pdf-list {
+
+}
+li[class^="pdfItem"] {
+	@include box-sizing;
+	width: 100%;
+	clear: both;
+}
+
+.pdfItem-first {
+	background-color: $black;
+	border: none;
+	margin-bottom: $base_line_height / 2;
+
+	span {
+		margin-right: $base_line_height / 2;
+	}
+}
+.pdfItem-others {
+	background: none;
+	color: $black;
+	border: 1px solid;
+	margin-bottom: 0;
+	
+	span {
+		margin-left: $base_line_height;
+		float: right;
+	}
+
+	& + ul {
+		border: 1px solid;
+		border-top: none;
+		padding: 1em;
+
+		span {
+			margin-right: $base_line_height / 2;
+		}
+	}
+	&.open {
+		border-bottom: none;
+	}
+	&:not(.open) + ul {
+		display: none;
+	}
+}
+

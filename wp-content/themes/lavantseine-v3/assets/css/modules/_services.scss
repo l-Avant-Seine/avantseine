@@ -1,0 +1,30 @@
+/* 
+ * Articles
+ * 
+ * @package lavantseine-v2
+ */
+
+
+
+.module-services {
+	background-color: $color_primary;
+	padding: $base_line_height;
+	position: relative;
+
+	.module-title {
+		color: $white;
+		margin-bottom: 40px;
+	}
+
+	.btn {
+		color: $white;
+	}
+
+	@include up-to(medium) {
+		margin-top: $base_line_height * 2;
+	}
+}
+
+	.moduleService-item {
+		margin-bottom: $base_line_height * 2;
+	}	

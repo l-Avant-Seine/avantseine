@@ -1,0 +1,24 @@
+/* 
+ * Articles
+ * 
+ * @package lavantseine-v2
+ */
+
+
+
+.module-events {
+
+	.item {
+		&:nth-child(odd) {
+			margin-left: 0 !important;
+			clear: both;
+		}
+	}
+}
+
+.moduleEvents-title {
+	
+	span {
+		color: $color_primary;
+	}
+}
