@@ -1,0 +1,9 @@
+{
+	"name": "metaverse",
+	"devDependencies": {
+	    "gulp": "3.5.2"
+	},
+	"scripts": {
+	    "test": "gulp test"
+	}
+}
