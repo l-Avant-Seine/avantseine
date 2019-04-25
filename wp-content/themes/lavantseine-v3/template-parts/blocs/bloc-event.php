@@ -13,6 +13,8 @@ $today = time();
 	$event_dealer_link = get_field( 'eventDetail_dealer-link' );
 
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
+	$exhibition = get_field( 'eventDetail_exhibition' );
+
 ?>
 
 
@@ -48,7 +50,7 @@ $today = time();
 
 				<div class="blocEvent-dates meta-date">
 					<?php
-						echo get_event_dates($event_first_date, $event_last_date, $event_other_dates);
+						echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
 					?>
 
 				</div><!-- .blocEvent-dates -->

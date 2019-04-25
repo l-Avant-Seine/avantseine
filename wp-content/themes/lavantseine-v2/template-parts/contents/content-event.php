@@ -87,7 +87,7 @@ endif;
 
 					<?php if ( $event_duration ) : echo "<p class='eventHeader-duration' itemprop='duration' content='T1M33S'> <span class='icon-horloge'></span> ". $event_duration ."</p>"; endif; ?>
 					
-					<?php if( intval($event_first_date) > $today ) : ?>
+					<?php if( intval($event_last_date) > $today ) : ?>
 						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big">réserver mes places</a>
 					<?php endif; ?>
 				</div>
