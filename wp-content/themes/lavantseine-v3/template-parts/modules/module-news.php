@@ -1,5 +1,5 @@
 	<div>
-		<h3 class="h_3">L'actualité</h3>
+		<h3 class="h_2">L'actualité</h3>
 
 			<?php if( have_rows('focus_elements', 'option') ): ?>
 

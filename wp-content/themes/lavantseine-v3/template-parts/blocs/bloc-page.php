@@ -1,9 +1,10 @@
 
 
-			<div class="moduleItem-page">
-				
-				<h3 class="h5 modulePages-title">&#x02666;<br><?php the_title(); ?></h3>
-				<div class="modulePages-excerpt">
+			<div class="page-item">
+
+				<h5 class="h_4 item-title"><?php the_title(); ?></h5>
+
+				<div class="item-excerpt">
 					<?php 
 						if( get_field('pageDetail_intro') != '' ) : 
 							the_field('pageDetail_intro'); 
@@ -11,7 +12,11 @@
 							the_excerpt(); 
 						endif; 
 						?>
-				</div>
-				<a href="<?php the_permalink(); ?>" class="btn--little"><span class="icon-arrow-right"></span>En savoir plus</a>
+						
+					</div>
+				
+				<a href="<?php the_permalink(); ?>" class="btn--little">
+					<span class="icon-plus"></span>En savoir plus
+				</a>
 
-			</div>
+			</div><!-- .page-item -->

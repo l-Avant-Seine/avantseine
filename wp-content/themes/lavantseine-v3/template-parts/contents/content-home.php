@@ -13,16 +13,29 @@
 <div class="cf">
 
 	<!-- Focus -->
-	<div id="" class="layer">
+	<div class="row mb-3">
+
 		<?php 
-			global $focus_event_id;
-			set_query_var('focus_event_id', $focus_event_id);
 			get_template_part('template-parts/modules/module', 'focus'); 
 		?>
+
 	</div>
 
 
-	<div class="row">
+	<div class="row wrap mb-2">
+
+		<div class="m-15col">
+			<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+		</div>
+
+		<div class="m-8col m-1col-push">
+			<a href="/programmation" class="btn-primary">voir tous les spectacles</a>
+		</div>
+
+	</div>
+
+
+	<div class="row wrap mb-2">
 
 		<div class="m-14col">
 
@@ -61,13 +74,15 @@
 			
 			<?php 
 				$services_pages = get_field('services_pages', 'option'); 
-				set_query_var('services_pages', $services_pages);
-				get_template_part('template-parts/modules/module', 'services'); 
+				set_query_var('pages_list', $services_pages);
+				set_query_var('title', 'à votre service');
+				get_template_part('template-parts/modules/module', 'pages'); 
 			?>
 
 			<?php
 				$pages = get_field('home_pages', 'option'); 
 				set_query_var('pages_list', $pages);
+				set_query_var('title', 'avec vous');
 				get_template_part('template-parts/modules/module', 'pages'); 
 			?>
 
@@ -78,7 +93,6 @@
 
 
 
-	<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
 
 
 
