@@ -139,11 +139,12 @@ function lavantseine_v2_scripts() {
 
 	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
 
-	wp_register_script( 'salvatorre', get_template_directory_uri() .'/assets/js/salvatorre.js' , 'jquery', '', true );
+	wp_register_script( 'salvattore', get_template_directory_uri() .'/assets/js/lib/salvattore.js' , 'jquery', '', true );
 	wp_register_script( 'slick', get_template_directory_uri() .'/assets/js/lib/slick.js' , 'jquery', '', true );
 	wp_register_script( 'blazy', get_template_directory_uri() .'/assets/js/lib/blazy.js' , 'jquery', '', true );
 
 	wp_enqueue_script('blazy');
+	wp_enqueue_script('salvattore');
 
 	wp_localize_script('lavantseine-v2-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 }

@@ -1,6 +1,57 @@
 
 
-.service-item
-	margin-bottom: $base_line_height
 
-	
+
+.page-item
+	margin-bottom: $base_line_height
+	width: 47%
+
+	&:nth-child(odd)
+		float: right
+
+	&:nth-child(even)
+		float: left
+		clear: both
+
+
+.focus-item
+
+	a
+		display: block
+		max-width: 100%
+
+	.item_title
+		color: $blue
+
+	.item-cover
+		width: 50%
+		float: left
+
+	.item-text
+		width: 45%
+		float: right
+
+
+
+.article-item
+
+	.item-header
+		position: relative
+
+	.item-cover
+		margin-bottom: 0
+
+	.icon-video
+		position: absolute
+		top: 0
+		width: 60%
+
+	.item-tax
+		background-color: $red
+		color: $white
+		padding: .3em .8em
+
+	.item_title
+		color: $blue
+
+

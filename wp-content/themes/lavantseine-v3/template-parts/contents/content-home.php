@@ -39,10 +39,17 @@
 
 		<div class="m-14col">
 
-			<?php get_template_part('template-parts/modules/module', 'news'); ?>
+			<section class="module-news cf mb-2">
+			
+				<h3 class="h_2">L'actualité</h3>
+			
+				<?php get_template_part('template-parts/modules/module', 'news'); ?>
+			
+			</section>
+
 
 			<!-- Derniers articles du magazine -->
-			<section class="cf">
+			<section class="module-lastarticles cf mb-2">
 
 					<?php 
 						$args = array(
@@ -59,9 +66,7 @@
 						wp_reset_postdata(); 
 					?>
 
-				<div class="module-actions">
-					<a href="/magazine" class="btn-primary is-centered">voir tous les articles</a>
-				</div>
+				
 
 			</section>
 

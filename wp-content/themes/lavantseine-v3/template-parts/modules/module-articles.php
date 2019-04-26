@@ -5,52 +5,31 @@
 	
 	<?php if ( $query->have_posts() ) : ?>
 
-	<?php if( !isset($module_title) ) : ?>
-		<h2 class="moduleArticles-title h2">
-			<span>le Magazine</span> <br>de l'Avant Seine
-		</h2>
-	<?php else : ?>
-		<h2 class="moduleArticles-title h2">
-			<?php echo $module_title; ?>
-		</h2>
-	<?php endif; ?>
 
-	<div id="webmag-innergrid" data-columns class="row">
-		<?php $i = 0; $excerpt = true; ?>
-		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+		<?php if( !isset($module_title) ) : ?>
+			<h2 class="moduleArticles-title h_2">
+				<span>Le magazine !</span>
+			</h2>
+		<?php else : ?>
+			<h2 class="moduleArticles-title h_2">
+				<?php echo $module_title; ?>
+			</h2>
+		<?php endif; ?>
 
-			<?php 
-				switch ($i) {
-					case 1:
-						$class = 'm-2col blocArticle--little';
-						$excerpt = false;
-						break;
-					
-					case 3:
-						$class = 'm-first m-3col clearfix blocArticle--big';
-						$excerpt = true;
-						break;
 
-					case 5:
-						$class = 'm-2col blocArticle--little';
-						$excerpt = false;
-						break;	
+		<div id="salgrid_1" data-columns class="row">
+			<?php $excerpt = true; ?>
+			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-					default:
-						$class = 'm-3col blocArticle--big';
-						$excerpt = true;
-						break;
-				} ?>
+				<?php set_query_var('excerpt', $excerpt); ?>
+				<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
 
-<!-- 			<div class="<?php echo $class; ?> moduleArticles-item">
- -->				<?php set_query_var('excerpt', $excerpt); ?>
-				<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>
-<!-- 			</div>
- -->
-			<?php $i++; ?>
+			<?php endwhile; ?>
 
-		<?php endwhile; ?>
-	</div>
+			<div class="module-actions">
+				<a href="/magazine" class="btn-primary">voir tous les articles</a>
+			</div>
+		</div>
 
 	<?php endif; ?>
 </section>
