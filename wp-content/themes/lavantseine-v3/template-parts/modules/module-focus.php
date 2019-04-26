@@ -1,5 +1,6 @@
 <?php
 	global $focus_event_id; 
+	wp_enqueue_script('slick');
 
 
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
@@ -7,7 +8,7 @@
 
 	$args = array(
 		'post_type' 			=> 'event',
-		'posts_per_page' 	=> '1',
+		'posts_per_page' 	=> '4',
 		'post_status'			=> 'publish', 
 		'meta_key' => 'eventDetail_first_date',
 		'orderby' => 'meta_value_num',
@@ -20,24 +21,43 @@
 		    )
 		)	
 	);
-	$last_event = get_posts( $args );
-	$last_event = $last_event[0];
-	$focus_event_id = $last_event->ID;
+	$last_events = get_posts( $args ); ?>
 
-	// $focus_event = get_field('focus_event', 'option'); 
-	// $focus_event_id = $focus_event->ID;
+
+	<div class="home-slides">
 	
-	$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $focus_event_id ), 'large' );
-	$exhibition = get_field( 'eventDetail_exhibition', $focus_event_id );
-	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $focus_event_id ) );
-	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $focus_event_id ) );
-	$event_other_dates = get_field('eventDetail_otherdates', $focus_event_id);
+		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); 
+		
+			$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+			$exhibition = get_field( 'eventDetail_exhibition', get_the_ID() );
+			$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $post->ID ) );
+			$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
+			$event_other_dates = get_field('eventDetail_otherdates', $post->ID ); ?>
+
+					
+		  <div class="slide is-flex">
+		  	
+		  	<a href="<?php the_permalink(); ?>" class="slide-cover">
+		  		<img src="<?php if( get_field('gif', $focus_event_id ) ) : the_field('gif', $focus_event_id); else : echo $focus_event_media_url[0]; endif; ?>" alt="">
+		  	</a>
+
+		  	<a href="<?php the_permalink(); ?>" class="slide-text">
+		  		<h3 class="h_1 slide-title mb-05"><?php the_title(); ?></h3>
+		  		<span class="label_2"><?php the_field( 'noms_principaux' ); ?></span><br>
+					<span class="label_3"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></span>
+		  	</a>
+
+		  </div>
 
 
 
-	if( $focus_event_id ): ?>
+		<?php endforeach; 
+		wp_reset_postdata(); ?>
+	
+	</div><!-- .home-slide -->
 
-	<section class="module-focus bg_cover" style="background-image: url(<?php if( get_field('gif', $focus_event_id ) ) : the_field('gif', $focus_event_id); else : echo $focus_event_media_url[0]; endif; ?>);">
+
+
 
 
 		<?php //if( get_field( 'eventDetail_mediaMarkup', $focus_event_id ) ) : ?>
@@ -48,152 +68,7 @@
 		<?php // endif; ?>
 
 		
-		<div class="moduleInner is-flex row_alt">
-				
-				<a href="<?php echo get_permalink($focus_event_id); ?>" class="full_absolute">
 
-	    	<div class="focusEvent_infos m-3coll offset-right m-first">
-	    		<a href="<?php echo get_permalink($focus_event_id); ?>">
-	    			<span>Le prochain rendez-vous</span><br><br>
-	    			<h3 class="h1 focusEvent_title"><?php echo get_the_title($focus_event_id); ?></h3>
-	    			<span class="meta-date"><?php the_field( 'noms_principaux', $focus_event_id ); ?></span><br>
-						<span class="meta-date"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></span>
-	    		</a>
-	    	</div>
-
-
-			<?php if( have_rows('focus_elements', 'option') ): ?>
-
-		   	<?php while ( have_rows('focus_elements', 'option') ) : the_row();
-
-		        if( get_row_layout() == 'focusElements_page' ):
-		        	$focusElements_page = get_sub_field('focusElements_page'); ?>
-
-							<div class="focusElement_item m-1coll">
-								
-								<?php if( get_sub_field('pastille') != '' ) : ?>
-									<div class="focusElement-pastille is-flex">
-										<span><?php the_sub_field('pastille'); ?></span>
-									</div>
-								<?php endif; ?>
-
-								<div class="square">
-									<a href="<?php echo get_permalink( $focusElements_page->ID ); ?>">
-										<div class="square-content bg_cover b-lazy" data-src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_page->ID ), 'large' )[0]; ?>">
-										</div>
-									</a>
-								</div>
-								
-								<div class="inner">
-									<a href="<?php echo get_permalink( $focusElements_page->ID ); ?>">
-						    		<h3 class="h5"><?php echo $focusElements_page->post_title; ?></a></h3>
-						    		<div class="focusElement_p"><?php the_sub_field( 'focusElements_page_texte' ); ?></div>
-						    	</a>
-						    </div>
-
-					    </div>
-
-		        <?php elseif( get_row_layout() == 'focusElements_article' ): 
-		        	$focusElements_article = get_sub_field('focusElements_article'); ?>
-							
-								<div class="focusElement_item m-1coll">
-
-									<?php if( get_sub_field('pastille') != '' ) : ?>
-										<div class="focusElement-pastille is-flex">
-											<span><?php the_sub_field('pastille'); ?></span>
-										</div>
-									<?php endif; ?>
-
-									<div class="square">
-										<a href="<?php echo get_permalink( $focusElements_article->ID ); ?>">
-											<div class="square-content bg_cover b-lazy" data-src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_article->ID ), 'large' )[0]; ?>">
-											</div>
-										</a>
-									</div>
-
-									<div class="inner">
-										<a href="<?php echo get_permalink( $focusElements_article->ID ); ?>">
-							    		<h3 class="h5"><?php echo $focusElements_article->post_title; ?></h3>
-							    		<div class="focusElement_p">
-							    			<p><?php the_sub_field('focusElements_article_texte'); ?></p>
-							    		</div>
-							    	</a>
-							    </div>
-						    </div>
-
-
-
-		        <?php elseif( get_row_layout() == 'focusElements_event' ): 
-		        	$focusElements_event = get_sub_field('focusElements_event');  ?>
-							
-								<div class="focusElement_item m-1coll">
-
-									<?php if( get_sub_field('pastille') != '' ) : ?>
-										<div class="focusElement-pastille is-flex">
-											<span><?php the_sub_field('pastille'); ?></span>
-										</div>
-									<?php endif; ?>
- 
-									<div class="square">
-										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
-											<div class="square-content bg_cover b-lazy" data-src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focusElements_event->ID ), 'large' )[0]; ?>">
-											</div>
-										</a>
-									</div>
-
-									<div class="inner">
-										<a href="<?php echo get_permalink( $focusElements_event->ID ); ?>">
-							    		<h3 class="h5"><?php echo $focusElements_event->post_title; ?></h3>
-							    		<div class="focusElement_p">
-							    			<p><?php the_sub_field('focusElements_event_texte'); ?></p>
-							    		</div>
-							    	</a>
-							    </div>
-						    </div>
-						   
-
-
-
-		        <?php elseif( get_row_layout() == 'focusElements_libre' ): ?>
-							
-								<div class="focusElement_item m-1coll">
-
-									<?php if( get_sub_field('pastille') != '' ) : ?>
-										<div class="focusElement-pastille is-flex">
-											<span><?php the_sub_field('pastille'); ?></span>
-										</div>
-									<?php endif; ?>
-
-									<div class="square">
-										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
-											<div class="square-content bg_cover b-lazy" data-src="<?php the_sub_field('focusElements_libre_image'); ?>">
-											</div>
-										</a>
-									</div>
-
-									<div class="inner">
-										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
-							    		<h3 class="h5"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
-							    		<div class="focusElement_p"><?php the_sub_field('focusElements_libre_texte'); ?></div>
-							    	</a>
-							    </div>
-						    </div>
-
-		        <?php endif;
-
-		    endwhile; ?>
-
-
-		<?php else :
-
-		endif; ?>
-
-
-
-	</div>
-</section>
-
-		<?php endif; ?>
 
 
 
