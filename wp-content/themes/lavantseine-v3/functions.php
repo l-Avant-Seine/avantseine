@@ -103,19 +103,6 @@ add_action( 'after_setup_theme', 'lavantseine_v2_setup' );
 
 
 
-/**
- * Set the content width in pixels, based on the theme's design and stylesheet.
- *
- * Priority 0 to make it available to lower priority callbacks.
- *
- * @global int $content_width
- */
-function lavantseine_v2_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'lavantseine_v2_content_width', 640 );
-}
-add_action( 'after_setup_theme', 'lavantseine_v2_content_width', 0 );
-
-
 
 /**
  * Register widget area.
@@ -148,12 +135,15 @@ add_action( 'widgets_init', 'lavantseine_v2_widgets_init' );
  * Enqueue scripts and styles.
  */
 function lavantseine_v2_scripts() {
-	wp_enqueue_style( 'lavantseine-v2-style', get_template_directory_uri() . '/style.min.css' );
-	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/all.min.js', array(), '', true );
+	wp_enqueue_style( 'lavantseine-v2-style', get_template_directory_uri() . '/assets/style.css' );
+
+	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
 
 	wp_register_script( 'salvatorre', get_template_directory_uri() .'/assets/js/salvatorre.js' , 'jquery', '', true );
-	wp_register_script( 'bxslider', get_template_directory_uri() .'/assets/js/bxslider.js' , 'jquery', '', true );
+	wp_register_script( 'bxslider', get_template_directory_uri() .'/assets/js/lib/bxslider.js' , 'jquery', '', true );
+	wp_register_script( 'blazy', get_template_directory_uri() .'/assets/js/lib/blazy.js' , 'jquery', '', true );
 
+	wp_enqueue_script('blazy');
 	// pass Ajax Url to script.js
 	wp_localize_script('lavantseine-v2-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 }

@@ -1,0 +1,132 @@
+%!Adobe-FontList 1.16
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:CircularPro-Bold
+FamilyName:Circular Pro
+StyleName:Bold
+MenuName:Circular Pro Bold
+StyleBits:0
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:Circular Pro Bold
+WritingScript:Roman
+OutlineFileName:\CircularPro-Bold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:95724
+FileModTime:1365709284
+NameArray:0,Mac,4,Circular Pro Bold
+NameArray:0,Win,1,Circular Pro Bold
+NameArray:0,Win,16,Circular Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:CircularPro-Book
+FamilyName:Circular Pro
+StyleName:Book
+MenuName:Circular Pro Book
+StyleBits:0
+WeightClass:450
+WidthClass:5
+AngleClass:0
+FullName:Circular Pro Book
+WritingScript:Roman
+OutlineFileName:\CircularPro-Book.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:87144
+FileModTime:1365709306
+NameArray:0,Mac,4,Circular Pro Book
+NameArray:0,Win,1,Circular Pro Book
+NameArray:0,Win,16,Circular Pro
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:CircularStd-Black
+FamilyName:Circular Std
+StyleName:Black
+MenuName:Circular Std Black
+StyleBits:0
+WeightClass:900
+WidthClass:5
+AngleClass:0
+FullName:Circular Std Black
+WritingScript:Roman
+OutlineFileName:\CircularStd-Black.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:74500
+FileModTime:1372066306
+NameArray:0,Mac,4,Circular Std Black
+NameArray:0,Win,1,Circular Std Black
+NameArray:0,Win,16,Circular Std
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:Loupot-Bold
+FamilyName:Loupot
+StyleName:Bold
+MenuName:Loupot-Bold
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:Loupot-Bold
+WritingScript:Roman
+OutlineFileName:\LoupoBol
+DataFormat:POSTResource
+UsesStandardEncoding:no
+isCFF:no
+FileLength:31372
+FileModTime:1071129124
+DesignSize:-1
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:Loupot-Bold
+OutlineFileName:\Loupot-Bold
+ResourceID:12856
+MacStyle:0
+FileLength:33156
+FileModTime:1484053124
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MinionPro-Regular
+FamilyName:Minion Pro
+StyleName:Regular
+MenuName:Minion Pro
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Minion Pro
+WritingScript:Roman
+OutlineFileName:\MinionPro-Regular.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+FileLength:205608
+FileModTime:1260193848
+DesignSize:110
+NameArray:0,Mac,4,Minion Pro
+NameArray:0,Win,1,Minion Pro
+%EndFont
+
