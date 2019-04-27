@@ -10,15 +10,26 @@ $today = time();
 ?>
 
 
-	<div id="main-webmag" class="clearfix">
+	<div id="main-webmag" class="cf mb-3">
 
 
-				<div class="webmag-title wrap">
-						<h1 class="h1">Le Magazine<br> de l'Avant Seine</h1>
+					<div class="webmag-ticker ticker-wrap">
+						<div class="ticker">
 
-				</div>
+							<?php for ($i=0; $i < 100; $i++) { 
+								if( $i % 2 === 0 ) { ?>
+									<span class="ticker__item">Le magazine de l'Avant Seine !</span>
+								<?php }
+								else { ?>
+									<span class="ticker__item red">Le magazine de l'Avant Seine !</span>
+								<?php }
+							} ?>	
+						</div>
+					</div>
 
-				<div class="webmag-filters webmag-layer">
+
+
+				<div class="webmag-filters mb-2">
 					<div class="wrap">
 						<?php 
 							$terms = get_terms( 
@@ -32,82 +43,24 @@ $today = time();
 							if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 							    $term_list = '';
 							    foreach ( $terms as $term ) {
-							        $term_list .= '<a href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( 'View all post filed under %s', 'my_localization_domain' ), $term->name ) ) . '" class="postmeta-term js-postmeta-term" cat-slug="' . $term->slug . '">' . $term->name . '</a>';
-							            
+							        $term_list .= '<a href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( 'View all post filed under %s', 'my_localization_domain' ), $term->name ) ) . '" class="postmeta-term js-postmeta-term btn-primary" cat-slug="' . $term->slug . '">' . $term->name . '</a>';
 							    }
 							    echo $term_list;
 							}
-
 						?>
 					</div>
 				</div>
 
-
-				<div id="webmag-mainGrid" class="webmag-layer clearfix wrap">
-
-					<?php $exclude_ids = array(); ?>
-
-					<?php if( !isset($_GET['tag']) && !isset($_GET['relational_tag']) ) : ?>
-
-					<div class="webmag-featured webmag-layer row is-flex">
-						<?php
-							// Display last Featured Post
-							$args = array(
-								'post_type'		=> 'post',
-								'posts_per_page' => 1,
-								'meta_query' => array(
-									array(
-										'key' => 'postDetail_featured',
-										'compare' => '==',
-											'value' => '1'
-									)
-								),
-								'orderby'			=> 'post_date',
-								'order' 			=> 'DESC'	
-							);
-							$featuredPost = get_posts( $args );
-
-							foreach ( $featuredPost as $post ) : setup_postdata( $post ); ?>
-								
-								<?php array_push($exclude_ids, $post->ID); ?>
-
-								<div class="featured-media m-5col m-first">
-									<a href="<?php the_permalink(); ?>">
-										<?php the_post_thumbnail(''); ?>
-									</a>	
-								</div>
-
-								<div class="featured-content m-3col">
-
-									<div class="featured-meta">
-										<span class="meta-date"><?php the_time('d/m/Y'); ?></span>
-									</div>
-
-									<a href="<?php the_permalink(); ?>">
-										<h2 class="h2">
-											<?php the_title(); ?>
-											<br><span class="title-diamond">&#x02666;</span>
-										</h2>
-									</a>
-
-									<?php $post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-
-										echo "<p>".$post_shortText. "</p>";
-
-									?>
-								</div>
-
-							<?php endforeach; 
-							wp_reset_postdata();
-						?>
-					</div><!-- end .featured-post -->
-
-				<?php endif; ?>
+				<div class=" wrap row mb-2">
+					<div class="m-8col">
+						<h1 class="webmag-title h_1">Allez plus loin <br> avec le magazine</h1>
+					</div>
+				</div>
 
 
+				<div id="salgrid_2" data-columns class="webmag-grid cf wrap row">
 
-					<div id="webmag-innergrid" data-columns class="row">
-
+	
 						<?php
 							// QUERY ALL POST
 							if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
@@ -117,7 +70,6 @@ $today = time();
 							$args = array(
 								'post_type' 		=> 'post',
 								'order'				=> 'DESC',
-								'post__not_in'		=> $exclude_ids,
 								'posts_per_page'	=> '12',
 								'paged'				=> $paged,						
 							);
@@ -148,15 +100,13 @@ $today = time();
 
 						<?php endif; ?>
 
-					</div><!-- #magazineGrid -->
+				</div><!-- #grid -->
 
+				<div class="wrap">
 					<?php lavantseine_paging_nav(); ?>
-					<?php wp_reset_postdata(); ?>
-
-
-
-
 				</div>
+				
+				<?php wp_reset_postdata(); ?>
 
 	</div><!-- #main-magazine -->
 

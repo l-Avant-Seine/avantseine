@@ -115,11 +115,11 @@
                 'term': term_slug
             },
             function(response){
-              $('#webmag-mainGrid').html(response);
+              $('#salgrid_2').html(response);
               
-              var grid = document.getElementById('webmag-innergrid');
+              var grid = document.getElementById('salgrid_2');
               salvattore.registerGrid(grid);
-              bLazy.revalidate();
+//              bLazy.revalidate();
 
               var posts_found = $('.load-more-posts').attr('posts_found');
 
@@ -148,7 +148,7 @@
                     function(response){
                       posts_offset = posts_offset + posts_step;
 
-                      var grid = document.querySelector('#webmag-innergrid');
+                      var grid = document.querySelector('#salgrid_2');
                       var mydata =  $($.parseHTML(response)).filter(".bloc-article"); 
 
                       salvattore.appendElements(grid, mydata);
@@ -207,6 +207,7 @@ jQuery(function($) {
     });
 
 
+// ON SCROLL THINGS
 
 	$(window).scroll(function(){
 		if ( jQuery(this).scrollTop() !== 0 ) {
@@ -217,38 +218,57 @@ jQuery(function($) {
   });
 
 
+
+// GET POSTS FROM CAT TERM
+    $('.js-postmeta-term').on('click', function(event) {
+      event.preventDefault();
+      var term_slug = $(this).attr('cat-slug');
+      $(window).getPostsFromTerm( term_slug );
+      console.log('go !')
+    });
+
+    if( $('.page-category').length == 1 ) {
+      var term_slug = $('.page-category').attr('cat-slug');
+      $(window).getPostsFromTerm( term_slug );
+    }
+
+
+// LAZY LOADING
+
 	var bLazy = new Blazy({
 		selector: '.b-lazy'
   });
 
 
-	$('.home-slides').slick({
-		  centerMode: true,
-		  centerPadding: '5vw',
-		  slidesToShow: 1,
-		  prevArrow: '<a href="#" type="button" class="slick-prev"></a>',
-		  nextArrow: '<a href="#" type="button" class="slick-next"> > </a>',
-		  responsive: [
-		    {
-		      breakpoint: 768,
-		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 1
-		      }
-		    },
-		    {
-		      breakpoint: 480,
-		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 1
-		      }
-		    }
-		  ]
-		});
+  if( $('.home-slides').length > 0 ) {
+  	$('.home-slides').slick({
+  		  centerMode: true,
+  		  centerPadding: '5vw',
+  		  slidesToShow: 1,
+  		  prevArrow: '<a href="#" type="button" class="slick-prev"></a>',
+  		  nextArrow: '<a href="#" type="button" class="slick-next"> > </a>',
+  		  responsive: [
+  		    {
+  		      breakpoint: 768,
+  		      settings: {
+  		        arrows: false,
+  		        centerMode: true,
+  		        centerPadding: '40px',
+  		        slidesToShow: 1
+  		      }
+  		    },
+  		    {
+  		      breakpoint: 480,
+  		      settings: {
+  		        arrows: false,
+  		        centerMode: true,
+  		        centerPadding: '40px',
+  		        slidesToShow: 1
+  		      }
+  		    }
+  		  ]
+  	});
+  }
 
 });
 

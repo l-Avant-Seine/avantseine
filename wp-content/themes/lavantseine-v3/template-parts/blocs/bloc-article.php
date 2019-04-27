@@ -9,7 +9,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 ?>
 
 
-<article id="post-<?php the_ID(); ?>" class="article-item mb-1 <?php if(!$terms) { echo 'item-big'; } ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" class="article-item mb-2 <?php if(!$terms) { echo 'item-big'; } ?>" <?php post_class(); ?>>
 
 	<a href="<?php the_permalink(); ?>" rel="bookmark">
 		<div class="inner">
