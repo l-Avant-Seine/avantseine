@@ -84,7 +84,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 			<nav class="siteMenus-actions">
 				<ul class="nobullets">
-					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavant-seine.com/lieu/equipe/" class="btn-primary">nous contacter</a></li>
+					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary">nous contacter</a></li>
 
 					<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://billetterie.lavant-seine.com" target="_blank" class="btn-primary">réserver</a></li>
 				</ul>
