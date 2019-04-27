@@ -59,9 +59,11 @@
 
 
 .event-item
-  padding-top: 70px
   position: relative
 
+  .agenda-grid-item & 
+    padding-top: 70px
+  
   .item-header
     position: relative
 
@@ -85,8 +87,18 @@
     color: $white
     padding: .3em .8em
 
-  .item_title
-    color: $blue
+  .item-title,
+  .item-dates,
+  .item-names
+    border-bottom: 1px solid $red
+    padding: 10px 0
+
+  .item-dates,
+  .item-names
+    font-weight: $bold
+
+  .item-names
+    text-transform: lowercase
 
   .item-hover
     display: none
@@ -102,6 +114,11 @@
 
   &:hover .item-hover
     display: block
+
+  .item-actions
+    a 
+      margin: 0 10px 10px 0
+
 
 
 
@@ -164,6 +181,8 @@ $duration: 300s
     &.red
     	color: $red
 
+.agenda-ticker
+  border-bottom: 1px solid $red
 
 
 // FRAMES

@@ -29,10 +29,10 @@
 					<?php echo $event_shortText; ?>
 				</div>
 
-				<div class="">
+				<div class="item-actions">
 
 					<?php if( intval($event_last_date) > $today ) : ?>
-						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver mes places</a>
+						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
 					<?php endif; ?>
 
 					<a href="<?php the_permalink(); ?>" class="btn-primary empty">en savoir plus</a>
@@ -48,23 +48,23 @@
 			</div>
 
 			<a href="<?php the_permalink(); ?>" rel="bookmark">
-				<div class="">
 
-					<div class="">
-						<?php
-							echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
-						?>
-
-					</div><!-- .blocEvent-dates -->
-
-					<h3 class="h_3" itemprop="name">	
+					<h3 class="h_3 item-title" itemprop="name">	
 							<?php the_title(); ?>
 					</h3>
 
-					<span class="meta-name">
-						<?php the_field( 'noms_principaux' ); ?>
-					</span>
-				</div>
+					<div class="item-dates">
+						<?php
+							echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
+						?>
+					</div>
+
+					<?php if( get_field('noms_principaux') ) { ?>
+						<div class="item-names">
+							<?php the_field( 'noms_principaux' ); ?>
+						</div>
+					<?php } ?>	
+
 			</a>
 		
 		</div>

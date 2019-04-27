@@ -9,7 +9,7 @@
 
 
   		resetForms: function () {
-      	document.forms['progFilter-form'].reset();
+      	document.forms['prog-filters'].reset();
   		},
 
     /**
@@ -291,6 +291,99 @@ jQuery(function($) {
           }
       );
     });
+
+
+// LOAD MORE EVENTS
+
+    // EVENTS >> LOAD MORE
+    var step = 18;
+    var offset = step; 
+    $('.load-more').on('click', function(event) {
+      event.preventDefault();
+      var pastEvents;
+      var posts_found = $(this).attr('posts_found');
+      var month = $('.box-month').last().attr('month');
+      var archives_value = $('input[name="is_archives"]').attr('checked');
+
+      if( archives_value === undefined ) {
+         pastEvents = true;
+      } else {
+         pastEvents = false;
+      }
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'load_more',
+              'offset': offset,
+              'step': step,
+              'previous_month': month,
+              'pastEvents': pastEvents
+          },
+          function(response){
+            offset = offset + step;
+            $('#agenda-grid-item').append(response);
+
+            if(posts_found < offset) {
+              $('.load-more').hide();
+            }
+            
+            //bLazy.revalidate();
+
+          }
+      );
+    });
+
+
+
+// EVENTS >> GET EVENTS FROM FILTERS
+
+    $('#prog-filters').on('change', function(event) {
+      event.preventDefault();
+
+      var discipline_value = $(this).find('select[name="discipline"]').val();
+      var rdv_value = $(this).find('select[name="rdv"]').val();
+      var public_value = $(this).find('select[name="public"]').val();
+      var tarif_value = $(this).find('select[name="tarif"]').val();
+      var is_archives_value = $(this).find('input[name="is_archives"]').is(':checked');
+      var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
+
+      $('#agenda-maingrid').append('<div class="msg">Nous recherchons dans la programmation...</div>');
+
+      $('#agenda-maingrid').find('.event-outer').remove();
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'get_events_filtered',
+              'discipline_value': discipline_value,
+              'rdv_value': rdv_value,
+              'public_value': public_value,
+              'tarif_value': tarif_value,
+              'is_archives_value': !is_archives_value,
+              'saison_value': saison_value,
+          },
+          function(response){
+
+            if( saison_value !== '0' ) {
+              $('.load-more').hide();
+            }
+
+            $('.msg').remove();
+            $('#agenda-maingrid').append(response);
+            
+            if( $('.no-posts').length == 1 ) {
+              $('.load-more').hide();
+            } 
+
+            //bLazy.revalidate();
+
+          }
+      );
+    });
+
+
+
 
 
 // SLICK SLIDERS

@@ -11,7 +11,7 @@
 	<div id="main-agenda" class="cf mb-3">
 
 
-		<div class="agenda-ticker ticker-wrap">
+		<div class="agenda-ticker ticker-wrap mb-1">
 			<div class="ticker">
 
 				<?php for ($i=0; $i < 100; $i++) { 
@@ -28,20 +28,17 @@
 
 
 		<div class="wrap row">
-				<h1 class="h1">
-					La programmation<br>
-					à venir`
-				</h1>
-					<br>
-					<?php if( is_tax() ) : echo get_the_archive_title(); endif; ?>
+			<span class="h_2">
+				<?php if( is_tax() ) : echo get_the_archive_title(); endif; ?>
+			</span>
 		</div><!-- .row -->
 
 
-		<div id="" class="row wrap">
+		<div id="agenda-maingrid" class="row wrap">
 			
 				<div class="agenda-grid-item m-8col prog-filters">
 					
-					<form action="" id="progFilter-form" class="" name="progFilter-form">
+					<form action="" id="prog-filters" class="mb-2" name="prog-filters">
 
 						<div class="">
 							<div class="label h_4">filtrer</div>
@@ -67,7 +64,7 @@
 					</form>
 
 
-						<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
+					<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
 
 
 				</div><!-- .filters	 -->

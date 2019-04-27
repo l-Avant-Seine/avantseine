@@ -5,7 +5,7 @@
 
 							<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-								<div class="agenda-grid-item m-8col">
+								<div class="agenda-grid-item event-outer m-8col">
 
 									<?php
 										$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );

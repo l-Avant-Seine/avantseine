@@ -163,15 +163,19 @@ if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
 			if ( $terms ) {
 				printf( '<div class="c-select">' );
 				printf( '<select name="%s" class="">', esc_attr( $name ) );
+
 				if ( $show_option_all ) {
 					printf( '<option value="0">%s</option>', esc_html( $show_option_all ) );
 				}
+
 				if ( $show_option_none ) {
 					printf( '<option value="-1">%s</option>', esc_html( $show_option_none ) );
 				}
+
 				foreach ( $terms as $term ) {
 					printf( '<option value="%s">%s</option>', esc_attr( $term->slug ), esc_html( $term->name ) );
 				}
+				
 				print( '</select></div>' );
 			}
 	}
