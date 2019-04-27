@@ -259,13 +259,15 @@ function search() {
 
 	if ( $ajax_query->have_posts() ) : ?>
 
-		<h2 class="h2">Il y a <span><?php echo $ajax_query->found_posts; ?></span> résultat<?php if( $ajax_query->found_posts > 1 ) : echo 's'; endif; ?> pour la recherche <em><?php echo $keyword; ?></em></h2>
+		<h2 class="h_2 mb-2">
+			Il y a <span><?php echo $ajax_query->found_posts; ?></span> résultat<?php if( $ajax_query->found_posts > 1 ) : echo 's'; endif; ?> pour la recherche <em><?php echo $keyword; ?></em>
 
-		<?php if( $ajax_query->found_posts > 10 ) : ?>
-			<p>Voici les 10 premiers...</p>
-		<?php endif; ?>
-		
-		<div id="webmag-innergrid" data-columns class="row">
+			<?php if( $ajax_query->found_posts > 10 ) : ?>
+				<br>Voici les 10 premiers...
+			<?php endif; ?>
+		</h2>
+
+		<div id="salgrid_3" data-columns class="row mb-2">
 		<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
 			
 			$post_type = get_post_type(); 
@@ -291,8 +293,8 @@ function search() {
 		endwhile; ?>
 		</div>
 		
-		<div class="row">
-			<a href="/?s=<?php echo $keyword ?>" class="btn--big is-centered">Voir tous les résulats</a>
+		<div class="row mb-2">
+			<a href="/?s=<?php echo $keyword ?>" class="btn-primary is-centered">Voir tous les résulats</a>
 		</div>
 	<?php endif;
 

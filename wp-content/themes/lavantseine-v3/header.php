@@ -154,8 +154,8 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 	</header><!-- #masthead -->
 
-	<div class="emptyModal">
-		<div class="emptyModal-inner wrap">
+	<div class="modal">
+		<div class="modal-inner wrap">
 			Nous cherchons...
 
 		</div>

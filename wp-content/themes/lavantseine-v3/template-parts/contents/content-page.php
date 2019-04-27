@@ -157,7 +157,7 @@
 
 		<section id="" class="cf page_related">
 			<div class="wrap">
-				<div id="salgrid_2" data-columns class="row">
+				<div id="salgrid_3" data-columns class="row">
 				<?php while ( $related_posts_query->have_posts() ) : $related_posts_query->the_post();
 
 					$post_type = get_post_type(); 

@@ -58,7 +58,7 @@ $today = time();
 				</div>
 
 
-				<div id="salgrid_2" data-columns class="webmag-grid cf wrap row">
+				<div id="salgrid_3" data-columns class="webmag-grid cf wrap row">
 
 	
 						<?php

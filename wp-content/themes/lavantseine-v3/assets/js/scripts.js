@@ -115,9 +115,9 @@
                 'term': term_slug
             },
             function(response){
-              $('#salgrid_2').html(response);
+              $('#salgrid_3').html(response);
               
-              var grid = document.getElementById('salgrid_2');
+              var grid = document.getElementById('salgrid_3');
               salvattore.registerGrid(grid);
 //              bLazy.revalidate();
 
@@ -148,7 +148,7 @@
                     function(response){
                       posts_offset = posts_offset + posts_step;
 
-                      var grid = document.querySelector('#salgrid_2');
+                      var grid = document.querySelector('#salgrid_3');
                       var mydata =  $($.parseHTML(response)).filter(".bloc-article"); 
 
                       salvattore.appendElements(grid, mydata);
@@ -250,6 +250,47 @@ jQuery(function($) {
       $('.box-share-list').css('height', 'auto').css('visibility', 'visible');
     });
 
+
+// SEARCH
+
+    $('#js-searchTrigger').on('click', function(event) {
+      event.preventDefault();
+
+      $(this).find('span').toggleClass('icon-search icon-close');
+      $('.siteMenus-searchform').toggle();
+
+      if( $('.modal').is(':visible') ) {
+        $('.modal').hide();
+      }
+    });
+
+    $('#searchform').on('submit', function(event) {
+      event.preventDefault();
+
+      var keyword = $(this).find('input[type="text"]').val();
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'search',
+              'keyword': keyword
+          },
+          function(response){
+            if( response ) {
+              $('.modal-inner').html(response);      
+            }
+            else {
+              $('.modal-inner').html('<p>Désolé, il n\'y a aucun résulat pour votre recherche...</p>');
+            }
+            $('.modal').show();
+            
+            var grid = document.getElementById('salgrid_3');
+            salvattore.registerGrid(grid);
+            //bLazy.revalidate();
+            
+          }
+      );
+    });
 
 
 // SLICK SLIDERS

@@ -17,13 +17,13 @@ get_header();
 		<?php
 		if ( have_posts() ) : ?>
 
-			<header class="search-pagetitle">
-				<div class="wrap page-title" itemprop="name">
-					<h1 class="h1"><?php printf( esc_html__( 'Résultats de votre recherche : %s', 'lavantseine-v2' ), '<br><em>' . get_search_query() . '</em>' ); ?></h1>
+			<header class="search-pagetitle mb-2">
+				<div class="wrap search-title" itemprop="name">
+					<h1 class="h_1"><?php printf( esc_html__( 'Résultats de votre recherche : %s', 'lavantseine-v2' ), '<br><em>' . get_search_query() . '</em>' ); ?></h1>
 				</div>
 			</header><!-- .page-header -->
 
-			<div id="webmag-innergrid" data-columns class="wrap row">
+			<div id="salgrid_3" data-columns class="wrap row mb-3">
 
 				<?php
 
@@ -52,14 +52,12 @@ get_header();
 				?>
 			</div>
 
-			<div class="clearfix wrap layer">
+			<div class="clearfix wrap mb-3">
 				<?php lavantseine_paging_nav(); ?>
 			</div>
 
 		<?php else :
 			get_template_part( 'template-parts/contents/content', 'none' ); ?>
-		
-		
 
 		<?php endif; ?>
 
