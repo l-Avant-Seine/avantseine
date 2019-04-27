@@ -119,6 +119,37 @@ $duration: 300s
 
 
 
+iframe
+  max-width: 100%
+
+
+// SOCIAL BUTTONS
+
+.single-share
+    position: relative
+    
+.box-share-list 
+    visibility: hidden
+    background: $blue
+    color: $white
+    position: absolute
+    top: 8px
+    left: 50%
+    width: 0px
+    height: 0px
+    overflow: hidden
+    border: 2px solid
+    text-align: left
+    -webkit-transform: translate(-50%, -50%)
+            transform: translate(-50%, -50%)
+    webkit-transition: height 0.3s, width 0.3s, -webkit-transform 0.3s
+            transition: height 0.3s, width 0.3s, transform 0.3s
+
+    .inner 
+        padding: 2em 3em
+
+    .open & 
+        width: auto
 
  
 

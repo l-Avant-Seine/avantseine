@@ -10,35 +10,58 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header class="single-header bg_cover is-flex" itemprop="image" style="background-image: url(<?php  the_post_thumbnail_url(''); ?>);">
 
-		<div class="wrap single-title offset-right">
-			<h1 class="h1 clearfix" itemprop="name"><?php the_title(); ?></h1>
-			<div class="meta-date clearfix">Publié le <?php the_date('d/m/Y', '', ''); ?></div>
-			<div class="single-share clearfix">
-			<?php lavantseine_display_share_buttons(); ?>
+	<header class="post-header wrap mb-2" itemprop="image">
+
+		<div class="post-titles offset-right row">
+			<div class="m-20col m-1col-push m-first mb-1">
+
+				<div class="post-metas is-flex">
+
+					<div class="flx-2">
+						<?php
+							$categories = get_the_category();
+							$separator = ' ';
+							$output = '';
+							if($categories){
+								foreach($categories as $category) {
+									$output .= '<a href="'.get_category_link( $category->term_id ).'" title="' . esc_attr( sprintf( __( "View all posts in %s" ), $category->name ) ) . '" class="post-term label_1">'.$category->cat_name.'</a>'.$separator;
+								}
+							echo trim($output, $separator);
+							}
+						?>
+					</div>
+
+					<div class="flx-1 text-on-right">
+						<span class="label_1"><?php the_date('d/m/Y', '', ''); ?></span>
+					</div>
+				</div>
+			</div><!-- .single-metas -->
+
+			<div class="m-20col m-1col-push m-first">
+				<h1 class="h_1 clearfix" itemprop="name"><?php the_title(); ?></h1>
 			</div>
+
+		</div>
+
+		<div class="post-cover">
+			<img src="<?php  the_post_thumbnail_url(''); ?>" alt="">
 		</div>
 
 	</header>
 
-	<div class="wrap single-metas">
-			<?php
-				$categories = get_the_category();
-				$separator = ' ';
-				$output = '';
-				if($categories){
-					foreach($categories as $category) {
-						$output .= '<a href="'.get_category_link( $category->term_id ).'" title="' . esc_attr( sprintf( __( "View all posts in %s" ), $category->name ) ) . '" class="postmeta-term">'.$category->cat_name.'</a>'.$separator;
-					}
-				echo trim($output, $separator);
-				}
-			?>
-	</div><!-- .single-metas -->
 
 
-	<div class="wrap single-content row">
-		<div class="m-5col entry-content"  itemprop="mainContentOfPage">
+	<div class="wrap post-content row">
+
+		<div class="m-6col post-aside mb-2">
+				<?php set_query_var('taxo', 'relational_tag'); ?>
+				<?php get_template_part( 'template-parts/modules/module', 'relatedevent' ); ?>
+		</div>
+
+
+
+		<div class="m-16col m-last post-copy mb-2"  itemprop="mainContentOfPage">
 
 			<?php
 
@@ -51,37 +74,43 @@
 			));
 
 			if ($media_items):
-				wp_enqueue_script( 'bxslider' );
+				wp_enqueue_script( 'slick' );
 				 ?>
-				<ul class="slider bxslider-with-controls no-bullets">
+				<ul class="single-slides nobullets mb-2">
 					<?php foreach ( $media_items as $media_item ) : ?>
 						<li class="slide">
 							<?php the_attachment_link( $media_item->ID, true, false, false ); ?>
-							<div class="bx-caption"><?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></div>
+							<div class="bx-caption">
+								<?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></div>
 						</li>
 					<?php endforeach; ?>
 				</ul><!-- slides -->
 
-			<?php endif;
+			<?php endif; ?>
 
 
-				if ( $postDetail_mediaMarkup ) {
-					echo $postDetail_mediaMarkup;
-				}
-			?>
-
-			<?php the_content(); ?>
+			<?php if ( $postDetail_mediaMarkup ) { ?>
+					<div class="mb-2">
+						<?php echo $postDetail_mediaMarkup; ?>
+					</div>
+			<?php } ?>
+			
+			<div class="copy">
+				<?php the_content(); ?>
+			</div>
+			
 		</div>
 
 
-			<div class="m-3col single-aside offset-right">
-					<?php set_query_var('taxo', 'relational_tag'); ?>
-					<?php get_template_part( 'template-parts/modules/module', 'relatedevent' ); ?>
+			<div class="single-share cf">
+				<?php lavantseine_display_share_buttons(); ?>
 			</div>
 
-	</div><!-- .entry-content -->
+	</div><!-- .post-content -->
 
 </article><!-- #post-## -->
+
+
 
 
     <script type="application/ld+json">

@@ -133,7 +133,7 @@ endif;
  */
 if ( ! function_exists( 'lavantseine_display_share_buttons' ) ) :
 	function lavantseine_display_share_buttons() {
-		echo '<a href="#" id="js-shareTrigger"><span class="icon-share"></span>Partager !</a>';
+		echo '<a href="#" id="js-shareTrigger" class="btn-primary">Partager !</a>';
 		echo '<div class="box-share-list">';
 		echo '<ul class="inner no-bullets">';
 		echo '<li><a class="twitter customer share" href="https://twitter.com/share?url='. get_the_permalink() .'&amp;hashtags=lavantseine" title="Twitter share" target="_blank">Twitter</a></li>';

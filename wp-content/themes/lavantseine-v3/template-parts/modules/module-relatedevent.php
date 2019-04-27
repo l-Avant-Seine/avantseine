@@ -19,7 +19,7 @@
 
 	if ( !empty($tags) ) {
 			
-			echo '<h3 class="h4">dans <br> la programmation <br><span class="title-diamond">&#x02666;</span></h3>';
+			echo '<h3 class="h_4 mb-1">dans <br> la programmatio</h3>';
 
 			$tag_slug = $tags[0]->slug;
 
@@ -40,30 +40,26 @@
 					$event_other_dates = get_field('eventDetail_otherdates');
 
 			 		$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
-				<div class="relatedPost star">
-					<div class="relatedPost-media">
-						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
-					</div>
-					
-					<span class="relatedPost-date meta-date">
-						<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates); ?>
-					</span>
 
-					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
-					
-					<div class="relatedPost-text">
-						<?php 
-							$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-							echo "<p>".$post_shortText. "</p>"; 
-						?>
-					</div>
+					<div class="">
 
-					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
-					<div class="clearfix">
-						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big black">Acheter mes places</a>
+						<h4 class="h_2">
+							<a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
+						</h4>
+
+						<span class="">
+							<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates); ?>
+						</span>
+
+						<div class="cf">
+							<a href="<?php the_permalink(); ?>" class="">plus d'infos</a>
+						</div>
+
+						<div class="cf">
+							<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary ">réserver mes places</a>
+						</div>
+						
 					</div>
-					
-				</div>
 			<?php endwhile; 
 			wp_reset_postdata();
 			endif; 

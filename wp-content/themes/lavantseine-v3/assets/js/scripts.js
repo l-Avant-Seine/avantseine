@@ -240,6 +240,20 @@ jQuery(function($) {
   });
 
 
+
+// SOCIAL
+
+    $('#js-shareTrigger').on('click', function(event) {
+      event.preventDefault();
+
+      $(this).parent().toggleClass('open');
+      $('.box-share-list').css('height', 'auto').css('visibility', 'visible');
+    });
+
+
+
+// SLICK SLIDERS
+
   if( $('.home-slides').length > 0 ) {
   	$('.home-slides').slick({
   		  centerMode: true,
@@ -269,6 +283,37 @@ jQuery(function($) {
   		  ]
   	});
   }
+
+  if( $('.single-slides').length > 0 ) {
+    $('.single-slides').slick({
+        centerMode: false,
+        adaptiveHeight: true,
+        prevArrow: '<a href="#" type="button" class="slick-prev"></a>',
+        nextArrow: '<a href="#" type="button" class="slick-next"> > </a>',
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              centerPadding: '40px',
+              slidesToShow: 1
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              centerPadding: '40px',
+              slidesToShow: 1
+            }
+          }
+        ]
+    });
+  }
+
+
 
 });
 
