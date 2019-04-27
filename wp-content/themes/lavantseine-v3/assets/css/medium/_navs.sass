@@ -17,8 +17,8 @@
 
 
 .site-branding
-	margin-right: 50px
 	float: left
+	width: 13%
 
 
 .site-menus
@@ -26,6 +26,7 @@
 	justify-content: space-between
 	padding: 5px 0
 	float: right
+	width: 85%
 
 .siteMenus-primary
 	flex: 2
@@ -53,3 +54,22 @@
 
 .siteMenus-large
 	display: none
+
+
+
+
+// FOOTER
+
+.site-footer
+	border-top: 1px solid $red
+	padding-top: $base_line_height * 2
+
+.footer-col
+	p:first-child
+		color: $red
+		margin-bottom: $base_line_height
+		font-weight: $bold
+
+.footer-col--empty
+	border-left: 4px solid $red
+	height: 30px

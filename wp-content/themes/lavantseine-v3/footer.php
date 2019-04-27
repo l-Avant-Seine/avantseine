@@ -13,25 +13,19 @@
 
 		</div><!-- #content -->
 
-		<footer id="mastfooter" class="site-footer transparent-background" role="contentinfo">
+		<footer id="mastfooter" class="site-footer" role="contentinfo">
 
 
-			<div class="footer-newsletter">
-				<div class="wrap">
-					
-						<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
-
-				</div>
-			</div>
-
-
-			<div class="footer-infos wrap row">
+			<div class="footer-infos wrap row mb-3">
 				
 				<?php
 					if( have_rows('footer_cols', 'options') ):
 				    while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
-							<div class="s-4col m-2col">
+							<div class="footer-col m-5col">
 				        <?php the_sub_field('colonne'); ?>
+							</div>
+							<div class="footer-col--empty m-1col">
+								&nbsp;
 							</div>
 				    <?php endwhile;
 				endif;
@@ -44,9 +38,9 @@
 				$images = get_field('logos_partenaires', 'options');
 
 				if( $images ): ?>
-				    <ul class="no-bullets table">
+				    <ul class="wrap no-bullets is-flex">
 				        <?php foreach( $images as $image ): ?>
-				            <li class="logo-item table-cell">
+				            <li class="logo-item">
 											<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
 				            </li>
 				        <?php endforeach; ?>

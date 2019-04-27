@@ -13,7 +13,7 @@
 <div class="cf">
 
 	<!-- Focus -->
-	<div class="row mb-3">
+	<div class="row">
 
 		<?php 
 			get_template_part('template-parts/modules/module', 'focus'); 
@@ -22,17 +22,17 @@
 	</div>
 
 
-	<div class="row wrap mb-2">
+	<section class="section-transition is-flex mb-2">
+		<div class="row wrap">
+			<div class="m-15col">
+				<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+			</div>
 
-		<div class="m-15col">
-			<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+			<div class="m-8col m-1col-push">
+				<a href="/programmation" class="btn-primary">voir tous les spectacles</a>
+			</div>
 		</div>
-
-		<div class="m-8col m-1col-push">
-			<a href="/programmation" class="btn-primary">voir tous les spectacles</a>
-		</div>
-
-	</div>
+	</section>
 
 
 	<div class="row wrap mb-2">

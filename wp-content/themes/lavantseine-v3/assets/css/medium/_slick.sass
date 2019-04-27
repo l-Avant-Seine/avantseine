@@ -100,7 +100,8 @@
 
 
 .home-slides
-
+    background-color: $blue
+    
     .slide
         flex-direction: column
 
@@ -108,14 +109,22 @@
         height: 50vh
         
     .slide-text
-        background-color: $red
+        background-color: $blue
         border-radius: 0 0 2em 0
         padding: 20px
+        @include transition(all .3s)
 
-    .slide-title
-        color: $white
-        border-bottom: 1px solid $white
+        * 
+            color: $blue 
+            border-color: $blue
 
+    .slick-current 
+        .slide-text 
+            background-color: $red
+
+        .slide-title
+            color: $white
+            border-bottom: 1px solid $white
 
     a
         width: 100%
