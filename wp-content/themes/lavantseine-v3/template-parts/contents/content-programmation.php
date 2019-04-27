@@ -8,72 +8,80 @@
 ?>
 
 
+	<div id="main-agenda" class="cf mb-3">
 
-		<div class="prog-pagetitle bg_cover" style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
-			
-			<div class="wrap">
+
+		<div class="agenda-ticker ticker-wrap">
+			<div class="ticker">
+
+				<?php for ($i=0; $i < 100; $i++) { 
+					if( $i % 2 === 0 ) { ?>
+						<span class="ticker__item">Allez hop, on y va !</span>
+					<?php }
+					else { ?>
+						<span class="ticker__item red">Allez hop, on y va !</span>
+					<?php }
+				} ?>	
+			</div>
+		</div><!-- .ticker -->
+
+
+
+		<div class="wrap row">
 				<h1 class="h1">
 					La programmation<br>
-					à venir</h1>
-					<bR>
+					à venir`
+				</h1>
+					<br>
 					<?php if( is_tax() ) : echo get_the_archive_title(); endif; ?>
-			</div>
-
-		</div>
+		</div><!-- .row -->
 
 
-		<div class="prog-filters">
+		<div id="" class="row wrap">
 			
-			<form action="" id="progFilter-form" class="" name="progFilter-form">
+				<div class="agenda-grid-item m-8col prog-filters">
+					
+					<form action="" id="progFilter-form" class="" name="progFilter-form">
 
-				<div class="progFilterForm-upper">
+						<div class="">
+							<div class="label h_4">filtrer</div>
+							<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
+							<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
+							<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'Pour quel âge ?', ''); ?>
+							<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
 
-					<div class="wrap">
-						<div class="label">Filtrer : </div>
-						<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
-						<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
-						<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'Pour quel âge ?', ''); ?>
-						<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
-
-						<div class="switch">
-							<span>passés</span>
-						  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
-						  <label for="cmn-toggle-1"></label>
-						  <span>à venir</span>
+							<div class="switch">
+								<span>passés</span>
+							  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
+							  <label for="cmn-toggle-1"></label>
+							  <span>à venir</span>
+							</div>
 						</div>
-					</div>
 
-				</div>
+						<div class="progFilterForm-lower clearfix">
+							<div class="">
+								<?php custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
+							</div>
+						</div>
 
-				<div class="progFilterForm-lower clearfix">
-					<div class="wrap">
-						<?php custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
-					</div>
-				</div>
+					</form>
 
-			</form>
 
-		</div>
+						<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
+
+
+				</div><!-- .filters	 -->
 		
 
-		<div class="wrap row_alt">
 
-
-			<div class="m-2coll m-last prog-aside is-absolute">
-
-				<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
-
-
-			<?php if( get_field('cette_semaine', 'options' ) ) : ?>
+<!-- 			<?php if( get_field('cette_semaine', 'options' ) ) : ?>
 				<div class="offset-right module-week">	
 					<h3 class="h4">cette <br>semaine <br><span class="title-diamond">&#x02666;</span></h3>
 
 					<?php the_field('cette_semaine', 'options'); ?>
 				</div>
-			<?php endif; ?>
+			<?php endif; ?> -->
 
-
-		</div>
 
 
 				<?php
@@ -124,11 +132,19 @@
 				?>
 
 
+		</div><!-- .row -->
+
+
+
+		<div class="wrap row module-actions">
+			<a class="load-more btn--big m-4coll is-centered" href="#" posts_found="<?php echo $posts_found; ?>">voir plus de spectacles</a>
+		</div><!-- .row -->
+
+
+
 </div>
 
 
-		<div class="wrap module-actions">
-			<a class="load-more btn--big m-4coll is-centered" href="#" posts_found="<?php echo $posts_found; ?>">voir plus de spectacles</a>
-		</div>
+
 		
 

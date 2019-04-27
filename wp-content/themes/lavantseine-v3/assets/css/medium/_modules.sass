@@ -58,6 +58,53 @@
 
 
 
+.event-item
+  padding-top: 70px
+  position: relative
+
+  .item-header
+    position: relative
+
+  .item-cover
+    margin-bottom: 10px
+    height: 25vh
+
+    img
+      border-radius: 0 30px 0 0
+      object-fit: cover
+      height: 100%
+      width: 100%
+
+  .icon-video
+    position: absolute
+    top: 0
+    width: 60%
+
+  .item-tax
+    background-color: $red
+    color: $white
+    padding: .3em .8em
+
+  .item_title
+    color: $blue
+
+  .item-hover
+    display: none
+    position: absolute
+    top: 70px
+    left: 0
+    right: 0
+    background-color: $white
+    border-bottom: 1px solid $red
+    border-top: 1px solid $red
+    padding: 10px 0
+    opacity: 0.95
+
+  &:hover .item-hover
+    display: block
+
+
+
 
 /* Texte défilant */
 
@@ -118,6 +165,8 @@ $duration: 300s
     	color: $red
 
 
+
+// FRAMES
 
 iframe
   max-width: 100%

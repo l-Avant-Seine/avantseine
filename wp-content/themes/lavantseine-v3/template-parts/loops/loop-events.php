@@ -2,41 +2,35 @@
 
 
 				<?php if ( $query->have_posts() ) : ?>
-					<div class="row_alt">
 
-						<div id="prog-grid" >
 							<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-								<?php
-									$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-									$month = date( 'Y/m', $event_first_date );
+								<div class="agenda-grid-item m-8col">
 
-									if ( $previous_month != $month ): ?>
+									<?php
+										$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
+										$month = date( 'Y/m', $event_first_date );
 
-											<?php if($previous_month) : ?>
-												</div>
-											<?php endif; ?>
+										if ( $previous_month != $month ): ?>
 
-											<div class="h3 box-month clearfix m-first"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
-												<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
-											</div>
-											<div class="row_alt event-row">
-										<?php
-										$previous_month = $month;
-									endif;
-								?>
+												<span class="h_2 month"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
+													en <?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
+												</span>
 
-								<div class="m-2coll">
+											<?php $previous_month = $month;
+
+										endif;
+									?>
+								
+
 									<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
 								</div>
 							<?php endwhile; ?>
 
-						</div>
-					</div>
 				<?php else : ?>
 					
-					<div class="no-posts m-3coll clearfix ">
-						<h3 class="h3 ">
+					<div class="no-posts ">
+						<h3 class="h_3 ">
 							Il n'y a aucun événement correspondant à votre recherche.
 						</h3>
 						<div class="clearfix">
