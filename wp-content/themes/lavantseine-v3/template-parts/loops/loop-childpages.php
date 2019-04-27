@@ -12,11 +12,11 @@ $childpages = new WP_Query( array(
 )); ?>
 
 
-  <ul class="pages-menu no-bullets">
+  <ul class="pages-menu nobullets">
 
-    <div class="wrap page-title" itemprop="name">
-      <h1 class="h1"><?php echo $root_title; ?></h1>
-    </div>
+    <li class="page-title pages-menu-item" itemprop="name">
+      <h1 class="h_3"><?php echo $root_title; ?></h1>
+    </li>
     
     <?php while ( $childpages->have_posts() ) : $childpages->the_post(); ?>
 

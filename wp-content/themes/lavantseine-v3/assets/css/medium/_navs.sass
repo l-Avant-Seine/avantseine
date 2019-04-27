@@ -19,6 +19,8 @@
 .site-branding
 	float: left
 	width: 13%
+	position: relative
+	z-index: 9999
 
 
 .site-menus
@@ -27,10 +29,12 @@
 	padding: 5px 0
 	float: right
 	width: 85%
+	position: relative
+	z-index: 9999
+
 
 .siteMenus-primary
 	flex: 2
-
 
 .siteMenus-actions
 	flex: 1
@@ -53,7 +57,68 @@
 
 
 .siteMenus-large
-	display: none
+	position: absolute
+	background-color: $blue
+	color: $white
+	height: 100vh
+	border-radius: 0 0 40px 40px
+	padding-top: 150px
+	transition: all 1s
+	top: -100vh
+	left: 0
+	right: 0
+	z-index: 1
+
+	&.active
+		top: 0
+
+	@include at-least(medium) 
+		.ham-prog,
+		.ham-mag
+			display: none
+	
+	.menu-item-has-children
+		padding-right: 10px
+
+		a
+			display: block
+			margin-bottom: 10px
+
+			&:hover
+				color: $red
+
+		& > a
+			border-bottom: 1px solid $white
+			padding-bottom: 10px
+			font-weight: $bold
+
+		.menu-item
+			clear: both
+			display: block
+			float: none
+		
+	.current-page-parent
+		& > a
+			border-bottom: 3px solid $red
+			padding-bottom: 10px
+			font-weight: $bold
+
+		.current_page_item
+			color: $red
+			margin-left: -22px
+
+			a:before
+				content: '●'
+				padding-right: 10px
+
+
+
+.menu-is-open
+	.siteMenus-primary
+		color: $white
+
+	.btn-primary
+		background-color: $red
 
 
 

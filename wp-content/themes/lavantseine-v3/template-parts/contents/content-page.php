@@ -10,6 +10,7 @@
 
 	$tax_args = array('orderby' => 'none', );
 	$tags = wp_get_post_terms( $post->ID , 'arborescence', $tax_args);
+
 	if( !empty($tags) ) :
 		$tag = $tags[0];
 	endif; 
@@ -34,25 +35,35 @@
 	$page_right_col = get_field( 'pageDetail_rightCol' );
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-<div class="layer">
-	
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>	
 
-	<header class=" page-header bg_cover is-flex layer" itemprop="image"  style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
+	<?php 
+	$url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+	if (strpos($url,'communautes') !== false) { ?>
+		<div class="ticker-wrap">
+			<div class="ticker">
+
+				<?php for ($i=0; $i < 100; $i++) { 
+					if( $i % 2 === 0 ) { ?>
+						<span class="ticker__item">Ici on partage !</span>
+					<?php }
+					else { ?>
+						<span class="ticker__item red">Ici on partage !</span>
+					<?php }
+				} ?>
+			</div>
+		</div>
+	<?php } ?>
+
+	<header class="page-header bg_cover mb-2" itemprop="image"  style="background-image: url(<?php the_post_thumbnail_url(); ?>)">
 	</header><!-- .entry-header -->
+
 
 	<div class="wrap row">
 
-		<div class="m-5col page-content entry-content"  itemprop="mainContentOfPage">
+		<div class="m-6col page-aside mb-2">
 
-			<?php the_content(); ?>
-
-			<?php echo $page_right_col; ?>
-		</div><!-- .entry-content -->
-
-		<div class="m-3col m-last page-aside">
-
-			<div class="page-nav module-childpages offset-right layer">
+			<div class="page-nav module-childpages mb-2">
 				<?php set_query_var( 'root', $root ); ?>
 				<?php set_query_var( 'root_title', $root_title ); ?>
 				<?php set_query_var( 'root_title_url', $root_title_url ); ?>
@@ -60,7 +71,7 @@
 			</div>
 
 
-				<?php
+			<?php
 
 				if( have_rows('add_blocs') ):
 
@@ -70,7 +81,7 @@
 				        if( get_row_layout() == 'bloc_texte' ): ?>
 
 									<div class="offset-right module-infos layer">	
-										<h3 class="h2"><?php the_sub_field('titre'); ?><br><span class="title-diamond">&#x02666;</span></h3>
+										<h3 class="h_3 module-title"><?php the_sub_field('titre'); ?></h3>
 
 										<?php the_sub_field('texte'); ?>
 									</div>
@@ -84,7 +95,7 @@
 				        <?php elseif( get_row_layout() == 'cette_semaine' ): ?>
 
 									<div class="offset-right module-week layer">	
-										<h3 class="h2">cette <br>semaine<br><span class="title-diamond">&#x02666;</span></h3>
+										<h3 class="h2">cette <br>semaine</h3>
 
 										<?php the_field('cette_semaine', 'options'); ?>
 									</div>
@@ -94,18 +105,38 @@
 
 				    endwhile;
 
-				else :
+				endif; ?>
 
-				    // no layouts found
+				<?php
+				$pages = get_field('rebonds'); 
+				if($pages): ?>
+					
+					<!-- Pages -->
+					<div id="" class="layer clearfix">
+						<?php
+							set_query_var('pages_list', $pages);
+							set_query_var('title', '');
+							get_template_part('template-parts/modules/module', 'pages'); 
+						?>
+					</div>
 
-				endif;
-
-				?>
+				<?php endif; ?>
 
 
-		</div>
+		</div><!-- .page-aside -->
 
-	</div>
+
+
+		<div class="m-16col m-last page-content mb-2"  itemprop="mainContentOfPage">
+			<div class="copy">
+				<?php the_content(); ?>
+			</div>
+			<?php echo $page_right_col; ?>
+		</div><!-- .page-content -->
+
+	</div><!-- .row -->
+
+
 
 	<?php if( isset($tag) ) : ?>
 	<!-- Les articles et événements liés à la page par le tag 'arborescence' -->
@@ -124,9 +155,9 @@
 
 		<?php if ( $related_posts_query->have_posts() ) : ?>
 
-		<section id="" class="layer clearfix page_related">
+		<section id="" class="cf page_related">
 			<div class="wrap">
-				<div id="webmag-innergrid" data-columns class="row">
+				<div id="salgrid_2" data-columns class="row">
 				<?php while ( $related_posts_query->have_posts() ) : $related_posts_query->the_post();
 
 					$post_type = get_post_type(); 
@@ -164,24 +195,15 @@
 		<?php endif; ?>
 
 	<?php endif; ?>
-</div>
+
+
 </article><!-- #post-## -->
 
 	
-	<?php
-	$pages = get_field('rebonds'); 
-	if($pages): ?>
-		
-		<!-- Pages -->
-		<div id="" class="layer clearfix">
-			<?php
-				set_query_var('pages_list', $pages);
-				set_query_var('title', '<h3>Ces pages pourraient vous intéresser</h3>');
-				get_template_part('template-parts/modules/module', 'pages'); 
-			?>
-		</div>
 
-	<?php endif; ?>
+<aside class="mb-2">
+		<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+</aside>
 
 
     <script type="application/ld+json">
