@@ -13,7 +13,7 @@
 
 	<header class="post-header wrap mb-2" itemprop="image">
 
-		<div class="post-titles offset-right row">
+		<div class="post-titles row">
 			<div class="m-20col m-1col-push m-first mb-1">
 
 				<div class="post-metas is-flex">

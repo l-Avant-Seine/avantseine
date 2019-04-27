@@ -73,35 +73,9 @@ $arborescence_tags_slug_string = implode(',', $arborescence_tags_slug);
 				echo '<h3 class="h4">autour du <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
 
 			 	while ( $star_post->have_posts() ) : $star_post->the_post(); ?>
-				<div class="relatedPost star">
-					<div class="relatedPost-media">
-						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
-						<?php 
-							$terms = wp_get_post_terms( $post->ID, array('category') );
-							$count = count($terms);
-							if ( $count > 0 ){
-							    echo "<ul class='no-bullets'>";
-							    foreach ( $terms as $term ) {
-							    	$term_link = get_term_link( $term, '' );
-								    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
-							    }
-							    echo "</ul>";
-							}
-						?>						
-					</div>
-					
-					<!-- <span class="relatedPost-date meta-date">Publié le <?php //the_time('d/m/Y'); ?></span> -->
-					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
-					<div class="relatedPost-text">
-						<?php 
-							$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-							echo "<p>".$post_shortText. "</p>"; 
-						?>
-					</div>
 
-					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
+							<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
 
-				</div>
 			<?php endwhile; 
 			wp_reset_postdata();
 
@@ -116,74 +90,13 @@ $arborescence_tags_slug_string = implode(',', $arborescence_tags_slug);
  			if ( $other_posts->have_posts() ) : 
 			 	while ( $other_posts->have_posts() ) : $other_posts->the_post(); ?>
 
-
 			 		<?php if ( !$star_post->have_posts() ) : ?>
 
 						<?php if( $k === 0 ) : ?>
-
-							<div class="relatedPost star">
-								<div class="relatedPost-media">
-									<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
-									<?php 
-										$terms = wp_get_post_terms( $post->ID, array('category') );
-										$count = count($terms);
-										if ( $count > 0 ){
-										    echo "<ul class='no-bullets'>";
-										    foreach ( $terms as $term ) {
-										    	$term_link = get_term_link( $term, '' );
-											    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
-										    }
-										    echo "</ul>";
-										}
-									?>						
-								</div>
-								
-								<!-- <span class="relatedPost-date meta-date">Publié le <?php //the_time('d/m/Y'); ?></span> -->
-								<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
-								<div class="relatedPost-text">
-									<?php 
-										$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-										echo "<p>".$post_shortText. "</p>"; 
-									?>
-								</div>
-
-								<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
-
-							</div>
+							<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
 
 						<?php else : ?>
-
-
-							<div class="relatedPost">
-							<?php 
-								$terms = wp_get_post_terms( $post->ID, array('category') );
-								$count = count($terms);
-								if ( $count > 0 ){
-								    echo "<ul class='no-bullets'>";
-								    foreach ( $terms as $term ) {
-								    	$term_link = get_term_link( $term, '' );
-									    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
-								    }
-								    echo "</ul>";
-								}
-
-								if( is_paged()) {
-									echo 'paged ! ';
-								}
-							?>
-
-							<div class="entry-meta">
-								<span class="meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
-							</div><!-- .entry-meta -->
-							<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
-							<?php 
-								$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-								echo "<p>".$post_shortText. "</p>"; 
-							?>
-
-							<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--little bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
-
-						</div>
+							<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
 
 					<?php endif; ?>
 				<?php endif; ?>
@@ -195,7 +108,7 @@ $arborescence_tags_slug_string = implode(',', $arborescence_tags_slug);
 				$max_pages = $other_posts->max_num_pages;
 
 			if( $found_posts > $max_pages) : ?>
-				<a href="/magazine/?relational_tag=<?php echo $relational_tags_slug_string; ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>Voir tous les articles</a>
+				<a href="/magazine/?relational_tag=<?php echo $relational_tags_slug_string; ?>" class="btn-primary mb-2"><span class="icon-arrow-right"></span>voir tous les articles liés au spectacle</a>
 			<?php endif; 
 
 			wp_reset_postdata();
