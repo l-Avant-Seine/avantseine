@@ -107,6 +107,8 @@
 
         $('.js-postmeta-term').removeClass('active');
         $(".postmeta-term[cat-slug='" + term_slug + "']").addClass('active');
+        var grid = document.getElementById('salgrid_3');
+        $('.webmag-grid').addClass('loading');
 
         jQuery.post(
             ajaxurl,
@@ -117,10 +119,10 @@
             function(response){
               $('#salgrid_3').html(response);
               
-              var grid = document.getElementById('salgrid_3');
               salvattore.registerGrid(grid);
 //              bLazy.revalidate();
 
+              $('.nav-links').hide();
               var posts_found = $('.load-more-posts').attr('posts_found');
 
              // POSTS CAT >> LOAD MORE
@@ -131,6 +133,8 @@
               if(posts_found < posts_offset) {
                 $('.load-more-posts').hide();
               }
+              $('.webmag-grid').removeClass('loading');
+
 
               $('.load-more-posts').on('click', function(event) {
                 event.preventDefault();
@@ -159,7 +163,7 @@
                         $('.load-more-posts').hide();
                       }
                       
-                      bLazy.revalidate();
+                      //bLazy.revalidate();
 
                     }
                 );

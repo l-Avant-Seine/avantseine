@@ -185,7 +185,7 @@ endif;
 										    	echo "<li class=''>#" . $term->name . "</li>";
 										    	echo $term->description;
 										    }
-										    echo '<li><a href="#" class="btn-inline">tous les tarifs et conditions</a></li>';
+										    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
 										    echo "</ul>";
 										}
 									?>

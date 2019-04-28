@@ -61,7 +61,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 		<div class="site-menus is-flex">
 
-			<nav id="site-navigation" class="cf siteMenus-primary" role="navigation">
+			<nav id="site-navigation" class="cf siteMenus-primary flx-2" role="navigation">
 
 
 
@@ -82,7 +82,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 			</nav><!-- #site-navigation -->
 
-			<nav class="siteMenus-actions">
+			<nav class="siteMenus-actions flx-1">
 				<ul class="nobullets">
 					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary">nous contacter</a></li>
 

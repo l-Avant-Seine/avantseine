@@ -1,20 +1,18 @@
 <?php
 
-	// Remontée des événements puis des articles liés à l'événement en cours.
+	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
+	$today = time();
 
+	// Remontée des événements puis des articles liés à l'événement en cours.
 	global $post; // for current $post backup
-	
+
 	$backup = $post;  // backup the current object
 	$taxonomy = $taxo; 
 	$param_type = $taxo;
 	$tax_args = array('orderby' => 'none' );
 
 	$arborescence = wp_get_post_terms($post->ID , 'arborescence', $tax_args);
-
 	$tags = wp_get_post_terms( $post->ID , $taxonomy, $tax_args);
-
-					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-					$today = time();
 
 
 	if ( !empty($tags) ) {
@@ -84,14 +82,15 @@
 
 				if ( $arborescence_page->have_posts() ) : 
 				 	while ( $arborescence_page->have_posts() ) : $arborescence_page->the_post(); ?>
-					<div class="event-teaser--small">
-						<div class="">
-							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?>		</a>			
+					<div class="page-teaser--small">
+						<div class="mb-1">
+							<a href="<?php the_permalink(); ?>">
+								<?php the_post_thumbnail(); ?>		</a>			
 						</div>
 						
-						<h4 class="h_3"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+						<h4 class="h_4"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 						
-						<div class="">
+						<div class="mb-05">
 							<?php 
 								if( get_field('pageDetail_intro') != '' ) : 
 									the_field('pageDetail_intro'); 
@@ -101,11 +100,7 @@
 								?>
 						</div>
 
-						<div class="">
-							<a href="<?php the_permalink(); ?>" class="btn--little bordered">
-								<span class="icon-arrow-right"></span>en savoir plus
-							</a>
-						</div>
+						<a href="<?php the_permalink(); ?>" class="btn-inline">en savoir plus</a>
 						
 					</div>
 				<?php endwhile; 
