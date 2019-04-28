@@ -79,6 +79,7 @@
 				$services_pages = get_field('services_pages', 'option'); 
 				set_query_var('pages_list', $services_pages);
 				set_query_var('title', 'à votre service');
+				set_query_var('icons', true);
 				get_template_part('template-parts/modules/module', 'pages'); 
 			?>
 

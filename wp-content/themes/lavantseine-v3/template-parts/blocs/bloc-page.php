@@ -1,6 +1,12 @@
 
 
 			<div class="page-item">
+		
+				<?php if( $icons ) : ?>
+					<div class="rounded-icon mb-05">
+						d
+					</div>
+				<?php endif; ?>
 
 				<h5 class="h_4 item-title"><?php the_title(); ?></h5>
 

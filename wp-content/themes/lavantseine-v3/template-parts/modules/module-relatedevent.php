@@ -19,7 +19,7 @@
 
 	if ( !empty($tags) ) {
 			
-			echo '<h3 class="h_4 mb-1">dans <br> la programmatio</h3>';
+			echo '<h3 class="h_4 mb-1">dans <br> la programmation</h3>';
 
 			$tag_slug = $tags[0]->slug;
 
@@ -41,21 +41,21 @@
 
 			 		$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 
-					<div class="">
+					<div class="event-teaser--small">
 
-						<h4 class="h_2">
+						<h4 class="cf h_2 teaser-title">
 							<a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
 						</h4>
 
-						<span class="">
+						<div class="cf teaser-meta">
 							<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates); ?>
-						</span>
-
-						<div class="cf">
-							<a href="<?php the_permalink(); ?>" class="">plus d'infos</a>
 						</div>
 
-						<div class="cf">
+						<div class="cf teaser-action">
+							<a href="<?php the_permalink(); ?>" class="btn-inline">plus d'infos</a>
+						</div>
+
+						<div class="cf teaser-action">
 							<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary ">réserver mes places</a>
 						</div>
 						
@@ -84,14 +84,14 @@
 
 				if ( $arborescence_page->have_posts() ) : 
 				 	while ( $arborescence_page->have_posts() ) : $arborescence_page->the_post(); ?>
-					<div class="relatedPost star">
-						<div class="relatedPost-media">
+					<div class="event-teaser--small">
+						<div class="">
 							<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?>		</a>			
 						</div>
 						
-						<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
+						<h4 class="h_3"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
 						
-						<div class="modulePages-excerpt">
+						<div class="">
 							<?php 
 								if( get_field('pageDetail_intro') != '' ) : 
 									the_field('pageDetail_intro'); 
@@ -101,7 +101,7 @@
 								?>
 						</div>
 
-						<div class="clearfix">
+						<div class="">
 							<a href="<?php the_permalink(); ?>" class="btn--little bordered">
 								<span class="icon-arrow-right"></span>en savoir plus
 							</a>
@@ -137,7 +137,7 @@
 
 			 if ( $next_event->have_posts() ) : 
 			 	while ( $next_event->have_posts() ) : $next_event->the_post(); ?>
-				<div class="relatedPost star">
+				<div class="event-teaser--small">
 					<div class="relatedPost-media">
 						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
 						<?php 
