@@ -15,16 +15,14 @@
 	<!-- Focus -->
 	<div class="row">
 
-		<?php 
-			get_template_part('template-parts/modules/module', 'focus'); 
-		?>
+		<?php get_template_part('template-parts/modules/module', 'focus'); ?>
 
 	</div>
 
 
 	<section class="section-transition is-flex mb-2">
 		<div class="row wrap">
-			<div class="m-15col">
+			<div class="m-15col m-1col-push">
 				<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
 			</div>
 

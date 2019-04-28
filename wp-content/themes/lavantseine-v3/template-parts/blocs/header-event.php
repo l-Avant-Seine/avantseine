@@ -12,11 +12,11 @@
 			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); ?>
 						
 						<div class="row mb-1">
-			  			<h3 class="m-23col m-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
+			  			<h3 class="m-22col m-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
 						</div>
 
 			  		<div class="row mb-1">
-			  			<div class="m-23col m-1col-push">
+			  			<div class="m-22col m-1col-push">
 								
 								<span class="label_3 meta-item">
 									<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>

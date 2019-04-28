@@ -391,7 +391,7 @@ jQuery(function($) {
   if( $('.home-slides').length > 0 ) {
   	$('.home-slides').slick({
   		  centerMode: true,
-  		  centerPadding: '3%',
+  		  centerPadding: '2.5%',
   		  slidesToShow: 1,
   		  prevArrow: '<a href="#" type="button" class="slick-prev"></a>',
   		  nextArrow: '<a href="#" type="button" class="slick-next"> > </a>',

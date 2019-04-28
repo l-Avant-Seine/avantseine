@@ -130,9 +130,9 @@ $one_col: (100% - ($gutter * ($cols - 1))) / $cols
 .row 
     @include clearfix
 
-    > div:first-child, 
-    .row > div:first-child 
-        margin-left: 0
+    > :first-child, 
+    .row > :first-child 
+        margin-left: 0 !important
 
 
     .is-centered 

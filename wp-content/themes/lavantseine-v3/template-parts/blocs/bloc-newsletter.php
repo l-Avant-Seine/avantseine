@@ -13,19 +13,20 @@
             <input type="hidden" name="primary_type" id="primary_type" value="email">
             
 
-            <form class="description" id="theform" name="theform" action="http://rooting.arenametrix.fr/users/subscribeembed/js_id/5gwh/id/1" onsubmit="return false;" style="text-align: center;">
+            <form class="description" id="theform" name="theform" action="http://rooting.arenametrix.fr/users/subscribeembed/js_id/5gwh/id/1" onsubmit="return false;">
                 <input type="hidden" name="js_id" id="js_id" value="5gwh">
                 <input type="hidden" name="listid" id="listid" value="30">
                 <input type="hidden" name="from_url" id="from_url" value="yes">
                 <input type="hidden" name="hdn_email_txt" id="hdn_email_txt" value="">
 
-                <div class="sib-container rounded">
+                <div class="sib-container">
                 
                     <input name="req_hid" id="req_hid" value="" type="hidden">
 
                     <div class="view-messages">
                     </div>
 
+                    <button class="button editable btn-primary" type="submit"  data-editfield="subscribe">Recevoir la programmation par email</button>
                     
                     <input name="email" id="email" value="" placeholder="votre_email@exemple.com" type="text">
 
@@ -34,7 +35,6 @@
                         <!--<a class="btn btn-danger delete"  href="#"><i class="fa fa-trash-o fa-inverse"></i></a>-->
                     </div>
                     
-                    <button class="button editable btn--big" type="submit"  data-editfield="subscribe">Recevoir la programmation par email</button>
             
                     </div>
             </form>
