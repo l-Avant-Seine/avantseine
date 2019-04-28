@@ -4,14 +4,20 @@
 
 .page-item
 	margin-bottom: $base_line_height
-	width: 47%
 
-	&:nth-child(odd)
-		float: right
+not(.put-on-1col) .page-item
+  width: 47%
 
-	&:nth-child(even)
-		float: left
-		clear: both
+  &:nth-child(odd)
+    float: right
+
+  &:nth-child(even)
+    float: left
+    clear: both
+
+.put-on-1col .page-item
+  width: 67%
+
 
 
 .focus-item
@@ -151,12 +157,17 @@
     [class^="label"], [class*="label"]
       color: $blue
       vertical-align: initial
-      
+
   .teaser-title
     margin-bottom: 0
     border-color: $red
 
 
+
+.module-infos
+  p
+    border-bottom: 1px solid $red
+    padding: 10px 0
 
 /* Texte défilant */
 

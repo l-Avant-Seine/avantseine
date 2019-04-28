@@ -3,7 +3,9 @@
 <section class="module-pages cf">
 	<div class="inner">
 
-		<h4 class="h_2 module-title"><?php echo $title; ?></h4>
+		<?php if( $title != '' ) : ?>
+			<h4 class="h_2 module-title"><?php echo $title; ?></h4>
+		<?php endif; ?>
 
 		<?php 
 		foreach ( $pages_list as $post ) :

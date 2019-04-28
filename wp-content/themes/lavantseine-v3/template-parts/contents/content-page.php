@@ -59,7 +59,7 @@
 	</header><!-- .entry-header -->
 
 
-	<div class="wrap row">
+	<div class="wrap row mb-2">
 
 		<div class="m-6col page-aside mb-2">
 
@@ -80,7 +80,7 @@
 
 				        if( get_row_layout() == 'bloc_texte' ): ?>
 
-									<div class="offset-right module-infos layer">	
+									<div class="module-infos  mb-2">	
 										<h3 class="h_3 module-title"><?php the_sub_field('titre'); ?></h3>
 
 										<?php the_sub_field('texte'); ?>
@@ -94,7 +94,7 @@
 
 				        <?php elseif( get_row_layout() == 'cette_semaine' ): ?>
 
-									<div class="offset-right module-week layer">	
+									<div class=" module-week mb-2">	
 										<h3 class="h2">cette <br>semaine</h3>
 
 										<?php the_field('cette_semaine', 'options'); ?>
@@ -112,10 +112,11 @@
 				if($pages): ?>
 					
 					<!-- Pages -->
-					<div id="" class="layer clearfix">
+					<div id="" class="cf put-on-1col">
 						<?php
 							set_query_var('pages_list', $pages);
 							set_query_var('title', '');
+							set_query_var('icons', true);
 							get_template_part('template-parts/modules/module', 'pages'); 
 						?>
 					</div>
@@ -201,9 +202,11 @@
 
 	
 
-<aside class="mb-2">
+<section class="section-transition">
+	<div class="wrap">
 		<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
-</aside>
+	</div>
+</section>
 
 
     <script type="application/ld+json">
