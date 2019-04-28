@@ -40,29 +40,29 @@
 					
 					<form action="" id="prog-filters" class="mb-2" name="prog-filters">
 
-						<div class="">
-							<div class="label h_4">filtrer</div>
+							<div class="label h_4--red">filtrer</div>
+
 							<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
 							<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
 							<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'Pour quel âge ?', ''); ?>
 							<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
 
-							<div class="switch">
+							<div class="cf switch filter-item">
 								<span>passés</span>
 							  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
 							  <label for="cmn-toggle-1"></label>
 							  <span>à venir</span>
 							</div>
-						</div>
 
-						<div class="progFilterForm-lower clearfix">
-							<div class="">
-								<?php custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
+							<div class="cf switch filter-item">
+							  <input id="cmn-toggle-2" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['has_babysitting']) ) : echo 'checked=""'; endif; ?> name="has_babysitting" type="checkbox">
+							  <label for="cmn-toggle-2"></label>
+							  <span>avec baby-sitting</span>
 							</div>
-						</div>
+
+							<?php //custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
 
 					</form>
-
 
 					<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
 

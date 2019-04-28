@@ -15,7 +15,7 @@
 .put-on-1col .page-item
   width: 67%
   float: left
-  
+
 .event-aside .put-on-1col .page-item
   width: 100%
 
@@ -67,9 +67,15 @@
 .event-item
   position: relative
 
+  .page_related &
+    margin-bottom: $base_line_height 
+    
   .agenda-grid-item & 
     padding-top: 70px
-  
+
+  .agenda-grid-item & .item-hover
+    top: 70px 
+
   .item-header
     position: relative
 
@@ -113,7 +119,6 @@
   .item-hover
     display: none
     position: absolute
-    top: 70px
     left: 0
     right: 0
     background-color: $white

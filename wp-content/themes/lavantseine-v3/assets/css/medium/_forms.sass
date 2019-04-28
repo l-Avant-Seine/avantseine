@@ -7,104 +7,79 @@ input
   font-size: 18px
   line-height: 11px 
 
-.select-box
-  position: relative
-  display: block
-  width: 100%
-  margin: 0 auto
-  font-size: 18px
-  color: #60666d
-  
-  @media (min-width: 768px)
-    width: 70%
-  
-  
-  @media (min-width: 992px)
-    width: 50%
-  
-  
-  @media (min-width: 1200px)
-    width: 30%
-  
-  
-  &__current
+
+// FILTERS
+
+.switch > * 
+    float: left
+
+.cmn-toggle 
+  position: absolute
+  margin-left: -9999px
+  visibility: hidden
+
+input.cmn-toggle-round + label
+    padding: 2px
+    width: 15px
+    height: 15px
+    background-color: none
+    border-radius: 50%
+    margin: 0 10px
+    border: 1px solid $red
+
+.cmn-toggle + label
+    display: block
     position: relative
-    box-shadow: 0 15px 30px -10px transparentize(#000, 0.9)
     cursor: pointer
     outline: none
-    
-    &:focus
-      & + .select-box__list
-        opacity: 1
-        animation-name: none
-        
-        .select-box__option
-          cursor: pointer
-        
-      .select-box__icon
-        transform: translateY(-50%) rotate(180deg)
-      
-    
-  
-  
-  &__icon
-    position: absolute
-    top: 50%
-    right: 15px
-    transform: translateY(-50%)
-    width: 20px
-    opacity: 0.3
-    transition: 0.2s ease
-  
-  
-  &__value
-    display: flex
-  
-  
-  &__input
-    display: none
-    
-    &:checked + .select-box__input-text
-      display: block
-    
-  
-  &__input-text
-    display: none
-    width: 100%
-    margin: 0
-    padding: 15px
-    background-color: #fff
-  
-  
-  &__list
-    position: absolute
-    width: 100%
-    padding: 0
-    list-style: none
-    opacity: 0
-    animation-name: HideList
-    animation-duration: 0.5s
-    animation-delay: 0.5s
-    animation-fill-mode: forwards
-    animation-timing-function: step-start
-    box-shadow: 0 15px 30px -10px transparentize(#000, 0.9)
-  
-  &__option
+    user-select: none
+
+input.cmn-toggle-round:checked + label::before
+    background-color: $red
+
+input.cmn-toggle-round + label::before 
+    right: 0
+    background-color: $white
+    border-radius: 40px
+    transition: background .4s
+
+input.cmn-toggle-round + label::after, input.cmn-toggle-round + label::before 
     display: block
-    padding: 15px
-    background-color: #fff
-    
-    &:hover,
-    &:focus
-      color: #546c84
-      background-color: #fbfbfb
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    content: ""
+
+
+.c-select
+  position: relative
+
+  &:before
+    content: ''
+    display: inline
+    width: 15px
+    height: 15px
+    background-color: $red
+    border-radius: 50%
+    position: absolute
+    top: 13px
+    left: -20px
+
+  select
+    display: inline-block
+    font-size: 14px
+    width: 120%
+    border: none
+    background: none
+    color: $blue
+    font-weight: $bold
+  
+  option
+    padding-left: 0
+    margin-left: 0
     
 
-@keyframes HideList
-  from
-    transform: scaleY(1)
-  
-  to
-    transform: scaleY(0)
-  
+
+
 
