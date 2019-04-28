@@ -60,50 +60,31 @@ endif;
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
-	<header class="event-header  wrap mb-2">
+	<header class="event-header wrap mb-2">
 
 		<div class="event-titles">
 
-			<div class="row mb-1">
-				<div class="m-22col m-1col-push ">
+						<?php 
+							set_query_var('focus_event_id', '');
+							set_query_var('post', $post);
+							get_template_part('template-parts/blocs/header', 'event'); ?>
 
-					<div class="cf event-title " itemprop="name">
-						<h1 class="h_1"><?php the_title(); ?></h1>
-					</div>
+			  		<div class="row teaser-actions">
 
-					<div class="cf">
+			  			<div class="m-8col m-1col-push ">
 
-						<h4 class='h3'><?php 
-							echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
-						</h4>
+								<?php if( intval($event_last_date) > $today ) : ?>
+									<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary--white">réserver</a>
+								<?php endif; ?>
+								<?php lavantseine_display_share_buttons(); ?>
 
-						<?php if( $event_first_date != $event_last_date ) : ?>
-							<p><a href="#event-details" class="scroll"><span class="icon-arrow-right"></span><strong>voir toutes les dates</strong></a></p>
-						<?php endif; ?>
+			  			</div>
 
-						<?php if ( $event_duration ) : ?>
-							<p class='eventHeader-duration' itemprop='duration' content='T1M33S'>
-								<?php echo $event_duration ?>
-							</p>
-						<?php endif; ?>
-						
-			
-					</div>
+			  			<div class="m-8col ">
+								<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
+			  			</div>
 
-				</div>
-			</div><!-- .row -->
-
-			<div class="row">
-				<div class="m-22col m-1col-push ">
-
-						<?php if( intval($event_last_date) > $today ) : ?>
-							<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver mes places</a>
-						<?php endif; ?>
-
-						<?php lavantseine_display_share_buttons(); ?>
-
-				</div>
-			</div><!-- .row -->
+			  		</div>
 
 		</div><!-- .event-titles -->
 

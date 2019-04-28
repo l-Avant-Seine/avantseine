@@ -1,0 +1,51 @@
+<?php
+
+	$today = time();
+
+
+			$exhibition = get_field( 'eventDetail_exhibition', get_the_ID() );
+			$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $post->ID ) );
+			$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
+			$event_other_dates = get_field('eventDetail_otherdates', $post->ID ); 
+			$event_duration = get_field( 'eventDetail_duration', $post->ID );
+
+			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); ?>
+						
+						<div class="row mb-1">
+			  			<h3 class="m-23col m-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
+						</div>
+
+			  		<div class="row mb-1">
+			  			<div class="m-23col m-1col-push">
+								
+								<span class="label_3 meta-item">
+									<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
+								</span>
+
+								<span class="meta-item label_3">
+									<?php 
+										if ( count($tarifs_list) > 0 ){
+											echo '<span class="label_2">tarif </span>';
+								    foreach ( $tarifs_list as $tarif ) {
+								    	echo '<span class="">' . $tarif->name . '</span>';
+								    	echo $tarif->description;
+								    }
+								} ?>
+								</span>
+
+								<span class="meta-item label_3">
+									<span class="label_2">durée</span>
+									<span class=""><?php echo $event_duration; ?></span>
+								</span>
+
+								<span class="meta-item label_3">
+									<span class="label_2">à partir de</span>
+									<span class="">Public ?</span>
+								</span>							
+
+			  			</div>
+			  		</div>
+
+
+
+

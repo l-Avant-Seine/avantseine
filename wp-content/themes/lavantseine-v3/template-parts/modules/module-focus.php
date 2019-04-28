@@ -26,27 +26,46 @@
 
 	<div class="home-slides">
 	
-		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); 
+		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>
 		
-			$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
-			$exhibition = get_field( 'eventDetail_exhibition', get_the_ID() );
-			$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date', $post->ID ) );
-			$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
-			$event_other_dates = get_field('eventDetail_otherdates', $post->ID ); ?>
-
-					
-		  <div class="slide is-flex">
+		  <div class="slide is-flex ">
 		  	
-		  	<a href="<?php the_permalink(); ?>" class="slide-cover">
-		  		<img src="<?php if( get_field('gif', $focus_event_id ) ) : the_field('gif', $focus_event_id); else : echo $focus_event_media_url[0]; endif; ?>" alt="">
-		  	</a>
+		  	<div class="event-teaser">
+					<?php 
+						$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+						$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
+						$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 
-		  	<a href="<?php the_permalink(); ?>" class="slide-text">
-		  		<h3 class="h_1 slide-title mb-05"><?php the_title(); ?></h3>
-		  		<span class="label_2"><?php the_field( 'noms_principaux' ); ?></span><br>
-					<span class="label_3"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></span>
-		  	</a>
+			  	<a href="<?php the_permalink(); ?>" class="slide-cover">
+			  		<img src="<?php if( get_field('gif', $focus_event_id ) ) : the_field('gif', $focus_event_id); else : echo $focus_event_media_url[0]; endif; ?>" alt="">
+			  	</a>
 
+			  	<div class="slide-text">
+
+						<?php 
+							set_query_var('focus_event_id', $focus_event_id);
+							set_query_var('post', $post);
+							get_template_part('template-parts/blocs/header', 'event'); ?>
+
+			  		<div class="row teaser-actions">
+
+			  			<div class="m-10col  m-1col-push ">
+
+								<?php if( intval($event_last_date) > $today ) : ?>
+									<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary--white">réserver</a>
+								<?php endif; ?>
+			  				<a href="<?php the_permalink(); ?>" class="btn-primary--white">en savoir plus</a>
+
+			  			</div>
+
+			  			<div class="m-8col m-last">
+								<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
+			  			</div>
+
+			  		</div>
+
+					</div>
+			  </div>
 		  </div>
 
 
