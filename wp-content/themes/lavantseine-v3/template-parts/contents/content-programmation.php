@@ -134,7 +134,7 @@
 
 
 		<div class="wrap row module-actions">
-			<a class="load-more btn--big m-4coll is-centered" href="#" posts_found="<?php echo $posts_found; ?>">voir plus de spectacles</a>
+			<a class="load-more btn-primary" href="#" posts_found="<?php echo $posts_found; ?>">voir plus de spectacles</a>
 		</div><!-- .row -->
 
 

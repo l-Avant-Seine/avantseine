@@ -1,6 +1,6 @@
 
 
-			<div class="page-item">
+			<div class="page-item mb-1">
 		
 				<?php if( $icons ) : ?>
 					<div class="rounded-icon mb-05">
@@ -8,9 +8,9 @@
 					</div>
 				<?php endif; ?>
 
-				<h5 class="h_4 item-title"><?php the_title(); ?></h5>
+				<h5 class="h_4 item-title mb-05"><?php the_title(); ?></h5>
 
-				<div class="item-excerpt">
+				<div class="item-excerpt mb-05">
 					<?php 
 						if( get_field('pageDetail_intro') != '' ) : 
 							the_field('pageDetail_intro'); 

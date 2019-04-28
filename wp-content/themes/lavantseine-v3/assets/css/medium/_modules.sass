@@ -3,21 +3,21 @@
 
 
 .page-item
-	margin-bottom: $base_line_height
-
-not(.put-on-1col) .page-item
   width: 47%
 
-  &:nth-child(odd)
+.page-item:nth-child(odd)
     float: right
 
-  &:nth-child(even)
+.page-item:nth-child(even)
     float: left
     clear: both
 
 .put-on-1col .page-item
   width: 67%
-
+  float: left
+  
+.event-aside .put-on-1col .page-item
+  width: 100%
 
 
 .focus-item
@@ -102,6 +102,10 @@ not(.put-on-1col) .page-item
   .item-dates,
   .item-names
     font-weight: $bold
+
+    [class^="label"], [class*="label"]
+      color: $blue
+      vertical-align: initial
 
   .item-names
     text-transform: lowercase
@@ -231,10 +235,16 @@ $duration: 300s
   border-bottom: 1px solid $red
 
 
+
+
 // FRAMES
 
 iframe
   max-width: 100%
+  min-height: 325px
+  max-height: 500px
+
+
 
 
 // SOCIAL BUTTONS

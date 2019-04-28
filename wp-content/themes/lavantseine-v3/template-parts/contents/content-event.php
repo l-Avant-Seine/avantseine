@@ -95,14 +95,14 @@ endif;
 	</header><!-- .event-header -->
 
 
-	<div class="event-meta event-layer wrap">
+	<div class="event-meta mb-1 wrap">
 		<?php 
 			$count = count($tags);
 			if ( $count > 0 ){
-			    echo "<ul class='no-bullets'>";
+			    echo "<ul class='nobullets'>";
 			    foreach ( $tags as $term ) {
 		  			$term_link = get_term_link( $term, '' );
-			    	echo "<li class='eventmeta-term'><a href='". $term_link ."'>" . $term->name . "</a></li>";
+			    	echo "<li class='eventmeta-term btn-primary'><a href='". $term_link ."'>" . $term->name . "</a></li>";
 			    	echo $term->description;
 			    }
 			    echo "</ul>";
@@ -116,7 +116,7 @@ endif;
 
 		<div class="wrap row">
 				
-			<div class="m-16col"  itemprop="mainContentOfPage">
+			<div class="m-16col" itemprop="mainContentOfPage">
 				<div class="">
 					<div class="copy mb-2">
 						<?php the_content(); ?>
@@ -128,40 +128,73 @@ endif;
 
 					<?php get_template_part( 'part', 'postslide' );	?>
 
-					</div>
-
-
-					<?php if( intval($event_first_date) > $today ) : ?>
-						<a class="btn-primary" href="<?php echo $event_dealer_link; ?>" target="_blank" class="button saisoned-on-bg">réserver mes places</a>
-					<?php endif; ?>
-
-
+				</div>
+	
+				<?php if ( $event_text2 ) : echo "<div class='mb-2'>". $event_text2 ."</div>"; endif; ?>
 
 				<div id="event-details" class="event-details">
-					<div class="">
-						
-						<div class="row clearfix">
-							<div class=" m-first">
-								<h4 class="h5">Tarifs</h4>
 
-								<?php				
-									$term_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all"));
-									$count = count($term_list);
-									if ( $count > 0 ){
-									    echo "<ul class='no-bullets'>";
-									    foreach ( $term_list as $term ) {
-									    	echo "<li class=''>#" . $term->name . "</li>";
-									    	echo $term->description;
-									    }
-									    echo "</ul>";
-									}
-								?>
-
-								<?php if ( $event_text2 ) : echo "<p class=''>". $event_text2 ."</p>"; endif; ?>
+						<div class="event-distribution row clearfix mb-2">
+							<h4 class="h_4 mb-05">
+								Distribution et mentions complètes
+							</h4>
+				
+							<div class="mb-1">
+									<?php 
+										if ( $event_distribution || $event_mentions ) : 
+											echo $event_distribution;
+										endif; ?>
 							</div>
 
 							<div class="">
-								<h4 class="h5">Date(s)</h4>
+
+									<?php 
+										if (  $event_mentions ) : 
+											echo $event_mentions;
+										endif; ?>
+
+									<?php if ($attached) : ?>
+									<p class="attached-file">
+										<a href="<?php echo $attached['url']; ?>" class="btn--big">  
+									    Dossier de presse
+										</a>
+									</p>
+									<?php endif; ?>
+
+									<?php if( $presskit ): ?>
+										<a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
+									<?php endif; ?>
+
+							</div>
+						</div>
+
+
+						<div class="row cf mb-3">
+
+							<div class="m-8col">
+								
+								<h4 class="h_4">Infos pratiques</h4>
+
+								<div class="event-practicallist">
+									<?php				
+										$term_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all"));
+										$count = count($term_list);
+										if ( $count > 0 ){
+										    echo "<ul class='no-bullets'>";
+										    foreach ( $term_list as $term ) {
+										    	echo "<li class=''>#" . $term->name . "</li>";
+										    	echo $term->description;
+										    }
+										    echo '<li><a href="#" class="btn-inline">tous les tarifs et conditions</a></li>';
+										    echo "</ul>";
+										}
+									?>
+
+								</div>
+							</div>
+
+							<div class="m-8col ">
+								<h4 class="h_4">Date(s)</h4>
 
 								<?php 
 									if( $exhibition ) {
@@ -170,7 +203,7 @@ endif;
 									else {
 
 										if ( $event_first_date ) : 
-											echo '<ul class="no-bullets lowercase">';
+											echo '<ul class="nobullets event-dateslist ">';
 											    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
 											    if( get_field('eventDetail_first_date_babysitting')) : 
 											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
@@ -206,43 +239,8 @@ endif;
 
 							</div>
 						</div>
-						
 
-						<div class="event-distribution row clearfix mb-2">
-							<h4 class="h_5">
-								Distribution et mentions complètes
-							</h4>
-				
-							<div class="l-3col l-first ">
-									<?php 
-										if ( $event_distribution || $event_mentions ) : 
-											echo $event_distribution;
-										endif; ?>
-							</div>
 
-							<div class="">
-
-									<?php 
-										if (  $event_mentions ) : 
-											echo $event_mentions;
-										endif; ?>
-
-									<?php if ($attached) : ?>
-									<p class="attached-file">
-										<a href="<?php echo $attached['url']; ?>" class="btn--big">  
-									    Dossier de presse
-										</a>
-									</p>
-									<?php endif; ?>
-
-									<?php if( $presskit ): ?>
-										<a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
-									<?php endif; ?>
-
-							</div>
-						</div>
-
-					</div>
 				</div><!-- .event-details -->
 
 			</div><!-- .event-details -->
@@ -251,9 +249,12 @@ endif;
 			<div class="event-aside m-7col m-last">
 
 				<?php if($babysitting) : ?>
-					<a class="focusElement-pastille is-flex scroll" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant" title="dès 3 ans / 6 € par enfant" href="#event-details">
-						<span>Baby<br>Sitting</span>
-					</a>
+					<div class="cf mb-2">
+						<div class="rounded-icon mb-05">a</div>
+						<h4 class="h_4">Baby Sitting</h4>
+						<p class="mb-05">Venir au théâtre quand on a des enfants ? Trop facile.</p>
+						<a class="btn-inline" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant" title="dès 3 ans / 6 € par enfant">plus d'infos</a>
+					</div>
 				<?php endif; ?>
 
 				<?php set_query_var('relational_tag', 'relational_tag'); ?>
