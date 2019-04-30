@@ -43,8 +43,10 @@
 
 		<div class="item-breather">
 			
-			<div class="b-lazy item-cover">
-				<img src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>" alt="">
+			<div class="b-lazy item-cover square">
+				<div class="square-content">
+					<img src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>" alt="">
+				</div>
 			</div>
 
 			<a href="<?php the_permalink(); ?>" rel="bookmark">

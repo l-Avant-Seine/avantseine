@@ -136,7 +136,7 @@
               $('.webmag-grid').removeClass('loading');
 
 
-              $('.load-more-posts').on('click', function(event) {
+              $('.load-more-posts').on('click', function( event ) {
                 event.preventDefault();
                 
                 $(this).html('Nous recherchons les articles...');
@@ -193,7 +193,7 @@ jQuery(function($) {
     var ham_trigger = $('#js-menuTrigger');
     var ham_menu = $('#ham-menu');
     
-    $(ham_trigger).on('click', function(event) {
+    $(ham_trigger).on('click', function( event ) {
       event.preventDefault();
       ham_menu.toggleClass('active');
       $(this).find('span').toggleClass('icon-close');
@@ -201,7 +201,7 @@ jQuery(function($) {
       $('body').toggleClass('no-scroll menu-is-open');
     });
 
-    ham_menu.find('.menu-item-has-children > a').on('click', function(event) {
+    ham_menu.find('.menu-item-has-children > a').on('click', function( event ) {
 
       if( $(this).parent().hasClass('ham-prog') || $(this).parent().hasClass('ham-mag') ) {
       } 
@@ -224,7 +224,7 @@ jQuery(function($) {
 
 
 // GET POSTS FROM CAT TERM
-    $('.js-postmeta-term').on('click', function(event) {
+    $('.js-postmeta-term').on('click', function( event ) {
       event.preventDefault();
       var term_slug = $(this).attr('cat-slug');
       $(window).getPostsFromTerm( term_slug );
@@ -247,7 +247,7 @@ jQuery(function($) {
 
 // SOCIAL
 
-    $('#js-shareTrigger').on('click', function(event) {
+    $('#js-shareTrigger').on('click', function( event ) {
       event.preventDefault();
 
       $(this).parent().toggleClass('open');
@@ -256,22 +256,39 @@ jQuery(function($) {
 
 
 // SEARCH
+var modal = $('#modal');
+var modal_content = $('#modal-content');
+var modal_title = $('#modal-title');
 
-    $('#js-searchTrigger').on('click', function(event) {
+    $('#searchform-close').on('click', function( event ) {
+      event.preventDefault();
+      $('#siteMenus-searchform').hide()
+      modal.hide();
+    })
+
+    $('#js-searchTrigger').on('click', function( event ) {
       event.preventDefault();
 
-      $(this).find('span').toggleClass('icon-search icon-close');
-      $('.siteMenus-searchform').toggle();
+      $('#siteMenus-searchform').toggle();
 
-      if( $('.modal').is(':visible') ) {
-        $('.modal').hide();
+      if( modal.is(':visible') ) {
+        modal.hide();
       }
     });
 
-    $('#searchform').on('submit', function(event) {
+    $('#searchform').on('submit', function( event ) {
       event.preventDefault();
 
       var keyword = $(this).find('input[type="text"]').val();
+      
+      if( modal.is(':visible') ) {
+        modal_content.css('opacity', '.5');
+        modal_title.show();
+        modal_title.html('Nous cherchons encore...')
+      }
+      else {
+        modal.show();
+      }
 
       jQuery.post(
           ajaxurl,
@@ -281,20 +298,26 @@ jQuery(function($) {
           },
           function(response){
             if( response ) {
-              $('.modal-inner').html(response);      
+              modal_content.html(response);
+              modal_title.hide(); 
+
+              var grid = document.getElementById('salgrid_3');
+              salvattore.registerGrid(grid);
+              //bLazy.revalidate();
+      
+              modal_content.css('opacity', '1');
+
             }
             else {
-              $('.modal-inner').html('<p>Désolé, il n\'y a aucun résulat pour votre recherche...</p>');
+              modal_title.html('Désolé, il n\'y a aucun résulat pour votre recherche...');
             }
-            $('.modal').show();
-            
-            var grid = document.getElementById('salgrid_3');
-            salvattore.registerGrid(grid);
-            //bLazy.revalidate();
-            
+            //modal.show();
+ 
           }
       );
     });
+
+
 
 
 // LOAD MORE EVENTS
@@ -302,7 +325,7 @@ jQuery(function($) {
     // EVENTS >> LOAD MORE
     var step = 18;
     var offset = step; 
-    $('.load-more').on('click', function(event) {
+    $('.load-more').on('click', function( event ) {
       event.preventDefault();
       var pastEvents;
       var posts_found = $(this).attr('posts_found');
@@ -342,7 +365,7 @@ jQuery(function($) {
 
 // EVENTS >> GET EVENTS FROM FILTERS
 
-    $('#prog-filters').on('change', function(event) {
+    $('#prog-filters').on('change', function( event ) {
       event.preventDefault();
 
       var discipline_value = $(this).find('select[name="discipline"]').val();
@@ -389,7 +412,7 @@ jQuery(function($) {
 
 // BROCHURES
 
-    $('.js-pdfTrigger').on('click', function(event) {
+    $('.js-pdfTrigger').on('click', function( event ) {
       event.preventDefault();
       $(this).find('ul').toggleClass('hidden');
     });

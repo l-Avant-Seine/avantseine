@@ -44,7 +44,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 
 			<div class="item-text">
 
-				<h2 class="<?php if(!$terms) { echo 'h_4 '; } else { echo 'h_4'; } ?> item_title cf">	
+				<h2 class="<?php if(!$terms) { echo 'h_4 '; } else { echo 'h_4'; } ?> item-title cf">	
 						<?php the_title(); ?>
 				</h2>
 

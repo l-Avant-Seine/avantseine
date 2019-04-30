@@ -75,7 +75,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 																	%3$s
 
 																<li class="js-menuTrigger menu-item">
-																	<a href="#" id="js-menuTrigger"> <span class="icon-menu"></span> et aussi</a>
+																	<a href="#" id="js-menuTrigger">et aussi <span class="icon-menu">&#9776; </span> </a>
 																</li>
 															</ul>'
 					) ); ?>
@@ -94,31 +94,44 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 				<ul class=" no-bullets" role="navigation">
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://www.facebook.com/lAvantSeine/" target="_blank"><span class="icon-facebook">
-							</span></a>
+						<a href="https://www.facebook.com/lAvantSeine/" target="_blank">
+							<span class="icon-facebook"> fb </span></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://twitter.com/AvantSeine" target="_blank"><span class="icon-twitter">
-							</span></a>
+						<a href="https://twitter.com/AvantSeine" target="_blank">
+							<span class="icon-twitter"> tw </span></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="#" id="js-searchTrigger"><span class="icon-search">
-							</span></a>
+						<a href="https://twitter.com/AvantSeine" target="_blank">
+							<span class="icon-twitter"> ews </span></a>
 					</li>
 
-					<div class="siteMenus-searchform">
-						<form id="searchform" class="searchbar" action="/" method="get">
-					    <input type="text" name="s" id="search" placeholder="votre recherche" value="" />
-					    <input type="submit" alt="Search" class="" value="ok" />
-					</form>
-					</div>
+					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+						<a href="#" id="js-searchTrigger">
+							<span class="icon-search"> search </span></a>
+					</li>
 																	
 				</ul>
 			</nav>
 
 		</div><!-- .site-menus -->
+
+
+		<div id="siteMenus-searchform" class="siteMenus-searchform is-flex">
+			<div class="inner">
+				
+				<div class="cf text-on-right">
+					<a href="#" id="searchform-close" class="btn-nude">x</a>
+				</div>
+				<form id="searchform" class="cf searchbar" action="/" method="get">
+			    <input type="text" name="s" id="search" placeholder="votre recherche" value="" />
+			    <input type="submit" alt="Search" class="btn-nude" value="ok" />
+				</form>
+
+			</div>
+		</div>
 
 
 				<nav id="ham-menu" class="siteMenus-large">
@@ -154,10 +167,11 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 	</header><!-- #masthead -->
 
-	<div class="modal">
+	<div id="modal" class="modal">
 		<div class="modal-inner wrap">
-			Nous cherchons...
+			<h2 id="modal-title" class="h_2 mb-2">Nous cherchons...</h2>
 
+			<div id="modal-content"></div>
 		</div>
 	</div>
 

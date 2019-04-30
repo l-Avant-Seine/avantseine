@@ -4,6 +4,10 @@
 a
 	color: inherit
 	text-decoration: none
+	
+	&:hover
+		color: $red
+
 
 .btn-primary
 	background-color: $blue
@@ -17,11 +21,16 @@ a
 
 	&:hover
 		cursor: pointer
+		background-color: $red
 
 .btn-primary--white
 	@extend .btn-primary
 	background-color: $white
 	color: $blue
+
+	&:hover
+		background-color: $blue
+		color: $white
 
 .btn--little
 	color: $red
@@ -51,4 +60,23 @@ a
 		font-weight: bold
 		font-size: 30px
 		margin-right: 5px
+
+	&:hover
+		color: $red
+
+
+
+.btn-nude
+	font-size: 18px
+	line-height: 11px
+	background: none
+	padding: .5em 1em
+
+
+	&:hover
+		background-color: $red
+		cursor: pointer
+
+
+
 

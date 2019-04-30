@@ -1,6 +1,7 @@
 
 
 .modal
+	transition: all 0.5
 	display: none
 	position: absolute
 	background: white
@@ -9,5 +10,30 @@
 	padding-top: 20px
 	padding-bottom: 20vh
 	z-index: 3
+	right: 0
+	left: 0
+	overflow: scroll
+	height: 87vh
 
-	
+.siteMenus-searchform
+	background-color: $blue
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	z-index: 3
+	justify-content: center
+	align-items: center
+	flex-direction: column
+
+	.btn-nude
+		color: $white
+
+
+#searchform-close
+	color: $white
+	font-size: 20px
+	font-weight: $bold
+
+

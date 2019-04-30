@@ -19,7 +19,7 @@
 
 									<div class="item-text">
 										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
-							    		<h3 class="h_4 item_title mb-1"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
+							    		<h3 class="h_4 item-title mb-1"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
 							    		<div class="focusElement_p"><?php the_sub_field('focusElements_libre_texte'); ?></div>
 							    	</a>
 							    </div>
@@ -52,7 +52,7 @@
 
 									<div class="item-text">
 										<a href="<?php echo get_permalink( $focus_item->ID ); ?>">
-							    		<h3 class="h_4 item_title mb-1"><?php echo $focus_title; ?></h3>
+							    		<h3 class="h_4 item-title mb-1"><?php echo $focus_title; ?></h3>
 							    		<div class="focusElement_p">
 							    			<p><?php echo $focus_text ?></p>
 							    		</div>
