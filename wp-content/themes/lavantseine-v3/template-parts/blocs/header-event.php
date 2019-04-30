@@ -22,7 +22,7 @@
 									<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
 								</span>
 
-								<span class="meta-item label_3 s-hide m-show">
+								<span class="meta-item label_3">
 									<?php 
 										if ( count($tarifs_list) > 0 ){
 											echo '<span class="label_2">tarif </span>';
@@ -33,18 +33,18 @@
 								} ?>
 								</span>
 
-				  			<div class="m-8col m-last m-hide">
+				  			<div class="m-8col m-hide">
 									<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
 				  			</div>
 
 								<?php if ($event_duration !== '') : ?>
-									<span class="meta-item label_3 s-hide m-show">
+									<span class="meta-item label_3">
 										<span class="label_2">durée</span>
 										<span class=""><?php echo $event_duration; ?></span>
 									</span>
 								<?php endif; ?>
 								
-								<span class="meta-item label_3 s-hide m-show">
+								<span class="meta-item label_3">
 									<span class="label_2">à partir de</span>
 									<span class="">Public ?</span>
 								</span>							

@@ -146,21 +146,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 								'menu_id' => 'hamburger-menu',
 								'link_before'	=> '<span class="icon-arrow-left m-hide"></span>',
 								'link_after'	=> '<span class="icon-fleche_accordeon m-hide is-on-right"></span>',
-								'items_wrap' => '<ul id="hamburger-menu" class="menu is-flex">
-																	<li class="menu-item menu-item-has-children ham-prog"><a href="/programmation">Programmation</a></li>
-																	<li class="menu-item menu-item-has-children ham-mag"><a href="/magazine">Magazine</a></li>
-
-																	%3$s
-
-																	<li id="menu-item-9455" class="m-hide black-bg menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="http://lavant-seine.com/lieu/equipe/">Contacts</a></li>
-
-																	<li id="menu-item-9454 " class="m-hide black-bg  booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="http://billetterie.lavant-seine.com" target="_blank"><span class="icon-pop-out"></span> Réserver</a></li>
-
-																	<li  class="m-hide menu-item black-bg menu-item-type-post_type menu-item-object-page menu-item-9455">
-																		<a href="https://www.facebook.com/lAvantSeine/" target="_blank"><span class="icon-facebook"></span></a>
-																		<a href="https://twitter.com/AvantSeine" target="_blank"><span class="icon-twitter"></span></a>
-																	</li>
-																</ul>'
+								'items_wrap' => '<ul id="hamburger-menu" class="menu is-flex"> %3$s </ul>'
 								 ) 
 							); 
 						?>
