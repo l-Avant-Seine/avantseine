@@ -269,7 +269,7 @@ var modal_title = $('#modal-title');
     $('#js-searchTrigger').on('click', function( event ) {
       event.preventDefault();
 
-      $('#siteMenus-searchform').toggle();
+      $('#siteMenus-searchform').css('display', 'flex');
 
       if( modal.is(':visible') ) {
         modal.hide();

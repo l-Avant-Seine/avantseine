@@ -119,7 +119,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 		</div><!-- .site-menus -->
 
 
-		<div id="siteMenus-searchform" class="siteMenus-searchform is-flex">
+		<div id="siteMenus-searchform" class="siteMenus-searchform">
 			<div class="inner">
 				
 				<div class="cf text-on-right">
