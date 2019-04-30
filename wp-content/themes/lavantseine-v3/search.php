@@ -19,7 +19,7 @@ get_header();
 
 			<header class="search-pagetitle mb-2">
 				<div class="wrap search-title" itemprop="name">
-					<h1 class="h_1"><?php printf( esc_html__( 'Résultats de votre recherche : %s', 'lavantseine-v2' ), '<br><em>' . get_search_query() . '</em>' ); ?></h1>
+					<h1 class="h_1"><?php printf( esc_html__( 'Résultats de votre recherche : %s', 'lavantseine-v3' ), '<br><em>' . get_search_query() . '</em>' ); ?></h1>
 				</div>
 			</header><!-- .page-header -->
 

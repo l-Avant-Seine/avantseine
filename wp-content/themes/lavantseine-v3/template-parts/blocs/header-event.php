@@ -12,17 +12,17 @@
 			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); ?>
 						
 						<div class="row mb-1">
-			  			<h3 class="m-22col m-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
+			  			<h3 class="s-22col s-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
 						</div>
 
 			  		<div class="row mb-1">
-			  			<div class="m-22col m-1col-push">
+			  			<div class="s-22col s-1col-push">
 								
 								<span class="label_3 meta-item">
 									<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
 								</span>
 
-								<span class="meta-item label_3">
+								<span class="meta-item label_3 s-hide m-show">
 									<?php 
 										if ( count($tarifs_list) > 0 ){
 											echo '<span class="label_2">tarif </span>';
@@ -33,14 +33,18 @@
 								} ?>
 								</span>
 
+				  			<div class="m-8col m-last m-hide">
+									<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
+				  			</div>
+
 								<?php if ($event_duration !== '') : ?>
-									<span class="meta-item label_3">
+									<span class="meta-item label_3 s-hide m-show">
 										<span class="label_2">durée</span>
 										<span class=""><?php echo $event_duration; ?></span>
 									</span>
 								<?php endif; ?>
 								
-								<span class="meta-item label_3">
+								<span class="meta-item label_3 s-hide m-show">
 									<span class="label_2">à partir de</span>
 									<span class="">Public ?</span>
 								</span>							

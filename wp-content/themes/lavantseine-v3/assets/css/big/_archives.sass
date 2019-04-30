@@ -41,10 +41,13 @@
 
 .prog-filters
 	padding-right: 6%
-	padding-top: 70px
 	
 	.label
 		margin-bottom: 0
+	
+	@include at-least(medium)
+		padding-top: 70px
+
 
 .filter-item
 	border-bottom: 1px solid $red

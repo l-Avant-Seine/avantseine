@@ -38,7 +38,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 				<?php
 				if ( wp_is_mobile() ) {
-					$header_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019.png';
+					$header_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019-mobile.png';
 				} else {
 					$header_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019.png';
 				}
@@ -71,18 +71,22 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 						'menu_id' => 'primary-menu',
 						'walker' => new Microdot_Walker_Nav_Menu(), 
 						'container' => false, 
-						'items_wrap' => '<ul class="siteMenuPrimary-inner menu-item no-bullets">
+						'items_wrap' => '<ul class="siteMenuPrimary-inner menu-item no-bullets"> 
+
 																	%3$s
 
 																<li class="js-menuTrigger menu-item">
-																	<a href="#" id="js-menuTrigger">et aussi <span class="icon-menu">&#9776; </span> </a>
+																	<a href="#" id="js-menuTrigger">
+																		<span class="label">et aussi </span>
+																		<span class="icon-menu">&#9776; </span>
+																	</a>
 																</li>
 															</ul>'
 					) ); ?>
 
 			</nav><!-- #site-navigation -->
 
-			<nav class="siteMenus-actions flx-1">
+			<nav class="siteMenus-actions s-hide m-show flx-1">
 				<ul class="nobullets">
 					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary">nous contacter</a></li>
 
@@ -172,6 +176,14 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 			<div id="modal-content"></div>
 		</div>
+	</div>
+
+	<div id="cta-menu" class="cta-menu m-hide">
+		<?php 
+		wp_nav_menu( array(
+			'theme_location' => 'footer', 
+		) ); ?>
+
 	</div>
 
 	<div id="content" class="site-content">

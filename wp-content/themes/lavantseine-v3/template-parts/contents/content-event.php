@@ -71,7 +71,7 @@ endif;
 
 			  		<div class="row teaser-actions">
 
-			  			<div class="m-8col m-1col-push ">
+			  			<div class="s-12col s-1col-push ">
 
 								<?php if( intval($event_last_date) > $today ) : ?>
 									<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary--white">réserver</a>
@@ -80,7 +80,7 @@ endif;
 
 			  			</div>
 
-			  			<div class="m-8col ">
+			  			<div class="s-8col ">
 								<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
 			  			</div>
 
@@ -171,7 +171,7 @@ endif;
 
 						<div class="row cf mb-3">
 
-							<div class="m-8col">
+							<div class="m-8col mb-2">
 								
 								<h4 class="h_4">Infos pratiques</h4>
 

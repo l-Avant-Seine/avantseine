@@ -4,6 +4,9 @@
 #salgrid_1[data-columns]::before
 	content: '2 .column.half'
 
+	@include up-to(medium)
+		content: '1'
+
 .column
 	float: left
 
@@ -18,6 +21,9 @@
 #salgrid_3[data-columns]::before
 	content: '3 .m-8col'
 
+	@include up-to(medium)
+		content: '1'
+		
 .column
 
 	&:nth-child(3)

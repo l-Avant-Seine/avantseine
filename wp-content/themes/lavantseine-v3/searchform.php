@@ -2,7 +2,7 @@
 /* 
  * Searchbar (displayed in header)
  * 
- * @package lavantseine-v2
+ * @package lavantseine-v3
  */
 
 ?>

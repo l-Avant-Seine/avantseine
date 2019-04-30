@@ -7,39 +7,49 @@
 	left: 0
 	right: 0
 	padding: 0 10px
-
-.scrolling
-	.site-header
-		flex-wrap: nowrap
-		height: 5vh
-		border-bottom: 1px solid $red
-
-	.siteMenus-primary
-		order: 1
-
-		.menu-item a
-			font-size: 16px
-		.icon-close, .icon-menu
-			font-size: 36px
-
-	.siteMenus-actions
-		order: 3
-
-		[class^="btn-"], [class*=" btn-"]
-			font-size: 14px 
-
-	.siteMenus-contacts
-		order: 2
-		width: auto
-		padding: 0
-
-
 	
+	@include up-to(medium)
+		border-bottom: 1px solid $red
+		height: 8vh
+
 
 .menu-item
 	float: left
 
 
+
+// STICKY
+
+.scrolling
+
+	@include at-least(medium)
+		.site-header
+			flex-wrap: nowrap
+			height: 5vh
+			border-bottom: 1px solid $red
+
+		.siteMenus-primary
+			order: 1
+
+			.menu-item a
+				font-size: 16px
+			.icon-close, .icon-menu
+				font-size: 36px
+
+		.siteMenus-actions
+			order: 3
+
+			[class^="btn-"], [class*=" btn-"]
+				font-size: 14px 
+
+		.siteMenus-contacts
+			order: 2
+			width: auto
+			padding: 0
+
+
+
+// MAIN MENU
 	
 
 .siteMenuPrimary-inner > .menu-item
@@ -58,6 +68,14 @@
 	position: relative
 	z-index: 5
 
+	@include up-to(medium)
+		width: 45%
+
+		img
+			width: auto
+			padding: 10px 0
+			height: 8vh
+
 
 .site-menus
 	flex-wrap: wrap
@@ -67,15 +85,32 @@
 	width: 87%
 	position: relative
 	z-index: 2
+	
+	@include up-to(medium)
+		width: 55%
 
+.siteMenuPrimary-inner
+	
+	@include up-to(medium)
+		padding: 10px 0
+		float: right
 
-.siteMenus-primary
+		.menu-item:not(.js-menuTrigger),
+		.label
+			display: none
+
+		.menu-item
+			border: none
+
 
 .siteMenus-actions
 
 	.menu-item
 		float: right
 		margin-left: 10px
+
+	@include up-to(medium)
+		display: none
 
 
 .siteMenus-contacts
@@ -88,10 +123,13 @@
 	li
 		margin-left: 20px
 
+	@include up-to(medium)
+		width: auto
 
 
 
 
+// BIG MENU
 
 .siteMenus-large
 	position: absolute
@@ -150,12 +188,42 @@
 
 
 
+// OPEN MENU
+
 .menu-is-open
 	.siteMenus-primary
 		color: $white
 
 	.btn-primary
 		background-color: $red
+
+
+
+// MOBILE CTA MENU
+
+.cta-menu
+	position: fixed
+	padding: 10px 5px 5px
+	background-color: rgba(255,255,255,.9)
+	border-top: 1px solid $red
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: 8
+	
+	ul
+		display: flex
+		justify-content: center
+
+	a
+		float: left
+		border-left: 6px solid $red
+		padding: .2em 1em
+		font-weight: $bold
+		font-size: 22px
+
+	li:first-child a
+		border: none
 
 
 
@@ -171,7 +239,17 @@
 		color: $red
 		margin-bottom: $base_line_height
 		font-weight: $bold
+		
+		@include up-to(medium)
+			margin-bottom: 0
 
 .footer-col--empty
 	border-left: 4px solid $red
 	height: 30px
+	
+	@include up-to(medium)
+		height: 10px
+		border: none
+
+
+

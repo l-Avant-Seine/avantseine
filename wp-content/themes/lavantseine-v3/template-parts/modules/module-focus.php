@@ -49,7 +49,7 @@
 
 			  		<div class="row teaser-actions">
 
-			  			<div class="m-10col  m-1col-push ">
+			  			<div class="s-20col m-10col s-1col-push ">
 
 								<?php if( intval($event_last_date) > $today ) : ?>
 									<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary--white">réserver</a>
@@ -58,7 +58,7 @@
 
 			  			</div>
 
-			  			<div class="m-8col m-last">
+			  			<div class="m-8col m-last s-hide m-show">
 								<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
 			  			</div>
 

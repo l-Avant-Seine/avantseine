@@ -40,9 +40,9 @@ function lavantseine_v2_setup() {
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
 	 * If you're building a theme based on l\'Avant-Seine v2.0, use a find and replace
-	 * to change 'lavantseine-v2' to the name of your theme in all the template files.
+	 * to change 'lavantseine-v3' to the name of your theme in all the template files.
 	 */
-	load_theme_textdomain( 'lavantseine-v2', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'lavantseine-v3', get_template_directory() . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
@@ -71,10 +71,10 @@ function lavantseine_v2_setup() {
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'primary' => __( 'Menu principal', 'lavantseine-v2' ),
-		'top' => __( 'Menu supérieur', 'lavantseine-v2' ),
-		'all' => __( 'Menu hamburger', 'lavantseine-v2' ),
-		'footer' => __( 'Footer', 'lavantseine-v2' ),
+		'primary' => __( 'Menu principal', 'lavantseine-v3' ),
+		'top' => __( 'Menu supérieur', 'lavantseine-v3' ),
+		'all' => __( 'Menu hamburger', 'lavantseine-v3' ),
+		'footer' => __( 'Footer', 'lavantseine-v3' ),
 	) );
 
 	/*
@@ -119,7 +119,7 @@ function lavantseine_v2_widgets_init() {
 	) );
 	
 	register_sidebar( array(
-		'name'          => __( 'Emplacements Footer ', 'lavantseine-v2' ),
+		'name'          => __( 'Emplacements Footer ', 'lavantseine-v3' ),
 		'id'            => 'footer-widgets',
 		'before_widget' => '<aside id="%1$s" class="box-footer widget %2$s">',
 		'after_widget'  => '</aside>',
@@ -135,9 +135,9 @@ add_action( 'widgets_init', 'lavantseine_v2_widgets_init' );
  * Enqueue scripts and styles.
  */
 function lavantseine_v2_scripts() {
-	wp_enqueue_style( 'lavantseine-v2-style', get_template_directory_uri() . '/assets/style.css' );
+	wp_enqueue_style( 'lavantseine-v3-style', get_template_directory_uri() . '/assets/style.css' );
 
-	wp_enqueue_script( 'lavantseine-v2-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
+	wp_enqueue_script( 'lavantseine-v3-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
 
 	wp_register_script( 'salvattore', get_template_directory_uri() .'/assets/js/lib/salvattore.js' , 'jquery', '', true );
 	wp_register_script( 'slick', get_template_directory_uri() .'/assets/js/lib/slick.js' , 'jquery', '', true );
@@ -146,7 +146,7 @@ function lavantseine_v2_scripts() {
 	wp_enqueue_script('blazy');
 	wp_enqueue_script('salvattore');
 
-	wp_localize_script('lavantseine-v2-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
+	wp_localize_script('lavantseine-v3-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 }
 add_action( 'wp_enqueue_scripts', 'lavantseine_v2_scripts' );
 

@@ -29,8 +29,9 @@
 	border-bottom: 1px solid $red
 
 .page-content
-	.copy
-		column-count: 2
+	@include at-least(medium)
+		.copy
+			column-count: 2
 
 .module-infos
 	.module-title
@@ -64,8 +65,10 @@
 	padding-bottom: 5px
 
 .post-content
-	.copy
-		column-count: 2
+
+	@include at-least(medium)
+		.copy
+			column-count: 2
 
 
 // EVENT
@@ -77,8 +80,9 @@
 	@extend .post-cover
 
 .event-content
-	.copy
-		column-count: 2
+	@include at-least(medium)
+		.copy
+			column-count: 2
 
 .event-details
 	font-weight: $bold
