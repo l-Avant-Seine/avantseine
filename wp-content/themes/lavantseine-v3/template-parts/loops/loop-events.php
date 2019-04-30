@@ -29,7 +29,7 @@
 
 				<?php else : ?>
 					
-					<div class="no-posts ">
+					<div class="no-posts m-16col">
 						<h3 class="h_3 ">
 							Il n'y a aucun événement correspondant à votre recherche.
 						</h3>

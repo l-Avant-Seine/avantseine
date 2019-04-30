@@ -45,7 +45,9 @@
 			
 			<div class="b-lazy item-cover square">
 				<div class="square-content">
-					<img src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>" alt="">
+					<img class=" b-lazy" 
+							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+							data-src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>">
 				</div>
 			</div>
 

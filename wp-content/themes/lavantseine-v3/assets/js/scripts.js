@@ -120,7 +120,7 @@
               $('#salgrid_3').html(response);
               
               salvattore.registerGrid(grid);
-//              bLazy.revalidate();
+              bLazy.revalidate();
 
               $('.nav-links').hide();
               var posts_found = $('.load-more-posts').attr('posts_found');
@@ -163,7 +163,7 @@
                         $('.load-more-posts').hide();
                       }
                       
-                      //bLazy.revalidate();
+                      bLazy.revalidate();
 
                     }
                 );
@@ -240,7 +240,6 @@ jQuery(function($) {
 // LAZY LOADING
 
 	var bLazy = new Blazy({
-		selector: '.b-lazy'
   });
 
 
@@ -303,7 +302,7 @@ var modal_title = $('#modal-title');
 
               var grid = document.getElementById('salgrid_3');
               salvattore.registerGrid(grid);
-              //bLazy.revalidate();
+              bLazy.revalidate();
       
               modal_content.css('opacity', '1');
 
@@ -355,7 +354,7 @@ var modal_title = $('#modal-title');
               $('.load-more').hide();
             }
             
-            //bLazy.revalidate();
+            bLazy.revalidate();
 
           }
       );
@@ -375,7 +374,7 @@ var modal_title = $('#modal-title');
       var is_archives_value = $(this).find('input[name="is_archives"]').is(':checked');
       var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
 
-      $('#agenda-maingrid').append('<div class="msg">Nous recherchons dans la programmation...</div>');
+      $('#agenda-maingrid').append('<div id="msg" class=" m-16col h_2"><br><br>Nous recherchons dans la programmation...</div>');
 
       $('#agenda-maingrid').find('.event-outer').remove();
 
@@ -396,14 +395,14 @@ var modal_title = $('#modal-title');
               $('.load-more').hide();
             }
 
-            $('.msg').remove();
+            $('#msg').remove();
             $('#agenda-maingrid').append(response);
             
             if( $('.no-posts').length == 1 ) {
               $('.load-more').hide();
             } 
 
-            //bLazy.revalidate();
+            bLazy.revalidate();
 
           }
       );
@@ -425,11 +424,21 @@ var modal_title = $('#modal-title');
   if( $('.home-slides').length > 0 ) {
   	$('.home-slides').slick({
   		  centerMode: true,
-  		  centerPadding: '2.5%',
+  		  centerPadding: '7.5%',
   		  slidesToShow: 1,
-  		  prevArrow: '<a href="#" type="button" class="slick-prev"></a>',
-  		  nextArrow: '<a href="#" type="button" class="slick-next"> > </a>',
+  		  prevArrow: '<a href="#" type="button" class="slick-prev icon-FLECHE"></a>',
+  		  nextArrow: '<a href="#" type="button" class="slick-next icon-FLECHE"></a>',
   		  responsive: [
+          {
+            breakpoint: 1080,
+            settings: {
+              centerPadding: '2.5%',
+              arrows: false,
+              centerMode: true,
+              centerPadding: '40px',
+              slidesToShow: 1
+            }
+          },
   		    {
   		      breakpoint: 768,
   		      settings: {
@@ -455,8 +464,8 @@ var modal_title = $('#modal-title');
   if( $('.single-slides').length > 0 ) {
     $('.single-slides').slick({
         centerMode: false,
-        prevArrow: '<a href="#" type="button" class="slick-prev"> < </a>',
-        nextArrow: '<a href="#" type="button" class="slick-next"> > </a>',
+        prevArrow: '<a href="#" type="button" class="slick-prev icon-FLECHE"></a>',
+        nextArrow: '<a href="#" type="button" class="slick-next icon-FLECHE"></a>',
         responsive: [
           {
             breakpoint: 768,

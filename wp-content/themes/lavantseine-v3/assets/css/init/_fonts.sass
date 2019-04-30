@@ -18,11 +18,11 @@
 @font-face
 	font-family: Loupot
 	src: url(fonts/Loupot-Bold.otf)
-
+ 
 @font-face
   font-family: 'icomoon'
-  src:  url('fonts/icomoon.eot?didcg8')
-  src:  url('fonts/icomoon.eot?didcg8#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?didcg8') format('truetype'), url('fonts/icomoon.woff?didcg8') format('woff'), url('fonts/icomoon.svg?didcg8#icomoon') format('svg')
+  src:  url('fonts/icomoon.eot?nyzf74')
+  src:  url('fonts/icomoon.eot?nyzf74#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?nyzf74') format('truetype'), url('fonts/icomoon.woff?nyzf74') format('woff'), url('fonts/icomoon.svg?nyzf74#icomoon') format('svg')
   font-weight: normal
   font-style: normal
 
@@ -142,20 +142,80 @@ p
 
 
 // ICONS
-
-[class^="i-"], [class*=" i-"] 
-  font-family: 'icomoon' !important;
+[class^="icon-"],
+[class*=" icon-"],
+%icon
+  font-family: 'icomoon' !important
   speak: none
   font-style: normal
   font-weight: normal
   font-variant: normal
   text-transform: none
-  text-decoration: none
   line-height: 1
-  color: inherit
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
 
+.icon-GROUPE:before 
+	content: "\e906"
+	font-size: 30px
 
+.icon-MAINS:before 
+	content: "\e908"
+	font-size: 24px
+
+.icon-RESTO:before 
+	content: "\e90a"
+	font-size: 26px
+
+.icon-WIFI:before 
+	content: "\e90c"
+	font-size: 24px
+
+.icon-BALLON:before 
+	content: "\e901"
+	font-size: 30px
+
+.icon-AMPOULE:before 
+	content: "\e900"
+	font-size: 30px
+
+.icon-CARTABLE:before 
+	content: "\e902"
+	font-size: 30px
+
+.icon-CONNECTEURS:before 
+	content: "\e903"
+	font-size: 20px
+
+
+.icon-FACEBOOK:before 
+	content: "\e904"
+	background-color: $blue
+	color: $white
+	font-size: 24px
+	border-radius: 50%
+
+.icon-TWITTER:before 
+	content: "\e90b"
+	font-size: 24px
+
+.icon-NEWSLETTER:before 
+	content: "\e909"
+	font-size: 24px
+
+.icon-LOUPE:before 
+	content: "\e907"
+	font-size: 24px
+
+.scrolling
+	.siteMenus-contacts
+		[class^="icon-"]:before, 
+		[class*=" icon-"]:before
+			font-size: 20px
+
+
+
+.icon-FLECHE:before
+  content: "\e905"
 

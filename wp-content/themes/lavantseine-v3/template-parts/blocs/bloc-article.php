@@ -16,7 +16,9 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 
 			<header class="item-header mb-1">
 
-				<img class="item-cover b-lazy" src="<?php the_post_thumbnail_url(''); ?>">
+				<img class="item-cover b-lazy" 
+						src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+						data-src="<?php the_post_thumbnail_url('top-thumbnail'); ?>">
 
 				<?php 
 

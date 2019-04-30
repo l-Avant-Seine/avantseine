@@ -1,10 +1,10 @@
 
 
-			<div class="page-item mb-1">
+			<div class="page-item mb-1 page-<?php echo $post->post_name; ?>">
 				<a href="<?php the_permalink(); ?>" class="">
 					<?php if( $icons ) : ?>
-						<div class="rounded-icon mb-05">
-							d
+						<div class="rounded-icon icon- mb-05">
+							<span class="icon-"></span>
 						</div>
 					<?php endif; ?>
 

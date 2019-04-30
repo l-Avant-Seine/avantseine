@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?jx3wej');
-  src:  url('fonts/icomoon.eot?jx3wej#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?jx3wej') format('truetype'),
-    url('fonts/icomoon.woff?jx3wej') format('woff'),
-    url('fonts/icomoon.svg?jx3wej#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?nyzf74');
+  src:  url('fonts/icomoon.eot?nyzf74#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?nyzf74') format('truetype'),
+    url('fonts/icomoon.woff?nyzf74') format('woff'),
+    url('fonts/icomoon.svg?nyzf74#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,66 +24,42 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-left:before {
-  content: "\e910";
+.icon-BALLON:before {
+  content: "\e901";
 }
-.icon-fleche_accordeon-bottom2:before {
-  content: "\e911";
-}
-.icon-fleche_accordeon-left:before {
-  content: "\e90f";
-}
-.icon-fleche_accordeon:before {
-  content: "\e902";
-}
-.icon-cocarde:before {
-  content: "\e90b";
-  color: #ba9b7c;
-}
-.icon-horloge2:before {
-  content: "\e90e";
-}
-.icon-calendar:before {
+.icon-AMPOULE:before {
   content: "\e900";
 }
-.icon-download:before {
-  content: "\e901";
-  color: #fff;
+.icon-CARTABLE:before {
+  content: "\e902";
 }
-.icon-facebook:before {
+.icon-CONNECTEURS:before {
   content: "\e903";
-  color: #fff;
 }
-.icon-dropdown:before {
+.icon-FACEBOOK:before {
   content: "\e904";
 }
-.icon-horloge:before {
+.icon-FLECHE:before {
   content: "\e905";
 }
-.icon-close:before {
+.icon-GROUPE:before {
   content: "\e906";
-  color: #fff;
 }
-.icon-menu:before {
+.icon-LOUPE:before {
   content: "\e907";
-  color: #fff;
 }
-.icon-pop-out:before {
+.icon-MAINS:before {
   content: "\e908";
-  color: #fff;
 }
-.icon-search:before {
+.icon-NEWSLETTER:before {
   content: "\e909";
-  color: #fff;
 }
-.icon-arrow-right:before {
+.icon-RESTO:before {
   content: "\e90a";
-  color: #fff;
 }
-.icon-share:before {
+.icon-TWITTER:before {
+  content: "\e90b";
+}
+.icon-WIFI:before {
   content: "\e90c";
-}
-.icon-twitter:before {
-  content: "\e90d";
-  color: #fff;
 }

@@ -93,25 +93,24 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 			<nav class="siteMenus-contacts">
 				<ul class=" no-bullets" role="navigation">
 
+
+					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455 ">
+						<a href="#" id="js-searchTrigger" class="icon-LOUPE"></a>
+					</li>
+
+
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://www.facebook.com/lAvantSeine/" target="_blank">
-							<span class="icon-facebook"> fb </span></a>
+						<a href="#" target="_blank" class="icon-NEWSLETTER"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://twitter.com/AvantSeine" target="_blank">
-							<span class="icon-twitter"> tw </span></a>
+						<a href="https://www.facebook.com/lAvantSeine/" target="_blank" class="icon-FACEBOOK"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://twitter.com/AvantSeine" target="_blank">
-							<span class="icon-twitter"> ews </span></a>
+						<a href="https://twitter.com/AvantSeine" target="_blank" class="icon-TWITTER"></a>
 					</li>
 
-					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="#" id="js-searchTrigger">
-							<span class="icon-search"> search </span></a>
-					</li>
 																	
 				</ul>
 			</nav>

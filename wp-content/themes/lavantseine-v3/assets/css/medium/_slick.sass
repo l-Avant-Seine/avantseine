@@ -132,20 +132,24 @@
         width: 100%
         height: 100%
         border-radius: 0 2em 0 0
-
-    .slick-next
+    
+    .slick-arrow
         display: flex
         position: absolute
-        right: 1%
         font-size: 50px
         color: white
         top: 0
         bottom: 0
         width: 20%
         z-index: 999
-        text-align: right
         align-items: center
         justify-content: flex-end
+
+    .slick-next
+        right: 1%
+
+    .slick-prev
+        transform: rotate(180deg)
 
 .single-slides
     .slick-slide img 
@@ -163,7 +167,7 @@
         z-index: 2
         width: 20%
         align-items: center
-
+    
     .slick-left
         left: 10px
 
