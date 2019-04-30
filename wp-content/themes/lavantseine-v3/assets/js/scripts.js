@@ -214,7 +214,7 @@ jQuery(function($) {
 // ON SCROLL THINGS
 
 	$(window).scroll(function(){
-		if ( jQuery(this).scrollTop() !== 0 ) {
+		if ( jQuery(this).scrollTop() > 100 ) {
 	    $('body').addClass('scrolling');
 	  } else {
 	  	$('body').removeClass('scrolling');
@@ -455,8 +455,7 @@ var modal_title = $('#modal-title');
   if( $('.single-slides').length > 0 ) {
     $('.single-slides').slick({
         centerMode: false,
-        adaptiveHeight: true,
-        prevArrow: '<a href="#" type="button" class="slick-prev"></a>',
+        prevArrow: '<a href="#" type="button" class="slick-prev"> < </a>',
         nextArrow: '<a href="#" type="button" class="slick-next"> > </a>',
         responsive: [
           {

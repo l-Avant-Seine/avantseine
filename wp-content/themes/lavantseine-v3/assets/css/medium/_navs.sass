@@ -1,6 +1,35 @@
-.site-header
-	position: relative
 
+.site-header
+	position: fixed
+	background-color: rgba(255,255,255,.9)
+	position: fixed
+	z-index: 9
+	left: 0
+	right: 0
+
+
+.scrolling
+	.site-header
+		flex-wrap: nowrap
+		height: 5vh
+
+	.siteMenus-primary
+		order: 1
+
+		.menu-item a
+			font-size: 16px
+		.icon-close, .icon-menu
+			font-size: 36px
+
+	.siteMenus-actions
+		order: 3
+
+		[class^="btn-"], [class*=" btn-"]
+			font-size: 14px 
+
+	.siteMenus-contacts
+		order: 2
+		width: auto
 
 
 .menu-item
