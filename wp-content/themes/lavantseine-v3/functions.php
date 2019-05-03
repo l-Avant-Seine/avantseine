@@ -413,7 +413,7 @@ function get_events_filtered() {
 	$discipline_value = $_POST['discipline_value'];
 	$public_value = $_POST['public_value'];
 	$tarif_value = $_POST['tarif_value'];
-	$is_archives_value = $_POST['is_archives_value'];
+	$is_archives = $_POST['is_archives'];
 	$saison_value = $_POST['saison_value'];
 
 	$args = array(
@@ -432,7 +432,7 @@ function get_events_filtered() {
 	    )
 	);
 
-	if( $is_archives_value === 'true' ) {
+	if( $is_archives === 'true' ) {
 		$args['order'] = 'DESC';
 		$args['meta_query'] = array(
 	       	array(

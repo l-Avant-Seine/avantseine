@@ -170,8 +170,8 @@ if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
 			$terms = get_terms( $taxonomy, $args );
 			$name = ( $name ) ? $name : $taxonomy;
 			if ( $terms ) {
-				printf( '<div class="cf c-select filter-item"><div class="hide-overflow">' );
-				printf( '<select name="%s" class="">', esc_attr( $name ) );
+				printf( '<div class="cf c-select filter-item"><span id="c-select--icon" class="c-select-icon--dot"></span><div class="hide-overflow">' );
+				printf( '<select id="%s" name="%s" class="">', esc_attr( $name ), esc_attr( $name ) );
 
 				if ( $show_option_all ) {
 					printf( '<option value="0">%s</option>', esc_html( $show_option_all ) );
@@ -211,7 +211,7 @@ if ( ! function_exists( 'custom_taxonomy_list' ) ) :
 			
 			if ( $show_option_all ) {
 				printf( '<div class="c-radio">' );
-				printf( '<input id="radio-%s" type="radio" value="0" name="radio-%s" checked><label for="radio-%s">%s</label>', esc_html( $taxonomy ), esc_html( $taxonomy ), esc_html( $taxonomy ), esc_html( $show_option_all ) );
+				printf( '<input id="radio-%s" type="radio" value="0" name="radio-%s" checked class="cmn-toggle cmn-toggle-round"><label for="radio-%s"></label><span>%s</span>', esc_html( $taxonomy ), esc_html( $taxonomy ), esc_html( $taxonomy ), esc_html( $show_option_all ) );
 				printf( '</div>' );
 
 			}
@@ -219,7 +219,7 @@ if ( ! function_exists( 'custom_taxonomy_list' ) ) :
 			if ( $terms ) {
 				foreach ( $terms as $term ) {
 					printf( '<div class="c-radio">' );
-					printf( '<input id="radio-%s" type="radio" value="%s" name="radio-%s"><label for="radio-%s">%s</label>', esc_attr( $term->slug ), esc_attr( $term->slug ), esc_attr( $taxonomy ), esc_html( $term->slug ), esc_html( $term->name ) );
+					printf( '<input id="radio-%s" type="radio" value="%s" name="radio-%s" class="cmn-toggle cmn-toggle-round"><label for="radio-%s"></label><span>%s</span>', esc_attr( $term->slug ), esc_attr( $term->slug ), esc_attr( $taxonomy ), esc_html( $term->slug ), esc_html( $term->name ) );
 					printf( '</div>' );
 				}
 			}

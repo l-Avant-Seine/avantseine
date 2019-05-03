@@ -48,19 +48,24 @@
 							<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
 
 							<div class="cf switch filter-item">
-								<span>passés</span>
-							  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
-							  <label for="cmn-toggle-1"></label>
-							  <span>à venir</span>
-							</div>
 
-							<div class="cf switch filter-item">
-							  <input id="cmn-toggle-2" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['has_babysitting']) ) : echo 'checked=""'; endif; ?> name="has_babysitting" type="checkbox">
-							  <label for="cmn-toggle-2"></label>
-							  <span>avec baby-sitting</span>
-							</div>
+								<div class="">
+									<span>passés</span>
+								  <input id="switch-passed" class="cmn-toggle cmn-toggle-round" <?php if( isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
+								  <label for="switch-passed"></label>
+								</div>
 
-							<?php //custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
+								<div class="">
+								  <input id="switch-tocome" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_tocome" type="checkbox">
+								  <label for="switch-tocome"></label>
+								  <span>à venir</span>
+								</div>
+
+							</div>
+							
+							<div class="cf filter-saisons-list disnone radio filter-item">
+								<?php custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
+							</div>
 
 					</form>
 

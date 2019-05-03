@@ -28,7 +28,6 @@
 											echo '<span class="label_2">tarif </span>';
 								    foreach ( $tarifs_list as $tarif ) {
 								    	echo '<span class="">' . $tarif->name . '</span>';
-								    	echo $tarif->description;
 								    }
 								} ?>
 								</span>

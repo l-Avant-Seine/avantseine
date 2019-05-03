@@ -10,6 +10,7 @@
 	
 	@include up-to(medium)
 		border-bottom: 1px solid $red
+		height: 50px
 		height: 8vh
 
 
@@ -20,14 +21,14 @@
 
 // STICKY
 
-.scrolling
+body
 
 	@include at-least(medium)
 		.site-header
 			flex-wrap: nowrap
-			height: 5vh
+			height: 7vh
 			border-bottom: 1px solid $red
-
+			
 		.siteMenus-primary
 			order: 1
 
@@ -69,7 +70,7 @@
 	z-index: 5
 
 	@include up-to(medium)
-		width: 45%
+		width: 35%
 
 		img
 			width: auto
@@ -80,14 +81,14 @@
 .site-menus
 	flex-wrap: wrap
 	justify-content: space-between
-	padding: 5px 0
+	padding: 15px 0
 	float: right
 	width: 87%
 	position: relative
 	z-index: 2
 	
 	@include up-to(medium)
-		width: 55%
+		width: 65%
 
 .siteMenuPrimary-inner
 	

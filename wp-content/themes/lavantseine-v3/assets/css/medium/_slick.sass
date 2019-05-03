@@ -123,6 +123,10 @@
             color: $white
             border-bottom: 1px solid $white
 
+    .slick-slide:not(.slick-current)
+        .inner
+            display: none
+    
     a
         width: 100%
         display: block
@@ -150,6 +154,9 @@
 
     .slick-prev
         transform: rotate(180deg)
+        left: 1%
+
+
 
 .single-slides
     .slick-slide img 

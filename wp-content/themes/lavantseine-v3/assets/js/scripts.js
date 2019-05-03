@@ -1,11 +1,14 @@
 
 
-;(function($){
+jQuery(function($){
+
+  console.log('hello');
+
+  var bLazy = new Blazy({
+  });
 
 
-
-
-  jQuery.fn.extend({
+  $.fn.extend({
 
 
   		resetForms: function () {
@@ -37,58 +40,64 @@
       },
 
 
-      alignProgGrid: function () {
+      loadFiltersResults: function ( that ) {
 
-        // Prog layout
-        var progGrid_items = $('#prog-grid .m-2coll').not( ".m-first, .el-second, .el-thrid" );
-        var progAside = $('.prog-aside ');
-        var progAside_left = $('.prog-aside ').offset().left;
-        var progAside_top = $('.prog-aside ').offset().top;
-        var progAside_bottom = progAside_top + progAside.innerHeight();
+        prog_filters = $('#prog_filters');
 
-        // console.log( 'aside left : ' + progAside_left );
-        // console.log( 'aside height : ' + progAside.outerHeight() );
-        // console.log( 'aside bottom : ' + progAside_bottom );
 
-        if( progGrid_items.length === 0 ) {
-            progAside.css('position', 'relative');
+        var discipline_value = $('select[name="discipline"]').val();
+        var rdv_value = $('select[name="rdv"]').val();
+        var public_value = $('select[name="public"]').val();
+        var tarif_value = $('select[name="tarif"]').val();
+        var saison_value = $('input[name="radio-saison"]:checked').val();
+
+        var is_archives = $('#switch-passed').is(':checked');
+        var is_tocome = $('#switch-tocome').is(':checked');
+
+console.log(saison_value);
+
+        if( $('#msg').length > 0 ) {
+          $('#msg').html('<br><br>Nous recherchons dans la programmation...');
+
         }
-  
-        var j = 1;
+        else {
+          $('#agenda-maingrid').append('<div id="msg" class=" m-16col h_2"><br><br>Nous recherchons dans la programmation...</div>');
+        }
 
-        jQuery.each( progGrid_items, function( i, val ) {
+        $('#agenda-maingrid').find('.event-outer').remove();
 
-          var item_left = $(this).offset().left;
-          var item_right = item_left + $(this).outerWidth();
-          var item_top = $(this).offset().top;
+        jQuery.post(
+            ajaxurl,
+            {
+                'action': 'get_events_filtered',
+                'discipline_value': discipline_value,
+                'rdv_value': rdv_value,
+                'public_value': public_value,
+                'tarif_value': tarif_value,
+                'is_archives': is_archives,
+                'saison_value': saison_value,
+            },
+            function(response){
 
-          $(this).removeClass('m-first el-second el-thrid');
+//console.log(response);
 
-          if( item_right > progAside_left) {
-            if( item_top < progAside_bottom) {
-              j = 1;
+              if( saison_value !== '0' ) {
+                $('.load-more').hide();
+              }
+
+              $('#msg').remove();
+              $('#agenda-maingrid').append(response);
+              
+              if( $('.no-posts').length == 1 ) {
+                $('.load-more').hide();
+              } 
+
+              bLazy.revalidate();
+
             }
-          }
-          if ( $(this).is(':first-child') ) {
-            j = 1;
-          }
+        );
 
-          if( j == 1 ) {
-            $(this).addClass('m-first');
-            j++;
-          }
-
-          else if( j == 2 ) {
-            $(this).addClass('el-second');
-            j++;
-          }
-
-          else if( j % 3 === 0 ) {
-            $(this).addClass('el-thrid');
-            j = 1;
-          }
-
-        });
+      
       },
 
 
@@ -174,17 +183,7 @@
         	} 
 
   }); // END FUNCS
-}(jQuery));
 
-
-
-
-
-jQuery(function($) {
-
-
-
-	console.log('hello');
 
 
 
@@ -237,11 +236,6 @@ jQuery(function($) {
     }
 
 
-// LAZY LOADING
-
-	var bLazy = new Blazy({
-  });
-
 
 
 // SOCIAL
@@ -254,10 +248,11 @@ jQuery(function($) {
     });
 
 
+
 // SEARCH
-var modal = $('#modal');
-var modal_content = $('#modal-content');
-var modal_title = $('#modal-title');
+  var modal = $('#modal');
+  var modal_content = $('#modal-content');
+  var modal_title = $('#modal-title');
 
     $('#searchform-close').on('click', function( event ) {
       event.preventDefault();
@@ -363,50 +358,56 @@ var modal_title = $('#modal-title');
 
 
 // EVENTS >> GET EVENTS FROM FILTERS
+    var prog_filters = $('#prog-filters')
+    
+    if( prog_filters.length > 0 ) {
 
-    $('#prog-filters').on('change', function( event ) {
-      event.preventDefault();
+      prog_filters.on('change', 'select', function( event ) {
 
-      var discipline_value = $(this).find('select[name="discipline"]').val();
-      var rdv_value = $(this).find('select[name="rdv"]').val();
-      var public_value = $(this).find('select[name="public"]').val();
-      var tarif_value = $(this).find('select[name="tarif"]').val();
-      var is_archives_value = $(this).find('input[name="is_archives"]').is(':checked');
-      var saison_value = $(this).find('input[name="radio-saison"]:checked').val();
+        event.preventDefault();
+        
+        $(this).parents('.c-select').find('#c-select--icon').removeClass('c-select-icon--dot').addClass('c-select-icon--x')
 
-      $('#agenda-maingrid').append('<div id="msg" class=" m-16col h_2"><br><br>Nous recherchons dans la programmation...</div>');
+        $(window).loadFiltersResults( $(this) );
 
-      $('#agenda-maingrid').find('.event-outer').remove();
+      });
 
-      jQuery.post(
-          ajaxurl,
-          {
-              'action': 'get_events_filtered',
-              'discipline_value': discipline_value,
-              'rdv_value': rdv_value,
-              'public_value': public_value,
-              'tarif_value': tarif_value,
-              'is_archives_value': !is_archives_value,
-              'saison_value': saison_value,
-          },
-          function(response){
+      prog_filters.on('change', '.switch .cmn-toggle', function( event ) {
 
-            if( saison_value !== '0' ) {
-              $('.load-more').hide();
-            }
+        event.preventDefault();
 
-            $('#msg').remove();
-            $('#agenda-maingrid').append(response);
-            
-            if( $('.no-posts').length == 1 ) {
-              $('.load-more').hide();
-            } 
+        $(this).parent().siblings().find('input').prop('checked', false);
 
-            bLazy.revalidate();
+        $('.filter-saisons-list').toggle();
 
-          }
-      );
-    });
+        $(window).loadFiltersResults( $(this) );
+
+      });
+
+
+      prog_filters.on('change', 'input[name="radio-saison"]', function( event ) {
+
+        event.preventDefault();
+
+        $(this).parent().siblings().find('input').prop('checked', false);
+
+        $(window).loadFiltersResults( $(this) );
+
+      });
+
+      $('#c-select--icon').on('click', function( event ) {
+
+        $(this).parent().find('select').prop('selectedIndex',0);
+        $(this).removeClass('c-select-icon--x').addClass('c-select-icon--dot');
+        
+        $(window).loadFiltersResults( $(this) );
+
+      });
+
+    }
+
+
+
 
 
 // BROCHURES
@@ -433,7 +434,6 @@ var modal_title = $('#modal-title');
             breakpoint: 1080,
             settings: {
               centerPadding: '2.5%',
-              arrows: false,
               centerMode: true,
               centerPadding: '40px',
               slidesToShow: 1

@@ -2,7 +2,7 @@
 
 
 input
-  padding: .5em 1em
+  padding: .4em 1em
   border: none
   font-size: 18px
   line-height: 11px 
@@ -32,11 +32,11 @@ input.cmn-toggle-round + label
     height: 15px
     background-color: none
     border-radius: 50%
-    margin: 0 10px
+    margin: 0 5px
     border: 1px solid $red
 
 .cmn-toggle + label
-    display: block
+    display: inline-block
     position: relative
     cursor: pointer
     outline: none
@@ -63,17 +63,6 @@ input.cmn-toggle-round + label::after, input.cmn-toggle-round + label::before
 .c-select
   position: relative
 
-  &:before
-    content: ''
-    display: inline
-    width: 15px
-    height: 15px
-    background-color: $red
-    border-radius: 50%
-    position: absolute
-    top: 13px
-    left: -20px
-
   select
     display: inline-block
     font-size: 14px
@@ -86,7 +75,27 @@ input.cmn-toggle-round + label::after, input.cmn-toggle-round + label::before
   option
     padding-left: 0
     margin-left: 0
-    
+
+
+
+.c-select-icon
+  float: left
+  margin-left: -12px
+  display: inline-block
+  color: $red
+  line-height: 1.4
+
+.c-select-icon--dot
+  @extend .c-select-icon
+  &:before 
+    content: '●'
+
+.c-select-icon--x
+  @extend .c-select-icon
+  &:before 
+    content: 'x'
+
+
 
 
 

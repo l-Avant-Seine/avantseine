@@ -16,7 +16,7 @@ $today = time();
 					<div class="webmag-ticker ticker-wrap">
 						<div class="ticker">
 
-							<?php for ($i=0; $i < 100; $i++) { 
+							<?php for ($i=0; $i < 50; $i++) { 
 								if( $i % 2 === 0 ) { ?>
 									<span class="ticker__item">Le magazine de l'Avant Seine !</span>
 								<?php }
@@ -31,6 +31,14 @@ $today = time();
 
 				<div class="webmag-filters mb-2">
 					<div class="wrap">
+						<div class="mb-05">
+							
+							<form action="">
+								<input type="submit" class="btn-primary" value="rechercher dans le magazine">
+								<input type="search" placeholder="exemple : vélo">
+							</form>
+						</div>
+
 						<?php 
 							$terms = get_terms( 
 								'category', 
@@ -48,12 +56,6 @@ $today = time();
 							    echo $term_list;
 							}
 						?>
-					</div>
-				</div>
-
-				<div class=" wrap row mb-2">
-					<div class="m-8col">
-						<h1 class="webmag-title h_1">Allez plus loin <br> avec le magazine</h1>
 					</div>
 				</div>
 
