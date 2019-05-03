@@ -170,7 +170,7 @@ if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
 			$terms = get_terms( $taxonomy, $args );
 			$name = ( $name ) ? $name : $taxonomy;
 			if ( $terms ) {
-				printf( '<div class="cf c-select filter-item"><span id="c-select--icon" class="c-select-icon--dot"></span><div class="hide-overflow">' );
+				printf( '<div class="cf c-select filter-item"><span id="c-select--icon" class="c-select-icon--dot c-select--icon"></span><div class="hide-overflow">' );
 				printf( '<select id="%s" name="%s" class="">', esc_attr( $name ), esc_attr( $name ) );
 
 				if ( $show_option_all ) {

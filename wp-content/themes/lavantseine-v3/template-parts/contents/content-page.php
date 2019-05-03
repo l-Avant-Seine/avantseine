@@ -202,11 +202,7 @@
 
 	
 
-<section class="section-transition">
-	<div class="wrap">
-		<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
-	</div>
-</section>
+
 
 
     <script type="application/ld+json">

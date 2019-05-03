@@ -104,7 +104,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="#" target="_blank" class="icon-NEWSLETTER"></a>
+						<a href="#section-transition" target="_blank" class="icon-NEWSLETTER scroll"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">

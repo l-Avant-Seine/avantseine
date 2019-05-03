@@ -62,6 +62,12 @@ endif;
 	
 	<header class="event-header wrap mb-2">
 
+
+		<div class="event-cover">
+			<img src="<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>" alt="">
+		</div>
+
+
 		<div class="event-titles">
 
 						<?php 
@@ -87,10 +93,6 @@ endif;
 			  		</div>
 
 		</div><!-- .event-titles -->
-
-		<div class="event-cover">
-			<img src="<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>" alt="">
-		</div>
 
 	</header><!-- .event-header -->
 

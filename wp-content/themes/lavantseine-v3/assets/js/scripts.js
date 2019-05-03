@@ -54,7 +54,6 @@ jQuery(function($){
         var is_archives = $('#switch-passed').is(':checked');
         var is_tocome = $('#switch-tocome').is(':checked');
 
-console.log(saison_value);
 
         if( $('#msg').length > 0 ) {
           $('#msg').html('<br><br>Nous recherchons dans la programmation...');
@@ -79,8 +78,6 @@ console.log(saison_value);
             },
             function(response){
 
-//console.log(response);
-
               if( saison_value !== '0' ) {
                 $('.load-more').hide();
               }
@@ -98,17 +95,6 @@ console.log(saison_value);
         );
 
       
-      },
-
-
-      adaptFocusHeight: function () {
-
-        var focus_el = $('.focusElement_item').first();
-        var focus_el_height = focus_el.innerHeight();
-        var focus_square_height = focus_el.find('.square').innerHeight();
-        var focus_height = focus_el_height - focus_square_height;
-
-        //$('.focusEvent_infos').outerHeight( focus_height );
       },
 
 
@@ -187,7 +173,7 @@ console.log(saison_value);
 
 
 
-    // HAM MENU
+// HAM MENU
 
     var ham_trigger = $('#js-menuTrigger');
     var ham_menu = $('#ham-menu');
@@ -210,6 +196,7 @@ console.log(saison_value);
     });
 
 
+
 // ON SCROLL THINGS
 
 	$(window).scroll(function(){
@@ -219,6 +206,36 @@ console.log(saison_value);
 	  	$('body').removeClass('scrolling');
 	  }
   });
+
+
+
+/*
+ * Smooth scrolling
+ * Add smooth when clicking an anchor
+ */
+
+    var hashTagActive = "";
+    $(".scroll").click(function (event) {
+
+        event.preventDefault();
+
+        if(hashTagActive != this.hash) { //this will prevent if the user click several times the same link to freeze the scroll.
+            event.preventDefault();
+            //calculate destination place
+            var dest = 0;
+            if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
+                dest = $(document).height() - $(window).height();
+            } else {
+                dest = $(this.hash).offset().top;
+            }
+
+            //go to destination
+            $('html,body').animate({
+                scrollTop: dest
+            }, 1000, 'swing');
+            hashTagActive = this.hash;
+        }
+    });
 
 
 
@@ -366,7 +383,7 @@ console.log(saison_value);
 
         event.preventDefault();
         
-        $(this).parents('.c-select').find('#c-select--icon').removeClass('c-select-icon--dot').addClass('c-select-icon--x')
+        $(this).parents('.c-select').find('.c-select--icon').removeClass('c-select-icon--dot').addClass('c-select-icon--x')
 
         $(window).loadFiltersResults( $(this) );
 
@@ -395,9 +412,9 @@ console.log(saison_value);
 
       });
 
-      $('#c-select--icon').on('click', function( event ) {
+      $('.c-select--icon').on('click', function( event ) {
 
-        $(this).parent().find('select').prop('selectedIndex',0);
+        $(this).parents('.c-select').find('select').prop('selectedIndex',0);
         $(this).removeClass('c-select-icon--x').addClass('c-select-icon--dot');
         
         $(window).loadFiltersResults( $(this) );

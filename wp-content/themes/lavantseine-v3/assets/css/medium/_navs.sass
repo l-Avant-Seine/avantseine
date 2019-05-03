@@ -35,7 +35,7 @@ body
 			.menu-item a
 				font-size: 16px
 			.icon-close, .icon-menu
-				font-size: 36px
+				font-size: 32px
 
 		.siteMenus-actions
 			order: 3
@@ -62,6 +62,13 @@ body
 		font-size: 18px
 		font-weight: $black
 
+	&.active,
+	&:hover
+		background-color: $red
+		color: $white
+
+		.icon-menu
+			color: $white
 
 .site-branding
 	float: left
@@ -122,7 +129,7 @@ body
 		float: right
 
 	li
-		margin-left: 20px
+		margin-left: 15px
 
 	@include up-to(medium)
 		width: auto
@@ -257,6 +264,17 @@ body
 	@include up-to(medium)
 		height: 10px
 		border: none
+
+.footer-logos
+
+.logo-item
+	padding: 20px
+
+	img
+		max-height: 75px
+		margin: auto
+
+
 
 
 

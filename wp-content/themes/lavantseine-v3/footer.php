@@ -13,6 +13,14 @@
 
 		</div><!-- #content -->
 
+
+		<section id="section-transition" class="section-transition">
+			<div class="wrap">
+				<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+			</div>
+		</section>
+
+
 		<footer id="mastfooter" class="site-footer" role="contentinfo">
 
 
@@ -40,7 +48,7 @@
 				if( $images ): ?>
 				    <ul class="wrap no-bullets is-flex">
 				        <?php foreach( $images as $image ): ?>
-				            <li class="logo-item">
+				            <li class="logo-item flx-1">
 											<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
 				            </li>
 				        <?php endforeach; ?>
