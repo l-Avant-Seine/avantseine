@@ -27,7 +27,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 					$output = '';
 					if($categories){
 						foreach($categories as $category) {
-							$output .= '<span class="postmeta-term label_1">'. $category->cat_name .'</span>';
+							$output .= '<span class="postmeta-term label_1">'. $category->cat_name .'</span> • ';
 						}
 					}
 

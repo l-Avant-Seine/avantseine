@@ -96,5 +96,43 @@
 
 
 
+// ACCORDEONS
+
+.entry-accordeon 
+	
+.accordeon-title 
+
+	.btn-inline
+		color: $blue
+		margin-bottom: 0
+
+	&:hover
+		cursor: pointer
+
+		h3
+			color: $red 
+
+.open
+	.btn-inline::before 
+  	transform: rotate(45deg)
+	.accordeon-title .btn-inline
+		color: $red	
+
+.accordeon-content 
+	padding: 0 1em
+	margin: 10px 0
+	border-left: 1px solid $blue
+	transition: all .5s
+	overflow: hidden
+
+	.close &
+		max-height: 0
+
+	.open &
+		max-height: 200000px
+
+
+
+
 
 	

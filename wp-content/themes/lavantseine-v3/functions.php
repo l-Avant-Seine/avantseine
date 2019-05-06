@@ -580,7 +580,7 @@ function accordeon_shortcode( $atts , $content = null ) {
 
   $return_string = '<div class="entry-accordeon close">'; 
 
-   	$return_string .= '<div class="accordeon-title"><h3 class="h3">'.$titre.'</h3><span class="icon-fleche_accordeon"></span></div>';
+   	$return_string .= '<div class="accordeon-title"><h3 class="h_3 btn-inline">'.$titre.'</h3></div>';
    	$return_string .= '<div class="accordeon-content">'; 
 
    	$return_string .= $content; 
