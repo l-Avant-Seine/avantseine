@@ -248,6 +248,7 @@ function search() {
 
 	$keyword = $_POST['keyword'];
 	$magazine = $_POST['magazine'];
+	$term_slug = $_POST['term_slug'];
 
 	if( $magazine ) {
 		$args = array(
@@ -262,6 +263,10 @@ function search() {
 			's' => $keyword,
 			'posts_per_page' 	=> '10',
 		);
+	}
+
+	if( $term_slug != '' ) {
+		$args['category_name'] = $term_slug;
 	}
 
 	$ajax_query = new WP_Query($args);
@@ -349,6 +354,7 @@ add_action( 'wp_ajax_nopriv_get_posts_from_term', 'get_posts_from_term' );
 function get_posts_from_term() {
 
 	$term = $_POST['term'];
+	$keyword = $_POST['keyword'];
 
 	$args = array(
 	    'post_type' 			=>'post',
@@ -357,6 +363,10 @@ function get_posts_from_term() {
 			'posts_per_page'	=> '12',
 			'post_status'			=> 'publish',
 	);
+
+	if( $keyword != '' ) {
+		$args['s'] = $keyword;
+	}
 
 	$ajax_query = new WP_Query($args);
 

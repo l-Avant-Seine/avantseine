@@ -98,7 +98,7 @@ jQuery(function($){
       },
 
 
-      getPostsFromTerm: function ( term_slug ) {
+      getPostsFromTerm: function ( term_slug, keyword = '' ) {
 
         $('.js-postmeta-term').removeClass('active');
         $(".postmeta-term[cat-slug='" + term_slug + "']").addClass('active');
@@ -109,7 +109,8 @@ jQuery(function($){
             ajaxurl,
             {
                 'action': 'get_posts_from_term',
-                'term': term_slug
+                'term': term_slug,
+                'keyword': keyword
             },
             function(response){
               $('#salgrid_3').html(response);
@@ -244,8 +245,12 @@ jQuery(function($){
     $('.js-postmeta-term').on('click', function( event ) {
       event.preventDefault();
 
+      var keyword = $('#search_in_magazine').find('input[type="text"]').val();
       var term_slug = $(this).attr('cat-slug');
-      $(window).getPostsFromTerm( term_slug );
+
+      $('.webmag-grid').attr('data-cat', term_slug);
+
+      $(window).getPostsFromTerm( term_slug, keyword );
 
     });
 
@@ -253,7 +258,11 @@ jQuery(function($){
 
       event.preventDefault();
 
-      var keyword = $(this).find('input[type="text"]').val();
+      var keyword = $('#search_in_magazine').find('input[type="text"]').val();
+      var term_slug = $('.webmag-grid').attr('data-cat');
+
+      console.log(keyword);
+      console.log(term_slug);
 
       $('#salgrid_3').css('opacity', '.5');
 
@@ -262,10 +271,12 @@ jQuery(function($){
           {
               'action': 'search',
               'keyword': keyword,
-              'magazine': true
+              'magazine': true,
+              'term_slug': term_slug
           },
           function(response){
             if( response ) {
+              
               $('#salgrid_3').html(response);
 
               var grid = document.getElementById('salgrid_3');
@@ -283,12 +294,13 @@ jQuery(function($){
           }
       );
 
-
     });
 
     if( $('.page-category').length == 1 ) {
 
+      var keyword = $(this).find('input[type="text"]').val();
       var term_slug = $('.page-category').attr('cat-slug');
+
       $(window).getPostsFromTerm( term_slug );
 
     }
