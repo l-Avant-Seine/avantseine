@@ -247,56 +247,80 @@ add_action( 'wp_ajax_nopriv_search', 'search' );
 function search() {
 
 	$keyword = $_POST['keyword'];
+	$magazine = $_POST['magazine'];
 
-	$args = array(
-		'post_type' => array('event', 'post', 'page'),
-		's' => $keyword,
-		'posts_per_page' 	=> '10',
-	);
+	if( $magazine ) {
+		$args = array(
+			'post_type' => array('post'),
+			's' => $keyword,
+			'posts_per_page' 	=> '12',
+		);
+	}
+	else {
+		$args = array(
+			'post_type' => array('event', 'post', 'page'),
+			's' => $keyword,
+			'posts_per_page' 	=> '10',
+		);
+	}
 
 	$ajax_query = new WP_Query($args);
 
 
-	if ( $ajax_query->have_posts() ) : ?>
+	if ( $ajax_query->have_posts() ) :
 
-		<h2 class="h_2 mb-2">
-			Il y a <span><?php echo $ajax_query->found_posts; ?></span> résultat<?php if( $ajax_query->found_posts > 1 ) : echo 's'; endif; ?> pour la recherche <em><?php echo $keyword; ?></em>
+	if( $magazine ) { ?>
 
-			<?php if( $ajax_query->found_posts > 10 ) : ?>
-				<br>Voici les 10 premiers...
-			<?php endif; ?>
-		</h2>
-
-		<div id="salgrid_3" data-columns class="row mb-2">
-		<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
-			
-			$post_type = get_post_type(); 
-
-				switch ($post_type) {
-					case 'event':
-						get_template_part( 'template-parts/blocs/bloc', 'event' );
-						break;
-
-					case 'post':
-						get_template_part( 'template-parts/blocs/bloc', 'article' );
-						break;
-
-					case 'page':
-						get_template_part( 'template-parts/blocs/bloc', 'page' );
-						break;
-
-					default:
-						get_template_part( 'template-parts/blocs/bloc', 'page' );
-						break;
-				}
-
-		endwhile; ?>
-		</div>
+			<?php
+				while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
+				
+					get_template_part( 'template-parts/blocs/bloc', 'article' );
+				endwhile; ?>
 		
-		<div class="row mb-2">
-			<a href="/?s=<?php echo $keyword ?>" class="btn-primary is-centered">Voir tous les résulats</a>
-		</div>
-	<?php endif;
+	<?php }
+	else { ?>
+
+			<h2 class="h_2 mb-2">
+				Il y a <span><?php echo $ajax_query->found_posts; ?></span> résultat<?php if( $ajax_query->found_posts > 1 ) : echo 's'; endif; ?> pour la recherche <em><?php echo $keyword; ?></em>
+
+				<?php if( $ajax_query->found_posts > 10 ) : ?>
+					<br>Voici les 10 premiers...
+				<?php endif; ?>
+			</h2>
+
+			<div id="salgrid_3" data-columns class="row mb-2">
+			<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
+				
+				$post_type = get_post_type(); 
+
+					switch ($post_type) {
+						case 'event':
+							get_template_part( 'template-parts/blocs/bloc', 'event' );
+							break;
+
+						case 'post':
+							get_template_part( 'template-parts/blocs/bloc', 'article' );
+							break;
+
+						case 'page':
+							get_template_part( 'template-parts/blocs/bloc', 'page' );
+							break;
+
+						default:
+							get_template_part( 'template-parts/blocs/bloc', 'page' );
+							break;
+					}
+
+			endwhile; ?>
+			</div>
+			
+			<div class="row mb-2">
+				<a href="/?s=<?php echo $keyword ?>" class="btn-primary is-centered">Voir tous les résulats</a>
+			</div>
+
+		<?php }
+		
+ 	endif;
 
 	die();
 }

@@ -32,11 +32,13 @@ $today = time();
 				<div class="webmag-filters mb-2">
 					<div class="wrap">
 						<div class="mb-05">
-							
-							<form action="">
-								<input type="submit" class="btn-primary" value="rechercher dans le magazine">
-								<input type="search" placeholder="exemple : vélo">
+
+							<form id="search_in_magazine" class="searchbar" action="/" method="get">
+							    <input type="text" name="s" id="search" placeholder="votre recherche" value="<?php the_search_query(); ?>" />
+							    <input type="submit" alt="Search" class="btn-primary" value="rechercher dans le magazine" />
 							</form>
+
+
 						</div>
 
 						<?php 

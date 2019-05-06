@@ -2,6 +2,7 @@
 /**
  * @package lavantseine
  */
+$babysitting = false;
 
 	$event_shortText = get_field( 'eventDetail_shortText' );
 	$event_dates = get_field( 'eventDetail_dates' );
@@ -12,9 +13,23 @@
 	$event_other_dates = get_field('eventDetail_otherdates');
 	$today = time();
 	$event_dealer_link = get_field( 'eventDetail_dealer-link' );
+	$event_first_date_babysitting = get_field( 'eventDetail_first_date_babysitting' );
+	$event_last_date_babysitting = get_field( 'eventDetail_last_date_babysitting' );
 
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
+
+	if( $event_first_date_babysitting || $event_last_date_babysitting ) {
+		$babysitting = true;
+	}
+
+	if( have_rows('eventDetail_otherdates') ):
+	  while ( have_rows('eventDetail_otherdates') ) : the_row();
+				if( get_sub_field('baby-sitting') ) : 
+					$babysitting = true;
+				endif; 
+	  endwhile;	
+	endif; 
 
 ?>
 
@@ -28,6 +43,10 @@
 				<div class="mb-05">
 					<?php echo $event_shortText; ?>
 				</div>
+				
+				<?php if ( $babysitting): ?>
+					<div class="mb-1 strong">BabySitting !</div>
+				<?php endif; ?>
 
 				<div class="item-actions">
 

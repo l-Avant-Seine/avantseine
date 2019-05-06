@@ -173,29 +173,7 @@ endif;
 
 						<div class="row cf mb-3">
 
-							<div class="m-8col mb-2">
-								
-								<h4 class="h_4">Infos pratiques</h4>
-
-								<div class="event-practicallist">
-									<?php				
-										$term_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all"));
-										$count = count($term_list);
-										if ( $count > 0 ){
-										    echo "<ul class='no-bullets'>";
-										    foreach ( $term_list as $term ) {
-										    	echo "<li class=''>#" . $term->name . "</li>";
-										    	echo $term->description;
-										    }
-										    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
-										    echo "</ul>";
-										}
-									?>
-
-								</div>
-							</div>
-
-							<div class="m-8col ">
+							<div class="m-8col event-dateslist">
 								<h4 class="h_4">Date(s)</h4>
 
 								<?php 
@@ -205,12 +183,12 @@ endif;
 									else {
 
 										if ( $event_first_date ) : 
-											echo '<ul class="nobullets event-dateslist ">';
+											echo '<ul class="nobullets  ">';
 											    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
 											    if( get_field('eventDetail_first_date_babysitting')) : 
-											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class=""> • </span>Baby-Sitting !</a>';
 											    endif; 
-											    echo '.</li>'; 
+											    echo '</li>'; 
 
 											  if( isset($otherdates)) {
 											  	echo $otherdates;
@@ -228,9 +206,9 @@ endif;
 											if ( $event_last_date && $event_last_date != $event_first_date ) : 
 											    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date );	
 											    if( get_field('eventDetail_last_date_babysitting')) : 
-											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class=""> • </span>Baby-Sitting</a>';
 											    endif; 
-											    echo '.</li>'; 
+											    echo '</li>'; 
 
 											endif;
 
@@ -240,6 +218,29 @@ endif;
 								?>
 
 							</div>
+
+							<div class="m-8col mb-2 event-practicallist">
+								
+								<h4 class="h_4">Infos pratiques</h4>
+
+								<div class="inner">
+									<?php				
+										$term_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all"));
+										$count = count($term_list);
+										if ( $count > 0 ){
+										    echo "<ul class='no-bullets'>";
+										    foreach ( $term_list as $term ) {
+										    	echo "<li class=''>#" . $term->name . "</li>";
+										    	echo $term->description;
+										    }
+										    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+										    echo "</ul>";
+										}
+									?>
+
+								</div>
+							</div>
+
 						</div>
 
 
@@ -250,7 +251,7 @@ endif;
 
 			<div class="event-aside m-7col m-last">
 
-				<?php if($babysitting) : ?>
+				<?php if( $babysitting ) : ?>
 					<div class="cf mb-2">
 						<div class="rounded-icon mb-05">a</div>
 						<h4 class="h_4">Baby Sitting</h4>

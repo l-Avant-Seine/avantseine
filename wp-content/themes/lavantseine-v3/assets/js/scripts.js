@@ -240,16 +240,57 @@ jQuery(function($){
 
 
 // GET POSTS FROM CAT TERM
+
     $('.js-postmeta-term').on('click', function( event ) {
       event.preventDefault();
+
       var term_slug = $(this).attr('cat-slug');
       $(window).getPostsFromTerm( term_slug );
-      console.log('go !')
+
+    });
+
+    $('#search_in_magazine').on('submit', function(event) {
+
+      event.preventDefault();
+
+      var keyword = $(this).find('input[type="text"]').val();
+
+      $('#salgrid_3').css('opacity', '.5');
+
+      jQuery.post(
+          ajaxurl,
+          {
+              'action': 'search',
+              'keyword': keyword,
+              'magazine': true
+          },
+          function(response){
+            if( response ) {
+              $('#salgrid_3').html(response);
+
+              var grid = document.getElementById('salgrid_3');
+              salvattore.registerGrid(grid);
+              bLazy.revalidate();
+      
+            }
+            else {
+              $('#salgrid_3').html('Désolé, il n\'y a aucun résulat pour votre recherche...');
+            }
+            
+            $('#salgrid_3').css('opacity', '1');
+            $('.paging-navigation').hide();
+
+          }
+      );
+
+
     });
 
     if( $('.page-category').length == 1 ) {
+
       var term_slug = $('.page-category').attr('cat-slug');
       $(window).getPostsFromTerm( term_slug );
+
     }
 
 

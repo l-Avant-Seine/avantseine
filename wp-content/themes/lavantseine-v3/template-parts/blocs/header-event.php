@@ -44,8 +44,8 @@
 								<?php endif; ?>
 								
 								<span class="meta-item label_3">
-									<span class="label_2">à partir de</span>
-									<span class="">Public ?</span>
+									<span class="label_2">Public</span>
+									<span class=""><?php the_field('eventDetail_publiclabel'); ?></span>
 								</span>							
 
 			  			</div>
