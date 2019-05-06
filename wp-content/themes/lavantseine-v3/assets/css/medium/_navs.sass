@@ -88,7 +88,8 @@ body
 .site-menus
 	flex-wrap: wrap
 	justify-content: space-between
-	padding: 15px 0
+	align-items: center
+	height: 100%
 	float: right
 	width: 87%
 	position: relative
@@ -205,11 +206,16 @@ body
 // OPEN MENU
 
 .menu-is-open
-	.siteMenus-primary
+	.siteMenus-primary,
+	.siteMenus-contacts
 		color: $white
 
 	.btn-primary
 		background-color: $red
+	
+	.icon-FACEBOOK:before
+		color: $blue
+		background-color: $white
 
 
 

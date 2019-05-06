@@ -8,9 +8,32 @@
 			$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
 			$event_other_dates = get_field('eventDetail_otherdates', $post->ID ); 
 			$event_duration = get_field( 'eventDetail_duration', $post->ID );
+			$tags = wp_get_post_terms($post->ID, array('discipline', 'rdv'), array("fields" => "all"));
 
 			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); ?>
+
+								
+								<?php 
+									$count = count($tags);
+									if ( $count > 0 ) : ?>
+
 						
+							<div class="row">
+								<div class="s-20col s-1col-push mb-05">
+									<ul class='nobullets teaser-tagslist'>
+										<?php 
+											foreach ( $tags as $term ) : 
+									 			$term_link = get_term_link( $term, '' ); ?>
+										    	<li class='teaser-tag'>
+										    		<a class='' href='<?php echo $term_link; ?>'><?php echo $term->name; ?></a>
+										    	</li>
+										<?php endforeach; ?>
+									</ul>
+								</div>
+							</div>
+
+									<?php endif; ?>
+
 						<div class="row mb-1">
 			  			<h3 class="s-22col s-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
 						</div>

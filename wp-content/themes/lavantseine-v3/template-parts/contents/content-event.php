@@ -97,23 +97,6 @@ endif;
 	</header><!-- .event-header -->
 
 
-	<div class="event-meta mb-1 wrap">
-		<?php 
-			$count = count($tags);
-			if ( $count > 0 ){
-			    echo "<ul class='nobullets'>";
-			    foreach ( $tags as $term ) {
-		  			$term_link = get_term_link( $term, '' );
-			    	echo "<li class='eventmeta-term btn-primary'><a href='". $term_link ."'>" . $term->name . "</a></li>";
-			    	echo $term->description;
-			    }
-			    echo "</ul>";
-			} 
-		?>
-	</div><!-- .event-meta -->
-
-
-
 	<div class="event-content ">
 
 		<div class="wrap row">

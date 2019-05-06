@@ -1,49 +1,8 @@
 <!-- AvantSeine Signup Form HTML Code -->
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
 
+<div class="bloc-newsletter">
+<iframe class="mj-w-res-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/wIn/hhl" width="100%"></iframe>
 
-    <div id="sib_embed_signup">
-        <div class="forms-builder-wrapper">
+<script type="text/javascript" src="https://app.mailjet.com/statics/js/iframeResizer.min.js"></script>
+</div>
 
-            <input type="hidden" id="sib_embed_signup_lang" value="fr">
-            <input type="hidden" id="sib_embed_invalid_email_message" value="Cette adresse email n'est pas valide.">
-            <input type="hidden" name="primary_type" id="primary_type" value="email">
-            
-
-            <form class="description" id="theform" name="theform" action="http://rooting.arenametrix.fr/users/subscribeembed/js_id/5gwh/id/1" onsubmit="return false;">
-                <input type="hidden" name="js_id" id="js_id" value="5gwh">
-                <input type="hidden" name="listid" id="listid" value="30">
-                <input type="hidden" name="from_url" id="from_url" value="yes">
-                <input type="hidden" name="hdn_email_txt" id="hdn_email_txt" value="">
-
-                <div class="sib-container">
-                
-                    <input name="req_hid" id="req_hid" value="" type="hidden">
-
-                    <div class="view-messages">
-                    </div>
-
-                    <button class="button editable btn-primary" type="submit"  data-editfield="subscribe">Recevoir la programmation par email</button>
-                    
-                    <input name="email" id="email" value="" placeholder="votre_email@exemple.com" type="text">
-
-                    <div class="hidden-btns">
-                        <a class="btn move" href="#"><i class="fa fa-arrows"></i></a><br>
-                        <!--<a class="btn btn-danger delete"  href="#"><i class="fa fa-trash-o fa-inverse"></i></a>-->
-                    </div>
-                    
-            
-                    </div>
-            </form>
-         </div>
-    </div>
-
-<script type="text/javascript">
-    var sib_prefix = 'sib';
-    var sib_dateformat = 'dd-mm-yyyy';
-</script>
-<script type='text/javascript' src='http://rooting.arenametrix.fr/public/theme/version4/assets/js/src/subscribe-validate.js?v=1504161320'></script>
-<!-- End : AvantSeine Signup Form HTML Code -->

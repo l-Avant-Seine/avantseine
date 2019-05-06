@@ -124,10 +124,8 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 		<div id="siteMenus-searchform" class="siteMenus-searchform">
 			<div class="inner">
-				
-				<div class="cf text-on-right">
-					<a href="#" id="searchform-close" class="btn-nude">x</a>
-				</div>
+				<a href="#" id="searchform-close" class="btn-nude">x</a>
+
 				<form id="searchform" class="cf searchbar" action="/" method="get">
 			    <input type="text" name="s" id="search" placeholder="votre recherche" value="" />
 			    <input type="submit" alt="Search" class="btn-nude" value="ok" />
