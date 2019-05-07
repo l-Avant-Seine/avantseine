@@ -7,22 +7,22 @@
 	<?php while ( have_rows('focus_elements', 'option') ) : the_row(); ?>
 
 
-					<div class="focus-item cf mb-1">
+					<div class="focus-item cf mb-1 is-flex">
 
 		        <?php if( get_row_layout() == 'focusElements_libre' ): ?>
 
-									<div class="item-cover">
-										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
-											<img class="b-lazy" src="<?php the_sub_field('focusElements_libre_image'); ?>" alt="">
-										</a>
-									</div>
-
-									<div class="item-text">
+									<div class="item-text flx-1">
 										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
 							    		<h3 class="h_4 item-title mb-1"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
 							    		<div class="focusElement_p"><?php the_sub_field('focusElements_libre_texte'); ?></div>
 							    	</a>
 							    </div>
+
+									<div class="item-cover flx-1">
+										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
+											<img class="b-lazy" src="<?php the_sub_field('focusElements_libre_image'); ?>" alt="">
+										</a>
+									</div>
 
 
 						<?php else : ?>
@@ -44,21 +44,30 @@
 								$focus_title = $focus_item->post_title; ?>
 
 
-									<div class="item-cover">
-										<a href="<?php echo get_permalink( $focus_item->ID ); ?>">
-											<img class="b-lazy" src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focus_item->ID ), 'large' )[0]; ?>" alt="">
-										</a>
-									</div>
-
-									<div class="item-text">
+									<div class="item-text flx-1">
 										<a href="<?php echo get_permalink( $focus_item->ID ); ?>">
 							    		<h3 class="h_4 item-title mb-1"><?php echo $focus_title; ?></h3>
-							    		<div class="focusElement_p">
+							    		<div class="focusElement_p mb-1">
 							    			<p><?php echo $focus_text ?></p>
 							    		</div>
+
+							    		<span class="btn-inline">en savoir plus</span>
 							    	</a>
 							    </div>
 
+
+									<div class="item-cover flx-1">
+										<a href="<?php echo get_permalink( $focus_item->ID ); ?>">
+											<img class="b-lazy" src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focus_item->ID ), 'large' )[0]; ?>" alt="">
+
+											<?php if( get_sub_field('pastille') != '' ) : ?>
+												<div class="item-pastille is-flex">
+													<span><?php the_sub_field('pastille'); ?></span>
+												</div>
+											<?php endif; ?>
+
+										</a>
+									</div>
 
 		        <?php endif; ?>
 

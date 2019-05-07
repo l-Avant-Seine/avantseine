@@ -61,23 +61,27 @@
 
 
 .focus-item
-
-	a
-		display: block
-		max-width: 100%
-
-	.item-title
-		color: $blue
-
-	.item-cover
-		width: 50%
-		float: left
-
-	.item-text
-		width: 45%
-		float: right
-
   transition: all .5s
+
+.focus-item  a
+  display: block
+  height: 100%
+  max-width: 100%
+
+.focus-item img
+  object-fit: cover
+  border-radius: 0 20px 0 0
+  height: 100%
+
+.focus-item .item-cover
+  border-radius: 0 20px 0 0
+
+.focus-item .item-text
+  padding: 20px
+  background-color: $gray_light
+
+.focus-item .item-title
+  color: $blue
 
 
 .focus-item:hover
@@ -220,6 +224,8 @@
   .meta-names
     font-weight: $bold
 
+
+
 .teaser-title
   border-bottom: 1px solid $white
   color: $blue
@@ -229,9 +235,8 @@
   margin-right: 10px
 
   a
-    text-decoration: underline
     color: $white
-
+    font-weight: $bold
 
 .event-teaser--small
   .teaser-action,
@@ -290,7 +295,7 @@ $duration: 300s
   height: 4rem
   padding-left: 5%
   box-sizing: content-box
-  border-top: 1px solid $red
+  border-bottom: 1px solid $red
   
   .ticker 
     display: inline-block

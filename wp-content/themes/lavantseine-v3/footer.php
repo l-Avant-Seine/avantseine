@@ -41,19 +41,23 @@
 			</div>
 
 			<div class="footer-logos">
-				<?php 
+				<div class="wrap row">
+					<div class="m-22col">
+						<?php 
 
-				$images = get_field('logos_partenaires', 'options');
+						$images = get_field('logos_partenaires', 'options');
 
-				if( $images ): ?>
-				    <ul class="wrap no-bullets is-flex">
-				        <?php foreach( $images as $image ): ?>
-				            <li class="logo-item flx-1">
-											<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
-				            </li>
-				        <?php endforeach; ?>
-				    </ul>
-				<?php endif; ?>
+						if( $images ): ?>
+						    <ul class=" no-bullets is-flex">
+						        <?php foreach( $images as $image ): ?>
+						            <li class="logo-item flx-1">
+													<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
+						            </li>
+						        <?php endforeach; ?>
+						    </ul>
+						<?php endif; ?>
+					</div>
+				</div>
 			</div>
 
 		</footer><!-- #mastfooter -->

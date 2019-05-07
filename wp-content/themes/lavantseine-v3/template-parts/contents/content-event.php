@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * @package lavantseine
  */
@@ -213,8 +213,8 @@ endif;
 										if ( $count > 0 ){
 										    echo "<ul class='no-bullets'>";
 										    foreach ( $term_list as $term ) {
-										    	echo "<li class=''>#" . $term->name . "</li>";
-										    	echo $term->description;
+										    	echo "<li class=''>#" . $term->name . "<br>" . $term->description . "</li>";
+										    	
 										    }
 										    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
 										    echo "</ul>";

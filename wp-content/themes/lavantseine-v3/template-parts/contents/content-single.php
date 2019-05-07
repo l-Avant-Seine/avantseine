@@ -97,14 +97,17 @@
 			
 			<div class="copy">
 				<?php the_content(); ?>
+
+				<div class="single-share cf">
+					<?php lavantseine_display_share_buttons(); ?>
+				</div>
+
 			</div>
 			
 		</div>
 
 
-			<div class="single-share cf">
-				<?php lavantseine_display_share_buttons(); ?>
-			</div>
+
 
 	</div><!-- .post-content -->
 

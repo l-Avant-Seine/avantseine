@@ -78,7 +78,11 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 																<li class="js-menuTrigger menu-item">
 																	<a href="#" id="js-menuTrigger">
 																		<span class="label">et aussi </span>
-																		<span class="icon-menu">&#9776; </span>
+																		<button class="hamburger hamburger--slider" type="button">
+																		  <span class="hamburger-box">
+																		    <span class="hamburger-inner"></span>
+																		  </span>
+																		</button>  
 																	</a>
 																</li>
 															</ul>'
