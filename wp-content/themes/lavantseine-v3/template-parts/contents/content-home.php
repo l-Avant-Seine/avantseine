@@ -12,6 +12,20 @@
 
 <div class="cf">
 
+					<div class="webmag-ticker ticker-wrap">
+						<div class="ticker">
+
+							<?php for ($i=0; $i < 50; $i++) { 
+								if( $i % 2 === 0 ) { ?>
+									<span class="ticker__item">Bienvenue !</span>
+								<?php }
+								else { ?>
+									<span class="ticker__item red">Bienvenue !</span>
+								<?php }
+							} ?>	
+						</div>
+					</div>
+
 	<!-- Focus -->
 	<div class="row">
 
@@ -78,7 +92,7 @@
 			<?php 
 				$services_pages = get_field('services_pages', 'option'); 
 				set_query_var('pages_list', $services_pages);
-				set_query_var('title', 'à votre service');
+				set_query_var('title', 'À votre service');
 				set_query_var('icons', true);
 				get_template_part('template-parts/modules/module', 'pages'); 
 			?>
@@ -86,7 +100,7 @@
 			<?php
 				$pages = get_field('home_pages', 'option'); 
 				set_query_var('pages_list', $pages);
-				set_query_var('title', 'avec vous');
+				set_query_var('title', 'Avec vous');
 				get_template_part('template-parts/modules/module', 'pages'); 
 			?>
 

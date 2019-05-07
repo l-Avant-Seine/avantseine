@@ -60,7 +60,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 		$date_label_closetag ='</span>';
 
 		if( $exhibition ) {
-				$event_dates .= $date_label_opentag .'Du ' . $date_label_closetag;
+				$event_dates .= $date_label_opentag .'du ' . $date_label_closetag;
 
 				if( !strcmp( strftime('%G', $event_first_date ), strftime('%G', $event_last_date ) ) ) {
 					$event_dates .= strftime('%e.%m', $event_first_date );
@@ -86,7 +86,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 				else {
 
 					// Si plus de 2 jours 
-					$event_dates .= $date_label_opentag .'Du ' . $date_label_closetag;
+					$event_dates .= $date_label_opentag .'du ' . $date_label_closetag;
 					$event_dates .= strftime('%e', $event_first_date );
 
 					if( strcmp( strftime('%b', $event_first_date ), strftime('%b', $event_last_date ) ) ) {

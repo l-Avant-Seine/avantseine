@@ -30,7 +30,7 @@
 		
 		  <div class="slide is-flex ">
 		  	
-		  	<div class="event-teaser">
+		  	<div class="cf event-teaser">
 					<?php 
 						$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
 						$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
@@ -70,25 +70,10 @@
 			  </div>
 		  </div>
 
-
-
 		<?php endforeach; 
 		wp_reset_postdata(); ?>
 	
 	</div><!-- .home-slide -->
-
-
-
-
-
-		<?php //if( get_field( 'eventDetail_mediaMarkup', $focus_event_id ) ) : ?>
-
-			<?php //the_field( 'eventDetail_mediaMarkup', $focus_event_id ); ?>
-			<!-- <a href="#" id="js-soundToggle" class="btn-soundToggle">le son !</a> -->
-
-		<?php // endif; ?>
-
-		
 
 
 
