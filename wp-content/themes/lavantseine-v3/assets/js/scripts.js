@@ -502,6 +502,18 @@ jQuery(function($){
 
 
 
+
+// A votre service
+
+  $('#js-toggle-services').on('click', function(event) {
+    event.preventDefault();
+
+    $('.services-outer').toggleClass('services-open');
+
+  });
+
+
+
 // SLICK SLIDERS
 
   if( $('.home-slides').length > 0 ) {
@@ -535,7 +547,7 @@ jQuery(function($){
   		      settings: {
   		        arrows: false,
   		        centerMode: true,
-  		        centerPadding: '40px',
+  		        centerPadding: '20px',
   		        slidesToShow: 1
   		      }
   		    }

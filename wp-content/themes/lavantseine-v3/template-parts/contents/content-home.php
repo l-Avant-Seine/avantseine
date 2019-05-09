@@ -47,7 +47,7 @@
 	</section>
 
 
-	<div class="row wrap mb-2">
+	<div class="row wrap mb-2 is-relative">
 
 		<div class="m-14col">
 
@@ -89,13 +89,18 @@
 
 		<div class="m-8col m-last">
 			
-			<?php 
-				$services_pages = get_field('services_pages', 'option'); 
-				set_query_var('pages_list', $services_pages);
-				set_query_var('title', 'À votre service');
-				set_query_var('icons', true);
-				get_template_part('template-parts/modules/module', 'pages'); 
-			?>
+			<div class="services-outer">
+				<a href="#" id="js-toggle-services" class="btn-toggle m-hide">
+					<span class="icon-close"></span>À votre service !
+				</a>
+				<?php 
+					$services_pages = get_field('services_pages', 'option'); 
+					set_query_var('pages_list', $services_pages);
+					set_query_var('title', 'À votre service');
+					set_query_var('icons', true);
+					get_template_part('template-parts/modules/module', 'pages'); 
+				?>
+			</div>
 
 			<?php
 				$pages = get_field('home_pages', 'option'); 

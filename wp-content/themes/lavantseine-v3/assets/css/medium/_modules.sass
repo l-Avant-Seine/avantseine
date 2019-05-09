@@ -123,6 +123,11 @@
 	.item-cover
     border-radius: 0 30px 0 0
     margin-bottom: 0
+    
+    @include up-to(medium)
+      max-height: 200px
+      object-fit: cover
+      width: 100%
 
 	.icon-video
 		position: absolute
@@ -138,6 +143,8 @@
 		color: $blue
 
   transition: all .5s
+
+
 
 .article-item:hover
   .item-text,
@@ -410,3 +417,60 @@ body form.mj-form .mj-embedded.mj-embed-shadow
     padding: 20px !important
     background-color: transparent !important
     box-shadow: none !important
+
+
+
+// SERVICE MOBILE
+
+.services-outer
+  transition: all .5s
+
+  @include up-to(medium)
+    position: absolute
+    background-color: $blue
+    padding: 20px 15%
+    right: -10%
+    top: 0
+    transform: translateX(100%)
+
+    .module-title
+      display: none
+
+    .page-item
+      width: 100%
+      clear: both
+
+    .btn-toggle
+      display: block
+      box-sizing: border-box
+      position: absolute
+      background-color: $blue
+      height: 50px
+      width: 300px
+      color: $white
+      left: 0
+      top: 0
+      padding: 4px 40px
+      transform: rotate(90deg)
+      transform-origin: left top 0
+      font-size: 22px
+      font-weight: $black
+      line-height: 50px
+      
+  &.services-open
+    @include up-to(medium)
+      transform:  none
+      width: 120%
+      color: white
+
+      .btn-toggle
+        left: unset
+        right: 0
+        transform-origin: center 150px
+        transform: rotate(-270deg)
+
+
+
+
+
+
