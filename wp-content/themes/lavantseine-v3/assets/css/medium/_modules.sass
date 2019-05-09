@@ -11,6 +11,15 @@
 
     .rounded-icon
       background-color: $red
+  
+  @include up-to(medium)
+    width: 100%
+    
+    .item-title > span
+      float: right
+      font-size: 13px
+
+      
 
 .page-item:nth-child(odd)
     float: right

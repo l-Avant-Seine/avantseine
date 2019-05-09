@@ -38,7 +38,7 @@
 			
 				<div class="agenda-grid-item m-8col prog-filters">
 					
-					<form action="" id="prog-filters" class="mb-2" name="prog-filters">
+					<form action="" id="prog-filters" class="cf mb-2" name="prog-filters">
 
 							<div class="label h_4--red">filtrer</div>
 

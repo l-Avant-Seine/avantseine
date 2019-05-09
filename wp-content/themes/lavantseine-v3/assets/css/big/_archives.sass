@@ -54,6 +54,17 @@
 	border-bottom: 1px solid $red
 	padding: 10px 0
 	font-weight: $bold
+	
+	@include up-to(medium)
+		width: 48%
+
+		&:nth-child(odd)
+			float: right
+			clear: none
+
+		&:nth-child(even)
+			clear: both
+			float: left
 
 .agenda-grid-item
 	position: relative

@@ -8,7 +8,10 @@
 						</div>
 					<?php endif; ?>
 
-					<h5 class="h_4 item-title mb-05"><?php the_title(); ?></h5>
+					<h5 class="h_4 item-title mb-05">
+						<?php the_title(); ?>
+						<span class="btn-inline m-hide">En savoir plus</span>
+					</h5>
 
 					<div class="item-excerpt mb-05">
 						<?php 
@@ -21,6 +24,6 @@
 							
 						</div>
 					
-						<div class="btn-inline">En savoir plus</div>
+						<div class="btn-inline s-hide m-show">En savoir plus</div>
 				</a>
 			</div><!-- .page-item -->

@@ -24,20 +24,21 @@ $wide_breakpoint:                   1600px !default
 
 
 
+@include at-least(medium)
 
-.square 
-  position: relative
-  width: 100% 
+    .square 
+      position: relative
+      width: 100% 
 
-.square:after
-  content: ""
-  display: block
-  padding-bottom: 100%
+    .square:after
+      content: ""
+      display: block
+      padding-bottom: 100%
 
-.square-content 
-  position: absolute
-  width: 100%
-  height: 100%
+    .square-content 
+      position: absolute
+      width: 100%
+      height: 100%
 
 
 
