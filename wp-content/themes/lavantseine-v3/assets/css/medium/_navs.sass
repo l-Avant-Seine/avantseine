@@ -7,11 +7,11 @@
 	left: 0
 	right: 0
 	padding: 0 10px
-	
+	height: 50px
+	height: 8vh
+	border-bottom: 1px solid $red
+
 	@include up-to(medium)
-		border-bottom: 1px solid $red
-		height: 50px
-		height: 8vh
 
 
 .menu-item
@@ -26,9 +26,8 @@ body
 	@include at-least(medium)
 		.site-header
 			flex-wrap: nowrap
-			height: 7vh
-			border-bottom: 1px solid $red
-			
+			padding-top: 1vh
+
 		.siteMenus-primary
 			order: 1
 

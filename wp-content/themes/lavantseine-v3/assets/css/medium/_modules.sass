@@ -75,6 +75,30 @@
 
 .focus-item .item-cover
   border-radius: 0 20px 0 0
+  position: relative
+
+.focus-item .item-pastille
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  display: flex
+  justify-content: center
+  align-items: center
+
+  span
+    display: inline-block
+    background-image: url('img/pastille.gif')
+    background-size: cover
+    background-repeat: no-repeat
+    width: 150px
+    height: 150px
+    line-height: 150px
+    text-align: center
+    color: $white
+    opacity: 0.98
+    font-weight: $bold
 
 .focus-item .item-text
   padding: 20px
