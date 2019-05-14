@@ -106,9 +106,8 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 						<a href="#" id="js-searchTrigger" class="icon-LOUPE"></a>
 					</li>
 
-
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="#section-transition" target="_blank" class="icon-NEWSLETTER scroll"></a>
+						<a href="#section-transition" target="_blank" class="scroll"><img src="<?php echo get_template_directory(); ?>/assets/img/icon-newsletter.png" alt=""></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
@@ -119,6 +118,9 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 						<a href="https://twitter.com/AvantSeine" target="_blank" class="icon-TWITTER"></a>
 					</li>
 
+					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+						<a href="https://www.instagram.com/avantseine/" target="_blank" class="icon-INSTAGRAM"></a>
+					</li>
 																	
 				</ul>
 			</nav>
