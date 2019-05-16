@@ -14,11 +14,15 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 	<a href="<?php the_permalink(); ?>" rel="bookmark">
 		<div class="inner">
 
-			<header class="item-header mb-1">
+			<header class="item-header  mb-1">
 
-				<img class="item-cover b-lazy" 
+				<div class="ratio2for3">
+					<div class="ratio2for3-content">
+						<img class="item-cover b-lazy" 
 						src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 						data-src="<?php the_post_thumbnail_url('top-thumbnail'); ?>">
+					</div>
+				</div>
 
 				<?php 
 

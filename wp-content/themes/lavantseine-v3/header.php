@@ -107,7 +107,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="#section-transition" target="_blank" class="scroll"><img src="<?php echo get_template_directory(); ?>/assets/img/icon-newsletter.png" alt=""></a>
+						<a href="#section-transition" target="_blank" class="icon-NEWSLETTER scroll"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">

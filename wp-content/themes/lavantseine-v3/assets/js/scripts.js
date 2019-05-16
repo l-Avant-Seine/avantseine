@@ -509,6 +509,7 @@ jQuery(function($){
     event.preventDefault();
 
     $('.services-outer').toggleClass('services-open');
+    $(this).find('span').toggleClass('icon-close');
 
   });
 

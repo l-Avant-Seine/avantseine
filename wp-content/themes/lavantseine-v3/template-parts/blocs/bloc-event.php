@@ -62,8 +62,8 @@ $babysitting = false;
 
 		<div class="item-breather">
 			
-			<div class="b-lazy item-cover square">
-				<div class="square-content">
+			<div class="b-lazy item-cover ratio2for3">
+				<div class="ratio2for3-content">
 					<img class=" b-lazy" 
 							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 							data-src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>">

@@ -87,7 +87,7 @@
 			
 			<div class="services-outer">
 				<a href="#" id="js-toggle-services" class="btn-toggle m-hide">
-					<span class="icon-close"></span>À votre service !
+					<span class=""></span>À votre service !
 				</a>
 				<?php 
 					$services_pages = get_field('services_pages', 'option'); 
