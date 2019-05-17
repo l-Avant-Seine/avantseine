@@ -60,13 +60,11 @@ endif;
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
-	<header class="event-header wrap mb-2">
-
+	<header class="event-header mb-2">
 
 		<div class="event-cover">
 			<img src="<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>" alt="">
 		</div>
-
 
 		<div class="event-titles">
 

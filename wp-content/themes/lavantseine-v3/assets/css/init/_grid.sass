@@ -24,6 +24,48 @@ $wide_breakpoint:                   1600px !default
 
 
 
+
+
+.ratio2for3 
+  position: relative
+  width: 100% 
+
+.ratio2for3:after
+  content: ""
+  display: block
+  padding-bottom: 70%
+
+.ratio2for3-content 
+  position: absolute
+  width: 100%
+  height: 100%
+
+  img
+    object-fit: cover
+    height: 100%
+    width: 100%
+
+
+
+.wrap 
+    @include box-sizing
+    margin-left: auto
+    margin-right: auto
+
+    @include up-to(medium) 
+        width: 85%
+
+    @include at-least(medium) 
+        width: 95%
+    
+    @include at-least(large) 
+        width: $max_width
+
+    @include at-least(wide) 
+        width: $max_width_large
+    
+
+
 @include at-least(medium)
 
     .square 
@@ -46,44 +88,6 @@ $wide_breakpoint:                   1600px !default
         width: 100%
 
 
-    .ratio2for3 
-      position: relative
-      width: 100% 
-
-    .ratio2for3:after
-      content: ""
-      display: block
-      padding-bottom: 70%
-
-    .ratio2for3-content 
-      position: absolute
-      width: 100%
-      height: 100%
-
-      img
-        object-fit: cover
-        height: 100%
-        width: 100%
-
-
-
-.wrap 
-    @include box-sizing
-    margin-left: auto
-    margin-right: auto
-
-    @include up-to(medium) 
-        width: 85%
-
-    @include at-least(medium) 
-        width: 95%
-    
-    @include at-least(large) 
-        width: $max_width
-
-    @include at-least(wide) 
-        width: $max_width_large
-    
 
     
 

@@ -118,7 +118,10 @@
         position: relative
         z-index: 99999999
         min-height: 300px
-
+        
+        @include up-to(medium)
+            min-height: 400px
+            
     .slick-current 
         position: relative
         z-index: 999 

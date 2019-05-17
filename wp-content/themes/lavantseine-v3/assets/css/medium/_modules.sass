@@ -18,6 +18,7 @@
     .item-title > span
       float: right
       font-size: 13px
+      line-height: 2.4
 
       
 
@@ -85,6 +86,9 @@
   border-radius: 0 20px 0 0
   height: 100%
   max-height: 250px
+  
+  @include up-to(medium)
+    max-height: none
 
 .focus-item .item-cover
   border-radius: 0 20px 0 0
@@ -184,6 +188,8 @@
     
   .agenda-grid-item & 
     padding-top: 70px
+    @include up-to(medium)
+      padding-top: 30px
 
   .agenda-grid-item & .item-hover
     top: 70px 
@@ -253,6 +259,7 @@
 
     .item-cover
       opacity: .5
+
     
 
 
@@ -443,7 +450,7 @@ body form.mj-form .mj-embedded.mj-embed-shadow
   @include up-to(medium)
     position: absolute
     background-color: $blue
-    padding: 20px 15%
+    padding: 20px 20% 20px 10%
     right: -10%
     top: 0
     transform: translateX(100%)

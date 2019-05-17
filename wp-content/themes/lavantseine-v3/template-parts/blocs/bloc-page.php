@@ -8,7 +8,7 @@
 						</div>
 					<?php endif; ?>
 
-					<h5 class="h_4 item-title mb-05">
+					<h5 class="cf h_4 item-title mb-05">
 						<?php the_title(); ?>
 						<span class="btn-inline m-hide">En savoir plus</span>
 					</h5>
