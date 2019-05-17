@@ -111,7 +111,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://www.facebook.com/lAvantSeine/" target="_blank" class="icon-FACEBOOK"></a>
+						<a href="https://www.facebook.com/lAvantSeine/" target="_blank" class="icon-facebook"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
@@ -119,7 +119,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://www.instagram.com/avantseine/" target="_blank" class="icon-INSTAGRAM"></a>
+						<a href="https://www.instagram.com/avantseine/" target="_blank" class="icon-instagram"></a>
 					</li>
 																	
 				</ul>

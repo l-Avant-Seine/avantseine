@@ -228,7 +228,7 @@ acf_add_local_field_group(array (
 		),
 		array (
 			'key' => 'field_5911d60577a29',
-			'label' => 'Texte complémentaire',
+			'label' => 'Texte complémentaire  (lieu, tarifs spécifique, autres infos pratiques...)',
 			'name' => 'eventDetail_text2',
 			'type' => 'wysiwyg',
 			'instructions' => '',
@@ -489,7 +489,7 @@ Remplacer le code media (ici DqgO81g3DwQ) par celui de votre vidéo.',
 		),
 		array (
 			'key' => 'field_593aa1bd04dfz',
-			'label' => ' Label public ? ',
+			'label' => ' Label public (âge précis) ',
 			'name' => 'eventDetail_publiclabel',
 			'type' => 'text',
 			'instructions' => '',

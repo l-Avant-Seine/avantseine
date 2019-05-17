@@ -31,6 +31,9 @@
 .put-on-1col .page-item
   width: 67%
   float: left
+  
+  @include up-to(medium)
+    width: 100%
 
 .event-aside .put-on-1col .page-item
   width: 100%
@@ -199,10 +202,12 @@
       height: 100%
       width: 100%
 
-  .icon-video
+  .icon-babysitting
     position: absolute
-    top: 0
-    width: 60%
+    bottom: 5px
+    right: 5px
+    width: 35%
+    z-index: 9999
 
   .item-tax
     background-color: $red

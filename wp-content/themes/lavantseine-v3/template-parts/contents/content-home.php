@@ -36,8 +36,8 @@
 
 	<section class="section-transition is-flex mb-2">
 		<div class="row wrap">
-			<div class="m-8col m-1col-push">
-				<a href="/programmation" class="btn-primary">voir tous les spectacles</a>
+			<div class="m-16col m-1col-push is-centered text-on-center">
+				<a href="/programmation" class="btn-primary--big">voir tous les spectacles</a>
 			</div>
 		</div>
 	</section>

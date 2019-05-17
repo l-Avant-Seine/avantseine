@@ -43,7 +43,7 @@
 							<div class="label h_4--red">filtrer</div>
 
 							<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
-							<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel type d\'événement ? ', ''); ?>
+							<?php custom_taxonomy_dropdown('rdv', 'date', 'DESC', '', 'rdv', 'Quel format ?', ''); ?>
 							<?php custom_taxonomy_dropdown('public', 'date', 'DESC', '', 'public', 'Pour quel âge ?', ''); ?>
 							<?php custom_taxonomy_dropdown('tarif', 'date', 'DESC', '', 'tarif', 'Quel tarif ?', ''); ?>
 

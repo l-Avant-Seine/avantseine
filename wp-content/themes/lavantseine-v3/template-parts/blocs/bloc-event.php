@@ -43,10 +43,6 @@ $babysitting = false;
 				<div class="mb-05">
 					<?php echo $event_shortText; ?>
 				</div>
-				
-				<?php if ( $babysitting): ?>
-					<div class="mb-1 strong">BabySitting !</div>
-				<?php endif; ?>
 
 				<div class="item-actions">
 
@@ -62,7 +58,14 @@ $babysitting = false;
 
 		<div class="item-breather">
 			
-			<div class="b-lazy item-cover ratio2for3">
+			<div class="item-cover ratio2for3">
+
+				<?php if ( $babysitting ): ?>
+					<div class="icon-babysitting">
+						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icone_BabySitting.png" class="">
+					</div>
+				<?php endif; ?>
+
 				<div class="ratio2for3-content">
 					<img class=" b-lazy" 
 							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==

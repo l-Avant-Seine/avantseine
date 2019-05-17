@@ -59,7 +59,7 @@
 	</header><!-- .entry-header -->
 
 
-	<div class="wrap row mb-2">
+	<div class="page-content-wrapper wrap row mb-2">
 
 		<div class="m-6col page-aside mb-2">
 

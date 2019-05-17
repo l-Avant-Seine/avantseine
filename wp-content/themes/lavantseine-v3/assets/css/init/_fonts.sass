@@ -21,8 +21,8 @@
  
 @font-face
   font-family: 'icomoon'
-  src:  url('fonts/icomoon.eot?efwjen')
-  src:  url('fonts/icomoon.eot?efwjen#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?efwjen') format('truetype'), url('fonts/icomoon.woff?efwjen') format('woff'), url('fonts/icomoon.svg?efwjen#icomoon') format('svg')
+  src:  url('fonts/icomoon.eot?cv5gxc')
+  src:  url('fonts/icomoon.eot?cv5gxc#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?cv5gxc') format('truetype'), url('fonts/icomoon.woff?cv5gxc') format('woff'), url('fonts/icomoon.svg?cv5gxc#icomoon') format('svg')
   font-weight: normal
   font-style: normal
 
@@ -144,6 +144,10 @@ p
 	font-weight: $black
 	color: $blue
 
+.meta-names
+	text-transform: uppercase
+
+
 
 // ICONS
 [class^="icon-"],
@@ -159,6 +163,14 @@ p
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
+
+.icon-instagram:before
+  content: "\e90f"
+  font-size: 20px
+
+.icon-facebook:before
+	content: "\e910"
+	font-size: 20px
 
 .icon-GROUPE:before 
 	content: "\e906"
@@ -192,13 +204,6 @@ p
 	content: "\e903"
 	font-size: 20px
 
-
-.icon-FACEBOOK:before 
-	content: "\e904"
-	background-color: $blue
-	color: $white
-	font-size: 20px
-	border-radius: 50%
 
 .icon-TWITTER:before 
 	content: "\e90b"

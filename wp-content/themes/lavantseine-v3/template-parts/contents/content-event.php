@@ -115,42 +115,42 @@ endif;
 
 				</div>
 	
-				<?php if ( $event_text2 ) : echo "<div class='mb-2'>". $event_text2 ."</div>"; endif; ?>
-
 				<div id="event-details" class="event-details">
 
 						<div class="event-distribution row clearfix mb-2">
-							<h4 class="h_4 mb-05">
-								Distribution et mentions complètes
-							</h4>
 				
-							<div class="mb-1">
-									<?php 
-										if ( $event_distribution || $event_mentions ) : 
-											echo $event_distribution;
-										endif; ?>
-							</div>
+							<?php if ( $event_distribution ) : ?>
+								<h4 class="h_4 mb-05">
+									Distribution et mentions complètes
+								</h4>
+
+								<div class="mb-1">
+									<?php echo $event_distribution; ?>
+								</div>
+							<?php endif; ?>
+
 
 							<div class="">
 
-									<?php 
-										if (  $event_mentions ) : 
-											echo $event_mentions;
-										endif; ?>
+								<?php 
+									if ( $event_mentions ) : 
+										echo $event_mentions;
+									endif; ?>
 
-									<?php if ($attached) : ?>
-									<p class="attached-file">
-										<a href="<?php echo $attached['url']; ?>" class="btn--big">  
-									    Dossier de presse
-										</a>
-									</p>
-									<?php endif; ?>
+								<?php if ($attached) : ?>
+								<p class="attached-file">
+									<a href="<?php echo $attached['url']; ?>" class="btn--big">  
+								    Dossier de presse
+									</a>
+								</p>
+								<?php endif; ?>
 
-									<?php if( $presskit ): ?>
-										<a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
-									<?php endif; ?>
+								<?php if( $presskit ): ?>
+									<a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
+								<?php endif; ?>
 
 							</div>
+
 						</div>
 
 
@@ -212,11 +212,17 @@ endif;
 										$count = count($term_list);
 										if ( $count > 0 ){
 										    echo "<ul class='no-bullets'>";
-										    foreach ( $term_list as $term ) {
-										    	echo "<li class=''>#" . $term->name . "<br>" . $term->description . "</li>";
-										    	
-										    }
-										    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+											    foreach ( $term_list as $term ) {
+											    	echo "<li class=''>#" . $term->name . "<br>" . $term->description . "</li>";
+											    	
+											    }
+
+											    if ( $event_text2 ) : 
+											    	echo "<li>". $event_text2 ."</li>";
+											    endif;
+
+											    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+											    
 										    echo "</ul>";
 										}
 									?>
