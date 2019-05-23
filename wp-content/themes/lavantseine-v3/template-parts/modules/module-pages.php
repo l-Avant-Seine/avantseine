@@ -13,7 +13,7 @@
 			setup_postdata( $post );
 			get_template_part( 'template-parts/blocs/bloc', 'page' ); 
 
-		endforeach; ?>
+		endforeach; wp_reset_query();?>
 
 	</div>
 </section>

@@ -94,7 +94,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 				<ul class="nobullets">
 					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary">nous contacter</a></li>
 
-					<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="https://lavant-seine.mapado.com/" target="_blank" class="btn-primary">réserver</a></li>
+					<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="<?php echo RESERVATION_URL; ?>" target="_blank" class="btn-primary">réserver</a></li>
 				</ul>
 			</nav>
 
@@ -111,15 +111,15 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://www.facebook.com/lAvantSeine/" target="_blank" class="icon-facebook"></a>
+						<a href="<?php echo FB_URL; ?>" target="_blank" class="icon-facebook"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://twitter.com/AvantSeine" target="_blank" class="icon-TWITTER"></a>
+						<a href="<?php echo TWITTER_URL; ?>" target="_blank" class="icon-TWITTER"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="https://www.instagram.com/avantseine/" target="_blank" class="icon-instagram"></a>
+						<a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" class="icon-instagram"></a>
 					</li>
 																	
 				</ul>
