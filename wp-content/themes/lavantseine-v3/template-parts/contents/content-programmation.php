@@ -139,6 +139,7 @@
 
 
 		<div class="wrap row module-actions">
+			<br><br>
 			<a class="load-more btn-primary" href="#" posts_found="<?php echo $posts_found; ?>">voir plus de spectacles</a>
 		</div><!-- .row -->
 

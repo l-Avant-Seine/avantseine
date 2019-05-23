@@ -169,8 +169,9 @@ function load_more() {
 
 	$offset = $_POST['offset'];
 	$step = $_POST['step'];
-//	$previous_month = $_POST['previous_month'];
+	$previous_month = $_POST['previous_month'];
 	$pastEvents = $_POST['pastEvents'];
+	$is_archives = $_POST['is_archives'];
 
 	$args = array(
 	    'post_type' =>'event',
@@ -181,7 +182,7 @@ function load_more() {
 			'orderby' => 'meta_value_num',
 	);
 
-	if( $pastEvents === 'true' ) {
+	if( $is_archives === 'true' ) {
 		$args['order'] = 'DESC';
 		$args['meta_query'] = array(
 			array(
@@ -205,29 +206,28 @@ function load_more() {
 	$ajax_query = new WP_Query($args);
 
 	
-	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
+	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); ?>
 
-		$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-		$month = date( 'Y/m', $event_first_date );
+		<div class="agenda-grid-item event-outer m-8col">
 
-		if ( $previous_month != $month ): ?>
 
-				<?php if($previous_month) : ?>
-					</div>
-				<?php endif; ?>
+			<?php 
+			$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
+			$month = date( 'Y/m', $event_first_date );
 
-				<div class="h3 box-month clearfix m-first" month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
-					<?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
-				</div>
-				<div class="row_alt event-row">
-			<?php
-			$previous_month = $month;
-		endif;
-	?>
+			if ( $previous_month != $month ): ?>
 
-	<div class="m-2coll">
-		<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
-	</div>
+					<span class="h_2 month"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
+						en <?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
+					</span>
+
+				<?php $previous_month = $month;
+
+			endif;
+
+			get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
+
+		</div>
 
 	<?php 
 		endwhile; 

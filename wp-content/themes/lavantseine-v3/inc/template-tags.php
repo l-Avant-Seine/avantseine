@@ -123,7 +123,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 			}
 			// si 1 seule date
 			else {
-				$event_dates .= $date_label_opentag . strftime('%A ') . $date_label_closetag;
+				$event_dates .= $date_label_opentag . strftime('%A ', $event_first_date) . $date_label_closetag;
 				$event_dates .= strftime('%e.%m.%G', $event_first_date );
 				$event_dates .= $date_label_opentag . ' à ' . $date_label_closetag;
 				$event_dates .= strftime('%kh%M', $event_first_date );

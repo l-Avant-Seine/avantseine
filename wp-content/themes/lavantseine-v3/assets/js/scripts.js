@@ -393,13 +393,9 @@ jQuery(function($){
       var pastEvents;
       var posts_found = $(this).attr('posts_found');
       var month = $('.box-month').last().attr('month');
-      var archives_value = $('input[name="is_archives"]').attr('checked');
 
-      if( archives_value === undefined ) {
-         pastEvents = true;
-      } else {
-         pastEvents = false;
-      }
+      var is_archives = $('#switch-passed').is(':checked');
+      var is_tocome = $('#switch-tocome').is(':checked');
 
       jQuery.post(
           ajaxurl,
@@ -408,11 +404,12 @@ jQuery(function($){
               'offset': offset,
               'step': step,
               'previous_month': month,
-              'pastEvents': pastEvents
+              'pastEvents': pastEvents,
+              'is_archives': is_archives,
           },
           function(response){
             offset = offset + step;
-            $('#agenda-grid-item').append(response);
+            $('#agenda-maingrid').append(response);
 
             if(posts_found < offset) {
               $('.load-more').hide();

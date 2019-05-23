@@ -29,45 +29,54 @@
 
 							<?php 
 								if( get_row_layout() == 'focusElements_page' ):
-		        			$focus_item = get_sub_field('focusElements_page');
+		        			$posts = get_sub_field('focusElements_page');
 		        			$focus_text = get_sub_field('focusElements_page_texte');
 
 		        		elseif( get_row_layout() == 'focusElements_article' ): 
-		        			$focus_item = get_sub_field('focusElements_article');
+		        			$posts = get_sub_field('focusElements_article');
 		        			$focus_text = get_sub_field('focusElements_article_texte');
 
 		       			elseif( get_row_layout() == 'focusElements_event' ): 
-		        			$focus_item = get_sub_field('focusElements_event');
+		        			$posts = get_sub_field('focusElements_event');
 		        			$focus_text = get_sub_field('focusElements_event_texte');
 
 		        		endif;
-								$focus_title = $focus_item->post_title; ?>
+
+								if( $posts ): ?>
+								    <?php foreach( $posts as $post): ?>
+								        <?php setup_postdata($post); ?>
 
 
-									<div class="item-text flx-1">
-										<a href="<?php echo get_permalink( $focus_item->ID ); ?>">
-							    		<h3 class="h_4 item-title mb-1"><?php echo $focus_title; ?></h3>
-							    		<div class="focusElement_p mb-1">
-							    			<p><?php echo $focus_text ?></p>
-							    		</div>
+											<div class="item-text flx-1">
+												<a href="<?php echo get_permalink( get_the_ID() ); ?>">
+									    		<h3 class="h_4 item-title mb-1"><?php the_title(); ?></h3>
+									    		<div class="focusElement_p mb-1">
+									    			<p><?php echo $focus_text ?></p>
+									    		</div>
 
-							    		<span class="btn-inline">en savoir plus</span>
-							    	</a>
-							    </div>
+									    		<span class="btn-inline">en savoir plus</span>
+									    	</a>
+									    </div>
 
 
-									<div class="item-cover flx-1">
-										<a href="<?php echo get_permalink( $focus_item->ID ); ?>">
-											<img class="b-lazy" src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $focus_item->ID ), 'large' )[0]; ?>" alt="">
+											<div class="item-cover flx-1">
+												<a href="<?php echo get_permalink( get_the_ID() ); ?>">
+													<img class="b-lazy" src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'large' )[0]; ?>" alt="">
 
-											<?php if( get_sub_field('pastille') != '' ) : ?>
-												<div class="item-pastille is-flex">
-													<span><?php the_sub_field('pastille'); ?></span>
-												</div>
-											<?php endif; ?>
+													<?php if( get_sub_field('pastille') != '' ) : ?>
+														<div class="item-pastille is-flex">
+															<span><?php the_sub_field('pastille'); ?></span>
+														</div>
+													<?php endif; ?>
 
-										</a>
-									</div>
+												</a>
+											</div>
+
+								    <?php endforeach; ?>
+								    <?php wp_reset_postdata();?>
+								<?php endif; ?>
+
+							
 
 		        <?php endif; ?>
 

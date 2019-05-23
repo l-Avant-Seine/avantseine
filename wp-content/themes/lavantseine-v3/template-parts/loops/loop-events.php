@@ -20,10 +20,8 @@
 											<?php $previous_month = $month;
 
 										endif;
-									?>
-								
-
-									<?php get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
+									
+										get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
 								</div>
 							<?php endwhile; ?>
 
