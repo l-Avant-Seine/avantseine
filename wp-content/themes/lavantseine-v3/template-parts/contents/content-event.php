@@ -240,7 +240,9 @@ endif;
 
 				<?php if( $babysitting ) : ?>
 					<div class="cf mb-2">
-						<div class="rounded-icon mb-05">a</div>
+						<div class="rounded-icon mb-05">
+							<span class="icon-BALLON"></span>
+						</div>
 						<h4 class="h_4">Baby Sitting</h4>
 						<p class="mb-05">Venir au théâtre quand on a des enfants ? Trop facile.</p>
 						<a class="btn-inline" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant" title="dès 3 ans / 6 € par enfant">plus d'infos</a>

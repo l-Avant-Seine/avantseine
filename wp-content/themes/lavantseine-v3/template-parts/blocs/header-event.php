@@ -66,10 +66,17 @@
 									</span>
 								<?php endif; ?>
 								
-								<span class="meta-item label_3">
-									<span class="label_2">pour tous dès</span>
-									<span class=""><?php the_field('eventDetail_publiclabel'); ?></span>
-								</span>							
+								<?php 
+									$public_label = get_field('eventDetail_publiclabel');
+
+									if( $public_label !== '0' ) : 
+										if( $public_label !== null ) : ?>
+										<span class="meta-item label_3">
+											<span class="label_2">pour tous dès</span>
+											<span class=""><?php echo $public_label; ?></span>
+										</span>							
+									<?php endif; ?>
+								<?php endif; ?>
 
 			  			</div>
 			  		</div>
