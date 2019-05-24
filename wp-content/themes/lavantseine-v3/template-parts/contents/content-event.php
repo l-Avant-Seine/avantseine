@@ -215,14 +215,24 @@ endif;
 											    	
 											    }
 
-											    if ( $event_text2 ) : 
-											    	echo "<li>". $event_text2 ."</li>";
-											    endif;
-
 											    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
-											    
+
+												if ( $event_text2 ) : 
+													echo "<li>". $event_text2 ."</li>";
+												endif;
+
 										    echo "</ul>";
 										}
+										else {
+
+										if ( $event_text2 ) : 
+											echo "<ul class='no-bullets'><li>". $event_text2 ."</li></ul>";
+										endif;
+
+
+										}
+
+
 									?>
 
 								</div>

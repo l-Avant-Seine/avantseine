@@ -40,10 +40,12 @@
 
 			  		<div class="row mb-1">
 			  			<div class="s-22col s-1col-push">
-								
-								<span class="label_3 meta-item">
-									<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
-								</span>
+
+								<?php if( !get_field('eventDetail_is_news') ) : ?>
+									<span class="label_3 meta-item">
+										<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
+									</span>
+								<?php endif; ?>
 
 								<span class="meta-item label_3">
 									<?php 
