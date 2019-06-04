@@ -9,7 +9,6 @@ $babysitting = false;
 	$event_text2 = get_field( 'eventDetail_text2' );
 	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
-	 $event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 	$event_other_dates = get_field('eventDetail_otherdates');
 	$today = time();
 	$event_dealer_link = get_field( 'eventDetail_dealer-link' );
@@ -79,11 +78,11 @@ $babysitting = false;
 							<?php the_title(); ?>
 					</h3>
 
-					<div class="item-dates">
-						<?php
-							echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
-						?>
-					</div>
+					<?php if( !get_field('eventDetail_is_news') ) : ?>
+						<div class="item-dates">
+							<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
+						</div>
+					<?php endif; ?>
 
 					<?php if( get_field('noms_principaux') ) { ?>
 						<div class="item-names">

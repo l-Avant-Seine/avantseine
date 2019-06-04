@@ -72,14 +72,14 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 				$event_dates .= strftime('%e.%m.%G', $event_last_date );
 		}
 		else {
-
+  
 			// Si 2 dates
 			if( $event_other_dates[0] != '' &&  $event_first_date != $event_last_date ) {
 
 				if( !strcmp( strftime('%A %e %b %G', $event_first_date ), strftime('%A %e %b %G', $event_last_date ) ) ) {
 
 					// Si même date mais plusieurs horaires dans la journée
-					$event_dates .= $date_label_opentag . strftime('%A') . $date_label_closetag;
+					$event_dates .= $date_label_opentag . strftime('%A', $event_first_date) . $date_label_closetag;
 					$event_dates .= strftime('%e.%m.%G', $event_first_date );
 
 				}
@@ -123,10 +123,12 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 			}
 			// si 1 seule date
 			else {
+
 				$event_dates .= $date_label_opentag . strftime('%A ', $event_first_date) . $date_label_closetag;
 				$event_dates .= strftime('%e.%m.%G', $event_first_date );
 				$event_dates .= $date_label_opentag . ' à ' . $date_label_closetag;
 				$event_dates .= strftime('%kh%M', $event_first_date );
+
 			}
 		}
 

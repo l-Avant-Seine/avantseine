@@ -1242,7 +1242,7 @@ acf_add_local_field_group(array (
 							'key' => 'field_591461d0081a0',
 							'label' => 'Lien de l\'élément libre',
 							'name' => 'focusElements_libre_lien',
-							'type' => 'page_link',
+							'type' => 'url',
 							'instructions' => '',
 							'required' => 0,
 							'conditional_logic' => 0,

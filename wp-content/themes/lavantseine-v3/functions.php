@@ -13,7 +13,7 @@ define('TWITTER_URL','https://twitter.com/AvantSeine');
 define('INSTAGRAM_URL','http://instagram.com/avantseine');
 define('GOOGLEPLUS_URL','https://plus.google.com/u/0/b/100144920076066761502/100144920076066761502');
 define('VIDEOCHANNEL_URL','https://www.youtube.com/channel/UCtUb1swrX34VbClR53YcagA');
-define('RESERVATION_URL','http://www.lavant-seine.com/pratique/comment-reserver/');
+define('RESERVATION_URL','https://lavant-seine.mapado.com/');
 
 
 setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
