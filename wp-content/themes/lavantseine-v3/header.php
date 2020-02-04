@@ -92,9 +92,9 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 			<nav class="siteMenus-actions s-hide m-show flx-1">
 				<ul class="nobullets">
-					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary">nous contacter</a></li>
+					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary" title="Nous contacter">nous contacter</a></li>
 
-					<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="<?php echo RESERVATION_URL; ?>" target="_blank" class="btn-primary">réserver</a></li>
+					<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="<?php echo RESERVATION_URL; ?>" target="_blank" class="btn-primary" title="billetterie en ligne">billetterie en ligne</a></li>
 				</ul>
 			</nav>
 

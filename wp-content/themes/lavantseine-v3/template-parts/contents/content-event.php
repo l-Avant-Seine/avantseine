@@ -211,7 +211,7 @@ endif;
 										if ( $count > 0 ){
 										    echo "<ul class='no-bullets'>";
 											    foreach ( $term_list as $term ) {
-											    	echo "<li class=''>#" . $term->name . "<br>" . $term->description . "</li>";
+											    	echo "<li class=''>tarif " . $term->name . "<br>" . $term->description . "</li>";
 											    	
 											    }
 
