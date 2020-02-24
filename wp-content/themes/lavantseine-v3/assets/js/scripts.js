@@ -480,7 +480,7 @@ jQuery(function($){
 
     $('.js-pdfTrigger').on('click', function( event ) {
       event.preventDefault();
-      $(this).find('ul').toggleClass('hidden');
+      $(this).siblings('ul').toggleClass('hidden');
     });
 
 

@@ -202,7 +202,7 @@ endif;
 
 							<div class="m-8col mb-2 event-practicallist">
 								
-								<h4 class="h_4">Infos pratiques</h4>
+								<h4 class="h_4">Tarifs</h4>
 
 								<div class="inner">
 									<?php				

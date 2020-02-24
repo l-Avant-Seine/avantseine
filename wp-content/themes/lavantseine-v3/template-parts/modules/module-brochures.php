@@ -17,8 +17,8 @@
 				<?php if( $i == 0) : ?>
 				<li class="pdf-item"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>télécharger <br>la brochure <?php the_sub_field('saison'); ?></a></li>
 
-				<li class="pdf-item js-pdfTrigger">
-					<a href="#" class=" ">Autres Saisons</a>
+				<li class="pdf-item ">
+					<a href="#" class="js-pdfTrigger">Autres Saisons</a>
 
 					<ul class="nobullets hidden">
 					<?php else : ?>
