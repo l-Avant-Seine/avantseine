@@ -9,7 +9,7 @@
 	position: relative
 
 	a
-		border-bottom: 1px solid $red
+		border-bottom: 1px solid $secondary_color
 		padding: 10px 0
 		font-weight: $bold
 		display: block
@@ -18,7 +18,7 @@
 
 		&:before
 			content: '●'
-			color: $red
+			color: $secondary_color
 			left: -30px
 			position: absolute
 			padding: 10px
@@ -26,12 +26,12 @@
 
 .page-title
 	padding: 0 0 10px 0
-	border-bottom: 1px solid $red
+	border-bottom: 1px solid $secondary_color
 
 
 .module-infos
 	.module-title
-		border-bottom: 1px solid $red
+		border-bottom: 1px solid $secondary_color
 		padding-bottom: 10px
 		margin-bottom: 10px
 
@@ -48,12 +48,20 @@
 			order: 1
 
 
+// page Parents
+
+.page_title
+	margin-top: $base_line_height *2
+
+
+
+
 
 // ARTICLE
 
 
 .post-titles
-	background-color: $red
+	background-color: $secondary_color
 	color: $white
 	padding: 2em 0 
 	border-radius: 0 30px 0 0
@@ -67,7 +75,7 @@
 
 
 .post-term
-	border-bottom: 2px solid $blue
+	border-bottom: 2px solid $primary_color
 	margin-right: 1em 
 	padding-bottom: 5px
 
@@ -95,7 +103,7 @@
 	.event-dateslist,
 	.event-practicallist
 		li
-			border-bottom: 1px solid $red
+			border-bottom: 1px solid $secondary_color
 			padding: 10px 0
 
 			&:first-child
@@ -120,25 +128,25 @@
 .accordeon-title 
 
 	.btn-inline
-		color: $blue
+		color: $primary_color
 		margin-bottom: 0
 
 	&:hover
 		cursor: pointer
 
 		h3
-			color: $red 
+			color: $secondary_color 
 
 .open
 	.btn-inline::before 
   	transform: rotate(45deg)
 	.accordeon-title .btn-inline
-		color: $red	
+		color: $secondary_color	
 
 .accordeon-content 
 	padding: 0 1em
 	margin: 10px 0
-	border-left: 1px solid $blue
+	border-left: 1px solid $primary_color
 	transition: all .5s
 	overflow: hidden
 

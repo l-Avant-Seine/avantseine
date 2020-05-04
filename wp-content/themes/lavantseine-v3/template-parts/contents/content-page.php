@@ -8,6 +8,56 @@
  */
 
 
+   $children = get_pages( array( 'child_of' => $post->ID, 'posts_per_page' => -1 ) );
+
+if ( is_page() && count( $children ) > 0 ) : 
+    // This is a parent page ?>
+
+
+	<div class="page-content-wrapper wrap mb-2">
+
+			<h1 class="h_1 page_title mb-1"><?php the_title(); ?></h1>
+			
+			<div class="entry-excerpt  mb-2"><?php the_content(); ?></div>
+
+			<div id="page_grid" class="row" data-columns>
+
+				<?php foreach( $children as $child ) { ?>
+
+					<article class="event-item mb-2">
+								<a href="<?php echo get_page_link( $child->ID ); ?>" rel="bookmark">
+
+							<div class="item-breather">
+								
+								<div class="item-cover ratio2for3">
+
+									<div class="ratio2for3-content">
+										<img class=" b-lazy" 
+												src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+												data-src="<?php echo get_the_post_thumbnail_url($child->ID, 'featured-post-thumbnail'); ?>">
+									</div>
+								</div>
+
+										<h3 class="h_3 item-title" itemprop="name">	
+												<?php echo $child->post_title; ?>
+										</h3>
+							
+							</div>
+								</a>
+
+					</article>
+
+				<?php } // end foreach ?>
+
+			</div>
+
+	</div>
+
+<?php 
+else :
+   // This is not a parent page
+
+
 	$tax_args = array('orderby' => 'none', );
 	$tags = wp_get_post_terms( $post->ID , 'arborescence', $tax_args);
 
@@ -201,7 +251,10 @@
 </article><!-- #post-## -->
 
 	
+<?php
+endif; // endif subpage
 
+?>
 
 
 

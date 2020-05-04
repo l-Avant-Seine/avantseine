@@ -28,3 +28,20 @@
 
 	&:nth-child(3)
 		float: right
+
+
+
+#page_grid[data-columns]::before
+	content: '3 .m-8col'
+
+	@include up-to(medium)
+		content: '1'
+		
+
+.column
+
+	&:nth-child(3)
+		float: right
+
+
+

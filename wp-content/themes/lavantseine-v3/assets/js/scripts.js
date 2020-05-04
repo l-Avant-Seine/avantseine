@@ -191,7 +191,7 @@ jQuery(function($){
       if( $(this).parent().hasClass('ham-prog') || $(this).parent().hasClass('ham-mag') ) {
       } 
       else {
-        event.preventDefault();
+        //event.preventDefault();
       }
     });
 

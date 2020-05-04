@@ -20,6 +20,11 @@
 	src: url(fonts/Loupot-Bold.otf)
  
 @font-face
+	font-family: Blankenhorn
+	src: url(fonts/BlankenhornLL-Script.otf)
+ 
+
+@font-face
   font-family: 'icomoon'
   src:  url('fonts/icomoon.eot?cv5gxc')
   src:  url('fonts/icomoon.eot?cv5gxc#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?cv5gxc') format('truetype'), url('fonts/icomoon.woff?cv5gxc') format('woff'), url('fonts/icomoon.svg?cv5gxc#icomoon') format('svg')
@@ -32,6 +37,11 @@
 
 $circular: Circular, Arial, Helvetica, sans-serif
 $loupot: Loupot, Arial, Helvetica, sans-serif
+$blankenhorn: Blankenhorn, Arial, Helvetica, sans-serif
+
+
+$title_font_family: $blankenhorn
+
 
 
 // WEIGHTS 
@@ -54,16 +64,16 @@ h1, h2, h3, h4, h5, h6
 	margin: 0
 
 .h_1
-	font-family: $loupot
+	font-family: $title_font_family
 	font-size: 74px
 	line-height: .8
 
 
 .h_2
-	font-family: $loupot
+	font-family: $title_font_family
 	font-size: 50px
 	line-height: 44px
-	border-bottom: 1px solid $red
+	border-bottom: 1px solid $secondary_color
 	padding-bottom: 10px
 	margin-bottom: 20px
 
@@ -71,20 +81,20 @@ h1, h2, h3, h4, h5, h6
 	font-weight: $bold
 	font-size: 24px
 	line-height: 28px
-	color: $red
+	color: $secondary_color
 
 .h_4
 	font-weight: $bold
 	font-size: 18px
 	line-height: 1
-	border-bottom: 1px solid $red
+	border-bottom: 1px solid $secondary_color
 	padding-bottom: 10px
 	margin-bottom: 10px
-	color: $red
+	color: $secondary_color
 
 .h_4--red
 	@extend .h_4
-	color: $blue
+	color: $primary_color
 
 
 // COPYS
@@ -100,15 +110,15 @@ p
 
 		&:first-child
 			font-size: 24px
-			color: $red
+			color: $secondary_color
 	h2
-		color: $red
+		color: $secondary_color
 		font-weight: $bold
 		margin-bottom: $base_line_height
 		font-size: 22px
 
 	h3
-		color: $red
+		color: $secondary_color
 		font-weight: $bold
 		margin-bottom: $base_line_height
 		font-size: 18px
@@ -118,7 +128,7 @@ p
 	font-size: 24px
 	line-height: 1.1
 	font-weight: $bold
-	color: $red
+	color: $secondary_color
 
 .excerpt_1
 	font-size: 14px
@@ -143,7 +153,7 @@ p
 	font-size: 34px
 	line-height: 1
 	font-weight: $black
-	color: $blue
+	color: $primary_color
 
 .meta-names
 	text-transform: uppercase
