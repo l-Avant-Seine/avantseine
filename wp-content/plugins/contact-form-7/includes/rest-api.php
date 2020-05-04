@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'rest_api_init', 'wpcf7_rest_api_init' );
+add_action( 'rest_api_init', 'wpcf7_rest_api_init', 10, 0 );
 
 function wpcf7_rest_api_init() {
 	$namespace = 'contact-form-7/v1';
@@ -119,7 +119,7 @@ function wpcf7_rest_create_contact_form( WP_REST_Request $request ) {
 	if ( $id ) {
 		return new WP_Error( 'wpcf7_post_exists',
 			__( "Cannot create existing contact form.", 'contact-form-7' ),
-			array( 'status' => 409 ) );
+			array( 'status' => 400 ) );
 	}
 
 	if ( ! current_user_can( 'wpcf7_edit_contact_forms' ) ) {
@@ -268,8 +268,13 @@ function wpcf7_rest_delete_contact_form( WP_REST_Request $request ) {
 }
 
 function wpcf7_rest_create_feedback( WP_REST_Request $request ) {
-	$id = (int) $request->get_param( 'id' );
-	$item = wpcf7_contact_form( $id );
+	$url_params = $request->get_url_params();
+
+	$item = null;
+
+	if ( ! empty( $url_params['id'] ) ) {
+		$item = wpcf7_contact_form( $url_params['id'] );
+	}
 
 	if ( ! $item ) {
 		return new WP_Error( 'wpcf7_not_found',
@@ -300,14 +305,6 @@ function wpcf7_rest_create_feedback( WP_REST_Request $request ) {
 		}
 
 		$response['invalidFields'] = $invalid_fields;
-	}
-
-	if ( ! empty( $result['scripts_on_sent_ok'] ) ) {
-		$response['onSentOk'] = $result['scripts_on_sent_ok'];
-	}
-
-	if ( ! empty( $result['scripts_on_submit'] ) ) {
-		$response['onSubmit'] = $result['scripts_on_submit'];
 	}
 
 	$response = apply_filters( 'wpcf7_ajax_json_echo', $response, $result );
