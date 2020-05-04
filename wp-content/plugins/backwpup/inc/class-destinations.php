@@ -3,10 +3,8 @@
 /**
  * Base class for adding BackWPup destinations.
  *
- * @package    BackWPup
- * @subpackage BackWPup_Destinations
- * @since      3.0.0
- * @access     private
+ * @package BackWPup
+ * @since 3.0.0
  */
 abstract class BackWPup_Destinations {
 
@@ -117,18 +115,17 @@ abstract class BackWPup_Destinations {
 	public function file_download( $jobid, $file_path, $local_file_path = null ) {
 
 		$capability = 'backwpup_backups_download';
-		$filename   = untrailingslashit( BackWPup::get_plugin_data( 'temp' ) ) . '/' . basename( $local_file_path ?: $file_path );
-		$job_id     = filter_var( $_GET['jobid'], FILTER_SANITIZE_NUMBER_INT );
+		$filename = untrailingslashit( BackWPup::get_plugin_data( 'temp' ) ) . '/' . basename( $local_file_path ?: $file_path );
+		$job_id = filter_var( $_GET['jobid'], FILTER_SANITIZE_NUMBER_INT );
 
 		// Dynamically get downloader class
-		$class_name  = get_class( $this );
-		$parts       = explode( '_', $class_name );
+		$class_name = get_class( $this );
+		$parts = explode( '_', $class_name );
 		$destination = array_pop( $parts );
 
 		$downloader = new BackWpup_Download_Handler(
 			new BackWPup_Download_File(
 				$filename,
-				mime_content_type( $filename ),
 				function ( \BackWPup_Download_File_Interface $obj ) use (
 					$filename,
 					$file_path,
@@ -137,7 +134,7 @@ abstract class BackWPup_Destinations {
 				) {
 
 					// Setup Destination service and download file.
-					$factory    = new BackWPup_Destination_Downloader_Factory();
+					$factory = new BackWPup_Destination_Downloader_Factory();
 					$downloader = $factory->create(
 						$destination,
 						$job_id,
@@ -149,9 +146,9 @@ abstract class BackWPup_Destinations {
 				},
 				$capability
 			),
-			"download-backup_{$job_id}",
+			'backwpup_action_nonce',
 			$capability,
-			'download_file'
+			'download_backup_file'
 		);
 
 		// Download the file.
@@ -214,12 +211,11 @@ abstract class BackWPup_Destinations {
 
 		$extensions = array(
 			'.tar.gz',
-			'.tar.bz2',
 			'.tar',
 			'.zip',
 		);
 
-		$file     = trim( basename( $file ) );
+		$file = trim( basename( $file ) );
 		$filename = '';
 
 		foreach ( $extensions as $extension ) {
@@ -235,65 +231,73 @@ abstract class BackWPup_Destinations {
 		return true;
 	}
 
-	/**
-	 * Is Backup Owned by Job
-	 *
-	 * Checks if the given archive belongs to the given job.
-	 *
-	 * @param string $file
-	 * @param int    $jobid
-	 *
-	 * @return bool
-	 */
-	public function is_backup_owned_by_job( $file, $jobid ) {
+    /**
+     * Checks if the given archive belongs to the given job.
+     *
+     * @param string $file
+     * @param int $jobid
+     *
+     * @return bool
+     */
+    public function is_backup_owned_by_job($file, $jobid)
+    {
 
-		$info = pathinfo( $file );
-		$file = basename( $file, '.' . $info['extension'] );
+        $info = pathinfo($file);
+        $file = basename($file, '.' . $info['extension']);
 
-		// If starts with backwpup, then old-style hash
-		$data = array();
-		if ( substr( $file, 0, 8 ) == 'backwpup' ) {
-			$parts = explode( '_', $file );
-			$data  = BackWPup_Option::decode_hash( $parts[1] );
-			if ( ! $data ) {
-				return false;
-			}
-		} else {
-			// New style, must parse
-			// Start at end of file since that's where it is by default
+        // Try 10-character chunks first for base 32 and most of base 36
+        $data = $this->getDecodedHashAndJobId($file, 10);
 
-			// Try 10-character chunks first for base 32 and most of base 36
-			for ( $i = strlen( $file ) - 10; $i >= 0; $i -- ) {
-				$data = BackWPup_Option::decode_hash( substr( $file, $i, 10 ) );
-				if ( $data ) {
-					break;
-				}
-			}
+        // Try 9-character chunks for any left-over base 36
+        if (!$data) {
+            $data = $this->getDecodedHashAndJobId($file, 9);
+        }
 
-			// Try 9-character chunks for any left-over base 36
-			if ( ! $data ) {
-				for ( $i = strlen( $file ) - 9; $i >= 0; $i -- ) {
-					$data = BackWPup_Option::decode_hash( substr( $file, $i, 9 ) );
-					if ( $data ) {
-						break;
-					}
-				}
-			}
+        if (!$data || !$this->dataContainsCorrectValues($data, $jobid)) {
+            return false;
+        }
 
-			if ( ! $data ) {
-				return false;
-			}
-		}
+        return true;
+    }
 
-		if ( $data[0] != BackWPup::get_plugin_data( 'hash' ) ) {
-			return false;
-		}
+    /**
+     * @param string $file
+     * @param int $numberOfCharacters
+     *
+     * @return array|bool
+     */
+    protected function getDecodedHashAndJobId($file, $numberOfCharacters)
+    {
 
-		if ( $data[1] != $jobid ) {
-			return false;
-		}
+        $data = array();
 
-		return true;
-	}
+        for ($i = strlen($file) - $numberOfCharacters; $i >= 0; $i--) {
+            $data = BackWPup_Option::decode_hash(substr($file, $i, $numberOfCharacters));
+            if ($data) {
+                break;
+            }
+        }
 
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @param int $jobid
+     *
+     * @return bool
+     */
+    protected function dataContainsCorrectValues($data, $jobid)
+    {
+
+        if ($data[0] !== BackWPup::get_plugin_data('hash')) {
+            return false;
+        }
+
+        if ($data[1] !== $jobid) {
+            return false;
+        }
+
+        return true;
+    }
 }

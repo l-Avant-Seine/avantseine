@@ -1,12 +1,11 @@
 === BackWPup - WordPress Backup Plugin ===
-Contributors: inpsyde, cocreation, danielhuesken, Bueltge, nullbyte
+Contributors: inpsyde, danielhuesken, Bueltge, nullbyte, wido, dinamiko
 Tags: backup, database backup, cloud backup, restore, wordpress backup
 Requires at least: 3.9
-Tested up to: 4.9.8
-Requires PHP: 5.3
-Stable tag: 3.6.3
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Tested up to: 5.3
+Requires PHP: 5.6
+Stable tag: 3.7.1
+License: GPLv2+
 
 Schedule complete automatic backups of your WordPress installation. Decide which content will be stored (Dropbox, S3…). This is the free version
 
@@ -14,23 +13,22 @@ Schedule complete automatic backups of your WordPress installation. Decide which
 
 The **backup plugin** **[BackWPup](https://backwpup.com/)** can be used to save your complete installation including /wp-content/ and push them to an external Backup Service, like **Dropbox**, **S3**, **FTP** and many more, see list below. With a single backup .zip file you are able to easily restore an installation. Please understand: this free version will not be supported as good as the [BackWPup Pro version](https://backwpup.com). With our premium version you get first class support and more features.
 
-
 * Database Backup  *(needs mysqli)*
 * WordPress XML Export
 * Generate a file with installed plugins
 * Optimize Database
 * Check and repair Database
 * File backup
-* Backups in zip, tar, tar.gz, tar.bz2 format *(needs gz, bz2, ZipArchive)*
+* Backups in zip, tar, tar.gz format *(needs gz, ZipArchive)*
 * Store backup to directory
 * Store backup to FTP server *(needs ftp)*
 * Store backup to Dropbox *(needs curl)*
-* Store backup to S3 services *(needs PHP 5.3.3, needs curl)*
-* Store backup to Microsoft Azure (Blob) *(needs PHP 5.3.2, curl)*
-* Store backup to RackSpaceCloud *(needs PHP 5.3.2, curl)*
+* Store backup to S3 services *(needs curl)*
+* Store backup to Microsoft Azure (Blob) *(needs curl)*
+* Store backup to RackSpaceCloud *(curl)*
 * Store backup to SugarSync *(needs curl)*
-* PRO: Store backup to Amazon Glacier *(needs PHP 5.3.3, curl)*
-* PRO: Store backup to Google Drive *(needs PHP 5.3.3, curl)*
+* PRO: Store backup to Amazon Glacier *(needs curl)*
+* PRO: Store backup to Google Drive *(needs curl)*
 * Send logs and backups by email
 * Multi-site support only as network admin
 * Pro version and support available - [BackWPup Pro](https://backwpup.com)
@@ -40,7 +38,7 @@ The **backup plugin** **[BackWPup](https://backwpup.com/)** can be used to save 
 In case you need to comply with the new GDPR regulation, check out our post [BacKWPup, Backups and GDPR](https://backwpup.com/docs/backwpup-backups-and-gdpr/).
 
 = Requirements =
-* WordPress 3.9 and PHP 5.3 required! (read more about [recommended php version and why you should switch to modern php](https://inpsyde.com/en/wordpress-recommended-php-version-update-php))
+* WordPress 3.9 and PHP 5.3.3 required! (read more about [recommended php version and why you should switch to modern php](https://inpsyde.com/en/wordpress-recommended-php-version-update-php))
 * To use the Plugin with full functionality PHP 5.3.3 with mysqli, FTP,gz, bz2, ZipArchive and curl is needed.
 * Plugin functions that don't work because of your server settings, will not be displayed in admin area.
 
@@ -161,15 +159,106 @@ Yes. You need to have writing access to the wp-config.php file (usually residing
 [You can find a detailed tutorial in the BackWPup documentation.](https://backwpup.com/docs/install-backwpup-pro-activate-licence/)
 
 == Changelog ==
+
+= Version 3.7.1 =
+Release Date: March 30, 2020
+
+* Fixed: Error Notices CSS is loaded on all pages and overwrite the color of other plugins notices
+* Updated: License system update for premium version (Pro version)
+
+= Version 3.7.0 =
+Release Date: Nov 27, 2019
+
+* Updated: Raise the minimum PHP version required by BWU to 5.6
+* Updated: Microsoft Azure Storage Blob PHP Client Library
+* Fixed: S3 custom url not used for bucket selection
+* Fixed: S3 malformed error message when authentication credentials are wrong
+* Fixed: S3 selecting an invalid service raise no error
+* Fixed: Rackspace uses old cacert.pem file
+* Fixed: Log page not correcty sorted
+* Added: Option to enable or disable the phone home client
+
+= Version 3.6.10 =
+Release Date: July 8, 2019
+
+* Fixed: Azure Supports https on uploading
+* Fixed: Auto remove old backup files not working when archive file name have prefix "backwpup"
+* Added: Filter to extend list of S3 destinations
+* Removed: S3 multipart upload checkbox, now in destination definition
+* Updated: Amazon AWS SDK for S3 services, now PHP 5.5+ is needed
+* Added: Filter to extend list of Glacier destinations (Pro version)
+* Updated: Amazon AWS SDK for Glacier, now PHP 5.5+ is needed (Pro version)
+
+= Version 3.6.9 =
+Release Date: May 7, 2019
+
+* Fixed: Google Drive destination automatically remove old backup files
+* Fixed: Do not expose destination data within the manifest file
+* Fixed: Update Dropbox Tokens
+* Fixed: Restore error: MIME returns html instead of event stream
+* Fixed: Log files name are predictable because of weak hash
+* Fixed: ZipArchive doesn't fallback to PclZip in Restore
+* Fixed: Session already started could cause issues during ajax calls
+* Fixed: Wrong vendor include path for PEAR using MS Azure
+* Fixed: Decryption Key prompt when any error occur during the first step of a Restore
+* Fixed: Phone home client notice and php 5 issue with php short echo tag
+* Fixed: mime_content_type function may not exists prevent backup decryption
+* Improve: Restore Log and produce report for user feedback
+* Changed: License changed to GPLv2+
+
+= Version 3.6.8 =
+Release Date: Feb 25, 2019
+
+* Fixed: Typos in settings job page
+* Fixed: Rest API admin note language doesn't change when changing user language
+
+= Version 3.6.7 =
+Release Date: Jan 22, 2019
+
+* Fixed: More margin to dashboard footer to avoid save button unclickable
+* Fixed: On folder sync destination folder is not created
+* Fixed: Encryption option should not be displayed for syncing job
+* Fixed: Restore stuck on file restore step because of file permission issue
+* Fixed: "Do not delete files while syncing to destination!" not working
+* Tweak: Increase PHP Version from 5.3.2 to 5.3.3
+* Tweak: Encryption Settings description and ui improvements
+* Tweak: On restore error, include `restore.dat` file along with the log when user download the restore log file
+* Tweak: Lock server to execute same task multiple time when one is already in progress
+
+= Version 3.6.6 =
+Release Date: Nov 28, 2018
+
+* Fixed: Files could be excluded from the backup because of incorrect string comparison
+
+= Version 3.6.5 =
+Release Date: Nov 23, 2018
+
+* Fixed: Admin notice won’t update correctly
+
+= Version 3.6.4 =
+Release Date: Nov 22, 2018
+
+* Fixed: Encrypted backup must force users to download the encryption keys
+* Fixed: Warning mime type when a backup is going to be downloaded
+* Fixed: Admin Notice in free version is sometimes empty
+* Fixed: Random restore error about SQL syntax when restoring a database
+* Fixed: Exclude restore directories to be copied during a restore phase
+* Fixed: Standalone App has no encryption support
+* Fixed: Open basedir, backup dir is not within the allowed path
+* Fixed: Unable to download backup file because of mime_content_type function missing in some environment
+* Tweak: Encryption Settings UI
+* Tweak: Minor translations issues
+* Tweak: Remove languages files from the free version, the plugin will use translation.wordpress.org
+
 = Version 3.6.3 =
-Release Date: Nov, 5, 2018
+Release Date: Nov 5, 2018
 
 * Fixed: "Failed to restore file": file restore progress stop working and jump directly to database restore step
 * Fixed: Restore progress stuck on "restoring database" with archive backup contains files only
 * Fixed: All config.php files are not in backup archive
 
 = Version 3.6.2 =
-Release Date: Oct, 17, 2018
+Release Date: Oct 17, 2018
 
 * Fixed: Not recognized file extensions get an additional underscore in the file name in zip file
 * Fixed: Backup archive file have dot folder contains all web root files
