@@ -17,8 +17,12 @@
 				<?php if( $i == 0) : ?>
 				<li class="pdf-item"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>télécharger <br>la brochure <?php the_sub_field('saison'); ?></a></li>
 
+				<?php if( get_field('guide_parent', 'option') ) : ?>
+					<li class="pdf-item"><a target="_blank" class="" href="<?php the_field('guide_parent', 'option'); ?>">téléchargez le guide des parents</a></li>
+				<?php endif; ?>
+
 				<li class="pdf-item ">
-					<a href="#" class="js-pdfTrigger">Autres Saisons</a>
+					<a href="#" class="js-pdfTrigger">les autres saisons...</a>
 
 					<ul class="nobullets hidden">
 					<?php else : ?>

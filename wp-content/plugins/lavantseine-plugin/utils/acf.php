@@ -1414,6 +1414,25 @@ acf_add_local_field_group(array (
 	'title' => 'Options diverses',
 	'fields' => array (
 		array (
+			'key' => 'field_592c73d5d1a54',
+			'label' => 'Guide des parents',
+			'name' => 'guide_parent',
+			'type' => 'file',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'return_format' => 'url',
+			'library' => 'all',
+			'min_size' => '',
+			'max_size' => '',
+			'mime_types' => '',
+		),
+		array (
 			'key' => 'field_592c73bb61a53',
 			'label' => 'Brochures de saison',
 			'name' => 'brochures_de_saison',

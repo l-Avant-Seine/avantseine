@@ -152,7 +152,7 @@ endif;
 						</div>
 
 
-						<div class="row cf mb-3">
+						<div class="row cf mb-2">
 
 							<div class="m-8col event-dateslist">
 								<h4 class="h_4">Date(s)</h4>
@@ -198,6 +198,13 @@ endif;
 									}
 								?>
 
+								<div class="event-scolaire">
+									<div class="rounded-icon">
+										<span class="icon-CARTABLE"> </span>
+									</div>
+									<p>Spectacle accessible en représentation scolaire</p>
+							</div>
+
 							</div>
 
 							<div class="m-8col mb-2 event-practicallist">
@@ -239,7 +246,14 @@ endif;
 							</div>
 
 						</div>
-
+						
+						<div class="row mb-2">
+							<div class="m-8col mb-2 m-first">
+							<?php if( intval($event_last_date) > $today ) : ?>
+									<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
+								<?php endif; ?>
+							</div>
+						</div>
 
 				</div><!-- .event-details -->
 
