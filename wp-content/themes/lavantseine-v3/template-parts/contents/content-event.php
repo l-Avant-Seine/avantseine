@@ -198,12 +198,18 @@ endif;
 									}
 								?>
 
-								<div class="event-scolaire">
-									<div class="rounded-icon">
-										<span class="icon-CARTABLE"> </span>
-									</div>
-									<p>Spectacle accessible en représentation scolaire</p>
-							</div>
+								<?php if( get_field('has_rep_scolaire') == 1 ) : ?>
+									<a href="<?php echo esc_url( home_url( '/' ) ) ?>/en-action/emmenez-vos-eleves/" class="event-scolaire">
+										<div class="rounded-icon">
+											<span class="icon-CARTABLE"> </span>
+										</div>
+										<div>
+											<p>Spectacle accessible en représentation scolaire</p>
+											<p>> <?php the_field('date_scolaire'); ?></p>
+										</div>
+									</a>
+								<?php endif; ?>
+
 
 							</div>
 
