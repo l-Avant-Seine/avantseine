@@ -221,51 +221,55 @@ echo '<input type="hidden" name="custom_meta_box_nonce" value="'.wp_create_nonce
 function save_custom_meta($post_id) {  
     global $event_details_fields;  
       
-    // verify nonce  
-    if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__)))   
-        return $post_id;
-    // check autosave  
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)  
-        return $post_id;  
-    // check permissions  
-    if ('page' == $_POST['post_type']) {  
-        if (!current_user_can('edit_page', $post_id))  
-            return $post_id;  
-        } elseif (!current_user_can('edit_post', $post_id)) {  
-            return $post_id;  
-    }  
-      
-    // loop through fields and save the data  
-    foreach ($event_details_fields as $field) {  
-        
-        $old = get_post_meta($post_id, $field['id'], true);  
-        $new = $_POST[$field['id']];
 
-        if ($new && $new != $old) {
-            if ( $field['id'] == 'eventDetail_first_date' ) {
-                $updatefirstdate = strtotime( $new );
-                update_post_meta($post_id, $field['id'], $updatefirstdate );
+    if ( !empty($_POST) && 'event' == $_POST['post_type']) {  
+
+        // verify nonce  
+        if ( isset($_POST['at_nonce']) &&  !wp_verify_nonce($_POST['at_nonce'], __FILE__) )   
+            return $post_id;
+        // check autosave  
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)  
+            return $post_id;  
+        // check permissions  
+        if ('page' == $_POST['post_type']) {  
+            if (!current_user_can('edit_page', $post_id))  
+                return $post_id;  
+            } elseif (!current_user_can('edit_post', $post_id)) {  
+                return $post_id;  
+        }  
+          
+        // loop through fields and save the data  
+        foreach ($event_details_fields as $field) {  
+            
+            $old = get_post_meta($post_id, $field['id'], true);  
+            $new = $_POST[$field['id']];
+
+            if ($new && $new != $old) {
+                if ( $field['id'] == 'eventDetail_first_date' ) {
+                    $updatefirstdate = strtotime( $new );
+                    update_post_meta($post_id, $field['id'], $updatefirstdate );
+                }
+                elseif( $field['id'] == 'eventDetail_last_date' ) {
+                    $updatelastdate = strtotime( $new );
+                    update_post_meta($post_id, $field['id'], $updatelastdate );
+                }
+                elseif( $field['id'] == 'eventDetail_otherdates' ) {
+                   //update_post_meta($post_id, $field['id'], $new); 
+                }
+                else {
+                    update_post_meta($post_id, $field['id'], $new); 
+                }
             }
-            elseif( $field['id'] == 'eventDetail_last_date' ) {
-                $updatelastdate = strtotime( $new );
-                update_post_meta($post_id, $field['id'], $updatelastdate );
-            }
-            elseif( $field['id'] == 'eventDetail_otherdates' ) {
-               //update_post_meta($post_id, $field['id'], $new); 
-            }
-            else {
-                update_post_meta($post_id, $field['id'], $new); 
+            elseif ('' == $new && !$old ) {
+                if( $field['id'] == 'eventDetail_last_date' ) {
+                    $firstdate = $_POST[ $event_details_fields[0]['id'] ];
+                    $updatefirstdate = strtotime( $firstdate );
+                    update_post_meta($post_id, $field['id'], $updatefirstdate );
+                }
+            } elseif ('' == $new && $old) { 
+                delete_post_meta($post_id, $field['id'], $old);  
             }
         }
-        elseif ('' == $new && !$old ) {
-            if( $field['id'] == 'eventDetail_last_date' ) {
-                $firstdate = $_POST[ $event_details_fields[0]['id'] ];
-                $updatefirstdate = strtotime( $firstdate );
-                update_post_meta($post_id, $field['id'], $updatefirstdate );
-            }
-        } elseif ('' == $new && $old) { 
-            delete_post_meta($post_id, $field['id'], $old);  
-        }  
     } // end foreach  
 }  
 add_action('save_post', 'save_custom_meta');    
