@@ -66,6 +66,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 
 				<?php 
+
 					wp_nav_menu( array( 
 						'theme_location' => 'primary', 
 						'menu_id' => 'primary-menu',
@@ -86,11 +87,13 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 																	</a>
 																</li>
 															</ul>'
-					) ); ?>
+					) ); 
+
+				?>
 
 			</nav><!-- #site-navigation -->
 
-			<nav class="siteMenus-actions s-hide m-show flx-1">
+			<nav class="siteMenus-actions s-hide m-show">
 				<ul class="nobullets">
 					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary" title="Nous contacter">nous contacter</a></li>
 
@@ -147,7 +150,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 							wp_nav_menu( array( 
 								'theme_location' => 'all', 
 								'container' => false, 
-								'menu_id' => 'hamburger-menu',
+								'menu_id' => 'primary-menu',
 								'link_before'	=> '<span class="icon-arrow-left m-hide"></span>',
 								'link_after'	=> '<span class="icon-fleche_accordeon m-hide is-on-right"></span>',
 								'items_wrap' => '<ul id="hamburger-menu" class="menu is-flex"> %3$s </ul>'

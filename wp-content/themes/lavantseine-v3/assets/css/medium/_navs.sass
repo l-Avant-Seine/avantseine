@@ -40,6 +40,13 @@ body
 		.siteMenus-actions
 			order: 3
 
+			ul
+				display: flex
+				align-items: end
+				justify-content: flex-end
+				flex-direction: column
+				padding-left: 50px
+
 			[class^="btn-"], [class*=" btn-"]
 				font-size: 14px 
 
@@ -118,11 +125,20 @@ body
 			border: none
 
 
+	.js-menuTrigger
+		@include at-least(medium)
+			display: none
+
+		.label
+			display: none
+
+
 .siteMenus-actions
 
 	.menu-item
 		float: right
 		margin-left: 10px
+		margin-bottom: 10px
 
 	@include up-to(medium)
 		display: none
@@ -166,10 +182,15 @@ body
 		top: 0
 
 	@include up-to(medium) 
-		padding-top: 80px
+		padding-top: 150px
 		
 		ul
-			flex-wrap: wrap
+			flex-direction: column
+			font-size: 20px
+
+		.sub-menu
+			display: none
+
 		.menu-item-has-children
 			margin-bottom: 20px
 
