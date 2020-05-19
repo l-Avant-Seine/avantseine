@@ -204,8 +204,7 @@ endif;
 											<span class="icon-CARTABLE"> </span>
 										</div>
 										<div>
-											<p>Spectacle accessible en représentation scolaire</p>
-											<p>> <?php the_field('date_scolaire'); ?></p>
+											<p><?php the_field('date_scolaire'); ?></p>
 										</div>
 									</a>
 								<?php endif; ?>

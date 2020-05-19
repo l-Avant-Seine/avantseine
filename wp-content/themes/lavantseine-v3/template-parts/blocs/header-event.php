@@ -51,10 +51,15 @@
 									<?php 
 										if ( count($tarifs_list) > 0 ){
 											echo '<span class="label_2">tarif </span>';
-								    foreach ( $tarifs_list as $tarif ) {
-								    	echo '<span class="">' . $tarif->name . '</span>';
-								    }
-								} ?>
+											$t = 0;
+									    foreach ( $tarifs_list as $tarif ) {
+									    	if( $t > 0) {
+									    		echo ' | ';
+									    	}
+									    	echo '<span class="">' . $tarif->name . '</span>';
+									    	$t++;
+									    }
+									} ?>
 								</span>
 
 				  			<div class="m-8col m-hide">
