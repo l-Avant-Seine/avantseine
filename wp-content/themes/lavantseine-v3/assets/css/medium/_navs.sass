@@ -34,6 +34,7 @@ body
 
 			.menu-item a
 				font-size: 16px
+
 			.icon-close, .icon-menu
 				font-size: 32px
 
@@ -44,8 +45,6 @@ body
 				display: flex
 				align-items: end
 				justify-content: flex-end
-				flex-direction: column
-				padding-left: 50px
 
 			[class^="btn-"], [class*=" btn-"]
 				font-size: 14px 
@@ -62,7 +61,7 @@ body
 
 .siteMenuPrimary-inner > .menu-item
 	border-left: 5px solid $secondary_color
-	padding: .1em .5em
+	padding: .3em .7em .5em
 
 	a
 		text-decoration: none
@@ -81,7 +80,7 @@ body
 
 .site-branding
 	float: left
-	max-width: 13%
+	max-width: 8%
 	position: relative
 	z-index: 5
 
@@ -104,7 +103,7 @@ body
 	align-items: center
 	height: 100%
 	float: right
-	width: 87%
+	width: 90%
 	position: relative
 	z-index: 2
 	
@@ -141,7 +140,7 @@ body
 		margin-bottom: 10px
 
 	@include up-to(medium)
-		display: none
+		padding-left: 50px
 
 
 .siteMenus-contacts

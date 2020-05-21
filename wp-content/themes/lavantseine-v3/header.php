@@ -93,17 +93,9 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 			</nav><!-- #site-navigation -->
 
-			<nav class="siteMenus-actions s-hide m-show">
-				<ul class="nobullets">
-					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary" title="Nous contacter">nous contacter</a></li>
+			<nav class="siteMenus-actions">
 
-					<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="<?php echo RESERVATION_URL; ?>" target="_blank" class="btn-primary" title="billetterie en ligne">billetterie en ligne</a></li>
-				</ul>
-			</nav>
-
-			<nav class="siteMenus-contacts">
-				<ul class=" no-bullets" role="navigation">
-
+				<ul class="siteMenus-contacts no-bullets" role="navigation">
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455 ">
 						<a href="#" id="js-searchTrigger" class="icon-LOUPE"></a>
@@ -126,7 +118,18 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					</li>
 																	
 				</ul>
+
+
+				<ul class="nobullets  s-hide m-show">
+					<li id="menu-item-9455" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455"><a href="<?php echo esc_url( home_url( '/' ) ) ?>equipe/" class="btn-primary" title="Nous contacter">nous contacter</a></li>
+
+					<li id="menu-item-9454" class="booking-link menu-item menu-item-type-custom menu-item-object-custom menu-item-9454"><a target="_blank" href="<?php echo RESERVATION_URL; ?>" target="_blank" class="btn-primary" title="billetterie en ligne">billetterie</a></li>
+				</ul>
+
+
 			</nav>
+
+
 
 		</div><!-- .site-menus -->
 

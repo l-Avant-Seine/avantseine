@@ -69,8 +69,14 @@
 
 					</form>
 
-					<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
 
+					<div class="mb-2">
+						<a href="/magazine" class="btn-primary">le magazine de la programmation</a>
+					</div>
+
+					<div class="mb-2">
+						<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
+					</div>
 
 				</div><!-- .filters	 -->
 		
