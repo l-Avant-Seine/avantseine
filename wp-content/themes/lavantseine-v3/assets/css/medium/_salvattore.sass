@@ -1,20 +1,29 @@
 
 
 
-#salgrid_1[data-columns]::before
-	content: '2 .column.half'
+#salgrid_1
+	display: flex
+	flex-wrap: wrap
+	justify-content: space-between
 
-	@include up-to(medium)
-		content: '1'
+#salgrid_1 .article-item
+  	width: 48%
 
-.column
-	float: left
 
-.half
-	width: 49%
+// #salgrid_1[data-columns]::before
+// 	content: '2 .column.half'
 
-	&:nth-child(2)
-		float: right
+// 	@include up-to(medium)
+// 		content: '1'
+
+// .column
+// 	float: left
+
+// .half
+// 	width: 49%
+
+// 	&:nth-child(2)
+// 		float: right
 
 
 

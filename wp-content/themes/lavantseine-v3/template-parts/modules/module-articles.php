@@ -17,7 +17,7 @@
 		<?php endif; ?>
 
 
-		<div id="salgrid_1" data-columns class="row">
+		<div id="salgrid_1" class="">
 			<?php $excerpt = true; ?>
 			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 

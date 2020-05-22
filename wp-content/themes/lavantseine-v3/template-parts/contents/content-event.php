@@ -237,9 +237,9 @@ endif;
 										}
 										else {
 
-										if ( $event_text2 ) : 
-											echo "<ul class='no-bullets'><li>". $event_text2 ."</li></ul>";
-										endif;
+											if ( $event_text2 ) : 
+												echo "<ul class='no-bullets'><li>". $event_text2 ."</li></ul>";
+											endif;
 
 
 										}
