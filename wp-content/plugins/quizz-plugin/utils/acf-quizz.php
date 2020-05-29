@@ -29,9 +29,9 @@ acf_add_local_field_group(array (
 		),
 		array (
 			'key' => 'field_560fa53fcbbf5',
-			'label' => 'Sélectionnez la première question du Quizz',
+			'label' => 'Sélectionnez la prochaine question du Quizz',
 			'name' => 'first_question',
-			'type' => 'page_link',
+			'type' => 'post_object',
 			'instructions' => '',
 			'required' => 0,
 			'conditional_logic' => 0,

@@ -218,31 +218,87 @@ endif;
 
 								<div class="inner">
 									<?php				
-										$term_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all"));
-										$count = count($term_list);
-										if ( $count > 0 ){
-										    echo "<ul class='no-bullets'>";
-											    foreach ( $term_list as $term ) {
-											    	echo "<li class=''>tarif " . $term->name . "<br>" . $term->description . "</li>";
-											    	
-											    }
+										
 
-											    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+										$main_tarif_id = get_post_meta($post->ID,'_yoast_wpseo_primary_tarif',true);
 
-												if ( $event_text2 ) : 
-													echo "<li>". $event_text2 ."</li>";
-												endif;
+										/// SI TARIF PRIMARY SEO
+										if( $main_tarif_id ){
 
-										    echo "</ul>";
+										  $main_tarif = get_term($main_tarif_id, 'tarif');
+											
+											echo "<ul class='no-bullets'>";
+
+												echo "<li>tarif " .  $main_tarif->name . "<br>" . $main_tarif->description ."</li>";
+
+												$term_list = wp_get_post_terms(
+													$post->ID, 'tarif', 
+													array(
+														"fields" => "all",
+														"exclude"	=> array( $main_tarif_id )
+													)
+												);
+
+												$count = count($term_list);
+												if ( $count > 0 ){
+
+													    foreach ( $term_list as $term ) {
+													    	echo "<li class=''>tarif " . $term->name . "<br>" . $term->description . "</li>";
+													    	
+													    }
+
+													    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+
+														if ( $event_text2 ) : 
+															echo "<li>". $event_text2 ."</li>";
+														endif;
+												}
+
+											echo "</ul>";
+
+
 										}
+
+										// SI PLUGIN SEO DESACTIVE
 										else {
 
-											if ( $event_text2 ) : 
-												echo "<ul class='no-bullets'><li>". $event_text2 ."</li></ul>";
-											endif;
+												$term_list = wp_get_post_terms(
+													$post->ID, 'tarif', 
+													array(
+														"fields" => "all",
+													)
+												);
 
+												$count = count($term_list);
+												if ( $count > 0 ){
+														echo "<ul class='no-bullets'>";
+
+													    foreach ( $term_list as $term ) {
+													    	echo "<li class=''>tarif " . $term->name . "<br>" . $term->description . "</li>";
+													    	
+													    }
+
+													    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+
+														if ( $event_text2 ) : 
+															echo "<li>". $event_text2 ."</li>";
+														endif;
+
+													echo "</ul>";
+
+												}
+
+												else {
+
+													if ( $event_text2 ) : 
+														echo "<ul class='no-bullets'><li>". $event_text2 ."</li></ul>";
+													endif;
+
+												}
 
 										}
+
+
 
 
 									?>

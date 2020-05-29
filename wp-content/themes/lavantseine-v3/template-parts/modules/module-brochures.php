@@ -5,8 +5,8 @@
 
 
 <div class="module-brochure">
-	<h3 class="h_4--red label">La brochure</h3>
-
+<!-- 	<h3 class="h_4--red label">La brochure</h3>
+ -->
 	<?php if( have_rows('brochures_de_saison', 'option') ): ?>
 		<?php $i = 0; ?>
 		
@@ -15,13 +15,17 @@
 	    <?php while ( have_rows('brochures_de_saison', 'option') ) : the_row(); ?>
 				
 				<?php if( $i == 0) : ?>
-				<li class="pdf-item"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>télécharger <br>la brochure <?php the_sub_field('saison'); ?></a></li>
+				<li class="pdf-item"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>Téléchargez le programme</a></li>
 
 				<?php if( get_field('guide_parent', 'option') ) : ?>
-					<li class="pdf-item"><a target="_blank" class="" href="<?php the_field('guide_parent', 'option'); ?>">téléchargez le guide des parents</a></li>
+					<li class="pdf-item"><a target="_blank" class="" href="<?php the_field('guide_parent', 'option'); ?>">Téléchargez le guide des parents</a></li>
 				<?php endif; ?>
 
 				<li class="pdf-item ">
+					<a href="/magazine" class="">Consultez le magazine</a>
+				</li>
+
+ 				<li class="pdf-item ">
 					<a href="#" class="js-pdfTrigger">les autres saisons...</a>
 
 					<ul class="nobullets hidden">
@@ -33,7 +37,8 @@
 					
 					<?php $i++; endwhile; ?>
 					</ul>
-				</li>
+				</li> 
+
 		</ul>
 	<?php endif; ?>
 

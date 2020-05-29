@@ -10,13 +10,24 @@
 			$event_duration = get_field( 'eventDetail_duration', $post->ID );
 			$tags = wp_get_post_terms($post->ID, array('discipline'), array("fields" => "all"));
 
-			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); ?>
+
+			$main_tarif_id = get_post_meta($post->ID,'_yoast_wpseo_primary_tarif',true);
+
+			if( $main_tarif_id ){
+			   $main_tarif = get_term($main_tarif_id, 'tarif');
+			   if(isset($main_tarif->name)) 
+			       $main_tarif = $main_tarif->name;
+			}
+
+			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); 
+			?>
+
+
 
 								
-								<?php 
-									$count = count($tags);
-									if ( $count > 0 ) : ?>
-
+			<?php 
+				$count = count($tags);
+				if ( $count > 0 ) : ?>
 						
 							<div class="row">
 								<div class="s-20col s-1col-push mb-05">
@@ -32,7 +43,8 @@
 								</div>
 							</div>
 
-									<?php endif; ?>
+			<?php endif; ?>
+
 
 						<div class="row mb-1">
 			  			<h3 class="s-22col s-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
@@ -50,15 +62,15 @@
 								<span class="meta-item label_3">
 									<?php 
 										if ( count($tarifs_list) > 0 ){
-											echo '<span class="label_2">tarif </span>';
-											$t = 0;
-									    foreach ( $tarifs_list as $tarif ) {
-									    	if( $t > 0) {
-									    		echo ' | ';
-									    	}
-									    	echo '<span class="">' . $tarif->name . '</span>';
-									    	$t++;
-									    }
+											echo '<span class="label_2">tarif </span>' . $main_tarif;
+											// $t = 0;
+									  //   foreach ( $tarifs_list as $tarif ) {
+									  //   	if( $t > 0) {
+									  //   		echo ' | ';
+									  //   	}
+									  //   	echo '<span class="">' . $tarif->name . '</span>';
+									  //   	$t++;
+									  //   }
 									} ?>
 								</span>
 

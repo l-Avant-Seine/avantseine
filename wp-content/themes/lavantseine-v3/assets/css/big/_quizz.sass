@@ -1,0 +1,218 @@
+
+
+$orange_quizz: #ed702c
+$purple_quizz: #752182
+
+
+
+// GENERAL SETTINGS
+
+.is-relative 
+  position: relative 
+ 
+
+.is-absolute 
+  position: absolute 
+ 
+
+.full 
+  height: 100% 
+  width: 100% 
+
+  @include up-to(medium) 
+    height: auto 
+    width: 100% 
+     
+ 
+
+.html-quizz,
+.body-quizz 
+  height: 100% 
+ 
+
+.body-quizz 
+
+  .page 
+    height: 100%
+    display: flex
+    padding: 3rem
+    color: $purple_quizz
+    @include up-to(large)
+    	padding: 1rem
+    	height: auto
+
+  article
+  	display: flex
+  	width: 100%
+
+  	& > *
+  		flex: 0 0 50%
+
+  	p
+  		margin-bottom: 1em
+  		font-size: 18px
+
+  article
+  	@include up-to(large)
+  		flex-direction: column
+	  	& > *
+	  		flex: 1
+
+  .cover
+		img
+			height: 100%
+			width: 100%
+			object-fit: cover
+			border-radius: 5em 0 0 5em
+			@include up-to(large)
+	  		max-height: 40vh
+	  		margin-bottom: 50px
+
+
+
+// QUIZZ HOMEPAGES
+
+
+.quizzhome-header 
+	text-align: center 
+	display: flex
+	flex-direction: column
+	justify-content: center
+	@include up-to(large)
+		margin-bottom: 50px
+
+.quizzhome-intro
+	margin-bottom: 50px
+
+	strong
+		font-size: 60px
+		color: $orange_quizz
+		font-family: $blankenhorn
+   
+
+
+
+// QUESTIONS PAGES
+
+.question-label 
+	font-size: 60px 
+	font-weight: 400 
+	font-family: $blankenhorn
+	margin-top: 25px 
+	margin-bottom: 75px 
+	text-align: center
+	color: $orange_quizz
+
+.question-choices 
+	display: flex
+	flex-direction: column
+	justify-content: center
+
+	@include up-to(medium) 
+      padding: 30px 
+     
+   
+
+// Form
+
+.form-horizontal 
+
+  fieldset 
+    border: none 
+    margin: 0 auto
+    padding: 0
+    width: 70%
+    text-align: left
+
+  .radio-item 
+    margin-bottom: 20px 
+
+  .label_radio 
+    position: relative 
+    display: flex 
+    padding-left: 100px     
+    font-style: italic 
+    font-size: 20px 
+    align-items: center
+    
+    &:hover 
+      cursor: pointer 
+     
+   	&:before
+   		content: ''
+   		position: absolute
+   		background-image: url('../assets/img/etoile.png')
+   		width: 50px
+   		height: 50px
+   		background-size: cover
+   		left: 0
+
+  input[type="radio"] 
+    position: absolute 
+    width: 100% 
+    height: 100% 
+    left: -9999px 
+   
+ 
+
+
+
+// RESULTS
+
+
+.quizzresult-header 
+  position: relative 
+
+
+.result_title 
+  font-weight: 700 
+  font-size: 60px 
+  text-transform: uppercase 
+  font-family: $blankenhorn
+  line-height: 1.2 
+  color: $orange_quizz 
+  margin: 50px
+   
+.result-content 
+	text-align: center
+	display: flex
+	flex-direction: column
+	justify-content: center
+	padding: 3em
+     
+
+.result_maintext
+	position: relative
+	max-width: 70%
+	margin: 0 50px 50px 0
+	text-align: justify
+	float: right
+
+	&:before
+		content: ''
+		background: transparent url("../assets/img/fleche.png") no-repeat
+		position: absolute
+		width: 50px
+		height: 30px
+		background-size: contain
+		left: -65px
+
+
+.result_outro 
+  font-family: $blankenhorn
+  font-size: 26px
+  margin-bottom: 50px
+ 
+.result-links
+	list-style: none 
+  margin: 0
+	display: flex
+	justify-content: center
+
+	li
+		padding: 0 5px
+
+
+// BUTTONS
+
+

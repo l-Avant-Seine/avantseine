@@ -6,10 +6,12 @@
  * @package cdn
  */
 
-	get_template_part( 'header', 'quizz' ); 
+	include('header-quizz.php');
+	// get_template_part( 'header', 'quizz' ); 
 
-  session_destroy();
-  unset($_SESSION); ?>
+	session_destroy();
+  unset($_SESSION); 
+ ?>
 
 
 
@@ -17,41 +19,63 @@
 
         <div class="page" style="background-color: <?php the_field('couleur_de_la_page'); ?>">
 
+			    <article id="post-<?php the_ID(); ?>" class="quizz-home">
 
-
-			    <article id="post-<?php the_ID(); ?>" class="quizz-home wrap row">
-
-
-			      <div class="logo m-3col">
-			        <h1 class="site-title">
-			          <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
-			        </h1>
-			        <div class="site-logo-common mobile"></div>
+			      <div class="cover">
+							<?php the_post_thumbnail( 'full' ); ?> 
 			      </div>
 
 
-			      <header class="m-12col m-last quizzhome-header is-relative">
+			      <div class="quizzhome-header is-relative">
 
-			          <h2><?php the_title(); ?></h2>
-			          <h3><?php the_field('subtitle'); ?></h3>
+			        <div class="quizzhome-intro"><?php the_content(); ?></div>
 
+							<?php 
+								$question = get_field('first_question');
 
-			          <div class="quizzhome-img">
-			            <div class="btn-rounded white is-absolute"><a href="<?php the_field('first_question'); ?>">Commencer le Quizz !</a></div>
-
-			            <?php the_post_thumbnail( 'full' ); ?> 
-			          </div>
-
-			      </header><!-- #post-## -->
+								if( $question ) : ?>
 
 
-			      <div class="row">
-			        <div><?php the_content(); ?></div>
-			      </div>
+							    <div class="question-choices">
+
+							      <h3 class="question-label"><?php echo get_the_title( $question->ID ); ?></h3>
+
+							      <div class="question-form form-outer">
+							        <form id="quizzform" class="form-horizontal" accept-charset="utf-8" action="<?php the_field('next_question',  $question->ID ); ?>" method="post">
+
+							          <div style="display: none;"><input name="questionnum" type="hidden" value="1" /></div>
+
+							          <fieldset class="radios hidden-sm hidden-xs">
+
+							            <?php if( have_rows('questions',  $question->ID) ): ?>
+							              <?php $i = 1 ?>
+							              <?php while ( have_rows('questions',  $question->ID) ) : the_row(); ?>
+
+							                  <div class="radio-item">
+							                    <label class="label_radio" for="radio-0<?php echo $i; ?>">
+							                    <input id="radio-0<?php echo $i; ?>" name="reponseradio" type="radio" value="<?php the_sub_field('item-linked',  $question->ID); ?>" />
+							                        <?php the_sub_field('texte',  $question->ID); ?>
+							                    </label>
+							                  </div>
+
+							                  <?php $i++ ?>
+							              <?php endwhile; ?>
+
+							            <?php endif; ?>
+
+							          </fieldset>
+							        
+							        </form>
+							      </div><!-- .form-outer -->
+
+							    </div>
+
+
+							 	<?php endif; ?>
+
+			      </div><!-- #post-## -->
 
 			    </article>
-
-
 
 
         </div><!-- .page -->
@@ -59,5 +83,5 @@
 
 
 
-  <?php get_template_part( 'footer', 'quizz' ); ?>
+  <?php include('footer-quizz.php'); ?>
 
