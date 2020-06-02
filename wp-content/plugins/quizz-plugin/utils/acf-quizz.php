@@ -356,7 +356,7 @@ Attention, cet élément doit être exacte.',
 					'name' => 'evenement',
 					'type' => 'post_object',
 					'instructions' => '',
-					'required' => 1,
+					'required' => 0,
 					'conditional_logic' => 0,
 					'wrapper' => array (
 						'width' => '',
