@@ -24,10 +24,13 @@
 
 					    foreach ($session_reponses as $r) {
 					      $i = $cpt[$r];
-					      $winners[$i] = $r;
+								$winners[$i] = $r;
 					    }
-					    sort($winners);
-					    $andthewinneris = $winners[0];
+
+					    krsort($winners);
+					    $andthewinneris = reset($winners);
+					    //$andthewinneris = $winners[0];
+
 					  }
 
 					$reponses = get_field('reponses');
@@ -87,13 +90,11 @@
 
 					        <div class="result-actions">
 
-										<div class="result_outro">Pour recevoir toute la programmation 2020/2021, inscrivez-vous à la newsletter <a href="<?php bloginfo('url'); ?>#section-transition">Inscription à la newsletter</a></div>
+										<div class="result_outro">Pour recevoir toute la programmation 2020/2021, <br><a href="<?php bloginfo('url'); ?>#section-transition">inscrivez-vous à la newsletter !</a></div>
 
 					          <ul class="result-links">
 					              
 					              <li class="result-link-item"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_field('accueil_quizz'); ?>&t=Tentez%20le%20Quizz%20du%20Theatre%20de%20Sartrouville" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Facebook">Partagez sur Facebook</a> </li>| 
-					              
-					              <li class="result-link-item"><a href="<?php bloginfo('url'); ?>">Les informations sur le spectacle</a> </li> | 
 												
 												<li><a href="<?php the_field('accueil_quizz'); ?>"> Recommencer le Quizz</a></li>
 					          </ul>
