@@ -151,7 +151,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					<div class="wrap row">
 						<?php 
 							wp_nav_menu( array( 
-								'theme_location' => 'all', 
+								'theme_location' => 'primary', 
 								'container' => false, 
 								'menu_id' => 'primary-menu',
 								'link_before'	=> '<span class="icon-arrow-left m-hide"></span>',

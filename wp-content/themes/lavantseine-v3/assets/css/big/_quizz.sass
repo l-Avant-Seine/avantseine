@@ -1,7 +1,14 @@
 
+// QUIZZ Colors
 
 $orange_quizz: #ed702c
 $purple_quizz: #752182
+
+// QUIZZ Breakpoints
+
+$quizz_medium:           700px 
+$quizz_large:            960px
+$quizz_wide:             1300px 
 
 
 
@@ -26,52 +33,59 @@ $purple_quizz: #752182
  
 
 .html-quizz,
-.body-quizz 
-  height: 100% 
- 
+.body-quizz
+	font-size: 97%
+	@include at-least(large)
+  	height: 100% 
+	@include up-to(large)
+		font-size: 90%
 
-.body-quizz 
+.body-quizz
+	font-size: 18px
 
-  .page 
-    height: 100%
-    display: flex
-    padding: 3rem
-    color: $purple_quizz
-    @include up-to(large)
-    	padding: 1rem
-    	height: auto
+.body-quizz
+	.page 
+		height: 100%
+		display: flex
+		padding: 2rem
+		color: $purple_quizz
 
-  article
-  	display: flex
-  	width: 100%
+	article
+		display: flex
+		width: 100%
 
-  	& > *
-  		flex: 0 0 50%
+		& > *
+			flex: 0 0 50%
 
-  	p
-  		margin-bottom: 1em
-  		font-size: 18px
+		p
+			margin-bottom: 1em
+			font-size: 1.1rem
 
-  article
-  	@include up-to(large)
-  		flex-direction: column
-	  	& > *
-	  		flex: 1
+	
+	article
+		@include up-to(large)
+			flex-direction: column-reverse
+			& > *
+				flex: 1 !important
 
   .cover
 		img
 			height: 100%
 			width: 100%
 			object-fit: cover
-			border-radius: 5em 0 0 5em
+			border-radius: 3em 0 0 3em
 			@include up-to(large)
-	  		max-height: 30vh
-	  		margin-bottom: 50px
+	  		max-height: 300px
+	  		margin-top: 30px
 
 .body-quizz 
 	a:hover
 		opacity: 0.7
 
+.body-quizz
+	.page 
+		@include up-to(medium)
+			padding: 1rem
 
 // QUIZZ HOMEPAGES
 
@@ -81,15 +95,22 @@ $purple_quizz: #752182
 	display: flex
 	flex-direction: column
 	justify-content: center
-	padding-bottom: 10%
 	@include up-to(large)
-		margin-bottom: 50px
+		margin-bottom: 30px
+
+.quizzhome-header--inner
+	height: 100%
+	overflow-y: scroll
+	padding-bottom: 5%
+	display: flex
+	flex-direction: column
+	justify-content: center
 
 .quizzhome-intro
-	margin-bottom: 50px
+	margin-bottom: 2.2rem
 
 	strong
-		font-size: 60px
+		font-size: 3.8rem
 		color: $orange_quizz
 		font-family: $blankenhorn
    
@@ -99,13 +120,16 @@ $purple_quizz: #752182
 // QUESTIONS PAGES
 
 .question-label 
-	font-size: 60px 
+	font-size: 3.8rem 
 	font-weight: 400 
 	font-family: $blankenhorn
-	margin-top: 25px 
-	margin-bottom: 75px 
+	margin-top: 0 
+	margin-bottom: 2.2rem 
 	text-align: center
 	color: $orange_quizz
+	@include up-to(medium) 
+		margin-bottom: 35px 
+
 
 .question-choices 
 	display: flex
@@ -113,7 +137,7 @@ $purple_quizz: #752182
 	justify-content: center
 
 	@include up-to(medium) 
-      padding: 30px 
+		padding: 0 
      
    
 
@@ -134,12 +158,12 @@ $purple_quizz: #752182
   .label_radio 
     position: relative 
     display: flex 
-    padding-left: 100px     
+    padding-left: 70px     
     font-style: italic 
-    font-size: 20px 
+    font-size: 1.2rem 
     align-items: center
     line-height: 1.4
-    min-height: 50px
+    min-height: 40px
     
     &:hover 
       cursor: pointer 
@@ -149,8 +173,8 @@ $purple_quizz: #752182
    		content: ''
    		position: absolute
    		background-image: url('../assets/img/etoile.png')
-   		width: 50px
-   		height: 50px
+   		width: 40px
+   		height: 40px
    		background-size: cover
    		left: 0
 
@@ -160,40 +184,62 @@ $purple_quizz: #752182
     height: 100% 
     left: -9999px 
    
- 
 
+.label_radio 
+	@include up-to(medium)
+    padding-left: 40px !important  
+   	&:before
+   		width: 20px !important
+   		height: 20px !important
+
+.form-horizontal  
+	@include up-to(large) 
+		fieldset
+			width: 100%
+  .radio-item 
+    margin-bottom: 1em 
 
 
 // RESULTS
 
 
-.quizzresult-header 
-  position: relative 
-
+header.quizzresult-header 
+	position: relative 
+	flex: 0 0 40%
 
 .result_title 
   font-weight: 700 
-  font-size: 60px 
+  font-size: 3rem 
   text-transform: uppercase 
   font-family: $blankenhorn
   line-height: 1.2 
   color: $orange_quizz 
-  margin: 50px
+  margin: 2rem 0
    
-.result-content 
+div.result-content 
 	text-align: center
 	display: flex
 	flex-direction: column
 	justify-content: center
-	padding: 3em
-     
+	padding: 0 0 0 1em
+	flex: 0 0 60%
+	@include up-to(medium)
+		padding: 0
+
+.result-content--inner
+	display: flex
+	flex-direction: column
+	justify-content: center
+	@include at-least(medium)
+		overflow-y: scroll
 
 .result_maintext
 	position: relative
-	max-width: 70%
-	margin: 0 50px 50px 0
+	max-width: 80%
+	margin: 0 2rem 2rem 0
 	text-align: justify
 	float: right
+	font-size: 1.4rem
 
 	&:before
 		content: ''
@@ -204,13 +250,18 @@ $purple_quizz: #752182
 		background-size: contain
 		left: -65px
 
+.result_maintext
+	@include up-to(medium)
+		margin: 0 auto 40px auto
+		float: none
+
 .result-actions
   color: $orange_quizz
 
 .result_outro 
   font-family: $blankenhorn
-  font-size: 30px
-  margin-bottom: 50px
+  font-size: 1.6rem
+  margin-bottom: 1rem
   letter-spacing: 0.07em
   line-height: 1.4
 
@@ -227,7 +278,10 @@ $purple_quizz: #752182
 
 	li
 		padding: 0 5px
-		font-size: 18px
+		font-size: 1rem
+
+
+
 
 
 // BUTTONS

@@ -71,8 +71,10 @@
 
 
 					    <div class="result-content">
+			      		<div class="result-content--inner">
 
 					        <div class="">
+					        	
 					          <div>
 					          	<?php echo $texte_principal; ?>
 					          </div>
@@ -90,21 +92,19 @@
 
 					        <div class="result-actions">
 
-										<div class="result_outro">La programmation 2020/2021 sera bientôt dévoilée. <br>Pour la recevoir <a href="<?php bloginfo('url'); ?>#section-transition">inscrivez-vous à la newsletter</a>. <br>Ouverture des réservations en Septembre.</div>
+										<div class="result_outro">
+											La programmation 2020/2021 sera bientôt dévoilée. <br>Pour la recevoir <a href="<?php bloginfo('url'); ?>#section-transition">inscrivez-vous à la newsletter</a>. <br>Ouverture des réservations en Septembre.
+										</div>
 
 					          <ul class="result-links">
-					              
 					              <li class="result-link-item"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_field('accueil_quizz'); ?>&t=Tentez%20le%20Quizz%20du%20Theatre%20de%20Sartrouville" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Facebook">Partagez sur Facebook</a> </li>| 
 												
 												<li><a href="<?php the_field('accueil_quizz'); ?>"> Recommencez le Quizz</a></li>
 					          </ul>
 
-
-
-
 					        </div>
-
-
+	
+								</div>
 					    </div><!-- .result-content -->
 
 

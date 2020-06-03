@@ -71,7 +71,7 @@
   .rounded-icon span
     @extend .icon-MAINS 
 
-.page-ca-coute-combien
+.page-tarifs
   .rounded-icon span
     font-family: 'icomoon2' !important;
     @extend .i2-euro 
@@ -84,6 +84,8 @@
 
 .focus-item
   transition: all .5s
+  @include up-to(medium)
+    flex-direction: column
 
 .focus-item  a
   display: block
@@ -94,10 +96,10 @@
   object-fit: cover
   border-radius: 0 20px 0 0
   height: 100%
-  max-height: 250px
   
   @include up-to(medium)
-    max-height: none
+    max-height: 250px
+    width: 100%
 
 .focus-item .item-cover
   border-radius: 0 20px 0 0

@@ -8,7 +8,7 @@
  */
 
 
-   $children = get_pages( array( 'child_of' => $post->ID, 'posts_per_page' => -1 ) );
+   $children = get_pages( array( 'child_of' => $post->ID, 'posts_per_page' => -1, 'sort_column' => 'post_date', 'sort_order' => 'DESC') );
 
 if ( is_page() && count( $children ) > 0 ) : 
     // This is a parent page ?>
