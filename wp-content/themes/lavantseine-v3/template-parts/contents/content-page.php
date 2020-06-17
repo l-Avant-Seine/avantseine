@@ -195,7 +195,7 @@ else :
 				<?php 
 					$args = array(
 						'post_type' 			=> array('post', 'event'),
-						'posts_per_page'	=> -1,
+						'posts_per_page'	=> 6,
 						'orderby'					=> 'post_date',
 						'order' 					=> 'DESC',
 						'arborescence'		=> $tag->slug,
@@ -236,8 +236,8 @@ else :
 
 				</div>
 
-				<?php if( $posts_found > 8 ) { ?>
-					<a href="/magazine/?tag=<?php echo $tag->slug; ?>" class="btn--big is-centered">Voir tous les articles du magazine</a>
+				<?php if( $posts_found > 6 ) { ?>
+					<a href="/magazine/?tag=<?php echo $tag->slug; ?>" class="btn-primary is-centered mb-2">Voir tous les articles du magazine</a>
 				<?php } ?>
 
 			</div> 

@@ -95,7 +95,7 @@ endif;
 	</header><!-- .event-header -->
 
 
-	<div class="event-content ">
+	<div class="event-content mb-2">
 
 		<div class="wrap row">
 				
@@ -152,7 +152,7 @@ endif;
 						</div>
 
 
-						<div class="row cf mb-2">
+						<div class="row cf mb-1">
 
 							<div class="m-8col event-dateslist">
 								<h4 class="h_4">Date(s)</h4>
@@ -298,9 +298,6 @@ endif;
 
 										}
 
-
-
-
 									?>
 
 								</div>
@@ -342,7 +339,84 @@ endif;
 
 		</div>
 
-	</div><!-- .event-layer -->
+	</div><!-- .event-content  -->
+
+
+
+	<div class="event-rebonds">
+		
+	<?php 
+
+	$relational_tags = wp_get_post_terms( $post->ID , 'relational_tag', array('orderby' => 'none', ) );
+
+	if( !empty($relational_tags) ) :
+		$relational_tag = $relational_tags[0];
+	endif; 
+ 
+
+	if( isset($relational_tag) ) : ?>
+	<!-- Les articles et événements liés à la page par le tag 'arborescence' -->
+
+				<?php 
+					$args = array(
+						'post_type' 			=> array('event'),
+						'posts_per_page'	=> 6,
+						'orderby'					=> 'post_date',
+						'order' 					=> 'DESC',
+						'relational_tag'	=> $relational_tag->slug,
+						'post__not_in'		=> array( $post->ID )
+					);
+
+					$related_posts_query = new WP_Query( $args );
+					$posts_found = $related_posts_query->found_posts; ?>
+
+		<?php if ( $related_posts_query->have_posts() ) : ?>
+
+		<section class="cf event-rebonds">
+
+			<div class="wrap">
+				<h4 class="h_4 mb-1">
+					Voir aussi
+				</h4>
+
+				<div id="salgrid_3" data-columns class="row">
+				<?php while ( $related_posts_query->have_posts() ) : $related_posts_query->the_post();
+
+					$post_type = get_post_type(); 
+
+						switch ($post_type) {
+							case 'event':
+								get_template_part( 'template-parts/blocs/bloc', 'event' );
+								break;
+
+							case 'post':
+								get_template_part( 'template-parts/blocs/bloc', 'article' );
+								break;
+
+							case 'page':
+								get_template_part( 'template-parts/blocs/bloc', 'page' );
+								break;
+
+							default:
+								get_template_part( 'template-parts/blocs/bloc', 'page' );
+								break;
+						}
+						
+						endwhile;
+						wp_reset_postdata(); ?>
+
+				</div>
+
+			</div> 
+		</section>
+
+		<?php endif; ?>
+
+	<?php endif; ?>
+
+
+
+	</div>
 
 
 </article><!-- #post-## -->
