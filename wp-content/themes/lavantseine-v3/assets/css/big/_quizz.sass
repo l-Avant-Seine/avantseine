@@ -46,6 +46,7 @@ $quizz_wide:             1300px
 .body-quizz
 	.page 
 		height: 100%
+		min-height: 100vh
 		display: flex
 		padding: 2rem
 		color: $purple_quizz
@@ -66,7 +67,7 @@ $quizz_wide:             1300px
 		@include up-to(large)
 			flex-direction: column-reverse
 			& > *
-				flex: 1 !important
+				flex: 1 1 auto !important
 
   .cover
 		img
@@ -75,8 +76,8 @@ $quizz_wide:             1300px
 			object-fit: cover
 			border-radius: 3em 0 0 3em
 			@include up-to(large)
-	  		max-height: 300px
-	  		margin-top: 30px
+	  		max-height: 450px
+	  		margin-top: 15px
 
 .body-quizz 
 	a:hover
@@ -85,7 +86,8 @@ $quizz_wide:             1300px
 .body-quizz
 	.page 
 		@include up-to(medium)
-			padding: 1rem
+			padding: 3rem 1rem
+			height: auto
 
 // QUIZZ HOMEPAGES
 
@@ -95,8 +97,6 @@ $quizz_wide:             1300px
 	display: flex
 	flex-direction: column
 	justify-content: center
-	@include up-to(large)
-		margin-bottom: 30px
 
 .quizzhome-header--inner
 	height: 100%
@@ -105,16 +105,23 @@ $quizz_wide:             1300px
 	display: flex
 	flex-direction: column
 	justify-content: center
+	@include up-to(large)
+		padding-bottom: 0
 
 .quizzhome-intro
 	margin-bottom: 2.2rem
+	@include up-to(medium)
+		margin-bottom: 0
 
-	strong
-		font-size: 3.8rem
-		color: $orange_quizz
-		font-family: $blankenhorn
+.quizzhome-intro strong,
+	font-size: 3.8rem
+	color: $orange_quizz
+	font-family: $blankenhorn
    
-
+.quizzhome-intro a	
+	border-bottom: 1px dotted $orange_quizz
+	display: inline-block
+	padding: 0 0.8em
 
 
 // QUESTIONS PAGES
@@ -127,8 +134,10 @@ $quizz_wide:             1300px
 	margin-bottom: 2.2rem 
 	text-align: center
 	color: $orange_quizz
+	line-height: 1
 	@include up-to(medium) 
 		margin-bottom: 35px 
+		margin-top: 35px 
 
 
 .question-choices 
@@ -223,14 +232,15 @@ div.result-content
 	justify-content: center
 	padding: 0 0 0 1em
 	flex: 0 0 60%
-	@include up-to(medium)
+	@include up-to(large)
 		padding: 0
+		display: block
 
 .result-content--inner
 	display: flex
 	flex-direction: column
 	justify-content: center
-	@include at-least(medium)
+	@include at-least(large)
 		overflow-y: scroll
 
 .result_maintext

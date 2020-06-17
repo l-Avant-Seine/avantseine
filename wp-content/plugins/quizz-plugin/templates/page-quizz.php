@@ -7,11 +7,9 @@
  */
 
 	include('header-quizz.php');
-	// get_template_part( 'header', 'quizz' ); 
 
 	session_destroy();
-  unset($_SESSION); 
- ?>
+  unset($_SESSION); ?>
 
 
 
@@ -25,59 +23,12 @@
 							<?php the_post_thumbnail( 'full' ); ?> 
 			      </div>
 
-
 			      <div class="quizzhome-header is-relative">
 			      	<div class="quizzhome-header--inner">
 
 				        <div class="quizzhome-intro"><?php the_content(); ?></div>
 
-<!-- 								<?php 
-									$question = get_field('first_question');
-
-									if( false ) : ?>
-
-
-								    <div class="question-choices">
-
-								      <h3 class="question-label"><?php echo get_the_title( $question->ID ); ?></h3>
-
-								      <div class="question-form form-outer">
-								        <form id="quizzform" class="form-horizontal" accept-charset="utf-8" action="<?php the_field('next_question',  $question->ID ); ?>" method="post">
-
-								          <div style="display: none;"><input name="questionnum" type="hidden" value="1" /></div>
-
-								          <fieldset class="radios hidden-sm hidden-xs">
-
-								            <?php if( have_rows('questions',  $question->ID) ): ?>
-								              <?php $i = 1 ?>
-								              <?php while ( have_rows('questions',  $question->ID) ) : the_row(); ?>
-
-								                  <div class="radio-item">
-								                    <label class="label_radio" for="radio-0<?php echo $i; ?>">
-								                    <input id="radio-0<?php echo $i; ?>" name="reponseradio" type="radio" value="<?php the_sub_field('item-linked',  $question->ID); ?>" />
-								                        <?php the_sub_field('texte',  $question->ID); ?>
-								                    </label>
-								                  </div>
-
-								                  <?php $i++ ?>
-								              <?php endwhile; ?>
-
-								            <?php endif; ?>
-
-								          </fieldset>
-								        
-								        </form>
-								      </div><!-- .form-outer -->
-
-								    </div>
-
-
-								 	<?php endif; ?> -->
-
-
-								 	
 							</div>
-
 			      </div>
 
 			    </article>

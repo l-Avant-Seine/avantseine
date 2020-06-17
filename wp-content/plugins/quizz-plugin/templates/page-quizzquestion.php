@@ -19,13 +19,13 @@
         <div class="page">
 
 
-						<article id="post-<?php the_ID(); ?>" class="quizz-question full">
+						<article id="post-<?php the_ID(); ?>" class="quizz-question ">
 
 						    <div class="cover" style="background-color: <?php the_field('couleur_de_la_page'); ?>">
 									<?php the_post_thumbnail( ); ?> 
 						    </div>
 
-						    <div class="question-choices full ">
+						    <div class="question-choices  ">
 
 						      <h2 class="question-label"><?php the_title(); ?></h2>
 
@@ -66,7 +66,7 @@
         </div><!-- .page -->
       <?php endwhile; // end of the loop. ?>
 
-    <?php 	include('footer-quizz.php'); ?>
+    <?php include('footer-quizz.php'); ?>
 
 
 <script>

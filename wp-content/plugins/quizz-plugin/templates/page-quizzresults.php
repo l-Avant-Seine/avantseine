@@ -61,7 +61,7 @@
         <div class="page">
 
 
-					<article id="post-<?php the_ID(); ?>" class="quizz-result full">
+					<article id="post-<?php the_ID(); ?>" class="quizz-result ">
 
 
 					    <header class="cover quizzresult-header" style="background-color: <?php the_field('couleur_de_la_page'); ?>">
@@ -74,14 +74,14 @@
 			      		<div class="result-content--inner">
 
 					        <div class="">
-					        	
+
 					          <div>
 					          	<?php echo $texte_principal; ?>
 					          </div>
 					           
-					          <a href="<?php echo $e_url; ?>">
+					          <div href="<?php echo $e_url; ?>">
 					          	 <h3 class="result_title"><?php echo $titre; ?></h3>
-					          </a>        
+					          </div>        
 
 					          <div class="result_maintext">
 					          	<?php echo $texte_evenement; ?>

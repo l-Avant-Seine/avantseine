@@ -20,26 +20,12 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-63808747-1', 'auto');
+  ga('create', 'UA-130862498-1', 'auto');
   ga('send', 'pageview');
-
-
-
-
-  $( document ).ready(function() {
-
-    $( "#quizzform" ).change(function(event) {
-      event.preventDefault();
-      $(this).submit();
-    });
-
-  });
-
-
 
 </script>
 
-<?php wp_footer(); ?>
+<?php // wp_footer(); ?>
 
 </body>
 </html>
