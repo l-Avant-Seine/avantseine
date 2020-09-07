@@ -46,9 +46,14 @@ if( have_rows('eventDetail_otherdates') ):
   while ( have_rows('eventDetail_otherdates') ) : the_row();
 		$otherdates .= '<li>';
       $otherdates .= get_sub_field('date');
+      //$otherdates .= strftime('%A %e %B %G - %kh%M', strtotime( get_sub_field('date') ) );
+
+      if( get_sub_field('date_endtime') != '') {
+      	$otherdates .= ' à ' . get_sub_field('date_endtime');
+      }
 
 			if( get_sub_field('baby-sitting') ) : 
-				$otherdates .= '<a class="event-babysitting" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant • Informations et réservations" title="dès 3 ans / 6 € par enfant • Informations et réservations"><span class="icon-cocarde"></span>Service Baby-Sitting</a>';
+				$otherdates .= '<a class="event-babysitting" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant • Informations et réservations" title="dès 3 ans / 6 € par enfant • Informations et réservations"><span class="icon-cocarde"> • </span>Baby-Sitting !</a>';
 				$babysitting = true;
 			endif; 
 
@@ -165,9 +170,19 @@ endif;
 
 										if ( $event_first_date ) : 
 											echo '<ul class="nobullets  ">';
-											    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_first_date );
+											    echo '<li>';
+											    if( get_field('eventDetail_first_date_endtime') != '' ) {
+											    	echo strftime('%A %e %B %G de %kh%M', $event_first_date );	
+											    }
+											    else {
+											    	echo strftime('%A %e %B %G à %kh%M', $event_first_date );	
+											    }
+
+											    if( get_field('eventDetail_first_date_endtime') != '' ) {
+											    	echo ' à ' . get_field('eventDetail_first_date_endtime');
+											    }
 											    if( get_field('eventDetail_first_date_babysitting')) : 
-											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class=""> • </span>Baby-Sitting !</a>';
+											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"> • </span>Baby-Sitting !</a>';
 											    endif; 
 											    echo '</li>'; 
 
@@ -185,9 +200,18 @@ endif;
 												endif; 
 
 											if ( $event_last_date && $event_last_date != $event_first_date ) : 
-											    echo '<li>'. strftime('%A %e %b %G - %kh%M', $event_last_date );	
+											    echo '<li>';
+											    if( get_field('eventDetail_last_date_endtime') != '' ) {
+											    	echo strftime('%A %e %B %G de %kh%M', $event_last_date );	
+											    }
+											    else {
+											    	echo strftime('%A %e %B %G à %kh%M', $event_last_date );	
+											    }
+											    if( get_field('eventDetail_last_date_endtime') != '' ) {
+											    	echo ' à ' . get_field('eventDetail_last_date_endtime');
+											    }
 											    if( get_field('eventDetail_last_date_babysitting')) : 
-											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class=""> • </span>Baby-Sitting</a>';
+											    	echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"> • </span>Baby-Sitting !</a>';
 											    endif; 
 											    echo '</li>'; 
 

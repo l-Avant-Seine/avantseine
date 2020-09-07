@@ -64,10 +64,22 @@ $event_details_fields = array(
         'type'  => 'text-date'  
     ),
     array(  
+        'label' => 'Heure de fin de représentation',  
+        'desc'  => '20h00',  
+        'id'    => $prefix.'first_date_endtime',  
+        'type'  => 'text'  
+    ),
+    array(  
         'label' => 'Dernière date et Heure de représentation',  
         'desc'  => 'Laisser vide si une seule date (à la sauvegarde, cette date sera identique à la première date)',  
         'id'    => $prefix.'last_date',  
         'type'  => 'text-date'  
+    ),
+    array(  
+        'label' => 'Heure de fin de représentation',  
+        'desc'  => '20h00',  
+        'id'    => $prefix.'last_date_endtime',  
+        'type'  => 'text'  
     ),
  //    array( 
 	//     'label' => 'Autres Dates et Horaires de représentation',  
