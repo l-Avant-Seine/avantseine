@@ -46,7 +46,7 @@ if( have_rows('eventDetail_otherdates') ):
   while ( have_rows('eventDetail_otherdates') ) : the_row();
 		$otherdates .= '<li>';
       $otherdates .= get_sub_field('date');
-      //$otherdates .= strftime('%A %e %B %G - %kh%M', strtotime( get_sub_field('date') ) );
+      //$otherdates .= strftime('%A %d %B %G - %kh%M', strtotime( get_sub_field('date') ) );
 
       if( get_sub_field('date_endtime') != '') {
       	$otherdates .= ' à ' . get_sub_field('date_endtime');
@@ -172,10 +172,10 @@ endif;
 											echo '<ul class="nobullets  ">';
 											    echo '<li>';
 											    if( get_field('eventDetail_first_date_endtime') != '' ) {
-											    	echo strftime('%A %e %B %G de %kh%M', $event_first_date );	
+											    	echo strftime('%A %d %B %G - %kh%M', $event_first_date );	
 											    }
 											    else {
-											    	echo strftime('%A %e %B %G à %kh%M', $event_first_date );	
+											    	echo strftime('%A %d %B %G - %kh%M', $event_first_date );	
 											    }
 
 											    if( get_field('eventDetail_first_date_endtime') != '' ) {
@@ -194,7 +194,7 @@ endif;
 													foreach ($event_other_dates as $date) { 
 														$date = strtotime($date['date']);
 													    if ( $date != '' ) : 
-													    	echo '<li>'. strftime('%A %e %b %G - %kh%M', $date ) .'.</li>'; 
+													    	echo '<li>'. strftime('%A %d %b %G - %kh%M', $date ) .'.</li>'; 
 													    endif;
 													} 
 												endif; 
@@ -202,10 +202,10 @@ endif;
 											if ( $event_last_date && $event_last_date != $event_first_date ) : 
 											    echo '<li>';
 											    if( get_field('eventDetail_last_date_endtime') != '' ) {
-											    	echo strftime('%A %e %B %G de %kh%M', $event_last_date );	
+											    	echo strftime('%A %d %B %G - %kh%M', $event_last_date );	
 											    }
 											    else {
-											    	echo strftime('%A %e %B %G à %kh%M', $event_last_date );	
+											    	echo strftime('%A %d %B %G - %kh%M', $event_last_date );	
 											    }
 											    if( get_field('eventDetail_last_date_endtime') != '' ) {
 											    	echo ' à ' . get_field('eventDetail_last_date_endtime');

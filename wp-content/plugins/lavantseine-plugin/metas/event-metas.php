@@ -65,7 +65,7 @@ $event_details_fields = array(
     ),
     array(  
         'label' => 'Heure de fin de représentation',  
-        'desc'  => '20h00',  
+        'desc'  => 'exemple : 20h00 (text brut)',  
         'id'    => $prefix.'first_date_endtime',  
         'type'  => 'text'  
     ),
@@ -77,7 +77,7 @@ $event_details_fields = array(
     ),
     array(  
         'label' => 'Heure de fin de représentation',  
-        'desc'  => '20h00',  
+        'desc'  => 'exemple : 20h00 (text brut)',  
         'id'    => $prefix.'last_date_endtime',  
         'type'  => 'text'  
     ),

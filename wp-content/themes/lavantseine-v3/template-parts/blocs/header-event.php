@@ -78,7 +78,7 @@
 									<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
 				  			</div>
 
-								<?php if ($event_duration !== '') : ?>
+								<?php if ($event_duration != '') : ?>
 									<span class="meta-item label_3">
 										<span class="label_2">durée</span>
 										<span class=""><?php echo $event_duration; ?></span>

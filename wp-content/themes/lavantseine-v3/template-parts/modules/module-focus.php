@@ -6,23 +6,36 @@
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 	$today = time();
 
-	$args = array(
-		'post_type' 			=> 'event',
-		'posts_per_page' 	=> '4',
-		'post_status'			=> 'publish', 
-		'meta_key' => 'eventDetail_first_date',
-		'orderby' => 'meta_value_num',
-		'order' => 'ASC',
-		'meta_query' => array(
-		   	array(
-		       'key' => 'eventDetail_last_date',
-		       'value' => $today,
-		       'compare' => '>=',
-		    )
-		)	
-	);
-	$last_events = get_posts( $args ); ?>
+	if( get_field('display_one_event', 'option') ) {
 
+		$last_events = get_posts( 
+			array(
+				'p'	=> get_field('display_one_event', 'option')[0]->ID,
+			)
+		);
+	
+	}
+
+	else {
+
+		$args = array(
+			'post_type' 			=> 'event',
+			'posts_per_page' 	=> get_field('nb_els_to_display', 'option'),
+			'post_status'			=> 'publish', 
+			'meta_key' => 'eventDetail_first_date',
+			'orderby' => 'meta_value_num',
+			'order' => 'ASC',
+			'meta_query' => array(
+			   	array(
+			       'key' => 'eventDetail_last_date',
+			       'value' => $today,
+			       'compare' => '>=',
+			    ) 
+			)	
+		);
+
+		$last_events = get_posts( $args );
+	} ?>
 
 	<div class="home-slides">
 	

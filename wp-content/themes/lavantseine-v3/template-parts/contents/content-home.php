@@ -26,21 +26,38 @@
 						</div>
 					</div>
 
-	<!-- Focus -->
-	<div class="row">
-
-		<?php get_template_part('template-parts/modules/module', 'focus'); ?>
-
-	</div>
 
 
-	<section class="section-transition is-flex mb-2">
-		<div class="row wrap">
-			<div class="m-16col m-1col-push is-centered text-on-center">
-				<a href="/programmation" class="btn-primary--big">voir tous les spectacles</a>
-			</div>
+	<?php if( get_field('display_focus', 'option') ) : ?>
+
+		<!-- Focus -->
+		<div class="row">
+			<?php get_template_part('template-parts/modules/module', 'focus'); ?>
 		</div>
-	</section>
+
+
+		<?php if( get_field('display_btn_home', 'option') ) : ?>
+			<section class="section-transition is-flex mb-2">
+				<div class="row wrap">
+					<div class="m-16col m-1col-push is-centered text-on-center">
+						<a href="/programmation" class="btn-primary--big">voir tous les spectacles</a>
+					</div>
+				</div>
+			</section>
+
+		<?php else: ?>
+				<br><br>
+				<br><br>
+
+		<?php endif; ?>
+
+
+	<?php else: ?>
+			<br><br>
+			<br><br>
+
+	<?php endif; ?>
+
 
 
 	<div class="row wrap mb-2 is-relative">
