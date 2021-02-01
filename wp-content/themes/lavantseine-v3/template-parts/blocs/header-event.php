@@ -59,10 +59,10 @@
 									</span>
 								<?php endif; ?>
 
-								<span class="meta-item label_3">
-									<?php 
-										if ( count($tarifs_list) > 0 ){
-											echo '<span class="label_2">tarif </span>' . $main_tarif;
+								<?php if ( isset( $main_tarif ) ) :  ?>
+
+										<span class="meta-item label_3">
+											<?php echo '<span class="label_2">tarif </span>' . $main_tarif;
 											// $t = 0;
 									  //   foreach ( $tarifs_list as $tarif ) {
 									  //   	if( $t > 0) {
@@ -70,9 +70,9 @@
 									  //   	}
 									  //   	echo '<span class="">' . $tarif->name . '</span>';
 									  //   	$t++;
-									  //   }
-									} ?>
+									  //   } ?>
 								</span>
+								<?php endif; ?>
 
 				  			<div class="m-8col m-hide">
 									<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>

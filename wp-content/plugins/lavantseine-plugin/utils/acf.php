@@ -969,13 +969,13 @@ acf_add_local_field_group(array (
 			),
 			'placement' => 'top',
 			'endpoint' => 0,
-		),
+		), 
 		array (
 			'key' => 'field_591456c82d8az',
-			'label' => 'Nombre d\'élément à afficher',
+			'label' => 'Diaporama par défaut : Nombre d\'éléments à afficher',
 			'name' => 'nb_els_to_display',
 			'type' => 'number',
-			'instructions' => '',
+			'instructions' => 'A utiliser dans le cas du diaporama par défaut (si Diaporama Manuel est vide)',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array (
@@ -1004,10 +1004,10 @@ acf_add_local_field_group(array (
 		),
 		array (
 			'key' => 'field_5914a6c82d2cz',
-			'label' => 'Afficher un événement particulier',
+			'label' => 'Diaporama Manuel',
 			'name' => 'display_one_event',
 			'type' => 'relationship',
-			'instructions' => '',
+			'instructions' => 'Afficher un ou plusieurs événements particuliers',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array (

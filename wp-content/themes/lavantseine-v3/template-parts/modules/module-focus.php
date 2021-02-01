@@ -6,16 +6,11 @@
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 	$today = time();
 
-	if( get_field('display_one_event', 'option') ) {
+	if( !empty(get_field('display_one_event', 'option'))) {
 
-		$last_events = get_posts( 
-			array(
-				'p'	=> get_field('display_one_event', 'option')[0]->ID,
-			)
-		);
+		$last_events = get_field('display_one_event', 'option'); 
 	
 	}
-
 	else {
 
 		$args = array(
@@ -35,7 +30,10 @@
 		);
 
 		$last_events = get_posts( $args );
-	} ?>
+
+	} 
+	
+?>
 
 	<div class="home-slides">
 	
