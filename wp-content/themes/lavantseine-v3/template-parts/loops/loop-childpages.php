@@ -8,7 +8,7 @@ $childpages = new WP_Query( array(
   'post_parent'     => $root,
   'posts_per_page'  => -1,
   'orderby'         => 'date',
-  'order'           => 'ASC'
+  'order'           => 'DESC'
 )); ?>
 
 
