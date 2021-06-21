@@ -43,7 +43,7 @@ function style() {
         gulp
             .src(paths.styles.src)
             // Initialize sourcemaps before compilation starts
-            .pipe(sourcemaps.init())
+            //.pipe(sourcemaps.init())
             .pipe(sass())
             .on("error", sass.logError)
             .pipe(postcss([autoprefixer(), cssnano()]))

@@ -15,6 +15,10 @@ $babysitting = false;
 	$event_first_date_babysitting = get_field( 'eventDetail_first_date_babysitting' );
 	$event_last_date_babysitting = get_field( 'eventDetail_last_date_babysitting' );
 
+	$enfantsdabord = get_field( 'enfants_dabord' );
+	$trenteans = get_field( 'trenteans' );
+
+
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
 
@@ -64,6 +68,19 @@ $babysitting = false;
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icone_BabySitting.png" class="">
 					</div>
 				<?php endif; ?>
+
+				<?php if ( $enfantsdabord ): ?>
+					<div class="icon-enfantsdabord">
+						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+					</div>
+				<?php endif; ?>
+
+				<?php if ( $trenteans ): ?>
+					<div class="icon-trenteans">
+						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
+					</div>
+				<?php endif; ?>
+
 
 				<div class="ratio2for3-content">
 					<img class=" b-lazy" 
