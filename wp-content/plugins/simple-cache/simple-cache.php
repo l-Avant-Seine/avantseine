@@ -1,20 +1,20 @@
 <?php
 /**
  * Plugin Name: Simple Cache
- * Plugin URI: http://taylorlovett.com
+ * Plugin URI: https://taylorlovett.com
  * Description: A simple caching plugin that just works.
  * Author: Taylor Lovett
- * Version: 1.7.1
+ * Version: 2.0.0
  * Text Domain: simple-cache
  * Domain Path: /languages
- * Author URI: http://taylorlovett.com
+ * Author URI: https://taylorlovett.com
  *
  * @package  simple-cache
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SC_VERSION', '1.7.1' );
+define( 'SC_VERSION', '2.0.0' );
 define( 'SC_PATH', dirname( __FILE__ ) );
 
 $active_plugins = get_site_option( 'active_sitewide_plugins' );
@@ -25,14 +25,14 @@ if ( is_multisite() && isset( $active_plugins[ plugin_basename( __FILE__ ) ] ) )
 	define( 'SC_IS_NETWORK', false );
 }
 
-require_once dirname( __FILE__ ) . '/inc/pre-wp-functions.php';
-require_once dirname( __FILE__ ) . '/inc/functions.php';
-require_once dirname( __FILE__ ) . '/inc/class-sc-notices.php';
-require_once dirname( __FILE__ ) . '/inc/class-sc-settings.php';
-require_once dirname( __FILE__ ) . '/inc/class-sc-config.php';
-require_once dirname( __FILE__ ) . '/inc/class-sc-advanced-cache.php';
-require_once dirname( __FILE__ ) . '/inc/class-sc-object-cache.php';
-require_once dirname( __FILE__ ) . '/inc/class-sc-cron.php';
+require_once SC_PATH . '/inc/pre-wp-functions.php';
+require_once SC_PATH . '/inc/functions.php';
+require_once SC_PATH . '/inc/class-sc-notices.php';
+require_once SC_PATH . '/inc/class-sc-settings.php';
+require_once SC_PATH . '/inc/class-sc-config.php';
+require_once SC_PATH . '/inc/class-sc-advanced-cache.php';
+require_once SC_PATH . '/inc/class-sc-object-cache.php';
+require_once SC_PATH . '/inc/class-sc-cron.php';
 
 SC_Settings::factory();
 SC_Advanced_Cache::factory();

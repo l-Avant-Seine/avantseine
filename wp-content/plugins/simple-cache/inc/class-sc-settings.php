@@ -73,16 +73,8 @@ class SC_Settings {
 		global $pagenow;
 
 		if ( ( 'options-general.php' === $pagenow || 'settings.php' === $pagenow ) && ! empty( $_GET['page'] ) && 'simple-cache' === $_GET['page'] ) {
-
-			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				$js_path = '/assets/js/src/settings.js';
-			} else {
-				$js_path = '/assets/js/settings.min.js';
-			}
-			$css_path = '/assets/css/settings.css';
-
-			wp_enqueue_script( 'sc-settings', plugins_url( $js_path, dirname( __FILE__ ) ), array( 'jquery' ), SC_VERSION, true );
-			wp_enqueue_style( 'sc-settings', plugins_url( $css_path, dirname( __FILE__ ) ), array(), SC_VERSION );
+			wp_enqueue_script( 'sc-settings', plugins_url( '/dist/js/settings.js', dirname( __FILE__ ) ), array( 'jquery' ), SC_VERSION, true );
+			wp_enqueue_style( 'sc-settings', plugins_url( '/dist/css/settings-styles.css', dirname( __FILE__ ) ), array(), SC_VERSION );
 		}
 	}
 
@@ -104,7 +96,7 @@ class SC_Settings {
 
 		if ( ! empty( $_REQUEST['action'] ) && 'sc_purge_cache' === $_REQUEST['action'] ) {
 			if ( ! current_user_can( 'manage_options' ) || empty( $_REQUEST['sc_cache_nonce'] ) || ! wp_verify_nonce( $_REQUEST['sc_cache_nonce'], 'sc_purge_cache' ) ) {
-				wp_die( esc_html__( 'Cheatin, eh?', 'simple-cache' ) );
+				wp_die( esc_html__( 'You need a higher level of permission.', 'simple-cache' ) );
 			}
 
 			if ( SC_IS_NETWORK ) {
@@ -130,7 +122,7 @@ class SC_Settings {
 		if ( ! empty( $_REQUEST['action'] ) && 'sc_update' === $_REQUEST['action'] ) {
 
 			if ( ! current_user_can( 'manage_options' ) || empty( $_REQUEST['sc_settings_nonce'] ) || ! wp_verify_nonce( $_REQUEST['sc_settings_nonce'], 'sc_update_settings' ) ) {
-				wp_die( esc_html__( 'Cheatin, eh?', 'simple-cache' ) );
+				wp_die( esc_html__( 'You need a higher level of permission.', 'simple-cache' ) );
 			}
 
 			$verify_file_access = sc_verify_file_access();
@@ -314,6 +306,29 @@ class SC_Settings {
 								</select>
 							</td>
 						</tr>
+
+						<tr>
+							<th scope="row"><label for="sc_page_cache_enable_rest_api_cache"><?php esc_html_e( 'Cache REST API', 'simple-cache' ); ?></label></th>
+							<td>
+								<select <?php if ( empty( $config['advanced_mode'] ) ) : ?>disabled<?php endif; ?> name="sc_simple_cache[page_cache_enable_rest_api_cache]" id="sc_page_cache_enable_rest_api_cache">
+									<option value="0"><?php esc_html_e( 'No', 'simple-cache' ); ?></option>
+									<option <?php selected( $config['page_cache_enable_rest_api_cache'], true ); ?> value="1"><?php esc_html_e( 'Yes', 'simple-cache' ); ?></option>
+								</select>
+								<p class="description"><?php esc_html_e( 'When enabled, the REST API requests will be cached.', 'simple-cache' ); ?></p>
+							</td>
+						</tr>
+
+						<tr>
+							<th scope="row"><label for="sc_page_cache_restore_headers"><?php esc_html_e( 'Restore Headers', 'simple-cache' ); ?></label></th>
+							<td>
+								<select <?php if ( empty( $config['advanced_mode'] ) ) : ?>disabled<?php endif; ?> name="sc_simple_cache[page_cache_restore_headers]" id="sc_page_cache_restore_headers">
+									<option value="0"><?php esc_html_e( 'No', 'simple-cache' ); ?></option>
+									<option <?php selected( $config['page_cache_restore_headers'], true ); ?> value="1"><?php esc_html_e( 'Yes', 'simple-cache' ); ?></option>
+								</select>
+								<p class="description"><?php esc_html_e( 'When enabled, the plugin will save the response headers present when the page is cached and it will send send them again when it serves the cached page. This is recommended when caching the REST API.', 'simple-cache' ); ?></p>
+							</td>
+						</tr>
+
 						<tr>
 							<th scope="row" colspan="2">
 								<h2 class="cache-title"><?php esc_html_e( 'Object Cache (Redis or Memcached)', 'simple-cache' ); ?></h2>

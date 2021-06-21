@@ -12,6 +12,7 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
 {
 
     const WIDGET_OPTIONS_NAME = 'mailjet_widget_options';
+    const WIDGETS_OPTIONS_NAME = 'widget_wp_mailjet_subscribe_widget';
 
     private $subscriptionOptionsSettings = null;
     protected $widget_slug = 'wp_mailjet_subscribe_widget';
@@ -41,9 +42,7 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
         );
 
         // Register site styles and scripts
-        add_action('admin_print_styles', array($this, 'register_widget_styles'));
         add_action('admin_enqueue_scripts', array($this, 'register_widget_scripts'));
-        add_action('admin_enqueue_scripts', array($this, 'register_widget_styles'));
 
         add_action('wp_enqueue_scripts', array($this, 'register_widget_front_styles'));
         add_action('wp_enqueue_scripts', array($this, 'register_widget_front_scripts'));
@@ -83,37 +82,99 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
     public function sendSubscriptionEmail()
     {
         $subscriptionOptionsSettings = $this->getSubscriptionOptionsSettings();
-        $instance = get_option(self::WIDGET_OPTIONS_NAME);
+        $instances = get_option(self::WIDGETS_OPTIONS_NAME);
+
         $locale = Mailjeti18n::getLocale();
         // Check if subscription form is submitted
         if (!isset($_POST['subscription_email'], $_POST['widget_id'])) {
             wp_die();
         }
 
-        $widgetId = $_POST['widget_id'];
+        $widgetId = sanitize_text_field($_POST['widget_id']);
+
+        $widgetNumId = sscanf($widgetId, 'wp_mailjet_subscribe_widget-%d')[0] ?? [];
+        $instance = $instances[$widgetNumId] ?? get_option(self::WIDGET_OPTIONS_NAME);
+
+        // Check if selected locale checkbox is not set
+        if (!(isset($instance[$locale], $instance[$locale]['language_checkbox']) && $instance[$locale]['language_checkbox'])) {
+            // Find other selected language locale
+            $selectedLocales = array_filter($instance, function($localeInstance) {
+                return isset($localeInstance['language_checkbox']) && 1 === $localeInstance['language_checkbox'];
+            });
+
+            if ($selectedLocales) {
+                $locale = array_keys($selectedLocales)[0];
+            }
+        }
+
         $subscription_locale = $locale;
         if (isset($_POST['subscription_locale'])) {
-            $subscription_locale = $_POST['subscription_locale'];
+            $subscription_locale = sanitize_text_field($_POST['subscription_locale']);
         }
 
         // Submitted but empty
         if (empty($_POST['subscription_email'])) {
-            echo !empty($instance[$locale]['empty_email_message_input']) ? $instance[$locale]['empty_email_message_input'] : __('Please provide an email address', 'mailjet-for-wordpress');
+            echo !empty($instance[$locale]['empty_email_message_input'])
+                ? $instance[$locale]['empty_email_message_input']
+                : Mailjeti18n::getTranslationsFromFile($locale, 'Please provide an email address');
             wp_die();
         }
 
         // Send subscription email
-        $subscription_email = $_POST['subscription_email'];
+        $subscription_email = sanitize_email($_POST['subscription_email']);
         if (!is_email($subscription_email)) {
-            echo __('Invalid email', 'mailjet-for-wordpress');
+            echo Mailjeti18n::getTranslationsFromFile($locale, 'Invalid email');
+            wp_die();
+        }
+
+        // Additional properties
+        $mailjetContactProperties = $this->getMailjetContactProperties();
+        if (!empty($mailjetContactProperties) && is_array($mailjetContactProperties)) {
+            foreach ($mailjetContactProperties as $mjContactProperty) {
+                $this->propertyData[$mjContactProperty['ID']] = array(
+                    'Name' => $mjContactProperty['Name'],
+                    'Datatype' => $mjContactProperty['Datatype']
+                );
+            }
+        }
+
+        $errors = [];
+
+        // Check for the additional properties from the admin advanced settings
+        for ($i = 0; $i < 5; $i++) {
+            if (!isset($instance[$locale])) {
+                continue;
+            }
+
+            // Property id - '0' there is no selected property
+            $contactPropertyId = (int)$instance[$locale]['contactProperties' . $i];
+
+            // Skip if this property is not added in admin part
+            if (empty($contactPropertyId) || empty($this->propertyData[$contactPropertyId])) {
+                continue;
+            }
+
+            $propertyType = (int) $instance[$locale]['propertyDataType' . $i]; // '0' - optional, '1' - mandatory, '2' - hidden
+            $isMandatory = $propertyType === 1;
+
+            if ($isMandatory && !$_POST['properties'][$contactPropertyId]) {
+                $errors[] = $contactPropertyId;
+            }
+        }
+
+        if ($errors) {
+            echo wp_json_encode([
+                'prop_errors' => $errors,
+            ]);
             wp_die();
         }
 
         $properties = isset($_POST['properties']) ? $_POST['properties'] : array();
-        $mailjetContactProperties = $this->getMailjetContactProperties();
+
         $isValueTypeIncorrect = false;
         if(!empty($properties) && is_array($mailjetContactProperties) && !empty($mailjetContactProperties)) {
             foreach($properties as $propertyId => $propertyValue) {
+                $propertyValue = sanitize_text_field($propertyValue);
                 if($propertyValue === '') {
                     continue;
                 }
@@ -152,7 +213,9 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
                 }
             }
             if ($isValueTypeIncorrect) {
-                $incorrectTypeValueMessage = !empty($instance[$locale]['invalid_data_format_message_input']) ? $instance[$locale]['invalid_data_format_message_input'] : __('The value you entered is not in the correct format.', 'mailjet-for-wordpress');
+                $incorrectTypeValueMessage = !empty($instance[$locale]['invalid_data_format_message_input'])
+                    ? $instance[$locale]['invalid_data_format_message_input']
+                    : Mailjeti18n::getTranslationsFromFile($locale, 'The value you entered is not in the correct format.');
                 echo $incorrectTypeValueMessage;
                 wp_die();
             }
@@ -160,10 +223,13 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
 
         $sendingResult = $subscriptionOptionsSettings->mailjet_subscribe_confirmation_from_widget($subscription_email, $instance, $subscription_locale, $widgetId);
         if ($sendingResult) {
-            echo !empty($instance[$locale]['confirmation_email_message_input']) ? $instance[$locale]['confirmation_email_message_input'] : __('Subscription confirmation email sent. Please check your inbox and confirm your subscription.', 'mailjet-for-wordpress');
-        }
-        else {
-            echo !empty($instance[$locale]['technical_error_message_input']) ? $instance[$locale]['technical_error_message_input'] : __('A technical issue has prevented your subscription. Please try again later.', 'mailjet-for-wordpress');
+            echo !empty($instance[$locale]['confirmation_email_message_input'])
+                ? $instance[$locale]['confirmation_email_message_input']
+                : Mailjeti18n::getTranslationsFromFile($locale, 'Subscription confirmation email sent. Please check your inbox and confirm your subscription.');
+        } else {
+            echo !empty($instance[$locale]['technical_error_message_input'])
+                ? $instance[$locale]['technical_error_message_input']
+                : Mailjeti18n::getTranslationsFromFile($locale, 'A technical issue has prevented your subscription. Please try again later.');
         }
         wp_die();
     }
@@ -183,13 +249,13 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
         }
 
         if (!empty($_GET['subscription_locale'])) {
-            $locale = $_GET['subscription_locale'];
+            $locale = sanitize_text_field($_GET['subscription_locale']);
         }
 
-        $subscription_email = isset($_GET['subscription_email']) ? $_GET['subscription_email'] : '';
-        $list_id = isset($_GET['list_id']) ? $_GET['list_id'] : '';
-        $widget_id = isset($_GET['widget_id']) ? $_GET['widget_id'] : false;
-        $thanks_id = isset($_GET['thanks_id']) ? $_GET['thanks_id'] : '';
+        $subscription_email = isset($_GET['subscription_email']) ? sanitize_email($_GET['subscription_email']) : '';
+        $list_id = isset($_GET['list_id']) ? sanitize_text_field($_GET['list_id']) : '';
+        $widget_id = isset($_GET['widget_id']) ? sanitize_text_field($_GET['widget_id']) : false;
+        $thanks_id = isset($_GET['thanks_id']) ? sanitize_text_field($_GET['thanks_id']) : '';
 
         if (!$subscription_email) {
             _e('Subscription email is missing', 'wordpress-for-mailjet');
@@ -212,7 +278,7 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
 
         $params = http_build_query($params);
 
-        if ($_GET['mj_sub_token'] != sha1($params . MailjetSettings::getCryptoHash())) {
+        if ($_GET['mj_sub_token'] !== sha1($params . MailjetSettings::getCryptoHash())) {
             // Invalid token
             _e('Invalid token', 'mailjet-for-wordpress');
             die;
@@ -285,6 +351,11 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
         if (empty($thanks_id)) {
             $newsletterRegistration = Mailjeti18n::getTranslationsFromFile($locale, 'Newsletter Registration');
             $congratsSubscribed = Mailjeti18n::getTranslationsFromFile($locale, 'Congratulations, you have successfully subscribed!');
+
+            wp_enqueue_style(
+                'ubuntu-google-font',
+                'http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700'
+            );
 
             $thankYouPageTemplate = apply_filters('mailjet_thank_you_page_template', plugin_dir_path(__FILE__) . 'templates' . DIRECTORY_SEPARATOR . 'thankyou.php');
             include($thankYouPageTemplate);
@@ -859,10 +930,8 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
      */
     public function form($instance)
     {
-        wp_enqueue_style('mailjet_bootstrap');
         wp_enqueue_style($this->get_widget_slug() . '-widget-styles', plugins_url('css/widget.css', __FILE__), array(), MAILJET_VERSION, 'all');
         wp_enqueue_script($this->get_widget_slug() . '-script');
-        wp_enqueue_script('mailjetjs_bootstrap');
 
         $validApiCredentials = MailjetApi::isValidAPICredentials();
         if ($validApiCredentials === false) {
@@ -923,23 +992,10 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
 
 // end widget_textdomain
 
-    /**
-     * Registers and enqueues widget-specific styles.
-     */
-    public function register_widget_styles()
-    {
-//        wp_enqueue_style($this->get_widget_slug() . '-widget-styles', plugins_url('css/widget.css', __FILE__), array(), MAILJET_VERSION, 'all');
-        wp_register_style('mailjet_bootstrap', plugins_url('css/bootstrap.css', __FILE__), array(), MAILJET_VERSION, 'all');
-//        wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
-//        wp_enqueue_style('mailjet_bootstrap');
-    }
-
     public function register_widget_front_styles()
     {
         wp_register_style($this->get_widget_slug() . '-widget-front-styles', plugins_url('css/front-widget.css', __FILE__), array(), MAILJET_VERSION, 'all');
     }
-
-// end register_widget_styles
 
     /**
      * Registers and enqueues widget-specific scripts.
@@ -948,10 +1004,6 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
     {
         wp_register_script($this->get_widget_slug() . '-script', plugins_url('js/widget.js', __FILE__), array('jquery'));
         wp_localize_script($this->get_widget_slug() . '-script', 'myAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
-        
-
-        wp_register_script('mailjetjs_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
-//        wp_enqueue_script('mailjetjs_bootstrap');
     }
 
     public function register_widget_front_scripts()
@@ -988,8 +1040,9 @@ class WP_Mailjet_Subscribe_Widget extends \WP_Widget
     function wp_ajax_mailjet_add_contact_property()
     {
         if (!empty($_POST['propertyName'])) {
-            $type = !empty($_POST['propertyType']) ? $_POST['propertyType'] : 'str';
-            echo json_encode(MailjetApi::createMailjetContactProperty($_POST['propertyName'], $type));
+            $type = !empty($_POST['propertyType']) ? sanitize_text_field($_POST['propertyType']) : 'str';
+            $propertyName = sanitize_text_field($_POST['propertyName']);
+            echo json_encode(MailjetApi::createMailjetContactProperty($propertyName, $type));
         }
         die;
     }

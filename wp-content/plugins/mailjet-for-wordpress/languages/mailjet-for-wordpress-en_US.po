@@ -1113,16 +1113,16 @@ msgid "language_checkbox"
 msgstr "1"
 
 msgid "title"
-msgstr "Contacttest"
+msgstr "Widget title"
 
 msgid "list"
-msgstr "13033"
+msgstr "10210276"
 
 msgid "language_mandatory_email"
 msgstr ""
 
 msgid "language_mandatory_button"
-msgstr ""
+msgstr "YES"
 
 msgid "confirmation_email_message_input"
 msgstr ""
@@ -1152,22 +1152,22 @@ msgid "email_content_main_text"
 msgstr ""
 
 msgid "email_content_confirm_button"
-msgstr ""
+msgstr "SUBCRIME ME"
 
 msgid "email_content_after_button"
 msgstr ""
 
 msgid "contactProperties0"
-msgstr "16535"
+msgstr "394165"
 
 msgid "propertyDataType0"
 msgstr "0"
 
 msgid "EnglishLabel0"
-msgstr "testdate"
+msgstr "birthday"
 
 msgid "FrenchLabel0"
-msgstr ""
+msgstr "birthday fr"
 
 msgid "GermanLabel0"
 msgstr ""
@@ -1179,16 +1179,16 @@ msgid "ItalianLabel0"
 msgstr ""
 
 msgid "contactProperties1"
-msgstr "27038"
+msgstr "394108"
 
 msgid "propertyDataType1"
-msgstr "0"
+msgstr "1"
 
 msgid "EnglishLabel1"
-msgstr "test bool"
+msgstr "firstname"
 
 msgid "FrenchLabel1"
-msgstr ""
+msgstr "firstname fr"
 
 msgid "GermanLabel1"
 msgstr ""
@@ -1200,16 +1200,16 @@ msgid "ItalianLabel1"
 msgstr ""
 
 msgid "contactProperties2"
-msgstr "16533"
+msgstr "6349"
 
 msgid "propertyDataType2"
-msgstr "0"
+msgstr "2"
 
 msgid "EnglishLabel2"
-msgstr "testfloat"
+msgstr "test"
 
 msgid "FrenchLabel2"
-msgstr ""
+msgstr "test fr"
 
 msgid "GermanLabel2"
 msgstr ""

@@ -96,11 +96,18 @@ class SC_Advanced_Cache {
 	 * @since  1.3
 	 */
 	public function purge_post_on_update( $post_id ) {
-		$post_type = get_post_type( $post_id );
+		$post = get_post( $post_id );
 
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || 'revision' === $post_type ) {
+		// Do not purge the cache if it's an autosave or it is updating a revision.
+		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || 'revision' === $post->post_type ) {
 			return;
+
+			// Do not purge the cache if the user cannot edit the post.
 		} elseif ( ! current_user_can( 'edit_post', $post_id ) && ( ! defined( 'DOING_CRON' ) || ! DOING_CRON ) ) {
+			return;
+
+			// Do not purge the cache if the user is editing an unpublished post.
+		} elseif ( 'draft' === $post->post_status ) {
 			return;
 		}
 
@@ -179,13 +186,14 @@ class SC_Advanced_Cache {
 
 		// phpcs:disable
 		return '<?php ' .
-		"\n\r" . "defined( 'ABSPATH' ) || exit;" .
-		"\n\r" . "define( 'SC_ADVANCED_CACHE', true );" .
-		"\n\r" . 'if ( is_admin() ) { return; }' .
-		"\n\r" . "include_once( WP_CONTENT_DIR . '/plugins/" . basename( SC_PATH ) . "/inc/pre-wp-functions.php' );" .
-		"\n\r" . "\$GLOBALS['sc_config'] = sc_load_config();" .
-		"\n\r" . "if ( empty( \$GLOBALS['sc_config'] ) || empty( \$GLOBALS['sc_config']['enable_page_caching'] ) ) { return; }" .
-		"\n\r" . "if ( @file_exists( WP_CONTENT_DIR . '/plugins/" . basename( SC_PATH ) . "/inc/dropins/" . $cache_file . "' ) ) { include_once( WP_CONTENT_DIR . '/plugins/" . basename( SC_PATH ) . "/inc/dropins/" . $cache_file . "' ); }" . "\n\r";
+		"\r\n" . "defined( 'ABSPATH' ) || exit;" .
+		"\r\n" . "define( 'SC_ADVANCED_CACHE', true );" .
+		"\r\n" . 'if ( is_admin() ) { return; }' .
+		"\r\n" . "\$plugin_path = defined( 'WP_PLUGIN_DIR' ) ? WP_PLUGIN_DIR : WP_CONTENT_DIR . '/plugins/';" .
+		"\r\n" . "include_once( \$plugin_path . '/simple-cache/inc/pre-wp-functions.php' );" .
+		"\r\n" . "\$GLOBALS['sc_config'] = sc_load_config();" .
+		"\r\n" . "if ( empty( \$GLOBALS['sc_config'] ) || empty( \$GLOBALS['sc_config']['enable_page_caching'] ) ) { return; }" .
+		"\r\n" . "if ( @file_exists( \$plugin_path . '/simple-cache/inc/dropins/" . $cache_file . "' ) ) { include_once( \$plugin_path . '/simple-cache/inc/dropins/" . $cache_file . "' ); }" . "\r\n";
 		// phpcs:enable
 	}
 
@@ -256,7 +264,7 @@ class SC_Advanced_Cache {
 			}
 		}
 
-		if ( ! file_put_contents( $config_path, implode( "\n\r", $config_file ) ) ) {
+		if ( ! file_put_contents( $config_path, implode( "\r\n", $config_file ) ) ) {
 			return false;
 		}
 

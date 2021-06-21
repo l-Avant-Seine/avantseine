@@ -7,6 +7,7 @@ use MailjetPlugin\Includes\MailjetApi;
 use MailjetPlugin\Includes\MailjetMail;
 use MailjetPlugin\Includes\MailjetSettings;
 use MailjetPlugin\Includes\MailjetLogger;
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * Register all actions and filters for the plugin.
@@ -80,7 +81,6 @@ class InitialSettings
      */
     public function mailjet_initial_settings_page_html()
     {
-        global $phpmailer;
         $fromPage = !empty($_REQUEST['from']) ? $_REQUEST['from'] : null;
 
         // check user capabilities
@@ -123,14 +123,6 @@ class InitialSettings
                 add_settings_error('mailjet_messages', 'mailjet_message', __('Please make sure that you are using the correct API key and Secret key associated to your Mailjet account: <a href="https://app.mailjet.com/account/api_keys">https://app.mailjet.com/account/api_keys</a>', 'mailjet-for-wordpress'), 'error');
             } else {
 //            MailjetLogger::info('[ Mailjet ] [ ' . __METHOD__ . ' ] [ Line #' . __LINE__ . ' ] [ Initial settings form submitted ]');
-                // Initialize PhpMailer
-                //
-                if (!is_object($phpmailer) || !is_a($phpmailer, 'PHPMailer')) {
-                    require_once ABSPATH . WPINC . '/class-phpmailer.php';
-                    require_once ABSPATH . WPINC . '/class-smtp.php';
-                    $phpmailer = new \PHPMailer();
-//                MailjetLogger::warning('[ Mailjet ] [ ' . __METHOD__ . ' ] [ Line #' . __LINE__ . ' ] [ PHPMailer initialized by the Mailjet plugin ]');
-                }
 
                 // Update From Email and Name
                 add_filter('wp_mail_from', array(new MailjetMail(), 'wp_sender_email'));
