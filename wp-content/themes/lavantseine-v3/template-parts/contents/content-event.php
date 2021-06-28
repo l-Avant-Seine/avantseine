@@ -36,6 +36,11 @@ $presskit = get_field( 'presskit' );
 $event_distribution = get_field( 'eventDetail_distribution' );
 $event_mentions = get_field( 'eventDetail_mentions' );
 
+	$enfantsdabord = get_field( 'enfants_dabord' );
+	$trenteans = get_field( 'trenteans' );
+
+
+
 if( $event_first_date_babysitting || $event_last_date_babysitting ) {
 	$babysitting = true;
 }
@@ -69,6 +74,25 @@ endif;
 
 		<div class="event-cover">
 			<img src="<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>" alt="">
+
+
+				<?php if ( $enfantsdabord || $trenteans ): ?>
+					<div class="pictos-trente">
+							
+						<?php if ( $enfantsdabord ): ?>
+							<div class="picto-enfantsdabord">
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+							</div>
+						<?php endif; ?>
+
+						<?php if ( $trenteans ): ?>
+							<div class="picto-trenteans">
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
+							</div>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+
 		</div>
 
 		<div class="event-titles">

@@ -69,17 +69,25 @@ $babysitting = false;
 					</div>
 				<?php endif; ?>
 
-				<?php if ( $enfantsdabord ): ?>
-					<div class="icon-enfantsdabord">
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+
+				<?php if ( $enfantsdabord || $trenteans ): ?>
+					<div class="pictos-trente">
+							
+						<?php if ( $enfantsdabord ): ?>
+							<div class="picto-enfantsdabord">
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+							</div>
+						<?php endif; ?>
+
+						<?php if ( $trenteans ): ?>
+							<div class="picto-trenteans">
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
+							</div>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 
-				<?php if ( $trenteans ): ?>
-					<div class="icon-trenteans">
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
-					</div>
-				<?php endif; ?>
+
 
 
 				<div class="ratio2for3-content">

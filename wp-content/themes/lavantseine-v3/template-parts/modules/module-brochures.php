@@ -17,6 +17,10 @@
 				<?php if( $i == 0) : ?>
 				<li class="pdf-item"><a target="_blank" class="" href="<?php the_sub_field('file'); ?>"><span class="icon-download"></span>Téléchargez le programme</a></li>
 
+				<?php if( get_field('pdf_adhesion', 'option') ) : ?>
+					<li class="pdf-item"><a target="_blank" class="" href="<?php the_field('pdf_adhesion', 'option'); ?>">Télécharger le bulletin d’adhésion</a></li>
+				<?php endif; ?>
+
 				<?php if( get_field('guide_parent', 'option') ) : ?>
 					<li class="pdf-item"><a target="_blank" class="" href="<?php the_field('guide_parent', 'option'); ?>">Téléchargez le guide des parents</a></li>
 				<?php endif; ?>

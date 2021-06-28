@@ -94,7 +94,19 @@
 		padding: 0 2px
 
 .event-cover
+	position: relative
 	@extend .post-cover
+
+	.pictos-trente
+		right: 10px
+		left: auto
+
+		& > div 
+			width: 125px
+			
+		img 
+		height: auto
+
 
 
 .event-details
@@ -136,6 +148,27 @@
 	
 	p
 		padding-left: 15px
+
+
+
+.pictos-trente
+  position: absolute
+  bottom: 5px
+  left: 5px
+  z-index: 9
+  display: flex
+
+  img
+  	height: auto !important
+
+.picto-enfantsdabord
+  width: 75px
+  z-index: 9
+
+.picto-trenteans
+  width: 75px
+  z-index: 9
+
 
 
 // ACCORDEONS
