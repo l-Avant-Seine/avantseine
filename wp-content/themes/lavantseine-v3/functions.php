@@ -136,7 +136,7 @@ add_action( 'widgets_init', 'lavantseine_v2_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
-function lavantseine_v2_scripts() {
+function lavantseine_v3_scripts() {
 	wp_enqueue_style( 'lavantseine-v3-style', get_template_directory_uri() . '/assets/style.css' );
 
 	wp_enqueue_script( 'lavantseine-v3-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
@@ -150,7 +150,7 @@ function lavantseine_v2_scripts() {
 
 	wp_localize_script('lavantseine-v3-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 }
-add_action( 'wp_enqueue_scripts', 'lavantseine_v2_scripts' );
+add_action( 'wp_enqueue_scripts', 'lavantseine_v3_scripts' );
 
 
 

@@ -73,7 +73,7 @@ endif;
 	<header class="event-header mb-2">
 
 		<div class="event-cover">
-			<img src="<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('top-thumbnail'); endif; ?>" alt="">
+			<img src="<?php if( get_field('gif' ) ) : the_field('gif'); else : the_post_thumbnail_url('full'); endif; ?>" alt="">
 
 
 				<?php if ( $enfantsdabord || $trenteans ): ?>
@@ -295,7 +295,7 @@ endif;
 													    	
 													    }
 
-													    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+													    echo '<li><a href="/pratique/tarifs/" class="btn-inline">tous les tarifs et conditions</a></li>';
 
 														if ( $event_text2 ) : 
 															echo "<li>". $event_text2 ."</li>";
@@ -326,7 +326,7 @@ endif;
 													    	
 													    }
 
-													    echo '<li><a href="/pratique/ca-coute-combien/" class="btn-inline">tous les tarifs et conditions</a></li>';
+													    echo '<li><a href="/pratique/tarifs/" class="btn-inline">tous les tarifs et conditions</a></li>';
 
 														if ( $event_text2 ) : 
 															echo "<li>". $event_text2 ."</li>";
