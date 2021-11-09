@@ -52,7 +52,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 		<nav class="site-branding">
 			<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home">
-				<img class="site-logo" src="<?php echo $header_logo_file ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
+				<img class="site-logo" id="site-logo" src="<?php echo $header_logo_file ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
 			</a>
 		</nav>
 

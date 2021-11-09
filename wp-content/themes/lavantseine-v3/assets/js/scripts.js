@@ -474,6 +474,14 @@ jQuery(function($){
 
 
 
+// LOGO MOBILE
+
+const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+if (isMobile) {
+  $('#site-logo').attr('src', '/assets/img/avtseine-logo-2019-mobile.png');
+  console.log('mobile');
+}
 
 
 // BROCHURES
