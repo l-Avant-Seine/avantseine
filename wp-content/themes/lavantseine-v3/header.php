@@ -35,16 +35,13 @@ fbq('track', 'PageView');
  <img height="1" width="1" 
 src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 </noscript>
-
-				<?php
-				if ( wp_is_mobile() ) {
-					$header_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019-mobile.png';
-				} else {
-					$header_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019.png';
-				}
-				?>
-				
 <!-- End Facebook Pixel Code -->
+
+
+<?php
+	//$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019-mobile.png';
+	$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019.png'; ?>
+				
 
 </head>
 
@@ -55,7 +52,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 		<nav class="site-branding">
 			<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home">
-				<img class="site-logo" src="<?php echo $header_file ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
+				<img class="site-logo" src="<?php echo $header_logo_file ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
 			</a>
 		</nav>
 
