@@ -77,7 +77,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 			}
 			else {
 	  
-				// Si 2 dates
+				// Si 2 dates				
 				if( $event_other_dates ) {
 					if( $event_other_dates[0] != '' &&  $event_first_date != $event_last_date ) {
 
