@@ -50,6 +50,55 @@ acf_add_local_field_group(array (
 	'description' => '',
 ));
 
+
+acf_add_local_field_group(array(
+	'key' => 'group_61a7341114cae',
+	'title' => 'Logo Festival ?',
+	'fields' => array(
+		array(
+			'key' => 'field_61a73485cc127',
+			'label' => 'Logo',
+			'name' => 'logo_festival',
+			'type' => 'image',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'return_format' => 'array',
+			'preview_size' => 'medium',
+			'library' => 'all',
+			'min_width' => '',
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => '',
+			'max_height' => '',
+			'max_size' => '',
+			'mime_types' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'event',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'side',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+));
+
 acf_add_local_field_group(array (
 	'key' => 'group_591306e726f2f',
 	'title' => 'Détails de l\'article',

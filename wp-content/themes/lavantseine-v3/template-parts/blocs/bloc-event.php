@@ -17,6 +17,7 @@ $babysitting = false;
 
 	$enfantsdabord = get_field( 'enfants_dabord' );
 	$trenteans = get_field( 'trenteans' );
+	$logo_festival = get_field( 'logo_festival' );
 
 
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
@@ -67,6 +68,15 @@ $babysitting = false;
 					<div class="icon-babysitting">
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icone_BabySitting.png" class="">
 					</div>
+				<?php endif; ?>
+
+
+				<?php if ( $logo_festival ): ?>
+					<?php if ( $logo_festival ): ?>
+						<div class="logo_festival">
+							<img src="<?php echo $logo_festival['url']; ?>" class="">
+						</div>
+					<?php endif; ?>
 				<?php endif; ?>
 
 
