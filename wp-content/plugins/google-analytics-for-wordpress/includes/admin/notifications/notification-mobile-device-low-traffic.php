@@ -6,11 +6,13 @@
  *
  * @since 7.12.3
  */
-final class MonsterInsights_Notification_Mobile_Device extends MonsterInsights_Notification_Event {
+final class MonsterInsights_Notification_Mobile_Device_Low_Traffic extends MonsterInsights_Notification_Event {
 
 	public $notification_id = 'monsterinsights_notification_mobile_device';
 	public $notification_interval = 15; // in days
 	public $notification_type = array( 'basic', 'lite', 'master', 'plus', 'pro' );
+    public $notification_category = 'insight';
+    public $notification_priority = 2;
 
 	/**
 	 * Prepare Notification
@@ -26,7 +28,7 @@ final class MonsterInsights_Notification_Mobile_Device extends MonsterInsights_N
 
 		if ( ! empty( $data ) && $data['percentage_of_mobile_visitors'] < 10 ) {
 			// Translators: Mobile device notification title
-			$notification['title'] = sprintf( __( 'Traffic from Mobile Devices is %s%%', 'google-analytics-for-wordpress' ), $data['percentage_of_mobile_visitors'] );
+			$notification['title'] = sprintf( __( 'Traffic From Mobile Devices %s%%', 'google-analytics-for-wordpress' ), $data['percentage_of_mobile_visitors'] );
 			// Translators: Mobile device notification content
 			$notification['content'] = sprintf( __( 'Traffic from mobile devices is considerably lower on your site compared to desktop devices. This could be an indicator that your site is not optimised for mobile devices.<br><br>Take a look now at %show your site looks%s on mobile and make sure all your content can be accessed correctly.', 'google-analytics-for-wordpress' ), '<a href="' . $this->build_external_link( 'https://www.wpbeginner.com/beginners-guide/how-to-preview-the-mobile-layout-of-your-site/' ) . '" target="_blank">', '</a>' );
 			$notification['btns']    = array(
@@ -50,4 +52,4 @@ final class MonsterInsights_Notification_Mobile_Device extends MonsterInsights_N
 }
 
 // initialize the class
-new MonsterInsights_Notification_Mobile_Device();
+new MonsterInsights_Notification_Mobile_Device_Low_Traffic();
