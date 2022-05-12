@@ -399,6 +399,21 @@ acf_add_local_field_group(array (
 			'endpoint' => 0,
 		),
 		array (
+			'key' => 'field_5912b6b5d92z9',
+			'label' => 'Ne pas afficher le bouton de billetterie',
+			'name' => 'hide_booking_btn',
+			'type' => 'true_false',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '33',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => 0,
+		),
+		array (
 			'key' => 'field_5912b6b5d9259',
 			'label' => 'Lien revendeur',
 			'name' => 'eventDetail_dealer-link',
@@ -407,7 +422,7 @@ acf_add_local_field_group(array (
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array (
-				'width' => '',
+				'width' => '33',
 				'class' => '',
 				'id' => '',
 			),
@@ -426,7 +441,7 @@ acf_add_local_field_group(array (
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array (
-				'width' => '',
+				'width' => '33',
 				'class' => '',
 				'id' => '',
 			),

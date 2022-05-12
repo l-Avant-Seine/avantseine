@@ -64,7 +64,7 @@
 							</div>
 							
 							<div class="cf filter-saisons-list disnone radio filter-item">
-								<?php custom_taxonomy_list('saison', 'date', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
+								<?php custom_taxonomy_list('saison', 'slug', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
 							</div>
 
 					</form>
