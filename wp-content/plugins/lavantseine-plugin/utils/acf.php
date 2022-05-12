@@ -400,7 +400,7 @@ acf_add_local_field_group(array (
 		),
 		array (
 			'key' => 'field_5912b6b5d92z9',
-			'label' => 'Ne pas afficher le bouton de billetterie',
+			'label' => 'Cacher le bouton de billetterie',
 			'name' => 'hide_booking_btn',
 			'type' => 'true_false',
 			'instructions' => '',

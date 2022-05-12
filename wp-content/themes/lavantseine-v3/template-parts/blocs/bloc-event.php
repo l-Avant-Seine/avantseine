@@ -49,9 +49,10 @@ $babysitting = false;
 				</div>
 
 				<div class="item-actions">
-
-					<?php if( intval($event_last_date) > $today ) : ?>
-						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
+					<?php if( ! get_field('hide_booking_btn') ) : ?>
+						<?php if( intval($event_last_date) > $today ) : ?>
+							<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
+						<?php endif; ?>
 					<?php endif; ?>
 
 					<a href="<?php the_permalink(); ?>" class="btn-primary empty">en savoir plus</a>
