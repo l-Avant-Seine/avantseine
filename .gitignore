@@ -63,3 +63,6 @@
 /lavantsewpn.sql
 /wp-content/updraft
 /wp-content/cache
+/wp-content/w3tc-config/master.php
+/wp-content/w3tc-config/master-admin.php
+/wp-content/w3tc-config
