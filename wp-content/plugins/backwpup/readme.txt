@@ -2,9 +2,9 @@
 Contributors: inpsyde, danielhuesken, Bueltge, nullbyte, wido, dinamiko, cocreation
 Tags: backup, database backup, cloud backup, restore, wordpress backup
 Requires at least: 3.9
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 3.9.0
+Stable tag: 3.10.0
 License: GPLv2+
 
 Schedule complete automatic backups of your WordPress installation. Decide which content will be stored (Dropbox, S3…). This is the free version
@@ -166,6 +166,18 @@ Yes. You need to have writing access to the wp-config.php file (usually residing
 [You can find a detailed tutorial in the BackWPup documentation.](https://backwpup.com/docs/install-backwpup-pro-activate-licence/)
 
 == Changelog ==
+
+= Version 3.10.0 =
+Release Date: September 1, 2021
+
+* Added: Support for Dropbox short-lived access tokens
+* Fixed (pro): Prevent out of memory error on HiDrive backups
+* Fixed (pro): Small files uploaded twice to HiDrive
+* Fixed (pro): Fatal error on plugin update if $transient is null
+* Fixed (pro): Restore of stored functions, procedures, and triggers
+* Fixed: Export of stored functions, procedures, and triggers including delimiters
+* Fixed: Support emojis and other 4-byte characters in database dump
+* Fixed: PHP 8 deprecation notice in XML export
 
 = Version 3.9.0 =
 Release Date: June 10, 2021
