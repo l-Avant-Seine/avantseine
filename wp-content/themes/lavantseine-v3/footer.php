@@ -68,6 +68,18 @@
 	<?php wp_footer(); ?>
 
 
+
+		<div id="popin" class="popin_outer disnone">
+			<div class="popin_inner">
+				<button id="popin_close" class="btn">x</button>
+				<div class="copy">
+					<?php the_field('popin_content', "options"); ?>
+				</div>
+			</div>
+		</div>
+
+
+
 		<?php if( is_home() ) : ?>
 			<img src="https://secure.adnxs.com/seg?add=17307151&t=2" width="1" height="1" />
 		<?php elseif( is_page( 'programmation' ) ) : ?>

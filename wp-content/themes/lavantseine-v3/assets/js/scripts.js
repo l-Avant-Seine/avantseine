@@ -509,6 +509,17 @@ if (isMobile) {
 
 
 
+// POPIN
+
+    const popin_close = $('#popin_close');
+    popin_close.on('click', () => {
+      $('#popin').addClass("disnone");
+      sessionStorage.setItem('popin_closed', true);
+    })
+
+    if( ! sessionStorage.getItem('popin_closed') ) {
+      $('#popin').removeClass('disnone');
+    }
 
 // A votre service
 
