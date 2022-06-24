@@ -71,9 +71,19 @@
 
 		<div id="popin" class="popin_outer disnone">
 			<div class="popin_inner">
+				<?php 
+					$cover = get_field('popin_media', "options"); 
+					$size = 'medium';
+					if( $cover ) {
+						echo "<img class='popin_media' src='" . $cover['url'] . "'>";
+					}
+				?>
+				
 				<button id="popin_close" class="btn">x</button>
-				<div class="copy">
-					<?php the_field('popin_content', "options"); ?>
+
+				<div class="popin_content">
+					<h3 class="h_3 mb-2"><?php the_field('popin_title', "options"); ?></h3>
+					<div><?php the_field('popin_content', "options"); ?></div>
 				</div>
 			</div>
 		</div>
