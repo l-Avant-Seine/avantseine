@@ -92,26 +92,26 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 			<nav class="siteMenus-actions">
 
-				<ul class="siteMenus-contacts no-bullets" role="navigation">
+				<ul class="siteMenus-contacts no-bullets" role="navigation" role="list">
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455 ">
-						<a href="#" id="js-searchTrigger" class="icon-LOUPE"></a>
+						<a href="#" id="js-searchTrigger" title="Rechercher" aria-label="Rechercher" class="icon-LOUPE"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="#section-transition" target="_blank" class="icon-NEWSLETTER scroll"></a>
+						<a href="#section-transition" target="_blank" class="icon-NEWSLETTER scroll" aria-label="S'inscrire à la newsletter" title="S'inscrire à la newsletter"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="<?php echo FB_URL; ?>" target="_blank" class="icon-facebook"></a>
+						<a href="<?php echo FB_URL; ?>" target="_blank" class="icon-facebook" aria-label="Visite la page Facebook de l'Avant Seine" title="Visite la page Facebook de l'Avant Seine"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="<?php echo TWITTER_URL; ?>" target="_blank" class="icon-TWITTER"></a>
+						<a href="<?php echo TWITTER_URL; ?>" target="_blank" class="icon-TWITTER" aria-label="Visite le compte Twitter de l'Avant Seine" title="Visite le compte Twitter de l'Avant Seine"></a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" class="icon-instagram"></a>
+						<a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" class="icon-instagram" aria-label="Visite le compte Instagram de l'Avant Seine"  title="Visite le compte Instagram de l'Avant Seine"></a>
 					</li>
 																	
 				</ul>
