@@ -516,6 +516,9 @@ if (isMobile) {
       $('#popin').addClass("disnone");
       sessionStorage.setItem('popin_closed', true);
     })
+    $('#popin a').on('click', () => {
+      sessionStorage.setItem('popin_closed', true);
+    })
 
     if( ! sessionStorage.getItem('popin_closed') ) {
       $('#popin').removeClass('disnone');

@@ -68,7 +68,7 @@
 	<?php wp_footer(); ?>
 
 
-
+<?php if( get_field('popin_content', "options") !== '' ) : ?>
 		<div id="popin" class="popin_outer disnone">
 			<div class="popin_inner">
 				<?php 
@@ -87,7 +87,7 @@
 				</div>
 			</div>
 		</div>
-
+<?php endif; ?>
 
 
 		<?php if( is_home() ) : ?>
