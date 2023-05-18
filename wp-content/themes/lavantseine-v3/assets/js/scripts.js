@@ -481,7 +481,7 @@ const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches
 const root = document.location.origin;
 
 if (isMobile) {
-  $('#site-logo').attr('src', root + '/wp-content/themes/lavantseine-v3/assets/img/avtseine-logo-2019-mobile.png');
+  $('#site-logo').attr('src', root + '/wp-content/themes/lavantseine-v3/assets/img/avtseine-logo-2022-mobile.png');
   console.log('mobile');
 }
 
