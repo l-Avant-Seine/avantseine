@@ -1479,11 +1479,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 @font-face { font-family: Circular; font-weight: 900; src: url(fonts/CircularStd-Black.otf); }
 
-@font-face { font-family: Loupot; src: url(fonts/Loupot-Bold.otf); }
-
 @font-face { font-family: Blankenhorn; src: url(fonts/BlankenhornLL-Script.otf); }
 
-@font-face { font-family: Balloon; src: url(fonts/balloon/BalloonSCD-ExtBol.otf); }
+@font-face { font-family: Colette; src: url(fonts/colette-jumbo/Colette-Jumbo.otf); }
+
+@font-face { font-family: ColetteJumbo; src: url(fonts/colette-jumbo/Colette-UltraJumbo.otf); }
 
 @font-face { font-family: 'icomoon'; src: url("fonts/icomoon.eot?cv5gxc"); src: url("fonts/icomoon.eot?cv5gxc#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?cv5gxc") format("truetype"), url("fonts/icomoon.woff?cv5gxc") format("woff"), url("fonts/icomoon.svg?cv5gxc#icomoon") format("svg"); font-weight: normal; font-style: normal; }
 
@@ -1497,9 +1497,9 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 h1, h2, h3, h4, h5, h6 { font-weight: 400; margin: 0; }
 
-.h_1 { font-family: Balloon, Arial, Helvetica, sans-serif; font-size: 74px; line-height: .8; }
+.h_1 { font-family: Colette, Arial, Helvetica, sans-serif; font-size: 74px; line-height: .8; }
 
-.h_2 { font-family: Balloon, Arial, Helvetica, sans-serif; font-size: 50px; line-height: 44px; border-bottom: 1px solid #96783c; padding-bottom: 10px; margin-bottom: 20px; }
+.h_2 { font-family: Colette, Arial, Helvetica, sans-serif; font-size: 50px; line-height: 44px; border-bottom: 1px solid #96783c; padding-bottom: 10px; margin-bottom: 20px; }
 
 .h_3 { font-weight: 700; font-size: 24px; line-height: 28px; color: #96783c; }
 
@@ -2026,7 +2026,7 @@ figure { max-width: 100%; }
 
 .ticker-wrap .ticker { display: inline-block; height: 4rem; line-height: 4rem; white-space: nowrap; padding-right: 10%; box-sizing: content-box; -webkit-animation-iteration-count: infinite; }
 
-.ticker-wrap .ticker__item { display: inline-block; padding: 0 1rem; font-size: 50px; line-height: 70px; font-family: Balloon, Arial, Helvetica, sans-serif; }
+.ticker-wrap .ticker__item { display: inline-block; padding: 0 1rem; font-size: 50px; line-height: 70px; font-family: Colette, Arial, Helvetica, sans-serif; }
 
 .ticker-wrap .ticker__item.red { color: #96783c; }
 
