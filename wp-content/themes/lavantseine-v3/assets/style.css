@@ -1993,7 +1993,7 @@ figure { max-width: 100%; }
 
 @media (max-width: 820px) { .event-teaser .meta-names { margin: 20px 0; display: block; } }
 
-.teaser-title { border-bottom: 1px solid #fff; color: #3c46aa; }
+.teaser-title { border-bottom: 1px solid #fff; color: #3c46aa; padding-bottom: 15px; }
 
 .teaser-tag { float: left; margin-right: 10px; }
 
