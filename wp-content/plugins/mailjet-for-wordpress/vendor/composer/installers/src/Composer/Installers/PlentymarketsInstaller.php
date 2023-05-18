@@ -1,29 +1,24 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class PlentymarketsInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'plugin'   => '{$name}/'
-    );
-
+    /** @var array<string, string> */
+    protected $locations = array('plugin' => '{$name}/');
     /**
      * Remove hyphen, "plugin" and format to camelcase
-     * @param array $vars
-     *
-     * @return array
      */
-    public function inflectPackageVars($vars)
+    public function inflectPackageVars(array $vars) : array
     {
-        $vars['name'] = explode("-", $vars['name']);
-        foreach ($vars['name'] as $key => $name) {
-            $vars['name'][$key] = ucfirst($vars['name'][$key]);
-            if (strcasecmp($name, "Plugin") == 0) {
-                unset($vars['name'][$key]);
+        $nameBits = \explode("-", $vars['name']);
+        foreach ($nameBits as $key => $name) {
+            $nameBits[$key] = \ucfirst($name);
+            if (\strcasecmp($name, "Plugin") == 0) {
+                unset($nameBits[$key]);
             }
         }
-        $vars['name'] = implode("",$vars['name']);
-
+        $vars['name'] = \implode('', $nameBits);
         return $vars;
     }
 }

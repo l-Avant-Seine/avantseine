@@ -1,10 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class VanillaInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'plugin'    => 'plugins/{$name}/',
-        'theme'     => 'themes/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('plugin' => 'plugins/{$name}/', 'theme' => 'themes/{$name}/');
 }

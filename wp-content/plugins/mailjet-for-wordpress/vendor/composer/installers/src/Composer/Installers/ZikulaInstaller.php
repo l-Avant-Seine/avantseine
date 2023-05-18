@@ -1,10 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class ZikulaInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'module' => 'modules/{$vendor}-{$name}/',
-        'theme'  => 'themes/{$vendor}-{$name}/'
-    );
+    /** @var array<string, string> */
+    protected $locations = array('module' => 'modules/{$vendor}-{$name}/', 'theme' => 'themes/{$vendor}-{$name}/');
 }

@@ -1,11 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class ChefInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'cookbook'  => 'Chef/{$vendor}/{$name}/',
-        'role'      => 'Chef/roles/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('cookbook' => 'Chef/{$vendor}/{$name}/', 'role' => 'Chef/roles/{$name}/');
 }
-

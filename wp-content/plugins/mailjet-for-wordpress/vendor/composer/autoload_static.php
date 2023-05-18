@@ -4,145 +4,146 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0f6da5621765c7ac389627affb3aaf98
+class ComposerStaticInite89278bbb96320ad952008582b3ddfbc
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Sepia\\Test\\' => 11,
-            'Sepia\\PoParser\\' => 15,
-        ),
-        'P' => 
-        array (
-            'Psr\\Log\\' => 8,
-            'Psr\\Http\\Message\\' => 17,
-        ),
         'M' => 
         array (
-            'MailjetPlugin\\Widget\\' => 21,
-            'MailjetPlugin\\Includes\\SettingsPages\\' => 37,
-            'MailjetPlugin\\Includes\\' => 23,
-            'MailjetPlugin\\Front\\' => 20,
-            'MailjetPlugin\\Admin\\Partials\\' => 29,
-            'MailjetPlugin\\Admin\\' => 20,
-            'MailjetPlugin\\' => 14,
-            'MailjetIframe\\' => 14,
-        ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
-        ),
-        'C' => 
-        array (
-            'Composer\\Installers\\' => 20,
+            'MailjetWp\\Symfony\\Polyfill\\Mbstring\\' => 36,
+            'MailjetWp\\Sepia\\Test\\' => 21,
+            'MailjetWp\\Sepia\\PoParser\\' => 25,
+            'MailjetWp\\Psr\\Log\\' => 18,
+            'MailjetWp\\Psr\\Http\\Message\\' => 27,
+            'MailjetWp\\Psr\\Http\\Client\\' => 26,
+            'MailjetWp\\Mailjet\\' => 18,
+            'MailjetWp\\MailjetPlugin\\Widget\\' => 31,
+            'MailjetWp\\MailjetPlugin\\WidgetFormBuilder\\' => 42,
+            'MailjetWp\\MailjetPlugin\\Includes\\SettingsPages\\' => 47,
+            'MailjetWp\\MailjetPlugin\\Includes\\' => 33,
+            'MailjetWp\\MailjetPlugin\\Front\\' => 30,
+            'MailjetWp\\MailjetPlugin\\Admin\\Partials\\' => 39,
+            'MailjetWp\\MailjetPlugin\\Admin\\' => 30,
+            'MailjetWp\\MailjetPlugin\\' => 24,
+            'MailjetWp\\MailjetIframe\\' => 24,
+            'MailjetWp\\GuzzleHttp\\Psr7\\' => 26,
+            'MailjetWp\\GuzzleHttp\\Promise\\' => 29,
+            'MailjetWp\\GuzzleHttp\\' => 21,
+            'MailjetWp\\Composer\\Installers\\' => 30,
+            'MailjetWp\\Bamarni\\Composer\\Bin\\' => 31,
+            'MailjetWp\\Analog\\' => 17,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'MailjetWp\\Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Sepia\\Test\\' => 
+        'MailjetWp\\Sepia\\Test\\' => 
         array (
             0 => __DIR__ . '/..' . '/sepia/po-parser/tests',
         ),
-        'Sepia\\PoParser\\' => 
+        'MailjetWp\\Sepia\\PoParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/sepia/po-parser/src',
         ),
-        'Psr\\Log\\' => 
+        'MailjetWp\\Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
-        'Psr\\Http\\Message\\' => 
+        'MailjetWp\\Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'MailjetPlugin\\Widget\\' => 
+        'MailjetWp\\Psr\\Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
+        ),
+        'MailjetWp\\Mailjet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mailjet/mailjet-apiv3-php/src/Mailjet',
+        ),
+        'MailjetWp\\MailjetPlugin\\Widget\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/widget',
         ),
-        'MailjetPlugin\\Includes\\SettingsPages\\' => 
+        'MailjetWp\\MailjetPlugin\\WidgetFormBuilder\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/src/widgetformbuilder',
+            ),
+        'MailjetWp\\MailjetPlugin\\Includes\\SettingsPages\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/includes/SettingsPages',
         ),
-        'MailjetPlugin\\Includes\\' => 
+        'MailjetWp\\MailjetPlugin\\Includes\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/includes',
         ),
-        'MailjetPlugin\\Front\\' => 
+        'MailjetWp\\MailjetPlugin\\Front\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/front',
         ),
-        'MailjetPlugin\\Admin\\Partials\\' => 
+        'MailjetWp\\MailjetPlugin\\Admin\\Partials\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/admin/partials',
         ),
-        'MailjetPlugin\\Admin\\' => 
+        'MailjetWp\\MailjetPlugin\\Admin\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/admin',
         ),
-        'MailjetPlugin\\' => 
+        'MailjetWp\\MailjetPlugin\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'MailjetIframe\\' => 
+        'MailjetWp\\MailjetIframe\\' => 
         array (
-            0 => __DIR__ . '/..' . '/mailjet/Mailjet-iframe-v3/src',
+            0 => __DIR__ . '/../..' . '/src/mailjetIframe',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'MailjetWp\\GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'MailjetWp\\GuzzleHttp\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'MailjetWp\\GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Composer\\Installers\\' => 
+        'MailjetWp\\Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
+        'MailjetWp\\Bamarni\\Composer\\Bin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bamarni/composer-bin-plugin/src',
+        ),
+        'MailjetWp\\Analog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/analog/analog/lib/Analog',
+        ),
     );
 
-    public static $prefixesPsr0 = array (
-        'M' => 
-        array (
-            'Mailjet' => 
-            array (
-                0 => __DIR__ . '/..' . '/mailjet/mailjet-apiv3-php/src',
-            ),
-        ),
-        'A' => 
-        array (
-            'Analog' => 
-            array (
-                0 => __DIR__ . '/..' . '/analog/analog/lib',
-            ),
-        ),
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0f6da5621765c7ac389627affb3aaf98::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0f6da5621765c7ac389627affb3aaf98::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0f6da5621765c7ac389627affb3aaf98::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite89278bbb96320ad952008582b3ddfbc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite89278bbb96320ad952008582b3ddfbc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite89278bbb96320ad952008582b3ddfbc::$classMap;
 
         }, null, ClassLoader::class);
     }

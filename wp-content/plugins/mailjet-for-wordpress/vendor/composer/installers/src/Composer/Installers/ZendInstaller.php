@@ -1,11 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class ZendInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'library' => 'library/{$name}/',
-        'extra'   => 'extras/library/{$name}/',
-        'module'  => 'module/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('library' => 'library/{$name}/', 'extra' => 'extras/library/{$name}/', 'module' => 'module/{$name}/');
 }

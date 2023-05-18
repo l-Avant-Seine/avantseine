@@ -1,14 +1,11 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class MediaWikiInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'core' => 'core/',
-        'extension' => 'extensions/{$name}/',
-        'skin' => 'skins/{$name}/',
-    );
-
+    /** @var array<string, string> */
+    protected $locations = array('core' => 'core/', 'extension' => 'extensions/{$name}/', 'skin' => 'skins/{$name}/');
     /**
      * Format package name.
      *
@@ -16,36 +13,35 @@ class MediaWikiInstaller extends BaseInstaller
      * to CamelCase keeping existing uppercase chars.
      *
      * For package type mediawiki-skin, cut off a trailing '-skin' if present.
-     *
      */
-    public function inflectPackageVars($vars)
+    public function inflectPackageVars(array $vars) : array
     {
-
         if ($vars['type'] === 'mediawiki-extension') {
             return $this->inflectExtensionVars($vars);
         }
-
         if ($vars['type'] === 'mediawiki-skin') {
             return $this->inflectSkinVars($vars);
         }
-
         return $vars;
     }
-
-    protected function inflectExtensionVars($vars)
+    /**
+     * @param array<string, string> $vars
+     * @return array<string, string>
+     */
+    protected function inflectExtensionVars(array $vars) : array
     {
-        $vars['name'] = preg_replace('/-extension$/', '', $vars['name']);
-        $vars['name'] = str_replace('-', ' ', $vars['name']);
-        $vars['name'] = str_replace(' ', '', ucwords($vars['name']));
-
+        $vars['name'] = $this->pregReplace('/-extension$/', '', $vars['name']);
+        $vars['name'] = \str_replace('-', ' ', $vars['name']);
+        $vars['name'] = \str_replace(' ', '', \ucwords($vars['name']));
         return $vars;
     }
-
-    protected function inflectSkinVars($vars)
+    /**
+     * @param array<string, string> $vars
+     * @return array<string, string>
+     */
+    protected function inflectSkinVars(array $vars) : array
     {
-        $vars['name'] = preg_replace('/-skin$/', '', $vars['name']);
-
+        $vars['name'] = $this->pregReplace('/-skin$/', '', $vars['name']);
         return $vars;
     }
-
 }

@@ -1,10 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class ReIndexInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'theme'     => 'themes/{$name}/',
-        'plugin'    => 'plugins/{$name}/'
-    );
+    /** @var array<string, string> */
+    protected $locations = array('theme' => 'themes/{$name}/', 'plugin' => 'plugins/{$name}/');
 }

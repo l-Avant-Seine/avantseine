@@ -1,9 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class ElggInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'plugin' => 'mod/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('plugin' => 'mod/{$name}/');
 }

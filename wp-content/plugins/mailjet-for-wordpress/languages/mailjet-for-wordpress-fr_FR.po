@@ -1534,20 +1534,30 @@ msgstr "Impossible de se connecter à l’API Mailjet, veuillez réessayer plus 
 #~ msgid "Enable Contact Form 7 integration"
 #~ msgstr "Activer l'intégration Contact Form 7"
 
+#: src/includes/MailjetSettings.php:333
+#: src/widget/WP_Mailjet_Subscribe_Widget.php:287
+msgid "Newsletter Registration"
+msgstr "Inscription à la Newsletter"
+
+#: src/includes/MailjetSettings.php:334
+#: src/widget/WP_Mailjet_Subscribe_Widget.php:288
+msgid "Congratulations, you have successfully subscribed!"
+msgstr "Félicitations, vous êtes maintenant abonnés à la newsletter!"
+
 msgid "language_checkbox"
-msgstr "1"
+msgstr ""
 
 msgid "title"
-msgstr "Widget title fr"
+msgstr ""
 
 msgid "list"
-msgstr "10210283"
+msgstr "0"
 
 msgid "language_mandatory_email"
 msgstr ""
 
 msgid "language_mandatory_button"
-msgstr "OUI"
+msgstr ""
 
 msgid "confirmation_email_message_input"
 msgstr ""
@@ -1577,22 +1587,22 @@ msgid "email_content_main_text"
 msgstr ""
 
 msgid "email_content_confirm_button"
-msgstr "INSCRIT MOI"
+msgstr ""
 
 msgid "email_content_after_button"
 msgstr ""
 
 msgid "contactProperties0"
-msgstr "394165"
+msgstr ""
 
 msgid "propertyDataType0"
-msgstr "0"
+msgstr ""
 
 msgid "EnglishLabel0"
-msgstr "birthday"
+msgstr ""
 
 msgid "FrenchLabel0"
-msgstr "birthday fr"
+msgstr ""
 
 msgid "GermanLabel0"
 msgstr ""
@@ -1604,16 +1614,16 @@ msgid "ItalianLabel0"
 msgstr ""
 
 msgid "contactProperties1"
-msgstr "394108"
+msgstr ""
 
 msgid "propertyDataType1"
-msgstr "1"
+msgstr ""
 
 msgid "EnglishLabel1"
-msgstr "firstname"
+msgstr ""
 
 msgid "FrenchLabel1"
-msgstr "firstname fr"
+msgstr ""
 
 msgid "GermanLabel1"
 msgstr ""
@@ -1625,16 +1635,16 @@ msgid "ItalianLabel1"
 msgstr ""
 
 msgid "contactProperties2"
-msgstr "6349"
+msgstr ""
 
 msgid "propertyDataType2"
-msgstr "2"
+msgstr ""
 
 msgid "EnglishLabel2"
-msgstr "test"
+msgstr ""
 
 msgid "FrenchLabel2"
-msgstr "test fr"
+msgstr ""
 
 msgid "GermanLabel2"
 msgstr ""
@@ -1649,7 +1659,7 @@ msgid "contactProperties3"
 msgstr ""
 
 msgid "propertyDataType3"
-msgstr "0"
+msgstr ""
 
 msgid "EnglishLabel3"
 msgstr ""
@@ -1670,7 +1680,7 @@ msgid "contactProperties4"
 msgstr ""
 
 msgid "propertyDataType4"
-msgstr "0"
+msgstr ""
 
 msgid "EnglishLabel4"
 msgstr ""
@@ -1686,3 +1696,6 @@ msgstr ""
 
 msgid "ItalianLabel4"
 msgstr ""
+
+msgid "If you do not have senders. Read an article, please"
+msgstr "Si je n'ai pas d'expéditeurs. Modifier un article, s'il vous plaît"

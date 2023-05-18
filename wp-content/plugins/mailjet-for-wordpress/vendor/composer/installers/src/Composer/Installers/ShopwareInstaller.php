@@ -1,5 +1,6 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 /**
  * Plugin/theme installer for shopware
@@ -7,54 +8,44 @@ namespace Composer\Installers;
  */
 class ShopwareInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'backend-plugin'    => 'engine/Shopware/Plugins/Local/Backend/{$name}/',
-        'core-plugin'       => 'engine/Shopware/Plugins/Local/Core/{$name}/',
-        'frontend-plugin'   => 'engine/Shopware/Plugins/Local/Frontend/{$name}/',
-        'theme'             => 'templates/{$name}/',
-        'plugin'            => 'custom/plugins/{$name}/',
-        'frontend-theme'    => 'themes/Frontend/{$name}/',
-    );
-
+    /** @var array<string, string> */
+    protected $locations = array('backend-plugin' => 'engine/Shopware/Plugins/Local/Backend/{$name}/', 'core-plugin' => 'engine/Shopware/Plugins/Local/Core/{$name}/', 'frontend-plugin' => 'engine/Shopware/Plugins/Local/Frontend/{$name}/', 'theme' => 'templates/{$name}/', 'plugin' => 'custom/plugins/{$name}/', 'frontend-theme' => 'themes/Frontend/{$name}/');
     /**
      * Transforms the names
-     * @param  array $vars
-     * @return array
      */
-    public function inflectPackageVars($vars)
+    public function inflectPackageVars(array $vars) : array
     {
         if ($vars['type'] === 'shopware-theme') {
             return $this->correctThemeName($vars);
         }
-
-        return $this->correctPluginName($vars);        
+        return $this->correctPluginName($vars);
     }
-
     /**
      * Changes the name to a camelcased combination of vendor and name
-     * @param  array $vars
-     * @return array
+     *
+     * @param array<string, string> $vars
+     * @return array<string, string>
      */
-    private function correctPluginName($vars)
+    private function correctPluginName(array $vars) : array
     {
-        $camelCasedName = preg_replace_callback('/(-[a-z])/', function ($matches) {
-            return strtoupper($matches[0][1]);
+        $camelCasedName = \preg_replace_callback('/(-[a-z])/', function ($matches) {
+            return \strtoupper($matches[0][1]);
         }, $vars['name']);
-
-        $vars['name'] = ucfirst($vars['vendor']) . ucfirst($camelCasedName);
-
+        if (null === $camelCasedName) {
+            throw new \RuntimeException('Failed to run preg_replace_callback: ' . \preg_last_error());
+        }
+        $vars['name'] = \ucfirst($vars['vendor']) . \ucfirst($camelCasedName);
         return $vars;
     }
-
     /**
      * Changes the name to a underscore separated name
-     * @param  array $vars
-     * @return array
+     *
+     * @param array<string, string> $vars
+     * @return array<string, string>
      */
-    private function correctThemeName($vars)
+    private function correctThemeName(array $vars) : array
     {
-        $vars['name'] = str_replace('-', '_', $vars['name']);
-
+        $vars['name'] = \str_replace('-', '_', $vars['name']);
         return $vars;
     }
 }

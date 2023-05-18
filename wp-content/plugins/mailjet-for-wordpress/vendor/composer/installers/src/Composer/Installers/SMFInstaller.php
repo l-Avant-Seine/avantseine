@@ -1,10 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class SMFInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'module' => 'Sources/{$name}/',
-        'theme' => 'Themes/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('module' => 'Sources/{$name}/', 'theme' => 'Themes/{$name}/');
 }

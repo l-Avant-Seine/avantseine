@@ -1,9 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class FuelphpInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'component'  => 'components/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('component' => 'components/{$name}/');
 }

@@ -1,9 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class UserFrostingInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'sprinkle' => 'app/sprinkles/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('sprinkle' => 'app/sprinkles/{$name}/');
 }

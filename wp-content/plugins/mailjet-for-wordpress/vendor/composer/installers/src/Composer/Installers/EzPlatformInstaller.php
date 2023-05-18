@@ -1,10 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class EzPlatformInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'meta-assets' => 'web/assets/ezplatform/',
-        'assets' => 'web/assets/ezplatform/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('meta-assets' => 'web/assets/ezplatform/', 'assets' => 'web/assets/ezplatform/{$name}/');
 }

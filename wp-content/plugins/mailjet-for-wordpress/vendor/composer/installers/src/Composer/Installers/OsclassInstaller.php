@@ -1,14 +1,9 @@
 <?php
-namespace Composer\Installers;
 
+namespace MailjetWp\Composer\Installers;
 
-class OsclassInstaller extends BaseInstaller 
+class OsclassInstaller extends BaseInstaller
 {
-    
-    protected $locations = array(
-        'plugin' => 'oc-content/plugins/{$name}/',
-        'theme' => 'oc-content/themes/{$name}/',
-        'language' => 'oc-content/languages/{$name}/',
-    );
-    
+    /** @var array<string, string> */
+    protected $locations = array('plugin' => 'oc-content/plugins/{$name}/', 'theme' => 'oc-content/themes/{$name}/', 'language' => 'oc-content/languages/{$name}/');
 }

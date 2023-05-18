@@ -1,11 +1,9 @@
 <?php
 
-namespace Composer\Installers;
+namespace MailjetWp\Composer\Installers;
 
 class PuppetInstaller extends BaseInstaller
 {
-
-    protected $locations = array(
-        'module' => 'modules/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('module' => 'modules/{$name}/');
 }

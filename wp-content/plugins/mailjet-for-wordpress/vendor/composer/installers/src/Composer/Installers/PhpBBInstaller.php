@@ -1,11 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class PhpBBInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'extension' => 'ext/{$vendor}/{$name}/',
-        'language'  => 'language/{$name}/',
-        'style'     => 'styles/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('extension' => 'ext/{$vendor}/{$name}/', 'language' => 'language/{$name}/', 'style' => 'styles/{$name}/');
 }

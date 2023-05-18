@@ -1,9 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class PortoInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'container' => 'app/Containers/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('container' => 'app/Containers/{$name}/');
 }

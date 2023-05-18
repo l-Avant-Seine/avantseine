@@ -1,34 +1,30 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class CockpitInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'module' => 'cockpit/modules/addons/{$name}/',
-    );
-
+    /** @var array<string, string> */
+    protected $locations = array('module' => 'cockpit/modules/addons/{$name}/');
     /**
      * Format module name.
      *
      * Strip `module-` prefix from package name.
-     *
-     * @param array @vars
-     *
-     * @return array
      */
-    public function inflectPackageVars($vars)
+    public function inflectPackageVars(array $vars) : array
     {
         if ($vars['type'] == 'cockpit-module') {
             return $this->inflectModuleVars($vars);
         }
-
         return $vars;
     }
-
-    public function inflectModuleVars($vars)
+    /**
+     * @param array<string, string> $vars
+     * @return array<string, string>
+     */
+    public function inflectModuleVars(array $vars) : array
     {
-        $vars['name'] = ucfirst(preg_replace('/cockpit-/i', '', $vars['name']));
-
+        $vars['name'] = \ucfirst($this->pregReplace('/cockpit-/i', '', $vars['name']));
         return $vars;
     }
 }

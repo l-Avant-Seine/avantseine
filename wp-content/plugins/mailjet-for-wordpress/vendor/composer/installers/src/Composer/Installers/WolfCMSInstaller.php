@@ -1,9 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class WolfCMSInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'plugin' => 'wolf/plugins/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('plugin' => 'wolf/plugins/{$name}/');
 }

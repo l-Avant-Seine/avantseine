@@ -1,115 +1,91 @@
 <?php
-namespace GuzzleHttp;
 
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
-use GuzzleHttp\Psr7;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+namespace MailjetWp\GuzzleHttp;
 
+use MailjetWp\GuzzleHttp\Promise as P;
+use MailjetWp\GuzzleHttp\Promise\PromiseInterface;
+use MailjetWp\Psr\Http\Message\RequestInterface;
+use MailjetWp\Psr\Http\Message\ResponseInterface;
 /**
  * Middleware that retries requests based on the boolean result of
  * invoking the provided "decider" function.
+ *
+ * @final
  */
 class RetryMiddleware
 {
-    /** @var callable  */
-    private $nextHandler;
-
-    /** @var callable */
-    private $decider;
-
-    /** @var callable */
-    private $delay;
-
     /**
-     * @param callable $decider     Function that accepts the number of retries,
-     *                              a request, [response], and [exception] and
-     *                              returns true if the request is to be
-     *                              retried.
-     * @param callable $nextHandler Next handler to invoke.
-     * @param callable $delay       Function that accepts the number of retries
-     *                              and [response] and returns the number of
-     *                              milliseconds to delay.
+     * @var callable(RequestInterface, array): PromiseInterface
      */
-    public function __construct(
-        callable $decider,
-        callable $nextHandler,
-        callable $delay = null
-    ) {
+    private $nextHandler;
+    /**
+     * @var callable
+     */
+    private $decider;
+    /**
+     * @var callable(int)
+     */
+    private $delay;
+    /**
+     * @param callable                                            $decider     Function that accepts the number of retries,
+     *                                                                         a request, [response], and [exception] and
+     *                                                                         returns true if the request is to be
+     *                                                                         retried.
+     * @param callable(RequestInterface, array): PromiseInterface $nextHandler Next handler to invoke.
+     * @param (callable(int): int)|null                           $delay       Function that accepts the number of retries
+     *                                                                         and returns the number of
+     *                                                                         milliseconds to delay.
+     */
+    public function __construct(callable $decider, callable $nextHandler, callable $delay = null)
+    {
         $this->decider = $decider;
         $this->nextHandler = $nextHandler;
         $this->delay = $delay ?: __CLASS__ . '::exponentialDelay';
     }
-
     /**
      * Default exponential backoff delay function.
      *
-     * @param int $retries
-     *
-     * @return int
+     * @return int milliseconds.
      */
-    public static function exponentialDelay($retries)
+    public static function exponentialDelay(int $retries) : int
     {
-        return (int) pow(2, $retries - 1);
+        return (int) \pow(2, $retries - 1) * 1000;
     }
-
-    /**
-     * @param RequestInterface $request
-     * @param array            $options
-     *
-     * @return PromiseInterface
-     */
-    public function __invoke(RequestInterface $request, array $options)
+    public function __invoke(RequestInterface $request, array $options) : PromiseInterface
     {
         if (!isset($options['retries'])) {
             $options['retries'] = 0;
         }
-
         $fn = $this->nextHandler;
-        return $fn($request, $options)
-            ->then(
-                $this->onFulfilled($request, $options),
-                $this->onRejected($request, $options)
-            );
+        return $fn($request, $options)->then($this->onFulfilled($request, $options), $this->onRejected($request, $options));
     }
-
-    private function onFulfilled(RequestInterface $req, array $options)
+    /**
+     * Execute fulfilled closure
+     */
+    private function onFulfilled(RequestInterface $request, array $options) : callable
     {
-        return function ($value) use ($req, $options) {
-            if (!call_user_func(
-                $this->decider,
-                $options['retries'],
-                $req,
-                $value,
-                null
-            )) {
+        return function ($value) use($request, $options) {
+            if (!($this->decider)($options['retries'], $request, $value, null)) {
                 return $value;
             }
-            return $this->doRetry($req, $options, $value);
+            return $this->doRetry($request, $options, $value);
         };
     }
-
-    private function onRejected(RequestInterface $req, array $options)
+    /**
+     * Execute rejected closure
+     */
+    private function onRejected(RequestInterface $req, array $options) : callable
     {
-        return function ($reason) use ($req, $options) {
-            if (!call_user_func(
-                $this->decider,
-                $options['retries'],
-                $req,
-                null,
-                $reason
-            )) {
-                return \GuzzleHttp\Promise\rejection_for($reason);
+        return function ($reason) use($req, $options) {
+            if (!($this->decider)($options['retries'], $req, null, $reason)) {
+                return P\Create::rejectionFor($reason);
             }
             return $this->doRetry($req, $options);
         };
     }
-
-    private function doRetry(RequestInterface $request, array $options, ResponseInterface $response = null)
+    private function doRetry(RequestInterface $request, array $options, ResponseInterface $response = null) : PromiseInterface
     {
-        $options['delay'] = call_user_func($this->delay, ++$options['retries'], $response);
-
+        $options['delay'] = ($this->delay)(++$options['retries'], $response);
         return $this($request, $options);
     }
 }

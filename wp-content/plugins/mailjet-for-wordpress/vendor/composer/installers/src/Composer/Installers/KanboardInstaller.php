@@ -1,5 +1,6 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 /**
  *
@@ -12,7 +13,6 @@ namespace Composer\Installers;
  */
 class KanboardInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'plugin'  => 'plugins/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('plugin' => 'plugins/{$name}/');
 }

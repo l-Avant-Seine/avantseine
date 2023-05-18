@@ -1,10 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class ClanCatsFrameworkInstaller extends BaseInstaller
 {
-	protected $locations = array(
-		'ship'      => 'CCF/orbit/{$name}/',
-		'theme'     => 'CCF/app/themes/{$name}/',
-	);
+    /** @var array<string, string> */
+    protected $locations = array('ship' => 'CCF/orbit/{$name}/', 'theme' => 'CCF/app/themes/{$name}/');
 }

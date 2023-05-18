@@ -1,10 +1,9 @@
 <?php
-namespace Composer\Installers;
+
+namespace MailjetWp\Composer\Installers;
 
 class LavaLiteInstaller extends BaseInstaller
 {
-    protected $locations = array(
-        'package' => 'packages/{$vendor}/{$name}/',
-        'theme'   => 'public/themes/{$name}/',
-    );
+    /** @var array<string, string> */
+    protected $locations = array('package' => 'packages/{$vendor}/{$name}/', 'theme' => 'public/themes/{$name}/');
 }
