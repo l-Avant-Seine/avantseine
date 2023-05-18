@@ -1,65 +1,82 @@
 
-// Concatenate & Minify JS
-// gulp.task('scripts', function() {
-//     return gulp.src(alljs)
-//         .pipe(concat('all.js'))
-//         .pipe(gulp.dest(jsfolder))
-//         .pipe(rename('all.min.js'))
-//         .pipe(uglify())
-//         .pipe(gulp.dest(jsfolder))
-//         .pipe(notify({ message: 'Scripts task complete' }));
-// });
 
-// Watch Files For Changes
-// gulp.task('watch', function() {
-//     gulp.watch(mainjs, ['lint', 'scripts']);
-//     gulp.watch(scssfiles, ['styles']);
-// });
+// les dépendances du fichier gulp
+const { src, dest , series , watch } = require("gulp");
+const sass = require("gulp-sass")(require('sass'));
+const rename = require("gulp-rename");
+const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
 
-// Default Task
-// gulp.task('default', ['lint', 'scripts', 'watch']);
+sass.compiler = require("node-sass");
 
 
 
-var gulp = require("gulp"),
-    sass = require("gulp-sass"),
-    postcss = require("gulp-postcss"),
-    autoprefixer = require("autoprefixer"),
-    cssnano = require("cssnano"),
-    sourcemaps = require("gulp-sourcemaps");
-    
-var paths = {
-    styles: {
-        src: "wp-content/themes/lavantseine-v3/assets/css/**/*.sass",
-        dest: "wp-content/themes/lavantseine-v3/assets/"
-    }
-};
+// VARIABLES
+var theme_folder = './wp-content/themes/lavantseine-v3/';
+var assets_folder = theme_folder + 'assets/';
+
+var jsfolder = assets_folder + 'js/';
+var mainjs = jsfolder + 'scripts.js';
+var libjs = jsfolder + 'libs/*.js';
+var alljs = [mainjs];
+
+var sassfolder = assets_folder + 'css/';
+var sassfiles = sassfolder + '**/*.sass';
+var sassMain = sassfolder + 'style.sass';
 
 
-    
-function style() {
-    
-    return (
-        gulp
-            .src(paths.styles.src)
-            // Initialize sourcemaps before compilation starts
-            //.pipe(sourcemaps.init())
-            .pipe(sass())
-            .on("error", sass.logError)
-            .pipe(postcss([autoprefixer(), cssnano()]))
-            .pipe(sourcemaps.write())
-            .pipe(gulp.dest(paths.styles.dest))
-    );
-    
+
+// task2 : compiler les fichiers dans le dossier scss => style.css
+function sassMainTask(){
+    const flags = {outputStyle: 'compact'};
+    return src( sassfiles )
+    .pipe(sourcemaps.init())
+    .pipe(sass(flags).on('error', sass.logError))
+    .pipe(sourcemaps.write('./maps'))
+    .pipe(rename("style.css"))
+    .pipe(dest(assets_folder));
 }
 
-    
-function watch() {
-    style();
-    
-    gulp.watch(paths.styles.src, style);
+
+// task3.1
+const jsBundle = () =>
+  src(alljs)
+    .pipe(concat('main.min.js'))
+    .pipe(dest(assets_folder));
+
+
+
+// task4 : mettre en série les tasks 1, 2 et 3
+// pas possible serie() dans une fonction, il FAUT l'associer à une variable 
+const run = series( sassMainTask, jsBundle ); 
+const runjs = series( jsBundle ); 
+const runcss = series( sassMainTask ); 
+
+
+// task5 : si modification dans le dossier scss , lancer la task4
+function watchCSS(){
+    watch(sassfiles, runcss);
+    console.log(sassfiles);
+    console.log(assets_folder);
+}
+// task6 : si modification dans le dossier JS , lancer la task4
+function watchJS(){
+    watch(alljs, runjs);
 }
 
-    
-exports.watch = watch
+function defaultTask() {
+    watchCSS();
+    watchJS();
+}
+  
 
+
+// Ensemble des tâches pouvant être appelée via la commande npx gulp 
+module.exports = {
+    sassmain : sassMainTask,
+    jsBundle : jsBundle,
+    run : run,
+    default : defaultTask,
+    watchcss : watchCSS,
+    watchjs : watchJS,
+  }

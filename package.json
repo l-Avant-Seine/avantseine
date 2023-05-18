@@ -1,9 +1,19 @@
 {
 	"name": "metaverse",
 	"devDependencies": {
-	    "gulp": "3.5.2"
+		"gulp": "^4.0.2",
+		"gulp-concat": "^2.6.1",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^5.1.0",
+		"gulp-sourcemaps": "^3.0.0"
 	},
 	"scripts": {
-	    "test": "gulp test"
+		"test": "gulp test"
+	},
+	"dependencies": {
+		"node-sass": "^8.0.0"
+	},
+	"overrides": {
+		"graceful-fs": "^4.2.11"
 	}
 }
