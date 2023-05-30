@@ -2159,9 +2159,13 @@ body { position: relative; font-family: Circular, Arial, Helvetica, sans-serif; 
 
 .event-titles { border-radius: 0 0 30px 0; }
 
-.event-titles .label_3 { padding-right: 5px; }
+.event-titles .label_3 { padding-right: 5px; display: inline-block; }
+
+.event-titles .label_3 p { display: inline; font-size: inherit; }
 
 .event-titles .label_2 { padding: 0 2px; }
+
+.event-titles .btn-primary, .event-titles .btn-primary--big, .event-titles .btn-primary--white, .event-titles .wpcf7-submit { background-color: #96783c; }
 
 .event-cover { position: relative; }
 

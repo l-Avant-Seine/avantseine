@@ -127,10 +127,6 @@
 
 	                </div>
 
-	                <div class="s-8col ">
-	                    <span class="meta-names"><?php the_field('noms_principaux'); ?></span>
-	                </div>
-
 	            </div>
 
 	        </div><!-- .event-titles -->

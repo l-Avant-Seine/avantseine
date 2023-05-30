@@ -74,17 +74,22 @@
 								</span>
 								<?php endif; ?>
 
-				  			<div class="m-8col m-hide">
-									<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
-				  			</div>
-
 								<?php if ($event_duration != '') : ?>
 									<span class="meta-item label_3">
 										<span class="label_2">durée</span>
 										<span class=""><?php echo $event_duration; ?></span>
 									</span>
 								<?php endif; ?>
-								
+
+								<?php if ( get_field('noms_principaux') !== '') : ?>
+									<span class="meta-item label_3">
+										<span class="label_2">Cie</span>
+										<span class="">
+											<?php the_field('noms_principaux'); ?>
+										</span>
+									</span>
+								<?php endif; ?>
+
 								<?php 
 									$public_label = get_field('eventDetail_publiclabel');
 
