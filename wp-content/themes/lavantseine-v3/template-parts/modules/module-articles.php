@@ -17,7 +17,7 @@
 		<?php endif; ?>
 
 
-		<div id="salgrid_1" class="">
+		<div id="salgrid_1" class="salgrid">
 			<?php $excerpt = true; ?>
 			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
@@ -25,11 +25,11 @@
 				<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
 
 			<?php endwhile; ?>
-
-			<div class="module-actions">
-				<a href="/magazine" class="btn-primary">voir tous les articles</a>
-			</div>
 		</div>
 
+		<div class="module-actions">
+				<a href="/magazine" class="btn-primary">voir tous les articles</a>
+			</div>
+			
 	<?php endif; ?>
 </section>
