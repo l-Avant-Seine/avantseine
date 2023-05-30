@@ -2167,6 +2167,8 @@ body { position: relative; font-family: Circular, Arial, Helvetica, sans-serif; 
 
 .event-titles .btn-primary, .event-titles .btn-primary--big, .event-titles .btn-primary--white, .event-titles .wpcf7-submit { background-color: #96783c; }
 
+.event-titles .teaser-subtitle { font-size: .6em; }
+
 .event-cover { position: relative; }
 
 .event-cover .pictos-trente { right: 10px; left: auto; height: auto; }

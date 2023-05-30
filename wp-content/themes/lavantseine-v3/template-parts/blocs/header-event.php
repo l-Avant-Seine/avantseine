@@ -47,7 +47,15 @@
 
 
 						<div class="row mb-1">
-			  			<h3 class="s-22col s-1col-push h_1 teaser-title"><?php the_title(); ?></h3>
+			  			<h1 class="s-22col s-1col-push h_1 teaser-title">
+							<?php the_title(); ?>
+							<?php if ( get_field('noms_principaux') !== '') : ?>
+								<br>
+								<span class="teaser-subtitle">
+									<?php the_field('noms_principaux'); ?>
+								</span>
+							<?php endif; ?>
+						</h1>
 						</div>
 
 			  		<div class="row mb-1">
@@ -78,15 +86,6 @@
 									<span class="meta-item label_3">
 										<span class="label_2">durée</span>
 										<span class=""><?php echo $event_duration; ?></span>
-									</span>
-								<?php endif; ?>
-
-								<?php if ( get_field('noms_principaux') !== '') : ?>
-									<span class="meta-item label_3">
-										<span class="label_2">Cie</span>
-										<span class="">
-											<?php the_field('noms_principaux'); ?>
-										</span>
 									</span>
 								<?php endif; ?>
 
