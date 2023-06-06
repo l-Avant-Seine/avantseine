@@ -1856,7 +1856,7 @@ figure { max-width: 100%; }
 
 .home-slides .slick-current { position: relative; z-index: 999; }
 
-.home-slides .slick-current .slide-text { background-color: #96783c; z-index: 9; margin-left: -30px; padding-left: 30px; }
+.home-slides .slick-current .slide-text { background-color: #3c46aa; z-index: 9; margin-left: -30px; padding-left: 30px; }
 
 .home-slides .slick-current .slide-title { color: #fff; border-bottom: 1px solid #fff; }
 
@@ -2073,7 +2073,7 @@ body form.mj-form .mj-embedded.mj-embed-shadow { padding: 20px !important; backg
 
 .salgrid { display: flex; flex-wrap: wrap; justify-content: space-between; }
 
-.salgrid .article-item:first-child, .salgrid .focus-item:first-child { width: 100%; }
+.salgrid .focus-item:first-child { width: 100%; }
 
 .salgrid .article-item, .salgrid .focus-item { width: 48%; }
 
