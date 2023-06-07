@@ -336,14 +336,18 @@ class MonsterInsights_Rest_Routes {
 			'icon'      => plugin_dir_url( MONSTERINSIGHTS_PLUGIN_FILE ) . 'assets/images/plugin-edd.png',
 			'title'     => 'Easy Digital Downloads',
 			'excerpt'   => __( 'Easy digital downloads plugin.', 'google-analytics-for-wordpress' ),
-			'installed' => array_key_exists( 'easy-digital-downloads/easy-digital-downloads.php', $installed_plugins ),
-			'basename'  => 'easy-digital-downloads/easy-digital-downloads.php',
+			'installed' => array_key_exists( 'easy-digital-downloads/easy-digital-downloads.php', $installed_plugins ) || array_key_exists( 'easy-digital-downloads-pro/easy-digital-downloads.php', $installed_plugins ),
+			'basename'  => array_key_exists( 'easy-digital-downloads-pro/easy-digital-downloads.php', $installed_plugins ) ? 'easy-digital-downloads-pro/easy-digital-downloads.php' : 'easy-digital-downloads/easy-digital-downloads.php',
 			'slug'      => 'easy-digital-downloads',
 			'settings'  => admin_url( 'edit.php?post_type=download' ),
 		);
 		// MemberPress.
 		$parsed_addons['memberpress'] = array(
 			'active' => defined( 'MEPR_VERSION' ) && version_compare( MEPR_VERSION, '1.3.43', '>' ),
+		);
+		// MemberMouse.
+		$parsed_addons['membermouse'] = array(
+			'active' => class_exists( 'MemberMouse' ),
 		);
 		// LifterLMS.
 		$parsed_addons['lifterlms'] = array(
@@ -407,6 +411,18 @@ class MonsterInsights_Rest_Routes {
 			'basename'  => 'wpforms-lite/wpforms.php',
 			'slug'      => 'wpforms-lite',
 			'settings'  => admin_url( 'admin.php?page=wpforms-overview' ),
+		);
+		
+		// UserFeedback.
+		$parsed_addons['userfeedback-lite'] = array(
+			'active'    => function_exists( 'userfeedback' ),
+			'icon'      => plugin_dir_url( MONSTERINSIGHTS_PLUGIN_FILE ) . 'assets/images/plugin-userfeedback.png',
+			'title'     => 'UserFeedback',
+			'excerpt'   => __( 'Ask visitors questions about how they use your website or what features can make you more money.', 'google-analytics-for-wordpress' ),
+			'installed' => array_key_exists( 'userfeedback-lite/userfeedback.php', $installed_plugins ) || array_key_exists( 'userfeedback/userfeedback.php', $installed_plugins ),
+			'basename'  => 'userfeedback-lite/userfeedback.php',
+			'slug'      => 'userfeedback-lite',
+			'settings'  => admin_url( 'admin.php?page=userfeedback_settings' ),
 		);
 
 		// AIOSEO.

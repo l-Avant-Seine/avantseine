@@ -7,7 +7,7 @@
  * Author:              MonsterInsights
  * Author URI:          https://www.monsterinsights.com/lite/?utm_source=liteplugin&utm_medium=pluginheader&utm_campaign=authoruri&utm_content=7%2E0%2E0
  *
- * Version:             8.14.1
+ * Version:             8.15
  * Requires at least:   4.8.0
  * Requires PHP:        5.6
  *
@@ -71,7 +71,7 @@ final class MonsterInsights_Lite
 	 * @access public
 	 * @var string $version Plugin version.
 	 */
-	public $version = '8.14.1';
+	public $version = '8.15';
 
 	/**
 	 * Plugin file.
@@ -570,6 +570,7 @@ final class MonsterInsights_Lite
 
 		require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/exclude-page-metabox.php';
 		require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/frontend/verified-badge/Controller.php';
+		require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/admin/site-notes/Controller.php';
 		require_once MONSTERINSIGHTS_PLUGIN_DIR . 'includes/api-request.php';
 
 		if (is_admin() || (defined('DOING_CRON') && DOING_CRON)) {

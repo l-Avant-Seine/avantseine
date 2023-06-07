@@ -53,6 +53,8 @@ function monsterinsights_admin_menu()
 
 	$submenu_base = add_query_arg('page', 'monsterinsights_settings', admin_url('admin.php'));
 
+	add_submenu_page( $hook, __( 'Site Notes:', 'google-analytics-for-wordpress' ), __( 'Site Notes', 'google-analytics-for-wordpress' ), 'monsterinsights_save_settings', $submenu_base . '#/site-notes' );
+
 	// Add Popular Posts menu item.
 	add_submenu_page($hook, __('Popular Posts:', 'google-analytics-for-wordpress'), __('Popular Posts', 'google-analytics-for-wordpress'), 'monsterinsights_save_settings', $submenu_base . '#/popular-posts');
 
@@ -84,7 +86,7 @@ function monsterinsights_admin_menu()
 	// Add About us page.
 	add_submenu_page($hook, __('About Us:', 'google-analytics-for-wordpress'), __('About Us', 'google-analytics-for-wordpress'), 'manage_options', $submenu_base . '#/about');
 
-	if (!monsterinsights_is_pro_version()) {
+	if (!monsterinsights_is_pro_version() && !strstr(plugin_basename(__FILE__), 'dashboard-for')) {
 		// automated promotion
 		monsterinsights_automated_menu($hook);
 	}
@@ -434,7 +436,7 @@ function monsterinsights_admin_setup_notices()
 		$urlone       = is_network_admin() ? network_admin_url( 'admin.php?page=monsterinsights-onboarding' ) : admin_url( 'admin.php?page=monsterinsights-onboarding' );
 		$secondary    = esc_html__( 'Learn More', 'google-analytics-for-wordpress' );
 		$urltwo       = $submenu_base . '#/about/getting-started';
-		$message      = esc_html__( 'MonsterInsights, the #1 Wordpress Analytics Plugin, helps you easily connect your website to Google Analytics, so that you can see how people find and use your website. Over 3 million website owners use MonsterInsights to see the stats that matter and grow their business.', 'google-analytics-for-wordpress' );
+		$message      = esc_html__( 'MonsterInsights, the #1 WordPress Analytics Plugin, helps you easily connect your website to Google Analytics, so that you can see how people find and use your website. Over 3 million website owners use MonsterInsights to see the stats that matter and grow their business.', 'google-analytics-for-wordpress' );
 		echo '<div class="notice notice-info"><p style="font-weight:700">' . $title . '</p><p>' . $message . '</p><p><a href="' . $urlone . '" class="button-primary">' . $primary . '</a>&nbsp;&nbsp;&nbsp;<a href="' . $urltwo . '" class="button-secondary">' . $secondary . '</a></p></div>';
 
 		return;

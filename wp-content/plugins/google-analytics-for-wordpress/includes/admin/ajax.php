@@ -139,7 +139,8 @@ function monsterinsights_ajax_activate_addon() {
 		} else {
 			$activate = activate_plugin( $_POST['plugin'] );
 		}
-
+		/* Restrict thirt-party redirections on activation */
+		delete_transient( '_userfeedback_activation_redirect' );
 		if ( is_wp_error( $activate ) ) {
 			echo json_encode( array( 'error' => $activate->get_error_message() ) );
 			wp_die();
