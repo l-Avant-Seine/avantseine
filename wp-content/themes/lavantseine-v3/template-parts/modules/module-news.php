@@ -20,10 +20,12 @@
 					</a>
 				</div>
 
-				<div class="item-cover flx-1">
-					<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
-						<img class="b-lazy" src="<?php the_sub_field('focusElements_libre_image'); ?>" alt="">
-					</a>
+				<div class="item-cover ratio2for3">
+					<div class="ratio2for3-content">
+						<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
+							<img class="b-lazy" src="<?php the_sub_field('focusElements_libre_image'); ?>" alt="">
+						</a>
+					</div>
 				</div>
 
 			<?php else : ?>
@@ -60,17 +62,20 @@
 							</div>
 
 
-							<div class="item-cover flx-1">
-								<a href="<?php echo get_permalink( get_the_ID() ); ?>">
-									<img class="b-lazy" src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'large' )[0]; ?>" alt="">
+							<div class="item-cover ratio2for3">
+								<div class="ratio2for3-content">
+									<a href="<?php echo get_permalink( get_the_ID() ); ?>">
+										<img class="b-lazy" src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'large' )[0]; ?>" alt="">
 
-									<?php if( get_sub_field('pastille') != '' ) : ?>
-										<div class="item-pastille is-flex">
-											<span><?php the_sub_field('pastille'); ?></span>
-										</div>
-									<?php endif; ?>
+										<?php if( get_sub_field('pastille') != '' ) : ?>
+											<div class="item-pastille is-flex">
+												<span><?php the_sub_field('pastille'); ?></span>
+											</div>
+										<?php endif; ?>
 
-								</a>
+									</a>
+
+								</div>
 							</div>
 
 						<?php endforeach; 

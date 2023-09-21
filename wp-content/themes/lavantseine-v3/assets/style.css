@@ -1929,7 +1929,7 @@ figure { max-width: 100%; }
 
 @media (max-width: 820px) { .focus-item img { max-height: 250px; width: 100%; } }
 
-.focus-item .item-cover { border-radius: 0 20px 0 0; position: relative; max-height: 400px; }
+.focus-item .item-cover { border-radius: 0 20px 0 0; position: relative; }
 
 .focus-item .item-pastille { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; }
 
