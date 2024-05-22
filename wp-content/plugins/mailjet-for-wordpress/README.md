@@ -3,9 +3,9 @@
 - Contributors: Mailjet
 - Tags: email, marketing, signup, newsletter, widget, smtp, woocommerce, contact form 7
 - Requires at least: 4.4
-- Tested up to: 6.1.1
-- Stable tag: 5.4.6
-- Requires PHP: 5.6
+- Tested up to: 6.4.3
+- Stable tag: 5.5.4
+- Requires PHP: 7.4
 - License: GPLv2 or later
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,7 +73,7 @@ Mailjet's official plugin on WordPress gives you access to:
 Yes. You can [create one for free](https://app.mailjet.com/signup?aff=wordpressmj): it's easy and it only takes a few minutes.
 
 ##### How to get started with this plugin?
-Once you have a Mailjet account, grab your [Mailjet API credentials](https://app.mailjet.com/account/api_keys) and activate the plugin. An installation wizard will guide you through. 
+Once you have a Mailjet account, grab your [Mailjet API credentials](https://app.mailjet.com/account/apikeys) and activate the plugin. An installation wizard will guide you through. 
 For more help on setting up the Mailjet Plugin for WordPress, feel free to check out our [dedicated WordPress User Guide](https://www.mailjet.com/guides/wordpress-user-guide?aff=wordpressmj).
 
 ##### How do I create a signup form or use the contact widget?
@@ -199,13 +199,16 @@ find vendor/ -type d -name ".git" -exec rm -rf {} \;
 
 1. The initial setup wizard will guide you through the quick steps to get started
 2. Access all features from the plugin dashboard
-3. Create and send beautiful email campaigns
-4. Configure a subscription widget to collect subscribers from your site
-5. Activate and configure WooCommerce and Contact Form 7 integrations
-6. Enable order notifications for WooCommerce
-7. Configure abandoned cart notifications for WooCommerce
+3. Configure a subscription widget to collect subscribers from your site
+4. Activate and configure WooCommerce and Contact Form 7 integrations
+5. Enable order notifications for WooCommerce
+6. Configure abandoned cart notifications for WooCommerce
 
 ## Changelog
+
+##### 5.5.0
+* Fixed bug with redirect problem during initial step
+* Fixed links in the readme file and in the plugin
 
 ##### 5.4.6
 * Fixed bug with error during editing email templates in iframe.

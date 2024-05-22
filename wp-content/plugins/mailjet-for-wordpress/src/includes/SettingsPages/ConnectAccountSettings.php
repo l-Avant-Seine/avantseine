@@ -6,6 +6,7 @@ use MailjetWp\MailjetPlugin\Admin\Partials\MailjetAdminDisplay;
 use MailjetWp\MailjetPlugin\Includes\MailjetApi;
 use MailjetWp\MailjetPlugin\Includes\MailjetLogger;
 use MailjetWp\MailjetPlugin\Includes\MailjetMail;
+
 /**
  * Register all actions and filters for the plugin.
  *
@@ -27,15 +28,15 @@ class ConnectAccountSettings
             add_option('mj_profile_name', $profileName);
         }
         ?>
-        <p id="<?php 
+        <p id="<?php
         echo esc_attr($args['id']);
         ?>">
-            <?php 
-        _e('Currently connected to ', 'mailjet-for-wordpress');
-        echo "<span style='color:black;'>" . $profileName . "</span>";
-        ?>
+            <?php
+            _e('Currently connected to ', 'mailjet-for-wordpress');
+            echo "<span style='color:black;'>" . $profileName . "</span>";
+            ?>
         </p>
-        <?php 
+        <?php
     }
     public function mailjet_connect_account_cb($args)
     {
@@ -47,21 +48,21 @@ class ConnectAccountSettings
         <fieldset class="settingsConnectFldset">
             <!--<input name="settings_step" type="hidden" id="settings_step" value="initial_step">-->
 
-            <label class="mj-label" for="mailjet_apikey"><?php 
-        _e('<b>Api Key</b>', 'mailjet-for-wordpress');
-        ?></label>
-            <span style="font-size: 14px;"><?php 
-        echo esc_attr($mailjetApikey);
-        ?></span>
+            <label class="mj-label" for="mailjet_apikey"><?php
+            _e('<b>Api Key</b>', 'mailjet-for-wordpress');
+            ?></label>
+            <span style="font-size: 14px;"><?php
+            echo esc_attr($mailjetApikey);
+            ?></span>
 
-            <label class="mj-label" for="mailjet_apisecret" style="margin-top:16px!important;"><?php 
-        _e('<b>Secret Key</b>', 'mailjet-for-wordpress');
-        ?></label>
-            <span class=""><?php 
-        echo esc_attr($mailjetApiSecret);
-        ?></span>
+            <label class="mj-label" for="mailjet_apisecret" style="margin-top:16px!important;"><?php
+            _e('<b>Secret Key</b>', 'mailjet-for-wordpress');
+            ?></label>
+            <span class=""><?php
+            echo esc_attr($mailjetApiSecret);
+            ?></span>
         </fieldset>
-        <?php 
+        <?php
     }
     /**
      * top level menu:
@@ -69,11 +70,6 @@ class ConnectAccountSettings
      */
     public function mailjet_connect_account_page_html()
     {
-        // check user capabilities
-        if (!current_user_can('read')) {
-            MailjetLogger::error('[ Mailjet ] [ ' . __METHOD__ . ' ] [ Line #' . __LINE__ . ' ] [ Current user don\'t have \\`manage_options\\` permission ]');
-            return;
-        }
         // register a new section in the "mailjet" page
         add_settings_section('mailjet_section_connect_account_settings', null, array($this, 'mailjet_section_connect_account_cb'), 'mailjet_connect_account_page');
         // register a new field in the "mailjet_section_developers" section, inside the "mailjet" page
@@ -94,7 +90,7 @@ class ConnectAccountSettings
             // Validate Mailjet API credentials
             $isValidAPICredentials = MailjetApi::isValidAPICredentials();
             if (\false == $isValidAPICredentials) {
-                add_settings_error('mailjet_messages', 'mailjet_message', __('Please make sure that you are using the correct API key and Secret key associated to your Mailjet account: <a href="https://app.mailjet.com/account/api_keys">https://app.mailjet.com/account/api_keys</a>', 'mailjet-for-wordpress'), 'error');
+                add_settings_error('mailjet_messages', 'mailjet_message', __('Please make sure that you are using the correct API key and Secret key associated to your Mailjet account: <a href="https://app.mailjet.com/account/apikeys">https://app.mailjet.com/account/apikeys</a>', 'mailjet-for-wordpress'), 'error');
             } else {
                 // Update From Email and Name
                 add_filter('wp_mail_from', array(new MailjetMail(), 'wp_sender_email'));
@@ -108,64 +104,64 @@ class ConnectAccountSettings
         ?>
 
         <div class="mj-pluginPage">
-            <div id="initialSettingsHead"><img src="<?php 
-        echo plugin_dir_url(dirname(__FILE__, 2)) . '/admin/images/LogoMJ_White_RVB.svg';
-        ?>" alt="Mailjet Logo" /></div>
+            <div id="initialSettingsHead"><img src="<?php
+            echo plugin_dir_url(dirname(__FILE__, 2)) . '/admin/images/LogoMJ_White_RVB.svg';
+            ?>" alt="Mailjet Logo" /></div>
             <div class="mainContainer">
             
                 <div class="backToDashboard">
                     <a class="mj-btn btnCancel" href="admin.php?page=mailjet_dashboard_page">
                     <svg width="8" height="8" viewBox="0 0 16 16"><path d="M7.89 11.047L4.933 7.881H16V5.119H4.934l2.955-3.166L6.067 0 0 6.5 6.067 13z"/></svg>
-                    <?php 
-        _e('Back to dashboard', 'mailjet-for-wordpress');
-        ?>
+                    <?php
+                    _e('Back to dashboard', 'mailjet-for-wordpress');
+                    ?>
                     </a>
                 </div>
 
-                <h1 class="page_top_title"><?php 
-        _e('Settings', 'mailjet-for-wordpress');
-        ?></h1>
+                <h1 class="page_top_title"><?php
+                _e('Settings', 'mailjet-for-wordpress');
+                ?></h1>
                 <div class="mjSettings">
                     <div class="left">
-        <?php 
+        <?php
         MailjetAdminDisplay::getSettingsLeftMenu();
         ?>
                     </div>
 
                     <div class="right">
                         <div class="centered">
-                            <!--                    <h1>--><?php 
+                            <!--                    <h1>--><?php
         //echo esc_html(get_admin_page_title());
-        ?><!--</h1>-->
-                            <h2 class="section_inner_title"><?php 
-        echo __('Connect your Mailjet account', 'mailjet-for-wordpress');
-        ?></h2>
+                            ?><!--</h1>-->
+                            <h2 class="section_inner_title"><?php
+                            echo __('Connect your Mailjet account', 'mailjet-for-wordpress');
+                            ?></h2>
                             <form action="options.php" method="post">
-                        <?php 
+                        <?php
         // output security fields for the registered setting "mailjet"
-        settings_fields('mailjet_connect_account_page');
+                        settings_fields('mailjet_connect_account_page');
         // output setting sections and their fields
         // (sections are registered for "mailjet", each field is registered to a specific section)
-        do_settings_sections('mailjet_connect_account_page');
+                        do_settings_sections('mailjet_connect_account_page');
         // output save settings button
-        ?>
-                                <a href="admin.php?page=mailjet_settings_page&from=plugins"><?php 
-        _e('Connect to a different account', 'mailjet-for-wordpress');
-        ?></a>
-                                <!-- <input name="cancelBtn" class="mj-btn btnCancel" type="button" id="cancelBtn" onClick="location.href = location.href" value="<?php 
-        echo __('Cancel', 'mailjet-for-wordpress');
-        ?>"> -->
+                        ?>
+                                <a href="admin.php?page=mailjet_settings_page&from=plugins"><?php
+                                _e('Connect to a different account', 'mailjet-for-wordpress');
+                                ?></a>
+                                <!-- <input name="cancelBtn" class="mj-btn btnCancel" type="button" id="cancelBtn" onClick="location.href = location.href" value="<?php
+                                echo __('Cancel', 'mailjet-for-wordpress');
+                                ?>"> -->
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <?php 
-        MailjetAdminDisplay::renderBottomLinks();
-        ?>
+            <?php
+            MailjetAdminDisplay::renderBottomLinks();
+            ?>
         </div>
 
-        <?php 
+        <?php
     }
 }

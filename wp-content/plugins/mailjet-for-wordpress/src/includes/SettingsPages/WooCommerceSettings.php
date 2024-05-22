@@ -6,6 +6,7 @@ use MailjetWp\MailjetPlugin\Includes\Mailjet;
 use MailjetWp\MailjetPlugin\Includes\MailjetApi;
 use MailjetWp\MailjetPlugin\Includes\MailjetLogger;
 use MailjetWp\MailjetPlugin\Includes\MailjetSettings;
+
 /**
  * Register all actions and filters for the plugin.
  *
@@ -948,9 +949,10 @@ class WooCommerceSettings
         $data['To'] = $recipients['To'];
         $data['Mj-TemplateID'] = (int)$templateId;
         $data['TemplateID'] = (int)$templateId;
-        $data['Mj-TemplateLanguage'] = \true;
+        $data['Mj-TemplateLanguage'] = 1;
+        $data['TemplateLanguage'] = 1;
         $data['Mj-TemplateErrorReporting'] = get_option('woocommerce_email_from_email');
-        $data['Mj-TemplateErrorDeliver'] = \true;
+        $data['Mj-TemplateErrorDeliver'] = true;
         $data['body'] = $data;
         return $data;
     }
