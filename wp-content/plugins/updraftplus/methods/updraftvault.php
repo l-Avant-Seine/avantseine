@@ -7,7 +7,7 @@ updraft_try_include_file('methods/s3.php', 'require_once');
 class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 {
 
 	private $vault_mothership = 'https://vault.updraftplus.com/plugin-info/';
-	
+
 	private $vault_config;
 
 	/**
@@ -231,6 +231,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 					$config['secretkey'] = $response['secretkey'];
 					$config['path'] = $response['path'];
 					$config['sessiontoken'] = (isset($response['sessiontoken']) ? $response['sessiontoken'] : '');
+					$config['provider'] = !empty($response['provider']) ? $response['provider'] : 'amazonaws';
 				} elseif (is_array($response) && isset($response['result']) && ('token_unknown' == $response['result'] || 'site_duplicated' == $response['result'])) {
 					$this->log("This site appears to not be connected to UpdraftVault (".$response['result'].")");
 					$config['error'] = array('message' => 'site_not_connected', 'values' => array($response['result']));
@@ -253,7 +254,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 					$config['email'] = $opts['email']; // Pass along the email address used, as we need it to display our error message correctly
 					unset($config['quota']);
 					// We want to hide the AWS error message in this case
-					$config['error_message'] = __("An error occurred while fetching your Vault credentials. Please try again after a few minutes.", 'updraftplus');
+					$config['error_message'] = __('An error occurred while fetching your Vault credentials.', 'updraftplus').' '.__('Please try again after a few minutes.', 'updraftplus');
 					$details_retrieved = true;
 					$cache_in_job = true;
 				} else {
@@ -321,13 +322,13 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	public function vault_translate_remote_message($message, $code) {
 		switch ($code) {
 			case 'premium_overdue':
-				return __('Your UpdraftPlus Premium purchase is over a year ago. You should renew immediately to avoid losing the 12 months of free storage allowance that you get for being a current UpdraftPlus Premium customer.', 'updraftplus');
+				return __('Your UpdraftPlus Premium purchase is over a year ago.', 'updraftplus').' '.__('You should renew immediately to avoid losing the 12 months of free storage allowance that you get for being a current UpdraftPlus Premium customer.', 'updraftplus');
 				break;
 			case 'vault_subscription_overdue':
-				return __('You have an UpdraftVault subscription with overdue payment. You are within the few days of grace period before it will be suspended, and you will lose your quota and access to data stored within it. Please renew as soon as possible!', 'updraftplus');
+				return __('You have an UpdraftPlus Vault subscription with overdue payment.', 'updraftplus').' '.__('You are within the few days of grace period before it will be suspended, and you will lose your quota and access to data stored within it.', 'updraftplus').' '.__('Please renew as soon as possible!', 'updraftplus');
 				break;
 			case 'vault_subscription_suspended':
-				return __("You have an UpdraftVault subscription that has not been renewed, and the grace period has expired. In a few days' time, your stored data will be permanently removed. If you do not wish this to happen, then you should renew as soon as possible.", 'updraftplus');
+				return __("You have an UpdraftPlus Vault subscription that has not been renewed, and the grace period has expired.", 'updraftplus').' '.__("In a few days' time, your stored data will be permanently removed.", 'updraftplus').' '.__("If you do not wish this to happen, then you should renew as soon as possible.", 'updraftplus');
 				// The following shouldn't be a possible response (the server can deal with duplicated sites with the same IDs) - but there's no harm leaving it in for now (Dec 2015)
 				// This means that the site is accessing with a different home_url() than it was registered with.
 				break;
@@ -473,7 +474,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		$this->vault_in_config_print = true;
 		$properties = array(
 			'storage_image_url' => UPDRAFTPLUS_URL.'/images/updraftvault-150.png',
-			'simplexmlelement_existence_label' => !apply_filters('updraftplus_vault_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'UpdraftVault', 'SimpleXMLElement'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
+			'simplexmlelement_existence_label' => !apply_filters('updraftplus_vault_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a <strong>required</strong> (for %s) module (%s).", 'updraftplus'), 'UpdraftVault', 'SimpleXMLElement').' '.__("Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
 			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($updraftplus->backup_methods[$this->get_id()], false, $this->get_id().' hidden-in-updraftcentral', false), $this->allowed_html_for_content_sanitisation()),
 			'storage_long_description' => wp_kses(__('UpdraftVault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
 			'storage_package_options_label1' => __('Need to get space?', 'updraftplus'),
@@ -684,6 +685,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		if ($quota > 0) {
 
 			if (!empty($this->vault_in_config_print) && 'text' == $format) {
+				// See card qwcuddk3 for more info on this; or MR#1175
 				$quota_via_transient = get_transient('updraftvault_quota_text');
 				if (is_string($quota_via_transient) && $quota_via_transient) return $quota_via_transient;
 			} elseif ('numeric' == $format) {
@@ -936,9 +938,9 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 			case 'iamfailed':
 				if (!empty($response['authproblem'])) {
 					if ('gettempcreds_exception2' == $response['authproblem'] || 'gettempcreds_exception2' == $response['authproblem']) {
-						$authfail_error = new WP_Error('authfailed', __('An error occurred while fetching your Vault credentials. Please try again after a few minutes.'));
+						$authfail_error = new WP_Error('authfailed', __('An error occurred while fetching your Vault credentials.', 'updraftplus').' '.__('Please try again after a few minutes.'));
 					} else {
-						$authfail_error = new WP_Error('authfailed', __('An unknown error occurred while connecting to Vault. Please try again.'));
+						$authfail_error = new WP_Error('authfailed', __('An unknown error occurred while connecting to Vault.', 'updraftplus').' '.__('Please try again.'));
 					}
 					return $authfail_error;
 				}
@@ -984,5 +986,79 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		}
 
 		return $opts;
+	}
+
+	/**
+	 * Set region that was recieved by previously performing location detection (i.e. getBucketLocation) and set the endpoint by concatenating the service hostname of the provider in use and the region
+	 *
+	 * @param Object $obj         Storage object
+	 * @param String $region      bucket location
+	 * @param String $bucket_name bucket name
+	 */
+	protected function set_region($obj, $region = '', $bucket_name = '') {
+		$config = $this->get_config();
+		if (isset($config['provider']) && 'wasabi' == $config['provider']) {
+			// https://knowledgebase.wasabi.com/hc/en-us/articles/360015106031-What-are-the-service-URLs-for-Wasabi-s-different-storage-regions
+			$endpoint = '';
+			switch ($region) {
+				case 'US':
+				$endpoint = 's3.wasabisys.com';
+				$region = 'us-east-1';
+					break;
+				case 'us-east-1':
+				case 'us-east-2':
+				case 'ap-southeast-1':
+				case 'ap-southeast-2':
+				case 'ap-northeast-1':
+				case 'ap-northeast-2':
+				case 'eu-west-1':
+				case 'eu-west-2':
+				case 'eu-central-1':
+				case 'eu-central-2':
+				case 'ca-central-1':
+				case 'us-west-1':
+				case 'us-central-1':
+				$endpoint = 's3.'.$region.'.wasabisys.com';
+					break;
+				default:
+					break;
+			}
+			if ($endpoint) {
+				$this->log("Set region (".get_class($obj)."): $region");
+				$obj->setRegion($region);
+				if (!is_a($obj, 'UpdraftPlus_S3_Compat')) {
+					$this->log("Set endpoint: $endpoint");
+					$obj->setEndpoint($endpoint);
+				}
+			}
+		} else {
+			// the default AWS provider is in use, so we set region using mechanism defined for the AWS in the parent class
+			parent::set_region($obj, $region, $bucket_name);
+		}
+	}
+
+	/**
+	 * Get an S3 object by specifying the global endpoint of the provider being used
+	 *
+	 * @param  String	   $key            S3 Key
+	 * @param  String	   $secret         S3 secret
+	 * @param  Boolean	   $useservercerts User server certificates
+	 * @param  Boolean     $disableverify  Check if disableverify is enabled
+	 * @param  Boolean     $nossl          Check if there is SSL or not
+	 * @param  Null|String $endpoint       S3 endpoint to use
+	 * @param  Boolean	   $sse            A flag to use server side encryption
+	 * @param  String	   $session_token  The session token returned by AWS for temporary credentials access
+	 *
+	 * @return Object|WP_Error
+	 */
+	public function getS3($key, $secret, $useservercerts, $disableverify, $nossl, $endpoint = null, $sse = false, $session_token = null) {
+		$config = $this->get_config();
+		if (isset($config['provider']) && 'wasabi' == $config['provider']) {
+			// UpdraftPlus_BackupModule_s3 is abstract and by default linked to S3 AWS provider, the same with Vault which is the descendant class of UpdraftPlus_BackupModule_s3 which also uses S3 AWS by default
+			// but since Vault now supports Wasabi provider and Wasabi is a provider that also has regions, we override and choose not to pass the "s3.wasabisys.com" endpoint directly to every method that calls getS3() in the UpdraftPlus_BackupModule_s3 class to prevent unnecessary checks being done in the abstract layer
+			return parent::getS3($key, $secret, $useservercerts, $disableverify, $nossl, 's3.wasabisys.com', $sse, $session_token);
+		} else {
+			return parent::getS3($key, $secret, $useservercerts, $disableverify, $nossl, $endpoint, $sse, $session_token);
+		}
 	}
 }
