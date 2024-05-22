@@ -174,7 +174,7 @@
 									<div class="inner">
 										<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
 							    		<h3 class="h5"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
-							    		<div class="focusElement_p"><?php the_sub_field('focusElements_libre_texte'); ?></div>
+							    		<div class="focusElement_p"><?php wp_kses_post(get_sub_field('focusElements_libre_texte')); ?></div>
 							    	</a>
 							    </div>
 						    </div>
