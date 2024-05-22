@@ -3,6 +3,7 @@
 class WPCF7_ContactForm {
 
 	use WPCF7_SWV_SchemaHolder;
+	use WPCF7_PipesHolder;
 
 	const post_type = 'wpcf7_contact_form';
 
@@ -18,6 +19,7 @@ class WPCF7_ContactForm {
 	private $responses_count = 0;
 	private $scanned_form_tags;
 	private $shortcode_atts = array();
+	private $hash = '';
 
 
 	/**
@@ -207,11 +209,12 @@ class WPCF7_ContactForm {
 		$post = get_post( $post );
 
 		if ( $post
-		and self::post_type == get_post_type( $post ) ) {
+		and self::post_type === get_post_type( $post ) ) {
 			$this->id = $post->ID;
 			$this->name = $post->post_name;
 			$this->title = $post->post_title;
 			$this->locale = get_post_meta( $post->ID, '_locale', true );
+			$this->hash = get_post_meta( $post->ID, '_hash', true );
 
 			$this->construct_properties( $post );
 			$this->upgrade();
@@ -472,6 +475,17 @@ class WPCF7_ContactForm {
 
 
 	/**
+	 * Retrieves the random hash string tied to this contact form.
+	 *
+	 * @param int $length Length of hash string.
+	 * @return string Hash string unique to this contact form.
+	 */
+	public function hash( $length = 7 ) {
+		return substr( $this->hash, 0, absint( $length ) );
+	}
+
+
+	/**
 	 * Returns the specified shortcode attribute value.
 	 *
 	 * @param string $name Shortcode attribute name.
@@ -541,6 +555,28 @@ class WPCF7_ContactForm {
 
 		$this->unit_tag = self::generate_unit_tag( $this->id );
 
+		$action_url = wpcf7_get_request_uri();
+
+		if ( $frag = strstr( $action_url, '#' ) ) {
+			$action_url = substr( $action_url, 0, -strlen( $frag ) );
+		}
+
+		$action_url .= '#' . $this->unit_tag();
+
+		$action_url = apply_filters( 'wpcf7_form_action_url', $action_url );
+
+		if (
+			str_starts_with( $action_url, '//' ) or
+			! str_starts_with( $action_url, '/' ) and
+			! str_starts_with( $action_url, home_url() )
+		) {
+			return sprintf(
+				'<p class="wpcf7-invalid-action-url"><strong>%1$s</strong> %2$s</p>',
+				esc_html( __( 'Error:', 'contact-form-7' ) ),
+				esc_html( __( "Invalid action URL is detected.", 'contact-form-7' ) )
+			);
+		}
+
 		$lang_tag = str_replace( '_', '-', $this->locale );
 
 		if ( preg_match( '/^([a-z]+-[a-z]+)-/i', $lang_tag, $matches ) ) {
@@ -558,16 +594,6 @@ class WPCF7_ContactForm {
 		);
 
 		$html .= "\n" . $this->screen_reader_response() . "\n";
-
-		$url = wpcf7_get_request_uri();
-
-		if ( $frag = strstr( $url, '#' ) ) {
-			$url = substr( $url, 0, -strlen( $frag ) );
-		}
-
-		$url .= '#' . $this->unit_tag();
-
-		$url = apply_filters( 'wpcf7_form_action_url', $url );
 
 		$id_attr = apply_filters( 'wpcf7_form_id_attr',
 			preg_replace( '/[^A-Za-z0-9:._-]/', '', $args['html_id'] )
@@ -613,7 +639,7 @@ class WPCF7_ContactForm {
 		$autocomplete = apply_filters( 'wpcf7_form_autocomplete', '' );
 
 		$atts = array(
-			'action' => esc_url( $url ),
+			'action' => esc_url( $action_url ),
 			'method' => 'post',
 			'class' => ( '' !== $class ) ? $class : null,
 			'id' => ( '' !== $id_attr ) ? $id_attr : null,
@@ -626,9 +652,9 @@ class WPCF7_ContactForm {
 			'data-status' => $data_status_attr,
 		);
 
-		$atts = wpcf7_format_atts( $atts );
+		$atts += (array) apply_filters( 'wpcf7_form_additional_atts', array() );
 
-		$html .= sprintf( '<form %s>', $atts ) . "\n";
+		$html .= sprintf( '<form %s>', wpcf7_format_atts( $atts ) ) . "\n";
 		$html .= $this->form_hidden_fields();
 		$html .= $this->form_elements();
 
@@ -1263,6 +1289,11 @@ class WPCF7_ContactForm {
 				update_post_meta( $post_id, '_locale', $this->locale );
 			}
 
+			add_post_meta( $post_id, '_hash',
+				wpcf7_generate_contact_form_hash( $post_id ),
+				true // Unique
+			);
+
 			if ( $this->initial() ) {
 				$this->id = $post_id;
 				do_action( 'wpcf7_after_create', $this );
@@ -1333,8 +1364,8 @@ class WPCF7_ContactForm {
 			}
 		} else {
 			$shortcode = sprintf(
-				'[contact-form-7 id="%1$d" title="%2$s"]',
-				$this->id,
+				'[contact-form-7 id="%1$s" title="%2$s"]',
+				$this->hash(),
 				$title
 			);
 		}
