@@ -1,4 +1,4 @@
-/.DS_Store
+.DS_Store
 /.htaccess
 /.htpasswd
 /.wp-content/uploads/
@@ -66,3 +66,5 @@
 /wp-content/w3tc-config/master.php
 /wp-content/w3tc-config/master-admin.php
 /wp-content/w3tc-config
+wp-content/themes/lavantseine-v3/.DS_Store
+package-lock.json
