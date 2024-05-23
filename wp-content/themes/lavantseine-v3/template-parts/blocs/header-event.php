@@ -30,7 +30,7 @@
 				if ( $count > 0 ) : ?>
 						
 							<div class="row">
-								<div class="s-20col s-1col-push mb-05">
+								<div class="s-20col s-1col-push mb-1">
 									<ul class='nobullets teaser-tagslist'>
 										<?php 
 											foreach ( $tags as $term ) : 
@@ -40,22 +40,33 @@
 										    	</li>
 										<?php endforeach; ?>
 									</ul>
+
+									<?php if( have_rows('event_keywords') ): ?>
+										<div class="keywords"> 
+											<?php while( have_rows('event_keywords') ) : the_row(); ?>
+												<span class="keyword"><?php the_sub_field('keyword'); ?></span>	
+											<?php endwhile; ?>
+										</div>
+									<?php endif; ?>
+									
 								</div>
 							</div>
 
 			<?php endif; ?>
 
 
+
+
 						<div class="row mb-1">
-			  			<h1 class="s-22col s-1col-push h_1 teaser-title">
-							<?php the_title(); ?>
-							<?php if ( get_field('noms_principaux') !== '') : ?>
-								<br>
-								<span class="teaser-subtitle">
-									<?php the_field('noms_principaux'); ?>
-								</span>
-							<?php endif; ?>
-						</h1>
+							<h1 class="s-22col s-1col-push h_1 teaser-title">
+								<?php the_title(); ?>
+								<?php if ( get_field('noms_principaux') !== '') : ?>
+									<br>
+									<span class="teaser-subtitle">
+										<?php the_field('noms_principaux'); ?>
+									</span>
+								<?php endif; ?>
+							</h1>
 						</div>
 
 			  		<div class="row mb-1">
