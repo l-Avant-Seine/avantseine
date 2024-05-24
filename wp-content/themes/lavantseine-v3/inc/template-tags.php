@@ -62,6 +62,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 		$date_label_opentag ='<span class="label_2">';
 		$date_label_closetag ='</span>';
 
+
 		if( $event_first_date != '' ) {
 			if( $exhibition ) {
 					$event_dates .= $date_label_opentag .'du ' . $date_label_closetag;
@@ -79,6 +80,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 	  
 				// Si 2 dates				
 				if( $event_other_dates ) {
+
 					if( $event_other_dates[0] != '' &&  $event_first_date != $event_last_date ) {
 
 						if( !strcmp( strftime('%A %e %b %G', $event_first_date ), strftime('%A %e %b %G', $event_last_date ) ) ) {
@@ -110,9 +112,9 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 					}
 				}
 				// Si plus de 2 dates
-				elseif( $event_first_date != $event_last_date ) {
+				elseif( strftime('%A %e %b %G', $event_first_date ) != strftime('%A %e %b %G', $event_last_date ) ) {
 
-						$event_dates .=  $date_label_opentag .'Le '. $date_label_closetag;
+						$event_dates .=  $date_label_opentag .'Les '. $date_label_closetag;
 						$event_dates .= strftime('%e', $event_first_date );
 
 						if( strcmp( strftime('%b', $event_first_date ), strftime('%b', $event_last_date ) ) ) {
@@ -129,11 +131,22 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 				}
 				// si 1 seule date
 				else {
-
 					$event_dates .= $date_label_opentag . strftime('%A ', $event_first_date) . $date_label_closetag;
 					$event_dates .= strftime('%e.%m.%G', $event_first_date );
-					$event_dates .= $date_label_opentag . ' à ' . $date_label_closetag;
-					$event_dates .= strftime('%kh%M', $event_first_date );
+
+					// Meme date mais 2 horaires
+					if( $event_first_date !== $event_last_date ) {
+						$event_dates .= $date_label_opentag . ' à ' . $date_label_closetag;
+						$event_dates .= strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
+						$event_dates .= $date_label_opentag . ' et ' . $date_label_closetag;
+						$event_dates .= strftime('%M', $event_last_date ) === '00' ? strftime('%kh', $event_last_date ) : strftime('%kh%M', $event_last_date );
+					}
+					else {
+						$event_dates .= $date_label_opentag . ' à ' . $date_label_closetag;
+						$event_dates .= strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
+					}
+
+
 
 				}
 			}
