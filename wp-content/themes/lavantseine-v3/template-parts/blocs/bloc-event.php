@@ -67,7 +67,7 @@ $babysitting = false;
 
 				<?php if ( $babysitting ): ?>
 					<div class="icon-babysitting">
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icone_BabySitting.png" class="">
+						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_BabySitting.png" class="">
 					</div>
 				<?php endif; ?>
 

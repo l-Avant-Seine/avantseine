@@ -1551,7 +1551,7 @@ p { line-height: 1.6; font-size: 1rem; }
 
 .icon-WIFI:before, .page-acces-wifi .rounded-icon span:before { content: "\e90c"; font-size: 24px; }
 
-.icon-BALLON:before, .page-service-baby-sitting .rounded-icon span:before { content: "\e901"; font-size: 30px; }
+.icon-BALLON:before { content: "\e901"; font-size: 30px; }
 
 .icon-AMPOULE:before, .page-tous-les-projets .rounded-icon span:before { content: "\e900"; font-size: 30px; }
 
@@ -1912,6 +1912,8 @@ figure { max-width: 100%; }
 @media (max-width: 820px) { .put-on-1col .page-item { width: 100%; } }
 
 .event-aside .put-on-1col .page-item { width: 100%; }
+
+.page-service-baby-sitting .rounded-icon { background-image: url("../assets/img/icon_BabySitting.png"); background-size: contain; background-repeat: no-repeat; }
 
 .page-tarifs .rounded-icon span { font-family: 'icomoon2' !important; }
 

@@ -40,7 +40,7 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 
 <?php
 	//$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019-mobile.png';
-	$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2023.png'; ?>
+	$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2024.png'; ?>
 				
 
 </head>
