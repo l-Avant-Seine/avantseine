@@ -49,7 +49,9 @@
     background-image: url('../assets/img/icon_BabySitting.png')
     background-size: contain
     background-repeat: no-repeat
-    //@extend .icon-BALLON 
+    background-size: 65%
+    background-position: center
+    //@extend .icon-BALLON s
 
 .page-publics-connectes
   .rounded-icon span
@@ -294,25 +296,30 @@
 
   .meta-names
     font-weight: $bold
+    color: $blue_dark
     @include up-to(medium)
       margin: 20px 0
       display: block
 
+  .label_3 
+    color: $blue_dark
 
 .teaser-title
   border-bottom: 1px solid $white
-  color: $secondary_color
+  color: $blue_dark
   padding-bottom: 15px
+
+
 
 .teaser-tag
   float: left
   margin-right: 10px
   font-family: $title_font_family
   display: inline-block
-  border: 1px solid $secondary_color
+  border: 1px solid $primary_color
   color: $white
   border-radius: 20px
-  background-color: $secondary_color
+  background-color: $primary_color
   padding: 5px 15px 3px 15px
   font-size: 20px
   a
@@ -324,7 +331,7 @@
   font-family: $title_font_family
   font-size: 20px
   display: inline-block
-  border: 1px solid $primary_color
+  border: none
   color: $primary_color
   border-radius: 20px
   background-color: white

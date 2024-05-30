@@ -64,10 +64,10 @@
 				  			<div class="s-20col m-10col s-1col-push ">
 										<?php if( intval($event_last_date) > $today ) : ?>
 											<?php if( !get_field('eventDetail_is_news', $focus_event_id) ) : ?>
-												<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary--white">réserver</a>
+												<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
 											<?php endif; ?>
 										<?php endif; ?>
-					  				<a href="<?php the_permalink(); ?>" class="btn-primary--white">en savoir plus</a>
+					  				<a href="<?php the_permalink(); ?>" class="btn-primary">en savoir plus</a>
 				  			</div>
 
 				  			<div class="m-8col m-last s-hide m-show">
