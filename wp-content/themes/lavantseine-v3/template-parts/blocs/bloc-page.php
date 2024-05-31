@@ -25,5 +25,5 @@
 						</div>
 					
 						<div class="btn-inline s-hide m-show">En savoir plus</div>
-				</a>
+				</a> 
 			</div><!-- .page-item -->
