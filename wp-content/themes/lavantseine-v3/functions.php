@@ -271,6 +271,9 @@ function search() {
 		$args['category_name'] = $term_slug;
 	}
 
+	$args['post_status'] = 'publish';
+
+
 	$ajax_query = new WP_Query($args);
 
 
