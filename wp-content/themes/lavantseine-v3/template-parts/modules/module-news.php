@@ -16,7 +16,7 @@
 				<div class="item-text flx-1">
 					<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
 						<h3 class="h_4 item-title mb-1"><?php the_sub_field('focusElements_libre_titre'); ?></h3>
-						<div class="focusElement_p"><?php the_sub_field('focusElements_libre_texte'); ?></div>
+						<div class="focusElement_p"><?php echo wp_kses_post(get_sub_field('focusElements_libre_texte')); ?></div>
 					</a>
 				</div>
 
