@@ -43,7 +43,7 @@
 		  	
 		  	<div class="cf event-teaser">
 					<?php 
-						$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large' );
+						$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'homeslide' );
 						$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
 						$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 
