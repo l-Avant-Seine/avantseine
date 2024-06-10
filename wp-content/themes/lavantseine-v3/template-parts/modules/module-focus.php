@@ -71,7 +71,7 @@
 				  			</div>
 
 				  			<div class="m-8col m-last s-hide m-show">
-									<span class="meta-names"><?php the_field( 'noms_principaux' ); ?></span>
+									<span class="meta-names"><?php // the_field( 'noms_principaux' ); ?></span>
 				  			</div>
 
 				  		</div>
