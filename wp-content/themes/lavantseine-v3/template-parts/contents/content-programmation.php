@@ -129,7 +129,7 @@
 
 					$query = new WP_Query( $args );
 					$posts_found = $query->found_posts;
-					
+
 					set_query_var('query', $query);
 					set_query_var('previous_month', $previous_month);
 					get_template_part('template-parts/loops/loop', 'events');

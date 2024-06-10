@@ -392,7 +392,7 @@ jQuery(function($){
       event.preventDefault();
       var pastEvents;
       var posts_found = $(this).attr('posts_found');
-      var month = $('.box-month').last().attr('month');
+      var month = $('.month').last().attr('month');
 
       var is_archives = $('#switch-passed').is(':checked');
       var is_tocome = $('#switch-tocome').is(':checked');
