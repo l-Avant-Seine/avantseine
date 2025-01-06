@@ -107,13 +107,21 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
-						<a href="<?php echo TWITTER_URL; ?>" target="_blank" class="icon-TWITTER" aria-label="Visite le compte Twitter de l'Avant Seine" title="Visite le compte Twitter de l'Avant Seine"></a>
+						<a href="<?php echo TWITTER_URL; ?>" target="_blank" class="icon-svg" aria-label="Visite le compte X de l'Avant Seine" title="Visite le compte X de l'Avant Seine">
+							<?php get_template_part('template-parts/svgs/svg', 'x'); ?>
+						</a>
 					</li>
 
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
 						<a href="<?php echo INSTAGRAM_URL; ?>" target="_blank" class="icon-instagram" aria-label="Visite le compte Instagram de l'Avant Seine"  title="Visite le compte Instagram de l'Avant Seine"></a>
 					</li>
-																	
+							
+					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+						<a href="<?php echo TIKTOK_URL; ?>" target="_blank" class="icon-svg" aria-label="Visite le compte TikTok de l'Avant Seine" title="Visite le compte TikTok de l'Avant Seine">
+							<?php get_template_part('template-parts/svgs/svg', 'tiktok'); ?>
+						</a>
+					</li>
+
 				</ul>
 
 
