@@ -9,7 +9,7 @@
 
 
 define('FB_URL','https://www.facebook.com/lAvantSeine');
-define('TWITTER_URL','https://twitter.com/AvantSeine');
+define('TWITTER_URL','https://x.com/AvantSeine');
 define('INSTAGRAM_URL','http://instagram.com/avantseine');
 define('TIKTOK_URL','https://www.tiktok.com/@avantseine?lang=fr');
 define('GOOGLEPLUS_URL','https://plus.google.com/u/0/b/100144920076066761502/100144920076066761502');
