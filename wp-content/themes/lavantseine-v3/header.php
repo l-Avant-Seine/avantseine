@@ -102,6 +102,9 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 						<a href="#section-transition" target="_blank" class="icon-NEWSLETTER scroll" aria-label="S'inscrire à la newsletter" title="S'inscrire à la newsletter"></a>
 					</li>
 
+					<li></li>
+					<li></li>
+					
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
 						<a href="<?php echo FB_URL; ?>" target="_blank" class="icon-facebook" aria-label="Visite la page Facebook de l'Avant Seine" title="Visite la page Facebook de l'Avant Seine"></a>
 					</li>
@@ -119,6 +122,12 @@ src="https://www.facebook.com/tr?id=1951786325076755&ev=PageView&noscript=1"/>
 					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
 						<a href="<?php echo TIKTOK_URL; ?>" target="_blank" class="icon-svg" aria-label="Visite le compte TikTok de l'Avant Seine" title="Visite le compte TikTok de l'Avant Seine">
 							<?php get_template_part('template-parts/svgs/svg', 'tiktok'); ?>
+						</a>
+					</li>
+
+					<li  class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9455">
+						<a href="<?php echo LINKEDIN_URL; ?>" target="_blank" class="icon-svg" aria-label="Visite le compte LinkedIn de l'Avant Seine" title="Visite le compte LinkedIn de l'Avant Seine">
+							<?php get_template_part('template-parts/svgs/svg', 'linkedin'); ?>
 						</a>
 					</li>
 

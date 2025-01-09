@@ -12,6 +12,7 @@ define('FB_URL','https://www.facebook.com/lAvantSeine');
 define('TWITTER_URL','https://x.com/AvantSeine');
 define('INSTAGRAM_URL','http://instagram.com/avantseine');
 define('TIKTOK_URL','https://www.tiktok.com/@avantseine?lang=fr');
+define('LINKEDIN_URL','https://www.linkedin.com/company/l\'avant-seine-th%C3%A9%C3%A2tre-de-colombes/');
 define('GOOGLEPLUS_URL','https://plus.google.com/u/0/b/100144920076066761502/100144920076066761502');
 define('VIDEOCHANNEL_URL','https://www.youtube.com/channel/UCtUb1swrX34VbClR53YcagA');
 define('RESERVATION_URL','https://lavant-seine.mapado.com/');
