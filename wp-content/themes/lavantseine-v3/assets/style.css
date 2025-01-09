@@ -1917,6 +1917,8 @@ figure { max-width: 100%; }
 
 .page-service-baby-sitting .rounded-icon { background-image: url("../assets/img/icon_BabySitting.png"); background-size: contain; background-repeat: no-repeat; background-size: 65%; background-position: center; }
 
+.page-brochure-accessible .rounded-icon { background-image: url("../assets/img/icon_Accessible.png"); background-size: contain; background-repeat: no-repeat; background-size: 65%; background-position: center; }
+
 .page-tarifs .rounded-icon span { font-family: 'icomoon2' !important; }
 
 .page-comment-reserver .rounded-icon span { font-family: 'icomoon2' !important; }
