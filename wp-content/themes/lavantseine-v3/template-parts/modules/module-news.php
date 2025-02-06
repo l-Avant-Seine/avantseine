@@ -20,10 +20,15 @@
 					</a>
 				</div>
 
+
 				<div class="item-cover ratio2for3">
 					<div class="ratio2for3-content">
 						<a href="<?php the_sub_field('focusElements_libre_lien'); ?>">
-							<img class="b-lazy" src="<?php the_sub_field('focusElements_libre_image'); ?>" alt="">
+							<?php $image = get_sub_field('focusElements_libre_image');  ?>
+							<img class=" b-lazy" 
+								src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+								data-src="<?php echo $image['sizes']["medium_large"] ?>">
+
 						</a>
 					</div>
 				</div>

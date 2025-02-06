@@ -1,0 +1,239 @@
+{
+    "key": "group_560fa6ef2cf9c",
+    "title": "Résultats du Quizz",
+    "fields": [
+        {
+            "key": "field_560fedcd6a7d1",
+            "label": "Sélectionnez la page d'accueil du quizz.",
+            "name": "accueil_quizz",
+            "aria-label": "",
+            "type": "page_link",
+            "instructions": "(pour le bouton \"recommencez\")",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "allow_archives": 1
+        },
+        {
+            "key": "field_560fe35d7f19f",
+            "label": "Couleur de la page",
+            "name": "couleur_de_la_page",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "enable_opacity": false,
+            "return_format": "string"
+        },
+        {
+            "key": "field_560fa701c029c",
+            "label": "Les réponses",
+            "name": "reponses",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Sélectionner tous les événements liés aux différentes questions du Quizz.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Ajouter un élément",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_560fdb11945ce",
+                    "label": "Identifiant cours",
+                    "name": "id_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "C'est l'identifiant que vous renoterez dans les questions. Exemple : \"lalune\" ou l\"amoureux\".\nAttention, cet élément doit être exacte.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0,
+                    "parent_repeater": "field_560fa701c029c"
+                },
+                {
+                    "key": "field_560fa831c02a1",
+                    "label": "Définir un titre pour le résultat",
+                    "name": "titre",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Par exemple : \"L'amoureux\"",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0,
+                    "parent_repeater": "field_560fa701c029c"
+                },
+                {
+                    "key": "field_560fa7a0c029f",
+                    "label": "Sélectionnez un événement à lier.",
+                    "name": "evenement_linked",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "event"
+                    ],
+                    "taxonomy": [],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_560fa701c029c"
+                },
+                {
+                    "key": "field_560fa7b1c029f",
+                    "label": "Texte principal",
+                    "name": "texte_principal",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": 50,
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "visual",
+                    "toolbar": "basic",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_560fa701c029c"
+                },
+                {
+                    "key": "field_560fa7d9c02a0",
+                    "label": "Texte événement",
+                    "name": "texte_evenement",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": 50,
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "wpautop",
+                    "readonly": 0,
+                    "disabled": 0,
+                    "parent_repeater": "field_560fa701c029c"
+                },
+                {
+                    "key": "field_560fe2b19ab8e",
+                    "label": "Visuel",
+                    "name": "visuel",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "parent_repeater": "field_560fa701c029c"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/page-quizzresults.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "excerpt",
+        "discussion",
+        "comments",
+        "author",
+        "format",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1738838854
+}

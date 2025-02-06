@@ -67,7 +67,7 @@ function lavantseine_v2_setup() {
 	add_theme_support( 'post-thumbnails' );
 
 	//add_image_size( 'box-thumbnail', 168, 9999 );
-	add_image_size( 'homeslide', 1500, 9999 );
+	add_image_size( 'homeslide', 1800, 9999 );
 	add_image_size( 'featured-post-thumbnail', 578, 9999 );
 	add_image_size( 'top-thumbnail', 779, 9999 );
 	add_image_size( '2col-thumbnail', 369, 9999 );
