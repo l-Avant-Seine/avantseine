@@ -9,7 +9,7 @@
 	if( !empty(get_field('display_one_event', 'option'))) {
 
 		$last_events = get_field('display_one_event', 'option'); 
-	
+		$oneSlide = true;
 	}
 	else {
 
@@ -30,12 +30,12 @@
 		);
 
 		$last_events = get_posts( $args );
-
+		$oneSlide = false;
 	} 
 	
 ?>
 
-	<div class="home-slides">
+	<div class="<?php echo $onSlide ? 'home-slides' : 'home-hero'; ?> ">
 	
 		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>
 		
