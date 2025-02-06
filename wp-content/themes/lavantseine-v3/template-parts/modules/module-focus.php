@@ -35,11 +35,11 @@
 	
 ?>
 
-	<div class="<?php echo $onSlide ? 'home-slides' : 'home-hero'; ?> ">
+	<div class="<?php echo $oneSlide ? 'home-hero' : 'home-slides'; ?> ">
 	
 		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>
 		
-		  <div class="slide is-flex ">
+		  <div class="slide <?php echo $oneSlide ? 'slick-current' : ''; ?>  is-flex ">
 		  	
 		  	<div class="cf event-teaser">
 					<?php 
