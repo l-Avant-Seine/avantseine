@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Referrers\Reports;
 
@@ -28,7 +27,7 @@ use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
 class Get extends \Piwik\Plugins\Referrers\Reports\Base
 {
-    const TOTAL_DIRECT_ENTRIES_METRIC_NAME = 'Referrers_directEntries';
+    public const TOTAL_DIRECT_ENTRIES_METRIC_NAME = 'Referrers_directEntries';
     protected function init()
     {
         parent::init();
@@ -48,7 +47,7 @@ class Get extends \Piwik\Plugins\Referrers\Reports\Base
             $view->config->addTranslations($this->getSparklineTranslations());
             // add evolution values
             [$lastPeriodDate, $ignore] = Range::getLastDate();
-            if ($lastPeriodDate !== false) {
+            if ($lastPeriodDate !== \false) {
                 $date = Common::getRequestVar('date');
                 /** @var DataTable $previousData */
                 $previousData = Request::processRequest('Referrers.get', ['date' => $lastPeriodDate]);

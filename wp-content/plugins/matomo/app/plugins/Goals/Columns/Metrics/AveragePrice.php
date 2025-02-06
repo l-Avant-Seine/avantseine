@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\Columns\Metrics;
 
@@ -39,7 +39,7 @@ class AveragePrice extends ProcessedMetric
         $price = $this->getMetric($row, 'price');
         $orders = $this->getMetric($row, 'orders');
         $abandonedCarts = $this->getMetric($row, 'abandoned_carts');
-        return Piwik::getQuotientSafe($price, $orders === false ? $abandonedCarts : $orders, GoalManager::REVENUE_PRECISION);
+        return Piwik::getQuotientSafe($price, $orders === \false ? $abandonedCarts : $orders, GoalManager::REVENUE_PRECISION);
     }
     public function getDependentMetrics()
     {

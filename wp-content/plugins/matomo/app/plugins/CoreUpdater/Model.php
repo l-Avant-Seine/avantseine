@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreUpdater;
 
@@ -14,7 +13,7 @@ class Model
 {
     public function getPluginsFromDirectoy($directoryToLook)
     {
-        $directories = _glob($directoryToLook . '/plugins/' . '*', GLOB_ONLYDIR);
+        $directories = _glob($directoryToLook . '/plugins/' . '*', \GLOB_ONLYDIR);
         $directories = array_map(function ($directory) use($directoryToLook) {
             return str_replace($directoryToLook, '', $directory);
         }, $directories);

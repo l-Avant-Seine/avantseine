@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Contents\RecordBuilders;
 
@@ -80,7 +79,7 @@ class ContentRecords extends RecordBuilder
             $this->aggregateInteractionRow($reports, $row);
         }
     }
-    private function archiveDayQueryProcess(LogAggregator $logAggregator, string $select, array $from, string $where, string $groupBy, string $orderBy, RankingQuery $rankingQuery = null)
+    private function archiveDayQueryProcess(LogAggregator $logAggregator, string $select, array $from, string $where, string $groupBy, string $orderBy, ?RankingQuery $rankingQuery = null)
     {
         // get query with segmentation
         $query = $logAggregator->generateQuery($select, $from, $where, $groupBy, $orderBy);

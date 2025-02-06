@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UsersManager;
 
@@ -24,8 +23,8 @@ use Piwik\SettingsPiwik;
  */
 class UsersManager extends \Piwik\Plugin
 {
-    const PASSWORD_MIN_LENGTH = 6;
-    const PASSWORD_MAX_LENGTH = 200;
+    public const PASSWORD_MIN_LENGTH = 6;
+    public const PASSWORD_MAX_LENGTH = 200;
     /**
      * @see \Piwik\Plugin::registerEvents
      */
@@ -116,7 +115,7 @@ class UsersManager extends \Piwik\Plugin
     public static function isValidPasswordString($input)
     {
         if (!SettingsPiwik::isUserCredentialsSanityCheckEnabled() && !empty($input)) {
-            return true;
+            return \true;
         }
         $l = strlen($input);
         return $l >= self::PASSWORD_MIN_LENGTH;
@@ -242,6 +241,7 @@ class UsersManager extends \Piwik\Plugin
         $translationKeys[] = 'UsersManager_ConfirmGrantSuperUserAccess';
         $translationKeys[] = 'UsersManager_ConfirmProhibitMySuperUserAccess';
         $translationKeys[] = 'UsersManager_ConfirmProhibitOtherUsersSuperUserAccess';
+        $translationKeys[] = 'UsersManager_ConfirmThisChange';
         $translationKeys[] = 'UsersManager_ConfirmTokenCopied';
         $translationKeys[] = 'UsersManager_ConfirmWithPassword';
         $translationKeys[] = 'UsersManager_CopyDenied';
@@ -337,7 +337,19 @@ class UsersManager extends \Piwik\Plugin
         $translationKeys[] = 'UsersManager_Status';
         $translationKeys[] = 'UsersManager_SuperUserAccess';
         $translationKeys[] = 'UsersManager_SuperUserIntro1';
+        $translationKeys[] = 'UsersManager_SuperUserIntro1WithoutMarketplace';
         $translationKeys[] = 'UsersManager_SuperUserIntro2';
+        $translationKeys[] = 'UsersManager_SuperUserIntro3';
+        $translationKeys[] = 'UsersManager_SuperUserRiskData';
+        $translationKeys[] = 'UsersManager_SuperUserRiskSecurity';
+        $translationKeys[] = 'UsersManager_SuperUserRiskMisconfiguration';
+        $translationKeys[] = 'UsersManager_SuperUserRiskUserManagement';
+        $translationKeys[] = 'UsersManager_SuperUserRiskServiceDisruption';
+        $translationKeys[] = 'UsersManager_SuperUserRiskMarketplace';
+        $translationKeys[] = 'UsersManager_SuperUserRiskAccountability';
+        $translationKeys[] = 'UsersManager_SuperUserRiskAccountabilityCheckActivityLog';
+        $translationKeys[] = 'UsersManager_SuperUserRiskAccountabilityGetActivityLogPlugin';
+        $translationKeys[] = 'UsersManager_SuperUserRiskCompliance';
         $translationKeys[] = 'UsersManager_SuperUsersPermissionsNotice';
         $translationKeys[] = 'UsersManager_TheDisplayedUsersAreSelected';
         $translationKeys[] = 'UsersManager_TheDisplayedWebsitesAreSelected';
@@ -357,5 +369,6 @@ class UsersManager extends \Piwik\Plugin
         $translationKeys[] = 'UsersManager_YourUsernameCannotBeChanged';
         $translationKeys[] = 'UsersManager_YourVisitsAreIgnoredOnDomain';
         $translationKeys[] = 'UsersManager_YourVisitsAreNotIgnored';
+        $translationKeys[] = 'UsersManager_InviteEmailChange';
     }
 }

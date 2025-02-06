@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -107,7 +106,7 @@ class Option
     public static function clearCache()
     {
         $option = self::getInstance();
-        $option->loaded = false;
+        $option->loaded = \false;
         $option->all = array();
     }
     /**
@@ -117,7 +116,7 @@ class Option
     /**
      * @var bool
      */
-    private $loaded = false;
+    private $loaded = \false;
     /**
      * Singleton instance
      * @var \Piwik\Option
@@ -248,7 +247,7 @@ class Option
         foreach ($all as $option) {
             $this->all[$option['option_name']] = $option['option_value'];
         }
-        $this->loaded = true;
+        $this->loaded = \true;
     }
     private function trimOptionNameIfNeeded($name)
     {

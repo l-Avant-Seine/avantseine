@@ -29,10 +29,10 @@ class FilesystemLoader implements LoaderInterface
      * @param string|array $paths    A path or an array of paths where to look for templates
      * @param string|null  $rootPath The root path common to all relative paths (null for getcwd())
      */
-    public function __construct($paths = [], string $rootPath = null)
+    public function __construct($paths = [], ?string $rootPath = null)
     {
         $this->rootPath = ($rootPath ?? getcwd()) . \DIRECTORY_SEPARATOR;
-        if (null !== $rootPath && false !== ($realPath = realpath($rootPath))) {
+        if (null !== $rootPath && \false !== ($realPath = realpath($rootPath))) {
             $this->rootPath = $realPath . \DIRECTORY_SEPARATOR;
         }
         if ($paths) {
@@ -77,7 +77,7 @@ class FilesystemLoader implements LoaderInterface
         $this->cache = $this->errorCache = [];
         $checkPath = $this->isAbsolutePath($path) ? $path : $this->rootPath . $path;
         if (!is_dir($checkPath)) {
-            throw new LoaderError(sprintf('The "%s" directory does not exist ("%s").', $path, $checkPath));
+            throw new LoaderError(\sprintf('The "%s" directory does not exist ("%s").', $path, $checkPath));
         }
         $this->paths[$namespace][] = rtrim($path, '/\\');
     }
@@ -90,7 +90,7 @@ class FilesystemLoader implements LoaderInterface
         $this->cache = $this->errorCache = [];
         $checkPath = $this->isAbsolutePath($path) ? $path : $this->rootPath . $path;
         if (!is_dir($checkPath)) {
-            throw new LoaderError(sprintf('The "%s" directory does not exist ("%s").', $path, $checkPath));
+            throw new LoaderError(\sprintf('The "%s" directory does not exist ("%s").', $path, $checkPath));
         }
         $path = rtrim($path, '/\\');
         if (!isset($this->paths[$namespace])) {
@@ -124,22 +124,22 @@ class FilesystemLoader implements LoaderInterface
     {
         $name = $this->normalizeName($name);
         if (isset($this->cache[$name])) {
-            return true;
+            return \true;
         }
-        return null !== $this->findTemplate($name, false);
+        return null !== $this->findTemplate($name, \false);
     }
     public function isFresh(string $name, int $time) : bool
     {
         // false support to be removed in 3.0
         if (null === ($path = $this->findTemplate($name))) {
-            return false;
+            return \false;
         }
         return filemtime($path) < $time;
     }
     /**
      * @return string|null
      */
-    protected function findTemplate(string $name, bool $throw = true)
+    protected function findTemplate(string $name, bool $throw = \true)
     {
         $name = $this->normalizeName($name);
         if (isset($this->cache[$name])) {
@@ -152,7 +152,7 @@ class FilesystemLoader implements LoaderInterface
             throw new LoaderError($this->errorCache[$name]);
         }
         try {
-            list($namespace, $shortname) = $this->parseName($name);
+            [$namespace, $shortname] = $this->parseName($name);
             $this->validateName($shortname);
         } catch (LoaderError $e) {
             if (!$throw) {
@@ -161,7 +161,7 @@ class FilesystemLoader implements LoaderInterface
             throw $e;
         }
         if (!isset($this->paths[$namespace])) {
-            $this->errorCache[$name] = sprintf('There are no registered paths for namespace "%s".', $namespace);
+            $this->errorCache[$name] = \sprintf('There are no registered paths for namespace "%s".', $namespace);
             if (!$throw) {
                 return null;
             }
@@ -172,13 +172,13 @@ class FilesystemLoader implements LoaderInterface
                 $path = $this->rootPath . $path;
             }
             if (is_file($path . '/' . $shortname)) {
-                if (false !== ($realpath = realpath($path . '/' . $shortname))) {
+                if (\false !== ($realpath = realpath($path . '/' . $shortname))) {
                     return $this->cache[$name] = $realpath;
                 }
                 return $this->cache[$name] = $path . '/' . $shortname;
             }
         }
-        $this->errorCache[$name] = sprintf('Unable to find template "%s" (looked into: %s).', $name, implode(', ', $this->paths[$namespace]));
+        $this->errorCache[$name] = \sprintf('Unable to find template "%s" (looked into: %s).', $name, implode(', ', $this->paths[$namespace]));
         if (!$throw) {
             return null;
         }
@@ -191,8 +191,8 @@ class FilesystemLoader implements LoaderInterface
     private function parseName(string $name, string $default = self::MAIN_NAMESPACE) : array
     {
         if (isset($name[0]) && '@' == $name[0]) {
-            if (false === ($pos = strpos($name, '/'))) {
-                throw new LoaderError(sprintf('Malformed namespaced template name "%s" (expecting "@namespace/template_name").', $name));
+            if (\false === ($pos = strpos($name, '/'))) {
+                throw new LoaderError(\sprintf('Malformed namespaced template name "%s" (expecting "@namespace/template_name").', $name));
             }
             $namespace = substr($name, 1, $pos - 1);
             $shortname = substr($name, $pos + 1);
@@ -215,7 +215,7 @@ class FilesystemLoader implements LoaderInterface
                 ++$level;
             }
             if ($level < 0) {
-                throw new LoaderError(sprintf('Looks like you try to load a template outside configured directories (%s).', $name));
+                throw new LoaderError(\sprintf('Looks like you try to load a template outside configured directories (%s).', $name));
             }
         }
     }

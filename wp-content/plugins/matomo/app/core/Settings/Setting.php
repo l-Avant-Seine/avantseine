@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Settings;
 
@@ -238,7 +237,7 @@ class Setting
                 throw new \Exception($errorMsg);
             }
         } elseif ($this->type === \Piwik\Settings\FieldConfig::TYPE_BOOL) {
-            if (!in_array($value, array(true, false, '0', '1', 0, 1), true)) {
+            if (!in_array($value, array(\true, \false, '0', '1', 0, 1), \true)) {
                 $errorMsg = Piwik::translate('CoreAdminHome_PluginSettingsValueNotAllowed', array(strip_tags($config->title), $this->pluginName));
                 throw new \Exception($errorMsg);
             }

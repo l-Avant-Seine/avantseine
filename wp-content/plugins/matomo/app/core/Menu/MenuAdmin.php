@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Menu;
 
@@ -28,7 +27,7 @@ class MenuAdmin extends \Piwik\Menu\MenuAbstract
      * @api
      * @since 2.5.0
      */
-    public function addPersonalItem($menuName, $url, $order = 50, $tooltip = false)
+    public function addPersonalItem($menuName, $url, $order = 50, $tooltip = \false)
     {
         $this->addItem('UsersManager_MenuPersonal', $menuName, $url, $order, $tooltip);
     }
@@ -41,7 +40,7 @@ class MenuAdmin extends \Piwik\Menu\MenuAbstract
      * @api
      * @since 2.5.0
      */
-    public function addDevelopmentItem($menuName, $url, $order = 50, $tooltip = false)
+    public function addDevelopmentItem($menuName, $url, $order = 50, $tooltip = \false)
     {
         if (Development::isEnabled()) {
             $this->addItem('CoreAdminHome_MenuDevelopment', $menuName, $url, $order, $tooltip);
@@ -56,7 +55,7 @@ class MenuAdmin extends \Piwik\Menu\MenuAbstract
      * @api
      * @since 2.5.0
      */
-    public function addDiagnosticItem($menuName, $url, $order = 50, $tooltip = false)
+    public function addDiagnosticItem($menuName, $url, $order = 50, $tooltip = \false)
     {
         $this->addItem('CoreAdminHome_MenuDiagnostic', $menuName, $url, $order, $tooltip);
     }
@@ -69,7 +68,7 @@ class MenuAdmin extends \Piwik\Menu\MenuAbstract
      * @api
      * @since 2.5.0
      */
-    public function addPlatformItem($menuName, $url, $order = 50, $tooltip = false)
+    public function addPlatformItem($menuName, $url, $order = 50, $tooltip = \false)
     {
         $this->addItem('CorePluginsAdmin_MenuPlatform', $menuName, $url, $order, $tooltip);
     }
@@ -82,7 +81,7 @@ class MenuAdmin extends \Piwik\Menu\MenuAbstract
      * @api
      * @since 5.0.0
      */
-    public function addPluginItem(string $menuName, array $url, int $order = 50, $tooltip = false)
+    public function addPluginItem(string $menuName, array $url, int $order = 50, $tooltip = \false)
     {
         $this->addItem('General_Plugins', $menuName, $url, $order, $tooltip);
     }
@@ -95,7 +94,7 @@ class MenuAdmin extends \Piwik\Menu\MenuAbstract
      * @api
      * @since 3.0.0
      */
-    public function addMeasurableItem($menuName, $url, $order = 50, $tooltip = false)
+    public function addMeasurableItem($menuName, $url, $order = 50, $tooltip = \false)
     {
         $this->addItem('CoreAdminHome_MenuMeasurables', $menuName, $url, $order, $tooltip);
     }
@@ -108,7 +107,7 @@ class MenuAdmin extends \Piwik\Menu\MenuAbstract
      * @api
      * @since 3.0.0
      */
-    public function addSystemItem($menuName, $url, $order = 50, $tooltip = false)
+    public function addSystemItem($menuName, $url, $order = 50, $tooltip = \false)
     {
         $this->addItem('CoreAdminHome_MenuSystem', $menuName, $url, $order, $tooltip);
     }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph;
 
@@ -16,21 +15,21 @@ use Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph;
  */
 class Pie extends JqplotGraph
 {
-    const ID = 'graphPie';
-    const FOOTER_ICON = 'icon-chart-pie';
-    const FOOTER_ICON_TITLE = 'General_Piechart';
+    public const ID = 'graphPie';
+    public const FOOTER_ICON = 'icon-chart-pie';
+    public const FOOTER_ICON_TITLE = 'General_Piechart';
     public static function getDefaultConfig()
     {
         $config = new \Piwik\Plugins\CoreVisualizations\Visualizations\JqplotGraph\Config();
         $config->max_graph_elements = 6;
-        $config->allow_multi_select_series_picker = false;
+        $config->allow_multi_select_series_picker = \false;
         return $config;
     }
     public function beforeRender()
     {
         parent::beforeRender();
         $this->checkRequestIsNotForMultiplePeriods();
-        $this->config->show_all_ticks = true;
+        $this->config->show_all_ticks = \true;
         $this->config->datatable_js_type = 'JqplotPieGraphDataTable';
     }
     protected function ensureValidColumnsToDisplay()

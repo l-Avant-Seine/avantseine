@@ -9,6 +9,7 @@
 
 namespace WpMatomo;
 
+use Piwik\Config;
 use WpMatomo\Admin\Dashboard;
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Intl;
 
@@ -27,10 +26,10 @@ class Locale
                 $newLocale[] = $localeVariant;
             }
         }
-        setlocale(LC_ALL, $newLocale);
-        setlocale(LC_CTYPE, '');
+        setlocale(\LC_ALL, $newLocale);
+        setlocale(\LC_CTYPE, '');
         // Always use english for numbers. otherwise the decimal separator might get localized when casting a float to string
-        setlocale(LC_NUMERIC, array('en_US.UTF-8', 'en-US', 'C.UTF-8', 'C'));
+        setlocale(\LC_NUMERIC, array('en_US.UTF-8', 'en-US', 'C.UTF-8', 'C'));
     }
     public static function setDefaultLocale()
     {

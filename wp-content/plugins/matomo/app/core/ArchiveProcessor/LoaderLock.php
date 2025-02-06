@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\ArchiveProcessor;
 
@@ -13,8 +12,8 @@ use Piwik\Db;
 use Piwik\SettingsPiwik;
 class LoaderLock
 {
-    const MAX_LEN_LOCK_NAME = 64;
-    const MAX_LOCK_TIME = 60;
+    public const MAX_LEN_LOCK_NAME = 64;
+    public const MAX_LOCK_TIME = 60;
     //in seconds
     protected $id;
     /**
@@ -37,7 +36,7 @@ class LoaderLock
     }
     public function unLock()
     {
-        Db::query('DO RELEASE_LOCK(?)', array($this->id));
+        Db::query('SELECT RELEASE_LOCK(?)', array($this->id));
     }
     public function getId()
     {

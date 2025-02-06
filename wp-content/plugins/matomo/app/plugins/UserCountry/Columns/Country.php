@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry\Columns;
 
@@ -42,7 +41,7 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
         $segment->setSegment('countryName');
         $segment->setName('UserCountry_Country');
         $segment->setAcceptedValues('Germany, France, Spain, ...');
-        $segment->setNeedsMostFrequentValues(false);
+        $segment->setNeedsMostFrequentValues(\false);
         $regionDataProvider = StaticContainer::get('Piwik\\Intl\\Data\\Provider\\RegionDataProvider');
         $countryList = $regionDataProvider->getCountryList();
         array_walk($countryList, function (&$item, $key) {
@@ -50,7 +49,7 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
         });
         $segment->setSqlFilterValue(function ($val) use($countryList) {
             $result = array_search($val, $countryList);
-            if ($result === false) {
+            if ($result === \false) {
                 $result = 'UNK';
             }
             return $result;
@@ -73,7 +72,7 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
     public function onNewVisit(Request $request, Visitor $visitor, $action)
     {
         $value = $this->getUrlOverrideValueIfAllowed('country', $request);
-        if ($value !== false) {
+        if ($value !== \false) {
             $value = substr($value, 0, 3);
             return $value;
         }
@@ -103,7 +102,7 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
     public function onAnyGoalConversion(Request $request, Visitor $visitor, $action)
     {
         $country = $visitor->getVisitorColumn($this->columnName);
-        if (isset($country) && false !== $country) {
+        if (isset($country) && \false !== $country) {
             return $country;
         }
         $browserLanguage = $request->getBrowserLanguage();

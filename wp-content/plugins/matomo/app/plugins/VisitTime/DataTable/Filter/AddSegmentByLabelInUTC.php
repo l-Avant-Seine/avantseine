@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\VisitTime\DataTable\Filter;
 
@@ -35,7 +34,7 @@ class AddSegmentByLabelInUTC extends DataTable\Filter\AddSegmentValue
         $this->date = Period\Factory::build($period, $date)->getDateEnd();
         $self = $this;
         parent::__construct($table, function ($label) use($self) {
-            $hour = str_pad($label, 2, 0, STR_PAD_LEFT);
+            $hour = str_pad($label, 2, 0, \STR_PAD_LEFT);
             return $self->convertHourToUtc($hour);
         });
     }

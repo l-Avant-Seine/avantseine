@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Login;
 
@@ -15,20 +15,20 @@ use Piwik\Session\SessionNamespace;
 use Piwik\Url;
 class PasswordVerifier
 {
-    const VERIFY_VALID_FOR_MINUTES = 30;
-    const VERIFY_REVALIDATE_X_MINUTES_LEFT = 15;
+    public const VERIFY_VALID_FOR_MINUTES = 30;
+    public const VERIFY_REVALIDATE_X_MINUTES_LEFT = 15;
     /**
      * @var Date|null
      */
     private $now;
-    private $enableRedirect = true;
+    private $enableRedirect = \true;
     /**
      * @ignore
      * tests only
      */
     public function setDisableRedirect()
     {
-        $this->enableRedirect = false;
+        $this->enableRedirect = \false;
     }
     private function getLoginSession()
     {
@@ -51,14 +51,14 @@ class PasswordVerifier
         // ensure authentication happens on password
         $authResult = $authAdapter->authenticate();
         if ($authResult->wasAuthenticationSuccessful()) {
-            return true;
+            return \true;
         }
         /**
          * @ignore
          * @internal
          */
         Piwik::postEvent('Login.recordFailedLoginAttempt');
-        return false;
+        return \false;
     }
     public function hasPasswordVerifyBeenRequested()
     {
@@ -104,9 +104,9 @@ class PasswordVerifier
         $lastAuthValidTo = $this->getPasswordVerifyValidUpToDateIfVerified();
         $now = $this->getNow();
         if ($lastAuthValidTo && $now->isEarlier($lastAuthValidTo)) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     private function getPasswordVerifyValidUpToDateIfVerified()
     {
@@ -121,9 +121,9 @@ class PasswordVerifier
         $lastAuthValidTo = $this->getPasswordVerifyValidUpToDateIfVerified();
         $now = $this->getNow()->addPeriod(self::VERIFY_REVALIDATE_X_MINUTES_LEFT, 'minute');
         if ($lastAuthValidTo && $now->isEarlier($lastAuthValidTo)) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     /**
      * Checks if the user has verified the password within the last 15 minutes. If not, the user will be redirected.
@@ -137,7 +137,7 @@ class PasswordVerifier
     public function requirePasswordVerifiedRecently($redirectParams)
     {
         if ($this->hasBeenVerifiedAndHalfTimeValid()) {
-            return true;
+            return \true;
         }
         $this->initiatePasswordVerifyRedirect($redirectParams);
     }
@@ -155,7 +155,7 @@ class PasswordVerifier
     public function requirePasswordVerified($redirectParams)
     {
         if ($this->hasBeenVerified()) {
-            return true;
+            return \true;
         }
         $this->initiatePasswordVerifyRedirect($redirectParams);
     }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Scheduler\Schedule;
 
@@ -56,7 +55,7 @@ class Weekly extends \Piwik\Scheduler\Schedule\Schedule
     public static function getDayIntFromString($dayString)
     {
         $time = strtotime($dayString);
-        if ($time === false) {
+        if ($time === \false) {
             throw new Exception("Invalid day string '{$dayString}'. Must be 'monday', 'tuesday', etc.");
         }
         return date("N", $time);

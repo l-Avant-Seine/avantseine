@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -55,14 +54,14 @@ class AddSegmentBySegmentValue extends BaseFilter
         if (empty($segments)) {
             return;
         }
-        $this->enableRecursive(true);
+        $this->enableRecursive(\true);
         /** @var \Piwik\Plugin\Segment $segment */
         $segment = reset($segments);
         $segmentName = $segment->getSegment();
         foreach ($table->getRows() as $row) {
             $value = $row->getMetadata('segmentValue');
             $filter = $row->getMetadata('segment');
-            if ($value !== false && $filter === false) {
+            if ($value !== \false && $filter === \false) {
                 $row->setMetadata('segment', sprintf('%s==%s', $segmentName, urlencode($value)));
             }
             $this->filterSubTable($row);

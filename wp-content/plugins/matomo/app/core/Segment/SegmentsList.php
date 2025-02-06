@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Segment;
 
@@ -58,7 +57,7 @@ class SegmentsList
      * @param string|false $segmentExpression The segment expression name to remove eg 'pageUrl'.
      *                                        If not supplied, all segments within that category will be removed.
      */
-    public function remove($segmentCategory, $segmentExpression = false)
+    public function remove($segmentCategory, $segmentExpression = \false)
     {
         foreach ($this->segments as $index => $segment) {
             if ($segment->getCategoryId() === $segmentCategory) {

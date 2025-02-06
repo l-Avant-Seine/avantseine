@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\PagePerformance\Visualizations\JqplotGraph;
 
@@ -21,15 +20,15 @@ use Piwik\Site;
  */
 class StackedBarEvolution extends Evolution
 {
-    const ID = 'graphStackedBarEvolution';
-    const FOOTER_ICON_TITLE = '';
-    const FOOTER_ICON = '';
+    public const ID = 'graphStackedBarEvolution';
+    public const FOOTER_ICON_TITLE = '';
+    public const FOOTER_ICON = '';
     public function beforeRender()
     {
         parent::beforeRender();
         $this->checkRequestIsOnlyForMultiplePeriods();
-        $this->config->show_flatten_table = false;
-        $this->config->show_limit_control = false;
+        $this->config->show_flatten_table = \false;
+        $this->config->show_limit_control = \false;
         $this->config->datatable_js_type = 'JqplotStackedBarEvolutionGraphDataTable';
     }
     public function beforeLoadDataTable()
@@ -39,7 +38,7 @@ class StackedBarEvolution extends Evolution
         // period will be overridden when 'range' is requested in the UI
         // but the graph will display for each day of the range.
         // Default 'range' behavior is to return the 'sum' for the range
-        if (Common::getRequestVar('period', false) == 'range') {
+        if (Common::getRequestVar('period', \false) == 'range') {
             $this->requestConfig->request_parameters_to_modify['period'] = 'day';
         }
         $this->config->custom_parameters['columns'] = $this->config->columns_to_display;
@@ -79,6 +78,6 @@ class StackedBarEvolution extends Evolution
     }
     public function supportsComparison()
     {
-        return false;
+        return \false;
     }
 }

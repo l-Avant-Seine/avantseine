@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Updates;
 
@@ -68,9 +67,9 @@ class Updates_4_0_0_b1 extends PiwikUpdates
         $migrations[] = $this->migration->db->changeColumnType('log_action', 'name', 'VARCHAR(4096)');
         $migrations[] = $this->migration->db->changeColumnType('log_conversion', 'url', 'VARCHAR(4096)');
         $migrations[] = $this->migration->db->changeColumn('log_link_visit_action', 'interaction_position', 'pageview_position', 'MEDIUMINT UNSIGNED DEFAULT NULL');
-        $customTrackerPluginActive = false;
+        $customTrackerPluginActive = \false;
         if (in_array('CustomPiwikJs', Config::getInstance()->Plugins['Plugins'])) {
-            $customTrackerPluginActive = true;
+            $customTrackerPluginActive = \true;
         }
         $migrations[] = $this->migration->plugin->activate('BulkTracking');
         $migrations[] = $this->migration->plugin->deactivate('CustomPiwikJs');
@@ -105,7 +104,7 @@ class Updates_4_0_0_b1 extends PiwikUpdates
         $columnsToMaybeAdd = ['revenue', 'revenue_discount', 'revenue_shipping', 'revenue_subtotal', 'revenue_tax'];
         $columnsLogConversion = $tableMetadata->getColumns(Common::prefixTable('log_conversion'));
         foreach ($columnsToMaybeAdd as $columnToMaybeAdd) {
-            if (!in_array($columnToMaybeAdd, $columnsLogConversion, true)) {
+            if (!in_array($columnToMaybeAdd, $columnsLogConversion, \true)) {
                 $columnsToAdd['log_conversion'][$columnToMaybeAdd] = 'DOUBLE NULL DEFAULT NULL';
             }
         }

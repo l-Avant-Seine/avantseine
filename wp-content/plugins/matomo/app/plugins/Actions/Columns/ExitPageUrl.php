@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Columns;
 
@@ -49,7 +48,7 @@ class ExitPageUrl extends VisitDimension
      */
     public function onNewVisit(Request $request, Visitor $visitor, $action)
     {
-        $idActionUrl = false;
+        $idActionUrl = \false;
         if (!empty($action)) {
             $idActionUrl = $action->getIdActionUrlForEntryAndExitIds();
         }
@@ -64,7 +63,7 @@ class ExitPageUrl extends VisitDimension
     public function onExistingVisit(Request $request, Visitor $visitor, $action)
     {
         if (empty($action)) {
-            return false;
+            return \false;
         }
         $id = $action->getIdActionUrlForEntryAndExitIds();
         if (!empty($id)) {

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreAdminHome\Emails;
 
@@ -21,7 +20,7 @@ class TokenAuthDeletedEmail extends SecurityNotificationEmail
      * @var bool
      */
     private $all;
-    public function __construct($login, $emailAddress, $tokenDescription, $all = false)
+    public function __construct($login, $emailAddress, $tokenDescription, $all = \false)
     {
         $this->tokenDescription = $tokenDescription;
         $this->all = $all;

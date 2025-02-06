@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Metrics\Formatter;
 
@@ -15,7 +15,7 @@ use Piwik\Metrics\Formatter;
  */
 class Html extends Formatter
 {
-    public function getPrettyTimeFromSeconds($numberOfSeconds, $displayTimeAsSentence = true, $round = false)
+    public function getPrettyTimeFromSeconds($numberOfSeconds, $displayTimeAsSentence = \true, $round = \false)
     {
         $result = parent::getPrettyTimeFromSeconds($numberOfSeconds, $displayTimeAsSentence, $round);
         $result = $this->replaceSpaceWithNonBreakingSpace($result);

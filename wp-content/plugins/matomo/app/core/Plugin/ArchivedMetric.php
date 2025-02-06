@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -16,18 +16,18 @@ use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 class ArchivedMetric extends \Piwik\Plugin\Metric
 {
-    const AGGREGATION_COUNT = 'count(%s)';
-    const AGGREGATION_COUNT_PREFIX = 'nb_';
-    const AGGREGATION_SUM = 'sum(%s)';
-    const AGGREGATION_SUM_PREFIX = 'sum_';
-    const AGGREGATION_MAX = 'max(%s)';
-    const AGGREGATION_MAX_PREFIX = 'max_';
-    const AGGREGATION_MIN = 'min(%s)';
-    const AGGREGATION_MIN_PREFIX = 'min_';
-    const AGGREGATION_UNIQUE = 'count(distinct %s)';
-    const AGGREGATION_UNIQUE_PREFIX = 'nb_uniq_';
-    const AGGREGATION_COUNT_WITH_NUMERIC_VALUE = 'sum(if(%s > 0, 1, 0))';
-    const AGGREGATION_COUNT_WITH_NUMERIC_VALUE_PREFIX = 'nb_with_';
+    public const AGGREGATION_COUNT = 'count(%s)';
+    public const AGGREGATION_COUNT_PREFIX = 'nb_';
+    public const AGGREGATION_SUM = 'sum(%s)';
+    public const AGGREGATION_SUM_PREFIX = 'sum_';
+    public const AGGREGATION_MAX = 'max(%s)';
+    public const AGGREGATION_MAX_PREFIX = 'max_';
+    public const AGGREGATION_MIN = 'min(%s)';
+    public const AGGREGATION_MIN_PREFIX = 'min_';
+    public const AGGREGATION_UNIQUE = 'count(distinct %s)';
+    public const AGGREGATION_UNIQUE_PREFIX = 'nb_uniq_';
+    public const AGGREGATION_COUNT_WITH_NUMERIC_VALUE = 'sum(if(%s > 0, 1, 0))';
+    public const AGGREGATION_COUNT_WITH_NUMERIC_VALUE_PREFIX = 'nb_with_';
     /**
      * @var string
      */
@@ -47,9 +47,9 @@ class ArchivedMetric extends \Piwik\Plugin\Metric
      * @var Dimension
      */
     private $dimension;
-    public function __construct(Dimension $dimension, $aggregation = false)
+    public function __construct(Dimension $dimension, $aggregation = \false)
     {
-        if (!empty($aggregation) && strpos($aggregation, '%s') === false) {
+        if (!empty($aggregation) && strpos($aggregation, '%s') === \false) {
             throw new \Exception(sprintf('The given aggregation for %s.%s needs to include a %%s for the column name', $dimension->getDbTableName(), $dimension->getColumnName()));
         }
         $this->setDimension($dimension);
@@ -126,10 +126,10 @@ class ArchivedMetric extends \Piwik\Plugin\Metric
             case Dimension::TYPE_NUMBER:
                 return $formatter->getPrettyNumber($value);
             case Dimension::TYPE_DURATION_S:
-                return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = true);
+                return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = \true);
             case Dimension::TYPE_DURATION_MS:
                 $val = round($value / 1000, $value / 1000 > 60 ? 0 : 2);
-                return $formatter->getPrettyTimeFromSeconds($val, $displayAsSentence = true);
+                return $formatter->getPrettyTimeFromSeconds($val, $displayAsSentence = \true);
             case Dimension::TYPE_PERCENT:
                 return $formatter->getPrettyPercentFromQuotient($value);
             case Dimension::TYPE_BYTE:

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Contents\Columns;
 
@@ -42,13 +41,13 @@ class ContentInteraction extends ActionDimension
     public function onLookupAction(Request $request, Action $action)
     {
         if (!$action instanceof ActionContent) {
-            return false;
+            return \false;
         }
         $interaction = $request->getParam('c_i');
         $interaction = trim($interaction);
         if (strlen($interaction) > 0) {
             return $interaction;
         }
-        return false;
+        return \false;
     }
 }

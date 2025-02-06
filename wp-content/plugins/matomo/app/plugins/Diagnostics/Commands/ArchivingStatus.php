@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Diagnostics\Commands;
 
@@ -39,7 +39,7 @@ class ArchivingStatus extends ConsoleCommand
         $this->outputSectionHeader($output, 'Invalidation Queue');
         $archiveTableDao = StaticContainer::get('Piwik\\DataAccess\\ArchiveTableDao');
         $headers = ['Invalidation', 'Segment', 'Site', 'Period', 'Date', 'Time Queued', 'Waiting', 'Started', 'Processing', 'Status'];
-        $queue = $archiveTableDao->getInvalidationQueueData(true);
+        $queue = $archiveTableDao->getInvalidationQueueData(\true);
         $this->renderTable($headers, $queue);
         // Metrics
         $this->outputSectionHeader($output, 'Archiving Metrics');

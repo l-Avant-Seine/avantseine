@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CustomDimensions\Tracker;
 
@@ -61,14 +61,14 @@ class CustomDimensionsRequestProcessor extends RequestProcessor
     {
         $dimensions = self::getCachedCustomDimensions($request);
         if (empty($dimensions)) {
-            return false;
+            return \false;
         }
         foreach ($dimensions as $dimension) {
             if ($dimension['scope'] == CustomDimensions::SCOPE_ACTION) {
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
     public function onNewVisit(VisitProperties $visitProperties, Request $request)
     {

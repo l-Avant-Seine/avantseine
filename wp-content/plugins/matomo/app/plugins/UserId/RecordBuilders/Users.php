@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserId\RecordBuilders;
 
@@ -36,14 +35,14 @@ class Users extends RecordBuilder
         $userIdFieldName = Archiver::USER_ID_FIELD;
         $visitorIdFieldName = Archiver::VISITOR_ID_FIELD;
         $rankingQueryLimit = $this->getRankingQueryLimit();
-        $rankingQuery = false;
+        $rankingQuery = \false;
         if ($rankingQueryLimit > 0) {
             $rankingQuery = new RankingQuery($rankingQueryLimit);
             $rankingQuery->addLabelColumn($userIdFieldName);
             $rankingQuery->addLabelColumn($visitorIdFieldName);
         }
         /** @var \Zend_Db_Statement $query */
-        $query = $archiveProcessor->getLogAggregator()->queryVisitsByDimension(array($userIdFieldName), "log_visit.{$userIdFieldName} IS NOT NULL AND log_visit.{$userIdFieldName} != ''", array("LOWER(HEX({$visitorIdFieldName})) as {$visitorIdFieldName}"), false, $rankingQuery, $userIdFieldName . ' ASC');
+        $query = $archiveProcessor->getLogAggregator()->queryVisitsByDimension(array($userIdFieldName), "log_visit.{$userIdFieldName} IS NOT NULL AND log_visit.{$userIdFieldName} != ''", array("LOWER(HEX({$visitorIdFieldName})) as {$visitorIdFieldName}"), \false, $rankingQuery, $userIdFieldName . ' ASC');
         $rowsCount = 0;
         foreach ($query as $row) {
             $rowsCount++;

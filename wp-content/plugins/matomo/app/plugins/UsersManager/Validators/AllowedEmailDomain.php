@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UsersManager\Validators;
 
@@ -25,7 +25,7 @@ class AllowedEmailDomain extends BaseValidator
     }
     public function getDomainFromEmail($email) : string
     {
-        if (!is_string($email) || mb_strpos($email, '@') === false) {
+        if (!is_string($email) || mb_strpos($email, '@') === \false) {
             return '';
         }
         return mb_strtolower(trim(mb_substr($email, mb_strrpos($email, '@') + 1)));
@@ -34,16 +34,20 @@ class AllowedEmailDomain extends BaseValidator
     {
         $domains = array_map('mb_strtolower', array_filter($domains));
         $domain = $this->getDomainFromEmail($email);
-        return in_array($domain, $domains, true);
+        return in_array($domain, $domains, \true);
     }
     public function getEmailDomainsInUse() : array
     {
         $users = Request::processRequest('UsersManager.getUsers');
         $domains = [];
         foreach ($users as $user) {
-            $domains[] = \Piwik\Plugins\UsersManager\Validators\AllowedEmailDomain::getDomainFromEmail($user['email']);
+            if ($user['login'] !== 'anonymous') {
+                $domains[] = \Piwik\Plugins\UsersManager\Validators\AllowedEmailDomain::getDomainFromEmail($user['email']);
+            }
         }
-        return array_values(array_unique($domains));
+        $domains = array_values(array_unique($domains));
+        sort($domains);
+        return $domains;
     }
     public function validate($value)
     {

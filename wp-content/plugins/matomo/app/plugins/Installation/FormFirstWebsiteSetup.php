@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Installation;
 
@@ -24,7 +23,7 @@ use Piwik\QuickForm2;
  */
 class FormFirstWebsiteSetup extends QuickForm2
 {
-    function __construct($id = 'websitesetupform', $method = 'post', $attributes = null, $trackSubmit = false)
+    function __construct($id = 'websitesetupform', $method = 'post', $attributes = null, $trackSubmit = \false)
     {
         parent::__construct($id, $method, $attributes, $trackSubmit);
     }
@@ -74,7 +73,7 @@ class RuleIsValidTimezone extends HTML_QuickForm2_Rule
                 });
             }
         } catch (\Exception $e) {
-            return false;
+            return \false;
         }
         // If intl extension is installed, get default currency from timezone country.
         if (!Option::get(API::OPTION_DEFAULT_CURRENCY) && $timezone && class_exists('NumberFormatter')) {
@@ -96,6 +95,6 @@ class RuleIsValidTimezone extends HTML_QuickForm2_Rule
                 }
             }
         }
-        return true;
+        return \true;
     }
 }

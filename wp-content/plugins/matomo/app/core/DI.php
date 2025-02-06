@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -30,7 +29,7 @@ class DI
      * @return Matomo\Dependencies\DI\Definition\Helper\CreateDefinitionHelper
      * @see PHPDI\create()
      */
-    public static function create(string $className = null)
+    public static function create(?string $className = null)
     {
         return PHPDI\create($className);
     }
@@ -39,7 +38,7 @@ class DI
      * @return Matomo\Dependencies\DI\Definition\Helper\AutowireDefinitionHelper
      * @see PHPDI\autowire()
      */
-    public static function autowire(string $className = null)
+    public static function autowire(?string $className = null)
     {
         return PHPDI\autowire($className);
     }

@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CustomJsTracker;
 
@@ -29,11 +29,11 @@ class API extends \Piwik\Plugin\API
         try {
             $updater = StaticContainer::get('Piwik\\Plugins\\CustomJsTracker\\TrackerUpdater');
             $updater->checkWillSucceed();
-            return true;
+            return \true;
         } catch (AccessDeniedException $e) {
-            return false;
+            return \false;
         } catch (\Exception $e) {
-            return false;
+            return \false;
         }
     }
 }

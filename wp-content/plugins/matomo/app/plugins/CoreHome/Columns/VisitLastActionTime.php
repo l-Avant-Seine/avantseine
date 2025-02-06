@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Columns;
 
@@ -92,7 +91,7 @@ class VisitLastActionTime extends VisitDimension
     public function onExistingVisit(Request $request, Visitor $visitor, $action)
     {
         if ($request->getParam('ping') == 1) {
-            return false;
+            return \false;
         }
         $originalVisitLastActionTime = $visitor->getPreviousVisitColumn('visit_last_action_time');
         if (!empty($originalVisitLastActionTime) && Date::factory($originalVisitLastActionTime)->getTimestamp() > $request->getCurrentTimestamp()) {

@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager\SiteContentDetection;
 
@@ -22,17 +21,17 @@ class GoogleAnalytics3 extends \Piwik\Plugins\SitesManager\SiteContentDetection\
     public function isDetected(?string $data = null, ?array $headers = null) : bool
     {
         if (empty($data)) {
-            return false;
+            return \false;
         }
-        if (strpos($data, '(i,s,o,g,r,a,m)') !== false) {
-            return true;
+        if (strpos($data, '(i,s,o,g,r,a,m)') !== \false) {
+            return \true;
         }
         $tests = ["/UA-\\d{5,}-\\d{1,}/", "/google\\-analytics\\.com\\/analytics\\.js/", "/window\\.ga\\s?=\\s?window\\.ga/", "/google[ _\\-]{0,1}analytics/i"];
         foreach ($tests as $test) {
             if (preg_match($test, $data) === 1) {
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
 }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\Reports;
 
@@ -83,7 +82,7 @@ class Get extends \Piwik\Plugins\Goals\Reports\Base
     private function isEcommerceEnabled($idSite)
     {
         if (!Plugin\Manager::getInstance()->isPluginActivated('Ecommerce')) {
-            return false;
+            return \false;
         }
         $site = new Site($idSite);
         return $site->isEcommerceEnabled();
@@ -145,7 +144,7 @@ class Get extends \Piwik\Plugins\Goals\Reports\Base
             }
             // Add evolution values to sparklines
             [$lastPeriodDate, $ignore] = Range::getLastDate();
-            if ($lastPeriodDate !== false) {
+            if ($lastPeriodDate !== \false) {
                 // Using a filter here ensures the additional request is only performed when the view is rendered
                 $view->config->filters[] = function ($datatable) use($view, $lastPeriodDate, $idSite) {
                     /** @var DataTable $previousData */
@@ -173,7 +172,7 @@ class Get extends \Piwik\Plugins\Goals\Reports\Base
                                 break;
                             }
                         }
-                        if (strpos($columnName, 'revenue') !== false) {
+                        if (strpos($columnName, 'revenue') !== \false) {
                             $currencySymbol = Site::getCurrencySymbolFor($idSite);
                             $pastValueFormatted = NumberFormatter::getInstance()->formatCurrency($pastValue, $currencySymbol, GoalManager::REVENUE_PRECISION);
                             $currentValueFormatted = NumberFormatter::getInstance()->formatCurrency($value, $currencySymbol, GoalManager::REVENUE_PRECISION);
@@ -213,6 +212,6 @@ class Get extends \Piwik\Plugins\Goals\Reports\Base
         parent::configureReportMetadata($availableReports, $infos);
         $this->addReportMetadataForEachGoal($availableReports, $infos, function ($goal) {
             return Piwik::translate('Goals_GoalX', $goal['name']);
-        }, $isSummary = true);
+        }, $isSummary = \true);
     }
 }

@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreUpdater;
 
@@ -29,9 +29,9 @@ use Piwik\Unzip;
 use Piwik\Version;
 class Updater
 {
-    const OPTION_LATEST_VERSION = 'UpdateCheck_LatestVersion';
-    const PATH_TO_EXTRACT_LATEST_VERSION = '/latest/';
-    const DOWNLOAD_TIMEOUT = 720;
+    public const OPTION_LATEST_VERSION = 'UpdateCheck_LatestVersion';
+    public const PATH_TO_EXTRACT_LATEST_VERSION = '/latest/';
+    public const DOWNLOAD_TIMEOUT = 720;
     /**
      * @var Translator
      */
@@ -76,7 +76,7 @@ class Updater
      * @throws UpdaterException
      * @throws Exception
      */
-    public function updatePiwik($https = true)
+    public function updatePiwik($https = \true)
     {
         if (!$this->isNewVersionAvailable()) {
             throw new Exception($this->translator->translate('CoreUpdater_ExceptionAlreadyLatestVersion', Version::VERSION));
@@ -106,7 +106,7 @@ class Updater
         $responses = $cliMulti->request(['?module=CoreUpdater&action=oneClickUpdatePartTwo&nonce=' . $nonce]);
         if (!empty($responses)) {
             $responseCliMulti = array_shift($responses);
-            $responseCliMulti = @json_decode($responseCliMulti, $assoc = true);
+            $responseCliMulti = @json_decode($responseCliMulti, $assoc = \true);
             if (is_array($responseCliMulti)) {
                 // we expect a json encoded array response from oneClickUpdatePartTwo. Otherwise something went wrong.
                 $messages = array_merge($messages, $responseCliMulti);
@@ -200,7 +200,7 @@ class Updater
             $extractedArchiveDirectory = $extractionPath . $flavor;
             // Remove previous decompressed archive
             if (file_exists($extractedArchiveDirectory)) {
-                Filesystem::unlinkRecursive($extractedArchiveDirectory, true);
+                Filesystem::unlinkRecursive($extractedArchiveDirectory, \true);
             }
         }
         $archive = Unzip::factory('PclZip', $archiveFile);
@@ -271,10 +271,10 @@ class Updater
                 Filesystem::copy($extractedArchiveDirectory . $file, PIWIK_DOCUMENT_ROOT . $file);
             }
             // Copy the non-PHP files (e.g., images, css, javascript)
-            Filesystem::copyRecursive($extractedArchiveDirectory, PIWIK_DOCUMENT_ROOT, true);
+            Filesystem::copyRecursive($extractedArchiveDirectory, PIWIK_DOCUMENT_ROOT, \true);
             $model->removeGoneFiles($extractedArchiveDirectory, PIWIK_DOCUMENT_ROOT);
         }
-        Filesystem::unlinkRecursive($extractedArchiveDirectory, true);
+        Filesystem::unlinkRecursive($extractedArchiveDirectory, \true);
         Filesystem::clearPhpCaches();
     }
     /**
@@ -282,7 +282,7 @@ class Updater
      * @param bool $https Whether to use HTTPS if supported of not. If false, will use HTTP.
      * @return string
      */
-    public function getArchiveUrl($version, $https = true)
+    public function getArchiveUrl($version, $https = \true)
     {
         $channel = $this->releaseChannels->getActiveReleaseChannel();
         $url = $channel->getDownloadUrlWithoutScheme($version);
@@ -308,7 +308,7 @@ class Updater
         $wrongPermissionDir = [];
         if (is_dir($source)) {
             $d = dir($source);
-            while (false !== ($entry = $d->read())) {
+            while (\false !== ($entry = $d->read())) {
                 if ($entry == '.' || $entry == '..') {
                     continue;
                 }

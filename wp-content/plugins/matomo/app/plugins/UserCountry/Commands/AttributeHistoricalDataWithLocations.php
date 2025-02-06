@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry\Commands;
 
@@ -16,13 +15,13 @@ use Piwik\DataAccess\RawLogDao;
 use Piwik\Timer;
 class AttributeHistoricalDataWithLocations extends ConsoleCommand
 {
-    const DATES_RANGE_ARGUMENT = 'dates-range';
-    const PERCENT_STEP_ARGUMENT = 'percent-step';
-    const PERCENT_STEP_ARGUMENT_DEFAULT = 5;
-    const PROVIDER_ARGUMENT = 'provider';
-    const SEGMENT_LIMIT_OPTION = 'segment-limit';
-    const SEGMENT_LIMIT_OPTION_DEFAULT = 1000;
-    const FORCE_OPTION = 'force';
+    public const DATES_RANGE_ARGUMENT = 'dates-range';
+    public const PERCENT_STEP_ARGUMENT = 'percent-step';
+    public const PERCENT_STEP_ARGUMENT_DEFAULT = 5;
+    public const PROVIDER_ARGUMENT = 'provider';
+    public const SEGMENT_LIMIT_OPTION = 'segment-limit';
+    public const SEGMENT_LIMIT_OPTION_DEFAULT = 1000;
+    public const FORCE_OPTION = 'force';
     /**
      * @var RawLogDao
      */
@@ -51,7 +50,7 @@ class AttributeHistoricalDataWithLocations extends ConsoleCommand
      * @var int
      */
     private $processedPercent = 0;
-    public function __construct(RawLogDao $dao = null)
+    public function __construct(?RawLogDao $dao = null)
     {
         parent::__construct();
         $this->dao = $dao ?: new RawLogDao();
@@ -138,7 +137,7 @@ class AttributeHistoricalDataWithLocations extends ConsoleCommand
             throw new \InvalidArgumentException("The provider '{$providerId}' is not currently available, please make sure it is configured correctly.");
         }
         $isWorkingOrErrorMessage = $usedProvider->isWorking();
-        if ($isWorkingOrErrorMessage !== true) {
+        if ($isWorkingOrErrorMessage !== \true) {
             $errorMessage = "The provider '{$providerId}' does not appear to be working correctly. Details: {$isWorkingOrErrorMessage}";
             $forceGeolocation = $input->getOption(self::FORCE_OPTION);
             if ($forceGeolocation) {

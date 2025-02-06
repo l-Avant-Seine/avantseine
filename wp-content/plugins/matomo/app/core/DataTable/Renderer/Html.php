@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Renderer;
 
@@ -83,8 +82,8 @@ class Html extends Renderer
     protected function buildTableStructure($table, $columnToAdd = null, $valueToAdd = null)
     {
         $i = $this->i;
-        $someMetadata = false;
-        $someIdSubTable = false;
+        $someMetadata = \false;
+        $someIdSubTable = \false;
         /*
          * table = array
          * ROW1 = col1 | col2 | col3 | metadata | idSubTable
@@ -95,36 +94,32 @@ class Html extends Renderer
         }
         foreach ($table->getRows() as $row) {
             if (isset($columnToAdd) && isset($valueToAdd)) {
-                $this->allColumns[$columnToAdd] = true;
+                $this->allColumns[$columnToAdd] = \true;
                 $this->tableStructure[$i][$columnToAdd] = $valueToAdd;
             }
             foreach ($row->getColumns() as $column => $value) {
-                $this->allColumns[$column] = true;
+                $this->allColumns[$column] = \true;
                 $this->tableStructure[$i][$column] = $value;
             }
             $metadata = array();
             foreach ($row->getMetadata() as $name => $value) {
                 if (is_string($value)) {
                     $value = "'{$value}'";
-                } else {
-                    if (is_array($value)) {
-                        $value = var_export($value, true);
-                    } else {
-                        if ($value instanceof DataTable\DataTableInterface) {
-                            $value = $this->renderTable($value);
-                        }
-                    }
+                } elseif (is_array($value)) {
+                    $value = var_export($value, \true);
+                } elseif ($value instanceof DataTable\DataTableInterface) {
+                    $value = $this->renderTable($value);
                 }
                 $metadata[] = "'{$name}' => {$value}";
             }
             if (count($metadata) != 0) {
-                $someMetadata = true;
+                $someMetadata = \true;
                 $metadata = implode("<br />", $metadata);
                 $this->tableStructure[$i]['_metadata'] = $metadata;
             }
             $idSubtable = $row->getIdSubDataTable();
             if (!is_null($idSubtable)) {
-                $someIdSubTable = true;
+                $someIdSubTable = \true;
                 $this->tableStructure[$i]['_idSubtable'] = $idSubtable;
             }
             $i++;
@@ -142,7 +137,7 @@ class Html extends Renderer
     {
         $html = "<table " . ($this->tableId ? "id=\"{$this->tableId}\" " : "") . "border=\"1\">\n<thead>\n\t<tr>\n";
         foreach ($this->allColumns as $name => $toDisplay) {
-            if ($toDisplay !== false) {
+            if ($toDisplay !== \false) {
                 if ($name === 0) {
                     $name = 'value';
                 }
@@ -156,11 +151,11 @@ class Html extends Renderer
         foreach ($this->tableStructure as $row) {
             $html .= "\t<tr>\n";
             foreach ($this->allColumns as $name => $toDisplay) {
-                if ($toDisplay !== false) {
+                if ($toDisplay !== \false) {
                     $value = "-";
                     if (isset($row[$name])) {
                         if (is_array($row[$name])) {
-                            $value = "<pre>" . self::formatValueXml(var_export($row[$name], true)) . "</pre>";
+                            $value = "<pre>" . self::formatValueXml(var_export($row[$name], \true)) . "</pre>";
                         } else {
                             $value = self::formatValueXml($row[$name]);
                         }

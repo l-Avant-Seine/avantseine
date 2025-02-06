@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -116,7 +115,7 @@ class Development
     public static function isCallableMethod($classOrObject, $method)
     {
         if (!self::methodExists($classOrObject, $method)) {
-            return false;
+            return \false;
         }
         $reflection = new \ReflectionMethod($classOrObject, $method);
         return $reflection->isPublic();
@@ -135,7 +134,7 @@ class Development
         }
         $message .= ' (This error is only shown in development mode)';
         if (\Piwik\SettingsServer::isTrackerApiRequest() || \Piwik\Common::isPhpCliMode()) {
-            StaticContainer::get(LoggerInterface::class)->error($message, ['ignoreInScreenWriter' => true]);
+            StaticContainer::get(LoggerInterface::class)->error($message, ['ignoreInScreenWriter' => \true]);
         } else {
             throw new Exception($message);
         }

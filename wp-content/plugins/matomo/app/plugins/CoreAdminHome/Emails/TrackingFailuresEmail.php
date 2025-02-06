@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreAdminHome\Emails;
 
@@ -77,7 +76,7 @@ class TrackingFailuresEmail extends Mail
         $view->emailAddress = $this->emailAddress;
         $view->numFailures = $this->numFailures;
         $sitesId = Access::getInstance()->getSitesIdWithAtLeastViewAccess();
-        $idSite = false;
+        $idSite = \false;
         if (!empty($sitesId)) {
             $idSite = array_shift($sitesId);
         }

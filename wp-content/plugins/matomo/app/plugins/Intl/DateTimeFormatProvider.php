@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Intl;
 
@@ -64,7 +64,7 @@ class DateTimeFormatProvider extends \Piwik\Intl\Data\Provider\DateTimeFormatPro
             default:
                 $pattern = $format;
         }
-        if (strpos($pattern, '{time}') !== false) {
+        if (strpos($pattern, '{time}') !== \false) {
             $pattern = str_replace('{time}', $this->getTimeFormat(), $pattern);
         }
         return $pattern;
@@ -77,7 +77,7 @@ class DateTimeFormatProvider extends \Piwik\Intl\Data\Provider\DateTimeFormatPro
      *
      * @return string
      */
-    public function getRangeFormatPattern($short = false, $maxDifference = 'Y')
+    public function getRangeFormatPattern($short = \false, $maxDifference = 'Y')
     {
         return $this->translator->translate(sprintf('Intl_Format_Interval_%s_%s', $short ? 'Short' : 'Long', $maxDifference));
     }
@@ -107,7 +107,7 @@ class DateTimeFormatProvider extends \Piwik\Intl\Data\Provider\DateTimeFormatPro
      *
      * @param bool $use12HourClock
      */
-    public function forceTimeFormat($use12HourClock = false)
+    public function forceTimeFormat($use12HourClock = \false)
     {
         $this->use12HourClock = $use12HourClock;
     }

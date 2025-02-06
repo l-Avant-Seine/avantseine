@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager\SiteContentDetection;
 
@@ -42,10 +41,10 @@ class Matomo extends \Piwik\Plugins\SitesManager\SiteContentDetection\SiteConten
         $tests = ['/matomo\\.js/i', '/piwik\\.js/i', '/_paq\\.push/i'];
         foreach ($tests as $test) {
             if (preg_match($test, $data) === 1) {
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
     public function renderInstructionsTab(SiteContentDetector $detector) : string
     {
@@ -68,7 +67,7 @@ class Matomo extends \Piwik\Plugins\SitesManager\SiteContentDetection\SiteConten
     }
     public function isRecommended(SiteContentDetector $detector) : bool
     {
-        return false;
+        return \false;
         // do not recommend this, as it's used as fall back
     }
     public function getRecommendationDetails(SiteContentDetector $detector) : array

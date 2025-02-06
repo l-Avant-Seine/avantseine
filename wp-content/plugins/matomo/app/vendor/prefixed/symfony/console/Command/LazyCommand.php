@@ -24,7 +24,7 @@ final class LazyCommand extends Command
 {
     private $command;
     private $isEnabled;
-    public function __construct(string $name, array $aliases, string $description, bool $isHidden, \Closure $commandFactory, ?bool $isEnabled = true)
+    public function __construct(string $name, array $aliases, string $description, bool $isHidden, \Closure $commandFactory, ?bool $isEnabled = \true)
     {
         $this->setName($name)->setAliases($aliases)->setHidden($isHidden)->setDescription($description);
         $this->command = $commandFactory;
@@ -34,7 +34,7 @@ final class LazyCommand extends Command
     {
         $this->getCommand()->ignoreValidationErrors();
     }
-    public function setApplication(Application $application = null) : void
+    public function setApplication(?Application $application = null) : void
     {
         if ($this->command instanceof parent) {
             $this->command->setApplication($application);
@@ -71,7 +71,7 @@ final class LazyCommand extends Command
     /**
      * @internal
      */
-    public function mergeApplicationDefinition(bool $mergeArgs = true) : void
+    public function mergeApplicationDefinition(bool $mergeArgs = \true) : void
     {
         $this->getCommand()->mergeApplicationDefinition($mergeArgs);
     }
@@ -94,7 +94,7 @@ final class LazyCommand extends Command
     /**
      * @return $this
      */
-    public function addArgument(string $name, int $mode = null, string $description = '', $default = null) : self
+    public function addArgument(string $name, ?int $mode = null, string $description = '', $default = null) : self
     {
         $this->getCommand()->addArgument($name, $mode, $description, $default);
         return $this;
@@ -102,7 +102,7 @@ final class LazyCommand extends Command
     /**
      * @return $this
      */
-    public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null) : self
+    public function addOption(string $name, $shortcut = null, ?int $mode = null, string $description = '', $default = null) : self
     {
         $this->getCommand()->addOption($name, $shortcut, $mode, $description, $default);
         return $this;
@@ -131,7 +131,7 @@ final class LazyCommand extends Command
     {
         return $this->getCommand()->getProcessedHelp();
     }
-    public function getSynopsis(bool $short = false) : string
+    public function getSynopsis(bool $short = \false) : string
     {
         return $this->getCommand()->getSynopsis($short);
     }

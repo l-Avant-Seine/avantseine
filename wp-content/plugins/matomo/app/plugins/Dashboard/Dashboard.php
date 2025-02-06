@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Dashboard;
 
@@ -39,7 +38,7 @@ class Dashboard extends \Piwik\Plugin
     public function shouldEmbedIframeEmpty(&$shouldEmbedEmpty, $controllerName, $actionName)
     {
         if ($controllerName == 'Dashboard' && $actionName == 'index') {
-            $shouldEmbedEmpty = true;
+            $shouldEmbedEmpty = \true;
         }
     }
     public function addWidgetConfigs(&$widgets)
@@ -122,7 +121,7 @@ class Dashboard extends \Piwik\Plugin
     {
         $return = $this->getModel()->getLayoutForUser($login, $idDashboard);
         if (count($return) == 0) {
-            return false;
+            return \false;
         }
         return $return[0]['layout'];
     }
@@ -221,10 +220,10 @@ class Dashboard extends \Piwik\Plugin
         if ($this->isAlreadyDecodedLayout($layout)) {
             return $layout;
         }
-        $layout = html_entity_decode($layout, ENT_COMPAT | ENT_HTML401, 'UTF-8');
+        $layout = html_entity_decode($layout, \ENT_COMPAT | \ENT_HTML401, 'UTF-8');
         $layout = str_replace("\\\"", "\"", $layout);
         $layout = str_replace("\n", "", $layout);
-        return json_decode($layout, $assoc = false);
+        return json_decode($layout, $assoc = \false);
     }
     public function encodeLayout($layout)
     {

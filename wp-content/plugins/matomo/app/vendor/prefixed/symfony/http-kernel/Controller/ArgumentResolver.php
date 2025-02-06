@@ -30,7 +30,7 @@ final class ArgumentResolver implements ArgumentResolverInterface
     /**
      * @param iterable<mixed, ArgumentValueResolverInterface> $argumentValueResolvers
      */
-    public function __construct(ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, iterable $argumentValueResolvers = [])
+    public function __construct(?ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, iterable $argumentValueResolvers = [])
     {
         $this->argumentMetadataFactory = $argumentMetadataFactory ?? new ArgumentMetadataFactory();
         $this->argumentValueResolvers = $argumentValueResolvers ?: self::getDefaultArgumentValueResolvers();
@@ -47,9 +47,9 @@ final class ArgumentResolver implements ArgumentResolverInterface
                     continue;
                 }
                 $resolved = $resolver->resolve($request, $metadata);
-                $atLeastOne = false;
+                $atLeastOne = \false;
                 foreach ($resolved as $append) {
-                    $atLeastOne = true;
+                    $atLeastOne = \true;
                     $arguments[] = $append;
                 }
                 if (!$atLeastOne) {

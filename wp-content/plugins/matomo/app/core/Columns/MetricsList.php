@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Columns;
 
@@ -59,7 +58,7 @@ class MetricsList
      * @param string|false $metricName The name of the metric to remove eg 'nb_visits'.
      *                                 If not supplied, all metrics within that category will be removed.
      */
-    public function remove($metricCategory, $metricName = false)
+    public function remove($metricCategory, $metricName = \false)
     {
         foreach ($this->metrics as $index => $metric) {
             if ($metric->getCategoryId() === $metricCategory) {
@@ -158,7 +157,7 @@ class MetricsList
                 $depMetrics = $metric->getDependentMetrics();
                 if (is_array($depMetrics)) {
                     foreach ($depMetrics as $depMetric) {
-                        if (!in_array($depMetric, $availableMetrics, $strict = true)) {
+                        if (!in_array($depMetric, $availableMetrics, $strict = \true)) {
                             unset($list->metrics[$index]);
                             // not resolvable metric
                         }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DevicePlugins\RecordBuilders;
 
@@ -37,7 +36,7 @@ class DevicePlugins extends RecordBuilder
             $selects[] = sprintf("sum(case log_visit.%s when 1 then 1 else 0 end) as %s", $column->getColumnName(), substr($column->getColumnName(), 7));
         }
         $logAggregator = $archiveProcessor->getLogAggregator();
-        $query = $logAggregator->queryVisitsByDimension(array(), false, $selects, $metrics = array());
+        $query = $logAggregator->queryVisitsByDimension(array(), \false, $selects, $metrics = array());
         $data = $query->fetch();
         $cleanRow = LogAggregator::makeArrayOneColumn($data, Metrics::INDEX_NB_VISITS);
         $table = DataTable::makeFromIndexedArray($cleanRow);

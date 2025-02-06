@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Archive;
 
@@ -40,5 +39,5 @@ interface ArchiveQuery
      * @param bool $addMetadataSubtableId
      * @return DataTable|DataTable\Map
      */
-    public function getDataTableExpanded($name, $idSubtable = null, $depth = null, $addMetadataSubtableId = true);
+    public function getDataTableExpanded($name, $idSubtable = null, $depth = null, $addMetadataSubtableId = \true);
 }

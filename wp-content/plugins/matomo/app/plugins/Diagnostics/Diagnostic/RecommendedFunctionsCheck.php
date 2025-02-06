@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Diagnostics\Diagnostic;
 
@@ -44,7 +44,7 @@ class RecommendedFunctionsCheck implements \Piwik\Plugins\Diagnostics\Diagnostic
      */
     private function getRecommendedFunctions()
     {
-        return array('shell_exec', 'set_time_limit', 'mail', 'parse_ini_file', 'glob', 'gzopen', 'md5_file');
+        return array('shell_exec', 'set_time_limit', 'mail', 'parse_ini_file', 'glob', 'gzopen', 'md5_file', 'hash_file');
     }
     private function getHelpMessage($function)
     {

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -17,7 +16,7 @@ use Piwik\DataTable\BaseFilter;
  */
 class SafeDecodeLabel extends BaseFilter
 {
-    const APPLIED_METADATA_NAME = 'SafeDecodeLabelApplied';
+    public const APPLIED_METADATA_NAME = 'SafeDecodeLabelApplied';
     private $columnToDecode;
     /**
      * @param DataTable $table
@@ -39,9 +38,9 @@ class SafeDecodeLabel extends BaseFilter
             return $value;
         }
         $raw = urldecode($value);
-        $value = htmlspecialchars_decode($raw, ENT_QUOTES);
+        $value = htmlspecialchars_decode($raw, \ENT_QUOTES);
         // ENT_IGNORE so that if utf8 string has some errors, we simply discard invalid code unit sequences
-        $style = ENT_QUOTES | ENT_IGNORE;
+        $style = \ENT_QUOTES | \ENT_IGNORE;
         // See changes in 5.4: http://nikic.github.com/2012/01/28/htmlspecialchars-improvements-in-PHP-5-4.html
         // Note: at some point we should change ENT_IGNORE to ENT_SUBSTITUTE
         $value = htmlspecialchars($value, $style, 'UTF-8');
@@ -59,7 +58,7 @@ class SafeDecodeLabel extends BaseFilter
         }
         foreach ($table->getRows() as $row) {
             $value = $row->getColumn($this->columnToDecode);
-            if ($value !== false) {
+            if ($value !== \false) {
                 $value = self::decodeLabelSafe($value);
                 $row->setColumn($this->columnToDecode, $value);
                 $this->filterSubTable($row);

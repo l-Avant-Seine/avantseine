@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreConsole\Commands;
 
@@ -144,7 +143,7 @@ class GenerateReport extends \Piwik\Plugins\CoreConsole\Commands\GeneratePluginB
         }
         $categories = array_values(array_unique($categories));
         if (empty($category)) {
-            $category = $this->askAndValidate('Enter the report category, for instance "Visitor" (you can reuse any existing category or define a new one): ', $validate, false, $categories);
+            $category = $this->askAndValidate('Enter the report category, for instance "Visitor" (you can reuse any existing category or define a new one): ', $validate, \false, $categories);
         } else {
             $validate($category);
         }

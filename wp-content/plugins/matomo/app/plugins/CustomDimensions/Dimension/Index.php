@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CustomDimensions\Dimension;
 
@@ -21,7 +20,7 @@ class Index
         $configs = Request::processRequest('CustomDimensions.getConfiguredCustomDimensionsHavingScope', ['idSite' => $idSite, 'scope' => $scope]);
         foreach ($configs as $config) {
             $key = array_search($config['index'], $indexes);
-            if ($key !== false) {
+            if ($key !== \false) {
                 unset($indexes[$key]);
             }
         }

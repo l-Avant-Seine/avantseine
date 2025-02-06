@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Notification;
 
@@ -18,7 +17,7 @@ use Piwik\Session\SessionNamespace;
  */
 class Manager
 {
-    const MAX_NOTIFICATIONS_IN_SESSION = 30;
+    public const MAX_NOTIFICATIONS_IN_SESSION = 30;
     /**
      * @var SessionNamespace
      */
@@ -103,12 +102,12 @@ class Manager
     {
         self::saveNotificationAcrossUiRequestsIfNeeded($id, $notification);
         if (count(self::$notifications) >= self::MAX_NOTIFICATIONS_IN_SESSION) {
-            return false;
+            return \false;
         }
         // we store all kinda notifications here so in case the session is not enabled or disabled later there is still
         // a chance it gets delivered to the UI during the same request.
         self::$notifications[$id] = $notification;
-        return true;
+        return \true;
     }
     private static function saveNotificationAcrossUiRequestsIfNeeded($id, Notification $notification)
     {

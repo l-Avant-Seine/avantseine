@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Columns;
 
@@ -16,7 +15,7 @@ use Piwik\Tracker\Request;
 use Piwik\Tracker\Visitor;
 class VisitorSecondsSinceOrder extends VisitDimension
 {
-    const COLUMN_TYPE = 'INT(11) UNSIGNED NULL';
+    public const COLUMN_TYPE = 'INT(11) UNSIGNED NULL';
     protected $columnName = 'visitor_seconds_since_order';
     protected $columnType = self::COLUMN_TYPE;
     protected $segmentName = 'secondsSinceLastEcommerceOrder';
@@ -42,17 +41,17 @@ class VisitorSecondsSinceOrder extends VisitDimension
             return 0;
         }
         $existingValue = $visitor->getVisitorColumn($this->columnName);
-        if ($existingValue !== null && $existingValue !== false) {
+        if ($existingValue !== null && $existingValue !== \false) {
             // already set
             return $existingValue;
         }
         $prevSecondsSinceLastOrder = $visitor->getPreviousVisitColumn($this->columnName);
-        if ($prevSecondsSinceLastOrder === null || $prevSecondsSinceLastOrder === false) {
+        if ($prevSecondsSinceLastOrder === null || $prevSecondsSinceLastOrder === \false) {
             // no order at all for visitor
             return null;
         }
         $visitFirstActionTime = $visitor->getPreviousVisitColumn('visit_first_action_time');
-        if ($visitFirstActionTime === null || $visitFirstActionTime === false) {
+        if ($visitFirstActionTime === null || $visitFirstActionTime === \false) {
             // no previous visit
             return null;
         }

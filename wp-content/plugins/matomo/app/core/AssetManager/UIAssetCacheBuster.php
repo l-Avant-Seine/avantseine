@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  * @method static \Piwik\AssetManager\UIAssetCacheBuster getInstance()
  */
@@ -25,10 +25,10 @@ class UIAssetCacheBuster extends Singleton
      * @param string[] $pluginNames
      * @return string
      */
-    public function piwikVersionBasedCacheBuster($pluginNames = false)
+    public function piwikVersionBasedCacheBuster($pluginNames = \false)
     {
         static $cachedCacheBuster = null;
-        if (empty($cachedCacheBuster) || $pluginNames !== false) {
+        if (empty($cachedCacheBuster) || $pluginNames !== \false) {
             $masterFile = PIWIK_INCLUDE_PATH . '/.git/refs/heads/master';
             $currentGitHash = file_exists($masterFile) ? @file_get_contents($masterFile) : '';
             $manager = Manager::getInstance();
@@ -41,8 +41,8 @@ class UIAssetCacheBuster extends Singleton
                     $pluginsInfo .= $plugin->getPluginName() . $plugin->getVersion() . ',';
                 }
             }
-            $cacheBuster = md5($pluginsInfo . PHP_VERSION . Version::VERSION . trim($currentGitHash ?? ''));
-            if ($pluginNames !== false) {
+            $cacheBuster = md5($pluginsInfo . \PHP_VERSION . Version::VERSION . trim($currentGitHash ?? ''));
+            if ($pluginNames !== \false) {
                 return $cacheBuster;
             }
             $cachedCacheBuster = $cacheBuster;

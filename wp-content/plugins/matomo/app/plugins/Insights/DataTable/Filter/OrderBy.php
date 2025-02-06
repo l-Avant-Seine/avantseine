@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Insights\DataTable\Filter;
 
@@ -50,13 +49,13 @@ class OrderBy extends BaseFilter
     }
     private function sortVal($valA, $valB)
     {
-        if ((!isset($valA) || $valA === false) && (!isset($valB) || $valB === false)) {
+        if ((!isset($valA) || $valA === \false) && (!isset($valB) || $valB === \false)) {
             return 0;
         }
-        if (!isset($valA) || $valA === false) {
+        if (!isset($valA) || $valA === \false) {
             return 1;
         }
-        if (!isset($valB) || $valB === false) {
+        if (!isset($valB) || $valB === \false) {
             return -1;
         }
         if ($valA === $valB) {

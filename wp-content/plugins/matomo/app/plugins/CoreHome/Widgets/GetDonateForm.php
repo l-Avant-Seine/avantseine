@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Widgets;
 
@@ -33,7 +32,7 @@ class GetDonateForm extends Widget
     public function render()
     {
         $footerMessage = null;
-        if (Common::getRequestVar('widget', false) && Piwik::hasUserSuperUserAccess()) {
+        if (Common::getRequestVar('widget', \false) && Piwik::hasUserSuperUserAccess()) {
             $footerMessage = $this->translator->translate('CoreHome_OnlyForSuperUserAccess');
         }
         return $this->renderTemplate('getDonateForm', array('footerMessage' => $footerMessage));

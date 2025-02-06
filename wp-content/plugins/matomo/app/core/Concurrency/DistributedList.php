@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Concurrency;
 
@@ -37,7 +37,7 @@ class DistributedList
      *
      * @param string $optionName
      */
-    public function __construct($optionName, LoggerInterface $logger = null)
+    public function __construct($optionName, ?LoggerInterface $logger = null)
     {
         $this->optionName = $optionName;
         $this->logger = $logger ?: StaticContainer::get(LoggerInterface::class);
@@ -53,7 +53,7 @@ class DistributedList
         foreach ($result as $key => $item) {
             // remove non-array items (unexpected state, though can happen when upgrading from an old Piwik)
             if (is_array($item)) {
-                $this->logger->info("Found array item in DistributedList option value '{name}': {data}", array('name' => $this->optionName, 'data' => var_export($result, true)));
+                $this->logger->info("Found array item in DistributedList option value '{name}': {data}", array('name' => $this->optionName, 'data' => var_export($result, \true)));
                 unset($result[$key]);
             }
         }
@@ -105,7 +105,7 @@ class DistributedList
         $allItems = $this->getAll();
         foreach ($items as $item) {
             $existingIndex = array_search($item, $allItems);
-            if ($existingIndex === false) {
+            if ($existingIndex === \false) {
                 return;
             }
             unset($allItems[$existingIndex]);

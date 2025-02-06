@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DBStats\Reports;
 
@@ -30,17 +29,17 @@ class GetDatabaseUsageSummary extends \Piwik\Plugins\DBStats\Reports\Base
     public function configureView(ViewDataTable $view)
     {
         $this->addBaseDisplayProperties($view);
-        $this->addPresentationFilters($view, $addTotalSizeColumn = true, $addPercentColumn = true);
-        $view->config->show_offset_information = false;
-        $view->config->show_pagination_control = false;
+        $this->addPresentationFilters($view, $addTotalSizeColumn = \true, $addPercentColumn = \true);
+        $view->config->show_offset_information = \false;
+        $view->config->show_pagination_control = \false;
         if ($view->isViewDataTableId(Graph::ID)) {
-            $view->config->show_all_ticks = true;
+            $view->config->show_all_ticks = \true;
         }
         // translate the labels themselves
         $valueToTranslationStr = array('tracker_data' => 'DBStats_TrackerTables', 'report_data' => 'DBStats_ReportTables', 'metric_data' => 'DBStats_MetricTables', 'other_data' => 'DBStats_OtherTables');
         $translateSummaryLabel = function ($value) use($valueToTranslationStr) {
             return isset($valueToTranslationStr[$value]) ? Piwik::translate($valueToTranslationStr[$value]) : $value;
         };
-        $view->config->filters[] = array('ColumnCallbackReplace', array('label', $translateSummaryLabel), $isPriority = true);
+        $view->config->filters[] = array('ColumnCallbackReplace', array('label', $translateSummaryLabel), $isPriority = \true);
     }
 }

@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreAdminHome\Commands;
 
@@ -17,7 +17,7 @@ class SetConfig extends ConsoleCommand
     {
         $this->setName('config:set');
         $this->setDescription('Set one or more config settings in the file config/config.ini.php');
-        $this->addOptionalArgument('assignment', 'List of config setting assignments, eg, Section.key=1 or Section.array_key[]=value', null, true);
+        $this->addOptionalArgument('assignment', 'List of config setting assignments, eg, Section.key=1 or Section.array_key[]=value', null, \true);
         $this->addRequiredValueOption('section', null, 'The section the INI config setting belongs to.');
         $this->addRequiredValueOption('key', null, 'The name of the INI config setting.');
         $this->addRequiredValueOption('value', null, 'The value of the setting. (Not JSON encoded)');
@@ -31,7 +31,7 @@ class SetConfig extends ConsoleCommand
         $key = $input->getOption('key');
         $value = $input->getOption('value');
         $manipulations = $this->getAssignments();
-        $isSingleAssignment = !empty($section) && !empty($key) && $value !== false;
+        $isSingleAssignment = !empty($section) && !empty($key) && $value !== \false;
         if ($isSingleAssignment) {
             $manipulations[] = new ConfigSettingManipulation($section, $key, $value);
         }

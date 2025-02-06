@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Columns\Metrics;
 
@@ -57,7 +57,7 @@ class AveragePageGenerationTime extends ProcessedMetric
         if ($formatter instanceof Formatter\Html && !$value) {
             return '-';
         } else {
-            return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = true);
+            return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = \true);
         }
     }
     public function beforeCompute($report, DataTable $table)
@@ -83,7 +83,7 @@ class AveragePageGenerationTime extends ProcessedMetric
     }
     private function hasAverageTimeGeneration(DataTable $table)
     {
-        return $table->getFirstRow()->getColumn('avg_time_generation') !== false;
+        return $table->getFirstRow()->getColumn('avg_time_generation') !== \false;
     }
     public function getSemanticType() : ?string
     {

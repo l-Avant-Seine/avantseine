@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\TwoFactorAuth\Dao;
 
@@ -49,9 +49,9 @@ class RecoveryCodeDao
     public function useRecoveryCode($login, $recoveryCode)
     {
         if ($this->deleteRecoveryCode($login, $recoveryCode)) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     public function getAllRecoveryCodesForLogin($login)
     {

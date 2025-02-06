@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker;
 
@@ -102,7 +102,7 @@ abstract class RequestProcessor
      */
     public function processRequestParams(VisitProperties $visitProperties, \Piwik\Tracker\Request $request)
     {
-        return false;
+        return \false;
     }
     /**
      * This is the third method called when processing a tracker request.
@@ -121,7 +121,7 @@ abstract class RequestProcessor
      */
     public function afterRequestProcessed(VisitProperties $visitProperties, \Piwik\Tracker\Request $request)
     {
-        return false;
+        return \false;
     }
     /**
      * This method is called before recording a new visit. You can set/change visit information here

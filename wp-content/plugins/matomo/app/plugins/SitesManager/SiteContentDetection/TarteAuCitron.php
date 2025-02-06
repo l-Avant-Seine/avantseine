@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager\SiteContentDetection;
 
@@ -26,11 +25,11 @@ class TarteAuCitron extends \Piwik\Plugins\SitesManager\SiteContentDetection\Con
     public function isDetected(?string $data = null, ?array $headers = null) : bool
     {
         $needle = 'tarteaucitron.js';
-        return strpos($data, $needle) !== false;
+        return strpos($data, $needle) !== \false;
     }
     public function checkIsConnected(?string $data = null, ?array $headers = null) : bool
     {
         $needle = 'tarteaucitron.user.matomoHost';
-        return strpos($data, $needle) !== false;
+        return strpos($data, $needle) !== \false;
     }
 }

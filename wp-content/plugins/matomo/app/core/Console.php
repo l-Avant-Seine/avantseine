@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -29,7 +28,7 @@ class Console extends Application
      * @var Environment
      */
     private $environment;
-    public function __construct(Environment $environment = null)
+    public function __construct(?Environment $environment = null)
     {
         $this->setServerArgsIfPhpCgi();
         parent::__construct('Matomo', \Piwik\Version::VERSION);
@@ -44,10 +43,10 @@ class Console extends Application
     public function renderThrowable(\Throwable $e, OutputInterface $output) : void
     {
         $logHandlers = StaticContainer::get('log.handlers');
-        $hasFingersCrossed = false;
+        $hasFingersCrossed = \false;
         foreach ($logHandlers as $handler) {
             if ($handler instanceof FingersCrossedHandler) {
-                $hasFingersCrossed = true;
+                $hasFingersCrossed = \true;
                 break;
             }
         }
@@ -83,7 +82,7 @@ class Console extends Application
     private function doRunImpl(InputInterface $input, OutputInterface $output)
     {
         if ($input->hasParameterOption('--xhprof')) {
-            \Piwik\Profiler::setupProfilerXHProf(true, true);
+            \Piwik\Profiler::setupProfilerXHProf(\true, \true);
         }
         $this->initMatomoHost($input);
         $this->initEnvironment($output);

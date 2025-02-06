@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Validators;
 
@@ -22,7 +21,7 @@ abstract class BaseValidator
     protected function isValueBare($value)
     {
         // we allow this value. if it is supposed to be not empty, please use NotEmpty validator on top
-        return $value === false || $value === null || $value === '';
+        return $value === \false || $value === null || $value === '';
     }
     /**
      * Lets you easily check a value against multiple validators.

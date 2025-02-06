@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\LanguagesManager;
 
@@ -20,7 +19,7 @@ class Menu extends \Piwik\Plugin\Menu
     {
         if (Piwik::isUserIsAnonymous() || !SettingsPiwik::isMatomoInstalled()) {
             $langManager = new \Piwik\Plugins\LanguagesManager\LanguagesManager();
-            $menu->addHtml('LanguageSelector', $langManager->getLanguagesSelector(), true, $order = 30, false);
+            $menu->addHtml('LanguageSelector', $langManager->getLanguagesSelector(), \true, $order = 30, \false);
         }
     }
     public function configureAdminMenu(MenuAdmin $menu)

@@ -3,24 +3,26 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Installation;
 
 use Exception;
 use Piwik\Access;
+use Piwik\Application\Kernel\GlobalSettingsProvider;
 use Piwik\AssetManager;
 use Piwik\Common;
 use Piwik\Config;
 use Piwik\Container\StaticContainer;
 use Piwik\DataAccess\ArchiveTableCreator;
+use Piwik\Date;
 use Piwik\Db;
 use Piwik\DbHelper;
 use Piwik\Filesystem;
 use Piwik\Option;
 use Piwik\Piwik;
+use Piwik\Plugin\ControllerAdmin;
 use Piwik\Plugin\Manager;
 use Piwik\Plugins\CoreVue\CoreVue;
 use Piwik\Plugins\Diagnostics\DiagnosticReport;
@@ -41,14 +43,9 @@ use Piwik\Version;
 use Zend_Db_Adapter_Exception;
 /**
  * Installation controller
- *
  */
-class Controller extends \Piwik\Plugin\ControllerAdmin
+class Controller extends ControllerAdmin
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
     public $steps = array('welcome' => 'Installation_Welcome', 'systemCheck' => 'Installation_SystemCheck', 'databaseSetup' => 'Installation_DatabaseSetup', 'tablesCreation' => 'Installation_Tables', 'setupSuperUser' => 'Installation_SuperUser', 'firstWebsiteSetup' => 'Installation_SetupWebsite', 'trackingCode' => 'General_JsTrackingTag', 'finished' => 'Installation_Congratulations');
     /**
      * Get installation steps
@@ -64,7 +61,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      *
      * @return string function name
      */
-    function getDefaultAction()
+    public function getDefaultAction()
     {
         $steps = array_keys($this->steps);
         return $steps[0];
@@ -76,28 +73,30 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      *
      * @param string $possibleErrorMessage Possible error message which may be set in the frontcontroller when event. Config.badConfigurationFile was triggered
      */
-    function welcome($possibleErrorMessage = null)
+    public function welcome($possibleErrorMessage = null)
     {
         // Delete merged js/css files to force regenerations based on updated activated plugin list
         Filesystem::deleteAllCacheOnUpdate();
         $this->checkPiwikIsNotInstalled($possibleErrorMessage);
+        $this->checkInstallationIsNotExpired();
         $view = new \Piwik\Plugins\Installation\View('@Installation/welcome', $this->getInstallationSteps(), __FUNCTION__);
-        $view->showNextStep = true;
+        $view->showNextStep = \true;
         return $view->render();
     }
     /**
      * Installation Step 2: System Check
      */
-    function systemCheck()
+    public function systemCheck()
     {
         $this->checkPiwikIsNotInstalled();
         $this->deleteConfigFileIfNeeded();
+        $this->checkInstallationIsNotExpired();
         $view = new \Piwik\Plugins\Installation\View('@Installation/systemCheck', $this->getInstallationSteps(), __FUNCTION__);
         // Do not use dependency injection because this service requires a lot of sub-services across plugins
         /** @var DiagnosticService $diagnosticService */
         $diagnosticService = StaticContainer::get('Piwik\\Plugins\\Diagnostics\\DiagnosticService');
         $view->diagnosticReport = $diagnosticService->runDiagnostics();
-        $view->isInstallation = true;
+        $view->isInstallation = \true;
         $view->systemCheckInfo = $this->getSystemCheckTextareaValue($view->diagnosticReport);
         $view->showNextStep = !$view->diagnosticReport->hasErrors();
         // On the system check page, if all is green, display Next link at the top
@@ -108,11 +107,12 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      * Installation Step 3: Database Set-up
      * @throws Exception|Zend_Db_Adapter_Exception
      */
-    function databaseSetup()
+    public function databaseSetup()
     {
         $this->checkPiwikIsNotInstalled();
+        $this->checkInstallationIsNotExpired();
         $view = new \Piwik\Plugins\Installation\View('@Installation/databaseSetup', $this->getInstallationSteps(), __FUNCTION__);
-        $view->showNextStep = false;
+        $view->showNextStep = \false;
         $form = new \Piwik\Plugins\Installation\FormDatabaseSetup();
         if ($form->validate()) {
             try {
@@ -131,26 +131,27 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     /**
      * Installation Step 4: Table Creation
      */
-    function tablesCreation()
+    public function tablesCreation()
     {
         $this->checkPiwikIsNotInstalled();
+        $this->checkInstallationIsNotExpired();
         $view = new \Piwik\Plugins\Installation\View('@Installation/tablesCreation', $this->getInstallationSteps(), __FUNCTION__);
         if ($this->getParam('deleteTables')) {
             Manager::getInstance()->clearPluginsInstalledConfig();
             Db::dropAllTables();
-            $view->existingTablesDeleted = true;
+            $view->existingTablesDeleted = \true;
         }
         $tablesInstalled = DbHelper::getTablesInstalled();
         $view->tablesInstalled = '';
         if (count($tablesInstalled) > 0) {
             // we have existing tables
             $view->tablesInstalled = implode(', ', $tablesInstalled);
-            $view->someTablesInstalled = true;
+            $view->someTablesInstalled = \true;
             $self = $this;
             Access::doAsSuperUser(function () use($self, $tablesInstalled, $view) {
                 Access::getInstance();
                 if ($self->hasEnoughTablesToReuseDb($tablesInstalled) && count(APISitesManager::getInstance()->getAllSitesId()) > 0 && count(APIUsersManager::getInstance()->getUsers()) > 0) {
-                    $view->showReuseExistingTables = true;
+                    $view->showReuseExistingTables = \true;
                 }
             });
         } else {
@@ -159,20 +160,21 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             DbHelper::recordInstallVersion();
             $this->updateComponents();
             Updater::recordComponentSuccessfullyUpdated('core', Version::VERSION);
-            $view->tablesCreated = true;
-            $view->showNextStep = true;
+            $view->tablesCreated = \true;
+            $view->showNextStep = \true;
         }
         return $view->render();
     }
-    function reuseTables()
+    public function reuseTables()
     {
         $this->checkPiwikIsNotInstalled();
+        $this->checkInstallationIsNotExpired();
         $steps = $this->getInstallationSteps();
         $steps['tablesCreation'] = 'Installation_ReusingTables';
         $view = new \Piwik\Plugins\Installation\View('@Installation/reuseTables', $steps, 'tablesCreation');
         $oldVersion = Option::get('version_core');
         $result = $this->updateComponents();
-        if ($result === false) {
+        if ($result === \false) {
             $this->redirectToNextStep('tablesCreation');
         }
         $view->coreError = $result['coreError'];
@@ -181,15 +183,16 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view->deactivatedPlugins = $result['deactivatedPlugins'];
         $view->currentVersion = Version::VERSION;
         $view->oldVersion = $oldVersion;
-        $view->showNextStep = true;
+        $view->showNextStep = \true;
         return $view->render();
     }
     /**
      * Installation Step 5: General Set-up (superuser login/password/email and subscriptions)
      */
-    function setupSuperUser()
+    public function setupSuperUser()
     {
         $this->checkPiwikIsNotInstalled();
+        $this->checkInstallationIsNotExpired();
         $superUserAlreadyExists = Access::doAsSuperUser(function () {
             return count(APIUsersManager::getInstance()->getUsersHavingSuperUserAccess()) > 0;
         });
@@ -221,6 +224,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function firstWebsiteSetup()
     {
         $this->checkPiwikIsNotInstalled();
+        $this->checkInstallationIsNotExpired();
         \Piwik\Plugins\Installation\ServerFilesGenerator::createFilesForSecurity();
         $siteIdsCount = Access::doAsSuperUser(function () {
             return count(APISitesManager::getInstance()->getAllSitesId());
@@ -247,7 +251,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
         // Display previous step success message, when current step form was not submitted yet
         if (count($form->getErrorMessages()) == 0) {
-            $view->displayGeneralSetupSuccess = true;
+            $view->displayGeneralSetupSuccess = \true;
         }
         $view->addForm($form);
         return $view->render();
@@ -258,6 +262,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function trackingCode()
     {
         $this->checkPiwikIsNotInstalled();
+        $this->checkInstallationIsNotExpired();
         $view = new \Piwik\Plugins\Installation\View('@Installation/trackingCode', $this->getInstallationSteps(), __FUNCTION__);
         $siteName = Common::unsanitizeInputValue($this->getParam('site_name'));
         $idSite = $this->getParam('site_idSite');
@@ -274,11 +279,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $viewTrackingHelp->emailBody = $emailBody;
         $viewTrackingHelp->idSite = $idSite;
         $viewTrackingHelp->piwikUrl = Url::getCurrentUrlWithoutFileName();
-        $viewTrackingHelp->isInstall = true;
+        $viewTrackingHelp->isInstall = \true;
         $view->trackingHelp = $viewTrackingHelp->render();
         $view->displaySiteName = $siteName;
-        $view->displayfirstWebsiteSetupSuccess = true;
-        $view->showNextStep = true;
+        $view->displayfirstWebsiteSetupSuccess = \true;
+        $view->showNextStep = \true;
         return $view->render();
     }
     /**
@@ -287,6 +292,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     public function finished()
     {
         $this->checkPiwikIsNotInstalled();
+        $this->checkInstallationIsNotExpired();
         $view = new \Piwik\Plugins\Installation\View('@Installation/finished', $this->getInstallationSteps(), __FUNCTION__);
         $form = new \Piwik\Plugins\Installation\FormDefaultSettings();
         /**
@@ -311,7 +317,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             }
         }
         $view->addForm($form);
-        $view->showNextStep = false;
+        $view->showNextStep = \false;
         $output = $view->render();
         return $output;
     }
@@ -387,7 +393,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     }
     private function getParam($name)
     {
-        return Common::getRequestVar($name, false, 'string');
+        return Common::getRequestVar($name, \false, 'string');
     }
     /**
      * Write configuration file from session-store
@@ -415,6 +421,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $this->setTrustedHost($config);
         $config->database = $dbInfos;
         $config->database['charset'] = DbHelper::getDefaultCharset();
+        $config->database['collation'] = DbHelper::getDefaultCollationForCharset($config->database['charset']);
         $config->forceSave();
         // re-save the currently viewed language (since we saved the config file, there is now a salt which makes the
         // existing session cookie invalid)
@@ -448,6 +455,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     {
         $config = Config::getInstance();
         unset($config->General['installation_in_progress']);
+        unset($config->General['installation_first_accessed']);
         $config->forceSave();
     }
     /**
@@ -471,11 +479,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      */
     private function extractHostAndPort($url)
     {
-        $host = parse_url($url, PHP_URL_HOST) ?? false;
+        $host = parse_url($url, \PHP_URL_HOST) ?? \false;
         if (empty($host)) {
-            return false;
+            return \false;
         }
-        $port = (int) parse_url($url, PHP_URL_PORT) ?? 0;
+        $port = (int) parse_url($url, \PHP_URL_PORT) ?? 0;
         if (!empty($port) && $port !== 80 && $port !== 443) {
             return $host . ':' . $port;
         }
@@ -486,7 +494,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
      */
     private function setTrustedHost(Config $config) : void
     {
-        $host = Url::getHost(false);
+        $host = Url::getHost(\false);
         // check hostname in server variables is correctly parsable
         if ($host === $this->extractHostAndPort('http://' . $host)) {
             $config->General['trusted_hosts'] = [$host];
@@ -498,14 +506,14 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $api = APIUsersManager::getInstance();
             $api->addUser($login, $password, $email);
             $userUpdater = new UserUpdater();
-            $userUpdater->setSuperUserAccessWithoutCurrentPassword($login, true);
+            $userUpdater->setSuperUserAccessWithoutCurrentPassword($login, \true);
         });
     }
     // should be private but there's a bug in php 5.3.6
     public function hasEnoughTablesToReuseDb($tablesInstalled)
     {
         if (empty($tablesInstalled) || !is_array($tablesInstalled)) {
-            return false;
+            return \false;
         }
         $archiveTables = ArchiveTableCreator::getTablesArchivesInstalled();
         $baseTablesInstalled = count($tablesInstalled) - count($archiveTables);
@@ -516,7 +524,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     {
         $config = Config::getInstance();
         if ($config->existsLocalConfig()) {
+            $firstInstallationAccess = $config->General['installation_first_accessed'];
+            $settingsProvider = StaticContainer::get(GlobalSettingsProvider::class);
             $config->deleteLocalConfig();
+            $settingsProvider->reload();
+            $this->setUpInstallationExpiration($config, $firstInstallationAccess);
             // deleting the config file removes the salt, which in turns invalidates existing cookies (including the
             // one for selected language), so we re-save that cookie now
             $this->resetLanguageCookie();
@@ -532,7 +544,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             $updater = new Updater();
             $componentsWithUpdateFile = $updater->getComponentUpdates();
             if (empty($componentsWithUpdateFile)) {
-                return false;
+                return \false;
             }
             $result = $updater->updateComponents($componentsWithUpdateFile);
             return $result;
@@ -543,5 +555,26 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view = new \Piwik\View('@Installation/_systemCheckSection');
         $view->diagnosticReport = $diagnosticReport;
         return $view->render();
+    }
+    private function checkInstallationIsNotExpired() : void
+    {
+        $config = Config::getInstance();
+        if (empty($config->General['installation_first_accessed']) || !is_numeric($config->General['installation_first_accessed'])) {
+            $this->setUpInstallationExpiration($config, Date::getNowTimestamp());
+            return;
+        }
+        $firstAccess = (int) $config->General['installation_first_accessed'];
+        $threeDaysAgo = Date::getNowTimestamp() - 3 * 24 * 60 * 60;
+        if ($firstAccess < $threeDaysAgo) {
+            Piwik::exitWithErrorMessage(Piwik::translate('Installation_ErrorExpired1') . "\n<br/>" . Piwik::translate('Installation_ErrorExpired2') . "\n<ul>" . "\n<li>" . Piwik::translate('Installation_ErrorExpired3', ['<strong>', '</strong>']) . '</li>' . "\n<li>" . Piwik::translate('Installation_ErrorExpired4', ['<strong>', '</strong>']) . '</li>' . "\n<li>" . Piwik::translate('Installation_ErrorExpired5') . '</li>' . "\n</ul>" . Piwik::translate('Installation_ErrorExpired6') . "\n<br/>" . Piwik::translate('Installation_ErrorExpired7', ['<a href="' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/how-to-install/manage-secure-access-to-the-matomo-installer/') . '" rel="noreferrer noopener" target="_blank">', '</a>']));
+        }
+    }
+    private function setUpInstallationExpiration(Config $config, int $timestamp) : void
+    {
+        if (!empty($config->General['installation_first_accessed']) && is_numeric($config->General['installation_first_accessed'])) {
+            return;
+        }
+        $config->General['installation_first_accessed'] = $timestamp;
+        $config->forceSave();
     }
 }

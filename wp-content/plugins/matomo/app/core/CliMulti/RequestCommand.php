@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\CliMulti;
 
@@ -53,7 +53,7 @@ class RequestCommand extends ConsoleCommand
         }
         if ($this->getInput()->getOption('superuser')) {
             StaticContainer::addDefinitions(array('observers.global' => \Piwik\DI::add(array(array('Environment.bootstrapped', \Piwik\DI::value(function () {
-                Access::getInstance()->setSuperUserAccess(true);
+                Access::getInstance()->setSuperUserAccess(\true);
             }))))));
         }
         require_once PIWIK_INCLUDE_PATH . $indexFile;

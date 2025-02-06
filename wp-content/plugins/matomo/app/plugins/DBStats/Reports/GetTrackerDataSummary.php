@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DBStats\Reports;
 
@@ -26,7 +25,7 @@ class GetTrackerDataSummary extends \Piwik\Plugins\DBStats\Reports\Base
         $this->addBaseDisplayProperties($view);
         $this->addPresentationFilters($view);
         $view->requestConfig->filter_sort_order = 'asc';
-        $view->config->show_offset_information = false;
-        $view->config->show_pagination_control = false;
+        $view->config->show_offset_information = \false;
+        $view->config->show_pagination_control = \false;
     }
 }

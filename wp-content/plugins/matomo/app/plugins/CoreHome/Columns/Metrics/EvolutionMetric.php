@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Columns\Metrics;
 
@@ -54,7 +54,7 @@ class EvolutionMetric extends ProcessedMetric
      * @var DataTable
      */
     private $currentData;
-    private $isLowerBetter = false;
+    private $isLowerBetter = \false;
     /**
      * The list of labels leading to the current subtable being processed. Used to get the proper subtable in
      * $pastData.
@@ -73,7 +73,7 @@ class EvolutionMetric extends ProcessedMetric
      * @param DataTable|null $currentData The current datatable, optional but required to calculate the proportionate
      *                                    evolution values
      */
-    public function __construct($wrapped, ?DataTable $pastData = null, $evolutionMetricName = false, $quotientPrecision = 0, ?DataTable $currentData = null)
+    public function __construct($wrapped, ?DataTable $pastData = null, $evolutionMetricName = \false, $quotientPrecision = 0, ?DataTable $currentData = null)
     {
         $this->wrapped = $wrapped;
         $this->isLowerBetter = Metrics::isLowerValueBetter($this->wrapped);
@@ -131,12 +131,10 @@ class EvolutionMetric extends ProcessedMetric
         $divisor = $pastValue;
         if ($dividend == 0) {
             return 0;
+        } elseif ($divisor == 0) {
+            return 1;
         } else {
-            if ($divisor == 0) {
-                return 1;
-            } else {
-                return Piwik::getQuotientSafe($dividend, $divisor, $this->quotientPrecision + 2);
-            }
+            return Piwik::getQuotientSafe($dividend, $divisor, $this->quotientPrecision + 2);
         }
     }
     public function format($value, Formatter $formatter)

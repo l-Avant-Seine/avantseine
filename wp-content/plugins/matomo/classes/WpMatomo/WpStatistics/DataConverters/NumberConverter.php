@@ -3,6 +3,7 @@
 namespace WpMatomo\WpStatistics\DataConverters;
 
 use Piwik\DataTable;
+use WpMatomo\WpStatistics\Importers\Actions\RecordImporter;
 
 /**
  * aggregate data on the number fields
@@ -23,13 +24,16 @@ class NumberConverter {
 			foreach ( $wp_statistics_data as $row ) {
 				if ( ! array_key_exists( $row[ $key ], $data ) ) {
 					$data[ $row[ $key ] ] = [
-						'label'            => $row[ $key ],
+						'label'            => RecordImporter::get_label( $row, $key ),
 						'nb_visits'        => 0,
 						'nb_uniq_visitors' => 0,
 					];
 				}
-				$data[ $row[ $key ] ]['nb_visits']        += intval( $row['number'] );
-				$data[ $row[ $key ] ]['nb_uniq_visitors'] += intval( $row['number'] );
+
+				$nb = isset( $row['number'] ) ? $row['number'] : $row['views'];
+
+				$data[ $row[ $key ] ]['nb_visits']        += intval( $nb );
+				$data[ $row[ $key ] ]['nb_uniq_visitors'] += intval( $nb );
 			}
 		}
 

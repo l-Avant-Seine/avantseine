@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -23,7 +22,7 @@ class Dependency
     public function __construct()
     {
         $this->setPiwikVersion(Version::VERSION);
-        $this->setPhpVersion(PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION);
+        $this->setPhpVersion(\PHP_MAJOR_VERSION . '.' . \PHP_MINOR_VERSION . '.' . \PHP_RELEASE_VERSION);
     }
     public function setEnvironment(Environment $environment)
     {
@@ -84,18 +83,16 @@ class Dependency
      */
     private function markPluginsWithoutUpperBoundMatomoRequirementAsIncompatible($requiredVersion)
     {
-        if (strpos($requiredVersion, ',') !== false) {
+        if (strpos($requiredVersion, ',') !== \false) {
             return $requiredVersion;
         }
         $minVersion = str_replace(array('>', '=', '<', '!', '~', '^'), '', $requiredVersion);
         if (preg_match("/^\\<=?\\d/", $requiredVersion)) {
             $upperLimit = '>=' . $minVersion[0] . '.0.0-b1,' . $requiredVersion;
+        } elseif (!empty($minVersion) && is_numeric($minVersion[0])) {
+            $upperLimit = $requiredVersion . ',<' . ($minVersion[0] + 1) . '.0.0-b1';
         } else {
-            if (!empty($minVersion) && is_numeric($minVersion[0])) {
-                $upperLimit = $requiredVersion . ',<' . ($minVersion[0] + 1) . '.0.0-b1';
-            } else {
-                $upperLimit = '>=4.0.0-b1,<5.0.0-b1';
-            }
+            $upperLimit = '>=4.0.0-b1,<5.0.0-b1';
         }
         return $upperLimit;
     }
@@ -118,7 +115,7 @@ class Dependency
     public function hasDependencyToDisabledPlugin($requires)
     {
         if (empty($requires)) {
-            return false;
+            return \false;
         }
         foreach ($requires as $name => $requiredVersion) {
             $nameLower = strtolower($name);
@@ -127,11 +124,11 @@ class Dependency
                 // we do not check version, only whether it's activated. Everything that is not piwik or php is assumed
                 // a plugin so far.
                 if (!PluginManager::getInstance()->isPluginActivated($name)) {
-                    return true;
+                    return \true;
                 }
             }
         }
-        return false;
+        return \false;
     }
     private function getCurrentVersion($name)
     {

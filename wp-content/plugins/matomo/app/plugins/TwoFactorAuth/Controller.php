@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\TwoFactorAuth;
 
@@ -26,11 +26,11 @@ use Piwik\Plugins\CoreAdminHome\Emails\TwoFactorAuthDisabledEmail;
 use Piwik\Plugins\CoreAdminHome\Emails\RecoveryCodesRegeneratedEmail;
 class Controller extends \Piwik\Plugin\Controller
 {
-    const AUTH_CODE_NONCE = 'TwoFactorAuth.saveAuthCode';
-    const LOGIN_2FA_NONCE = 'TwoFactorAuth.loginAuthCode';
-    const DISABLE_2FA_NONCE = 'TwoFactorAuth.disableAuthCode';
-    const REGENERATE_CODES_2FA_NONCE = 'TwoFactorAuth.regenerateCodes';
-    const VERIFY_PASSWORD_NONCE = 'TwoFactorAuth.verifyPassword';
+    public const AUTH_CODE_NONCE = 'TwoFactorAuth.saveAuthCode';
+    public const LOGIN_2FA_NONCE = 'TwoFactorAuth.loginAuthCode';
+    public const DISABLE_2FA_NONCE = 'TwoFactorAuth.disableAuthCode';
+    public const REGENERATE_CODES_2FA_NONCE = 'TwoFactorAuth.regenerateCodes';
+    public const VERIFY_PASSWORD_NONCE = 'TwoFactorAuth.verifyPassword';
     /**
      * @var SystemSettings
      */
@@ -128,7 +128,7 @@ class Controller extends \Piwik\Plugin\Controller
             $container = StaticContainer::getContainer();
             $email = $container->make(TwoFactorAuthDisabledEmail::class, array('login' => Piwik::getCurrentUserLogin(), 'emailAddress' => Piwik::getCurrentUserEmail()));
             $email->safeSend();
-            $this->redirectToIndex('UsersManager', 'userSecurity', null, null, null, array('disableNonce' => false));
+            $this->redirectToIndex('UsersManager', 'userSecurity', null, null, null, array('disableNonce' => \false));
         }
     }
     private function make2faSession()
@@ -138,7 +138,7 @@ class Controller extends \Piwik\Plugin\Controller
     public function onLoginSetupTwoFactorAuth()
     {
         // called when 2fa is required, but user has not yet set up 2fa
-        return $this->setupTwoFactorAuth($standalone = true);
+        return $this->setupTwoFactorAuth($standalone = \true);
     }
     /**
      * Action to setup two factor authentication
@@ -146,7 +146,7 @@ class Controller extends \Piwik\Plugin\Controller
      * @return string
      * @throws \Exception
      */
-    public function setupTwoFactorAuth($standalone = false)
+    public function setupTwoFactorAuth($standalone = \false)
     {
         $this->validator->checkCanUseTwoFa();
         if ($standalone) {
@@ -231,13 +231,13 @@ class Controller extends \Piwik\Plugin\Controller
         $this->validator->check2FaEnabled();
         $regenerateNonce = Common::getRequestVar('regenerateNonce', '', 'string', $_POST);
         $postedValidNonce = !empty($regenerateNonce) && Nonce::verifyNonce(self::REGENERATE_CODES_2FA_NONCE, $regenerateNonce);
-        $regenerateSuccess = false;
-        $regenerateError = false;
+        $regenerateSuccess = \false;
+        $regenerateError = \false;
         $container = StaticContainer::getContainer();
         if ($postedValidNonce && $this->passwordVerify->hasBeenVerified()) {
             $this->passwordVerify->forgetVerifiedPassword();
             $this->recoveryCodeDao->createRecoveryCodesForLogin(Piwik::getCurrentUserLogin());
-            $regenerateSuccess = true;
+            $regenerateSuccess = \true;
             $email = $container->make(RecoveryCodesRegeneratedEmail::class, array('login' => Piwik::getCurrentUserLogin(), 'emailAddress' => Piwik::getCurrentUserEmail()));
             $email->safeSend();
             // no need to redirect as password was verified nonce
@@ -248,7 +248,7 @@ class Controller extends \Piwik\Plugin\Controller
             throw new Exception('You have to verify your password first.');
         }
         if (!$postedValidNonce && !empty($regenerateNonce)) {
-            $regenerateError = true;
+            $regenerateError = \true;
         }
         $recoveryCodes = $this->recoveryCodeDao->getAllRecoveryCodesForLogin(Piwik::getCurrentUserLogin());
         if (!$regenerateSuccess && !$regenerateError) {

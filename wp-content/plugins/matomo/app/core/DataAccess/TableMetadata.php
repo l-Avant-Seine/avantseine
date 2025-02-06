@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataAccess;
 
@@ -43,7 +43,7 @@ class TableMetadata
     {
         $columns = $this->getColumns($table);
         $columns = array_filter($columns, function ($columnName) {
-            return strpos($columnName, 'idaction') !== false;
+            return strpos($columnName, 'idaction') !== \false;
         });
         return array_values($columns);
     }

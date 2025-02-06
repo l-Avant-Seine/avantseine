@@ -43,7 +43,7 @@ class Table
      * Table rows.
      */
     private $rows = [];
-    private $horizontal = false;
+    private $horizontal = \false;
     /**
      * Column widths cache.
      */
@@ -77,7 +77,7 @@ class Table
      * @var array<string, TableStyle>|null
      */
     private static $styles;
-    private $rendered = false;
+    private $rendered = \false;
     public function __construct(OutputInterface $output)
     {
         $this->output = $output;
@@ -280,7 +280,7 @@ class Table
     /**
      * @return $this
      */
-    public function setHorizontal(bool $horizontal = true) : self
+    public function setHorizontal(bool $horizontal = \true) : self
     {
         $this->horizontal = $horizontal;
         return $this;
@@ -328,11 +328,11 @@ class Table
         $isFirstRow = $this->horizontal;
         $hasTitle = (bool) $this->headerTitle;
         foreach ($rowGroups as $rowGroup) {
-            $isHeaderSeparatorRendered = false;
+            $isHeaderSeparatorRendered = \false;
             foreach ($rowGroup as $row) {
                 if ($divider === $row) {
-                    $isHeader = false;
-                    $isFirstRow = true;
+                    $isHeader = \false;
+                    $isFirstRow = \true;
                     continue;
                 }
                 if ($row instanceof TableSeparator) {
@@ -344,13 +344,13 @@ class Table
                 }
                 if ($isHeader && !$isHeaderSeparatorRendered) {
                     $this->renderRowSeparator($isHeader ? self::SEPARATOR_TOP : self::SEPARATOR_TOP_BOTTOM, $hasTitle ? $this->headerTitle : null, $hasTitle ? $this->style->getHeaderTitleFormat() : null);
-                    $hasTitle = false;
-                    $isHeaderSeparatorRendered = true;
+                    $hasTitle = \false;
+                    $isHeaderSeparatorRendered = \true;
                 }
                 if ($isFirstRow) {
                     $this->renderRowSeparator($isHeader ? self::SEPARATOR_TOP : self::SEPARATOR_TOP_BOTTOM, $hasTitle ? $this->headerTitle : null, $hasTitle ? $this->style->getHeaderTitleFormat() : null);
-                    $isFirstRow = false;
-                    $hasTitle = false;
+                    $isFirstRow = \false;
+                    $hasTitle = \false;
                 }
                 if ($this->horizontal) {
                     $this->renderRow($row, $this->style->getCellRowFormat(), $this->style->getCellHeaderFormat());
@@ -361,7 +361,7 @@ class Table
         }
         $this->renderRowSeparator(self::SEPARATOR_BOTTOM, $this->footerTitle, $this->style->getFooterTitleFormat());
         $this->cleanup();
-        $this->rendered = true;
+        $this->rendered = \true;
     }
     /**
      * Renders horizontal header separator.
@@ -370,7 +370,7 @@ class Table
      *
      *     +-----+-----------+-------+
      */
-    private function renderRowSeparator(int $type = self::SEPARATOR_MID, string $title = null, string $titleFormat = null)
+    private function renderRowSeparator(int $type = self::SEPARATOR_MID, ?string $title = null, ?string $titleFormat = null)
     {
         if (0 === ($count = $this->numberOfColumns)) {
             return;
@@ -403,7 +403,7 @@ class Table
                 $formattedTitle = sprintf($titleFormat, Helper::substr($title, 0, $limit - $formatLength - 3) . '...');
             }
             $titleStart = intdiv($markupLength - $titleLength, 2);
-            if (false === mb_detect_encoding($markup, null, true)) {
+            if (\false === mb_detect_encoding($markup, null, \true)) {
                 $markup = substr_replace($markup, $formattedTitle, $titleStart, $titleLength);
             } else {
                 $markup = mb_substr($markup, 0, $titleStart) . $formattedTitle . mb_substr($markup, $titleStart + $titleLength);
@@ -426,7 +426,7 @@ class Table
      *
      *     | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
      */
-    private function renderRow(array $row, string $cellFormat, string $firstCellFormat = null)
+    private function renderRow(array $row, string $cellFormat, ?string $firstCellFormat = null)
     {
         $rowContent = $this->renderColumnSeparator(self::BORDER_OUTSIDE);
         $columns = $this->getRowColumns($row);
@@ -455,7 +455,7 @@ class Table
             }
         }
         // str_pad won't work properly with multi-byte strings, we need to fix the padding
-        if (false !== ($encoding = mb_detect_encoding($cell, null, true))) {
+        if (\false !== ($encoding = mb_detect_encoding($cell, null, \true))) {
             $width += \strlen($cell) - mb_strwidth($cell, $encoding);
         }
         $style = $this->getColumnStyle($column);
@@ -516,9 +516,10 @@ class Table
                 if (!strstr($cell ?? '', "\n")) {
                     continue;
                 }
-                $escaped = implode("\n", array_map([OutputFormatter::class, 'escapeTrailingBackslash'], explode("\n", $cell)));
+                $eol = str_contains($cell ?? '', "\r\n") ? "\r\n" : "\n";
+                $escaped = implode($eol, array_map([OutputFormatter::class, 'escapeTrailingBackslash'], explode($eol, $cell)));
                 $cell = $cell instanceof TableCell ? new TableCell($escaped, ['colspan' => $cell->getColspan()]) : $escaped;
-                $lines = explode("\n", str_replace("\n", "<fg=default;bg=default></>\n", $cell));
+                $lines = explode($eol, str_replace($eol, '<fg=default;bg=default></>' . $eol, $cell));
                 foreach ($lines as $lineKey => $line) {
                     if ($colspan > 1) {
                         $line = new TableCell($line, ['colspan' => $colspan]);
@@ -575,8 +576,9 @@ class Table
                 $nbLines = $cell->getRowspan() - 1;
                 $lines = [$cell];
                 if (strstr($cell, "\n")) {
-                    $lines = explode("\n", str_replace("\n", "<fg=default;bg=default>\n</>", $cell));
-                    $nbLines = \count($lines) > $nbLines ? substr_count($cell, "\n") : $nbLines;
+                    $eol = str_contains($cell, "\r\n") ? "\r\n" : "\n";
+                    $lines = explode($eol, str_replace($eol, '<fg=default;bg=default>' . $eol . '</>', $cell));
+                    $nbLines = \count($lines) > $nbLines ? substr_count($cell, $eol) : $nbLines;
                     $rows[$line][$column] = new TableCell($lines[0], ['colspan' => $cell->getColspan(), 'style' => $cell->getStyle()]);
                     unset($lines[0]);
                 }

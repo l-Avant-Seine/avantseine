@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Report;
 
@@ -18,7 +17,7 @@ use Piwik\Widget\WidgetConfig;
 class ReportWidgetConfig extends WidgetConfig
 {
     protected $viewDataTable = null;
-    protected $forceViewDataTable = false;
+    protected $forceViewDataTable = \false;
     /**
      * Sets a default viewDataTable that should be used to render the report. This is not necessarily the
      * view that will be actually used to render the report. Eg if a user switched manually to another viewDataTable
@@ -41,7 +40,7 @@ class ReportWidgetConfig extends WidgetConfig
      */
     public function forceViewDataTable($viewDataTableId)
     {
-        $this->forceViewDataTable = true;
+        $this->forceViewDataTable = \true;
         $this->setDefaultViewDataTable($viewDataTableId);
         return $this;
     }

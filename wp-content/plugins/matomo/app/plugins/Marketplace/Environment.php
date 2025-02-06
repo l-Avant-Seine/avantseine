@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Marketplace;
 
@@ -47,7 +47,7 @@ class Environment
     }
     public function getPhpVersion()
     {
-        return PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION;
+        return \PHP_MAJOR_VERSION . '.' . \PHP_MINOR_VERSION . '.' . \PHP_RELEASE_VERSION;
     }
     public function getPiwikVersion()
     {
@@ -61,7 +61,7 @@ class Environment
         if (!empty($this->releaseChannel)) {
             return $this->releaseChannel->doesPreferStable();
         }
-        return true;
+        return \true;
     }
     public function getReleaseChannel()
     {

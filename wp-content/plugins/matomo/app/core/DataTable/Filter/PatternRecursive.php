@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -56,18 +55,18 @@ class PatternRecursive extends BaseFilter
             // A row is deleted if
             // 1 - its label doesn't contain the pattern
             // AND 2 - the label is not found in the children
-            $patternNotFoundInChildren = false;
+            $patternNotFoundInChildren = \false;
             $subTable = $row->getSubtable();
             if (!$subTable) {
-                $patternNotFoundInChildren = true;
+                $patternNotFoundInChildren = \true;
             } else {
                 // we delete the row if we couldn't find the pattern in any row in the
                 // children hierarchy
                 if ($this->filter($subTable) == 0) {
-                    $patternNotFoundInChildren = true;
+                    $patternNotFoundInChildren = \true;
                 }
             }
-            if ($patternNotFoundInChildren && !\Piwik\DataTable\Filter\Pattern::match($this->patternToSearchQuoted, $row->getColumn($this->columnToFilter), $invertedMatch = false)) {
+            if ($patternNotFoundInChildren && !\Piwik\DataTable\Filter\Pattern::match($this->patternToSearchQuoted, $row->getColumn($this->columnToFilter), $invertedMatch = \false)) {
                 $table->deleteRow($key);
             }
         }

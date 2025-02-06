@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -143,7 +142,7 @@ use Piwik\ViewDataTable\RequestConfig as VizRequest;
  */
 abstract class ViewDataTable implements ViewInterface
 {
-    const ID = '';
+    public const ID = '';
     /**
      * DataTable loaded from the API for this ViewDataTable.
      *
@@ -174,7 +173,7 @@ abstract class ViewDataTable implements ViewInterface
      */
     public function __construct($controllerAction, $apiMethodToRequestDataTable, $overrideParams = array())
     {
-        if (strpos($controllerAction, '.') === false) {
+        if (strpos($controllerAction, '.') === \false) {
             $controllerName = '';
             $controllerAction = '';
         } else {
@@ -185,7 +184,7 @@ abstract class ViewDataTable implements ViewInterface
         $this->config->subtable_controller_action = $controllerAction;
         $this->config->setController($controllerName, $controllerAction);
         $this->request = new ViewDataTableRequest($this->requestConfig);
-        $this->requestConfig->idSubtable = Common::getRequestVar('idSubtable', false, 'int');
+        $this->requestConfig->idSubtable = Common::getRequestVar('idSubtable', \false, 'int');
         $this->config->self_url = Request::getBaseReportUrl($controllerName, $controllerAction);
         $this->requestConfig->apiMethodToRequestDataTable = $apiMethodToRequestDataTable;
         $report = \Piwik\Plugin\ReportsProvider::factory($this->requestConfig->getApiModuleToRequest(), $this->requestConfig->getApiMethodToRequest());
@@ -248,7 +247,7 @@ abstract class ViewDataTable implements ViewInterface
          */
         Piwik::postEvent('ViewDataTable.configure', array($this));
         $this->assignRelatedReportsTitle();
-        $this->config->show_footer_icons = false == $this->requestConfig->idSubtable;
+        $this->config->show_footer_icons = \false == $this->requestConfig->idSubtable;
         // the exclude low population threshold value is sometimes obtained by requesting data.
         // to avoid issuing unnecessary requests when display properties are determined by metadata,
         // we allow it to be a closure.
@@ -436,8 +435,8 @@ abstract class ViewDataTable implements ViewInterface
             }
         }
         // handle special 'columns' query parameter
-        $columns = Common::getRequestVar('columns', false);
-        if (false !== $columns) {
+        $columns = Common::getRequestVar('columns', \false);
+        if (\false !== $columns) {
             $this->config->columns_to_display = Piwik::getArrayFromApiParameter($columns);
             array_unshift($this->config->columns_to_display, 'label');
         }
@@ -464,10 +463,10 @@ abstract class ViewDataTable implements ViewInterface
         $date = Common::getRequestVar('date', null, 'string', $requestArray);
         $period = Common::getRequestVar('period', null, 'string', $requestArray);
         $idSite = Common::getRequestVar('idSite', null, 'string', $requestArray);
-        if (Period::isMultiplePeriod($date, $period) || strpos($idSite, ',') !== false || $idSite == 'all') {
-            return false;
+        if (Period::isMultiplePeriod($date, $period) || strpos($idSite, ',') !== \false || $idSite == 'all') {
+            return \false;
         }
-        return true;
+        return \true;
     }
     /**
      * Returns `true` if this visualization can display some type of data or not.
@@ -543,7 +542,7 @@ abstract class ViewDataTable implements ViewInterface
     public function isComparing()
     {
         if (!$this->supportsComparison() || $this->config->disable_comparison) {
-            return false;
+            return \false;
         }
         $request = $this->request->getRequestArray();
         $request = ApiRequest::getRequestArrayFromString($request);
@@ -558,7 +557,7 @@ abstract class ViewDataTable implements ViewInterface
      */
     public function supportsComparison()
     {
-        return false;
+        return \false;
     }
     public function getRequestArray()
     {

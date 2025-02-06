@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\ScheduledReports;
 
@@ -46,7 +45,7 @@ class Model
     {
         $db = $this->getDb();
         $idReport = $db->fetchOne("SELECT max(idreport) + 1 FROM " . $this->table);
-        if ($idReport == false) {
+        if ($idReport == \false) {
             $idReport = 1;
         }
         return $idReport;

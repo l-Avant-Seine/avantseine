@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\AssetManager\UIAsset;
 
@@ -70,8 +69,8 @@ class OnDiskUIAsset extends UIAsset
                 throw new Exception("Unable to delete merged file : " . $this->getAbsoluteLocation() . ". Please delete the file and refresh");
             }
             // try to remove compressed version of the merged file.
-            Filesystem::remove($this->getAbsoluteLocation() . ".deflate", true);
-            Filesystem::remove($this->getAbsoluteLocation() . ".gz", true);
+            Filesystem::remove($this->getAbsoluteLocation() . ".deflate", \true);
+            Filesystem::remove($this->getAbsoluteLocation() . ".gz", \true);
         }
     }
     /**

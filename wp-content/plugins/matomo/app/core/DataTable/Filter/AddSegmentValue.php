@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -26,6 +25,6 @@ class AddSegmentValue extends \Piwik\DataTable\Filter\ColumnCallbackAddMetadata
 {
     public function __construct($table, $callback = null)
     {
-        parent::__construct($table, 'label', 'segmentValue', $callback, null, false);
+        parent::__construct($table, 'label', 'segmentValue', $callback, null, \false);
     }
 }

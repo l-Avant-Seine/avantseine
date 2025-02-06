@@ -212,7 +212,7 @@ abstract class AbstractParser
                 $this->regexList = $cacheContent;
             }
             if (empty($this->regexList)) {
-                $parsedContent = $this->getYamlParser()->parseFile($this->getRegexesDirectory() . DIRECTORY_SEPARATOR . $this->fixtureFile);
+                $parsedContent = $this->getYamlParser()->parseFile($this->getRegexesDirectory() . \DIRECTORY_SEPARATOR . $this->fixtureFile);
                 if (!\is_array($parsedContent)) {
                     $parsedContent = [];
                 }
@@ -261,7 +261,7 @@ abstract class AbstractParser
     {
         $matches = [];
         // only match if useragent begins with given regex or there is no letter before it
-        $regex = '/(?:^|[^A-Z0-9\\-_]|[^A-Z0-9\\-]_|sprd-|MZ-)(?:' . \str_replace('/', '\\/', $regex) . ')/i';
+        $regex = '/(?:^|[^A-Z0-9_-]|[^A-Z0-9-]_|sprd-|MZ-)(?:' . \str_replace('/', '\\/', $regex) . ')/i';
         try {
             if (\preg_match($regex, $this->userAgent, $matches)) {
                 return $matches;

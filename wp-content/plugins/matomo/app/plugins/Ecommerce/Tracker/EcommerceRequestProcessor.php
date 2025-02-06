@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Ecommerce\Tracker;
 
@@ -49,7 +49,7 @@ class EcommerceRequestProcessor extends RequestProcessor
             $idGoal = GoalManager::IDGOAL_CART;
             if ($isGoalAnOrder) {
                 $idGoal = GoalManager::IDGOAL_ORDER;
-                $request->setMetadata('Goals', 'visitIsConverted', true);
+                $request->setMetadata('Goals', 'visitIsConverted', \true);
             }
             $request->setMetadata('Goals', 'goalsConverted', array(array('idgoal' => $idGoal)));
             $request->setMetadata('Actions', 'action', null);

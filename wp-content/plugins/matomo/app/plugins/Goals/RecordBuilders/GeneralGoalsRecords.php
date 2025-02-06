@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\RecordBuilders;
 
@@ -21,9 +20,9 @@ use Piwik\Plugins\Goals\Goals;
 use Piwik\Tracker\GoalManager;
 class GeneralGoalsRecords extends \Piwik\Plugins\Goals\RecordBuilders\Base
 {
-    const VISITS_COUNT_FIELD = 'visitor_count_visits';
-    const LOG_CONVERSION_TABLE = 'log_conversion';
-    const SECONDS_SINCE_FIRST_VISIT_FIELD = 'visitor_seconds_since_first';
+    public const VISITS_COUNT_FIELD = 'visitor_count_visits';
+    public const LOG_CONVERSION_TABLE = 'log_conversion';
+    public const SECONDS_SINCE_FIRST_VISIT_FIELD = 'visitor_seconds_since_first';
     protected function aggregate(ArchiveProcessor $archiveProcessor) : array
     {
         $idSite = $this->getSiteId($archiveProcessor);
@@ -40,11 +39,11 @@ class GeneralGoalsRecords extends \Piwik\Plugins\Goals\RecordBuilders\Base
         // Special handling for sites that contain subordinated sites, like in roll up reporting.
         // A roll up site, might not have ecommerce enabled or any configured goals,
         // but if a subordinated site has, we calculate the overview conversion metrics nevertheless
-        if ($siteHasEcommerceOrGoals === false) {
+        if ($siteHasEcommerceOrGoals === \false) {
             $idSitesToArchive = $archiveProcessor->getParams()->getIdSites();
             foreach ($idSitesToArchive as $idSite) {
                 if ($this->hasAnyGoalOrEcommerce($idSite)) {
-                    $siteHasEcommerceOrGoals = true;
+                    $siteHasEcommerceOrGoals = \true;
                     break;
                 }
             }
@@ -56,8 +55,8 @@ class GeneralGoalsRecords extends \Piwik\Plugins\Goals\RecordBuilders\Base
             $selects = [];
             $selects = array_merge($selects, LogAggregator::getSelectsFromRangedColumn(self::VISITS_COUNT_FIELD, Archiver::$visitCountRanges, self::LOG_CONVERSION_TABLE, $prefixes[Archiver::VISITS_UNTIL_RECORD_NAME]));
             $selects = array_merge($selects, LogAggregator::getSelectsFromRangedColumn('FLOOR(log_conversion.' . self::SECONDS_SINCE_FIRST_VISIT_FIELD . ' / 86400)', Archiver::$daysToConvRanges, self::LOG_CONVERSION_TABLE, $prefixes[Archiver::DAYS_UNTIL_CONV_RECORD_NAME]));
-            $query = $logAggregator->queryConversionsByDimension([], false, $selects);
-            if ($query === false) {
+            $query = $logAggregator->queryConversionsByDimension([], \false, $selects);
+            if ($query === \false) {
                 return [];
             }
             $conversionMetrics = $logAggregator->getConversionsMetricFields();
@@ -129,7 +128,7 @@ class GeneralGoalsRecords extends \Piwik\Plugins\Goals\RecordBuilders\Base
             $goals = array_merge($goals, $this->getEcommerceIdGoals());
         }
         // Overall goal metrics
-        $goals[] = false;
+        $goals[] = \false;
         $records = [];
         foreach ($goals as $idGoal) {
             $metricsToSum = Goals::getGoalColumns($idGoal);

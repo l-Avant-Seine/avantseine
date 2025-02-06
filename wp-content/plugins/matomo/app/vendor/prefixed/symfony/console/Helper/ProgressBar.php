@@ -50,7 +50,7 @@ final class ProgressBar
     private $stepWidth;
     private $percent = 0.0;
     private $messages = [];
-    private $overwrite = true;
+    private $overwrite = \true;
     private $terminal;
     private $previousMessage;
     private $cursor;
@@ -73,7 +73,7 @@ final class ProgressBar
         }
         if (!$this->output->isDecorated()) {
             // disable overwrite when output does not support ANSI codes.
-            $this->overwrite = false;
+            $this->overwrite = \false;
             // set a reasonable redraw frequency so output isn't flooded
             $this->redrawFreq = null;
         }
@@ -148,9 +148,12 @@ final class ProgressBar
     {
         $this->messages[$name] = $message;
     }
+    /**
+     * @return string|null
+     */
     public function getMessage(string $name = 'message')
     {
-        return $this->messages[$name];
+        return $this->messages[$name] ?? null;
     }
     public function getStartTime() : int
     {
@@ -249,7 +252,7 @@ final class ProgressBar
      *
      * @param int|null $max Number of steps to complete the bar (0 if indeterminate), if null it will be inferred from $iterable
      */
-    public function iterate(iterable $iterable, int $max = null) : iterable
+    public function iterate(iterable $iterable, ?int $max = null) : iterable
     {
         $this->start($max ?? (is_countable($iterable) ? \count($iterable) : 0));
         foreach ($iterable as $key => $value) {
@@ -263,7 +266,7 @@ final class ProgressBar
      *
      * @param int|null $max Number of steps to complete the bar (0 if indeterminate), null to leave unchanged
      */
-    public function start(int $max = null)
+    public function start(?int $max = null)
     {
         $this->startTime = time();
         $this->step = 0;
@@ -301,7 +304,7 @@ final class ProgressBar
         $currPeriod = (int) ($step / $redrawFreq);
         $this->step = $step;
         $this->percent = $this->max ? (float) $this->step / $this->max : 0;
-        $timeInterval = microtime(true) - $this->lastWriteTime;
+        $timeInterval = microtime(\true) - $this->lastWriteTime;
         // Draw regardless of other limits
         if ($this->max === $step) {
             $this->display();
@@ -413,7 +416,7 @@ final class ProgressBar
             $message = \PHP_EOL . $message;
         }
         $this->previousMessage = $originalMessage;
-        $this->lastWriteTime = microtime(true);
+        $this->lastWriteTime = microtime(\true);
         $this->output->write($message);
         ++$this->writeCount;
     }
@@ -454,7 +457,7 @@ final class ProgressBar
             }
             return Helper::formatTime($bar->getEstimated());
         }, 'memory' => function (self $bar) {
-            return Helper::formatMemory(memory_get_usage(true));
+            return Helper::formatMemory(memory_get_usage(\true));
         }, 'current' => function (self $bar) {
             return str_pad($bar->getProgress(), $bar->getStepWidth(), ' ', \STR_PAD_LEFT);
         }, 'max' => function (self $bar) {

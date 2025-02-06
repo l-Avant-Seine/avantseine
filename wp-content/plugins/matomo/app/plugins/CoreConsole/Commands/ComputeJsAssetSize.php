@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreConsole\Commands;
 
@@ -122,7 +122,7 @@ class ComputeJsAssetSize extends ConsoleCommand
     {
         $data = file_get_contents($path);
         $data = ProxyHttp::gzencode($data);
-        if (false === $data) {
+        if (\false === $data) {
             throw new \Exception('compressing file ' . $path . ' failed');
         }
         $compressedPath = dirname($path) . '/' . basename($path) . '.gz';

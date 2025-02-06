@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -34,7 +33,7 @@ use Piwik\Metrics;
  */
 class ExcludeLowPopulation extends BaseFilter
 {
-    const MINIMUM_SIGNIFICANT_PERCENTAGE_THRESHOLD = 0.02;
+    public const MINIMUM_SIGNIFICANT_PERCENTAGE_THRESHOLD = 0.02;
     /**
      * The minimum value to enforce in a datatable for a specified column. Rows found with
      * a value less than this are removed.
@@ -56,16 +55,16 @@ class ExcludeLowPopulation extends BaseFilter
      *                                               percentage of the sum of all column values than
      *                                               this percentage.
      */
-    public function __construct($table, $columnToFilter, $minimumValue, $minimumPercentageThreshold = false)
+    public function __construct($table, $columnToFilter, $minimumValue, $minimumPercentageThreshold = \false)
     {
         parent::__construct($table);
         $row = $table->getFirstRow();
-        if ($row === false) {
+        if ($row === \false) {
             return;
         }
         $this->columnToFilter = $this->selectColumnToExclude($columnToFilter, $row);
         if ($minimumValue == 0) {
-            if ($minimumPercentageThreshold === false) {
+            if ($minimumPercentageThreshold === \false) {
                 $minimumPercentageThreshold = self::MINIMUM_SIGNIFICANT_PERCENTAGE_THRESHOLD;
             }
             $allValues = $table->getColumn($this->columnToFilter);

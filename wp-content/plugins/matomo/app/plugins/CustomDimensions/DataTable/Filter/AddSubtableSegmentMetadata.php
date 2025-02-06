@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CustomDimensions\DataTable\Filter;
 
@@ -46,7 +45,7 @@ class AddSubtableSegmentMetadata extends BaseFilter
         $partDimension = $dimension . '==' . $dimensionValue . $conditionAnd;
         foreach ($table->getRows() as $row) {
             $label = $row->getColumn('label');
-            if ($label !== false) {
+            if ($label !== \false) {
                 $row->setMetadata('segment', $partDimension . 'actionUrl=$' . urlencode($label));
                 $row->setMetadata('url', urlencode($label));
             }

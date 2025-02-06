@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Monolog\Handler;
 
@@ -18,15 +18,15 @@ class FailureLogMessageDetector extends AbstractHandler
     /**
      * @var boolean
      */
-    private $hasEncounteredImportantLog = false;
+    private $hasEncounteredImportantLog = \false;
     public function __construct($level = Logger::WARNING)
     {
-        parent::__construct($level, $bubble = true);
+        parent::__construct($level, $bubble = \true);
     }
     public function handle(array $record)
     {
         if ($this->isHandling($record)) {
-            $this->hasEncounteredImportantLog = true;
+            $this->hasEncounteredImportantLog = \true;
         }
     }
     /**
@@ -41,6 +41,6 @@ class FailureLogMessageDetector extends AbstractHandler
      */
     public function reset()
     {
-        $this->hasEncounteredImportantLog = false;
+        $this->hasEncounteredImportantLog = \false;
     }
 }

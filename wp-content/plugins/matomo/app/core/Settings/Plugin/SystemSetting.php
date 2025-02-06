@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Settings\Plugin;
 
@@ -46,7 +45,7 @@ class SystemSetting extends Setting
     public function isWritableByCurrentUser()
     {
         if ($this->hasConfigValue()) {
-            return false;
+            return \false;
         }
         if (isset($this->hasWritePermission)) {
             return $this->hasWritePermission;

@@ -3,16 +3,15 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Db;
 
 use Exception;
 /**
  */
-interface AdapterInterface
+interface AdapterInterface extends \Piwik\Db\TransactionalDatabaseInterface
 {
     /**
      * Reset the configuration variables in this adapter.
@@ -20,6 +19,7 @@ interface AdapterInterface
     public function resetConfig();
     /**
      * Return default port.
+     * @deprecated Use Schema::getDefaultPortForSchema instead
      *
      * @return int
      */

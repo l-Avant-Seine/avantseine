@@ -3,13 +3,13 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
 use Exception;
+use Piwik\Db\Schema;
 /**
  * The ranking query class wraps an arbitrary SQL query with more SQL that limits
  * the number of results while aggregating the rest in an a new "Others" row. It also
@@ -42,7 +42,7 @@ class RankingQuery
 {
     // a special label used to mark the 'Others' row in a ranking query result set. this is mapped to the
     // datatable summary row during archiving.
-    const LABEL_SUMMARY_ROW = '__mtm_ranking_query_others__';
+    public const LABEL_SUMMARY_ROW = '__mtm_ranking_query_others__';
     /**
      * Contains the labels of the inner query.
      * Format: "label" => true (to make sure labels don't appear twice)
@@ -64,12 +64,12 @@ class RankingQuery
      * The name of the columns that marks rows to be excluded from the limit
      * @var string
      */
-    private $columnToMarkExcludedRows = false;
+    private $columnToMarkExcludedRows = \false;
     /**
      * The column that is used to partition the result
      * @var bool|string
      */
-    private $partitionColumn = false;
+    private $partitionColumn = \false;
     /**
      * The possible values for the column $this->partitionColumn
      * @var array
@@ -85,9 +85,9 @@ class RankingQuery
      *
      * @param int|false $limit The result row limit. See {@link setLimit()}.
      */
-    public function __construct($limit = false)
+    public function __construct($limit = \false)
     {
-        if ($limit !== false) {
+        if ($limit !== \false) {
             $this->setLimit($limit);
         }
     }
@@ -123,7 +123,7 @@ class RankingQuery
             }
             return;
         }
-        $this->labelColumns[$labelColumn] = true;
+        $this->labelColumns[$labelColumn] = \true;
     }
     /**
      * @return array
@@ -139,7 +139,7 @@ class RankingQuery
      * @param string|bool $aggregationFunction If set, this function is used to aggregate the values of "Others",
      *                                         eg, `'min'`, `'max'` or `'sum'`.
      */
-    public function addColumn($column, $aggregationFunction = false)
+    public function addColumn($column, $aggregationFunction = \false)
     {
         if (is_array($column)) {
             foreach ($column as $c) {
@@ -160,7 +160,7 @@ class RankingQuery
      */
     public function setColumnToMarkExcludedRows($column)
     {
-        if ($this->columnToMarkExcludedRows !== false) {
+        if ($this->columnToMarkExcludedRows !== \false) {
             throw new Exception("setColumnToMarkExcludedRows can only be used once");
         }
         $this->columnToMarkExcludedRows = $column;
@@ -186,7 +186,7 @@ class RankingQuery
      */
     public function partitionResultIntoMultipleGroups($partitionColumn, $possibleValues)
     {
-        if ($this->partitionColumn !== false) {
+        if ($this->partitionColumn !== \false) {
             throw new Exception("partitionResultIntoMultipleGroups can only be used once");
         }
         $this->partitionColumn = $partitionColumn;
@@ -211,7 +211,7 @@ class RankingQuery
         $query = $this->generateRankingQuery($innerQuery);
         $query = \Piwik\DbHelper::addMaxExecutionTimeHintToQuery($query, $timeLimit);
         $data = \Piwik\Db::getReader()->fetchAll($query, $bind);
-        if ($this->columnToMarkExcludedRows !== false) {
+        if ($this->columnToMarkExcludedRows !== \false) {
             // split the result into the regular result and the rows with special treatment
             $excludedFromLimit = array();
             $result = array();
@@ -224,8 +224,8 @@ class RankingQuery
             }
             $data = array('result' => &$result, 'excludedFromLimit' => &$excludedFromLimit);
         }
-        if ($this->partitionColumn !== false) {
-            if ($this->columnToMarkExcludedRows !== false) {
+        if ($this->partitionColumn !== \false) {
+            if ($this->columnToMarkExcludedRows !== \false) {
                 $data['result'] = $this->splitPartitions($data['result']);
             } else {
                 $data = $this->splitPartitions($data);
@@ -272,14 +272,14 @@ class RankingQuery
         $additionalColumnsAggregatedString = '';
         foreach ($this->additionalColumns as $additionalColumn => $aggregation) {
             $additionalColumnsString .= ', `' . $additionalColumn . '`';
-            if ($aggregation !== false) {
+            if ($aggregation !== \false) {
                 $additionalColumnsAggregatedString .= ', ' . $aggregation . '(`' . $additionalColumn . '`) AS `' . $additionalColumn . '`';
             } else {
                 $additionalColumnsAggregatedString .= ', `' . $additionalColumn . '`';
             }
         }
         // initialize the counters
-        if ($this->partitionColumn !== false) {
+        if ($this->partitionColumn !== \false) {
             $initCounter = '';
             foreach ($this->partitionColumnValues as $value) {
                 $initCounter .= '( SELECT @counter' . intval($value) . ':=0 ) initCounter' . intval($value) . ', ';
@@ -287,28 +287,36 @@ class RankingQuery
         } else {
             $initCounter = '( SELECT @counter:=0 ) initCounter,';
         }
+        if (\false === strpos(' LIMIT ', $innerQuery) && !Schema::getInstance()->supportsSortingInSubquery()) {
+            // Setting a limit for the inner query forces the optimizer to use a temporary table, which uses the sorting
+            $innerQuery .= ' LIMIT 18446744073709551615';
+        }
         // add a counter to the query
         // we rely on the sorting of the inner query
         $withCounter = "\n\t\t\tSELECT\n\t\t\t\t{$labelColumnsString},\n\t\t\t\t{$counterExpression} AS counter\n\t\t\t\t{$additionalColumnsString}\n\t\t\tFROM\n\t\t\t\t{$initCounter}\n\t\t\t\t( {$innerQuery} ) actualQuery\n\t\t";
         // group by the counter - this groups "Others" because the counter stops at $limit
         $groupBy = 'counter';
-        if ($this->partitionColumn !== false) {
+        if ($this->partitionColumn !== \false) {
             $groupBy .= ', `' . $this->partitionColumn . '`';
         }
         $groupOthers = "\n\t\t\tSELECT\n\t\t\t\t{$labelColumnsOthersSwitch}\n\t\t\t\t{$additionalColumnsAggregatedString}\n\t\t\tFROM ( {$withCounter} ) AS withCounter\n\t\t\tGROUP BY {$groupBy}\n\t\t";
+        if (!Schema::getInstance()->supportsSortingInSubquery()) {
+            // When subqueries aren't sorted, we need to sort the result manually again
+            $groupOthers .= " ORDER BY counter";
+        }
         return $groupOthers;
     }
     private function getCounterExpression($limit)
     {
         $whens = array();
-        if ($this->columnToMarkExcludedRows !== false) {
+        if ($this->columnToMarkExcludedRows !== \false) {
             // when a row has been specified that marks which records should be excluded
             // from limiting, we don't give those rows the normal counter but -1 times the
             // value they had before. this way, they have a separate number space (i.e. negative
             // integers).
             $whens[] = "WHEN {$this->columnToMarkExcludedRows} != 0 THEN -1 * {$this->columnToMarkExcludedRows}";
         }
-        if ($this->partitionColumn !== false) {
+        if ($this->partitionColumn !== \false) {
             // partition: one counter per possible value
             foreach ($this->partitionColumnValues as $value) {
                 $isValue = '`' . $this->partitionColumn . '` = ' . intval($value);

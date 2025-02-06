@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\PrivacyManager;
 
@@ -30,7 +29,7 @@ use Piwik\Tracker\Cache;
  */
 class Config
 {
-    private $properties = array('useAnonymizedIpForVisitEnrichment' => array('type' => 'boolean', 'default' => false), 'ipAddressMaskLength' => array('type' => 'integer', 'default' => 2), 'doNotTrackEnabled' => array('type' => 'boolean', 'default' => false), 'ipAnonymizerEnabled' => array('type' => 'boolean', 'default' => true), 'forceCookielessTracking' => array('type' => 'boolean', 'default' => false), 'anonymizeUserId' => array('type' => 'boolean', 'default' => false), 'anonymizeOrderId' => array('type' => 'boolean', 'default' => false), 'anonymizeReferrer' => array('type' => 'string', 'default' => ''));
+    private $properties = array('useAnonymizedIpForVisitEnrichment' => array('type' => 'boolean', 'default' => \false), 'ipAddressMaskLength' => array('type' => 'integer', 'default' => 2), 'doNotTrackEnabled' => array('type' => 'boolean', 'default' => \false), 'ipAnonymizerEnabled' => array('type' => 'boolean', 'default' => \true), 'forceCookielessTracking' => array('type' => 'boolean', 'default' => \false), 'anonymizeUserId' => array('type' => 'boolean', 'default' => \false), 'anonymizeOrderId' => array('type' => 'boolean', 'default' => \false), 'anonymizeReferrer' => array('type' => 'string', 'default' => ''));
     public function __set($name, $value)
     {
         if (!array_key_exists($name, $this->properties)) {
@@ -64,7 +63,7 @@ class Config
     {
         $name = $this->prefix($name);
         $value = Option::get($name);
-        if (false !== $value) {
+        if (\false !== $value) {
             settype($value, $config['type']);
         } else {
             $value = $config['default'];

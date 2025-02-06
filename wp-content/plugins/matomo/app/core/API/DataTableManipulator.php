@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\API;
 
@@ -42,7 +41,7 @@ abstract class DataTableManipulator
      * @param bool $apiMethod
      * @param array $request
      */
-    public function __construct($apiModule = false, $apiMethod = false, $request = array())
+    public function __construct($apiModule = \false, $apiMethod = \false, $request = array())
     {
         $this->apiModule = $apiModule;
         $this->apiMethod = $apiMethod;

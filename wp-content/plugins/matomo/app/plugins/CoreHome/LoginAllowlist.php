@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome;
 
@@ -30,11 +29,11 @@ class LoginAllowlist
     public function shouldCheckAllowlist()
     {
         if (Common::isPhpCliMode()) {
-            return false;
+            return \false;
         }
         // ignore whitelist checks for opt out iframe or opt out JS
         if (!SettingsServer::isTrackerApiRequest() && ('CoreAdminHome' === Piwik::getModule() && ('optOut' === Piwik::getAction() || 'optOutJS' === Piwik::getAction()))) {
-            return false;
+            return \false;
         }
         $ips = $this->getAllowlistedLoginIps();
         return !empty($ips);
@@ -50,7 +49,7 @@ class LoginAllowlist
         $userIp = NetworkIp::fromStringIP($userIpString);
         $ipsAllowed = $this->getAllowlistedLoginIps();
         if (empty($ipsAllowed)) {
-            return false;
+            return \false;
         }
         return $userIp->isInRanges($ipsAllowed);
     }

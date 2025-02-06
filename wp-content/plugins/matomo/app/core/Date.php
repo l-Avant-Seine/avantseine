@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -36,20 +35,20 @@ use Piwik\Intl\Data\Provider\DateTimeFormatProvider;
 class Date
 {
     /** Number of seconds in a day. */
-    const NUM_SECONDS_IN_DAY = 86400;
+    public const NUM_SECONDS_IN_DAY = 86400;
     /** The default date time string format. */
-    const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
     /** Timestamp when first website came online - Tue, 06 Aug 1991 00:00:00 GMT. */
-    const FIRST_WEBSITE_TIMESTAMP = 681436800;
-    const DATETIME_FORMAT_LONG = DateTimeFormatProvider::DATE_FORMAT_LONG;
-    const DATETIME_FORMAT_SHORT = DateTimeFormatProvider::DATETIME_FORMAT_SHORT;
-    const DATE_FORMAT_LONG = DateTimeFormatProvider::DATE_FORMAT_LONG;
-    const DATE_FORMAT_DAY_MONTH = DateTimeFormatProvider::DATE_FORMAT_DAY_MONTH;
-    const DATE_FORMAT_SHORT = DateTimeFormatProvider::DATE_FORMAT_SHORT;
-    const DATE_FORMAT_MONTH_SHORT = DateTimeFormatProvider::DATE_FORMAT_MONTH_SHORT;
-    const DATE_FORMAT_MONTH_LONG = DateTimeFormatProvider::DATE_FORMAT_MONTH_LONG;
-    const DATE_FORMAT_YEAR = DateTimeFormatProvider::DATE_FORMAT_YEAR;
-    const TIME_FORMAT = DateTimeFormatProvider::TIME_FORMAT;
+    public const FIRST_WEBSITE_TIMESTAMP = 681436800;
+    public const DATETIME_FORMAT_LONG = DateTimeFormatProvider::DATE_FORMAT_LONG;
+    public const DATETIME_FORMAT_SHORT = DateTimeFormatProvider::DATETIME_FORMAT_SHORT;
+    public const DATE_FORMAT_LONG = DateTimeFormatProvider::DATE_FORMAT_LONG;
+    public const DATE_FORMAT_DAY_MONTH = DateTimeFormatProvider::DATE_FORMAT_DAY_MONTH;
+    public const DATE_FORMAT_SHORT = DateTimeFormatProvider::DATE_FORMAT_SHORT;
+    public const DATE_FORMAT_MONTH_SHORT = DateTimeFormatProvider::DATE_FORMAT_MONTH_SHORT;
+    public const DATE_FORMAT_MONTH_LONG = DateTimeFormatProvider::DATE_FORMAT_MONTH_LONG;
+    public const DATE_FORMAT_YEAR = DateTimeFormatProvider::DATE_FORMAT_YEAR;
+    public const TIME_FORMAT = DateTimeFormatProvider::TIME_FORMAT;
     // for tests
     public static $now = null;
     /**
@@ -106,30 +105,22 @@ class Date
             $date = self::now();
         } elseif ($dateString === 'today') {
             $date = self::today();
+        } elseif ($dateString === 'tomorrow') {
+            $date = self::tomorrow();
+        } elseif ($dateString === 'yesterday') {
+            $date = self::yesterday();
+        } elseif ($dateString === 'yesterdaySameTime') {
+            $date = self::yesterdaySameTime();
+        } elseif (is_string($dateString) && preg_match('/last[ -]?week/i', urldecode($dateString))) {
+            $date = self::lastWeek();
+        } elseif (is_string($dateString) && preg_match('/last[ -]?month/i', urldecode($dateString))) {
+            $date = self::lastMonth();
+        } elseif (is_string($dateString) && preg_match('/last[ -]?year/i', urldecode($dateString))) {
+            $date = self::lastYear();
+        } elseif (!is_int($dateString) && (!is_string($dateString) || strpos($dateString, ',') !== \false || ($dateString = strtotime($dateString)) === \false)) {
+            throw self::getInvalidDateFormatException($dateString);
         } else {
-            if ($dateString === 'tomorrow') {
-                $date = self::tomorrow();
-            } elseif ($dateString === 'yesterday') {
-                $date = self::yesterday();
-            } elseif ($dateString === 'yesterdaySameTime') {
-                $date = self::yesterdaySameTime();
-            } else {
-                if (is_string($dateString) && preg_match('/last[ -]?week/i', urldecode($dateString))) {
-                    $date = self::lastWeek();
-                } else {
-                    if (is_string($dateString) && preg_match('/last[ -]?month/i', urldecode($dateString))) {
-                        $date = self::lastMonth();
-                    } else {
-                        if (is_string($dateString) && preg_match('/last[ -]?year/i', urldecode($dateString))) {
-                            $date = self::lastYear();
-                        } elseif (!is_int($dateString) && (!is_string($dateString) || strpos($dateString, ',') !== false || ($dateString = strtotime($dateString)) === false)) {
-                            throw self::getInvalidDateFormatException($dateString);
-                        } else {
-                            $date = new \Piwik\Date($dateString);
-                        }
-                    }
-                }
-            }
+            $date = new \Piwik\Date($dateString);
         }
         $timestamp = $date->getTimestamp();
         if ($timestamp < self::FIRST_WEBSITE_TIMESTAMP) {
@@ -156,32 +147,20 @@ class Date
     {
         if ($dateString === 'now') {
             return self::nowInTimezone($timezone);
+        } elseif ($dateString === 'today') {
+            return self::todayInTimezone($timezone);
+        } elseif ($dateString === 'yesterday') {
+            return self::yesterdayInTimezone($timezone);
+        } elseif ($dateString === 'yesterdaySameTime') {
+            return self::yesterdaySameTimeInTimezone($timezone);
+        } elseif (preg_match('/last[ -]?week/i', urldecode($dateString))) {
+            return self::lastWeekInTimezone($timezone);
+        } elseif (preg_match('/last[ -]?month/i', urldecode($dateString))) {
+            return self::lastMonthInTimezone($timezone);
+        } elseif (preg_match('/last[ -]?year/i', urldecode($dateString))) {
+            return self::lastYearInTimezone($timezone);
         } else {
-            if ($dateString === 'today') {
-                return self::todayInTimezone($timezone);
-            } else {
-                if ($dateString === 'yesterday') {
-                    return self::yesterdayInTimezone($timezone);
-                } else {
-                    if ($dateString === 'yesterdaySameTime') {
-                        return self::yesterdaySameTimeInTimezone($timezone);
-                    } else {
-                        if (preg_match('/last[ -]?week/i', urldecode($dateString))) {
-                            return self::lastWeekInTimezone($timezone);
-                        } else {
-                            if (preg_match('/last[ -]?month/i', urldecode($dateString))) {
-                                return self::lastMonthInTimezone($timezone);
-                            } else {
-                                if (preg_match('/last[ -]?year/i', urldecode($dateString))) {
-                                    return self::lastYearInTimezone($timezone);
-                                } else {
-                                    throw new \Exception("Date::factoryInTimezone() should not be used with {$dateString}.");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            throw new \Exception("Date::factoryInTimezone() should not be used with {$dateString}.");
         }
     }
     private static function nowInTimezone($timezone)
@@ -313,7 +292,7 @@ class Date
         }
         $start = substr($timezone, 0, 4);
         if ($start !== 'UTC-' && $start !== 'UTC+') {
-            return false;
+            return \false;
         }
         $offset = (float) substr($timezone, 4);
         if ($start === 'UTC-') {
@@ -335,7 +314,7 @@ class Date
         }
         // manually adjust for UTC timezones
         $utcOffset = self::extractUtcOffset($timezone);
-        if ($utcOffset !== false) {
+        if ($utcOffset !== \false) {
             return self::addHourTo($timestamp, $utcOffset);
         }
         date_default_timezone_set($timezone);
@@ -374,7 +353,7 @@ class Date
             $this->timezone = 'UTC';
         }
         $utcOffset = self::extractUtcOffset($this->timezone);
-        if ($utcOffset !== false) {
+        if ($utcOffset !== \false) {
             return (int) ($this->timestamp - $utcOffset * 3600);
         }
         // The following code seems clunky - I thought the DateTime php class would allow to return timestamps
@@ -696,7 +675,7 @@ class Date
      * @param bool   $ucfirst  whether the first letter should be upper-cased
      * @return string eg. `"Aug 2009"`
      */
-    public function getLocalized($template, $ucfirst = true)
+    public function getLocalized($template, $ucfirst = \true)
     {
         $dateTimeFormatProvider = StaticContainer::get('Piwik\\Intl\\Data\\Provider\\DateTimeFormatProvider');
         $template = $dateTimeFormatProvider->getFormatPattern($template);
@@ -844,7 +823,7 @@ class Date
         }
         $tokens = array();
         $n = strlen($pattern);
-        $isLiteral = false;
+        $isLiteral = \false;
         $literal = '';
         for ($i = 0; $i < $n; ++$i) {
             $c = $pattern[$i];
@@ -855,9 +834,9 @@ class Date
                 } elseif ($isLiteral) {
                     $tokens[] = $literal;
                     $literal = '';
-                    $isLiteral = false;
+                    $isLiteral = \false;
                 } else {
-                    $isLiteral = true;
+                    $isLiteral = \true;
                     $literal = '';
                 }
             } elseif ($isLiteral) {
@@ -1024,7 +1003,7 @@ class Date
     private static function getInvalidDateFormatException($dateString)
     {
         $message = \Piwik\Piwik::translate('General_ExceptionInvalidDateFormat', array("YYYY-MM-DD, or 'today' or 'yesterday'", "strtotime", "http://php.net/strtotime"));
-        return new Exception($message . ": " . var_export($dateString, true));
+        return new Exception($message . ": " . var_export($dateString, \true));
     }
     /**
      * For tests.

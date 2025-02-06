@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Mail;
 
@@ -13,10 +12,10 @@ use Piwik\Piwik;
 use Piwik\ReportRenderer;
 class EmailStyles
 {
-    const REPORT_TITLE_TEXT_SIZE = 24;
-    const REPORT_TABLE_HEADER_TEXT_SIZE = 11;
-    const REPORT_TABLE_ROW_TEXT_SIZE = '13px';
-    const REPORT_BACK_TO_TOP_TEXT_SIZE = 9;
+    public const REPORT_TITLE_TEXT_SIZE = 24;
+    public const REPORT_TABLE_HEADER_TEXT_SIZE = 11;
+    public const REPORT_TABLE_ROW_TEXT_SIZE = '13px';
+    public const REPORT_BACK_TO_TOP_TEXT_SIZE = 9;
     /**
      * @var string
      */
@@ -86,9 +85,9 @@ class EmailStyles
     public static function rgbToHex($rgbValues)
     {
         list($r, $g, $b) = explode(',', $rgbValues);
-        $r = str_pad(dechex($r), 2, "0", STR_PAD_LEFT);
-        $g = str_pad(dechex($g), 2, "0", STR_PAD_LEFT);
-        $b = str_pad(dechex($b), 2, "0", STR_PAD_LEFT);
+        $r = str_pad(dechex($r), 2, "0", \STR_PAD_LEFT);
+        $g = str_pad(dechex($g), 2, "0", \STR_PAD_LEFT);
+        $b = str_pad(dechex($b), 2, "0", \STR_PAD_LEFT);
         return '#' . $r . $g . $b;
     }
     public static function get()

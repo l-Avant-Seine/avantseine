@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Live;
 
@@ -23,6 +22,10 @@ use Piwik\Plugins\Referrers\API as APIReferrers;
 use Piwik\View;
 class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
 {
+    /**
+     * @var array<int, array<string>>
+     */
+    private $cachedAdditionalSiteUrls = [];
     public function extendVisitorDetails(&$visitor)
     {
         $idSite = $this->getIdSite();
@@ -37,10 +40,10 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
             'visitorId' => $this->getVisitorId(),
             'fingerprint' => $this->getFingerprint(),
             // => false are placeholders to be filled in API later
-            'actionDetails' => false,
-            'goalConversions' => false,
-            'siteCurrency' => false,
-            'siteCurrencySymbol' => false,
+            'actionDetails' => \false,
+            'goalConversions' => \false,
+            'siteCurrency' => \false,
+            'siteCurrencySymbol' => \false,
             // all time entries
             'serverDate' => $this->getServerDate(),
             'visitServerHour' => $this->getVisitServerHour(),
@@ -88,14 +91,14 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
         if (empty($template)) {
             return;
         }
-        $sitesModel = new \Piwik\Plugins\SitesManager\Model();
         if (isset($action['type']) && in_array($action['type'], ['outlink', 'download']) && isset($action['url'])) {
-            $action['url'] = html_entity_decode($action['url'], ENT_QUOTES, "UTF-8");
+            $action['url'] = html_entity_decode($action['url'], \ENT_QUOTES, "UTF-8");
         }
+        $idSite = $this->getIdSite();
         $view = new View($template);
-        $view->sendHeadersWhenRendering = false;
-        $view->mainUrl = trim(Site::getMainUrlFor($this->getIdSite()));
-        $view->additionalUrls = $sitesModel->getAliasSiteUrlsFromId($this->getIdSite());
+        $view->sendHeadersWhenRendering = \false;
+        $view->mainUrl = trim(Site::getMainUrlFor($idSite));
+        $view->additionalUrls = $this->getAdditionalUrlsForSite($idSite);
         $view->action = $action;
         $view->previousAction = $previousAction;
         $view->visitInfo = $visitorDetails;
@@ -104,7 +107,7 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
     public function renderActionTooltip($action, $visitInfo)
     {
         $view = new View('@Live/_actionTooltip');
-        $view->sendHeadersWhenRendering = false;
+        $view->sendHeadersWhenRendering = \false;
         $view->action = $action;
         $view->visitInfo = $visitInfo;
         return [[0, $view->render()]];
@@ -113,7 +116,7 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
     {
         $view = new View('@Live/_visitorDetails.twig');
         $view->isProfileEnabled = \Piwik\Plugins\Live\Live::isVisitorProfileEnabled();
-        $view->sendHeadersWhenRendering = false;
+        $view->sendHeadersWhenRendering = \false;
         $view->visitInfo = $visitorDetails;
         return [[0, $view->render()]];
     }
@@ -121,52 +124,52 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
     {
         $view = new View('@Live/_visitorLogIcons.twig');
         $view->isProfileEnabled = \Piwik\Plugins\Live\Live::isVisitorProfileEnabled();
-        $view->sendHeadersWhenRendering = false;
+        $view->sendHeadersWhenRendering = \false;
         $view->visitor = $visitorDetails;
         return $view->render();
     }
-    function getVisitorId()
+    public function getVisitorId()
     {
         if (isset($this->details['idvisitor'])) {
             return bin2hex($this->details['idvisitor']);
         }
-        return false;
+        return \false;
     }
-    function getVisitServerHour()
+    public function getVisitServerHour()
     {
         return date('G', strtotime($this->details['visit_last_action_time']));
     }
-    function getServerDate()
+    public function getServerDate()
     {
         return date('Y-m-d', strtotime($this->details['visit_last_action_time']));
     }
-    function getIp()
+    public function getIp()
     {
         if (isset($this->details['location_ip'])) {
             return IPUtils::binaryToStringIP($this->details['location_ip']);
         }
         return null;
     }
-    function getIdVisit()
+    public function getIdVisit()
     {
         return $this->details['idvisit'];
     }
-    function getIdSite()
+    public function getIdSite()
     {
         return isset($this->details['idsite']) ? $this->details['idsite'] : Common::getRequestVar('idSite');
     }
-    function getFingerprint()
+    public function getFingerprint()
     {
         if (isset($this->details['config_id'])) {
             return bin2hex($this->details['config_id']);
         }
-        return false;
+        return \false;
     }
-    function getTimestampLastAction()
+    public function getTimestampLastAction()
     {
         return strtotime($this->details['visit_last_action_time']);
     }
-    function getDateTimeLastAction()
+    public function getDateTimeLastAction()
     {
         return date('Y-m-d H:i:s', strtotime($this->details['visit_last_action_time']));
     }
@@ -184,7 +187,7 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
     {
         $site = new Site($this->getIdSite());
         $formatter = new Formatter();
-        $profile['totalVisitDurationPretty'] = $formatter->getPrettyTimeFromSeconds($profile['totalVisitDuration'], true);
+        $profile['totalVisitDurationPretty'] = $formatter->getPrettyTimeFromSeconds($profile['totalVisitDuration'], \true);
         $rows = $visits->getRows();
         $firstVisit = $profile['visit_first'];
         if (count($rows) >= Config::getInstance()->General['live_visitor_profile_max_visits_to_aggregate']) {
@@ -227,13 +230,13 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
     public static function getReferrerSummaryForVisit($visit)
     {
         $referrerType = $visit->getColumn('referrerType');
-        if ($referrerType === false || $referrerType == 'direct') {
+        if ($referrerType === \false || $referrerType == 'direct') {
             return Piwik::translate('Referrers_DirectEntry');
         }
         if ($referrerType == 'search') {
             $referrerName = $visit->getColumn('referrerName');
             $keyword = $visit->getColumn('referrerKeyword');
-            if ($keyword !== false && $keyword != APIReferrers::getKeywordNotDefinedString()) {
+            if ($keyword !== \false && $keyword != APIReferrers::getKeywordNotDefinedString()) {
                 $referrerName .= ' (' . $keyword . ')';
             }
             return $referrerName;
@@ -247,5 +250,18 @@ class VisitorDetails extends \Piwik\Plugins\Live\VisitorDetailsAbstract
             return $summary;
         }
         return $visit->getColumn('referrerName');
+    }
+    /**
+     * @return array<int, array<string>>
+     */
+    private function getAdditionalUrlsForSite(int $idSite) : array
+    {
+        if (isset($this->cachedAdditionalSiteUrls[$idSite])) {
+            return $this->cachedAdditionalSiteUrls[$idSite];
+        }
+        $sitesModel = new \Piwik\Plugins\SitesManager\Model();
+        $additionalSiteUrls = $sitesModel->getAliasSiteUrlsFromId($idSite);
+        $this->cachedAdditionalSiteUrls[$idSite] = $additionalSiteUrls;
+        return $additionalSiteUrls;
     }
 }

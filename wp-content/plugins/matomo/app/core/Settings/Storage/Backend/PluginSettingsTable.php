@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Settings\Storage\Backend;
 
@@ -33,7 +32,7 @@ class PluginSettingsTable extends \Piwik\Settings\Storage\Backend\BaseSettingsTa
         if (empty($pluginName)) {
             throw new Exception('No plugin name given for PluginSettingsTable backend');
         }
-        if ($userLogin === false || $userLogin === null) {
+        if ($userLogin === \false || $userLogin === null) {
             throw new Exception('Invalid user login name given for PluginSettingsTable backend');
         }
         $this->pluginName = $pluginName;
@@ -84,7 +83,7 @@ class PluginSettingsTable extends \Piwik\Settings\Storage\Backend\BaseSettingsTa
     }
     private function jsonEncodedMissingError(Exception $e)
     {
-        return strpos($e->getMessage(), 'json_encoded') !== false;
+        return strpos($e->getMessage(), 'json_encoded') !== \false;
     }
     public function load()
     {
@@ -107,7 +106,7 @@ class PluginSettingsTable extends \Piwik\Settings\Storage\Backend\BaseSettingsTa
         foreach ($settings as $setting) {
             $name = $setting['setting_name'];
             if (!empty($setting['json_encoded'])) {
-                $flat[$name] = json_decode($setting['setting_value'], true);
+                $flat[$name] = json_decode($setting['setting_value'], \true);
             } elseif (array_key_exists($name, $flat)) {
                 if (!is_array($flat[$name])) {
                     $flat[$name] = array($flat[$name]);

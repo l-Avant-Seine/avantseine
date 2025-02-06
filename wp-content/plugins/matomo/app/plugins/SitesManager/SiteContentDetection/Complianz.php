@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager\SiteContentDetection;
 
@@ -23,11 +22,11 @@ class Complianz extends \Piwik\Plugins\SitesManager\SiteContentDetection\Consent
     public function isDetected(?string $data = null, ?array $headers = null) : bool
     {
         $needle = 'complianz-gdpr';
-        return strpos($data, $needle) !== false;
+        return strpos($data, $needle) !== \false;
     }
     public function checkIsConnected(?string $data = null, ?array $headers = null) : bool
     {
         $needle = "if (!cmplz_in_array( 'statistics', consentedCategories )) {\n\t\t_paq.push(['forgetCookieConsentGiven']);";
-        return strpos($data, $needle) !== false;
+        return strpos($data, $needle) !== \false;
     }
 }

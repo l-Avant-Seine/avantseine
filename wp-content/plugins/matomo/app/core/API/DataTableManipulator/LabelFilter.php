@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\API\DataTableManipulator;
 
@@ -22,9 +21,9 @@ use Piwik\DataTable;
  */
 class LabelFilter extends DataTableManipulator
 {
-    const SEPARATOR_RECURSIVE_LABEL = '>';
-    const TERMINAL_OPERATOR = '@';
-    const FLAG_IS_ROW_EVOLUTION = 'label_index';
+    public const SEPARATOR_RECURSIVE_LABEL = '>';
+    public const TERMINAL_OPERATOR = '@';
+    public const FLAG_IS_ROW_EVOLUTION = 'label_index';
     private $labels;
     private $addLabelIndex;
     private $isComparing;
@@ -33,7 +32,7 @@ class LabelFilter extends DataTableManipulator
      * @var string
      */
     private $labelColumn;
-    public function __construct($apiModule = false, $apiMethod = false, $request = array(), string $labelColumn = 'label')
+    public function __construct($apiModule = \false, $apiMethod = \false, $request = array(), string $labelColumn = 'label')
     {
         parent::__construct($apiModule, $apiMethod, $request);
         $this->labelColumn = $labelColumn;
@@ -52,7 +51,7 @@ class LabelFilter extends DataTableManipulator
      *                            label a row corresponds to.
      * @return DataTable
      */
-    public function filter($labels, $dataTable, $addLabelIndex = false)
+    public function filter($labels, $dataTable, $addLabelIndex = \false)
     {
         if (!is_array($labels)) {
             $labels = array($labels);
@@ -80,9 +79,9 @@ class LabelFilter extends DataTableManipulator
         // search for the first part of the tree search
         $labelPart = array_shift($labelParts);
         $row = $this->findRowForLabel($labelColumn, $labelPart, $dataTable);
-        if ($row === false) {
+        if ($row === \false) {
             // not found
-            return false;
+            return \false;
         }
         // end of tree search reached
         if (count($labelParts) == 0) {
@@ -91,7 +90,7 @@ class LabelFilter extends DataTableManipulator
         $subTable = $this->loadSubtable($dataTable, $row);
         if ($subTable === null) {
             // no more subtables but label parts left => no match found
-            return false;
+            return \false;
         }
         return $this->doFilterRecursiveDescend($labelParts, $subTable);
     }
@@ -201,6 +200,6 @@ class LabelFilter extends DataTableManipulator
                 return $index[$variation];
             }
         }
-        return false;
+        return \false;
     }
 }

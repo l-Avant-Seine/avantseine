@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\ScheduledReports\ReportEmailGenerator;
 
@@ -50,7 +49,7 @@ class AttachedFileReportEmailGenerator extends ReportEmailGenerator
             $segment = API::getSegment($reportDetails['idsegment']);
         }
         $headerView = new View\HtmlReportEmailHeaderView($report->getReportTitle(), $report->getPrettyDate(), $report->getReportDescription(), [], $segment, $reportDetails['idsite'], $reportDetails['period']);
-        $headerView->isAttachedFile = true;
+        $headerView->isAttachedFile = \true;
         $footerView = new View\HtmlEmailFooterView(Html::UNSUBSCRIBE_LINK_PLACEHOLDER);
         return $headerView->render() . $footerView->render();
     }

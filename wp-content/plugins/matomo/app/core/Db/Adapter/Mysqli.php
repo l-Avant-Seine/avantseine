@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Db\Adapter;
 
@@ -20,17 +19,16 @@ use Zend_Db_Adapter_Mysqli;
  */
 class Mysqli extends Zend_Db_Adapter_Mysqli implements AdapterInterface
 {
+    use Db\TransactionalDatabaseDynamicTrait;
     /**
      * Constructor
      *
      * @param array|Zend_Config $config database configuration
      */
-    // this is used for indicate TransactionLevel Cache
-    public $supportsUncommitted;
     public function __construct($config)
     {
         // Enable LOAD DATA INFILE
-        $config['driver_options'][MYSQLI_OPT_LOCAL_INFILE] = true;
+        $config['driver_options'][\MYSQLI_OPT_LOCAL_INFILE] = \true;
         if ($config['enable_ssl']) {
             if (!empty($config['ssl_key'])) {
                 $config['driver_options']['ssl_key'] = $config['ssl_key'];
@@ -63,6 +61,7 @@ class Mysqli extends Zend_Db_Adapter_Mysqli implements AdapterInterface
     /**
      * Return default port.
      *
+     * @deprecated Use Schema::getDefaultPortForSchema instead
      * @return int
      */
     public static function getDefaultPort()
@@ -77,7 +76,7 @@ class Mysqli extends Zend_Db_Adapter_Mysqli implements AdapterInterface
         // The default error reporting of mysqli changed in PHP 8.1. To circumvent problems in our error handling we set
         // the erroring reporting to the default that was used prior PHP 8.1
         // See https://php.watch/versions/8.1/mysqli-error-mode for more details
-        mysqli_report(MYSQLI_REPORT_OFF);
+        mysqli_report(\MYSQLI_REPORT_OFF);
         parent::_connect();
         $this->_connection->query('SET sql_mode = "' . Db::SQL_MODE . '"');
     }
@@ -150,7 +149,7 @@ class Mysqli extends Zend_Db_Adapter_Mysqli implements AdapterInterface
      */
     public function hasBlobDataType()
     {
-        return true;
+        return \true;
     }
     /**
      * Returns true if this adapter supports bulk loading
@@ -159,7 +158,7 @@ class Mysqli extends Zend_Db_Adapter_Mysqli implements AdapterInterface
      */
     public function hasBulkLoader()
     {
-        return true;
+        return \true;
     }
     /**
      * Test error number

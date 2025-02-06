@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Db\Adapter\Pdo;
 
@@ -24,18 +23,17 @@ use Zend_Db_Statement_Interface;
  */
 class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
 {
+    use Db\TransactionalDatabaseDynamicTrait;
     /**
      * Constructor
      *
      * @param array|Zend_Config $config database configuration
      */
-    // this is used for indicate TransactionLevel Cache
-    public $supportsUncommitted;
     public function __construct($config)
     {
         // Enable LOAD DATA INFILE
         if (defined('PDO::MYSQL_ATTR_LOCAL_INFILE')) {
-            $config['driver_options'][PDO::MYSQL_ATTR_LOCAL_INFILE] = true;
+            $config['driver_options'][PDO::MYSQL_ATTR_LOCAL_INFILE] = \true;
         }
         if ($config['enable_ssl']) {
             if (!empty($config['ssl_key'])) {
@@ -54,7 +52,7 @@ class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
                 $config['driver_options'][PDO::MYSQL_ATTR_SSL_CIPHER] = $config['ssl_cipher'];
             }
             if (!empty($config['ssl_no_verify']) && defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-                $config['driver_options'][PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+                $config['driver_options'][PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = \false;
             }
         }
         parent::__construct($config);
@@ -84,7 +82,7 @@ class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
          * statements.
          * @see http://framework.zend.com/issues/browse/ZF-1398
          */
-        $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+        $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, \true);
         return $this->_connection;
     }
     protected function _connect()
@@ -120,6 +118,7 @@ class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
     /**
      * Return default port.
      *
+     * @deprecated Use Schema::getDefaultPortForSchema instead
      * @return int
      */
     public static function getDefaultPort()
@@ -184,7 +183,7 @@ class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
      */
     public function hasBlobDataType()
     {
-        return true;
+        return \true;
     }
     /**
      * Returns true if this adapter supports bulk loading
@@ -193,7 +192,7 @@ class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
      */
     public function hasBulkLoader()
     {
-        return true;
+        return \true;
     }
     /**
      * Test error number
@@ -218,7 +217,7 @@ class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
         if (preg_match('/(?:\\[|\\s)([0-9]{4})(?:\\]|\\s)/', $e->getMessage(), $match)) {
             return $match[1] == $errno;
         }
-        return false;
+        return \false;
     }
     /**
      * Is the connection character set equal to utf8?
@@ -229,7 +228,7 @@ class Mysql extends Zend_Db_Adapter_Pdo_Mysql implements AdapterInterface
     {
         $charsetInfo = $this->fetchAll('SHOW VARIABLES LIKE ?', array('character_set_connection'));
         if (empty($charsetInfo)) {
-            return false;
+            return \false;
         }
         $charset = $charsetInfo[0]['Value'];
         return strpos($charset, 'utf8') === 0;

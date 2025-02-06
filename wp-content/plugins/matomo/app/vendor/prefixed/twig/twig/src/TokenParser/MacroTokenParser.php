@@ -34,20 +34,20 @@ final class MacroTokenParser extends AbstractTokenParser
             /* Token::NAME_TYPE */
             5
         )->getValue();
-        $arguments = $this->parser->getExpressionParser()->parseArguments(true, true);
+        $arguments = $this->parser->getExpressionParser()->parseArguments(\true, \true);
         $stream->expect(
             /* Token::BLOCK_END_TYPE */
             3
         );
         $this->parser->pushLocalScope();
-        $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
+        $body = $this->parser->subparse([$this, 'decideBlockEnd'], \true);
         if ($token = $stream->nextIf(
             /* Token::NAME_TYPE */
             5
         )) {
             $value = $token->getValue();
             if ($value != $name) {
-                throw new SyntaxError(sprintf('Expected endmacro for macro "%s" (but "%s" given).', $name, $value), $stream->getCurrent()->getLine(), $stream->getSourceContext());
+                throw new SyntaxError(\sprintf('Expected endmacro for macro "%s" (but "%s" given).', $name, $value), $stream->getCurrent()->getLine(), $stream->getSourceContext());
             }
         }
         $this->parser->popLocalScope();

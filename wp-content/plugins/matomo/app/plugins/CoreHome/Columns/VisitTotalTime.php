@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Columns;
 
@@ -55,7 +54,7 @@ class VisitTotalTime extends VisitDimension
     public function onConvertedVisit(Request $request, Visitor $visitor, $action)
     {
         if (!$visitor->isVisitorKnown()) {
-            return false;
+            return \false;
         }
         $totalTime = $visitor->getVisitorColumn('visit_total_time');
         // If a pageview and goal conversion in the same second, with previously a goal conversion recorded

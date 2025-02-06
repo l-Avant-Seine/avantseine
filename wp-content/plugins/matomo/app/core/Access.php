@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -64,7 +63,7 @@ class Access
      *
      * @var bool
      */
-    protected $hasSuperUserAccess = false;
+    protected $hasSuperUserAccess = \false;
     /**
      * Authentification object (see Auth)
      *
@@ -91,7 +90,7 @@ class Access
     /**
      * Constructor
      */
-    public function __construct(RolesProvider $roleProvider = null, CapabilitiesProvider $capabilityProvider = null)
+    public function __construct(?RolesProvider $roleProvider = null, ?CapabilitiesProvider $capabilityProvider = null)
     {
         if (!isset($roleProvider)) {
             $roleProvider = StaticContainer::get('Piwik\\Access\\RolesProvider');
@@ -118,7 +117,7 @@ class Access
      * @param null|Auth $auth Auth adapter
      * @return bool  true on success, false if reloading access failed (when auth object wasn't specified and user is not enforced to be Super User)
      */
-    public function reloadAccess(\Piwik\Auth $auth = null)
+    public function reloadAccess(?\Piwik\Auth $auth = null)
     {
         $this->resetSites();
         if (isset($auth)) {
@@ -126,13 +125,13 @@ class Access
         }
         if ($this->hasSuperUserAccess()) {
             $this->makeSureLoginNameIsSet();
-            return true;
+            return \true;
         }
         $this->token_auth = null;
         $this->login = null;
         // if the Auth wasn't set, we may be in the special case of setSuperUser(), otherwise we fail TODO: docs + review
         if (!isset($this->auth)) {
-            return false;
+            return \false;
         }
         $result = null;
         $forceApiSessionPost = \Piwik\Common::getRequestVar('force_api_session', 0, 'int', $_POST);
@@ -160,15 +159,15 @@ class Access
             $result = $this->auth->authenticate();
         }
         if (!$result->wasAuthenticationSuccessful()) {
-            return false;
+            return \false;
         }
         $this->login = $result->getIdentity();
         $this->token_auth = $result->getTokenAuth();
         // case the superUser is logged in
         if ($result->hasSuperUserAccess()) {
-            $this->setSuperUserAccess(true);
+            $this->setSuperUserAccess(\true);
         }
-        return true;
+        return \true;
     }
     public function getRawSitesWithSomeViewAccess($login)
     {
@@ -268,7 +267,7 @@ class Access
      *
      * @param bool $bool
      */
-    public function setSuperUserAccess($bool = true)
+    public function setSuperUserAccess($bool = \true)
     {
         $this->hasSuperUserAccess = (bool) $bool;
         if ($bool) {
@@ -382,7 +381,7 @@ class Access
     public function isUserHasSomeWriteAccess()
     {
         if ($this->hasSuperUserAccess()) {
-            return true;
+            return \true;
         }
         $idSitesAccessible = $this->getSitesIdWithAtLeastWriteAccess();
         return count($idSitesAccessible) > 0;
@@ -395,7 +394,7 @@ class Access
     public function isUserHasSomeAdminAccess()
     {
         if ($this->hasSuperUserAccess()) {
-            return true;
+            return \true;
         }
         $idSitesAccessible = $this->getSitesIdWithAdminAccess();
         return count($idSitesAccessible) > 0;
@@ -563,7 +562,7 @@ class Access
         $login = $access->getLogin();
         $shouldResetLogin = empty($login);
         // make sure to reset login if a login was set by "makeSureLoginNameIsSet()"
-        $access->setSuperUserAccess(true);
+        $access->setSuperUserAccess(\true);
         try {
             $result = $function();
         } catch (\Throwable $ex) {

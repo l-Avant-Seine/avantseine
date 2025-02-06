@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Login;
 
@@ -19,6 +18,7 @@ use Piwik\IP;
 use Piwik\NoAccessException;
 use Piwik\Piwik;
 use Piwik\Plugins\Login\Security\BruteForceDetection;
+use Piwik\Plugins\Login\Security\LoginFromDifferentCountryDetection;
 use Piwik\Session;
 use Piwik\SettingsServer;
 /**
@@ -26,9 +26,9 @@ use Piwik\SettingsServer;
  */
 class Login extends \Piwik\Plugin
 {
-    private $hasAddedFailedAttempt = false;
-    private $hasPerformedBruteForceCheck = false;
-    private $hasPerformedBruteForceCheckForUserPwdLogin = false;
+    private $hasAddedFailedAttempt = \false;
+    private $hasPerformedBruteForceCheck = \false;
+    private $hasPerformedBruteForceCheckForUserPwdLogin = \false;
     /**
      * @see \Piwik\Plugin::registerEvents
      */
@@ -65,6 +65,9 @@ class Login extends \Piwik\Plugin
             'API.Request.authenticate.failed' => 'onFailedAPILogin',
             // record any failed attempt in Reporting API
             'Tracker.Request.authenticate.failed' => 'onFailedLoginRecordAttempt',
+            // record any failed attempt in Tracker API
+            // for 'Login from a different country' notification
+            'Login.authenticate.processSuccessfulSession.end' => 'checkLoginFromAnotherCountry',
         );
         $loginPlugin = Piwik::getLoginPluginName();
         if ($loginPlugin && $loginPlugin !== 'Login') {
@@ -88,7 +91,7 @@ class Login extends \Piwik\Plugin
     }
     public function isTrackerPlugin()
     {
-        return true;
+        return \true;
     }
     public function onInitAuthenticationObject()
     {
@@ -116,7 +119,7 @@ class Login extends \Piwik\Plugin
             $bruteForce->addFailedAttempt(IP::getIpFromHeader(), $login);
             // we make sure to log max one failed login attempt per request... otherwise we might log 3 or many more
             // if eg API is called etc.
-            $this->hasAddedFailedAttempt = true;
+            $this->hasAddedFailedAttempt = \true;
         }
     }
     public function onFailedAPILogin()
@@ -132,6 +135,17 @@ class Login extends \Piwik\Plugin
             }
         }
     }
+    public function checkLoginFromAnotherCountry($login)
+    {
+        if ('anonymous' === $login) {
+            // do not send notification to "anonymous"
+            return;
+        }
+        $loginFromDifferentCountryDetection = StaticContainer::get(LoginFromDifferentCountryDetection::class);
+        if ($loginFromDifferentCountryDetection->isEnabled()) {
+            $loginFromDifferentCountryDetection->check($login);
+        }
+    }
     public function beforeLoginCheckBruteForce()
     {
         $bruteForce = StaticContainer::get('Piwik\\Plugins\\Login\\Security\\BruteForceDetection');
@@ -139,7 +153,7 @@ class Login extends \Piwik\Plugin
             throw new Exception(Piwik::translate('Login_LoginNotAllowedBecauseBlocked'));
         }
         // for performance reasons we make sure to execute it only once per request
-        $this->hasPerformedBruteForceCheck = true;
+        $this->hasPerformedBruteForceCheck = \true;
         // now check that user login (from any ip) is not blocked
         $login = $this->getUsernameUsedInPasswordLogin();
         if (empty($login) || $login == 'anonymous') {
@@ -153,7 +167,7 @@ class Login extends \Piwik\Plugin
             throw $ex;
         }
         // for performance reasons we make sure to execute it only once per request
-        $this->hasPerformedBruteForceCheckForUserPwdLogin = true;
+        $this->hasPerformedBruteForceCheckForUserPwdLogin = \true;
     }
     public function getJsFiles(&$jsFiles)
     {
@@ -215,7 +229,7 @@ class Login extends \Piwik\Plugin
     {
         $login = StaticContainer::get(\Piwik\Auth::class)->getLogin();
         if (empty($login) || $login == 'anonymous') {
-            $login = Common::getRequestVar('form_login', false);
+            $login = Common::getRequestVar('form_login', \false);
             if (Piwik::getAction() === 'logme') {
                 $login = Common::getRequestVar('login', $login);
             }

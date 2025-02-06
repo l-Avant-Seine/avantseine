@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\ProfessionalServices\Widgets;
 
@@ -32,7 +31,7 @@ class PromoCustomReports extends \Piwik\Plugins\ProfessionalServices\Widgets\Dis
         $view = new View('@ProfessionalServices/pluginAdvertising');
         $view->plugin = $pluginInfo;
         $view->widgetName = self::getDismissibleWidgetName();
-        $view->userCanDismiss = Piwik::isUserIsAnonymous() === false;
+        $view->userCanDismiss = Piwik::isUserIsAnonymous() === \false;
         $view->title = Piwik::translate('ProfessionalServices_PromoUnlockPowerOf', $pluginInfo['displayName']);
         $view->listOfFeatures = [Piwik::translate('ProfessionalServices_CustomReportsFeature01'), Piwik::translate('ProfessionalServices_CustomReportsFeature02'), Piwik::translate('ProfessionalServices_CustomReportsFeature03')];
         return $view->render();

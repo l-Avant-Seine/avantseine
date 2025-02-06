@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\MultiSites\Reports;
 
@@ -19,7 +18,7 @@ class GetAll extends \Piwik\Plugins\MultiSites\Reports\Base
         $this->dimension = new Website();
         $this->name = Piwik::translate('General_AllWebsitesDashboard');
         $this->documentation = Piwik::translate('MultiSites_AllWebsitesDashboardDocumentation');
-        $this->constantRowsCount = false;
+        $this->constantRowsCount = \false;
         $this->order = 4;
     }
 }

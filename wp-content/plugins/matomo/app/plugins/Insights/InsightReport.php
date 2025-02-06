@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Insights;
 
@@ -16,9 +15,9 @@ use Piwik\Piwik;
  */
 class InsightReport
 {
-    const ORDER_BY_RELATIVE = 'relative';
-    const ORDER_BY_ABSOLUTE = 'absolute';
-    const ORDER_BY_IMPORTANCE = 'importance';
+    public const ORDER_BY_RELATIVE = 'relative';
+    public const ORDER_BY_ABSOLUTE = 'absolute';
+    public const ORDER_BY_IMPORTANCE = 'importance';
     /**
      * @param array $reportMetadata
      * @param string $period
@@ -99,9 +98,9 @@ class InsightReport
         foreach ($insight->getRows() as $row) {
             $label = $row->getColumn('label');
             if ($shakers->getRowFromLabel($label)) {
-                $row->setColumn('isMoverAndShaker', true);
+                $row->setColumn('isMoverAndShaker', \true);
             } else {
-                $row->setColumn('isMoverAndShaker', false);
+                $row->setColumn('isMoverAndShaker', \false);
             }
         }
         $this->addMoversAndShakersMetadata($insight, $totalValue, $lastTotalValue);

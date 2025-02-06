@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker;
 
@@ -35,7 +34,7 @@ use Piwik\Tracker\Visit\VisitProperties;
  */
 class Visit implements \Piwik\Tracker\VisitInterface
 {
-    const UNKNOWN_CODE = 'xx';
+    public const UNKNOWN_CODE = 'xx';
     /**
      * @var GoalManager
      */
@@ -165,7 +164,7 @@ class Visit implements \Piwik\Tracker\VisitInterface
             try {
                 $this->handleExistingVisit($this->request->getMetadata('Goals', 'visitIsConverted'));
             } catch (\Piwik\Tracker\VisitorNotFoundInDb $e) {
-                $this->request->setMetadata('CoreHome', 'visitorNotFoundInDb', true);
+                $this->request->setMetadata('CoreHome', 'visitorNotFoundInDb', \true);
                 // TODO: perhaps we should just abort here?
             }
         }
@@ -334,10 +333,10 @@ class Visit implements \Piwik\Tracker\VisitInterface
             }
             $canonicalHost = self::toCanonicalHost($urlHost);
             if (in_array($canonicalHost, $canonicalHosts)) {
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
     private static function toCanonicalHost($host)
     {
@@ -362,7 +361,7 @@ class Visit implements \Piwik\Tracker\VisitInterface
             $valuesToUpdate['idvisitor'] = bin2hex($valuesToUpdate['idvisitor']);
         }
         if ($wasInserted) {
-            Common::printDebug('Updated existing visit: ' . var_export($valuesToUpdate, true));
+            Common::printDebug('Updated existing visit: ' . var_export($valuesToUpdate, \true));
         } elseif (!$this->getModel()->hasVisit($idSite, $idVisit)) {
             // mostly for WordPress. see https://github.com/matomo-org/matomo/pull/15587
             // as WP doesn't set `MYSQLI_CLIENT_FOUND_ROWS` and therefore when the update succeeded but no value changed
@@ -422,7 +421,7 @@ class Visit implements \Piwik\Tracker\VisitInterface
         $action = $this->request->getMetadata('Actions', 'action');
         foreach ($dimensions as $dimension) {
             $value = $dimension->{$hook}($this->request, $visitor, $action);
-            if ($value !== false) {
+            if ($value !== \false) {
                 $fieldName = $dimension->getColumnName();
                 $visitor->setVisitorColumn($fieldName, $value);
                 if (is_float($value)) {
@@ -444,10 +443,10 @@ class Visit implements \Piwik\Tracker\VisitInterface
         $action = $this->request->getMetadata('Actions', 'action');
         foreach ($dimensions as $dimension) {
             if ($dimension->{$hook}($this->request, $visitor, $action)) {
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
     protected function getAllVisitDimensions()
     {

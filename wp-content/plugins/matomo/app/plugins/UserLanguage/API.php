@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserLanguage;
 
@@ -31,7 +30,7 @@ class API extends \Piwik\Plugin\API
         $dataTable->queueFilter('ReplaceSummaryRowLabel');
         return $dataTable;
     }
-    public function getLanguage($idSite, $period, $date, $segment = false)
+    public function getLanguage($idSite, $period, $date, $segment = \false)
     {
         $dataTable = $this->getDataTable(\Piwik\Plugins\UserLanguage\Archiver::LANGUAGE_RECORD_NAME, $idSite, $period, $date, $segment);
         $dataTable->filter('GroupBy', array('label', __NAMESPACE__ . '\\groupByLangCallback'));
@@ -44,7 +43,7 @@ class API extends \Piwik\Plugin\API
         $dataTable->filter('ColumnCallbackReplace', array('label', __NAMESPACE__ . '\\languageTranslate'));
         return $dataTable;
     }
-    public function getLanguageCode($idSite, $period, $date, $segment = false)
+    public function getLanguageCode($idSite, $period, $date, $segment = \false)
     {
         $dataTable = $this->getDataTable(\Piwik\Plugins\UserLanguage\Archiver::LANGUAGE_RECORD_NAME, $idSite, $period, $date, $segment);
         $dataTable->filter('AddSegmentValue');

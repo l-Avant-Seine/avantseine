@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\Tracker;
 
@@ -63,10 +63,10 @@ class GoalsRequestProcessor extends RequestProcessor
             if (!$visitIsConverted) {
                 $idGoal = $request->getParam('idgoal');
                 Common::printDebug('Invalid goal tracking request for goal id = ' . $idGoal);
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
     public function afterRequestProcessed(VisitProperties $visitProperties, Request $request)
     {
@@ -80,7 +80,7 @@ class GoalsRequestProcessor extends RequestProcessor
             $existingGoalsConverted = $request->getMetadata('Goals', 'goalsConverted') ?: array();
             $request->setMetadata('Goals', 'goalsConverted', array_merge($existingGoalsConverted, $goalsConverted));
             if (!empty($goalsConverted)) {
-                $request->setMetadata('Goals', 'visitIsConverted', true);
+                $request->setMetadata('Goals', 'visitIsConverted', \true);
             }
         }
     }

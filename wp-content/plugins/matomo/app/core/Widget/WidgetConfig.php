@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Widget;
 
@@ -28,9 +27,9 @@ class WidgetConfig
     protected $middlewareParameters = array();
     protected $name = '';
     protected $order = 99;
-    protected $isEnabled = true;
-    protected $isWidgetizable = true;
-    protected $isWide = false;
+    protected $isEnabled = \true;
+    protected $isWidgetizable = \true;
+    protected $isWide = \false;
     /**
      * Set the id of the category the widget belongs to.
      * @param  string $categoryId  Usually a translation key, eg 'General_Visits', 'Goals_Goals', ...
@@ -204,14 +203,14 @@ class WidgetConfig
      */
     public function enable()
     {
-        $this->setIsEnabled(true);
+        $this->setIsEnabled(\true);
     }
     /**
      * Disables the widget. See {@link isEnabled()}
      */
     public function disable()
     {
-        $this->setIsEnabled(false);
+        $this->setIsEnabled(\false);
     }
     /**
      * This method checks whether the widget is available, see {@link isEnabled()}. If not, it triggers an exception
@@ -252,7 +251,7 @@ class WidgetConfig
      */
     public function setIsNotWidgetizable()
     {
-        $this->isWidgetizable = false;
+        $this->isWidgetizable = \false;
         return $this;
     }
     /**
@@ -262,7 +261,7 @@ class WidgetConfig
      */
     public function setIsWidgetizable()
     {
-        $this->isWidgetizable = true;
+        $this->isWidgetizable = \true;
         return $this;
     }
     /**
@@ -317,7 +316,7 @@ class WidgetConfig
      */
     public function setIsWide()
     {
-        $this->isWide = true;
+        $this->isWide = \true;
         return $this;
     }
     /**

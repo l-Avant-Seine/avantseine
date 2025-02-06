@@ -34,7 +34,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      * @param bool|null                     $decorated Whether to decorate messages (null for auto-guessing)
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
-    public function __construct(int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, OutputFormatterInterface $formatter = null)
+    public function __construct(int $verbosity = self::VERBOSITY_NORMAL, ?bool $decorated = null, ?OutputFormatterInterface $formatter = null)
     {
         parent::__construct($this->openOutputStream(), $verbosity, $decorated, $formatter);
         if (null === $formatter) {
@@ -101,7 +101,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     protected function hasStdoutSupport()
     {
-        return false === $this->isRunningOS400();
+        return \false === $this->isRunningOS400();
     }
     /**
      * Returns true if current environment supports writing console output to
@@ -111,7 +111,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     protected function hasStderrSupport()
     {
-        return false === $this->isRunningOS400();
+        return \false === $this->isRunningOS400();
     }
     /**
      * Checks if current executing environment is IBM iSeries (OS400), which
@@ -120,7 +120,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     private function isRunningOS400() : bool
     {
         $checks = [\function_exists('php_uname') ? php_uname('s') : '', getenv('OSTYPE'), \PHP_OS];
-        return false !== stripos(implode(';', $checks), 'OS400');
+        return \false !== stripos(implode(';', $checks), 'OS400');
     }
     /**
      * @return resource

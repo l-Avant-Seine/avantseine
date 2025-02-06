@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker;
 
@@ -51,7 +50,7 @@ class IgnoreCookie
     {
         $cookie_name = @Config::getInstance()->Tracker['ignore_visits_cookie_name'];
         $cookie_path = @Config::getInstance()->Tracker['cookie_path'];
-        $cookie = new Cookie($cookie_name, "+ 30 years", $cookie_path, false);
+        $cookie = new Cookie($cookie_name, "+ 30 years", $cookie_path, \false);
         $domain = @Config::getInstance()->Tracker['cookie_domain'];
         if (!empty($domain)) {
             $cookie->setDomain($domain);
@@ -69,7 +68,7 @@ class IgnoreCookie
         } else {
             $ignoreCookie->set('ignore', '*');
             if (ProxyHttp::isHttps()) {
-                $ignoreCookie->setSecure(true);
+                $ignoreCookie->setSecure(\true);
                 $ignoreCookie->save('None');
             } else {
                 $ignoreCookie->save('Lax');

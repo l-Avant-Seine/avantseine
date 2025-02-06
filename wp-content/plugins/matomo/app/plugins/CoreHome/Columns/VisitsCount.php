@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Columns;
 
@@ -35,7 +34,7 @@ class VisitsCount extends VisitDimension
     public function onNewVisit(Request $request, Visitor $visitor, $action)
     {
         $previousVisitCount = $visitor->getPreviousVisitColumn($this->columnName);
-        if ($previousVisitCount === false || $previousVisitCount === null || $previousVisitCount === '') {
+        if ($previousVisitCount === \false || $previousVisitCount === null || $previousVisitCount === '') {
             return 1;
         }
         $result = $previousVisitCount + 1;

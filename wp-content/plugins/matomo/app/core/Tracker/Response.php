@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker;
 
@@ -163,9 +162,9 @@ class Response
         if ($img && $size && isset($size['mime']) && in_array($size['mime'], $supportedMimeTypes)) {
             Common::sendHeader('Content-Type: ' . $size['mime']);
             echo $img;
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     /**
      * Gets the error message to output when a tracking request fails.

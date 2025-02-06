@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -118,8 +117,8 @@ class View implements ViewInterface
     protected $templateVars = array();
     private $contentType = 'text/html; charset=utf-8';
     private $xFrameOptions = null;
-    private $enableCacheBuster = true;
-    private $useStrictReferrerPolicy = true;
+    private $enableCacheBuster = \true;
+    private $useStrictReferrerPolicy = \true;
     /**
      * Can be disabled to not send headers when rendering a view. This can be useful if heaps of views are being
      * rendered during one request to possibly prevent a segmentation fault see eg #15307 . It should not be disabled
@@ -127,7 +126,7 @@ class View implements ViewInterface
      * is part of the "main view".
      * @var bool
      */
-    public $sendHeadersWhenRendering = true;
+    public $sendHeadersWhenRendering = \true;
     /**
      * Constructor.
      *
@@ -163,7 +162,7 @@ class View implements ViewInterface
      */
     public function disableCacheBuster()
     {
-        $this->enableCacheBuster = false;
+        $this->enableCacheBuster = \false;
     }
     /**
      * Returns the template filename.
@@ -406,7 +405,7 @@ class View implements ViewInterface
             // some high performance systems that run many Matomo instances may never want to clear this template cache
             // if they use eg a blue/green deployment
             $templatesCompiledPath = StaticContainer::get('path.tmp.templates');
-            \Piwik\Filesystem::unlinkRecursive($templatesCompiledPath, false);
+            \Piwik\Filesystem::unlinkRecursive($templatesCompiledPath, \false);
         }
     }
     /**
@@ -429,7 +428,7 @@ class View implements ViewInterface
     private function shouldPropagateTokenAuthInAjaxRequests()
     {
         $generalConfig = \Piwik\Config::getInstance()->General;
-        return \Piwik\Common::getRequestVar('module', false) == 'Widgetize' || $generalConfig['enable_framed_pages'] == '1' || $this->validTokenAuthInUrl();
+        return \Piwik\Common::getRequestVar('module', \false) == 'Widgetize' || $generalConfig['enable_framed_pages'] == '1' || $this->validTokenAuthInUrl();
     }
     /**
      * @return bool

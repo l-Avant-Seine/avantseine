@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Reports;
 
@@ -32,7 +31,7 @@ class GetEntryPageTitles extends \Piwik\Plugins\Actions\Reports\Base
         $this->order = 6;
         $this->actionToLoadSubTables = $this->action;
         $this->subcategoryId = 'Actions_SubmenuPagesEntry';
-        $this->hasGoalMetrics = true;
+        $this->hasGoalMetrics = \true;
     }
     public function configureWidgets(WidgetsList $widgetsList, ReportWidgetFactory $factory)
     {
@@ -63,7 +62,7 @@ class GetEntryPageTitles extends \Piwik\Plugins\Actions\Reports\Base
         $view->requestConfig->filter_sort_column = 'entry_nb_visits';
         $this->addPageDisplayProperties($view);
         $this->addBaseDisplayProperties($view);
-        $view->config->show_goals = true;
+        $view->config->show_goals = \true;
     }
     public function getRelatedReports()
     {

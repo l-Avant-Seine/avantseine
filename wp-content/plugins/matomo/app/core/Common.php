@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -24,18 +23,23 @@ use Piwik\Tracker\Cache as TrackerCache;
 class Common
 {
     // constants used to map the referrer type to an integer in the log_visit table
-    const REFERRER_TYPE_DIRECT_ENTRY = 1;
-    const REFERRER_TYPE_SEARCH_ENGINE = 2;
-    const REFERRER_TYPE_WEBSITE = 3;
-    const REFERRER_TYPE_CAMPAIGN = 6;
-    const REFERRER_TYPE_SOCIAL_NETWORK = 7;
+    public const REFERRER_TYPE_DIRECT_ENTRY = 1;
+    public const REFERRER_TYPE_SEARCH_ENGINE = 2;
+    public const REFERRER_TYPE_WEBSITE = 3;
+    public const REFERRER_TYPE_CAMPAIGN = 6;
+    public const REFERRER_TYPE_SOCIAL_NETWORK = 7;
     // Flag used with htmlspecialchar. See php.net/htmlspecialchars.
-    const HTML_ENCODING_QUOTE_STYLE = ENT_QUOTES;
+    public const HTML_ENCODING_QUOTE_STYLE = \ENT_QUOTES;
     public static $isCliMode = null;
+    /**
+     * Filled and used during tests only
+     * @var array
+     */
+    public static $headersSentInTests = [];
     /*
      * Database
      */
-    const LANGUAGE_CODE_INVALID = 'xx';
+    public const LANGUAGE_CODE_INVALID = 'xx';
     /**
      * Hashes a string into an integer which should be very low collision risks
      * @param string $string String to hash
@@ -119,13 +123,13 @@ class Common
         if (is_bool(self::$isCliMode)) {
             return self::$isCliMode;
         }
-        if (PHP_SAPI === 'cli') {
-            return true;
+        if (\PHP_SAPI === 'cli') {
+            return \true;
         }
         if (self::isPhpCgiType() && (!isset($_SERVER['REMOTE_ADDR']) || empty($_SERVER['REMOTE_ADDR']))) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     /**
      * Returns true if PHP is executed as CGI type.
@@ -247,7 +251,7 @@ class Common
             return hash_equals($stringA, $stringB);
         }
         if (strlen($stringA) !== strlen($stringB)) {
-            return false;
+            return \false;
         }
         $result = "\x00";
         $stringA ^= $stringB;
@@ -264,18 +268,18 @@ class Common
      * @param bool $rethrow Whether to rethrow exceptions or not.
      * @return mixed
      */
-    public static function safe_unserialize($string, $allowedClasses = [], $rethrow = false)
+    public static function safe_unserialize($string, $allowedClasses = [], $rethrow = \false)
     {
         try {
             // phpcs:ignore Generic.PHP.ForbiddenFunctions
-            return unserialize($string ?? '', ['allowed_classes' => empty($allowedClasses) ? false : $allowedClasses]);
+            return unserialize($string ?? '', ['allowed_classes' => empty($allowedClasses) ? \false : $allowedClasses]);
         } catch (\Throwable $e) {
             if ($rethrow) {
                 throw $e;
             }
             $logger = StaticContainer::get(LoggerInterface::class);
             $logger->debug('Unable to unserialize a string: {exception} (string = {string})', ['exception' => $e, 'string' => $string]);
-            return false;
+            return \false;
         }
     }
     /*
@@ -309,7 +313,7 @@ class Common
      * @return mixed  The sanitized value.
      * @api
      */
-    public static function sanitizeInputValues($value, $alreadyStripslashed = false)
+    public static function sanitizeInputValues($value, $alreadyStripslashed = \false)
     {
         if (is_numeric($value)) {
             return $value;
@@ -326,7 +330,7 @@ class Common
                 $value[$newKey] = self::sanitizeInputValues($value[$newKey], $alreadyStripslashed);
             }
         } elseif (!is_null($value) && !is_bool($value)) {
-            throw new Exception("The value to escape has not a supported type. Value = " . var_export($value, true));
+            throw new Exception("The value to escape has not a supported type. Value = " . var_export($value, \true));
         }
         return $value;
     }
@@ -470,39 +474,42 @@ class Common
         if ($varType === 'json') {
             $value = $requestArrayToUse[$varName];
             if (is_string($value)) {
-                $value = json_decode($value, $assoc = true);
+                $value = json_decode($value, $assoc = \true);
             }
-            return self::sanitizeInputValues($value, true);
+            return self::sanitizeInputValues($value, \true);
         }
         $value = self::sanitizeInputValues($requestArrayToUse[$varName]);
         if (isset($varType)) {
-            $ok = false;
+            $ok = \false;
             if ($varType === 'string') {
                 if (is_string($value) || is_int($value)) {
-                    $ok = true;
+                    $ok = \true;
                 } elseif (is_float($value)) {
                     $value = \Piwik\Common::forceDotAsSeparatorForDecimalPoint($value);
-                    $ok = true;
+                    $ok = \true;
                 }
             } elseif ($varType === 'integer') {
                 if ($value == (string) (int) $value) {
-                    $ok = true;
+                    $ok = \true;
                 }
             } elseif ($varType === 'float') {
-                $valueToCompare = (string) (float) $value;
-                $valueToCompare = \Piwik\Common::forceDotAsSeparatorForDecimalPoint($valueToCompare);
-                if ($value == $valueToCompare) {
-                    $ok = true;
+                $valueToCompare = \Piwik\Common::forceDotAsSeparatorForDecimalPoint($value);
+                // Simplified regex for float without support for underscore notation
+                // will match:  1.234, 1.2e3, 7E-10
+                // won't match: 1_234.567
+                $floatRegex = "/^[+-]?((([0-9]+)|(([0-9]+)?\\.([0-9]+))|(([0-9]+)\\.([0-9]+)?))([eE][+-]?([0-9]+))?)\$/";
+                if (preg_match($floatRegex, $valueToCompare)) {
+                    $ok = \true;
                 }
             } elseif ($varType === 'array') {
                 if (is_array($value)) {
-                    $ok = true;
+                    $ok = \true;
                 }
             } else {
                 throw new Exception("\$varType specified is not known. It should be one of the following: array, int, integer, float, string");
             }
             // The type is not correct
-            if ($ok === false) {
+            if ($ok === \false) {
                 if ($varDefault === null) {
                     throw new Exception("The parameter '{$varName}' doesn't have a correct type, and a default value wasn't provided.");
                 } else {
@@ -528,7 +535,7 @@ class Common
     public static function getRandomInt($min = 0, $max = null)
     {
         if (!isset($max)) {
-            $max = PHP_INT_MAX;
+            $max = \PHP_INT_MAX;
         }
         return random_int($min, $max);
     }
@@ -548,7 +555,7 @@ class Common
      * @param bool $raw_output
      * @return string Hash string
      */
-    public static function hash($str, $raw_output = false)
+    public static function hash($str, $raw_output = \false)
     {
         static $hashAlgorithm = null;
         if (is_null($hashAlgorithm)) {
@@ -556,7 +563,7 @@ class Common
         }
         if ($hashAlgorithm) {
             $hash = @hash($hashAlgorithm, $str, $raw_output);
-            if ($hash !== false) {
+            if ($hash !== \false) {
                 return $hash;
             }
         }
@@ -632,7 +639,7 @@ class Common
      */
     public static function hasJsonErrorOccurred()
     {
-        return json_last_error() != JSON_ERROR_NONE;
+        return json_last_error() != \JSON_ERROR_NONE;
     }
     /**
      * Returns a human readable error message in case an error occurred during the last json encode/decode.
@@ -643,17 +650,17 @@ class Common
     public static function getLastJsonError()
     {
         switch (json_last_error()) {
-            case JSON_ERROR_NONE:
+            case \JSON_ERROR_NONE:
                 return '';
-            case JSON_ERROR_DEPTH:
+            case \JSON_ERROR_DEPTH:
                 return 'Maximum stack depth exceeded';
-            case JSON_ERROR_STATE_MISMATCH:
+            case \JSON_ERROR_STATE_MISMATCH:
                 return 'Underflow or the modes mismatch';
-            case JSON_ERROR_CTRL_CHAR:
+            case \JSON_ERROR_CTRL_CHAR:
                 return 'Unexpected control character found';
-            case JSON_ERROR_SYNTAX:
+            case \JSON_ERROR_SYNTAX:
                 return 'Syntax error, malformed JSON';
-            case JSON_ERROR_UTF8:
+            case \JSON_ERROR_UTF8:
                 return 'Malformed UTF-8 characters, possibly incorrectly encoded';
         }
         return 'Unknown error';
@@ -661,10 +668,10 @@ class Common
     public static function stringEndsWith($haystack, $needle)
     {
         if (strlen(strval($needle)) === 0) {
-            return true;
+            return \true;
         }
         if (strlen(strval($haystack)) === 0) {
-            return false;
+            return \false;
         }
         $lastCharacters = substr($haystack, -strlen($needle));
         return $lastCharacters === $needle;
@@ -677,7 +684,7 @@ class Common
      */
     public static function getClassLineage($class)
     {
-        $classes = array_merge(array($class), array_values(class_parents($class, $autoload = false)));
+        $classes = array_merge(array($class), array_values(class_parents($class, $autoload = \false)));
         return array_reverse($classes);
     }
     /*
@@ -787,7 +794,7 @@ class Common
                 }
             }
         }
-        if (!empty($validCountries) && preg_match_all('/[-]([a-z]{2})/', $browserLanguage, $matches, PREG_SET_ORDER)) {
+        if (!empty($validCountries) && preg_match_all('/[-]([a-z]{2})/', $browserLanguage, $matches, \PREG_SET_ORDER)) {
             foreach ($matches as $parts) {
                 // match location; we don't make any inferences from the language
                 if (array_key_exists($parts[1], $validCountries)) {
@@ -832,7 +839,7 @@ class Common
     {
         $forceRegionValidation = !empty($validLanguages);
         $validLanguages = self::checkValidLanguagesIsSet($validLanguages);
-        if (!preg_match_all('/(?:^|,)([a-z]{2,3})(?:[-][a-z]{4})?([-][a-z]{2})?/', $browserLanguage, $matches, PREG_SET_ORDER)) {
+        if (!preg_match_all('/(?:^|,)([a-z]{2,3})(?:[-][a-z]{4})?([-][a-z]{2})?/', $browserLanguage, $matches, \PREG_SET_ORDER)) {
             return self::LANGUAGE_CODE_INVALID;
         }
         foreach ($matches as $parts) {
@@ -892,7 +899,7 @@ class Common
     {
         $return = array(\Piwik\Config::getInstance()->Tracker['campaign_var_name'], \Piwik\Config::getInstance()->Tracker['campaign_keyword_var_name']);
         foreach ($return as &$list) {
-            if (strpos($list, ',') !== false) {
+            if (strpos($list, ',') !== \false) {
                 $list = explode(',', $list);
             } else {
                 $list = array($list);
@@ -935,7 +942,7 @@ class Common
      */
     public static function forceDotAsSeparatorForDecimalPoint($value)
     {
-        if (null === $value || false === $value) {
+        if (null === $value || \false === $value) {
             return $value;
         }
         return str_replace(',', '.', $value);
@@ -946,8 +953,19 @@ class Common
      * @param string $header The header.
      * @param bool $replace Whether to replace existing or not.
      */
-    public static function sendHeader($header, $replace = true)
+    public static function sendHeader($header, $replace = \true)
     {
+        if (defined('PIWIK_TEST_MODE') && PIWIK_TEST_MODE) {
+            if (strpos($header, ':') !== \false) {
+                [$headerName, $headerValue] = explode(':', $header, 2);
+            } else {
+                $headerName = $header;
+                $headerValue = '';
+            }
+            if (!array_key_exists($headerName, self::$headersSentInTests) || $replace) {
+                self::$headersSentInTests[$headerName] = $headerValue;
+            }
+        }
         // don't send header in CLI mode
         if (!\Piwik\Common::isPhpCliMode() and !headers_sent()) {
             header($header, $replace);
@@ -960,6 +978,9 @@ class Common
      */
     public static function stripHeader($name)
     {
+        if (defined('PIWIK_TEST_MODE') && PIWIK_TEST_MODE) {
+            unset(self::$headersSentInTests[$name]);
+        }
         // don't strip header in CLI mode
         if (!\Piwik\Common::isPhpCliMode() and !headers_sent()) {
             header_remove($name);
@@ -978,7 +999,7 @@ class Common
         if (!array_key_exists($code, $messages)) {
             throw new Exception('Response code not supported: ' . $code);
         }
-        if (strpos(PHP_SAPI, '-fcgi') === false) {
+        if (strpos(\PHP_SAPI, '-fcgi') === \false) {
             $key = 'HTTP/1.1';
             if (array_key_exists('SERVER_PROTOCOL', $_SERVER) && strlen($_SERVER['SERVER_PROTOCOL']) < 15 && strlen($_SERVER['SERVER_PROTOCOL']) > 1) {
                 $key = $_SERVER['SERVER_PROTOCOL'];
@@ -1020,11 +1041,11 @@ class Common
     public static function printDebug($info = '')
     {
         if (is_object($info)) {
-            $info = var_export($info, true);
+            $info = var_export($info, \true);
         }
         $logger = StaticContainer::get(LoggerInterface::class);
         if (is_array($info) || is_object($info)) {
-            $out = var_export($info, true);
+            $out = var_export($info, \true);
             $logger->debug($out);
         } else {
             $logger->debug($info);

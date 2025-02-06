@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Menu;
 
@@ -37,7 +36,7 @@ class MenuTop extends \Piwik\Menu\MenuAbstract
                 $this->menu[$menuName]['_order'] = $order;
                 $this->menu[$menuName]['_url'] = null;
                 $this->menu[$menuName]['_icon'] = '';
-                $this->menu[$menuName]['_hasSubmenu'] = false;
+                $this->menu[$menuName]['_hasSubmenu'] = \false;
                 $this->menu[$menuName]['_tooltip'] = $tooltip;
             }
         }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreVisualizations\Visualizations;
 
@@ -20,10 +19,10 @@ use Piwik\Plugin\ViewDataTable;
  */
 class Sparkline extends ViewDataTable
 {
-    const ID = 'sparkline';
+    public const ID = 'sparkline';
     public function supportsComparison()
     {
-        return true;
+        return \true;
     }
     /**
      * @see ViewDataTable::main()
@@ -103,7 +102,7 @@ class Sparkline extends ViewDataTable
             }
             $value = 0;
             $onlyRow = $table->getFirstRow();
-            if (false !== $onlyRow) {
+            if (\false !== $onlyRow) {
                 if (!empty($columnToPlot)) {
                     $value = $onlyRow->getColumn($columnToPlot);
                 } else {
@@ -120,7 +119,7 @@ class Sparkline extends ViewDataTable
     private function getColumnToPlot()
     {
         $columns = $this->config->columns_to_display;
-        $columnToPlot = false;
+        $columnToPlot = \false;
         if (!empty($columns)) {
             $columnToPlot = reset($columns);
             if ($columnToPlot == 'label') {

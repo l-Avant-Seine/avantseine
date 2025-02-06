@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Referrers\Reports;
 
@@ -20,12 +19,12 @@ class GetKeywordsFromSearchEngineId extends \Piwik\Plugins\Referrers\Reports\Bas
         $this->dimension = new Keyword();
         $this->name = Piwik::translate('Referrers_SearchEngines');
         $this->documentation = Piwik::translate('Referrers_SearchEnginesReportDocumentation', '<br />');
-        $this->isSubtableReport = true;
+        $this->isSubtableReport = \true;
         $this->order = 8;
     }
     public function configureView(ViewDataTable $view)
     {
-        $view->config->show_search = false;
-        $view->config->show_exclude_low_population = false;
+        $view->config->show_search = \false;
+        $view->config->show_exclude_low_population = \false;
     }
 }

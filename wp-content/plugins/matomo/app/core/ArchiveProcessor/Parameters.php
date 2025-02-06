@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\ArchiveProcessor;
 
@@ -37,8 +36,8 @@ class Parameters
     /**
      * @var string Plugin name which triggered this archive processor
      */
-    private $requestedPlugin = false;
-    private $onlyArchiveRequestedPlugin = false;
+    private $requestedPlugin = \false;
+    private $onlyArchiveRequestedPlugin = \false;
     /**
      * @var string
      */
@@ -95,7 +94,7 @@ class Parameters
      */
     public function onlyArchiveRequestedPlugin()
     {
-        $this->onlyArchiveRequestedPlugin = true;
+        $this->onlyArchiveRequestedPlugin = \true;
     }
     /**
      * @ignore
@@ -244,7 +243,7 @@ class Parameters
     {
         if (!$this->getRequestedPlugin()) {
             // sanity check, partial archives are only for single reports
-            return false;
+            return \false;
         }
         return $this->isArchiveOnlyReportHandled;
     }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\View;
 
@@ -19,9 +18,9 @@ class SecurityPolicy
     /*
      * Commonly used rules
      */
-    const RULE_DEFAULT = "'self' 'unsafe-inline' 'unsafe-eval'";
-    const RULE_IMG_DEFAULT = "'self' 'unsafe-inline' 'unsafe-eval' data:";
-    const RULE_EMBEDDED_FRAME = "'self' 'unsafe-inline' 'unsafe-eval' data: https: http:";
+    public const RULE_DEFAULT = "'self' 'unsafe-inline' 'unsafe-eval'";
+    public const RULE_IMG_DEFAULT = "'self' 'unsafe-inline' 'unsafe-eval' data:";
+    public const RULE_EMBEDDED_FRAME = "'self' 'unsafe-inline' 'unsafe-eval' data: https: http:";
     /**
      * The policies that will generate the CSP header.
      * These are keyed by the directive.
@@ -39,8 +38,8 @@ class SecurityPolicy
         $this->policies['default-src'] = self::RULE_DEFAULT;
         $this->policies['img-src'] = self::RULE_IMG_DEFAULT;
         $generalConfig = $config->General;
-        $this->cspEnabled = $generalConfig['csp_enabled'] ?? true;
-        $this->reportOnly = $generalConfig['csp_report_only'] ?? false;
+        $this->cspEnabled = $generalConfig['csp_enabled'] ?? \true;
+        $this->reportOnly = $generalConfig['csp_report_only'] ?? \false;
     }
     /**
      * Appends a policy to a directive.
@@ -82,7 +81,7 @@ class SecurityPolicy
      */
     public function disable()
     {
-        $this->cspEnabled = false;
+        $this->cspEnabled = \false;
     }
     /**
      * Creates the Header String that can be inserted in the Content-Security-Policy header.

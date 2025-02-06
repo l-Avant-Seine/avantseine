@@ -476,6 +476,15 @@ Claro Search:
     params:
       - q
     backlink: '?q={k}'
+ChatGPT:
+  -
+    urls:
+      - chat.openai.com
+      - chatgpt.com
+    params: []
+    hiddenkeyword:
+      - '/^$/'
+      - '/'
 Clix:
   -
     urls:
@@ -2128,6 +2137,13 @@ Surf Canyon:
       - surfcanyon.com
     params:
       - q
+Swisscows:
+  -
+    urls:
+      - swisscows.com
+    params:
+      - query
+    backlink: 'web?query={k}'
 T-Online:
   -
     urls:

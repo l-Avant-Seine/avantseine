@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -41,7 +40,7 @@ class ColumnCallbackDeleteMetadata extends BaseFilter
      */
     public function filter($table)
     {
-        $this->enableRecursive(true);
+        $this->enableRecursive(\true);
         foreach ($table->getRows() as $row) {
             $row->deleteMetadata($this->metadataToRemove);
             $this->filterSubTable($row);

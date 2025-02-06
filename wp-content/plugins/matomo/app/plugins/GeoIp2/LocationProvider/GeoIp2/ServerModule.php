@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\GeoIp2\LocationProvider\GeoIp2;
 
@@ -26,8 +25,8 @@ use Piwik\View;
  */
 class ServerModule extends GeoIp2
 {
-    const ID = 'geoip2server';
-    const TITLE = 'DBIP / GeoIP 2 (%s)';
+    public const ID = 'geoip2server';
+    public const TITLE = 'DBIP / GeoIP 2 (%s)';
     public static $defaultGeoIpServerVars = array(parent::CONTINENT_CODE_KEY => 'MM_CONTINENT_CODE', parent::CONTINENT_NAME_KEY => 'MM_CONTINENT_NAME', parent::COUNTRY_CODE_KEY => 'MM_COUNTRY_CODE', parent::COUNTRY_NAME_KEY => 'MM_COUNTRY_NAME', parent::REGION_CODE_KEY => 'MM_REGION_CODE', parent::REGION_NAME_KEY => 'MM_REGION_NAME', parent::LATITUDE_KEY => 'MM_LATITUDE', parent::LONGITUDE_KEY => 'MM_LONGITUDE', parent::POSTAL_CODE_KEY => 'MM_POSTAL_CODE', parent::CITY_NAME_KEY => 'MM_CITY_NAME', parent::ISP_KEY => 'MM_ISP', parent::ORG_KEY => 'MM_ORG');
     /**
      * Uses a GeoIP 2 database to get a visitor's location based on their IP address.
@@ -63,7 +62,7 @@ class ServerModule extends GeoIp2
                 }
             }
             Common::printDebug("FAILED to lookup the geo location of this IP address, as no fallback location providers is configured.");
-            return false;
+            return \false;
         }
         $result = array();
         foreach (self::getGeoIpServerVars() as $resultKey => $geoipVarName) {
@@ -88,10 +87,10 @@ class ServerModule extends GeoIp2
     {
         $result = array();
         // assume country info is always available. it's an error if it's not.
-        $result[self::CONTINENT_CODE_KEY] = true;
-        $result[self::CONTINENT_NAME_KEY] = true;
-        $result[self::COUNTRY_CODE_KEY] = true;
-        $result[self::COUNTRY_NAME_KEY] = true;
+        $result[self::CONTINENT_CODE_KEY] = \true;
+        $result[self::CONTINENT_NAME_KEY] = \true;
+        $result[self::COUNTRY_CODE_KEY] = \true;
+        $result[self::COUNTRY_NAME_KEY] = \true;
         $result[self::REGION_CODE_KEY] = array_key_exists(self::getGeoIpServerVars(self::REGION_CODE_KEY), $_SERVER);
         $result[self::REGION_NAME_KEY] = array_key_exists(self::getGeoIpServerVars(self::REGION_NAME_KEY), $_SERVER);
         $result[self::LATITUDE_KEY] = array_key_exists(self::getGeoIpServerVars(self::LATITUDE_KEY), $_SERVER);
@@ -114,15 +113,15 @@ class ServerModule extends GeoIp2
     {
         if (function_exists('apache_get_modules')) {
             foreach (apache_get_modules() as $name) {
-                if (strpos($name, 'maxminddb') !== false) {
-                    return true;
+                if (strpos($name, 'maxminddb') !== \false) {
+                    return \true;
                 }
             }
         }
         $settings = self::getGeoIpServerVars();
         $available = array_key_exists($settings[self::CONTINENT_CODE_KEY], $_SERVER) || array_key_exists($settings[self::COUNTRY_CODE_KEY], $_SERVER) || array_key_exists($settings[self::REGION_CODE_KEY], $_SERVER) || array_key_exists($settings[self::CITY_NAME_KEY], $_SERVER);
         if ($available) {
-            return true;
+            return \true;
         }
         // if not available return message w/ extra info
         if (!function_exists('apache_get_modules')) {
@@ -147,7 +146,7 @@ class ServerModule extends GeoIp2
         if (!$available) {
             return Piwik::translate('GeoIp2_CannotFindGeoIPServerVar', $settings[self::COUNTRY_CODE_KEY] . ' $_SERVER');
         }
-        return true;
+        return \true;
     }
     /**
      * Returns information about this location provider. Contains an id, title & description:
@@ -207,7 +206,7 @@ class ServerModule extends GeoIp2
         $ip = array_reverse(explode('.', $ip));
         $currentIp = array_reverse(explode('.', $currentIp));
         if (count($ip) != count($currentIp)) {
-            return false;
+            return \false;
         }
         foreach ($ip as $i => $byte) {
             if ($byte == 0) {
@@ -218,10 +217,10 @@ class ServerModule extends GeoIp2
         }
         foreach ($ip as $i => $byte) {
             if ($byte != $currentIp[$i]) {
-                return false;
+                return \false;
             }
         }
-        return true;
+        return \true;
     }
     /**
      * Returns currently configured server variable name for given type

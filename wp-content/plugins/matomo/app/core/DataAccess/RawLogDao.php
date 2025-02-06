@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataAccess;
 
@@ -20,7 +19,7 @@ use Piwik\Plugin\LogTablesProvider;
  */
 class RawLogDao
 {
-    const DELETE_UNUSED_ACTIONS_TEMP_TABLE_NAME = 'tmp_log_actions_to_keep';
+    public const DELETE_UNUSED_ACTIONS_TEMP_TABLE_NAME = 'tmp_log_actions_to_keep';
     /**
      * @var DimensionMetadataProvider
      */
@@ -29,7 +28,7 @@ class RawLogDao
      * @var LogTablesProvider
      */
     private $logTablesProvider;
-    public function __construct(DimensionMetadataProvider $provider = null, LogTablesProvider $logTablesProvider = null)
+    public function __construct(?DimensionMetadataProvider $provider = null, ?LogTablesProvider $logTablesProvider = null)
     {
         $this->dimensionMetadataProvider = $provider ?: StaticContainer::get('Piwik\\Plugin\\Dimension\\DimensionMetadataProvider');
         $this->logTablesProvider = $logTablesProvider ?: StaticContainer::get('Piwik\\Plugin\\LogTablesProvider');
@@ -154,10 +153,10 @@ class RawLogDao
         $max_rows_per_query = PiwikConfig::getInstance()->Deletelogs['delete_logs_unused_actions_max_rows_per_query'];
         $this->createTempTableForStoringUsedActions();
         // do large insert (inserting everything before maxIds) w/o locking tables...
-        $this->insertActionsToKeep($maxIds, $deleteOlderThanMax = true, $max_rows_per_query);
+        $this->insertActionsToKeep($maxIds, $deleteOlderThanMax = \true, $max_rows_per_query);
         // ... then do small insert w/ locked tables to minimize the amount of time tables are locked.
         $this->lockLogTables();
-        $this->insertActionsToKeep($maxIds, $deleteOlderThanMax = false, $max_rows_per_query);
+        $this->insertActionsToKeep($maxIds, $deleteOlderThanMax = \false, $max_rows_per_query);
         // delete before unlocking tables so there's no chance a new log row that references an
         // unused action will be inserted.
         $this->deleteUnusedActions();
@@ -237,10 +236,10 @@ class RawLogDao
     private function getInFieldExpressionWithInts($idVisits)
     {
         $sql = "(";
-        $isFirst = true;
+        $isFirst = \true;
         foreach ($idVisits as $idVisit) {
             if ($isFirst) {
-                $isFirst = false;
+                $isFirst = \false;
             } else {
                 $sql .= ', ';
             }
@@ -271,7 +270,7 @@ class RawLogDao
         Db::query($sql);
     }
     // protected for testing purposes
-    protected function insertActionsToKeep($maxIds, $olderThan = true, $insertIntoTempIterationStep = 100000)
+    protected function insertActionsToKeep($maxIds, $olderThan = \true, $insertIntoTempIterationStep = 100000)
     {
         $tempTableName = Common::prefixTable(self::DELETE_UNUSED_ACTIONS_TEMP_TABLE_NAME);
         $idColumns = $this->getTableIdColumns();

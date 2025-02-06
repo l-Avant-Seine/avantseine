@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Columns;
 
@@ -53,7 +52,7 @@ class VisitTotalInteractions extends VisitDimension
         if (self::shouldCountInteraction($action)) {
             return $this->columnName . ' + 1';
         }
-        return false;
+        return \false;
     }
     /**
      * @param Request $request
@@ -80,17 +79,17 @@ class VisitTotalInteractions extends VisitDimension
     public static function shouldCountInteraction($action)
     {
         if (empty($action)) {
-            return false;
+            return \false;
         }
         $idActionUrl = $action->getIdActionUrlForEntryAndExitIds();
-        if ($idActionUrl !== false) {
-            return true;
+        if ($idActionUrl !== \false) {
+            return \true;
         }
         $actionType = $action->getActionType();
         $types = array(Action::TYPE_SITE_SEARCH);
         if (in_array($actionType, $types)) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
 }

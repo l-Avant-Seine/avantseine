@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Diagnostics\Diagnostic;
 
@@ -16,7 +16,7 @@ use Piwik\Url;
  */
 class RequiredPrivateDirectories extends \Piwik\Plugins\Diagnostics\Diagnostic\AbstractPrivateDirectories
 {
-    private $configIniAccessible = false;
+    private $configIniAccessible = \false;
     protected $privatePaths = ['tmp/cache/tracker/matomocache_general.php', '.git', '.git/config'];
     protected function addError(\Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult &$result)
     {

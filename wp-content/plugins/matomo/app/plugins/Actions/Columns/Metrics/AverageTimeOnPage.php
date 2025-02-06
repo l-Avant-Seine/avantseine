@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Columns\Metrics;
 
@@ -38,7 +38,7 @@ class AverageTimeOnPage extends ProcessedMetric
     }
     public function format($value, Formatter $formatter)
     {
-        return $formatter->getPrettyTimeFromSeconds($value, $timeAsSentence = false);
+        return $formatter->getPrettyTimeFromSeconds($value, $timeAsSentence = \false);
     }
     public function getDependentMetrics()
     {

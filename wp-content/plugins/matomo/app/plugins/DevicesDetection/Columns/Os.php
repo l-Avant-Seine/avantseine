@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DevicesDetection\Columns;
 
@@ -37,14 +36,14 @@ class Os extends \Piwik\Plugins\DevicesDetection\Columns\Base
         $segment->setSegment('operatingSystemName');
         $segment->setName('DevicesDetection_ColumnOperatingSystem');
         $segment->setAcceptedValues('Windows, Linux, Mac, Android, iOS etc.');
-        $segment->setNeedsMostFrequentValues(false);
+        $segment->setNeedsMostFrequentValues(\false);
         $segment->setSqlFilterValue(function ($val) {
             $oss = OperatingSystem::getAvailableOperatingSystems();
             $oss = array_map(function ($val) {
                 return mb_strtolower($val);
             }, $oss);
             $result = array_search(mb_strtolower($val), $oss);
-            if ($result === false) {
+            if ($result === \false) {
                 $result = 'UNK';
             }
             return $result;

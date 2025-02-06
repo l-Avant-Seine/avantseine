@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link http://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UsersManager;
 
@@ -17,13 +16,13 @@ use Piwik\Plugins\Marketplace\Api\Client;
 use Piwik\SettingsPiwik;
 class NewsletterSignup
 {
-    const NEWSLETTER_SIGNUP_OPTION = 'UsersManager.newsletterSignup.';
-    public static function signupForNewsletter($userLogin, $email, $matomoOrg = false, $professionalServices = false)
+    public const NEWSLETTER_SIGNUP_OPTION = 'UsersManager.newsletterSignup.';
+    public static function signupForNewsletter($userLogin, $email, $matomoOrg = \false, $professionalServices = \false)
     {
         // Don't bother if they aren't signing up for at least one newsletter, or if we don't have internet access
         $doSignup = ($matomoOrg || $professionalServices) && SettingsPiwik::isInternetEnabled();
         if (!$doSignup) {
-            return false;
+            return \false;
         }
         $url = Client::getApiServiceUrl();
         $url .= '/1.0/subscribeNewsletter/';
@@ -33,9 +32,9 @@ class NewsletterSignup
             Http::sendHttpRequest($url, $timeout = 2);
             $optionKey = self::NEWSLETTER_SIGNUP_OPTION . $userLogin;
             Option::set($optionKey, 1);
-            return true;
+            return \true;
         } catch (Exception $e) {
-            return false;
+            return \false;
         }
     }
 }

@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Updater\Migration\Db;
 
@@ -43,7 +43,7 @@ class Factory
      */
     public function sql($sql, $errorCodesToIgnore = array())
     {
-        if ($errorCodesToIgnore === false) {
+        if ($errorCodesToIgnore === \false) {
             $errorCodesToIgnore = array();
         }
         return $this->container->make('Piwik\\Updater\\Migration\\Db\\Sql', array('sql' => $sql, 'errorCodesToIgnore' => $errorCodesToIgnore));
@@ -66,7 +66,7 @@ class Factory
      */
     public function boundSql($sql, $bind, $errorCodesToIgnore = array())
     {
-        if ($errorCodesToIgnore === false) {
+        if ($errorCodesToIgnore === \false) {
             $errorCodesToIgnore = array();
         }
         return $this->container->make('Piwik\\Updater\\Migration\\Db\\BoundSql', array('sql' => $sql, 'errorCodesToIgnore' => $errorCodesToIgnore, 'bind' => $bind));
@@ -323,7 +323,7 @@ class Factory
      * @param string $charset The charset to use, defaults to utf8
      * @return BatchInsert
      */
-    public function batchInsert($table, $columnNames, $values, $throwException = false, $charset = 'utf8')
+    public function batchInsert($table, $columnNames, $values, $throwException = \false, $charset = 'utf8')
     {
         $table = $this->prefixTable($table);
         return $this->container->make('Piwik\\Updater\\Migration\\Db\\BatchInsert', array('table' => $table, 'columnNames' => $columnNames, 'values' => $values, 'throwException' => $throwException, 'charset' => $charset));

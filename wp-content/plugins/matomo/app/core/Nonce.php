@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -123,7 +122,7 @@ class Nonce
     public static function isReferrerHostValid($referrer, $allowedReferrerHost)
     {
         if (empty($referrer)) {
-            return false;
+            return \false;
         }
         $referrerHost = \Piwik\Url::getHostFromUrl($referrer);
         return preg_match('/(^|\\.)' . preg_quote($allowedReferrerHost) . '$/i', $referrerHost);
@@ -148,7 +147,7 @@ class Nonce
         if (!empty($_SERVER['HTTP_ORIGIN'])) {
             return $_SERVER['HTTP_ORIGIN'];
         }
-        return false;
+        return \false;
     }
     /**
      * Returns a list acceptable values for the HTTP **Origin** header.

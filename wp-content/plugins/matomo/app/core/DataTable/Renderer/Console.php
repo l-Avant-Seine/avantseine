@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Renderer;
 
@@ -81,22 +80,22 @@ class Console extends Renderer
         $output = '';
         $i = 1;
         foreach ($table->getRows() as $row) {
-            $dataTableMapBreak = false;
+            $dataTableMapBreak = \false;
             $columns = array();
             foreach ($row->getColumns() as $column => $value) {
                 if ($value instanceof DataTable\Map) {
                     $output .= $this->renderDataTableMap($value, $prefix);
-                    $dataTableMapBreak = true;
+                    $dataTableMapBreak = \true;
                     break;
                 }
                 if (is_string($value)) {
                     $value = "'{$value}'";
                 } elseif (is_array($value)) {
-                    $value = var_export($value, true);
+                    $value = var_export($value, \true);
                 }
                 $columns[] = "'{$column}' => {$value}";
             }
-            if ($dataTableMapBreak === true) {
+            if ($dataTableMapBreak === \true) {
                 continue;
             }
             $columns = implode(", ", $columns);
@@ -105,7 +104,7 @@ class Console extends Renderer
                 if (is_string($value)) {
                     $value = "'{$value}'";
                 } elseif (is_array($value)) {
-                    $value = var_export($value, true);
+                    $value = var_export($value, \true);
                 }
                 $metadata[] = "'{$name}' => {$value}";
             }

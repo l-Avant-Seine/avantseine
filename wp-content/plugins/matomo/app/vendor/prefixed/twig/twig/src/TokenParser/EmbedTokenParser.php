@@ -26,7 +26,7 @@ final class EmbedTokenParser extends IncludeTokenParser
     {
         $stream = $this->parser->getStream();
         $parent = $this->parser->getExpressionParser()->parseExpression();
-        list($variables, $only, $ignoreMissing) = $this->parseArguments();
+        [$variables, $only, $ignoreMissing] = $this->parseArguments();
         $parentToken = $fakeParentToken = new Token(
             /* Token::STRING_TYPE */
             7,
@@ -65,7 +65,7 @@ final class EmbedTokenParser extends IncludeTokenParser
             '',
             $token->getLine()
         )]);
-        $module = $this->parser->parse($stream, [$this, 'decideBlockEnd'], true);
+        $module = $this->parser->parse($stream, [$this, 'decideBlockEnd'], \true);
         // override the parent with the correct one
         if ($fakeParentToken === $parentToken) {
             $module->setNode('parent', $parent);

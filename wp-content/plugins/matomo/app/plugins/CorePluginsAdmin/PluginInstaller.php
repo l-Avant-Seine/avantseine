@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CorePluginsAdmin;
 
@@ -26,7 +25,7 @@ use Piwik\Plugins\Marketplace\Api\Client;
  */
 class PluginInstaller
 {
-    const PATH_TO_DOWNLOAD = '/latest/plugins/';
+    public const PATH_TO_DOWNLOAD = '/latest/plugins/';
     private $pluginName;
     /**
      * Null if Marketplace Plugin is not installed
@@ -199,7 +198,7 @@ class PluginInstaller
     private function getPathToPluginJson($tmpPluginFolder)
     {
         $firstSubFolder = $this->getNameOfFirstSubfolder($tmpPluginFolder);
-        $path = $tmpPluginFolder . DIRECTORY_SEPARATOR . $firstSubFolder . DIRECTORY_SEPARATOR . 'plugin.json';
+        $path = $tmpPluginFolder . \DIRECTORY_SEPARATOR . $firstSubFolder . \DIRECTORY_SEPARATOR . 'plugin.json';
         return $path;
     }
     /**
@@ -210,11 +209,11 @@ class PluginInstaller
     private function getNameOfFirstSubfolder($pluginDir)
     {
         if (!($dir = opendir($pluginDir))) {
-            return false;
+            return \false;
         }
         $firstSubFolder = '';
         while ($file = readdir($dir)) {
-            if ($file[0] != '.' && is_dir($pluginDir . DIRECTORY_SEPARATOR . $file)) {
+            if ($file[0] != '.' && is_dir($pluginDir . \DIRECTORY_SEPARATOR . $file)) {
                 $firstSubFolder = $file;
                 break;
             }
@@ -230,8 +229,8 @@ class PluginInstaller
         if ($firstSubFolder === $this->pluginName) {
             return;
         }
-        $from = $tmpPluginFolder . DIRECTORY_SEPARATOR . $firstSubFolder;
-        $to = $tmpPluginFolder . DIRECTORY_SEPARATOR . $this->pluginName;
+        $from = $tmpPluginFolder . \DIRECTORY_SEPARATOR . $firstSubFolder;
+        $to = $tmpPluginFolder . \DIRECTORY_SEPARATOR . $this->pluginName;
         rename($from, $to);
     }
     private function copyPluginToDestination($tmpPluginFolder)
@@ -249,7 +248,7 @@ class PluginInstaller
      */
     private function removeFolderIfExists($pathExtracted)
     {
-        Filesystem::unlinkRecursive($pathExtracted, true);
+        Filesystem::unlinkRecursive($pathExtracted, \true);
     }
     /**
      * @param $targetTmpFile

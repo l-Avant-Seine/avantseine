@@ -31,6 +31,22 @@ class Bootstrap {
 
 	private static $are_incompatible_plugins_filtered = false;
 
+	private static $extra_di_definitions = [];
+
+	private static $environment_bootstrapped = false;
+
+	public static function set_extra_di_definitions( array $definitions ) {
+		if ( ! defined( 'PIWIK_TEST_MODE' ) ) {
+			throw new \Exception( 'set_extra_di_definitions is only for tests' );
+		}
+
+		self::$extra_di_definitions = $definitions;
+	}
+
+	public static function get_extra_di_definitions() {
+		return self::$extra_di_definitions;
+	}
+
 	/**
 	 * Tests only
 	 *
@@ -46,13 +62,14 @@ class Bootstrap {
 		return self::$bootstrapped_by_wordpress;
 	}
 
-	public function bootstrap() {
-		if ( self::is_bootstrapped() ) {
+	public static function is_environment_bootstrapped() {
+		return self::$environment_bootstrapped;
+	}
+
+	public static function bootstrap_environment() {
+		if ( self::is_environment_bootstrapped() ) {
 			return;
 		}
-
-		self::$bootstrapped_by_wordpress = true;
-		self::$assume_not_bootstrapped   = false; // we need to unset it again to prevent recursion
 
 		if ( ! self::$are_incompatible_plugins_filtered ) {
 			matomo_filter_incompatible_plugins( $GLOBALS['MATOMO_PLUGINS_ENABLED'] );
@@ -84,8 +101,21 @@ class Bootstrap {
 
 		include_once 'Db/WordPress.php';
 
-		$environment = new Environment( null );
+		$environment = new Environment( null, self::$extra_di_definitions );
 		$environment->init();
+
+		self::$environment_bootstrapped = true;
+	}
+
+	public function bootstrap() {
+		if ( self::is_bootstrapped() ) {
+			return;
+		}
+
+		self::$bootstrapped_by_wordpress = true;
+		self::$assume_not_bootstrapped   = false; // we need to unset it again to prevent recursion
+
+		self::bootstrap_environment();
 
 		FrontController::unsetInstance();
 		$controller = FrontController::getInstance();

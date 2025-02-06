@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Db;
 
@@ -23,7 +22,7 @@ class Adapter
      * @param bool $connect
      * @return AdapterInterface
      */
-    public static function factory($adapterName, &$dbInfos, $connect = true)
+    public static function factory($adapterName, &$dbInfos, $connect = \true)
     {
         if ($connect) {
             if (isset($dbInfos['port']) && is_string($dbInfos['port']) && $dbInfos['port'][0] === '/') {
@@ -78,6 +77,7 @@ class Adapter
     /**
      * Get default port for named adapter
      *
+     * @deprecated use Schema::getDefaultPortForSchema instead
      * @param string $adapterName
      * @return int
      */
@@ -102,7 +102,7 @@ class Adapter
         foreach ($adapterNames as $adapterName) {
             $className = '\\Piwik\\Db\\Adapter\\' . $adapterName;
             if (call_user_func(array($className, 'isEnabled'))) {
-                $adapters[strtoupper($adapterName)] = call_user_func(array($className, 'getDefaultPort'));
+                $adapters[] = strtoupper($adapterName);
             }
         }
         return $adapters;
@@ -131,7 +131,7 @@ class Adapter
             'Access denied' => Piwik::translate('General_ExceptionDatabaseAccess'),
         );
         foreach ($safeMessageMap as $search_term => $safeMessage) {
-            if (strpos($message, $search_term) !== false) {
+            if (strpos($message, $search_term) !== \false) {
                 return $safeMessage;
             }
         }

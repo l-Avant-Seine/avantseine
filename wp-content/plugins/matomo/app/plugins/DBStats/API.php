@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DBStats;
 
@@ -74,16 +73,12 @@ class API extends \Piwik\Plugin\API
         foreach ($this->metadataProvider->getAllTablesStatus() as $status) {
             if ($this->isNumericArchiveTable($status['Name'])) {
                 $rowToAddTo =& $rows['metric_data'];
+            } elseif ($this->isBlobArchiveTable($status['Name'])) {
+                $rowToAddTo =& $rows['report_data'];
+            } elseif ($this->isTrackerTable($status['Name'])) {
+                $rowToAddTo =& $rows['tracker_data'];
             } else {
-                if ($this->isBlobArchiveTable($status['Name'])) {
-                    $rowToAddTo =& $rows['report_data'];
-                } else {
-                    if ($this->isTrackerTable($status['Name'])) {
-                        $rowToAddTo =& $rows['tracker_data'];
-                    } else {
-                        $rowToAddTo =& $rows['other_data'];
-                    }
-                }
+                $rowToAddTo =& $rows['other_data'];
             }
             $rowToAddTo['data_size'] += $status['Data_length'];
             $rowToAddTo['index_size'] += $status['Index_length'];
@@ -176,7 +171,7 @@ class API extends \Piwik\Plugin\API
      *                         cache the result.
      * @return DataTable A datatable with three columns: 'data_size', 'index_size', 'row_count'.
      */
-    public function getIndividualReportsSummary($forceCache = false)
+    public function getIndividualReportsSummary($forceCache = \false)
     {
         Piwik::checkUserHasSuperUserAccess();
         return $this->metadataProvider->getRowCountsAndSizeByBlobName($forceCache);
@@ -191,7 +186,7 @@ class API extends \Piwik\Plugin\API
      *                         cache the result.
      * @return DataTable A datatable with three columns: 'data_size', 'index_size', 'row_count'.
      */
-    public function getIndividualMetricsSummary($forceCache = false)
+    public function getIndividualMetricsSummary($forceCache = \false)
     {
         Piwik::checkUserHasSuperUserAccess();
         return $this->metadataProvider->getRowCountsAndSizeByMetricName($forceCache);

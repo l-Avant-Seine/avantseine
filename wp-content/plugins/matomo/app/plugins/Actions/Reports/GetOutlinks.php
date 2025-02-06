@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Reports;
 
@@ -36,7 +35,7 @@ class GetOutlinks extends \Piwik\Plugins\Actions\Reports\Base
     public function configureView(ViewDataTable $view)
     {
         $view->config->columns_to_display = array('label', 'nb_visits', 'nb_hits');
-        $view->config->show_exclude_low_population = false;
+        $view->config->show_exclude_low_population = \false;
         $this->addBaseDisplayProperties($view);
     }
 }

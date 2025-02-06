@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Scheduler;
 
@@ -17,8 +16,8 @@ use Piwik\Date;
  */
 class Timetable
 {
-    const TIMETABLE_OPTION_STRING = "TaskScheduler.timetable";
-    const RETRY_OPTION_STRING = "TaskScheduler.retryList";
+    public const TIMETABLE_OPTION_STRING = "TaskScheduler.timetable";
+    public const RETRY_OPTION_STRING = "TaskScheduler.retryList";
     private $timetable;
     private $retryList;
     public function __construct()
@@ -59,7 +58,7 @@ class Timetable
     }
     public function getScheduledTaskTime($taskName)
     {
-        return isset($this->timetable[$taskName]) ? Date::factory($this->timetable[$taskName]) : false;
+        return isset($this->timetable[$taskName]) ? Date::factory($this->timetable[$taskName]) : \false;
     }
     /**
      * Checks if the task should be executed
@@ -76,7 +75,7 @@ class Timetable
     {
         $forceTaskExecution = defined('DEBUG_FORCE_SCHEDULED_TASKS') && DEBUG_FORCE_SCHEDULED_TASKS;
         if ($forceTaskExecution) {
-            return true;
+            return \true;
         }
         return $this->taskHasBeenScheduledOnce($taskName) && time() >= $this->timetable[$taskName];
     }
@@ -126,7 +125,7 @@ class Timetable
     public function getScheduledTimeForMethod($className, $methodName, $methodParameter = null)
     {
         $taskName = \Piwik\Scheduler\Task::getTaskName($className, $methodName, $methodParameter);
-        return $this->taskHasBeenScheduledOnce($taskName) ? $this->timetable[$taskName] : false;
+        return $this->taskHasBeenScheduledOnce($taskName) ? $this->timetable[$taskName] : \false;
     }
     public function taskHasBeenScheduledOnce($taskName)
     {
@@ -137,7 +136,7 @@ class Timetable
         Option::clearCachedOption(self::TIMETABLE_OPTION_STRING);
         $optionData = Option::get(self::TIMETABLE_OPTION_STRING);
         $unserializedTimetable = Common::safe_unserialize($optionData);
-        $this->timetable = $unserializedTimetable === false ? array() : $unserializedTimetable;
+        $this->timetable = $unserializedTimetable === \false ? array() : $unserializedTimetable;
     }
     /**
      * Read the retry list option from the database
@@ -149,7 +148,7 @@ class Timetable
         Option::clearCachedOption(self::RETRY_OPTION_STRING);
         $retryData = Option::get(self::RETRY_OPTION_STRING);
         $unserializedRetryList = Common::safe_unserialize($retryData);
-        $this->retryList = $unserializedRetryList === false ? array() : $unserializedRetryList;
+        $this->retryList = $unserializedRetryList === \false ? array() : $unserializedRetryList;
     }
     /**
      * Save the retry list option to the database

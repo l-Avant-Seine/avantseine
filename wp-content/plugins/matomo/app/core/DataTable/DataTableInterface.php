@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable;
 
@@ -24,10 +23,10 @@ interface DataTableInterface
     public function __toString();
     public function enableRecursiveSort();
     public function renameColumn($oldName, $newName);
-    public function deleteColumns($columns, $deleteRecursiveInSubtables = false);
+    public function deleteColumns($columns, $deleteRecursiveInSubtables = \false);
     public function deleteRow($id);
     public function deleteColumn($name);
     public function getColumn($name);
     public function getColumns();
-    public function deleteRowsMetadata($name, $deleteRecursiveInSubtables = false);
+    public function deleteRowsMetadata($name, $deleteRecursiveInSubtables = \false);
 }

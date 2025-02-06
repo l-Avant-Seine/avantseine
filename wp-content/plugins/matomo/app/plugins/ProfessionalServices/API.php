@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\ProfessionalServices;
 
@@ -38,6 +37,6 @@ class API extends \Piwik\Plugin\API
             throw new \Exception('Can\'t dismiss unknown widget ' . $widgetName);
         }
         $this->promoWidgetDismissal->dismissPromoWidget($widgetName);
-        return true;
+        return \true;
     }
 }

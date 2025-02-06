@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -51,7 +50,7 @@ class PrependValueToMetadata extends BaseFilter
         $table->filter(function (DataTable $dataTable) use($metadataColumn, $valueToPrepend) {
             foreach ($dataTable->getRows() as $row) {
                 $filter = $row->getMetadata($metadataColumn);
-                if ($filter !== false) {
+                if ($filter !== \false) {
                     $row->setMetadata($metadataColumn, $valueToPrepend . $filter);
                 }
             }

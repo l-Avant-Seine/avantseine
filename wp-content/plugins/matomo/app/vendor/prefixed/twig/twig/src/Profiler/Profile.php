@@ -105,14 +105,14 @@ final class Profile implements \IteratorAggregate, \Serializable
      */
     public function enter() : void
     {
-        $this->starts = ['wt' => microtime(true), 'mu' => memory_get_usage(), 'pmu' => memory_get_peak_usage()];
+        $this->starts = ['wt' => microtime(\true), 'mu' => memory_get_usage(), 'pmu' => memory_get_peak_usage()];
     }
     /**
      * Stops the profiling.
      */
     public function leave() : void
     {
-        $this->ends = ['wt' => microtime(true), 'mu' => memory_get_usage(), 'pmu' => memory_get_peak_usage()];
+        $this->ends = ['wt' => microtime(\true), 'mu' => memory_get_usage(), 'pmu' => memory_get_peak_usage()];
     }
     public function reset() : void
     {
@@ -143,6 +143,6 @@ final class Profile implements \IteratorAggregate, \Serializable
      */
     public function __unserialize(array $data) : void
     {
-        list($this->template, $this->name, $this->type, $this->starts, $this->ends, $this->profiles) = $data;
+        [$this->template, $this->name, $this->type, $this->starts, $this->ends, $this->profiles] = $data;
     }
 }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Validators;
 
@@ -25,7 +24,7 @@ class WhitelistedValue extends \Piwik\Validators\BaseValidator
     }
     public function validate($value)
     {
-        if (!in_array($value, $this->whitelisted, true)) {
+        if (!in_array($value, $this->whitelisted, \true)) {
             throw new \Piwik\Validators\Exception(Piwik::translate('General_ValidatorErrorXNotWhitelisted', array($value, implode(', ', $this->whitelisted))));
         }
     }

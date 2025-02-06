@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\PrivacyManager;
 
@@ -58,7 +57,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     }
     private function createShowInEmbeddedWidgetsSetting() : SystemSetting
     {
-        return $this->makeSetting('showInEmbeddedWidgets', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+        return $this->makeSetting('showInEmbeddedWidgets', $default = \false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('PrivacyManager_ShowInEmbeddedWidgets');
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
             $field->description = Piwik::translate('PrivacyManager_ShowInEmbeddedWidgetsDescription');

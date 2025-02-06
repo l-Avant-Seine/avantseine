@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Session;
 
@@ -36,11 +35,11 @@ use Piwik\Date;
 class SessionFingerprint
 {
     // used in case the global.ini.php becomes corrupt or doesn't update properly
-    const DEFAULT_IDLE_TIMEOUT = 3600;
-    const USER_NAME_SESSION_VAR_NAME = 'user.name';
-    const SESSION_INFO_SESSION_VAR_NAME = 'session.info';
-    const SESSION_INFO_TWO_FACTOR_AUTH_VERIFIED = 'twofactorauth.verified';
-    const SESSION_INFO_TEMP_TOKEN_AUTH = 'user.token_auth_temp';
+    public const DEFAULT_IDLE_TIMEOUT = 3600;
+    public const USER_NAME_SESSION_VAR_NAME = 'user.name';
+    public const SESSION_INFO_SESSION_VAR_NAME = 'session.info';
+    public const SESSION_INFO_TWO_FACTOR_AUTH_VERIFIED = 'twofactorauth.verified';
+    public const SESSION_INFO_TEMP_TOKEN_AUTH = 'user.token_auth_temp';
     public function getUser()
     {
         if (isset($_SESSION[self::USER_NAME_SESSION_VAR_NAME])) {
@@ -73,7 +72,7 @@ class SessionFingerprint
     {
         $_SESSION[self::SESSION_INFO_TWO_FACTOR_AUTH_VERIFIED] = 1;
     }
-    public function initialize($userName, $tokenAuth, $isRemembered = false, $time = null)
+    public function initialize($userName, $tokenAuth, $isRemembered = \false, $time = null)
     {
         $time = $time ?: Date::now()->getTimestampUTC();
         $_SESSION[self::USER_NAME_SESSION_VAR_NAME] = $userName;

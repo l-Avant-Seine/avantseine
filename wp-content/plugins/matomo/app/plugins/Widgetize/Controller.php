@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Widgetize;
 
@@ -46,7 +45,7 @@ class Controller extends \Piwik\Plugin\Controller
             $message = 'CoreHome cannot be widgetized. ' . 'You can enable it to be embedded directly into an iframe (passing module=CoreHome instead of module=Widgetize) ' . 'instead by enabling the \'enable_framed_pages\' setting in your config. ' . 'See ' . Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/how-to/faq_193/') . ' for more info.';
             throw new \Exception($message);
         }
-        $shouldEmbedEmpty = false;
+        $shouldEmbedEmpty = \false;
         /**
          * Triggered to detect whether a widgetized report should be wrapped in the widgetized HTML or whether only
          * the rendered output of the controller/action should be printed. Set `$shouldEmbedEmpty` to `true` if

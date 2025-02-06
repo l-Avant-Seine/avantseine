@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Columns;
 
@@ -45,7 +44,7 @@ class VisitTotalSearches extends VisitDimension
         if ($this->isSiteSearchAction($action)) {
             return 'visit_total_searches + 1';
         }
-        return false;
+        return \false;
     }
     /**
      * @param Action|null $action

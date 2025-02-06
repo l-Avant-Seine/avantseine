@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreVue\Commands;
 
@@ -33,7 +33,7 @@ class GenerateVueComponent extends GenerateVueConstructBase
         if (!file_exists($indexFile)) {
             file_put_contents($indexFile, '');
         }
-        file_put_contents($indexFile, "export { default as {$component} } from './{$component}/{$component}.vue';\n", FILE_APPEND);
+        file_put_contents($indexFile, "export { default as {$component} } from './{$component}/{$component}.vue';\n", \FILE_APPEND);
         // TODO: generate a less file as well?
         $this->writeSuccessMessage(array(sprintf('Vue component "%s" for plugin "%s" in "%s" generated', $component, $pluginName, $targetFile), sprintf('You should now build the vue library using the vue:build command (use --watch to continuously build after making changes).')));
         return self::SUCCESS;

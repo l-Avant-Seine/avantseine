@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Period;
 
@@ -14,7 +13,7 @@ use Piwik\Period;
  */
 class Week extends Period
 {
-    const PERIOD_ID = 2;
+    public const PERIOD_ID = 2;
     protected $label = 'week';
     /**
      * Returns the current period as a localized short string
@@ -23,7 +22,7 @@ class Week extends Period
      */
     public function getLocalizedShortString()
     {
-        return $this->getTranslatedRange($this->getRangeFormat(true));
+        return $this->getTranslatedRange($this->getRangeFormat(\true));
     }
     /**
      * Returns the current period as a localized long string

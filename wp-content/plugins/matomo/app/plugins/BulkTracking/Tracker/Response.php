@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\BulkTracking\Tracker;
 
@@ -21,11 +20,11 @@ class Response extends Tracker\Response
     /**
      * @var bool
      */
-    private $isAuthenticated = false;
+    private $isAuthenticated = \false;
     /**
      * @var bool
      */
-    private $shouldSendResponse = true;
+    private $shouldSendResponse = \true;
     /**
      * Echos an error message & other information, then exits.
      *

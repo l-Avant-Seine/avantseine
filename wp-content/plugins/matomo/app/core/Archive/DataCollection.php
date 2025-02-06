@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Archive;
 
@@ -20,7 +19,7 @@ use Piwik\DataTable;
  */
 class DataCollection
 {
-    const METADATA_CONTAINER_ROW_KEY = '_metadata';
+    public const METADATA_CONTAINER_ROW_KEY = '_metadata';
     /**
      * The archive data, indexed first by site ID and then by period date range. Eg,
      *
@@ -142,7 +141,7 @@ class DataCollection
      * @param string        $value  eg 5
      * @param array|null    $meta   Optional metadata to add to the row
      */
-    public function set($idSite, $period, $name, $value, array $meta = null)
+    public function set($idSite, $period, $name, $value, ?array $meta = null)
     {
         $row =& $this->get($idSite, $period);
         $row[$name] = $value;
@@ -252,7 +251,7 @@ class DataCollection
      * @throws Exception
      * @return DataTable|DataTable\Map
      */
-    public function getExpandedDataTable($resultIndices, $idSubTable = null, $depth = null, $addMetadataSubTableId = false)
+    public function getExpandedDataTable($resultIndices, $idSubTable = null, $depth = null, $addMetadataSubTableId = \false)
     {
         $this->checkExpandedMethodPrerequisites();
         $dataTableFactory = new \Piwik\Archive\DataTableFactory($this->dataNames, 'blob', $this->sitesId, $this->periods, $this->segment, $this->defaultRow);

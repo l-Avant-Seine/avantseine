@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\ViewDataTable;
 
@@ -53,7 +52,7 @@ class Request
         $toSetEventually = array_merge(array('filter_limit', 'keep_totals_row', 'keep_summary_row', 'filter_sort_column', 'filter_sort_order', 'filter_excludelowpop', 'filter_excludelowpop_value', 'filter_column', 'filter_pattern', 'flat', 'totals', 'expanded', 'pivotBy', 'pivotByColumn', 'pivotByColumnLimit'), $this->requestConfig->getExtraParametersToSet());
         foreach ($toSetEventually as $varToSet) {
             $value = $this->getDefaultOrCurrent($varToSet);
-            if (false !== $value) {
+            if (\false !== $value) {
                 $requestArray[$varToSet] = $value;
             }
         }
@@ -105,6 +104,6 @@ class Request
         if (isset($this->requestConfig->{$nameVar})) {
             return $this->requestConfig->{$nameVar};
         }
-        return false;
+        return \false;
     }
 }

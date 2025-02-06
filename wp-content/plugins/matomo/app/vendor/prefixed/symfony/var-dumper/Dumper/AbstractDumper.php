@@ -37,7 +37,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
      * @param string|null                   $charset The default character encoding to use for non-UTF8 strings
      * @param int                           $flags   A bit field of static::DUMP_* constants to fine tune dumps representation
      */
-    public function __construct($output = null, string $charset = null, int $flags = 0)
+    public function __construct($output = null, ?string $charset = null, int $flags = 0)
     {
         $this->flags = $flags;
         $this->setCharset((($charset ?: \ini_get('php.output_encoding')) ?: \ini_get('default_charset')) ?: 'UTF-8');
@@ -108,7 +108,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
         if ($locale = $this->flags & (self::DUMP_COMMA_SEPARATOR | self::DUMP_TRAILING_COMMA) ? setlocale(\LC_NUMERIC, 0) : null) {
             setlocale(\LC_NUMERIC, 'C');
         }
-        if ($returnDump = true === $output) {
+        if ($returnDump = \true === $output) {
             $output = fopen('php://memory', 'r+');
         }
         if ($output) {
@@ -165,10 +165,10 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
         if (!\function_exists('iconv')) {
             throw new \RuntimeException('Unable to convert a non-UTF-8 string to UTF-8: required function iconv() does not exist. You should install ext-iconv or symfony/polyfill-iconv.');
         }
-        if (false !== ($c = @iconv($this->charset, 'UTF-8', $s))) {
+        if (\false !== ($c = @iconv($this->charset, 'UTF-8', $s))) {
             return $c;
         }
-        if ('CP1252' !== $this->charset && false !== ($c = @iconv('CP1252', 'UTF-8', $s))) {
+        if ('CP1252' !== $this->charset && \false !== ($c = @iconv('CP1252', 'UTF-8', $s))) {
             return $c;
         }
         return iconv('CP850', 'UTF-8', $s);

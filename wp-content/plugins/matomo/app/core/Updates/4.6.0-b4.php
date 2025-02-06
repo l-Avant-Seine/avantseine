@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Updates;
 
@@ -73,7 +72,7 @@ class Updates_4_6_0_b4 extends PiwikUpdates
         }
         if (!empty($doneFlagsToMigrate)) {
             foreach (ArchiveTableCreator::getTablesArchivesInstalled() as $table) {
-                if (strpos($table, 'numeric') === false) {
+                if (strpos($table, 'numeric') === \false) {
                     continue;
                 }
                 $sqlPlaceholders = Common::getSqlStringFieldsArray($doneFlagsToMigrate);

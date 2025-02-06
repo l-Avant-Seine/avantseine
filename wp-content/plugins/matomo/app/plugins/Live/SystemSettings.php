@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Live;
 
@@ -24,7 +24,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     }
     private function makeVisitorLogSetting() : SystemSetting
     {
-        $defaultValue = false;
+        $defaultValue = \false;
         $type = FieldConfig::TYPE_BOOL;
         return $this->makeSetting('disable_visitor_log', $defaultValue, $type, function (FieldConfig $field) {
             $field->title = Piwik::translate('Live_DisableVisitsLogAndProfile');
@@ -34,7 +34,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     }
     private function makeVisitorProfileSetting() : SystemSetting
     {
-        $defaultValue = false;
+        $defaultValue = \false;
         $type = FieldConfig::TYPE_BOOL;
         return $this->makeSetting('disable_visitor_profile', $defaultValue, $type, function (FieldConfig $field) {
             $field->title = Piwik::translate('Live_DisableVisitorProfile');

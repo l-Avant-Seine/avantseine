@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Row;
 
@@ -56,7 +55,7 @@ class DataTableSummaryRow extends Row
     private function sumTable($table)
     {
         $metadata = $table->getMetadata(DataTable::COLUMN_AGGREGATION_OPS_METADATA_NAME);
-        $enableCopyMetadata = false;
+        $enableCopyMetadata = \false;
         foreach ($table->getRowsWithoutSummaryRow() as $row) {
             $this->sumRow($row, $enableCopyMetadata, $metadata);
         }

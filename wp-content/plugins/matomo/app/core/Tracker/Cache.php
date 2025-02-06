@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker;
 
@@ -72,7 +71,7 @@ class Cache
         $cache = self::getCache();
         $cacheId = self::getCacheKeyWebsiteAttributes($idSite);
         $cacheContent = $cache->fetch($cacheId);
-        if (false !== $cacheContent) {
+        if (\false !== $cacheContent) {
             return $cacheContent;
         }
         return self::updateCacheWebsiteAttributes($idSite);
@@ -146,7 +145,7 @@ class Cache
     {
         $cache = self::getCache();
         $cacheContent = $cache->fetch(self::$cacheIdGeneral);
-        if (false !== $cacheContent) {
+        if (\false !== $cacheContent) {
             return $cacheContent;
         }
         return self::updateGeneralCache();
@@ -249,11 +248,11 @@ class Cache
     public static function withDelegatedCacheClears($callback)
     {
         try {
-            self::$delegatingCacheClears = true;
+            self::$delegatingCacheClears = \true;
             self::$delegatedClears = [];
             return $callback();
         } finally {
-            self::$delegatingCacheClears = false;
+            self::$delegatingCacheClears = \false;
             self::callAllDelegatedClears();
             self::$delegatedClears = [];
         }

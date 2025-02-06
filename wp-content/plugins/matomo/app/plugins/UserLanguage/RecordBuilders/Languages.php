@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserLanguage\RecordBuilders;
 
@@ -37,11 +36,11 @@ class Languages extends RecordBuilder
         /** @var RegionDataProvider $regionDataProvider */
         $regionDataProvider = StaticContainer::get('Piwik\\Intl\\Data\\Provider\\RegionDataProvider');
         $query = $archiveProcessor->getLogAggregator()->queryVisitsByDimension(["label" => Archiver::LANGUAGE_DIMENSION]);
-        $countryCodes = $regionDataProvider->getCountryList($includeInternalCodes = true);
+        $countryCodes = $regionDataProvider->getCountryList($includeInternalCodes = \true);
         $metricsByLanguage = new DataTable();
         while ($row = $query->fetch()) {
             $langCode = Common::extractLanguageCodeFromBrowserLanguage($row['label']);
-            $countryCode = Common::extractCountryCodeFromBrowserLanguage($row['label'], $countryCodes, $enableLanguageToCountryGuess = true);
+            $countryCode = Common::extractCountryCodeFromBrowserLanguage($row['label'], $countryCodes, $enableLanguageToCountryGuess = \true);
             if ($countryCode == 'xx' || $countryCode == $langCode) {
                 $label = $langCode;
             } else {

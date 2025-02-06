@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -88,7 +87,7 @@ class IP
                 } else {
                     $proxyIp = self::getFirstIpFromList($_SERVER[$proxyHeader], $proxyIps);
                 }
-                if (strlen($proxyIp) && stripos($proxyIp, 'unknown') === false) {
+                if (strlen($proxyIp) && stripos($proxyIp, 'unknown') === \false) {
                     return $proxyIp;
                 }
             }
@@ -105,7 +104,7 @@ class IP
     public static function getFirstIpFromList($csv, $excludedIps = null)
     {
         $p = strrpos($csv, ',');
-        if ($p !== false) {
+        if ($p !== \false) {
             $elements = self::getIpsFromList($csv, $excludedIps);
             return reset($elements) ?: '';
         }
@@ -114,7 +113,7 @@ class IP
     public static function getLastIpFromList($csv, $excludedIps = null)
     {
         $p = strrpos($csv, ',');
-        if ($p !== false) {
+        if ($p !== \false) {
             $elements = self::getIpsFromList($csv, $excludedIps);
             return end($elements) ?: '';
         }

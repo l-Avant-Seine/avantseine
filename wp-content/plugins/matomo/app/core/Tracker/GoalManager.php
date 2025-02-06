@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker;
 
@@ -27,31 +26,31 @@ use Piwik\Tracker\Visit\VisitProperties;
 class GoalManager
 {
     // log_visit.visit_goal_buyer
-    const TYPE_BUYER_OPEN_CART = 2;
-    const TYPE_BUYER_ORDERED_AND_OPEN_CART = 3;
+    public const TYPE_BUYER_OPEN_CART = 2;
+    public const TYPE_BUYER_ORDERED_AND_OPEN_CART = 3;
     // log_conversion.idorder is NULLable, but not log_conversion_item which defaults to zero for carts
-    const ITEM_IDORDER_ABANDONED_CART = 0;
+    public const ITEM_IDORDER_ABANDONED_CART = 0;
     // log_conversion.idgoal special values
-    const IDGOAL_CART = -1;
-    const IDGOAL_ORDER = 0;
-    const REVENUE_PRECISION = 2;
-    const MAXIMUM_PRODUCT_CATEGORIES = 5;
+    public const IDGOAL_CART = -1;
+    public const IDGOAL_ORDER = 0;
+    public const REVENUE_PRECISION = 2;
+    public const MAXIMUM_PRODUCT_CATEGORIES = 5;
     // In the GET items parameter, each item has the following array of information
-    const INDEX_ITEM_SKU = 0;
-    const INDEX_ITEM_NAME = 1;
-    const INDEX_ITEM_CATEGORY = 2;
-    const INDEX_ITEM_PRICE = 3;
-    const INDEX_ITEM_QUANTITY = 4;
+    public const INDEX_ITEM_SKU = 0;
+    public const INDEX_ITEM_NAME = 1;
+    public const INDEX_ITEM_CATEGORY = 2;
+    public const INDEX_ITEM_PRICE = 3;
+    public const INDEX_ITEM_QUANTITY = 4;
     // Used in the array of items, internally to this class
-    const INTERNAL_ITEM_SKU = 0;
-    const INTERNAL_ITEM_NAME = 1;
-    const INTERNAL_ITEM_CATEGORY = 2;
-    const INTERNAL_ITEM_CATEGORY2 = 3;
-    const INTERNAL_ITEM_CATEGORY3 = 4;
-    const INTERNAL_ITEM_CATEGORY4 = 5;
-    const INTERNAL_ITEM_CATEGORY5 = 6;
-    const INTERNAL_ITEM_PRICE = 7;
-    const INTERNAL_ITEM_QUANTITY = 8;
+    public const INTERNAL_ITEM_SKU = 0;
+    public const INTERNAL_ITEM_NAME = 1;
+    public const INTERNAL_ITEM_CATEGORY = 2;
+    public const INTERNAL_ITEM_CATEGORY2 = 3;
+    public const INTERNAL_ITEM_CATEGORY3 = 4;
+    public const INTERNAL_ITEM_CATEGORY4 = 5;
+    public const INTERNAL_ITEM_CATEGORY5 = 6;
+    public const INTERNAL_ITEM_PRICE = 7;
+    public const INTERNAL_ITEM_QUANTITY = 8;
     public static $NUMERIC_MATCH_ATTRIBUTES = ['visit_duration'];
     /**
      * TODO: should remove this, but it is used by getGoalColumn which is used by dimensions. should replace w/ value object.
@@ -62,7 +61,7 @@ class GoalManager
     public function detectIsThereExistingCartInVisit($visitInformation)
     {
         if (empty($visitInformation['visit_goal_buyer'])) {
-            return false;
+            return \false;
         }
         $goalBuyer = $visitInformation['visit_goal_buyer'];
         $types = array(\Piwik\Tracker\GoalManager::TYPE_BUYER_OPEN_CART, \Piwik\Tracker\GoalManager::TYPE_BUYER_ORDERED_AND_OPEN_CART);
@@ -299,10 +298,10 @@ class GoalManager
             $conversionDimensions = ConversionDimension::getAllDimensions();
             $conversion = $this->triggerHookOnDimensions($request, $conversionDimensions, 'onEcommerceCartUpdateConversion', $visitor, $action, $conversion);
         }
-        Common::printDebug($debugMessage . ':' . var_export($conversion, true));
+        Common::printDebug($debugMessage . ':' . var_export($conversion, \true));
         // INSERT or Sync items in the Cart / Order for this visit & order
         $items = $this->getEcommerceItemsFromRequest($request);
-        if (false === $items) {
+        if (\false === $items) {
             return;
         }
         $itemsCount = 0;
@@ -332,8 +331,8 @@ class GoalManager
             return array();
         }
         if (!is_array($items)) {
-            Common::printDebug("Error while json_decode the Ecommerce items = " . var_export($items, true));
-            return false;
+            Common::printDebug("Error while json_decode the Ecommerce items = " . var_export($items, \true));
+            return \false;
         }
         $items = Common::unsanitizeInputValues($items);
         $cleanedItems = $this->getCleanedEcommerceItems($items);
@@ -376,7 +375,7 @@ class GoalManager
             $newItem = $this->getItemRowCast($newItem);
             if (count($itemInDb) != count($newItem)) {
                 Common::printDebug("ERROR: Different format in items from cart and DB");
-                throw new Exception(" Item in DB and Item in cart have a different format, this is not expected... " . var_export($itemInDb, true) . var_export($newItem, true));
+                throw new Exception(" Item in DB and Item in cart have a different format, this is not expected... " . var_export($itemInDb, \true) . var_export($newItem, \true));
             }
             Common::printDebug("Item has changed since the last cart. Previous item stored in cart in database:");
             Common::printDebug($itemInDb);
@@ -408,7 +407,7 @@ class GoalManager
         // Clean up the items array
         $cleanedItems = array();
         foreach ($items as $item) {
-            $name = $category = $category2 = $category3 = $category4 = $category5 = false;
+            $name = $category = $category2 = $category3 = $category4 = $category5 = \false;
             $price = 0;
             $quantity = 1;
             // items are passed in the request as an array: ( $sku, $name, $category, $price, $quantity )
@@ -462,7 +461,7 @@ class GoalManager
             }
             // Ensure that each row has the same number of columns, fill in the blanks
             for ($i = count($actionsToLookup); $i < $columnsInEachRow; $i++) {
-                $actionsToLookup[] = array(false, \Piwik\Tracker\Action::TYPE_ECOMMERCE_ITEM_CATEGORY);
+                $actionsToLookup[] = array(\false, \Piwik\Tracker\Action::TYPE_ECOMMERCE_ITEM_CATEGORY);
             }
             $actionsToLookupAllItems = array_merge($actionsToLookupAllItems, $actionsToLookup);
         }
@@ -558,7 +557,7 @@ class GoalManager
         if (array_key_exists($column, $this->currentGoal)) {
             return $this->currentGoal[$column];
         }
-        return false;
+        return \false;
     }
     /**
      * Records a standard non-Ecommerce goal in the DB (URL/Title matching),
@@ -693,7 +692,7 @@ class GoalManager
     {
         foreach ($dimensions as $dimension) {
             $value = $dimension->{$hook}($request, $visitor, $action, $this);
-            if (false !== $value) {
+            if (\false !== $value) {
                 if (is_float($value)) {
                     $value = Common::forceDotAsSeparatorForDecimalPoint($value);
                 }
@@ -722,7 +721,7 @@ class GoalManager
         $visit = \Piwik\Tracker\Visitor::makeFromVisitProperties($visitProperties, $request);
         foreach ($visitDimensions as $dimension) {
             $value = $dimension->onAnyGoalConversion($request, $visit, $action);
-            if (false !== $value) {
+            if (\false !== $value) {
                 $goal[$dimension->getColumnName()] = $value;
             }
         }
@@ -750,7 +749,7 @@ class GoalManager
                 } else {
                     $matched = stripos($url, $goal['pattern']);
                 }
-                $match = $matched !== false;
+                $match = $matched !== \false;
                 break;
             case 'exact':
                 if ($goal['case_sensitive']) {
@@ -765,7 +764,7 @@ class GoalManager
                     StaticContainer::get(LoggerInterface::class)->warning(Piwik::translate('General_ExceptionInvalidGoalPattern', array($pattern_type)));
                 } catch (\Exception $e) {
                 }
-                $match = false;
+                $match = \false;
                 break;
         }
         return $match;
@@ -778,7 +777,7 @@ class GoalManager
      */
     public static function formatRegex($pattern)
     {
-        if (strpos($pattern, '/') !== false && strpos($pattern, '\\/') === false) {
+        if (strpos($pattern, '/') !== \false && strpos($pattern, '\\/') === \false) {
             $pattern = str_replace('/', '\\/', $pattern);
         }
         return '/' . $pattern . '/';

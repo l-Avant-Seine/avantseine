@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Widget;
 
@@ -31,7 +30,7 @@ class WidgetContainerConfig extends \Piwik\Widget\WidgetConfig
     protected $id = '';
     protected $module = 'CoreHome';
     protected $action = 'renderWidgetContainer';
-    protected $isWidgetizable = false;
+    protected $isWidgetizable = \false;
     /**
      * Sets (overwrites) the id of the widget container.
      *

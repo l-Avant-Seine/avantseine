@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\GeoIp2;
 
@@ -38,13 +37,13 @@ use Piwik\Log\LoggerInterface;
  */
 class GeoIP2AutoUpdater extends Task
 {
-    const SCHEDULE_PERIOD_MONTHLY = 'month';
-    const SCHEDULE_PERIOD_WEEKLY = 'week';
-    const SCHEDULE_PERIOD_OPTION_NAME = 'geoip2.updater_period';
-    const LOC_URL_OPTION_NAME = 'geoip2.loc_db_url';
-    const ISP_URL_OPTION_NAME = 'geoip2.isp_db_url';
-    const LAST_RUN_TIME_OPTION_NAME = 'geoip2.updater_last_run_time';
-    const AUTO_SETUP_OPTION_NAME = 'geoip2.autosetup';
+    public const SCHEDULE_PERIOD_MONTHLY = 'month';
+    public const SCHEDULE_PERIOD_WEEKLY = 'week';
+    public const SCHEDULE_PERIOD_OPTION_NAME = 'geoip2.updater_period';
+    public const LOC_URL_OPTION_NAME = 'geoip2.loc_db_url';
+    public const ISP_URL_OPTION_NAME = 'geoip2.isp_db_url';
+    public const LAST_RUN_TIME_OPTION_NAME = 'geoip2.updater_last_run_time';
+    public const AUTO_SETUP_OPTION_NAME = 'geoip2.autosetup';
     private static $urlOptions = array('loc' => self::LOC_URL_OPTION_NAME, 'isp' => self::ISP_URL_OPTION_NAME);
     /**
      * Constructor.
@@ -129,15 +128,13 @@ class GeoIP2AutoUpdater extends Task
         $url = trim($url);
         if (self::isPaidDbIpUrl($url)) {
             $url = $this->fetchPaidDbIpUrl($url);
-        } else {
-            if (self::isDbIpUrl($url)) {
-                $url = $this->getDbIpUrlWithLatestDate($url);
-            }
+        } elseif (self::isDbIpUrl($url)) {
+            $url = $this->getDbIpUrlWithLatestDate($url);
         }
         $ext = \Piwik\Plugins\GeoIp2\GeoIP2AutoUpdater::getGeoIPUrlExtension($url);
         // NOTE: using the first item in $dbNames[$dbType] makes sure GeoLiteCity will be renamed to GeoIPCity
         $zippedFilename = $this->getZippedFilenameToDownloadTo($url, $dbType, $ext);
-        $zippedOutputPath = self::getTemporaryFolder($zippedFilename, true);
+        $zippedOutputPath = self::getTemporaryFolder($zippedFilename, \true);
         $url = self::removeDateFromUrl($url);
         // download zipped file to misc dir
         try {
@@ -146,18 +143,18 @@ class GeoIP2AutoUpdater extends Task
         } catch (Exception $ex) {
             throw new Exception("GeoIP2AutoUpdater: failed to download '{$url}' to " . "'{$zippedOutputPath}': " . $ex->getMessage());
         }
-        if ($success !== true) {
+        if ($success !== \true) {
             throw new Exception("GeoIP2AutoUpdater: failed to download '{$url}' to " . "'{$zippedOutputPath}'! (Unknown error)");
         }
         Log::info("GeoIP2AutoUpdater: successfully downloaded '%s'", $url);
         try {
-            self::unzipDownloadedFile($zippedOutputPath, $dbType, $url, $unlink = true);
+            self::unzipDownloadedFile($zippedOutputPath, $dbType, $url, $unlink = \true);
         } catch (Exception $ex) {
             throw new Exception("GeoIP2AutoUpdater: failed to unzip '{$zippedOutputPath}' after " . "downloading " . "'{$url}': " . $ex->getMessage());
         }
         Log::info("GeoIP2AutoUpdater: successfully updated GeoIP 2 database '%s'", $url);
     }
-    public static function getTemporaryFolder($file, $isDownload = false)
+    public static function getTemporaryFolder($file, $isDownload = \false)
     {
         $folder = \Piwik\Container\StaticContainer::get('path.tmp') . '/latest/';
         if (!is_dir($folder)) {
@@ -175,7 +172,7 @@ class GeoIP2AutoUpdater extends Task
      * @param bool $unlink Whether to unlink archive or not.
      * @throws Exception
      */
-    public static function unzipDownloadedFile($path, $dbType, $url, $unlink = false)
+    public static function unzipDownloadedFile($path, $dbType, $url, $unlink = \false)
     {
         $isDbIp = self::isDbIpUrl($url);
         $filename = $path;
@@ -215,34 +212,32 @@ class GeoIP2AutoUpdater extends Task
             $fd = fopen($outputPath, 'wb');
             fwrite($fd, $unzipped);
             fclose($fd);
-        } else {
-            if (substr($filename, -3, 3) == '.gz' || $isDbIpUnknownDbType) {
-                $unzip = Unzip::factory('gz', $path);
-                if ($isDbIpUnknownDbType) {
-                    $tempFilename = 'unzipped-temp-dbip-file.mmdb';
-                } else {
-                    $dbFilename = substr(basename($filename), 0, -3);
-                    $tempFilename = $dbFilename . '.new';
-                }
-                $outputPath = self::getTemporaryFolder($tempFilename);
-                $success = $unzip->extract($outputPath);
-                if ($success !== true) {
-                    throw new Exception(Piwik::translate('General_CannotUnzipFile', array("'{$path}'", $unzip->errorInfo())));
-                }
-                if ($isDbIpUnknownDbType) {
-                    $php = new Php([$dbType => [$outputPath]]);
-                    $dbFilename = $php->detectDatabaseType($dbType) . '.mmdb';
-                    unset($php);
-                }
+        } elseif (substr($filename, -3, 3) == '.gz' || $isDbIpUnknownDbType) {
+            $unzip = Unzip::factory('gz', $path);
+            if ($isDbIpUnknownDbType) {
+                $tempFilename = 'unzipped-temp-dbip-file.mmdb';
             } else {
-                $parts = explode(basename($filename), '.', 2);
-                $ext = end($parts);
-                throw new Exception(Piwik::translate('GeoIp2_UnsupportedArchiveType', "'{$ext}'"));
+                $dbFilename = substr(basename($filename), 0, -3);
+                $tempFilename = $dbFilename . '.new';
             }
+            $outputPath = self::getTemporaryFolder($tempFilename);
+            $success = $unzip->extract($outputPath);
+            if ($success !== \true) {
+                throw new Exception(Piwik::translate('General_CannotUnzipFile', array("'{$path}'", $unzip->errorInfo())));
+            }
+            if ($isDbIpUnknownDbType) {
+                $php = new Php([$dbType => [$outputPath]]);
+                $dbFilename = $php->detectDatabaseType($dbType) . '.mmdb';
+                unset($php);
+            }
+        } else {
+            $parts = explode(basename($filename), '.', 2);
+            $ext = end($parts);
+            throw new Exception(Piwik::translate('GeoIp2_UnsupportedArchiveType', "'{$ext}'"));
         }
         try {
             // test that the new archive is a valid GeoIP 2 database
-            if (empty($dbFilename) || false === LocationProviderGeoIp2::getGeoIPDatabaseTypeFromFilename($dbFilename)) {
+            if (empty($dbFilename) || \false === LocationProviderGeoIp2::getGeoIPDatabaseTypeFromFilename($dbFilename)) {
                 throw new Exception("Unexpected GeoIP 2 archive file name '{$path}'.");
             }
             $customDbNames = array('loc' => array(), 'isp' => array());
@@ -270,7 +265,7 @@ class GeoIP2AutoUpdater extends Task
                 @unlink($oldDbFile);
             }
             $tempFile = self::getTemporaryFolder($tempFilename);
-            if (@rename($tempFile, $oldDbFile) !== true) {
+            if (@rename($tempFile, $oldDbFile) !== \true) {
                 //In case the $tempfile cannot be renamed, we copy the file.
                 copy($tempFile, $oldDbFile);
                 unlink($tempFile);
@@ -315,7 +310,7 @@ class GeoIP2AutoUpdater extends Task
      */
     public static function setUpdaterOptionsFromUrl()
     {
-        $options = array('loc' => Common::getRequestVar('loc_db', false, 'string'), 'isp' => Common::getRequestVar('isp_db', false, 'string'), 'period' => Common::getRequestVar('period', false, 'string'));
+        $options = array('loc' => Common::getRequestVar('loc_db', \false, 'string'), 'isp' => Common::getRequestVar('isp_db', \false, 'string'), 'period' => Common::getRequestVar('period', \false, 'string'));
         foreach (self::$urlOptions as $optionKey => $optionName) {
             $options[$optionKey] = Common::unsanitizeInputValue($options[$optionKey]);
             // URLs should not be sanitized
@@ -370,14 +365,14 @@ class GeoIP2AutoUpdater extends Task
             throw new Exception(Piwik::translate('GeoIp2_MalFormedUpdateUrl', '<i>' . Common::sanitizeInputValue($url) . '</i>'));
         }
         $validHosts = Config::getInstance()->General['geolocation_download_from_trusted_hosts'];
-        $isValidHost = false;
+        $isValidHost = \false;
         foreach ($validHosts as $validHost) {
             if (preg_match('/(^|\\.)' . preg_quote($validHost) . '$/i', $host)) {
-                $isValidHost = true;
+                $isValidHost = \true;
                 break;
             }
         }
-        if (true !== $isValidHost) {
+        if (\true !== $isValidHost) {
             throw new Exception(Piwik::translate('GeoIp2_InvalidGeoIPUpdateHost', ['<i>' . $url . '</i>', '<i>' . implode(', ', $validHosts) . '</i>', '<i>geolocation_download_from_trusted_hosts</i>']));
         }
     }
@@ -389,10 +384,10 @@ class GeoIP2AutoUpdater extends Task
      */
     public static function isUpdaterSetup()
     {
-        if (Option::get(self::LOC_URL_OPTION_NAME) !== false || Option::get(self::ISP_URL_OPTION_NAME) !== false) {
-            return true;
+        if (Option::get(self::LOC_URL_OPTION_NAME) !== \false || Option::get(self::ISP_URL_OPTION_NAME) !== \false) {
+            return \true;
         }
-        return false;
+        return \false;
     }
     /**
      * Retrieves the URLs used to update various GeoIP 2 database files.
@@ -439,7 +434,7 @@ class GeoIP2AutoUpdater extends Task
     public static function getSchedulePeriod()
     {
         $period = Option::get(self::SCHEDULE_PERIOD_OPTION_NAME);
-        if ($period === false) {
+        if ($period === \false) {
             $period = self::SCHEDULE_PERIOD_MONTHLY;
         }
         return $period;
@@ -459,7 +454,7 @@ class GeoIP2AutoUpdater extends Task
                 // if a database of the type does not exist, but there's a url to update, then
                 // a database is missing
                 $path = LocationProviderGeoIp2::getPathToGeoIpDatabase(LocationProviderGeoIp2::$dbNames[$key]);
-                if ($path === false) {
+                if ($path === \false) {
                     $result[] = $key;
                 }
             }
@@ -517,7 +512,7 @@ class GeoIP2AutoUpdater extends Task
      *
      * @param $logErrors - only used to hide error logs during tests
      */
-    protected function performRedundantDbChecks($logErrors = true)
+    protected function performRedundantDbChecks($logErrors = \true)
     {
         $databaseTypes = array_keys(LocationProviderGeoIp2::$dbNames);
         foreach ($databaseTypes as $type) {
@@ -543,7 +538,7 @@ class GeoIP2AutoUpdater extends Task
                 // get the current filename for the DB and an available new one to rename it to
                 [$oldPath, $newPath] = $this->getOldAndNewPathsForBrokenDb($customNames[$type]);
                 // rename the DB so tracking will not fail
-                if ($oldPath !== false && $newPath !== false) {
+                if ($oldPath !== \false && $newPath !== \false) {
                     if (file_exists($newPath)) {
                         unlink($newPath);
                     }
@@ -563,8 +558,8 @@ class GeoIP2AutoUpdater extends Task
     private function getOldAndNewPathsForBrokenDb($possibleDbNames)
     {
         $pathToDb = LocationProviderGeoIp2::getPathToGeoIpDatabase($possibleDbNames);
-        $newPath = false;
-        if ($pathToDb !== false) {
+        $newPath = \false;
+        if ($pathToDb !== \false) {
             $newPath = $pathToDb . ".broken";
         }
         return array($pathToDb, $newPath);
@@ -577,7 +572,7 @@ class GeoIP2AutoUpdater extends Task
     public static function getLastRunTime()
     {
         $timestamp = Option::get(self::LAST_RUN_TIME_OPTION_NAME);
-        return $timestamp === false ? false : Date::factory((int) $timestamp);
+        return $timestamp === \false ? \false : Date::factory((int) $timestamp);
     }
     /**
      * Removes the &date=... query parameter if present in the URL. This query parameter
@@ -622,20 +617,18 @@ class GeoIP2AutoUpdater extends Task
             // if there is a URL for this DB type and the GeoIP 2 DB file's last modified time is before
             // the time the updater should have been previously run, then **the file is out of date**
             if (!empty($dbUrl) && filemtime($dbPath) < $previousScheduledRuntime) {
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
     private function getPreviousScheduledTime($rescheduledTime)
     {
         $updaterPeriod = self::getSchedulePeriod();
         if ($updaterPeriod == self::SCHEDULE_PERIOD_WEEKLY) {
             return Date::factory($rescheduledTime)->subWeek(1);
-        } else {
-            if ($updaterPeriod == self::SCHEDULE_PERIOD_MONTHLY) {
-                return Date::factory($rescheduledTime)->subMonth(1);
-            }
+        } elseif ($updaterPeriod == self::SCHEDULE_PERIOD_MONTHLY) {
+            return Date::factory($rescheduledTime)->subMonth(1);
         }
         throw new Exception("Unknown GeoIP 2 updater period found in database: %s", $updaterPeriod);
     }
@@ -671,7 +664,7 @@ class GeoIP2AutoUpdater extends Task
         if (0 === strpos($content, 'http')) {
             return $content;
         }
-        $content = json_decode($content, true);
+        $content = json_decode($content, \true);
         if (!empty($content['mmdb']['url'])) {
             return $content['mmdb']['url'];
         }

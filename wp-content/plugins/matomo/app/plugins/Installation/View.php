@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Installation;
 
@@ -23,7 +22,7 @@ class View extends \Piwik\View
         $this->steps = array_keys($installationSteps);
         $this->allStepsTitle = array_values($installationSteps);
         $this->currentStepName = $currentStepName;
-        $this->showNextStep = false;
+        $this->showNextStep = \false;
     }
     public function render()
     {

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\API\Renderer;
 
@@ -29,8 +28,8 @@ class Rss extends ApiRenderer
         $tableRenderer = $this->buildDataTableRenderer($dataTable);
         $method = Common::getRequestVar('method', '', 'string', $this->request);
         $tableRenderer->setApiMethod($method);
-        $tableRenderer->setIdSite(Common::getRequestVar('idSite', false, 'int', $this->request));
-        $tableRenderer->setTranslateColumnNames(Common::getRequestVar('translateColumnNames', false, 'int', $this->request));
+        $tableRenderer->setIdSite(Common::getRequestVar('idSite', \false, 'int', $this->request));
+        $tableRenderer->setTranslateColumnNames(Common::getRequestVar('translateColumnNames', \false, 'int', $this->request));
         return $tableRenderer->render();
     }
     public function renderArray($array)

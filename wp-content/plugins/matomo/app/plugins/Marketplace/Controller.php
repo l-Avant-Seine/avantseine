@@ -3,13 +3,16 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Marketplace;
 
 use Exception;
 use Piwik\Common;
+use Piwik\Config\GeneralConfig;
+use Piwik\Container\StaticContainer;
+use Piwik\DataTable\Renderer\Json;
 use Piwik\Date;
 use Piwik\Filesystem;
 use Piwik\Log;
@@ -21,19 +24,21 @@ use Piwik\Plugins\CorePluginsAdmin\Controller as PluginsController;
 use Piwik\Plugins\CorePluginsAdmin\CorePluginsAdmin;
 use Piwik\Plugins\CorePluginsAdmin\PluginInstaller;
 use Piwik\Plugins\Login\PasswordVerifier;
-use Piwik\Plugins\Marketplace\Input\Mode;
 use Piwik\Plugins\Marketplace\Input\PluginName;
 use Piwik\Plugins\Marketplace\Input\PurchaseType;
 use Piwik\Plugins\Marketplace\Input\Sort;
+use Piwik\Plugins\Marketplace\PluginTrial\Service as PluginTrialService;
 use Piwik\ProxyHttp;
+use Piwik\Request;
 use Piwik\SettingsPiwik;
 use Piwik\SettingsServer;
 use Piwik\Url;
 use Piwik\View;
 class Controller extends \Piwik\Plugin\ControllerAdmin
 {
-    const UPDATE_NONCE = 'Marketplace.updatePlugin';
-    const INSTALL_NONCE = 'Marketplace.installPlugin';
+    public const UPDATE_NONCE = 'Marketplace.updatePlugin';
+    public const INSTALL_NONCE = 'Marketplace.installPlugin';
+    public const DOWNLOAD_NONCE_PREFIX = 'Marketplace.downloadPlugin.';
     /**
      * @var LicenseKey
      */
@@ -109,6 +114,15 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         Piwik::checkUserHasSuperUserAccess();
         return $this->renderTemplate('@Marketplace/manageLicenseKey', array('hasValidLicenseKey' => $this->licenseKey->has() && $this->consumer->isValidConsumer()));
     }
+    public function getPaidPluginsToInstallAtOnceParams()
+    {
+        Piwik::checkUserHasSuperUserAccess();
+        Json::sendHeaderJSON();
+        if (!$this->isInstallAllPaidPluginsVisible()) {
+            return json_encode([]);
+        }
+        return json_encode(['paidPluginsToInstallAtOnce' => $this->getAllPaidPluginsToInstallAtOnce(), 'installAllPluginsNonce' => Nonce::getNonce(self::INSTALL_NONCE)], \JSON_HEX_APOS);
+    }
     private function getPrettyLongDate($date)
     {
         if (empty($date)) {
@@ -141,7 +155,6 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view->activeTab = $activeTab;
         $view->isAutoUpdatePossible = SettingsPiwik::isAutoUpdatePossible();
         $view->isAutoUpdateEnabled = SettingsPiwik::isAutoUpdateEnabled();
-        $view->numUsers = $this->environment->getNumUsers();
         return $view->render();
     }
     public function download()
@@ -150,11 +163,11 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $this->dieIfPluginsAdminIsDisabled();
         $pluginName = new PluginName();
         $pluginName = $pluginName->getPluginName();
-        Nonce::checkNonce($pluginName);
+        Nonce::checkNonce(static::DOWNLOAD_NONCE_PREFIX . $pluginName);
         $filename = $pluginName . '.zip';
         try {
             $pathToPlugin = $this->marketplaceApi->download($pluginName);
-            ProxyHttp::serverStaticFile($pathToPlugin, 'application/zip', $expire = 0, $start = false, $end = false, $filename);
+            ProxyHttp::serverStaticFile($pathToPlugin, 'application/zip', $expire = 0, $start = \false, $end = \false, $filename);
         } catch (Exception $e) {
             Common::sendResponseCode(500);
             Log::warning('Could not download file . ' . $e->getMessage());
@@ -163,65 +176,37 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
             Filesystem::deleteFileIfExists($pathToPlugin);
         }
     }
+    private function getPaidPluginsToInstallAtOnceData(array $paidPlugins) : array
+    {
+        $paidPluginsToInstallAtOnce = [];
+        if (SettingsPiwik::isAutoUpdatePossible()) {
+            foreach ($paidPlugins as $paidPlugin) {
+                if ($this->canPluginBeInstalled($paidPlugin) || $this->pluginManager->isPluginInstalled($paidPlugin['name'], \true) && !$this->pluginManager->isPluginActivated($paidPlugin['name'])) {
+                    $paidPluginsToInstallAtOnce[] = $paidPlugin['displayName'];
+                }
+            }
+        }
+        return $paidPluginsToInstallAtOnce;
+    }
     public function overview()
     {
         $view = $this->configureViewAndCheckPermission('@Marketplace/overview');
-        $show = Common::getRequestVar('show', 'plugins', 'string');
-        $query = Common::getRequestVar('query', '', 'string');
-        $sort = new Sort();
-        $sort = $sort->getSort();
-        $mode = new Mode();
-        $mode = $mode->getMode();
         // we're fetching all available plugins to decide which tabs need to be shown in the UI and to know the number
         // of total available plugins
         $allPlugins = $this->plugins->getAllPlugins();
         $allThemes = $this->plugins->getAllThemes();
         $paidPlugins = $this->plugins->getAllPaidPlugins();
-        $showThemes = $show === 'themes';
-        $showPlugins = !$showThemes;
-        $showPaid = $show === 'premium';
-        $showAll = !$showPaid;
-        if ($showPlugins && $showPaid) {
-            $type = PurchaseType::TYPE_PAID;
-            $view->numAvailablePlugins = count($paidPlugins);
-        } elseif ($showPlugins && $showAll) {
-            $type = PurchaseType::TYPE_ALL;
-            $view->numAvailablePlugins = count($allPlugins);
-        } else {
-            $type = PurchaseType::TYPE_ALL;
-            $view->numAvailablePlugins = count($allThemes);
-        }
-        $pluginsToShow = $this->plugins->searchPlugins($query, $sort, $showThemes, $type);
-        $paidPluginsToInstallAtOnce = array();
-        if (SettingsPiwik::isAutoUpdatePossible()) {
-            foreach ($paidPlugins as $paidPlugin) {
-                if ($this->canPluginBeInstalled($paidPlugin) || $this->pluginManager->isPluginInstalled($paidPlugin['name'], true) && !$this->pluginManager->isPluginActivated($paidPlugin['name'])) {
-                    $paidPluginsToInstallAtOnce[] = $paidPlugin['name'];
-                }
-            }
-        }
-        $view->paidPluginsToInstallAtOnce = $paidPluginsToInstallAtOnce;
-        $view->pluginsToShow = $pluginsToShow;
+        $view->numAvailablePluginsByType = ['plugins' => count($allPlugins), 'themes' => count($allThemes), 'premium' => count($paidPlugins)];
+        $view->paidPluginsToInstallAtOnce = $this->getAllPaidPluginsToInstallAtOnce();
         $view->isValidConsumer = $this->consumer->isValidConsumer();
-        $view->paidPlugins = $paidPlugins;
-        $view->freePlugins = $allPlugins;
-        $view->themes = $allThemes;
-        $view->showThemes = $showThemes;
-        $view->showPlugins = $showPlugins;
-        $view->showFree = $showAll;
-        $view->showPaid = $showPaid;
-        $view->pluginType = $show;
         $view->pluginTypeOptions = array('plugins' => Piwik::translate('General_Plugins'), 'premium' => Piwik::translate('Marketplace_PaidPlugins'), 'themes' => Piwik::translate('CorePluginsAdmin_Themes'));
         $view->pluginSortOptions = array(Sort::METHOD_LAST_UPDATED => Piwik::translate('Marketplace_SortByLastUpdated'), Sort::METHOD_POPULAR => Piwik::translate('Marketplace_SortByPopular'), Sort::METHOD_NEWEST => Piwik::translate('Marketplace_SortByNewest'), Sort::METHOD_ALPHA => Piwik::translate('Marketplace_SortByAlpha'));
-        $view->mode = $mode;
-        $view->query = $query;
-        $view->sort = $sort;
-        $view->hasLicenseKey = $this->licenseKey->has();
-        $view->hasSomeAdminAccess = Piwik::isUserHasSomeAdminAccess();
+        $view->defaultSort = Sort::DEFAULT_SORT;
         $view->installNonce = Nonce::getNonce(static::INSTALL_NONCE);
         $view->updateNonce = Nonce::getNonce(static::UPDATE_NONCE);
         $view->deactivateNonce = Nonce::getNonce(PluginsController::DEACTIVATE_NONCE);
         $view->activateNonce = Nonce::getNonce(PluginsController::ACTIVATE_NONCE);
+        $view->currentUserEmail = Piwik::getCurrentUserEmail();
         $view->isSuperUser = Piwik::hasUserSuperUserAccess();
         $view->isPluginsAdminEnabled = CorePluginsAdmin::isPluginsAdminEnabled();
         $view->isAutoUpdatePossible = SettingsPiwik::isAutoUpdatePossible();
@@ -229,7 +214,41 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view->isPluginUploadEnabled = CorePluginsAdmin::isPluginUploadEnabled();
         $view->uploadLimit = SettingsServer::getPostMaxUploadSize();
         $view->inReportingMenu = (bool) Common::getRequestVar('embed', 0, 'int');
+        $view->numUsers = $this->environment->getNumUsers();
         return $view->render();
+    }
+    public function updateOverview() : string
+    {
+        Piwik::checkUserIsNotAnonymous();
+        $paidPlugins = $this->plugins->getAllPaidPlugins();
+        $updateData = ['isValidConsumer' => $this->consumer->isValidConsumer()];
+        Json::sendHeaderJSON();
+        return json_encode($updateData);
+    }
+    public function searchPlugins() : string
+    {
+        Piwik::checkUserIsNotAnonymous();
+        $request = Request::fromRequest();
+        $query = $request->getStringParameter('query', '');
+        $themesOnly = $request->getBoolParameter('themesOnly', \false);
+        $purchaseType = $request->getStringParameter('purchaseType', '');
+        $sort = $request->getStringParameter('sort', '');
+        $purchaseType = (new PurchaseType())->getPurchaseType($purchaseType);
+        $sort = (new Sort())->getSort($sort);
+        $plugins = $this->plugins->searchPlugins($query, $sort, $themesOnly, $purchaseType);
+        foreach ($plugins as &$plugin) {
+            if ($plugin['isDownloadable']) {
+                $plugin['downloadNonce'] = Nonce::getNonce(static::DOWNLOAD_NONCE_PREFIX . $plugin['name']);
+            }
+            $plugin['isTrialRequested'] = \false;
+            $plugin['canTrialBeRequested'] = \false;
+            if ($plugin['isEligibleForFreeTrial']) {
+                $plugin['isTrialRequested'] = StaticContainer::get(PluginTrialService::class)->wasRequested($plugin['name']);
+                $plugin['canTrialBeRequested'] = (int) GeneralConfig::getConfigValue('plugin_trial_request_expiration_in_days') !== -1;
+            }
+        }
+        Json::sendHeaderJSON();
+        return json_encode($plugins);
     }
     public function installAllPaidPlugins()
     {
@@ -240,7 +259,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         if ($this->passwordVerify->requirePasswordVerifiedRecently($params)) {
             Nonce::checkNonce(static::INSTALL_NONCE);
             $paidPlugins = $this->plugins->getAllPaidPlugins();
-            $hasErrors = false;
+            $hasErrors = \false;
             foreach ($paidPlugins as $paidPlugin) {
                 if (!$this->canPluginBeInstalled($paidPlugin)) {
                     continue;
@@ -252,10 +271,10 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
                     $notification = new Notification($e->getMessage());
                     $notification->context = Notification::CONTEXT_ERROR;
                     if (method_exists($e, 'isHtmlMessage') && $e->isHtmlMessage()) {
-                        $notification->raw = true;
+                        $notification->raw = \true;
                     }
                     Notification\Manager::notify('Marketplace_Install' . $pluginName, $notification);
-                    $hasErrors = true;
+                    $hasErrors = \true;
                 }
             }
             if ($hasErrors) {
@@ -283,7 +302,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
                         try {
                             $this->pluginManager->activatePlugin($pluginName);
                         } catch (Exception $e) {
-                            $hasErrors = true;
+                            $hasErrors = \true;
                             $notification = new Notification($e->getMessage());
                             $notification->context = Notification::CONTEXT_ERROR;
                             Notification\Manager::notify('Marketplace_Install' . $pluginName, $notification);
@@ -328,16 +347,31 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view->errorMessage = '';
         $pluginInfos = [];
         foreach ($plugins as $pluginName) {
-            $pluginInfos[] = $this->plugins->getPluginInfo($pluginName);
+            $currentPluginInfo = $this->plugins->getPluginInfo($pluginName);
+            $pluginInfos[] = $currentPluginInfo;
             try {
                 $this->pluginInstaller->installOrUpdatePluginFromMarketplace($pluginName);
             } catch (\Exception $e) {
-                $notification = new Notification($e->getMessage());
+                $message = $e->getMessage();
+                $isRaw = \false;
+                if (stripos($message, 'PCLZIP_ERR_BAD_FORMAT') !== \false) {
+                    $faqLink = Url::addCampaignParametersToMatomoLink('https://matomo.org/faq/plugins/faq_21/');
+                    if (!empty($currentPluginInfo['isPaid'])) {
+                        $downloadLink = Url::addCampaignParametersToMatomoLink('https://shop.matomo.org/my-account/downloads');
+                        $translateKey = 'Marketplace_PluginDownloadLinkMissingPremium';
+                    } else {
+                        $downloadLink = Url::addCampaignParametersToMatomoLink('https://plugins.matomo.org/' . $pluginName);
+                        $translateKey = 'Marketplace_PluginDownloadLinkMissingFree';
+                    }
+                    $message = Piwik::translate($translateKey, [$pluginName, "<a href='{$downloadLink}' target='_blank' rel='noreferrer noopener'>", '</a>', "<a href='{$faqLink}' target='_blank' rel='noreferrer noopener'>", '</a>']);
+                    $isRaw = \true;
+                }
+                $notification = new Notification($message);
                 $notification->context = Notification::CONTEXT_ERROR;
                 $notification->type = Notification::TYPE_PERSISTENT;
                 $notification->flags = Notification::FLAG_CLEAR;
-                if (method_exists($e, 'isHtmlMessage') && $e->isHtmlMessage()) {
-                    $notification->raw = true;
+                if (method_exists($e, 'isHtmlMessage') && $e->isHtmlMessage() || $isRaw) {
+                    $notification->raw = \true;
                 }
                 Notification\Manager::notify('CorePluginsAdmin_InstallPlugin', $notification);
                 Url::redirectToReferrer();
@@ -367,18 +401,18 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
     private function dieIfPluginsAdminIsDisabled()
     {
         if (!CorePluginsAdmin::isPluginsAdminEnabled()) {
-            throw new \Exception('Enabling, disabling and uninstalling plugins has been disabled by Piwik admins.
-            Please contact your Piwik admins with your request so they can assist you.');
+            throw new \Exception('Enabling, disabling and uninstalling plugins has been disabled by Matomo admins.
+            Please contact your Matomo admins with your request so they can assist you.');
         }
     }
     private function canPluginBeInstalled($plugin)
     {
         if (empty($plugin['isDownloadable'])) {
-            return false;
+            return \false;
         }
         $pluginName = $plugin['name'];
-        $isAlreadyInstalled = $this->pluginManager->isPluginInstalled($pluginName, true) || $this->pluginManager->isPluginLoaded($pluginName) || $this->pluginManager->isPluginActivated($pluginName);
-        return !$isAlreadyInstalled;
+        $isAlreadyInstalled = $this->pluginManager->isPluginInstalled($pluginName, \true) || $this->pluginManager->isPluginLoaded($pluginName) || $this->pluginManager->isPluginActivated($pluginName);
+        return !$isAlreadyInstalled && $plugin['hasDownloadLink'];
     }
     protected function configureViewAndCheckPermission($template)
     {
@@ -390,5 +424,14 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $this->securityPolicy->addPolicy('default-src', '*.matomo.org');
         $view->errorMessage = '';
         return $view;
+    }
+    private function isInstallAllPaidPluginsVisible() : bool
+    {
+        return $this->consumer->isValidConsumer() && Piwik::hasUserSuperUserAccess() && SettingsPiwik::isAutoUpdatePossible() && CorePluginsAdmin::isPluginsAdminEnabled() && count($this->getAllPaidPluginsToInstallAtOnce()) > 0;
+    }
+    private function getAllPaidPluginsToInstallAtOnce()
+    {
+        $paidPlugins = $this->plugins->getAllPaidPlugins();
+        return $this->getPaidPluginsToInstallAtOnceData($paidPlugins);
     }
 }

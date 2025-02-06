@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UsersManager\Validators;
 
@@ -16,7 +16,7 @@ class Email extends BaseValidator
 {
     private $checkUnique;
     private $userLogin;
-    public function __construct($checkUnique = false, $userLogin = null)
+    public function __construct($checkUnique = \false, $userLogin = null)
     {
         $this->checkUnique = $checkUnique;
         $this->userLogin = $userLogin;

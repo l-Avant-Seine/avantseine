@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\PrivacyManager;
 
@@ -33,9 +32,9 @@ use Piwik\View;
  */
 class Controller extends \Piwik\Plugin\ControllerAdmin
 {
-    const OPTION_LAST_DELETE_PIWIK_LOGS = "lastDelete_piwik_logs";
-    const ACTIVATE_DNT_NONCE = 'PrivacyManager.activateDnt';
-    const DEACTIVATE_DNT_NONCE = 'PrivacyManager.deactivateDnt';
+    public const OPTION_LAST_DELETE_PIWIK_LOGS = "lastDelete_piwik_logs";
+    public const ACTIVATE_DNT_NONCE = 'PrivacyManager.activateDnt';
+    public const DEACTIVATE_DNT_NONCE = 'PrivacyManager.deactivateDnt';
     /**
      * @var ReferrerAnonymizer
      */
@@ -159,7 +158,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         Piwik::checkUserHasSuperUserAccess();
         $view = new View('@PrivacyManager/getDatabaseSize');
         $forceEstimate = Common::getRequestVar('forceEstimate', 0);
-        $view->dbStats = $this->getDeleteDBSizeEstimate($getSettingsFromQuery = true, $forceEstimate);
+        $view->dbStats = $this->getDeleteDBSizeEstimate($getSettingsFromQuery = \true, $forceEstimate);
         $view->language = LanguagesManager::getLanguageCodeForCurrentUser();
         return $view->render();
     }
@@ -194,7 +193,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         $view->anonymizations = $logDataAnonymizations->getAllEntries();
         return $view->render();
     }
-    private function getDeleteDBSizeEstimate($getSettingsFromQuery = false, $forceEstimate = false)
+    private function getDeleteDBSizeEstimate($getSettingsFromQuery = \false, $forceEstimate = \false)
     {
         $this->checkDataPurgeAdminSettingsIsEnabled();
         // get the purging settings & create two purger instances
@@ -275,7 +274,7 @@ class Controller extends \Piwik\Plugin\ControllerAdmin
         }
         //deletion schedule did not run before
         if (empty($optionTable)) {
-            $deleteDataInfos["lastRun"] = false;
+            $deleteDataInfos["lastRun"] = \false;
             //next run ASAP (with next schedule run)
             $date = Date::factory("today");
             $deleteDataInfos["nextScheduleTime"] = $nextPossibleSchedule;

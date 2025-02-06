@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CustomDimensions\Dao;
 
@@ -29,7 +28,7 @@ class AutoSuggest
         $report = Request::processRequest('CustomDimensions.getCustomDimension', array('idDimension' => $dimension['idcustomdimension'], 'idSite' => $idSite, 'filter_offset' => 0, 'filter_limit' => $maxValuesToReturn, 'period' => 'range', 'date' => $date, 'disable_queued_filters' => 1), array());
         $labels = $report->getColumn('label');
         $notDefinedKey = array_search(Archiver::LABEL_CUSTOM_VALUE_NOT_DEFINED, $labels);
-        if ($notDefinedKey !== false) {
+        if ($notDefinedKey !== \false) {
             unset($labels[$notDefinedKey]);
             $labels = array_values($labels);
         }

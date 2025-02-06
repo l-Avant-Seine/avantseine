@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreVisualizations\Metrics\Formatter;
 
@@ -27,7 +27,7 @@ class Numeric extends Formatter
     {
         return round($value, $precision);
     }
-    public function getPrettyTimeFromSeconds($numberOfSeconds, $displayTimeAsSentence = false, $round = false)
+    public function getPrettyTimeFromSeconds($numberOfSeconds, $displayTimeAsSentence = \false, $round = \false)
     {
         return $round ? (int) $numberOfSeconds : (float) Common::forceDotAsSeparatorForDecimalPoint($numberOfSeconds);
     }

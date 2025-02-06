@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UsersManager;
 
@@ -36,8 +35,8 @@ use Piwik\Validators\NotEmpty;
  */
 class Model
 {
-    const MAX_LENGTH_TOKEN_DESCRIPTION = 100;
-    const TOKEN_HASH_ALGO = 'sha512';
+    public const MAX_LENGTH_TOKEN_DESCRIPTION = 100;
+    public const TOKEN_HASH_ALGO = 'sha512';
     private static $rawPrefix = 'user';
     private $userTable;
     private $tokenTable;
@@ -162,14 +161,16 @@ class Model
             $selector = 'b.access';
             $joins .= " LEFT JOIN " . Common::prefixTable('access') . " b on a.idsite = b.idsite AND a.login = b.login";
         }
-        $sql = 'SELECT SQL_CALC_FOUND_ROWS s.idsite as idsite, s.name as site_name, GROUP_CONCAT(' . $selector . ' SEPARATOR "|") as access
+        $sql = 'SELECT s.idsite as idsite, s.name as site_name, GROUP_CONCAT(' . $selector . ' SEPARATOR "|") as access
                   FROM ' . Common::prefixTable('access') . " a\n                {$joins}\n                {$where}\n              GROUP BY s.idsite\n              ORDER BY s.name ASC, s.idsite ASC\n              {$limitSql} {$offsetSql}";
         $db = $this->getDb();
         $access = $db->fetchAll($sql, $bind);
         foreach ($access as &$entry) {
             $entry['access'] = explode('|', $entry['access'] ?? '');
         }
-        $count = $db->fetchOne("SELECT FOUND_ROWS()");
+        $sql = 'SELECT COUNT(DISTINCT s.idsite)
+                 FROM ' . Common::prefixTable('access') . " a\n                {$joins}\n                {$where}";
+        $count = $db->fetchOne($sql, $bind);
         return [$access, $count];
     }
     public function getIdSitesAccessMatching($userLogin, $filter_search = null, $filter_access = null, $idSites = null)
@@ -203,7 +204,7 @@ class Model
         $salt = SettingsPiwik::getSalt();
         return hash(self::TOKEN_HASH_ALGO, $tokenAuth . $salt);
     }
-    public function generateRandomInviteToken()
+    public function generateRandomInviteToken() : string
     {
         $count = 0;
         do {
@@ -233,7 +234,7 @@ class Model
     }
     private function generateTokenAuth()
     {
-        return md5(Common::getRandomString(32, 'abcdef1234567890') . microtime(true) . Common::generateUniqId() . SettingsPiwik::getSalt());
+        return md5(Common::getRandomString(32, 'abcdef1234567890') . microtime(\true) . Common::generateUniqId() . SettingsPiwik::getSalt());
     }
     /**
      * Add a new token auth record to the database
@@ -249,7 +250,7 @@ class Model
      * @return int                  Primary key of the new token auth
      * @throws \Piwik\Tracker\Db\DbException
      */
-    public function addTokenAuth($login, $tokenAuth, $description, $dateCreated, $dateExpired = null, $isSystemToken = false, bool $secureOnly = false)
+    public function addTokenAuth($login, $tokenAuth, $description, $dateCreated, $dateExpired = null, $isSystemToken = \false, bool $secureOnly = \false)
     {
         if (!$this->getUser($login)) {
             throw new \Exception('User ' . $login . ' does not exist');
@@ -262,7 +263,7 @@ class Model
         $insertSql = "INSERT INTO " . $this->tokenTable . ' (login, description, password, date_created, date_expired, system_token, hash_algo, secure_only) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         $tokenAuth = $this->hashTokenAuth($tokenAuth);
         $db = $this->getDb();
-        $db->query($insertSql, [$login, $description, $tokenAuth, $dateCreated, $dateExpired, $isSystemToken, self::TOKEN_HASH_ALGO, $secureOnly]);
+        $db->query($insertSql, [$login, $description, $tokenAuth, $dateCreated, $dateExpired, $isSystemToken, self::TOKEN_HASH_ALGO, (int) $secureOnly]);
         return $db->lastInsertId();
     }
     private function getTokenByTokenAuth($tokenAuth)
@@ -295,7 +296,7 @@ class Model
         // If the token wasn't provided via a secure mechanism and use of secure tokens is enforced globally
         // then don't attempt to find the token
         if (GeneralConfig::getConfigValue('only_allow_secure_auth_tokens') && !$isTokenSecured) {
-            return false;
+            return \false;
         }
         $tokenAuth = $this->hashTokenAuth($tokenAuth);
         $db = $this->getDb();
@@ -428,11 +429,11 @@ class Model
         $db = $this->getDb();
         $db->insert($this->userTable, $user);
     }
-    public function attachInviteToken($userLogin, $token, $expiryInDays = 7)
+    public function attachInviteToken(string $userLogin, string $token, int $expiryInDays) : void
     {
         $this->updateUserFields($userLogin, ['invite_token' => $this->hashTokenAuth($token), 'invite_expired_at' => Date::now()->addDay($expiryInDays)->getDatetime()]);
     }
-    public function attachInviteLinkToken($userLogin, $token, $expiryInDays = 7)
+    public function attachInviteLinkToken(string $userLogin, string $token, int $expiryInDays) : void
     {
         $this->updateUserFields($userLogin, ['invite_link_token' => $this->hashTokenAuth($token), 'invite_expired_at' => Date::now()->addDay($expiryInDays)->getDatetime()]);
     }
@@ -570,14 +571,16 @@ class Model
                 $offsetSql = "OFFSET " . (int) $offset;
             }
         }
-        $sql = 'SELECT SQL_CALC_FOUND_ROWS u.*, GROUP_CONCAT(a.access SEPARATOR "|") as access
+        $sql = 'SELECT u.*, GROUP_CONCAT(a.access SEPARATOR "|") as access
                   FROM ' . $this->userTable . " u\n                {$joins}\n                {$where}\n              GROUP BY u.login\n              ORDER BY u.login ASC\n                 {$limitSql} {$offsetSql}";
         $db = $this->getDb();
         $users = $db->fetchAll($sql, $bind);
         foreach ($users as &$user) {
             $user['access'] = explode('|', $user['access'] ?? '');
         }
-        $count = $db->fetchOne("SELECT FOUND_ROWS()");
+        $sql = 'SELECT COUNT(DISTINCT u.login)
+                  FROM ' . $this->userTable . " u\n                {$joins}\n                {$where}";
+        $count = $db->fetchOne($sql, $bind);
         return [$users, $count];
     }
     public function getSiteAccessCount($userLogin)

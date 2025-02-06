@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\View;
 
@@ -43,7 +42,7 @@ class RenderTokenParser extends AbstractTokenParser
         $stream->expect(Token::BLOCK_END_TYPE);
         $viewTemplateExpr = new \Piwik\View\MethodCallExpression($view, 'getTemplateFile', new ArrayExpression(array(), $token->getLine()), $token->getLine());
         $variablesExpr = new \Piwik\View\MethodCallExpression($view, 'getTemplateVars', $variablesOverride, $token->getLine());
-        return new IncludeNode($viewTemplateExpr, $variablesExpr, $only = false, $ignoreMissing = false, $token->getLine());
+        return new IncludeNode($viewTemplateExpr, $variablesExpr, $only = \false, $ignoreMissing = \false, $token->getLine());
     }
     /**
      * Returns the tag identifier.

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\View;
 
@@ -40,7 +39,7 @@ class OneClickDone
      *
      * @var bool
      */
-    public $httpsFail = false;
+    public $httpsFail = \false;
     public function __construct($tokenAuth)
     {
         $this->tokenAuth = $tokenAuth;
@@ -58,8 +57,8 @@ class OneClickDone
         @Common::sendHeader('Content-Type: text/html; charset=UTF-8');
         @Common::sendHeader('Cache-Control: no-store');
         @Common::sendHeader('X-Frame-Options: deny');
-        $error = htmlspecialchars($this->error, ENT_QUOTES, 'UTF-8');
-        $messages = htmlspecialchars(serialize($this->feedbackMessages), ENT_QUOTES, 'UTF-8');
+        $error = htmlspecialchars($this->error, \ENT_QUOTES, 'UTF-8');
+        $messages = htmlspecialchars(serialize($this->feedbackMessages), \ENT_QUOTES, 'UTF-8');
         $tokenAuth = $this->tokenAuth;
         $httpsFail = (int) $this->httpsFail;
         // use a heredoc instead of an external file

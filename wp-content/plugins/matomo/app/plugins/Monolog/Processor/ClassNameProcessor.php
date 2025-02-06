@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Monolog\Processor;
 
@@ -30,7 +30,7 @@ class ClassNameProcessor
         $backtrace = $this->getBacktrace();
         $name = Plugin::getPluginNameFromBacktrace($backtrace);
         // if we can't determine the plugin, use the name of the calling class
-        if ($name == false) {
+        if ($name == \false) {
             $name = $this->getClassNameThatIsLogging($backtrace);
         }
         return $name;
@@ -46,13 +46,13 @@ class ClassNameProcessor
     }
     private function getBacktrace()
     {
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT);
+        $backtrace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS | \DEBUG_BACKTRACE_PROVIDE_OBJECT);
         $skippedClasses = $this->skippedClasses;
         $backtrace = array_filter($backtrace, function ($item) use($skippedClasses) {
             if (isset($item['class'])) {
                 return !in_array($item['class'], $skippedClasses);
             }
-            return true;
+            return \true;
         });
         return $backtrace;
     }

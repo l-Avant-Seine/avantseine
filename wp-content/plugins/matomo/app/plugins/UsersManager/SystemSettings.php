@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UsersManager;
 
@@ -58,7 +58,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 }
                 $domains = array_map(function ($domain) {
                     $domain = trim($domain);
-                    if (mb_strpos($domain, '@') !== false) {
+                    if (mb_strpos($domain, '@') !== \false) {
                         // handle incorrect user input such as leading @ or entered email address
                         $allowedEmailDomains = new AllowedEmailDomain($this);
                         $domain = $allowedEmailDomains->getDomainFromEmail($domain);

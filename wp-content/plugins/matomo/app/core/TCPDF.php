@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -30,7 +29,7 @@ class TCPDF extends \TCPDF
         if ($this->currentPageNo > 1) {
             $this->SetY(-15);
             $this->SetFont($this->footer_font[0], $this->footer_font[1], $this->footer_font[2]);
-            $this->Cell(0, 10, $this->footerContent . \Piwik\Piwik::translate('ScheduledReports_Pagination', array($this->getAliasNumPage(), $this->getAliasNbPages())), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+            $this->Cell(0, 10, $this->footerContent . \Piwik\Piwik::translate('ScheduledReports_Pagination', array($this->getAliasNumPage(), $this->getAliasNbPages())), 0, \false, 'C', 0, '', 0, \false, 'T', 'M');
         }
     }
     /**
@@ -40,7 +39,7 @@ class TCPDF extends \TCPDF
      */
     public function Error($msg)
     {
-        $this->_destroy(true);
+        $this->_destroy(\true);
         throw new Exception($msg);
     }
     /**
@@ -64,7 +63,7 @@ class TCPDF extends \TCPDF
      * @param bool $keepmargins
      * @param bool $tocpage
      */
-    public function AddPage($orientation = '', $format = '', $keepmargins = false, $tocpage = false)
+    public function AddPage($orientation = '', $format = '', $keepmargins = \false, $tocpage = \false)
     {
         parent::AddPage($orientation);
         $this->setCurrentPageNo();

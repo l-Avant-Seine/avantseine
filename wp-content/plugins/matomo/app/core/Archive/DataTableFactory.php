@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Archive;
 
@@ -21,8 +20,8 @@ use Piwik\Site;
  */
 class DataTableFactory
 {
-    const TABLE_METADATA_SEGMENT_INDEX = 'segment';
-    const TABLE_METADATA_SEGMENT_PRETTY_INDEX = 'segmentPretty';
+    public const TABLE_METADATA_SEGMENT_INDEX = 'segment';
+    public const TABLE_METADATA_SEGMENT_PRETTY_INDEX = 'segmentPretty';
     /**
      * @see DataCollection::$dataNames.
      */
@@ -38,14 +37,14 @@ class DataTableFactory
      *
      * @var bool
      */
-    private $expandDataTable = false;
+    private $expandDataTable = \false;
     /**
      * Whether to add the subtable ID used in the database to the in-memory DataTables
      * as metadata or not.
      *
      * @var bool
      */
-    private $addMetadataSubtableId = false;
+    private $addMetadataSubtableId = \false;
     /**
      * The maximum number of subtable levels to create when creating an expanded
      * DataTable.
@@ -75,8 +74,8 @@ class DataTableFactory
      * @see DataCollection::$defaultRow.
      */
     private $defaultRow;
-    const TABLE_METADATA_SITE_INDEX = 'site';
-    const TABLE_METADATA_PERIOD_INDEX = 'period';
+    public const TABLE_METADATA_SITE_INDEX = 'site';
+    public const TABLE_METADATA_PERIOD_INDEX = 'period';
     /**
      * Constructor.
      */
@@ -115,9 +114,9 @@ class DataTableFactory
      *                                    database to the in-memory DataTables as
      *                                    metadata or not.
      */
-    public function expandDataTable($maxSubtableDepth = null, $addMetadataSubtableId = false)
+    public function expandDataTable($maxSubtableDepth = null, $addMetadataSubtableId = \false)
     {
-        $this->expandDataTable = true;
+        $this->expandDataTable = \true;
         $this->maxSubtableDepth = $maxSubtableDepth;
         $this->addMetadataSubtableId = $addMetadataSubtableId;
     }
@@ -214,7 +213,7 @@ class DataTableFactory
      */
     private function makeFromBlobRow($blobRow, $keyMetadata)
     {
-        if ($blobRow === false) {
+        if ($blobRow === \false) {
             $table = new DataTable();
             $table->setAllTableMetadata($keyMetadata);
             $this->setPrettySegmentMetadata($table);
@@ -487,7 +486,7 @@ class DataTableFactory
     private function setPrettySegmentMetadata(DataTable $table)
     {
         $site = $table->getMetadata(self::TABLE_METADATA_SITE_INDEX);
-        $idSite = $site ? $site->getId() : false;
+        $idSite = $site ? $site->getId() : \false;
         $segmentPretty = $this->segment->getStoredSegmentName($idSite);
         $table->setMetadata('segment', $this->segment->getString());
         $table->setMetadata('segmentPretty', $segmentPretty);

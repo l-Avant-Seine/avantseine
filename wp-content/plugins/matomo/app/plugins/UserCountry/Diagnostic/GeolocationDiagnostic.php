@@ -3,16 +3,16 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry\Diagnostic;
 
-use Piwik\Config;
 use Piwik\Piwik;
 use Piwik\Plugins\Diagnostics\Diagnostic\Diagnostic;
 use Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult;
 use Piwik\Plugins\UserCountry\LocationProvider;
+use Piwik\SettingsPiwik;
 use Piwik\Translation\Translator;
 /**
  * Check the geolocation setup.
@@ -29,10 +29,9 @@ class GeolocationDiagnostic implements Diagnostic
     }
     public function execute()
     {
-        $isMatomoInstalling = !Config::getInstance()->existsLocalConfig();
-        if ($isMatomoInstalling) {
+        if (!SettingsPiwik::isMatomoInstalled()) {
             // Skip the diagnostic if Matomo is being installed
-            return array();
+            return [];
         }
         $label = $this->translator->translate('UserCountry_Geolocation');
         $currentProviderId = LocationProvider::getCurrentProviderId();

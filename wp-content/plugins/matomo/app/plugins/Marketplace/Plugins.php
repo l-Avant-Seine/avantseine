@@ -3,13 +3,14 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Marketplace;
 
+use Piwik\Container\StaticContainer;
 use Piwik\Date;
+use Piwik\NumberFormatter;
 use Piwik\ProfessionalServices\Advertising;
 use Piwik\Plugin\Dependency as PluginDependency;
 use Piwik\Plugin;
@@ -37,6 +38,10 @@ class Plugins
      */
     private $pluginManager;
     /**
+     * @var NumberFormatter
+     */
+    private $numberFormatter;
+    /**
      * @internal for tests only
      * @var array
      */
@@ -48,6 +53,7 @@ class Plugins
         $this->consumer = $consumer;
         $this->advertising = $advertising;
         $this->pluginManager = Plugin\Manager::getInstance();
+        $this->numberFormatter = NumberFormatter::getInstance();
     }
     public function getPluginInfo($pluginName)
     {
@@ -78,7 +84,7 @@ class Plugins
     }
     public function getAllAvailablePluginNames()
     {
-        return array_merge($this->getAvailablePluginNames(true), $this->getAvailablePluginNames(false));
+        return array_merge($this->getAvailablePluginNames(\true), $this->getAvailablePluginNames(\false));
     }
     public function searchPlugins($query, $sort, $themesOnly, $purchaseType = '')
     {
@@ -94,19 +100,19 @@ class Plugins
     }
     public function getAllPaidPlugins()
     {
-        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = false, PurchaseType::TYPE_PAID);
+        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = \false, PurchaseType::TYPE_PAID);
     }
     public function getAllFreePlugins()
     {
-        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = false, PurchaseType::TYPE_FREE);
+        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = \false, PurchaseType::TYPE_FREE);
     }
     public function getAllThemes()
     {
-        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = true, PurchaseType::TYPE_ALL);
+        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = \true, PurchaseType::TYPE_ALL);
     }
     public function getAllPlugins()
     {
-        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = false, PurchaseType::TYPE_ALL);
+        return $this->searchPlugins($query = '', Sort::DEFAULT_SORT, $themes = \false, PurchaseType::TYPE_ALL);
     }
     private function getPluginUpdateInformation($plugin)
     {
@@ -142,6 +148,10 @@ class Plugins
      */
     public function getPluginsHavingUpdate() : array
     {
+        $forcedResult = StaticContainer::get('dev.forced_plugin_update_result');
+        if ($forcedResult !== null) {
+            return $forcedResult;
+        }
         $this->pluginManager->loadAllPluginsAndGetTheirInfo();
         $loadedPlugins = $this->pluginManager->getLoadedPlugins();
         try {
@@ -180,16 +190,16 @@ class Plugins
     private function isPluginActivated($pluginName)
     {
         if (in_array($pluginName, $this->activatedPluginNames)) {
-            return true;
+            return \true;
         }
         return $this->pluginManager->isPluginActivated($pluginName);
     }
     private function isPluginInstalled($pluginName)
     {
         if (in_array($pluginName, $this->activatedPluginNames)) {
-            return true;
+            return \true;
         }
-        return $this->pluginManager->isPluginInstalled($pluginName, true);
+        return $this->pluginManager->isPluginInstalled($pluginName, \true);
     }
     private function enrichPluginInformation($plugin)
     {
@@ -201,13 +211,14 @@ class Plugins
         $plugin['isInvalid'] = $this->pluginManager->isPluginThirdPartyAndBogus($plugin['name']);
         $plugin['canBeUpdated'] = $plugin['isInstalled'] && $this->hasPluginUpdate($plugin);
         $plugin['lastUpdated'] = $this->toShortDate($plugin['lastUpdated']);
+        $plugin['canBePurchased'] = !$plugin['isDownloadable'] && !empty($plugin['shop']['url']);
         if ($plugin['isInstalled']) {
             $plugin = $this->enrichLicenseInformation($plugin);
         } else {
-            $plugin['hasExceededLicense'] = false;
-            $plugin['isMissingLicense'] = false;
+            $plugin['hasExceededLicense'] = \false;
+            $plugin['isMissingLicense'] = \false;
         }
-        if (!empty($plugin['owner']) && strtolower($plugin['owner']) === 'piwikpro' && !empty($plugin['homepage']) && strpos($plugin['homepage'], 'pk_campaign') === false) {
+        if (!empty($plugin['owner']) && strtolower($plugin['owner']) === 'piwikpro' && !empty($plugin['homepage']) && strpos($plugin['homepage'], 'pk_campaign') === \false) {
             $plugin['homepage'] = $this->advertising->addPromoCampaignParametersToUrl($plugin['homepage'], Advertising::CAMPAIGN_NAME_PROFESSIONAL_SERVICES, 'Marketplace', $plugin['name']);
         }
         if ($plugin['canBeUpdated']) {
@@ -215,7 +226,7 @@ class Plugins
             $plugin['repositoryChangelogUrl'] = $pluginUpdate['repositoryChangelogUrl'];
             $plugin['currentVersion'] = $pluginUpdate['currentVersion'];
         }
-        if (!empty($plugin['activity']['lastCommitDate']) && false === strpos($plugin['activity']['lastCommitDate'], '0000') && false === strpos($plugin['activity']['lastCommitDate'], '1970')) {
+        if (!empty($plugin['activity']['lastCommitDate']) && \false === strpos($plugin['activity']['lastCommitDate'], '0000') && \false === strpos($plugin['activity']['lastCommitDate'], '1970')) {
             $plugin['activity']['lastCommitDate'] = $this->toLongDate($plugin['activity']['lastCommitDate']);
         } else {
             $plugin['activity']['lastCommitDate'] = null;
@@ -225,7 +236,18 @@ class Plugins
                 $plugin['versions'][$index]['release'] = $this->toLongDate($version['release']);
             }
         }
+        $haDownloadLink = \false;
+        if (!empty($plugin['versions'])) {
+            $latestVersion = end($plugin['versions']);
+            $hasDownloadLink = !empty($latestVersion['download']);
+        }
+        $plugin['hasDownloadLink'] = $hasDownloadLink;
         $plugin = $this->addMissingRequirements($plugin);
+        $plugin = $this->addConsumerLicenseStatus($plugin);
+        $plugin['isEligibleForFreeTrial'] = $plugin['canBePurchased'] && empty($plugin['missingRequirements']) && empty($plugin['consumer']['license']);
+        $this->addPriceFrom($plugin);
+        $this->addPluginCoverImage($plugin);
+        $this->prettifyNumberOfDownloads($plugin);
         return $plugin;
     }
     private function enrichLicenseInformation($plugin)
@@ -253,11 +275,14 @@ class Plugins
         return $date;
     }
     /**
+     * Determine if there are any missing requirements/dependencies for the plugin
+     *
      * @param $plugin
+     * @return array
      */
-    private function addMissingRequirements($plugin)
+    private function addMissingRequirements($plugin) : array
     {
-        $plugin['missingRequirements'] = array();
+        $plugin['missingRequirements'] = [];
         if (empty($plugin['versions']) || !is_array($plugin['versions'])) {
             return $plugin;
         }
@@ -268,6 +293,67 @@ class Plugins
         $requires = $latestVersion['requires'];
         $dependency = new PluginDependency();
         $plugin['missingRequirements'] = $dependency->getMissingDependencies($requires);
+        return $plugin;
+    }
+    /**
+     * Find the cheapest shop variant, and if none is found specified, return the first variant.
+     *
+     * @param $plugin
+     * @return void
+     */
+    private function addPriceFrom(&$plugin) : void
+    {
+        $variations = $plugin['shop']['variations'] ?? [];
+        if (!count($variations)) {
+            $plugin['priceFrom'] = null;
+            return;
+        }
+        $plugin['priceFrom'] = array_shift($variations);
+        // use first as the default
+        foreach ($variations as $variation) {
+            if ($variation['cheapest'] ?? \false) {
+                $plugin['priceFrom'] = $variation;
+                return;
+            }
+        }
+    }
+    /**
+     * If plugin provides a cover image via Marketplace, we use that.
+     *
+     * If there's no cover image from the marketplace (e.g. for plugins not yet categorised or not providing a custom
+     * cover image), we use Matomo image for Matomo plugins and a generic cover image otherwise.
+     *
+     * @param $plugin
+     * @return void
+     */
+    private function addPluginCoverImage(&$plugin) : void
+    {
+        // if plugin provides cover image (either from the screenshots or based on its category, we use that
+        if (!empty($plugin['coverImage'])) {
+            return;
+        }
+        $coverImage = 'uncategorised';
+        // use Matomo image for paid plugins, i.e. plugins without the isFree flag and with shop info
+        if (in_array(strtolower($plugin['owner']), ['piwik', 'matomo-org']) && empty($plugin['isFree']) && !empty($plugin['shop'])) {
+            $coverImage = 'matomo';
+        }
+        $plugin['coverImage'] = 'plugins/Marketplace/images/categories/' . $coverImage . '.png';
+    }
+    /**
+     * Add prettified number of downloads to plugin info to shorten large numbers to 1k or 1m format.
+     *
+     * @param $plugin
+     * @return void
+     */
+    private function prettifyNumberOfDownloads(&$plugin) : void
+    {
+        $num = $plugin['numDownloads'] ?? 0;
+        $plugin['numDownloadsPretty'] = $this->numberFormatter->formatNumberCompact($num);
+    }
+    private function addConsumerLicenseStatus($plugin) : array
+    {
+        $consumerPluginLicenseInfo = $this->consumer->getConsumerPluginLicenseStatus();
+        $plugin['licenseStatus'] = $consumerPluginLicenseInfo[$plugin['name']] ?? '';
         return $plugin;
     }
 }

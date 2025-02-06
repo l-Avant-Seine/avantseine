@@ -28,14 +28,14 @@ class StreamedResponse extends Response
     protected $callback;
     protected $streamed;
     private $headersSent;
-    public function __construct(callable $callback = null, int $status = 200, array $headers = [])
+    public function __construct(?callable $callback = null, int $status = 200, array $headers = [])
     {
         parent::__construct(null, $status, $headers);
         if (null !== $callback) {
             $this->setCallback($callback);
         }
-        $this->streamed = false;
-        $this->headersSent = false;
+        $this->streamed = \false;
+        $this->headersSent = \false;
     }
     /**
      * Factory method for chainability.
@@ -73,7 +73,7 @@ class StreamedResponse extends Response
         if ($this->headersSent) {
             return $this;
         }
-        $this->headersSent = true;
+        $this->headersSent = \true;
         return parent::sendHeaders();
     }
     /**
@@ -88,7 +88,7 @@ class StreamedResponse extends Response
         if ($this->streamed) {
             return $this;
         }
-        $this->streamed = true;
+        $this->streamed = \true;
         if (null === $this->callback) {
             throw new \LogicException('The Response callback must not be null.');
         }
@@ -107,7 +107,7 @@ class StreamedResponse extends Response
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a StreamedResponse instance.');
         }
-        $this->streamed = true;
+        $this->streamed = \true;
         return $this;
     }
     /**
@@ -115,6 +115,6 @@ class StreamedResponse extends Response
      */
     public function getContent()
     {
-        return false;
+        return \false;
     }
 }

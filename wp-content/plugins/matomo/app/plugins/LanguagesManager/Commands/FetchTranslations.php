@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\LanguagesManager\Commands;
 
@@ -17,7 +16,7 @@ use Piwik\Translation\Weblate\API;
  */
 class FetchTranslations extends \Piwik\Plugins\LanguagesManager\Commands\TranslationBase
 {
-    const DOWNLOAD_PATH = '/weblate';
+    public const DOWNLOAD_PATH = '/weblate';
     protected function configure()
     {
         $path = StaticContainer::get('path.tmp') . self::DOWNLOAD_PATH;
@@ -27,14 +26,14 @@ class FetchTranslations extends \Piwik\Plugins\LanguagesManager\Commands\Transla
     {
         $input = $this->getInput();
         $output = $this->getOutput();
-        $output->setDecorated(true);
+        $output->setDecorated(\true);
         $apiToken = $input->getOption('token');
         $plugin = $input->getOption('plugin');
         $slug = $input->getOption('slug');
         $resource = $plugin ? 'plugin-' . strtolower($plugin) : 'matomo-base';
         $weblateApi = new API($apiToken, $slug);
         // remove all existing translation files in download path
-        $files = glob($this->getDownloadPath() . DIRECTORY_SEPARATOR . '*.json');
+        $files = glob($this->getDownloadPath() . \DIRECTORY_SEPARATOR . '*.json');
         array_map('unlink', $files);
         if (!$weblateApi->resourceExists($resource)) {
             $output->writeln("Skipping resource {$resource} as it doesn't exist on Weblate");
@@ -45,11 +44,11 @@ class FetchTranslations extends \Piwik\Plugins\LanguagesManager\Commands\Transla
             $languages = $weblateApi->getAvailableLanguageCodes();
             if (!empty($plugin)) {
                 $languages = array_filter($languages, function ($language) {
-                    return LanguagesManagerApi::getInstance()->isLanguageAvailable(str_replace('_', '-', strtolower($language)), true);
+                    return LanguagesManagerApi::getInstance()->isLanguageAvailable(str_replace('_', '-', strtolower($language)), \true);
                 });
             }
         } catch (AuthenticationFailedException $e) {
-            $availableLanguages = LanguagesManagerApi::getInstance()->getAvailableLanguageNames(true);
+            $availableLanguages = LanguagesManagerApi::getInstance()->getAvailableLanguageNames(\true);
             $languageCodes = array();
             foreach ($availableLanguages as $languageInfo) {
                 $codeParts = explode('-', $languageInfo['code']);
@@ -67,8 +66,8 @@ class FetchTranslations extends \Piwik\Plugins\LanguagesManager\Commands\Transla
         $this->startProgressBar();
         foreach ($languages as $language) {
             try {
-                $translations = $weblateApi->getTranslations($resource, $language, true);
-                file_put_contents($this->getDownloadPath() . DIRECTORY_SEPARATOR . str_replace('_', '-', strtolower($language)) . '.json', $translations);
+                $translations = $weblateApi->getTranslations($resource, $language, \true);
+                file_put_contents($this->getDownloadPath() . \DIRECTORY_SEPARATOR . str_replace('_', '-', strtolower($language)) . '.json', $translations);
             } catch (\Exception $e) {
                 $output->writeln("Error fetching language file {$language}: " . $e->getMessage());
             }

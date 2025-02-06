@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Columns;
 
@@ -27,28 +26,28 @@ use Piwik\Segment\SegmentsList;
  */
 abstract class Dimension
 {
-    const COMPONENT_SUBNAMESPACE = 'Columns';
+    public const COMPONENT_SUBNAMESPACE = 'Columns';
     /**
      * Segment type 'dimension'. Can be used along with {@link setType()}.
      * @api
      */
-    const TYPE_DIMENSION = 'dimension';
-    const TYPE_BINARY = 'binary';
-    const TYPE_TEXT = 'text';
-    const TYPE_ENUM = 'enum';
-    const TYPE_MONEY = 'money';
-    const TYPE_BYTE = 'byte';
-    const TYPE_DURATION_MS = 'duration_ms';
-    const TYPE_DURATION_S = 'duration_s';
-    const TYPE_NUMBER = 'number';
-    const TYPE_FLOAT = 'float';
-    const TYPE_URL = 'url';
-    const TYPE_DATE = 'date';
-    const TYPE_TIME = 'time';
-    const TYPE_DATETIME = 'datetime';
-    const TYPE_TIMESTAMP = 'timestamp';
-    const TYPE_BOOL = 'bool';
-    const TYPE_PERCENT = 'percent';
+    public const TYPE_DIMENSION = 'dimension';
+    public const TYPE_BINARY = 'binary';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_ENUM = 'enum';
+    public const TYPE_MONEY = 'money';
+    public const TYPE_BYTE = 'byte';
+    public const TYPE_DURATION_MS = 'duration_ms';
+    public const TYPE_DURATION_S = 'duration_s';
+    public const TYPE_NUMBER = 'number';
+    public const TYPE_FLOAT = 'float';
+    public const TYPE_URL = 'url';
+    public const TYPE_DATE = 'date';
+    public const TYPE_TIME = 'time';
+    public const TYPE_DATETIME = 'datetime';
+    public const TYPE_TIMESTAMP = 'timestamp';
+    public const TYPE_BOOL = 'bool';
+    public const TYPE_PERCENT = 'percent';
     /**
      * This will be the name of the column in the database table if a $columnType is specified.
      * @var string
@@ -157,7 +156,7 @@ abstract class Dimension
      * @var bool
      * @api since Piwik 3.2.0
      */
-    protected $allowAnonymous = true;
+    protected $allowAnonymous = \true;
     /**
      * The name of the database table this dimension refers to
      * @var string
@@ -374,6 +373,10 @@ abstract class Dimension
             case \Piwik\Columns\Dimension::TYPE_BOOL:
                 return !empty($value) ? '1' : '0';
             case \Piwik\Columns\Dimension::TYPE_DURATION_MS:
+                if (!is_numeric($value)) {
+                    // This might happen if ranking query has too many results and `__mtm_ranking_query_others__` is returned
+                    return $value;
+                }
                 return round($value / 1000, 2) * 1000;
         }
         return $value;
@@ -408,10 +411,10 @@ abstract class Dimension
             case \Piwik\Columns\Dimension::TYPE_NUMBER:
                 return $formatter->getPrettyNumber($value);
             case \Piwik\Columns\Dimension::TYPE_DURATION_S:
-                return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = false);
+                return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = \false);
             case \Piwik\Columns\Dimension::TYPE_DURATION_MS:
                 $val = round($value / 1000, $value / 1000 > 60 ? 0 : 2);
-                return $formatter->getPrettyTimeFromSeconds($val, $displayAsSentence = true);
+                return $formatter->getPrettyTimeFromSeconds($val, $displayAsSentence = \true);
             case \Piwik\Columns\Dimension::TYPE_PERCENT:
                 return $formatter->getPrettyPercentFromQuotient($value);
             case \Piwik\Columns\Dimension::TYPE_BYTE:
@@ -734,21 +737,21 @@ abstract class Dimension
         if (!empty($this->columnType)) {
             // best guess
             $type = strtolower($this->columnType);
-            if (strpos($type, 'datetime') !== false) {
+            if (strpos($type, 'datetime') !== \false) {
                 return self::TYPE_DATETIME;
-            } elseif (strpos($type, 'timestamp') !== false) {
+            } elseif (strpos($type, 'timestamp') !== \false) {
                 return self::TYPE_TIMESTAMP;
-            } elseif (strpos($type, 'date') !== false) {
+            } elseif (strpos($type, 'date') !== \false) {
                 return self::TYPE_DATE;
-            } elseif (strpos($type, 'time') !== false) {
+            } elseif (strpos($type, 'time') !== \false) {
                 return self::TYPE_TIME;
-            } elseif (strpos($type, 'float') !== false) {
+            } elseif (strpos($type, 'float') !== \false) {
                 return self::TYPE_FLOAT;
-            } elseif (strpos($type, 'decimal') !== false) {
+            } elseif (strpos($type, 'decimal') !== \false) {
                 return self::TYPE_FLOAT;
-            } elseif (strpos($type, 'int') !== false) {
+            } elseif (strpos($type, 'int') !== \false) {
                 return self::TYPE_NUMBER;
-            } elseif (strpos($type, 'binary') !== false) {
+            } elseif (strpos($type, 'binary') !== \false) {
                 return self::TYPE_BINARY;
             }
         }

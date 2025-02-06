@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Session\SaveHandler;
 
@@ -15,18 +14,17 @@ use Exception;
 use Piwik\SettingsPiwik;
 use Piwik\Updater\Migration;
 use Zend_Session;
-use Zend_Session_SaveHandler_Interface;
 /**
  * Database-backed session save handler
  *
  */
-class DbTable implements Zend_Session_SaveHandler_Interface
+class DbTable implements \SessionHandlerInterface
 {
-    public static $wasSessionToLargeToRead = false;
+    public static $wasSessionToLargeToRead = \false;
     protected $config;
     protected $maxLifetime;
-    const TABLE_NAME = 'session';
-    const TOKEN_HASH_ALGO = 'sha512';
+    public const TABLE_NAME = 'session';
+    public const TOKEN_HASH_ALGO = 'sha512';
     /**
      * @param array $config
      */
@@ -56,19 +54,19 @@ class DbTable implements Zend_Session_SaveHandler_Interface
      * @param string $name
      * @return boolean
      */
-    public function open($save_path, $name)
+    public function open($save_path, $name) : bool
     {
         Db::get()->getConnection();
-        return true;
+        return \true;
     }
     /**
      * Close Session - free resources
      *
      * @return boolean
      */
-    public function close()
+    public function close() : bool
     {
-        return true;
+        return \true;
     }
     /**
      * Read session data
@@ -76,6 +74,7 @@ class DbTable implements Zend_Session_SaveHandler_Interface
      * @param string $id
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function read($id)
     {
         $id = $this->hashSessionId($id);
@@ -121,12 +120,12 @@ class DbTable implements Zend_Session_SaveHandler_Interface
      * @param mixed $data
      * @return boolean
      */
-    public function write($id, $data)
+    public function write($id, $data) : bool
     {
         $id = $this->hashSessionId($id);
         $sql = 'INSERT INTO ' . $this->config['name'] . ' (' . $this->config['primary'] . ',' . $this->config['modifiedColumn'] . ',' . $this->config['lifetimeColumn'] . ',' . $this->config['dataColumn'] . ')' . ' VALUES (?,?,?,?)' . ' ON DUPLICATE KEY UPDATE ' . $this->config['modifiedColumn'] . ' = ?,' . $this->config['lifetimeColumn'] . ' = ?,' . $this->config['dataColumn'] . ' = ?';
         $this->query($sql, array($id, time(), $this->maxLifetime, $data, time(), $this->maxLifetime, $data));
-        return true;
+        return \true;
     }
     /**
      * Destroy Session - remove data from resource for
@@ -135,12 +134,12 @@ class DbTable implements Zend_Session_SaveHandler_Interface
      * @param string $id
      * @return boolean
      */
-    public function destroy($id)
+    public function destroy($id) : bool
     {
         $id = $this->hashSessionId($id);
         $sql = 'DELETE FROM ' . $this->config['name'] . ' WHERE ' . $this->config['primary'] . ' = ?';
         $this->query($sql, array($id));
-        return true;
+        return \true;
     }
     /**
      * Garbage Collection - remove old session data older
@@ -149,11 +148,12 @@ class DbTable implements Zend_Session_SaveHandler_Interface
      * @param int $maxlifetime timestamp in seconds
      * @return bool  always true
      */
+    #[\ReturnTypeWillChange]
     public function gc($maxlifetime)
     {
         $sql = 'DELETE FROM ' . $this->config['name'] . ' WHERE ' . $this->config['modifiedColumn'] . ' + ' . $this->config['lifetimeColumn'] . ' < ?';
         $this->query($sql, array(time()));
-        return true;
+        return \true;
     }
     private function migrateToDbSessionTable()
     {

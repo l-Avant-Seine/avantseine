@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\JsTrackerInstallCheck;
 
@@ -21,7 +21,7 @@ class API extends \Piwik\Plugin\API
      */
     protected $jsTrackerInstallCheck;
     // disables automatic sanitizing for all public API methods in this class
-    protected $autoSanitizeInputParams = false;
+    protected $autoSanitizeInputParams = \false;
     public function __construct(\Piwik\Plugins\JsTrackerInstallCheck\JsTrackerInstallCheck $jsTrackerInstallCheck)
     {
         $this->jsTrackerInstallCheck = $jsTrackerInstallCheck;

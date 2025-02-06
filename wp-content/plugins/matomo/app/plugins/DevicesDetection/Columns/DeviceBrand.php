@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DevicesDetection\Columns;
 
@@ -38,7 +37,7 @@ class DeviceBrand extends \Piwik\Plugins\DevicesDetection\Columns\Base
                 return '';
             }
             $index = array_search(trim(urldecode($brand)), $brands);
-            if ($index === false) {
+            if ($index === \false) {
                 throw new \Exception("deviceBrand segment must be one of: {$brandList}");
             }
             return $index;

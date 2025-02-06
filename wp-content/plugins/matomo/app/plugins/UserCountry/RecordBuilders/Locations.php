@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry\RecordBuilders;
 
@@ -56,8 +55,8 @@ class Locations extends RecordBuilder
     protected function aggregateFromVisits(array $records, LogAggregator $logAggregator) : void
     {
         $additionalSelects = array('MAX(log_visit.location_latitude) as location_latitude', 'MAX(log_visit.location_longitude) as location_longitude');
-        $query = $logAggregator->queryVisitsByDimension(array_values($this->dimensions), $where = false, $additionalSelects);
-        if ($query === false) {
+        $query = $logAggregator->queryVisitsByDimension(array_values($this->dimensions), $where = \false, $additionalSelects);
+        if ($query === \false) {
             return;
         }
         while ($row = $query->fetch()) {

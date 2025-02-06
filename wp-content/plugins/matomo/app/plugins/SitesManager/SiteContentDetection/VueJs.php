@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager\SiteContentDetection;
 
@@ -43,7 +42,7 @@ class VueJs extends \Piwik\Plugins\SitesManager\SiteContentDetection\SiteContent
     public function renderInstructionsTab(SiteContentDetector $detector) : string
     {
         $view = new View("@SitesManager/_vueTabInstructions");
-        $view->sendHeadersWhenRendering = false;
+        $view->sendHeadersWhenRendering = \false;
         $view->wasDetected = $detector->wasDetected(self::getId());
         $view->SiteWithoutDataVueFollowStepNote2Key = StaticContainer::get('SitesManager.SiteWithoutDataVueFollowStepNote2');
         $view->vue3Code = $this->getVueInitializeCode(3);

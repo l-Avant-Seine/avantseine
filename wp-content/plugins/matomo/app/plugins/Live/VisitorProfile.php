@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Live;
 
@@ -14,7 +13,7 @@ use Piwik\DataTable;
 use Piwik\Plugins\Live\Exception\MaxExecutionTimeExceededException;
 class VisitorProfile
 {
-    const VISITOR_PROFILE_MAX_VISITS_TO_SHOW = 10;
+    public const VISITOR_PROFILE_MAX_VISITS_TO_SHOW = 10;
     protected $profile = [];
     protected $idSite;
     public function __construct($idSite)
@@ -68,8 +67,8 @@ class VisitorProfile
     private function handleAdjacentVisitorIds(DataTable $visits, $visitorId, $segment)
     {
         if (!$visits->getRowsCount()) {
-            $this->profile['nextVisitorId'] = false;
-            $this->profile['previousVisitorId'] = false;
+            $this->profile['nextVisitorId'] = \false;
+            $this->profile['previousVisitorId'] = \false;
             return;
         }
         // get visitor IDs that are adjacent to this one in log_visit
@@ -79,18 +78,18 @@ class VisitorProfile
         $latestVisitTime = reset($rows)->getColumn('lastActionDateTime');
         $model = new \Piwik\Plugins\Live\Model();
         try {
-            $this->profile['nextVisitorId'] = $model->queryAdjacentVisitorId($this->idSite, $visitorId, $latestVisitTime, $segment, $getNext = true);
+            $this->profile['nextVisitorId'] = $model->queryAdjacentVisitorId($this->idSite, $visitorId, $latestVisitTime, $segment, $getNext = \true);
         } catch (MaxExecutionTimeExceededException $e) {
-            $this->profile['nextVisitorId'] = false;
-            $this->profile['previousVisitorId'] = false;
+            $this->profile['nextVisitorId'] = \false;
+            $this->profile['previousVisitorId'] = \false;
             // if query for next visitor is too slow, we assume query for previous visitor is too slow too
             return;
         }
         try {
-            $this->profile['previousVisitorId'] = $model->queryAdjacentVisitorId($this->idSite, $visitorId, $latestVisitTime, $segment, $getNext = false);
+            $this->profile['previousVisitorId'] = $model->queryAdjacentVisitorId($this->idSite, $visitorId, $latestVisitTime, $segment, $getNext = \false);
         } catch (MaxExecutionTimeExceededException $e) {
             // we simply assume there is no previous visitor in that case
-            $this->profile['previousVisitorId'] = false;
+            $this->profile['previousVisitorId'] = \false;
         }
     }
 }

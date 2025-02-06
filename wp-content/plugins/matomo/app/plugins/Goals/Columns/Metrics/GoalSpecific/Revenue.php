@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\Columns\Metrics\GoalSpecific;
 
@@ -24,7 +24,7 @@ class Revenue extends GoalSpecificProcessedMetric
 {
     public function getName()
     {
-        return Goals::makeGoalColumn($this->idGoal, 'revenue', false);
+        return Goals::makeGoalColumn($this->idGoal, 'revenue', \false);
     }
     public function getTranslatedName()
     {

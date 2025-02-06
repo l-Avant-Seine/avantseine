@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -21,9 +20,9 @@ class Filechecks
     public static function canAutoUpdate()
     {
         if (!is_writable(PIWIK_INCLUDE_PATH . '/') || !is_writable(PIWIK_DOCUMENT_ROOT . '/index.php') || !is_writable(PIWIK_INCLUDE_PATH . '/core') || !is_writable(PIWIK_DOCUMENT_ROOT . '/config/global.ini.php')) {
-            return false;
+            return \false;
         }
-        return true;
+        return \true;
     }
     /**
      * Checks if directories are writable and create them if they do not exist.
@@ -37,7 +36,7 @@ class Filechecks
         foreach ($directoriesToCheck as $directoryToCheck) {
             \Piwik\Filesystem::mkdir($directoryToCheck);
             $directory = \Piwik\Filesystem::realpath($directoryToCheck);
-            if ($directory !== false) {
+            if ($directory !== \false) {
                 $resultCheck[$directory] = is_writable($directoryToCheck);
             }
         }
@@ -52,13 +51,13 @@ class Filechecks
     public static function dieIfDirectoriesNotWritable($directoriesToCheck = null)
     {
         $resultCheck = self::checkDirectoriesWritable($directoriesToCheck);
-        if (array_search(false, $resultCheck) === false) {
+        if (array_search(\false, $resultCheck) === \false) {
             return;
         }
         $directoryList = '';
         foreach ($resultCheck as $dir => $bool) {
             $realpath = \Piwik\Filesystem::realpath($dir);
-            if (!empty($realpath) && $bool === false) {
+            if (!empty($realpath) && $bool === \false) {
                 $directoryList .= self::getMakeWritableCommand($realpath);
             }
         }
@@ -67,6 +66,7 @@ class Filechecks
             $realpath = \Piwik\Filesystem::realpath(PIWIK_INCLUDE_PATH . '/');
             $directoryList = "<code>chown -R " . self::getUserAndGroup() . " " . $realpath . "</code><br />" . $directoryList;
         }
+        $optionalUserInfo = '';
         if (function_exists('shell_exec')) {
             $currentUser = self::getUser();
             if (!empty($currentUser)) {
@@ -121,7 +121,7 @@ class Filechecks
         if (!function_exists('shell_exec')) {
             return $user . ':' . $user;
         }
-        $group = trim(shell_exec('groups ' . $user . ' | cut -f3 -d" "'));
+        $group = trim(shell_exec('groups ' . $user . ' | cut -f3 -d" "') ?? '');
         if (empty($group) && function_exists('posix_getegid') && function_exists('posix_getgrgid')) {
             $currentGroupId = posix_getegid();
             $group = posix_getpwuid($currentGroupId);
@@ -139,7 +139,7 @@ class Filechecks
     public static function getUser()
     {
         if (function_exists('shell_exec')) {
-            return trim(shell_exec('whoami'));
+            return trim(shell_exec('whoami') ?? '');
         }
         $currentUser = get_current_user();
         if (empty($currentUser) && function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {

@@ -30,21 +30,21 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
      * @param string|null $foreground The style foreground color name
      * @param string|null $background The style background color name
      */
-    public function __construct(string $foreground = null, string $background = null, array $options = [])
+    public function __construct(?string $foreground = null, ?string $background = null, array $options = [])
     {
         $this->color = new Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
     }
     /**
      * {@inheritdoc}
      */
-    public function setForeground(string $color = null)
+    public function setForeground(?string $color = null)
     {
         $this->color = new Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
      */
-    public function setBackground(string $color = null)
+    public function setBackground(?string $color = null)
     {
         $this->color = new Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
@@ -66,7 +66,7 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
     public function unsetOption(string $option)
     {
         $pos = array_search($option, $this->options);
-        if (false !== $pos) {
+        if (\false !== $pos) {
             unset($this->options[$pos]);
         }
         $this->color = new Color($this->foreground, $this->background, $this->options);

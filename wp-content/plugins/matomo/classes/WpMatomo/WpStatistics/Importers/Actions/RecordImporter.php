@@ -4,7 +4,10 @@ namespace WpMatomo\WpStatistics\Importers\Actions;
 
 use Piwik\Config;
 use Piwik\DataTable;
+use WP_STATISTICS\DB;
+use WP_Statistics\Decorators\VisitorDecorator;
 use WP_STATISTICS\MetaBox\top_visitors;
+use WP_Statistics\Models\VisitorsModel;
 use WpMatomo\WpStatistics\RecordInserter;
 use Psr\Log\LoggerInterface;
 use Piwik\Date;
@@ -60,9 +63,115 @@ class RecordImporter {
 	}
 
 	protected function get_visitors( Date $date ) {
+		if ( class_exists( '\WP_Statistics\Models\VisitorsModel' ) ) {
+			return $this->get_visitors_from_model( $date );
+		} else {
+			return $this->get_visitors_from_metabox( $date );
+		}
+	}
+
+	/**
+	 * Returns the prefixed table name for a wpstatistics plugin.
+	 *
+	 * @param string $unprefixed_name
+	 * @return array|mixed|string|null
+	 */
+	protected function get_table_name( $unprefixed_name ) {
+		if ( method_exists( DB::class, 'getTableName' ) ) {
+			return DB::getTableName( $unprefixed_name );
+		}
+
+		return DB::table( $unprefixed_name );
+	}
+
+	private function get_visitors_from_model( Date $date ) {
 		$page           = 1;
 		$limit          = 1000;
 		$visitors_found = [];
+
+		$visitors_model = new VisitorsModel();
+		do {
+			try {
+				// code copied from top_visitors::get (copy required since newer versions
+				// do not support pagination in top_visitors::get)
+				$visitors = $visitors_model->getVisitorsData(
+					[
+						'date'      => [
+							'from' => $date->toString(),
+							'to'   => $date->toString(),
+						],
+						'page'      => $page,
+						'per_page'  => $limit,
+						'order_by'  => 'hits',
+						'order'     => 'DESC',
+						'user_info' => true,
+						'page_info' => true,
+					]
+				);
+			} catch ( \Exception $e ) {
+				$visitors = [];
+			}
+
+			$page++;
+			$no_data = count( $visitors ) < 1; // copied from wpstatistics
+			if ( $no_data ) {
+				$visitors = [];
+			} else {
+				$visitors = $this->convert_visitors_to_array( $visitors );
+			}
+			$visitors_found = array_merge( $visitors_found, $visitors );
+		} while ( true !== $no_data );
+		return $visitors_found;
+	}
+
+	/**
+	 * Converts VisitorDecorator objects to an array that Converter classes expect.
+	 *
+	 * @param VisitorDecorator[] $visitors
+	 */
+	protected function convert_visitors_to_array( $visitors ) {
+		$property = new \ReflectionProperty( VisitorDecorator::class, 'visitor' );
+		$property->setAccessible( true );
+
+		$result = [];
+		foreach ( $visitors as $visitor ) {
+			$raw_visitor_props   = $property->getValue( $visitor );
+			$last_view_timestamp = strtotime(
+				isset( $raw_visitor_props->last_view ) ? $raw_visitor_props->last_view : $raw_visitor_props->last_counter
+			);
+
+			$result[] = [
+				'ID'        => $visitor->getId(),
+				'IP'        => $visitor->getIP(),
+				'last_view' => $last_view_timestamp,
+				'last_page' => $visitor->getLastPage(),
+				'hits'      => $visitor->getHits(),
+				'referrer'  => [
+					'name' => $visitor->getReferral()->getRawReferrer(),
+					'link' => $visitor->getReferral()->getReferrer(),
+				],
+				'location'  => [
+					'country' => $visitor->getLocation()->getCountryName(),
+					'flag'    => $visitor->getLocation()->getCountryFlag(),
+				],
+				'browser'   => [
+					'name'    => $visitor->getBrowser()->getName(),
+					'version' => $visitor->getBrowser()->getVersion(),
+				],
+				'os'        => [
+					'name' => $visitor->getOs()->getName(),
+				],
+			];
+		}
+
+		return $result;
+	}
+
+	private function get_visitors_from_metabox( Date $date ) {
+		$page           = 1;
+		$limit          = 1000;
+		$visitors_found = [];
+
 		do {
 			$visitors = top_visitors::get(
 				[
@@ -78,6 +187,11 @@ class RecordImporter {
 			}
 			$visitors_found = array_merge( $visitors_found, $visitors );
 		} while ( true !== $no_data );
+
 		return $visitors_found;
+	}
+
+	public static function get_label( $row, $key ) {
+		return empty( $row[ $key ] ) ? '' : $row[ $key ];
 	}
 }

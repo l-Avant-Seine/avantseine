@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry;
 
@@ -84,7 +83,7 @@ class UserCountry extends \Piwik\Plugin
     public function isGeoIPWorking()
     {
         $provider = \Piwik\Plugins\UserCountry\LocationProvider::getCurrentProvider();
-        return $provider instanceof GeoIp2 && $provider->isAvailable() === true && $provider->isWorking() === true;
+        return $provider instanceof GeoIp2 && $provider->isAvailable() === \true && $provider->isWorking() === \true;
     }
     public static function isGeoLocationAdminEnabled()
     {

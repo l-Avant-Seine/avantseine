@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CorePluginsAdmin\Commands;
 
@@ -19,7 +19,7 @@ class UninstallPlugin extends ConsoleCommand
     {
         $this->setName('plugin:uninstall');
         $this->setDescription('Uninstall a plugin.');
-        $this->addOptionalArgument('plugin', 'The plugin name you want to uninstall. Multiple plugin names can be specified separated by a space.', null, true);
+        $this->addOptionalArgument('plugin', 'The plugin name you want to uninstall. Multiple plugin names can be specified separated by a space.', null, \true);
     }
     protected function doExecute() : int
     {

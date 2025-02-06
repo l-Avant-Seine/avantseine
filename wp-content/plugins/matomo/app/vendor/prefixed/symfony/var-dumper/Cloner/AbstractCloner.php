@@ -38,7 +38,7 @@ abstract class AbstractCloner implements ClonerInterface
      *
      * @see addCasters
      */
-    public function __construct(array $casters = null)
+    public function __construct(?array $casters = null)
     {
         if (null === $casters) {
             $casters = static::$defaultCasters;
@@ -101,7 +101,7 @@ abstract class AbstractCloner implements ClonerInterface
             if ($this->prevErrorHandler) {
                 return ($this->prevErrorHandler)($type, $msg, $file, $line, $context);
             }
-            return false;
+            return \false;
         });
         $this->filter = $filter;
         if ($gc = gc_enabled()) {

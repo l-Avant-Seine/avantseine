@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -50,7 +49,7 @@ class ColumnCallbackAddColumnQuotient extends BaseFilter
      * @param bool $getDivisorFromSummaryRow Whether to get the divisor from the summary row or the current
      *                                       row iteration.
      */
-    public function __construct($table, $columnNameToAdd, $columnValueToRead, $divisorValueOrDivisorColumnName, $quotientPrecision = 0, $shouldSkipRows = false, $getDivisorFromSummaryRow = false)
+    public function __construct($table, $columnNameToAdd, $columnValueToRead, $divisorValueOrDivisorColumnName, $quotientPrecision = 0, $shouldSkipRows = \false, $getDivisorFromSummaryRow = \false)
     {
         parent::__construct($table);
         $this->table = $table;
@@ -74,12 +73,12 @@ class ColumnCallbackAddColumnQuotient extends BaseFilter
     {
         foreach ($table->getRows() as $row) {
             $value = $this->getDividend($row);
-            if ($value === false && $this->shouldSkipRows) {
+            if ($value === \false && $this->shouldSkipRows) {
                 continue;
             }
             // Delete existing column if it exists
             $existingValue = $row->getColumn($this->columnNameToAdd);
-            if ($existingValue !== false) {
+            if ($existingValue !== \false) {
                 continue;
             }
             $divisor = $this->getDivisor($row);

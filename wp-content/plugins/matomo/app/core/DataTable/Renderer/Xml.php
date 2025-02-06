@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Renderer;
 
@@ -43,7 +42,7 @@ class Xml extends Renderer
      * @return array|string
      * @throws Exception
      */
-    protected function renderTable($table, $returnOnlyDataTableXml = false, $prefixLines = '')
+    protected function renderTable($table, $returnOnlyDataTableXml = \false, $prefixLines = '')
     {
         $array = $this->convertDataTableToArray($table);
         if ($table instanceof Map) {
@@ -114,7 +113,7 @@ class Xml extends Renderer
         // NOTE: this is for backwards compatibility. before, array's were added to a new DataTable.
         // if the array had arrays, they were added as multiple rows, otherwise it was treated as
         // one row. removing will change API output.
-        $wrapInRow = $prefixLines === "\t" && self::shouldWrapArrayBeforeRendering($array, $wrapSingleValues = false, $isAssociativeArray);
+        $wrapInRow = $prefixLines === "\t" && self::shouldWrapArrayBeforeRendering($array, $wrapSingleValues = \false, $isAssociativeArray);
         // render the array
         $result = "";
         if ($wrapInRow) {
@@ -124,7 +123,7 @@ class Xml extends Renderer
         foreach ($array as $key => $value) {
             // based on the type of array & the key, determine how this node will look
             if ($isAssociativeArray) {
-                if (strpos($key, '=') !== false) {
+                if (strpos($key, '=') !== \false) {
                     list($keyAttributeName, $key) = explode('=', $key, 2);
                     $prefix = "<row {$keyAttributeName}=\"{$key}\">";
                     $suffix = "</row>";
@@ -199,19 +198,17 @@ class Xml extends Renderer
                     $xml .= $prefixLines . "\t<result {$nameDescriptionAttribute}=\"{$valueAttribute}\" />\n";
                 } elseif ($value instanceof DataTable\DataTableInterface) {
                     //TODO somehow this code is not tested, cover this case
-                    $out = $this->renderTable($value, true);
+                    $out = $this->renderTable($value, \true);
+                    $xml .= "\t<result {$nameDescriptionAttribute}=\"{$valueAttribute}\">\n{$out}</result>\n";
+                } elseif (is_array($value)) {
+                    if (!is_array(reset($value))) {
+                        $out = $this->renderDataTableSimple($value);
+                    } else {
+                        $out = $this->renderDataTable($value);
+                    }
                     $xml .= "\t<result {$nameDescriptionAttribute}=\"{$valueAttribute}\">\n{$out}</result>\n";
                 } else {
-                    if (is_array($value)) {
-                        if (!is_array(reset($value))) {
-                            $out = $this->renderDataTableSimple($value);
-                        } else {
-                            $out = $this->renderDataTable($value);
-                        }
-                        $xml .= "\t<result {$nameDescriptionAttribute}=\"{$valueAttribute}\">\n{$out}</result>\n";
-                    } else {
-                        $xml .= $prefixLines . "\t<result {$nameDescriptionAttribute}=\"{$valueAttribute}\">" . self::formatValueXml($value) . "</result>\n";
-                    }
+                    $xml .= $prefixLines . "\t<result {$nameDescriptionAttribute}=\"{$valueAttribute}\">" . self::formatValueXml($value) . "</result>\n";
                 }
             }
             return $xml;
@@ -293,7 +290,7 @@ class Xml extends Renderer
             $tables = $table->getDataTables();
             $nameDescriptionAttribute = $table->getKeyName();
             foreach ($tables as $valueAttribute => $tableInArray) {
-                $out = $this->renderTable($tableInArray, true, $prefixLines . "\t");
+                $out = $this->renderTable($tableInArray, \true, $prefixLines . "\t");
                 $xml .= $prefixLines . "\t<result {$nameDescriptionAttribute}=\"{$valueAttribute}\">\n" . $out . $prefixLines . "\t</result>\n";
             }
             return $xml;
@@ -323,7 +320,7 @@ class Xml extends Renderer
             }
             // Handing case idgoal=7, creating a new array for that one
             $rowAttribute = '';
-            if (strstr($rowId, '=') !== false) {
+            if (strstr($rowId, '=') !== \false) {
                 $rowAttribute = explode('=', $rowId);
                 $rowAttribute = " " . $rowAttribute[0] . "='" . $rowAttribute[1] . "'";
             }
@@ -343,17 +340,15 @@ class Xml extends Renderer
                             $value = "\n" . $this->renderDataTable($value, $prefixLine . "\t\t");
                         }
                         $value .= $prefixLine . "\t\t";
-                    } else {
-                        if (is_array($value)) {
-                            if (is_array(reset($value))) {
-                                $value = "\n" . $this->renderDataTable($value, $prefixLine . "\t\t");
-                            } else {
-                                $value = "\n" . $this->renderArray($value, $prefixLine . "\t\t");
-                            }
-                            $value .= $prefixLine . "\t\t";
+                    } elseif (is_array($value)) {
+                        if (is_array(reset($value))) {
+                            $value = "\n" . $this->renderDataTable($value, $prefixLine . "\t\t");
                         } else {
-                            $value = self::formatValueXml($value);
+                            $value = "\n" . $this->renderArray($value, $prefixLine . "\t\t");
                         }
+                        $value .= $prefixLine . "\t\t";
+                    } else {
+                        $value = self::formatValueXml($value);
                     }
                     list($tagStart, $tagEnd) = $this->getTagStartAndEndFor($name, $columnsHaveInvalidChars);
                     if (strlen((string) $value) == 0) {
@@ -387,18 +382,16 @@ class Xml extends Renderer
             list($tagStart, $tagEnd) = $this->getTagStartAndEndFor($keyName, $columnsHaveInvalidChars);
             if (is_string($xmlValue) && strlen($xmlValue) == 0) {
                 $out .= $prefixLine . "\t<{$tagStart} />\n";
-            } else {
-                if ($value instanceof DataTable || is_array($value)) {
-                    $arrayValue = $this->convertDataTableToArray($value);
-                    if (!is_array(reset($arrayValue))) {
-                        $xmlTable = $this->renderDataTableSimple($arrayValue, $prefixLine . "\t");
-                    } else {
-                        $xmlTable = $this->renderDataTable($arrayValue, $prefixLine . "\t");
-                    }
-                    $out .= $prefixLine . "\t<{$tagStart}>\n" . $xmlTable . $prefixLine . "\t</{$tagEnd}>\n";
+            } elseif ($value instanceof DataTable || is_array($value)) {
+                $arrayValue = $this->convertDataTableToArray($value);
+                if (!is_array(reset($arrayValue))) {
+                    $xmlTable = $this->renderDataTableSimple($arrayValue, $prefixLine . "\t");
                 } else {
-                    $out .= $prefixLine . "\t<{$tagStart}>" . $xmlValue . "</{$tagEnd}>\n";
+                    $xmlTable = $this->renderDataTable($arrayValue, $prefixLine . "\t");
                 }
+                $out .= $prefixLine . "\t<{$tagStart}>\n" . $xmlTable . $prefixLine . "\t</{$tagEnd}>\n";
+            } else {
+                $out .= $prefixLine . "\t<{$tagStart}>" . $xmlValue . "</{$tagEnd}>\n";
             }
         }
         return $out;
@@ -425,11 +418,11 @@ class Xml extends Renderer
         if (!empty($rowArray)) {
             foreach ($rowArray as $name => $value) {
                 if (!self::isValidXmlTagName($name)) {
-                    return true;
+                    return \true;
                 }
             }
         }
-        return false;
+        return \false;
     }
     private function getTagStartAndEndFor($keyName, $columnsHaveInvalidChars)
     {

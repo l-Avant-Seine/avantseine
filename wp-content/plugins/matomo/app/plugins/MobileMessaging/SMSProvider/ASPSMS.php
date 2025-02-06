@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\MobileMessaging\SMSProvider;
 
@@ -20,19 +19,19 @@ require_once PIWIK_INCLUDE_PATH . "/plugins/MobileMessaging/APIException.php";
  */
 class ASPSMS extends SMSProvider
 {
-    const SOCKET_TIMEOUT = 15;
-    const BASE_API_URL = 'https://json.aspsms.com/';
-    const CHECK_CREDIT_RESOURCE = 'CheckCredits';
-    const SEND_SMS_RESOURCE = 'SendTextSMS';
-    const MAXIMUM_FROM_LENGTH = 11;
-    const MAXIMUM_CONCATENATED_SMS = 9;
+    public const SOCKET_TIMEOUT = 15;
+    public const BASE_API_URL = 'https://json.aspsms.com/';
+    public const CHECK_CREDIT_RESOURCE = 'CheckCredits';
+    public const SEND_SMS_RESOURCE = 'SendTextSMS';
+    public const MAXIMUM_FROM_LENGTH = 11;
+    public const MAXIMUM_CONCATENATED_SMS = 9;
     public function getId()
     {
         return 'ASPSMS';
     }
     public function getDescription()
     {
-        return 'You can use <a target="_blank" rel="noreferrer noopener" href="http://www.aspsms.com/en/?REF=227830"><img src="plugins/MobileMessaging/images/ASPSMS.png"/></a> to send SMS Reports from Piwik.<br/>
+        return 'You can use <a target="_blank" rel="noreferrer noopener" href="http://www.aspsms.com/en/?REF=227830"><img src="plugins/MobileMessaging/images/ASPSMS.png"/></a> to send SMS Reports from Matomo.<br/>
 			<ul>
 			<li> First, <a target="_blank" rel="noreferrer noopener" href="http://www.aspsms.com/en/registration/?REF=227830">get an Account at ASPSMS</a> (Signup is free!)
 			</li><li> Enter your ASPSMS credentials on this page. </li>
@@ -54,7 +53,7 @@ class ASPSMS extends SMSProvider
     public function verifyCredential($credentials)
     {
         $this->getCreditLeft($credentials);
-        return true;
+        return \true;
     }
     public function sendSMS($credentials, $smsText, $phoneNumber, $from)
     {
@@ -70,11 +69,11 @@ class ASPSMS extends SMSProvider
         $url = self::BASE_API_URL . $resource;
         $timeout = self::SOCKET_TIMEOUT;
         try {
-            $result = Http::sendHttpRequestBy(Http::getTransportMethod(), $url, $timeout, $userAgent = null, $destinationPath = null, $file = null, $followDepth = 0, $acceptLanguage = false, $acceptInvalidSslCertificate = false, $byteRange = false, $getExtendedInfo = false, $httpMethod = 'POST', $httpUserName = null, $httpPassword = null, $requestBody = json_encode($parameters));
+            $result = Http::sendHttpRequestBy(Http::getTransportMethod(), $url, $timeout, $userAgent = null, $destinationPath = null, $file = null, $followDepth = 0, $acceptLanguage = \false, $acceptInvalidSslCertificate = \false, $byteRange = \false, $getExtendedInfo = \false, $httpMethod = 'POST', $httpUserName = null, $httpPassword = null, $requestBody = json_encode($parameters));
         } catch (Exception $e) {
             throw new APIException($e->getMessage());
         }
-        $result = @json_decode($result, true);
+        $result = @json_decode($result, \true);
         if (!$result || $result['StatusCode'] != 1) {
             throw new APIException('ASPSMS API returned the following error message : ' . $result['StatusInfo']);
         }

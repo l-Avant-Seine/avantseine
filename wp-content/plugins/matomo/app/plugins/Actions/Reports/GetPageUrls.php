@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Reports;
 
@@ -33,7 +32,7 @@ class GetPageUrls extends \Piwik\Plugins\Actions\Reports\Base
         $this->metrics = array('nb_hits', 'nb_visits');
         $this->processedMetrics = array(new AverageTimeOnPage(), new BounceRate(), new ExitRate(), new AveragePageGenerationTime());
         $this->subcategoryId = 'General_Pages';
-        $this->hasGoalMetrics = true;
+        $this->hasGoalMetrics = \true;
     }
     public function configureWidgets(WidgetsList $widgetsList, ReportWidgetFactory $factory)
     {
@@ -60,7 +59,7 @@ class GetPageUrls extends \Piwik\Plugins\Actions\Reports\Base
         }
         $this->addPageDisplayProperties($view);
         $this->addBaseDisplayProperties($view);
-        $view->config->show_goals = true;
+        $view->config->show_goals = \true;
         // related reports are only shown on performance page
         if ($view->requestConfig->getRequestParam('performance') !== '1') {
             $view->config->related_reports = [];

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome;
 
@@ -35,17 +34,17 @@ class CoreHome extends \Piwik\Plugin
      * where on the left side a link is shown for each widget and on the right side the selected widget.
      * @api
      */
-    const WIDGET_CONTAINER_LAYOUT_BY_DIMENSION = 'ByDimension';
+    public const WIDGET_CONTAINER_LAYOUT_BY_DIMENSION = 'ByDimension';
     /**
      * @see \Piwik\Plugin::registerEvents
      */
     public function registerEvents()
     {
-        return array('AssetManager.getStylesheetFiles' => 'getStylesheetFiles', 'AssetManager.getJavaScriptFiles' => 'getJsFiles', 'AssetManager.filterMergedJavaScripts' => 'filterMergedJavaScripts', 'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys', 'Metric.addComputedMetrics' => 'addComputedMetrics', 'Request.initAuthenticationObject' => ['function' => 'checkAllowedIpsOnAuthentication', 'before' => true], 'AssetManager.addStylesheets' => 'addStylesheets', 'Request.dispatchCoreAndPluginUpdatesScreen' => ['function' => 'checkAllowedIpsOnAuthentication', 'before' => true], 'Tracker.setTrackerCacheGeneral' => 'setTrackerCacheGeneral');
+        return array('AssetManager.getStylesheetFiles' => 'getStylesheetFiles', 'AssetManager.getJavaScriptFiles' => 'getJsFiles', 'AssetManager.filterMergedJavaScripts' => 'filterMergedJavaScripts', 'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys', 'Metric.addComputedMetrics' => 'addComputedMetrics', 'Request.initAuthenticationObject' => ['function' => 'checkAllowedIpsOnAuthentication', 'before' => \true], 'AssetManager.addStylesheets' => 'addStylesheets', 'Request.dispatchCoreAndPluginUpdatesScreen' => ['function' => 'checkAllowedIpsOnAuthentication', 'before' => \true], 'Tracker.setTrackerCacheGeneral' => 'setTrackerCacheGeneral');
     }
     public function isTrackerPlugin()
     {
-        return true;
+        return \true;
     }
     public function setTrackerCacheGeneral(&$cacheGeneral)
     {
@@ -114,6 +113,7 @@ class CoreHome extends \Piwik\Plugin
         $stylesheets[] = "plugins/CoreHome/stylesheets/notification.less";
         $stylesheets[] = "plugins/CoreHome/stylesheets/zen-mode.less";
         $stylesheets[] = "plugins/CoreHome/stylesheets/layout.less";
+        $stylesheets[] = "plugins/CoreHome/stylesheets/matomo-loader.less";
         $stylesheets[] = "plugins/CoreHome/vue/src/EnrichedHeadline/EnrichedHeadline.less";
         $stylesheets[] = "plugins/CoreHome/vue/src/Notification/Notification.less";
         $stylesheets[] = "plugins/CoreHome/vue/src/QuickAccess/QuickAccess.less";
@@ -155,7 +155,6 @@ class CoreHome extends \Piwik\Plugin
         $jsFiles[] = "libs/jqplot/jqplot-custom.min.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/color_manager.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/notification.js";
-        $jsFiles[] = "plugins/CoreHome/javascripts/numberFormatter.js";
         $jsFiles[] = "plugins/CoreHome/javascripts/listingFormatter.js";
         // we have to load these CorePluginsAdmin files here. If we loaded them in CorePluginsAdmin,
         // there would be JS errors as CorePluginsAdmin is loaded first. Meaning it is loaded before
@@ -199,6 +198,7 @@ class CoreHome extends \Piwik\Plugin
         $translationKeys[] = 'CoreHome_AddTotalsRowDataTable';
         $translationKeys[] = 'CoreHome_RemoveTotalsRowDataTable';
         $translationKeys[] = 'CoreHome_PeriodHasOnlyRawData';
+        $translationKeys[] = 'CoreHome_PeriodHasOnlyRawDataNoVisitsLog';
         $translationKeys[] = 'SitesManager_NotFound';
         $translationKeys[] = 'Annotations_ViewAndAddAnnotations';
         $translationKeys[] = 'General_RowEvolutionRowActionTooltipTitle';
@@ -372,7 +372,7 @@ class CoreHome extends \Piwik\Plugin
                 foreach ($menu as $level1 => $level2) {
                     $translationKeys[] = $level1;
                     foreach ($level2 as $name => $params) {
-                        if (strpos($name, '_') !== false) {
+                        if (strpos($name, '_') !== \false) {
                             $translationKeys[] = $name;
                         }
                     }

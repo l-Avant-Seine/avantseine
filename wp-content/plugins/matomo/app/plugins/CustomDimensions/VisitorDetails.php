@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CustomDimensions;
 
@@ -70,7 +69,7 @@ class VisitorDetails extends VisitorDetailsAbstract
             return [];
         }
         $view = new View('@CustomDimensions/_visitorDetails');
-        $view->sendHeadersWhenRendering = false;
+        $view->sendHeadersWhenRendering = \false;
         $view->visitInfo = $visitorDetails;
         $view->customDimensions = $this->getCustomDimensionsFromVisit($visitorDetails);
         return [[40, $view->render()]];
@@ -96,7 +95,7 @@ class VisitorDetails extends VisitorDetailsAbstract
         }
         $action['customDimensions'] = $customDimensions;
         $view = new View('@CustomDimensions/_actionTooltip');
-        $view->sendHeadersWhenRendering = false;
+        $view->sendHeadersWhenRendering = \false;
         $view->action = $action;
         return [[30, $view->render()]];
     }

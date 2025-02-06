@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreAdminHome;
 
@@ -57,7 +56,7 @@ class OptOutManager
     /**
      * @param DoNotTrackHeaderChecker|null $doNotTrackHeaderChecker
      */
-    public function __construct(DoNotTrackHeaderChecker $doNotTrackHeaderChecker = null)
+    public function __construct(?DoNotTrackHeaderChecker $doNotTrackHeaderChecker = null)
     {
         $this->doNotTrackHeaderChecker = $doNotTrackHeaderChecker ?: new DoNotTrackHeaderChecker();
         $this->javascripts = array('inline' => array(), 'external' => array());
@@ -70,7 +69,7 @@ class OptOutManager
      * @param string $javascript
      * @param bool $inline
      */
-    public function addJavaScript($javascript, $inline = true)
+    public function addJavaScript($javascript, $inline = \true)
     {
         $type = $inline ? 'inline' : 'external';
         $this->javascripts[$type][] = $javascript;
@@ -89,7 +88,7 @@ class OptOutManager
      * @param string $stylesheet Escaped stylesheet
      * @param bool $inline
      */
-    public function addStylesheet($stylesheet, $inline = true)
+    public function addStylesheet($stylesheet, $inline = \true)
     {
         $type = $inline ? 'inline' : 'external';
         $this->stylesheets[$type][] = $stylesheet;
@@ -122,19 +121,19 @@ class OptOutManager
      *
      * @return bool
      */
-    public function addQueryParameter($key, $value, $override = true)
+    public function addQueryParameter($key, $value, $override = \true)
     {
-        if (!isset($this->queryParameters[$key]) || true === $override) {
+        if (!isset($this->queryParameters[$key]) || \true === $override) {
             $this->queryParameters[$key] = $value;
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     /**
      * @param array $items
      * @param bool|true $override
      */
-    public function addQueryParameters(array $items, $override = true)
+    public function addQueryParameters(array $items, $override = \true)
     {
         foreach ($items as $key => $value) {
             $this->addQueryParameter($key, $value, $override);
@@ -189,11 +188,11 @@ class OptOutManager
     {
         $cookiePath = Common::getRequestVar('cookiePath', '', 'string');
         $cookieDomain = Common::getRequestVar('cookieDomain', '', 'string');
-        $settings = ['showIntro' => $showIntro, 'divId' => 'matomo-opt-out', 'useSecureCookies' => true, 'cookiePath' => $cookiePath !== '' ? $cookiePath : null, 'cookieDomain' => $cookieDomain !== '' ? $cookieDomain : null, 'cookieSameSite' => Common::getRequestVar('cookieSameSite', 'Lax', 'string')];
+        $settings = ['showIntro' => $showIntro, 'divId' => 'matomo-opt-out', 'useSecureCookies' => \true, 'cookiePath' => $cookiePath !== '' ? $cookiePath : null, 'cookieDomain' => $cookieDomain !== '' ? $cookieDomain : null, 'cookieSameSite' => Common::getRequestVar('cookieSameSite', 'Lax', 'string')];
         // Self contained code translations are static and always use the language of the user who generated the embed code
         $settings = array_merge($settings, $this->getTranslations());
         $settingsString = 'var settings = ' . json_encode($settings) . ';';
-        $styleSheet = $this->optOutStyling($fontSize, $fontColor, $fontFamily, $backgroundColor, true);
+        $styleSheet = $this->optOutStyling($fontSize, $fontColor, $fontFamily, $backgroundColor, \true);
         $code = <<<HTML
 <div id="matomo-opt-out" style=""></div>
 <script>    
@@ -247,7 +246,7 @@ HTML;
         $translations['OptOutErrorNoTracker'] = Piwik::translate('CoreAdminHome_OptOutErrorNoTracker', [], $language);
         $settings = array_merge($settings, $translations);
         $settingsString = 'var settings = ' . json_encode($settings) . ';';
-        $styleSheet = $this->optOutStyling(null, null, null, null, true);
+        $styleSheet = $this->optOutStyling(null, null, null, null, \true);
         /** @lang JavaScript */
         $code = <<<JS
 
@@ -331,7 +330,7 @@ JS;
     
             var div = document.getElementById(settings.divId);
             if (!div) {
-                const warningDiv = document.createElement("div");
+                var warningDiv = document.createElement("div");
                 var msg = 'Unable to find opt-out content div: "'+settings.divId+'"';
                 warningDiv.id = settings.divId+'-warning';
                 warningDiv.innerHTML = errorBlock+msg+'</p>';
@@ -344,15 +343,18 @@ JS;
                 div.innerHTML = errorBlock+settings.OptOutErrorNoCookies+'</p>';
                 return;
             }
-            if (location.protocol !== 'https:') {
-                div.innerHTML = errorBlock+settings.OptOutErrorNotHttps+'</p>';
-                return;
-            }        
+
             if (errorMessage !== null) {
                 div.innerHTML = errorBlock+errorMessage+'</p>';
                 return;
             }
+
             var content = '';        
+
+            if (location.protocol !== 'https:') {
+                content += errorBlock + settings.OptOutErrorNotHttps + '</p>';
+            }
+
             if (consent) {
                 if (settings.showIntro) {
                     content += '<p>'+settings.YouMayOptOut2+' '+settings.YouMayOptOut3+'</p>';                       
@@ -437,7 +439,7 @@ JS;
      *
      * @return array
      */
-    private function getTranslations(string $language = null) : array
+    private function getTranslations(?string $language = null) : array
     {
         return ['OptOutComplete' => Piwik::translate('CoreAdminHome_OptOutComplete', [], $language), 'OptOutCompleteBis' => Piwik::translate('CoreAdminHome_OptOutCompleteBis', [], $language), 'YouMayOptOut2' => Piwik::translate('CoreAdminHome_YouMayOptOut2', [], $language), 'YouMayOptOut3' => Piwik::translate('CoreAdminHome_YouMayOptOut3', [], $language), 'OptOutErrorNoCookies' => Piwik::translate('CoreAdminHome_OptOutErrorNoCookies', [], $language), 'OptOutErrorNotHttps' => Piwik::translate('CoreAdminHome_OptOutErrorNotHttps', [], $language), 'YouAreNotOptedOut' => Piwik::translate('CoreAdminHome_YouAreNotOptedOut', [], $language), 'UncheckToOptOut' => Piwik::translate('CoreAdminHome_UncheckToOptOut', [], $language), 'YouAreOptedOut' => Piwik::translate('CoreAdminHome_YouAreOptedOut', [], $language), 'CheckToOptIn' => Piwik::translate('CoreAdminHome_CheckToOptIn', [], $language)];
     }
@@ -454,18 +456,18 @@ JS;
         }
         $trackVisits = !IgnoreCookie::isIgnoreCookieFound();
         $dntFound = $this->getDoNotTrackHeaderChecker()->isDoNotTrackFound();
-        $setCookieInNewWindow = Common::getRequestVar('setCookieInNewWindow', false, 'int');
+        $setCookieInNewWindow = Common::getRequestVar('setCookieInNewWindow', \false, 'int');
         if ($setCookieInNewWindow) {
-            $nonce = Common::getRequestVar('nonce', false);
-            if ($nonce !== false && !Nonce::verifyNonce('Piwik_OptOut', $nonce)) {
+            $nonce = Common::getRequestVar('nonce', \false);
+            if ($nonce !== \false && !Nonce::verifyNonce('Piwik_OptOut', $nonce)) {
                 Nonce::discardNonce('Piwik_OptOut');
                 $nonce = '';
             }
             $reloadUrl = Url::getCurrentQueryStringWithParametersModified(array('showConfirmOnly' => 1, 'setCookieInNewWindow' => 0, 'nonce' => $nonce ?: ''));
         } else {
-            $reloadUrl = false;
-            $requestNonce = Common::getRequestVar('nonce', false);
-            if ($requestNonce !== false && Nonce::verifyNonce('Piwik_OptOut', $requestNonce)) {
+            $reloadUrl = \false;
+            $requestNonce = Common::getRequestVar('nonce', \false);
+            if ($requestNonce !== \false && Nonce::verifyNonce('Piwik_OptOut', $requestNonce)) {
                 Nonce::discardNonce('Piwik_OptOut');
                 IgnoreCookie::setIgnoreCookie();
                 $trackVisits = !$trackVisits;
@@ -474,19 +476,19 @@ JS;
         $language = Common::getRequestVar('language', '', 'string');
         $lang = APILanguagesManager::getInstance()->isLanguageAvailable($language) ? $language : LanguagesManager::getLanguageCodeForCurrentUser();
         $nonce = Nonce::getNonce('Piwik_OptOut', 3600);
-        $this->addQueryParameters(array('module' => 'CoreAdminHome', 'action' => 'optOut', 'language' => $lang, 'setCookieInNewWindow' => 1, 'nonce' => $nonce), false);
+        $this->addQueryParameters(array('module' => 'CoreAdminHome', 'action' => 'optOut', 'language' => $lang, 'setCookieInNewWindow' => 1, 'nonce' => $nonce), \false);
         if (Common::getRequestVar('applyStyling', 1, 'int')) {
             $this->addStylesheet($this->optOutStyling());
         }
         $this->view = new View("@CoreAdminHome/optOut");
-        $this->addJavaScript('plugins/CoreAdminHome/javascripts/optOut.js', false);
+        $this->addJavaScript('plugins/CoreAdminHome/javascripts/optOut.js', \false);
         $this->view->setXFrameOptions('allow');
         $this->view->dntFound = $dntFound;
         $this->view->trackVisits = $trackVisits;
         $this->view->nonce = $nonce;
         $this->view->language = $lang;
         $this->view->showIntro = Common::getRequestVar('showIntro', 1, 'int');
-        $this->view->showConfirmOnly = Common::getRequestVar('showConfirmOnly', false, 'int');
+        $this->view->showConfirmOnly = Common::getRequestVar('showConfirmOnly', \false, 'int');
         $this->view->reloadUrl = $reloadUrl;
         $this->view->javascripts = $this->getJavaScripts();
         $this->view->stylesheets = $this->getStylesheets();
@@ -506,7 +508,7 @@ JS;
      * @return string
      * @throws \Exception
      */
-    private function optOutStyling(?string $fontSize = null, ?string $fontColor = null, ?string $fontFamily = null, ?string $backgroundColor = null, bool $noBody = false) : string
+    private function optOutStyling(?string $fontSize = null, ?string $fontColor = null, ?string $fontFamily = null, ?string $backgroundColor = null, bool $noBody = \false) : string
     {
         $cssfontsize = $fontSize ?: Request::fromRequest()->getStringParameter('fontSize', '');
         $cssfontcolour = $fontColor ?: Request::fromRequest()->getStringParameter('fontColor', '');
@@ -519,25 +521,21 @@ JS;
         }
         $hexstrings = array('fontColor' => $cssfontcolour, 'backgroundColor' => $cssbackgroundcolor);
         foreach ($hexstrings as $key => $testcase) {
-            if ($testcase && !(ctype_xdigit($testcase) && in_array(strlen($testcase), array(3, 6), true))) {
+            if ($testcase && !(ctype_xdigit($testcase) && in_array(strlen($testcase), array(3, 6), \true))) {
                 throw new \Exception("The URL parameter {$key} value of '{$testcase}' is not valid. Expected value is for example 'ffffff' or 'fff'.\n");
             }
         }
         /** @noinspection RegExpRedundantEscape */
         if ($cssfontsize && preg_match("/^[0-9]+[\\.]?[0-9]*(px|pt|em|rem|%)\$/", $cssfontsize)) {
             $cssbody .= 'font-size: ' . $cssfontsize . '; ';
-        } else {
-            if ($cssfontsize) {
-                throw new \Exception("The URL parameter fontSize value of '{$cssfontsize}' is not valid. Expected value is for example '15pt', '1.2em' or '13px'.\n");
-            }
+        } elseif ($cssfontsize) {
+            throw new \Exception("The URL parameter fontSize value of '{$cssfontsize}' is not valid. Expected value is for example '15pt', '1.2em' or '13px'.\n");
         }
         /** @noinspection RegExpRedundantEscape */
         if ($cssfontfamily && preg_match('/^[a-zA-Z0-9-\\ ,\'"]+$/', $cssfontfamily)) {
             $cssbody .= 'font-family: ' . $cssfontfamily . '; ';
-        } else {
-            if ($cssfontfamily) {
-                throw new \Exception("The URL parameter fontFamily value of '{$cssfontfamily}' is not valid. Expected value is for example 'sans-serif' or 'Monaco, monospace'.\n");
-            }
+        } elseif ($cssfontfamily) {
+            throw new \Exception("The URL parameter fontFamily value of '{$cssfontfamily}' is not valid. Expected value is for example 'sans-serif' or 'Monaco, monospace'.\n");
         }
         if ($cssfontcolour) {
             $cssbody .= 'color: #' . $cssfontcolour . '; ';

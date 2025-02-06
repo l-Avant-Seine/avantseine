@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\VisitsSummary\Reports;
 
@@ -84,7 +83,7 @@ class Get extends \Piwik\Plugin\Report
             };
             // Add evolution values to sparklines
             list($lastPeriodDate, $ignore) = Range::getLastDate();
-            if ($lastPeriodDate !== false) {
+            if ($lastPeriodDate !== \false) {
                 $currentPeriod = Period\Factory::build(Piwik::getPeriod(), Common::getRequestVar('date'));
                 $currentPrettyDate = $currentPeriod instanceof Month ? $currentPeriod->getLocalizedLongString() : $currentPeriod->getPrettyString();
                 $lastPeriod = Period\Factory::build(Piwik::getPeriod(), $lastPeriodDate);
@@ -212,7 +211,7 @@ class Get extends \Piwik\Plugin\Report
         }
         if (!empty($response['reportData'])) {
             $dataTable = $response['reportData'];
-            $dataTable->deleteColumn($this->usersColumn, true);
+            $dataTable->deleteColumn($this->usersColumn, \true);
         }
     }
 }

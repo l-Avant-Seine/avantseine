@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Visualization;
 
@@ -18,20 +17,20 @@ use Piwik\View\ViewInterface;
  */
 class Sparkline implements ViewInterface
 {
-    const DEFAULT_WIDTH = 200;
-    const DEFAULT_HEIGHT = 50;
-    const MAX_WIDTH = 1000;
-    const MAX_HEIGHT = 1000;
+    public const DEFAULT_WIDTH = 200;
+    public const DEFAULT_HEIGHT = 50;
+    public const MAX_WIDTH = 1000;
+    public const MAX_HEIGHT = 1000;
     /**
      * Width of the sparkline
      * @var int
      */
-    protected $_width = self::DEFAULT_WIDTH;
+    protected $width = self::DEFAULT_WIDTH;
     /**
      * Height of sparkline
      * @var int
      */
-    protected $_height = self::DEFAULT_HEIGHT;
+    protected $height = self::DEFAULT_HEIGHT;
     private $serieses = [];
     /**
      * @var \Davaxi\Sparkline
@@ -63,20 +62,20 @@ class Sparkline implements ViewInterface
         // remove default series
         foreach ($this->serieses as $seriesIndex => $series) {
             $values = [];
-            $hasFloat = false;
+            $hasFloat = \false;
             foreach ($series as $value) {
                 // replace localized decimal separator
                 $value = str_replace($thousandSeparator, '', $value);
                 $value = str_replace($decimalSeparator, '.', $value);
                 // sanitize value
-                $value = filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION | FILTER_FLAG_ALLOW_SCIENTIFIC);
+                $value = filter_var($value, \FILTER_SANITIZE_NUMBER_FLOAT, \FILTER_FLAG_ALLOW_FRACTION | \FILTER_FLAG_ALLOW_SCIENTIFIC);
                 if (empty($value) || !is_numeric($value)) {
                     $value = 0;
                 }
                 $values[] = $value;
                 if (is_float($value + 0)) {
                     // coerce to int/float type before checking
-                    $hasFloat = true;
+                    $hasFloat = \true;
                 }
             }
             // the sparkline lib used converts everything to integers (see the FormatTrait.php file) which means float
@@ -103,7 +102,7 @@ class Sparkline implements ViewInterface
      */
     public function getWidth()
     {
-        return $this->_width;
+        return $this->width;
     }
     /**
      * Sets the width of the sparkline
@@ -115,9 +114,9 @@ class Sparkline implements ViewInterface
             return;
         }
         if ($width > self::MAX_WIDTH) {
-            $this->_width = self::MAX_WIDTH;
+            $this->width = self::MAX_WIDTH;
         } else {
-            $this->_width = (int) $width;
+            $this->width = (int) $width;
         }
     }
     /**
@@ -126,7 +125,7 @@ class Sparkline implements ViewInterface
      */
     public function getHeight()
     {
-        return $this->_height;
+        return $this->height;
     }
     /**
      * Sets the height of the sparkline
@@ -138,9 +137,9 @@ class Sparkline implements ViewInterface
             return;
         }
         if ($height > self::MAX_HEIGHT) {
-            $this->_height = self::MAX_HEIGHT;
+            $this->height = self::MAX_HEIGHT;
         } else {
-            $this->_height = (int) $height;
+            $this->height = (int) $height;
         }
     }
     /**
@@ -150,7 +149,7 @@ class Sparkline implements ViewInterface
      */
     private function setSparklineColors($sparkline, $seriesIndex)
     {
-        $colors = Common::getRequestVar('colors', false, 'json');
+        $colors = Common::getRequestVar('colors', \false, 'json');
         $defaultColors = array('backgroundColor' => '#ffffff', 'lineColor' => '#162C4A', 'minPointColor' => '#ff7f7f', 'maxPointColor' => '#75BF7C', 'lastPointColor' => '#55AAFF', 'fillColor' => '#ffffff');
         if (empty($colors)) {
             $colors = $defaultColors;
@@ -188,14 +187,15 @@ class Sparkline implements ViewInterface
     }
     public function render()
     {
-        if (empty($this->sparkline->getSeriesCount())) {
+        if (!$this->sparkline instanceof \Davaxi\Sparkline) {
+            return;
+        }
+        if (0 === $this->sparkline->getSeriesCount()) {
             // ensure to have at least one series & point in sparkline to avoid possible php notices/errors
             // a sparkline will then be displayed with a zero line
             $this->sparkline->addSeries([0]);
         }
-        if ($this->sparkline instanceof \Davaxi\Sparkline) {
-            $this->sparkline->display();
-            $this->sparkline->destroy();
-        }
+        $this->sparkline->display();
+        $this->sparkline->destroy();
     }
 }

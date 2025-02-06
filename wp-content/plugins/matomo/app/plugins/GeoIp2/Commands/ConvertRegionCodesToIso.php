@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\GeoIp2\Commands;
 
@@ -18,8 +17,8 @@ use Piwik\Plugins\UserCountry\LocationProvider;
 use Piwik\Plugins\GeoIp2\LocationProvider\GeoIp2;
 class ConvertRegionCodesToIso extends ConsoleCommand
 {
-    const OPTION_NAME = 'regioncodes_converted';
-    const MAPPING_TABLE_NAME = 'fips2iso';
+    public const OPTION_NAME = 'regioncodes_converted';
+    public const MAPPING_TABLE_NAME = 'fips2iso';
     protected function configure()
     {
         $this->setName('usercountry:convert-region-codes');
@@ -40,7 +39,7 @@ class ConvertRegionCodesToIso extends ConsoleCommand
             $output->writeln('Converting region codes already done.');
             return self::SUCCESS;
         }
-        $output->setDecorated(true);
+        $output->setDecorated(\true);
         $output->write('Creating mapping table in database');
         Db::query('DROP table if exists ' . self::MAPPING_TABLE_NAME);
         DbHelper::createTable(self::MAPPING_TABLE_NAME, "`country_code` VARCHAR(2) NOT NULL,\n                           `fips_code` VARCHAR(2) NOT NULL,\n                           `iso_code` VARCHAR(4) NULL DEFAULT NULL,\n                           PRIMARY KEY (`country_code`, `fips_code`)");
@@ -83,7 +82,7 @@ class ConvertRegionCodesToIso extends ConsoleCommand
         Db::dropTables(Common::prefixTable(self::MAPPING_TABLE_NAME));
         $output->writeln(' <fg=green>✓</>');
         // save option to prevent a second run
-        Option::set(self::OPTION_NAME, true);
+        Option::set(self::OPTION_NAME, \true);
         $output->writeln('All region codes converted.');
         return self::SUCCESS;
     }

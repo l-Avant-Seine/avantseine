@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Login\Security;
 
@@ -20,8 +19,8 @@ use Piwik\Updater;
 use Piwik\Log\LoggerInterface;
 class BruteForceDetection
 {
-    const OVERALL_LOGIN_LOCKOUT_THRESHOLD_MIN = 10;
-    const TABLE_NAME = 'brute_force_log';
+    public const OVERALL_LOGIN_LOCKOUT_THRESHOLD_MIN = 10;
+    public const TABLE_NAME = 'brute_force_log';
     private $minutesTimeRange;
     private $maxLogAttempts;
     private $table = self::TABLE_NAME;
@@ -51,7 +50,7 @@ class BruteForceDetection
     {
         $dbSchemaVersion = $this->updater->getCurrentComponentVersion('core');
         if ($dbSchemaVersion && version_compare($dbSchemaVersion, '3.8.0') == -1) {
-            return false;
+            return \false;
             // do not enable brute force detection before the tables exist
         }
         return $this->settings->enableBruteForceDetection->getValue();
@@ -69,10 +68,10 @@ class BruteForceDetection
     public function isAllowedToLogin($ipAddress)
     {
         if ($this->settings->isBlacklistedIp($ipAddress)) {
-            return false;
+            return \false;
         }
         if ($this->settings->isWhitelistedIp($ipAddress)) {
-            return true;
+            return \true;
         }
         $db = Db::get();
         $startTime = $this->getStartTimeRange();
@@ -145,12 +144,12 @@ class BruteForceDetection
             $this->ignoreExceptionIfThrownDuringOneClickUpdate($ex);
         }
         if (!$this->hasTooManyTriesOverallInlastHour($count)) {
-            return false;
+            return \false;
         }
         if (!$this->model->hasNotifiedUserAboutSuspiciousLogins($login)) {
             $this->sendSuspiciousLoginsEmailToUser($login, $count);
         }
-        return true;
+        return \true;
     }
     private function hasTooManyTriesOverallInLastHour($count)
     {
@@ -166,7 +165,7 @@ class BruteForceDetection
             $this->model->markSuspiciousLoginsNotifiedEmailSent($login);
         } catch (\Exception $ex) {
             // log if error is not that we can't find a user
-            if (strpos($ex->getMessage(), 'unable to find user to send') === false) {
+            if (strpos($ex->getMessage(), 'unable to find user to send') === \false) {
                 StaticContainer::get(LoggerInterface::class)->info('Error when sending ' . SuspiciousLoginAttemptsInLastHourEmail::class . ' email. User exists but encountered {exception}', ['exception' => $ex]);
             }
         }
@@ -180,8 +179,8 @@ class BruteForceDetection
     private function ignoreExceptionIfThrownDuringOneClickUpdate(\Exception $ex)
     {
         // ignore column not found errors during one click update since the db will not be up to date while new code is being used
-        $module = Common::getRequestVar('module', false);
-        if (strpos($ex->getMessage(), 'Unknown column') === false || $module != 'CoreUpdater') {
+        $module = Common::getRequestVar('module', \false);
+        if (strpos($ex->getMessage(), 'Unknown column') === \false || $module != 'CoreUpdater') {
             throw $ex;
         }
     }

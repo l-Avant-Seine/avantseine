@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Diagnostics\Diagnostic;
 
@@ -40,13 +40,13 @@ class WriteAccessCheck implements \Piwik\Plugins\Diagnostics\Diagnostic\Diagnost
         $label = $this->translator->translate('Installation_SystemCheckWriteDirs');
         $result = new \Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult($label);
         $directories = Filechecks::checkDirectoriesWritable($this->getDirectories());
-        $error = false;
+        $error = \false;
         foreach ($directories as $directory => $isWritable) {
             if ($isWritable) {
                 $status = \Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult::STATUS_OK;
             } else {
                 $status = \Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult::STATUS_ERROR;
-                $error = true;
+                $error = \true;
             }
             $result->addItem(new \Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResultItem($status, $directory));
         }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -57,7 +56,7 @@ class AddSegmentByRangeLabel extends BaseFilter
                 continue;
             }
             // if there's more than one element, handle as a range w/ an upper bound
-            if (strpos($label, "-") !== false) {
+            if (strpos($label, "-") !== \false) {
                 // get the range
                 sscanf($label, "%d - %d", $lowerBound, $upperBound);
                 if ($lowerBound == $upperBound) {

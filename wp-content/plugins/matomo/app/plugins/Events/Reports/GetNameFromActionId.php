@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Events\Reports;
 
@@ -21,6 +20,6 @@ class GetNameFromActionId extends \Piwik\Plugins\Events\Reports\Base
         parent::init();
         $this->dimension = new EventName();
         $this->name = Piwik::translate('Events_Names');
-        $this->isSubtableReport = true;
+        $this->isSubtableReport = \true;
     }
 }

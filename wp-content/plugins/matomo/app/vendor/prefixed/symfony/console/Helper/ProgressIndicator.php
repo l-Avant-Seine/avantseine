@@ -27,7 +27,7 @@ class ProgressIndicator
     private $indicatorCurrent;
     private $indicatorChangeInterval;
     private $indicatorUpdateTime;
-    private $started = false;
+    private $started = \false;
     /**
      * @var array<string, callable>
      */
@@ -36,7 +36,7 @@ class ProgressIndicator
      * @param int        $indicatorChangeInterval Change interval in milliseconds
      * @param array|null $indicatorValues         Animated indicator characters
      */
-    public function __construct(OutputInterface $output, string $format = null, int $indicatorChangeInterval = 100, array $indicatorValues = null)
+    public function __construct(OutputInterface $output, ?string $format = null, int $indicatorChangeInterval = 100, ?array $indicatorValues = null)
     {
         $this->output = $output;
         if (null === $format) {
@@ -71,7 +71,7 @@ class ProgressIndicator
             throw new LogicException('Progress indicator already started.');
         }
         $this->message = $message;
-        $this->started = true;
+        $this->started = \true;
         $this->startTime = time();
         $this->indicatorUpdateTime = $this->getCurrentTimeInMilliseconds() + $this->indicatorChangeInterval;
         $this->indicatorCurrent = 0;
@@ -98,8 +98,6 @@ class ProgressIndicator
     }
     /**
      * Finish the indicator with message.
-     *
-     * @param $message
      */
     public function finish(string $message)
     {
@@ -109,7 +107,7 @@ class ProgressIndicator
         $this->message = $message;
         $this->display();
         $this->output->writeln('');
-        $this->started = false;
+        $this->started = \false;
     }
     /**
      * Gets the format for a given name.
@@ -183,7 +181,7 @@ class ProgressIndicator
     }
     private function getCurrentTimeInMilliseconds() : float
     {
-        return round(microtime(true) * 1000);
+        return round(microtime(\true) * 1000);
     }
     private static function initPlaceholderFormatters() : array
     {
@@ -194,7 +192,7 @@ class ProgressIndicator
         }, 'elapsed' => function (self $indicator) {
             return Helper::formatTime(time() - $indicator->startTime);
         }, 'memory' => function () {
-            return Helper::formatMemory(memory_get_usage(true));
+            return Helper::formatMemory(memory_get_usage(\true));
         }];
     }
 }

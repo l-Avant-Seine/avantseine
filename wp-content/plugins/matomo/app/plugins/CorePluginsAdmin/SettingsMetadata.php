@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CorePluginsAdmin;
 
@@ -17,7 +16,8 @@ use Piwik\Settings\Settings;
 use Exception;
 class SettingsMetadata
 {
-    const PASSWORD_PLACEHOLDER = '******';
+    public const PASSWORD_PLACEHOLDER = '******';
+    public const EMPTY_ARRAY = '__empty__';
     /**
      * @param Settings[]  $settingsInstances
      * @param array $settingValues   array('pluginName' => array('settingName' => 'settingValue'))
@@ -30,6 +30,10 @@ class SettingsMetadata
                 foreach ($pluginSetting->getSettingsWritableByCurrentUser() as $setting) {
                     $value = $this->findSettingValueFromRequest($settingValues, $pluginName, $setting->getName());
                     $fieldConfig = $setting->configureField();
+                    // empty arrays are sent as __empty__ value, so we need to convert it here back to an array
+                    if ($setting->getType() === FieldConfig::TYPE_ARRAY && $value === self::EMPTY_ARRAY) {
+                        $value = [];
+                    }
                     if (isset($value) && ($fieldConfig->uiControl !== FieldConfig::UI_CONTROL_PASSWORD || $value !== self::PASSWORD_PLACEHOLDER)) {
                         $setting->setValue($value);
                     }

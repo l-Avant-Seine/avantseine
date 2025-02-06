@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -117,7 +116,7 @@ if (!class_exists('Piwik\\Plugin')) {
          * @throws \Exception If plugin metadata is defined in both the getInformation() method
          *                    and the **plugin.json** file.
          */
-        public function __construct($pluginName = false)
+        public function __construct($pluginName = \false)
         {
             if (empty($pluginName)) {
                 $pluginName = explode('\\', get_class($this));
@@ -153,7 +152,7 @@ if (!class_exists('Piwik\\Plugin')) {
             $pluginClassName = get_class($this);
             if ($pluginClassName == $myClassName) {
                 // plugin has not defined its own class
-                return false;
+                return \false;
             }
             $foo = new \ReflectionMethod(get_class($this), 'getInformation');
             $declaringClass = $foo->getDeclaringClass()->getName();
@@ -193,7 +192,7 @@ if (!class_exists('Piwik\\Plugin')) {
          */
         public function shouldLoadUmdOnDemand()
         {
-            return false;
+            return \false;
         }
         /**
          * Returns a list of events with associated event observers.
@@ -236,7 +235,7 @@ if (!class_exists('Piwik\\Plugin')) {
          */
         public function requiresInternetConnection()
         {
-            return false;
+            return \false;
         }
         /**
          * Installs the plugin. Derived classes should implement this class if the plugin
@@ -340,7 +339,7 @@ if (!class_exists('Piwik\\Plugin')) {
                     include_once $componentFile;
                 }
             } else {
-                $this->cache->save($cacheId, false);
+                $this->cache->save($cacheId, \false);
                 // prevent from trying to load over and over again for instance if there is no Menu for a plugin
                 if (!file_exists($componentFile)) {
                     return null;
@@ -438,14 +437,12 @@ if (!class_exists('Piwik\\Plugin')) {
             $lastCronArchiveTime = (int) \Piwik\Option::get(\Piwik\CronArchive::OPTION_ARCHIVING_FINISHED_TS);
             if (empty($lastCronArchiveTime)) {
                 $dateTime = $lastDeactivationTime;
+            } elseif (empty($lastDeactivationTime)) {
+                $dateTime = null;
+                // use default earliest time
             } else {
-                if (empty($lastDeactivationTime)) {
-                    $dateTime = null;
-                    // use default earliest time
-                } else {
-                    $lastCronArchiveTime = \Piwik\Date::factory($lastCronArchiveTime);
-                    $dateTime = $lastDeactivationTime->isEarlier($lastCronArchiveTime) ? $lastDeactivationTime : $lastCronArchiveTime;
-                }
+                $lastCronArchiveTime = \Piwik\Date::factory($lastCronArchiveTime);
+                $dateTime = $lastDeactivationTime->isEarlier($lastCronArchiveTime) ? $lastDeactivationTime : $lastCronArchiveTime;
             }
             if (empty($dateTime)) {
                 // sanity check
@@ -472,7 +469,7 @@ if (!class_exists('Piwik\\Plugin')) {
                     }
                 }
             }
-            return false;
+            return \false;
         }
         /**
          * Extracts the plugin name from a namespace name or a fully qualified class name. Returns `false`
@@ -486,7 +483,7 @@ if (!class_exists('Piwik\\Plugin')) {
             if ($namespaceOrClassName && preg_match("/Piwik\\\\Plugins\\\\([a-zA-Z_0-9]+)\\\\/", $namespaceOrClassName, $matches)) {
                 return $matches[1];
             } else {
-                return false;
+                return \false;
             }
         }
         /**
@@ -500,7 +497,7 @@ if (!class_exists('Piwik\\Plugin')) {
          */
         public function isTrackerPlugin()
         {
-            return false;
+            return \false;
         }
         /**
          * @return Date|null
@@ -565,13 +562,13 @@ if (!class_exists('Piwik\\Plugin')) {
         {
             foreach ($components as $file => $klass) {
                 if (!is_readable($file)) {
-                    return false;
+                    return \false;
                 }
             }
             foreach ($components as $file => $klass) {
                 include_once $file;
             }
-            return true;
+            return \true;
         }
         /**
          * @param $piwikVersion
@@ -597,7 +594,7 @@ if (!class_exists('Piwik\\Plugin')) {
             if (file_exists($file)) {
                 $json = file_get_contents($file);
                 if ($json) {
-                    $changes = json_decode($json, true);
+                    $changes = json_decode($json, \true);
                     if ($changes && is_array($changes)) {
                         return array_reverse($changes);
                     }

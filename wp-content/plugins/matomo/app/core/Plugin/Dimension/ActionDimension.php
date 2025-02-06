@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin\Dimension;
 
@@ -33,7 +32,7 @@ use Exception;
  */
 abstract class ActionDimension extends Dimension
 {
-    const INSTALLER_PREFIX = 'log_link_visit_action.';
+    public const INSTALLER_PREFIX = 'log_link_visit_action.';
     protected $dbTableName = 'log_link_visit_action';
     protected $category = 'General_Actions';
     /**
@@ -53,7 +52,7 @@ abstract class ActionDimension extends Dimension
      */
     public function onLookupAction(Request $request, Action $action)
     {
-        return false;
+        return \false;
     }
     /**
      * An action id. The value returned by the lookup action will be associated with this id in the log_action table.
@@ -78,7 +77,7 @@ abstract class ActionDimension extends Dimension
      */
     public function onNewAction(Request $request, Visitor $visitor, Action $action)
     {
-        return false;
+        return \false;
     }
     /**
      * Get all action dimensions that are defined by all activated plugins.

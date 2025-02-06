@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link http://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreConsole\Commands;
 
@@ -31,7 +30,7 @@ class TestEmail extends ConsoleCommand
         $body = "Hello, world! <br/> This is a test email sent from {$matomoUrl}";
         $subject = "This is a test email sent from {$matomoUrl}";
         $mail = new Mail();
-        $mail->setSmtpDebug(true);
+        $mail->setSmtpDebug(\true);
         $mail->addTo($email, 'Matomo User');
         $mail->setFrom($config->General['noreply_email_address'], $config->General['noreply_email_name']);
         $mail->setSubject($subject);

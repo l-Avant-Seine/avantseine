@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Diagnostics\Diagnostic;
 
@@ -59,7 +59,7 @@ class PhpFunctionsCheck implements \Piwik\Plugins\Diagnostics\Diagnostic\Diagnos
             if (extension_loaded('suhosin')) {
                 return @ini_get("suhosin.executor.disable_eval") != "1";
             }
-            return true;
+            return \true;
         }
         $exists = function_exists($function);
         if (extension_loaded('suhosin')) {

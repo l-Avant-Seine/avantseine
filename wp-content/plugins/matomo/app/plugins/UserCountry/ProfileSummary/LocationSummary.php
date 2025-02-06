@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry\ProfileSummary;
 
@@ -44,7 +43,7 @@ class LocationSummary extends ProfileSummaryAbstract
     }
     private function getUserCountryMapUrlForVisitorProfile()
     {
-        $params = array('module' => 'UserCountryMap', 'action' => 'realtimeMap', 'segment' => Live\Live::getSegmentWithVisitorId(), 'visitorId' => false, 'changeVisitAlpha' => 0, 'removeOldVisits' => 0, 'realtimeWindow' => 'false', 'showFooterMessage' => 0, 'showDateTime' => 0, 'doNotRefreshVisits' => 1);
+        $params = array('module' => 'UserCountryMap', 'action' => 'realtimeMap', 'segment' => Live\Live::getSegmentWithVisitorId(), 'visitorId' => \false, 'changeVisitAlpha' => 0, 'removeOldVisits' => 0, 'realtimeWindow' => 'false', 'showFooterMessage' => 0, 'showDateTime' => 0, 'doNotRefreshVisits' => 1);
         return Url::getCurrentQueryStringWithParametersModified($params);
     }
     /**

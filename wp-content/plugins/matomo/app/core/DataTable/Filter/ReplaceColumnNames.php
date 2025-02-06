@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -106,7 +105,7 @@ class ReplaceColumnNames extends BaseFilter
     }
     protected function getRenamedColumn($column)
     {
-        $newName = false;
+        $newName = \false;
         if (isset($this->mappingToApply[$column]) && $this->mappingToApply[$column] != $column) {
             $newName = $this->mappingToApply[$column];
         }
@@ -148,6 +147,8 @@ class ReplaceColumnNames extends BaseFilter
     protected function flattenGoalColumns($columnValue)
     {
         $newSubColumns = array();
+        // sort by key (idgoal) to ensure a static result
+        ksort($columnValue);
         foreach ($columnValue as $idGoal => $goalValues) {
             $mapping = Metrics::$mappingFromIdToNameGoal;
             if ($idGoal == GoalManager::IDGOAL_CART) {

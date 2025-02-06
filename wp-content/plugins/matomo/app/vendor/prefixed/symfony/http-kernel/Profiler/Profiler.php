@@ -30,9 +30,9 @@ class Profiler implements ResetInterface
      */
     private $collectors = [];
     private $logger;
-    private $initiallyEnabled = true;
-    private $enabled = true;
-    public function __construct(ProfilerStorageInterface $storage, LoggerInterface $logger = null, bool $enable = true)
+    private $initiallyEnabled = \true;
+    private $enabled = \true;
+    public function __construct(ProfilerStorageInterface $storage, ?LoggerInterface $logger = null, bool $enable = \true)
     {
         $this->storage = $storage;
         $this->logger = $logger;
@@ -43,14 +43,14 @@ class Profiler implements ResetInterface
      */
     public function disable()
     {
-        $this->enabled = false;
+        $this->enabled = \false;
     }
     /**
      * Enables the profiler.
      */
     public function enable()
     {
-        $this->enabled = true;
+        $this->enabled = \true;
     }
     /**
      * Loads the Profile for the given Response.
@@ -109,7 +109,7 @@ class Profiler implements ResetInterface
      *
      * @see https://php.net/datetime.formats for the supported date/time formats
      */
-    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, ?string $start, ?string $end, string $statusCode = null)
+    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, ?string $start, ?string $end, ?string $statusCode = null)
     {
         return $this->storage->find($ip, $url, $limit, $method, $this->getTimestamp($start), $this->getTimestamp($end), $statusCode);
     }
@@ -118,12 +118,12 @@ class Profiler implements ResetInterface
      *
      * @return Profile|null
      */
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null)
     {
-        if (false === $this->enabled) {
+        if (\false === $this->enabled) {
             return null;
         }
-        $profile = new Profile(substr(hash('sha256', uniqid(mt_rand(), true)), 0, 6));
+        $profile = new Profile(substr(hash('sha256', uniqid(mt_rand(), \true)), 0, 6));
         $profile->setTime(time());
         $profile->setUrl($request->getUri());
         $profile->setMethod($request->getMethod());

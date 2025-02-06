@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker\Db\Pdo;
 
@@ -25,12 +24,28 @@ class Mysql extends Db
      * @var PDO
      */
     protected $connection = null;
+    /**
+     * @var string
+     */
     protected $dsn;
+    /**
+     * @var string
+     */
     private $username;
+    /**
+     * @var string
+     */
     private $password;
+    /**
+     * @var string|null
+     */
     protected $charset;
-    protected $mysqlOptions = array();
-    protected $activeTransaction = false;
+    /**
+     * @var string|null
+     */
+    private $collation;
+    protected $mysqlOptions = [];
+    protected $activeTransaction = \false;
     /**
      * Builds the DB object
      *
@@ -51,6 +66,9 @@ class Mysql extends Db
         if (isset($dbInfo['charset'])) {
             $this->charset = $dbInfo['charset'];
             $this->dsn .= ';charset=' . $this->charset;
+            if (!empty($dbInfo['collation'])) {
+                $this->collation = $dbInfo['collation'];
+            }
         }
         if (isset($dbInfo['enable_ssl']) && $dbInfo['enable_ssl']) {
             if (!empty($dbInfo['ssl_key'])) {
@@ -69,7 +87,7 @@ class Mysql extends Db
                 $this->mysqlOptions[PDO::MYSQL_ATTR_SSL_CIPHER] = $dbInfo['ssl_cipher'];
             }
             if (!empty($dbInfo['ssl_no_verify']) && defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-                $this->mysqlOptions[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+                $this->mysqlOptions[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = \false;
             }
         }
     }
@@ -91,7 +109,7 @@ class Mysql extends Db
         // rows that actually didn't have to be updated because the values didn't
         // change. This matches common behaviour among other database systems.
         // See #6296 why this is important in tracker
-        $this->mysqlOptions[PDO::MYSQL_ATTR_FOUND_ROWS] = true;
+        $this->mysqlOptions[PDO::MYSQL_ATTR_FOUND_ROWS] = \true;
         $this->mysqlOptions[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
         try {
             $this->establishConnection();
@@ -115,7 +133,7 @@ class Mysql extends Db
      */
     public function isMysqlServerHasGoneAwayError(Exception $e)
     {
-        return $this->isErrNo($e, \Piwik\Updater\Migration\Db::ERROR_CODE_MYSQL_SERVER_HAS_GONE_AWAY) || stripos($e->getMessage(), 'MySQL server has gone away') !== false;
+        return $this->isErrNo($e, \Piwik\Updater\Migration\Db::ERROR_CODE_MYSQL_SERVER_HAS_GONE_AWAY) || stripos($e->getMessage(), 'MySQL server has gone away') !== \false;
     }
     /**
      * Disconnects from the server
@@ -137,8 +155,8 @@ class Mysql extends Db
     {
         try {
             $sth = $this->query($query, $parameters);
-            if ($sth === false) {
-                return false;
+            if ($sth === \false) {
+                return \false;
             }
             return $sth->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -157,8 +175,8 @@ class Mysql extends Db
     {
         try {
             $sth = $this->query($sql, $bind);
-            if ($sth === false) {
-                return false;
+            if ($sth === \false) {
+                return \false;
             }
             $result = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
             return $result;
@@ -179,8 +197,8 @@ class Mysql extends Db
     {
         try {
             $sth = $this->query($query, $parameters);
-            if ($sth === false) {
-                return false;
+            if ($sth === \false) {
+                return \false;
             }
             return $sth->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -209,7 +227,7 @@ class Mysql extends Db
                 $this->reconnect($e);
                 return $this->executeQuery($query, $parameters);
             } else {
-                $message = $e->getMessage() . " In query: {$query} Parameters: " . var_export($parameters, true);
+                $message = $e->getMessage() . " In query: {$query} Parameters: " . var_export($parameters, \true);
                 throw new DbException("Error query: " . $message, (int) $e->getCode());
             }
         }
@@ -243,7 +261,7 @@ class Mysql extends Db
     private function executeQuery($query, $parameters = array())
     {
         if (is_null($this->connection)) {
-            return false;
+            return \false;
         }
         try {
             if (self::$profiling) {
@@ -259,7 +277,7 @@ class Mysql extends Db
             }
             return $sth;
         } catch (PDOException $e) {
-            $message = $e->getMessage() . " In query: {$query} Parameters: " . var_export($parameters, true);
+            $message = $e->getMessage() . " In query: {$query} Parameters: " . var_export($parameters, \true);
             throw new DbException("Error query: " . $message, (int) $e->getCode());
         }
     }
@@ -300,7 +318,7 @@ class Mysql extends Db
      */
     public function beginTransaction()
     {
-        if (!$this->activeTransaction === false) {
+        if (!$this->activeTransaction === \false) {
             return;
         }
         try {
@@ -328,10 +346,10 @@ class Mysql extends Db
      */
     public function commit($xid)
     {
-        if ($this->activeTransaction != $xid || $this->activeTransaction === false) {
+        if ($this->activeTransaction != $xid || $this->activeTransaction === \false) {
             return;
         }
-        $this->activeTransaction = false;
+        $this->activeTransaction = \false;
         if (!$this->connection->commit()) {
             throw new DbException("Commit failed");
         }
@@ -344,10 +362,10 @@ class Mysql extends Db
      */
     public function rollBack($xid)
     {
-        if ($this->activeTransaction != $xid || $this->activeTransaction === false) {
+        if ($this->activeTransaction != $xid || $this->activeTransaction === \false) {
             return;
         }
-        $this->activeTransaction = false;
+        $this->activeTransaction = \false;
         if (!$this->connection->rollBack()) {
             throw new DbException("Rollback failed");
         }
@@ -364,6 +382,9 @@ class Mysql extends Db
          */
         if (!empty($this->charset)) {
             $sql = "SET NAMES '" . $this->charset . "'";
+            if (!empty($this->collation)) {
+                $sql .= " COLLATE '" . $this->collation . "'";
+            }
             $this->connection->exec($sql);
         }
     }

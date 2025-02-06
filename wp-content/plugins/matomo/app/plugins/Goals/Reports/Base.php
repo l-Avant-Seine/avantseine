@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\Reports;
 
@@ -20,7 +19,7 @@ abstract class Base extends \Piwik\Plugin\Report
         $this->categoryId = 'Goals_Goals';
         $this->onlineGuideUrl = Url::addCampaignParametersToMatomoLink('https://matomo.org/docs/tracking-goals-web-analytics/');
     }
-    protected function addReportMetadataForEachGoal(&$availableReports, $infos, $goalNameFormatter, $isGoalSummaryReport = false)
+    protected function addReportMetadataForEachGoal(&$availableReports, $infos, $goalNameFormatter, $isGoalSummaryReport = \false)
     {
         $idSite = $this->getIdSiteFromInfos($infos);
         $goals = $this->getGoalsForIdSite($idSite);

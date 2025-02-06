@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\ReportRenderer;
 
@@ -106,7 +105,7 @@ class Csv extends ReportRenderer
         $csvRenderer = new CsvDataTableRenderer();
         $csvRenderer->setIdSite($this->idSite);
         $csvRenderer->setTable($table);
-        $csvRenderer->setConvertToUnicode(false);
+        $csvRenderer->setConvertToUnicode(\false);
         $csvRenderer->setApiMethod($this->getApiMethodNameFromUniqueId($uniqueId));
         return $csvRenderer;
     }

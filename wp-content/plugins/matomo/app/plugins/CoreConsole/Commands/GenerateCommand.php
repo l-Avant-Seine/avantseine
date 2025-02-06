@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreConsole\Commands;
 
@@ -27,7 +26,7 @@ class GenerateCommand extends \Piwik\Plugins\CoreConsole\Commands\GeneratePlugin
         $replace = array('ExampleCommandDescription' => $commandName, 'ExampleCommand' => $pluginName, 'examplecommand:helloworld' => strtolower($pluginName) . ':' . $this->buildCommandName($commandName), 'examplecommand' => strtolower($pluginName), 'HelloWorld' => $commandName, 'helloworld' => strtolower($commandName));
         $whitelistFiles = array('/Commands', '/Commands/HelloWorld.php');
         $this->copyTemplateToPlugin($exampleFolder, $pluginName, $replace, $whitelistFiles);
-        $this->writeSuccessMessage(array(sprintf('Command %s for plugin %s generated', $commandName, $pluginName)));
+        $this->writeSuccessMessage(sprintf('Command %s for plugin %s generated', $commandName, $pluginName));
         return self::SUCCESS;
     }
     /**

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -153,7 +152,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
      *
      * @api
      */
-    const TEMPLATE_FILE = '';
+    public const TEMPLATE_FILE = '';
     private $templateVars = array();
     private $reportLastUpdatedMessage = null;
     protected $metricsFormatter = null;
@@ -188,7 +187,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
         } catch (NoAccessException $e) {
             throw $e;
         } catch (\Exception $e) {
-            StaticContainer::get(LoggerInterface::class)->error('Failed to get data from API: {exception}', ['exception' => $e, 'ignoreInScreenWriter' => true]);
+            StaticContainer::get(LoggerInterface::class)->error('Failed to get data from API: {exception}', ['exception' => $e, 'ignoreInScreenWriter' => \true]);
             $message = ExceptionToTextProcessor::getMessageAndWholeBacktrace($e);
             $loadingError = array('message' => $message);
         }
@@ -203,7 +202,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
         $view->reportMetdadata = $this->getReportMetadata();
         if (!$this->dataTable instanceof DataTableInterface) {
             $view->dataTable = null;
-            $view->dataTableHasNoData = true;
+            $view->dataTableHasNoData = \true;
         } else {
             $view->dataTableHasNoData = !$this->isThereDataToDisplay();
             $view->dataTable = $this->dataTable;
@@ -262,7 +261,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
     }
     private function hasAnyData(DataTable\DataTableInterface $dataTable)
     {
-        $hasData = false;
+        $hasData = \false;
         $dataTable->filter(function (DataTable $table) use(&$hasData) {
             if ($hasData || $table->getRowsCount() == 0) {
                 return;
@@ -270,7 +269,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
             foreach ($table->getRows() as $row) {
                 foreach ($row->getColumns() as $column => $value) {
                     if ($value != 0 && $value !== '0%') {
-                        $hasData = true;
+                        $hasData = \true;
                         return;
                     }
                 }
@@ -320,7 +319,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
         if (!empty($metadata)) {
             return array_shift($metadata);
         }
-        return false;
+        return \false;
     }
     private function overrideSomeConfigPropertiesIfNeeded()
     {
@@ -328,7 +327,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
             $this->config->footer_icons = ViewDataTableManager::configureFooterIcons($this);
         }
         if (!$this->isPluginActivated('Goals')) {
-            $this->config->show_goals = false;
+            $this->config->show_goals = \false;
         }
     }
     private function isPluginActivated($pluginName)
@@ -381,7 +380,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
             if (!empty($request['comparePeriods'])) {
                 foreach ($request['comparePeriods'] as $comparePeriod) {
                     if (!SettingsPiwik::isUniqueVisitorsEnabled($comparePeriod)) {
-                        $hasNbUniqVisitors = false;
+                        $hasNbUniqVisitors = \false;
                         break;
                     }
                 }
@@ -418,7 +417,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
         if (!empty($metadata[DataTable::ARCHIVED_DATE_METADATA_NAME])) {
             $this->reportLastUpdatedMessage = $this->makePrettyArchivedOnText($metadata[DataTable::ARCHIVED_DATE_METADATA_NAME]);
         }
-        $pivotBy = Common::getRequestVar('pivotBy', false) ?: $this->requestConfig->pivotBy;
+        $pivotBy = Common::getRequestVar('pivotBy', \false) ?: $this->requestConfig->pivotBy;
         if (empty($pivotBy) && $this->dataTable instanceof DataTable) {
             $this->config->disablePivotBySubtableIfTableHasNoSubtables($this->dataTable);
         }
@@ -481,7 +480,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
         if (is_array($emptyColumns)) {
             foreach ($emptyColumns as $emptyColumn) {
                 $key = array_search($emptyColumn, $this->config->columns_to_display);
-                if ($key !== false) {
+                if ($key !== \false) {
                     unset($this->config->columns_to_display[$key]);
                 }
             }
@@ -522,7 +521,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
     private function hasReportBeenPurged()
     {
         if (!$this->isPluginActivated('PrivacyManager')) {
-            return false;
+            return \false;
         }
         return PrivacyManager::hasReportBeenPurged($this->dataTable);
     }
@@ -535,9 +534,9 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
         $module = $this->requestConfig->getApiModuleToRequest();
         $rawSegment = \Piwik\API\Request::getRawSegmentFromRequest();
         if (!empty($rawSegment) && Rules::isSegmentPluginArchivingDisabled($module)) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     /**
      * Returns array of properties that should be visible to client side JavaScript. The data
@@ -594,13 +593,13 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
             if (isset($javascriptVariablesToSet[$name])) {
                 continue;
             }
-            $valueToConvert = false;
+            $valueToConvert = \false;
             if (property_exists($this->requestConfig, $name)) {
                 $valueToConvert = $this->requestConfig->{$name};
             } elseif (property_exists($this->config, $name)) {
                 $valueToConvert = $this->config->{$name};
             }
-            if (false !== $valueToConvert) {
+            if (\false !== $valueToConvert) {
                 $javascriptVariablesToSet[$name] = $this->getIntIfValueIsBool($valueToConvert);
             }
         }
@@ -730,7 +729,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
     public function buildApiRequestArray()
     {
         $request = $this->getRequestArray();
-        if (false === $this->config->enable_sort) {
+        if (\false === $this->config->enable_sort) {
             $request['filter_sort_column'] = '';
             $request['filter_sort_order'] = '';
         }
@@ -756,7 +755,7 @@ class Visualization extends \Piwik\Plugin\ViewDataTable
      *
      * @internal
      */
-    protected function applyMetricsFormatting(bool $forceFormatting = false)
+    protected function applyMetricsFormatting(bool $forceFormatting = \false)
     {
         $postProcessor = $this->makeDataTablePostProcessor();
         // must be created after requestConfig is final

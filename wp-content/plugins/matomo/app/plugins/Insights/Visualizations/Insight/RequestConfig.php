@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Insights\Visualizations\Insight;
 
@@ -22,9 +21,9 @@ class RequestConfig extends VisualizationRequestConfig
     public $limit_decreaser = '5';
     public function __construct()
     {
-        $this->disable_generic_filters = true;
-        $this->pivotBy = false;
-        $this->pivotByColumn = false;
+        $this->disable_generic_filters = \true;
+        $this->pivotBy = \false;
+        $this->pivotByColumn = \false;
         $properties = array('min_growth_percent', 'order_by', 'compared_to_x_periods_ago', 'filter_by', 'limit_increaser', 'limit_decreaser', 'filter_limit');
         $this->addPropertiesThatShouldBeAvailableClientSide($properties);
         $this->addPropertiesThatCanBeOverwrittenByQueryParams($properties);

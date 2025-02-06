@@ -3,13 +3,14 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Diagnostics\Diagnostic;
 
 use Piwik\Config;
 use Piwik\ProxyHttp;
+use Piwik\SettingsPiwik;
 use Piwik\Translation\Translator;
 use Piwik\Url;
 use Piwik\View;
@@ -30,13 +31,12 @@ class ForceSSLCheck implements \Piwik\Plugins\Diagnostics\Diagnostic\Diagnostic
     {
         $label = $this->translator->translate('General_ForcedSSL');
         // special handling during install
-        $isPiwikInstalling = !Config::getInstance()->existsLocalConfig();
-        if ($isPiwikInstalling) {
+        if (!SettingsPiwik::isMatomoInstalled()) {
             if (ProxyHttp::isHttps()) {
                 return [];
             }
             $view = new View('@Diagnostics/force_ssl_link');
-            $view->link = 'https://' . Url::getCurrentHost() . Url::getCurrentScriptName(false) . Url::getCurrentQueryString();
+            $view->link = 'https://' . Url::getCurrentHost() . Url::getCurrentScriptName(\false) . Url::getCurrentQueryString();
             $message = $view->render();
             return [\Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult::singleResult($label, \Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult::STATUS_WARNING, $message)];
         }

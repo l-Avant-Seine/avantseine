@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager\SiteContentDetection;
 
@@ -29,8 +28,8 @@ class Joomla extends \Piwik\Plugins\SitesManager\SiteContentDetection\SiteConten
         // https://github.com/joomla/joomla-cms/blob/staging/libraries/src/Application/WebApplication.php#L516
         // Joomla was the outcome of a fork of Mambo on 17 August 2005 - https://en.wikipedia.org/wiki/Joomla
         if (isset($headers['expires']) && $headers['expires'] === 'Wed, 17 Aug 2005 00:00:00 GMT') {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
 }

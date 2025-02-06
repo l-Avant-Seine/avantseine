@@ -4,7 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CustomJsTracker;
 
@@ -43,7 +43,7 @@ class File
     }
     public function save($content)
     {
-        if (false === file_put_contents($this->file, $content, LOCK_EX)) {
+        if (\false === file_put_contents($this->file, $content, \LOCK_EX)) {
             throw new AccessDeniedException(sprintf("Could not write to %s", $this->file));
         }
         // we need to return an array of files in case some other "File" implementation actually updates multiple files
@@ -71,7 +71,7 @@ class File
     public function hasWriteAccess()
     {
         if (file_exists($this->file) && !is_writable($this->file)) {
-            return false;
+            return \false;
         }
         return is_writable(dirname($this->file)) || is_writable($this->file);
     }

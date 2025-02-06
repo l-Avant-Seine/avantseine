@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreUpdater\Commands;
 
@@ -47,29 +46,29 @@ class Update extends ConsoleCommand
         try {
             if ($skipCacheClear) {
                 $output->writeln(Piwik::translate('CoreUpdater_SkipCacheClear'));
-                Filesystem::$skipCacheClearOnUpdate = true;
+                Filesystem::$skipCacheClearOnUpdate = \true;
             }
             $this->executeClearCaches();
             $yes = $input->getOption('yes');
             try {
-                $this->makeUpdate(true);
+                $this->makeUpdate(\true);
                 if (!$yes) {
-                    $yes = $this->askForConfirmation('<comment>' . Piwik::translate('CoreUpdater_ExecuteDbUpgrade') . ' (y/N) </comment>', false);
+                    $yes = $this->askForConfirmation('<comment>' . Piwik::translate('CoreUpdater_ExecuteDbUpgrade') . ' (y/N) </comment>', \false);
                 }
                 if ($yes) {
                     $output->writeln("\n" . Piwik::translate('CoreUpdater_ConsoleStartingDbUpgrade'));
-                    $this->makeUpdate(false);
-                    $this->writeSuccessMessage(array(Piwik::translate('CoreUpdater_PiwikHasBeenSuccessfullyUpgraded')));
+                    $this->makeUpdate(\false);
+                    $this->writeSuccessMessage(Piwik::translate('CoreUpdater_PiwikHasBeenSuccessfullyUpgraded'));
                 } else {
-                    $this->writeSuccessMessage(array(Piwik::translate('CoreUpdater_DbUpgradeNotExecuted')));
+                    $this->writeSuccessMessage(Piwik::translate('CoreUpdater_DbUpgradeNotExecuted'));
                 }
                 $this->writeAlertMessageWhenCommandExecutedWithUnexpectedUser();
             } catch (NoUpdatesFoundException $e) {
                 // Do not fail if no updates were found
-                $this->writeSuccessMessage(array($e->getMessage()));
+                $this->writeSuccessMessage($e->getMessage());
             }
         } finally {
-            Filesystem::$skipCacheClearOnUpdate = false;
+            Filesystem::$skipCacheClearOnUpdate = \false;
         }
         return self::SUCCESS;
     }
@@ -138,7 +137,7 @@ class Update extends ConsoleCommand
         $output->writeln(array("    " . Piwik::translate('CoreUpdater_TheUpgradeProcessMayTakeAWhilePleaseBePatient'), ""));
         $updaterResult = $updater->updateComponents($componentsWithUpdateFile);
         if (@$updaterResult['coreError']) {
-            $this->handleCoreError($updaterResult['errors'], $includeDiyHelp = true);
+            $this->handleCoreError($updaterResult['errors'], $includeDiyHelp = \true);
             return;
         }
         if (!empty($updaterResult['warnings'])) {
@@ -151,7 +150,7 @@ class Update extends ConsoleCommand
             $output->writeln(array("    " . Piwik::translate('CoreUpdater_HelpMessageIntroductionWhenWarning'), "", "    * " . $this->getUpdateHelpMessage()));
         }
     }
-    private function handleCoreError($errors, $includeDiyHelp = false)
+    private function handleCoreError($errors, $includeDiyHelp = \false)
     {
         if (!is_array($errors)) {
             $errors = array($errors);
@@ -196,15 +195,15 @@ class Update extends ConsoleCommand
     {
         foreach ($componentsWithUpdateFile as $componentName => $updates) {
             if ($componentName == 'core') {
-                return true;
+                return \true;
             }
         }
-        return false;
+        return \false;
     }
     private function getCurrentVersionForCore(Updater $updater)
     {
         $currentVersion = $updater->getCurrentComponentVersion('core');
-        if ($currentVersion === false) {
+        if ($currentVersion === \false) {
             $currentVersion = "<= 0.2.9";
         }
         return $currentVersion;

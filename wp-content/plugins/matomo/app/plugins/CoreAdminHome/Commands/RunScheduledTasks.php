@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreAdminHome\Commands;
 
@@ -40,14 +39,14 @@ class RunScheduledTasks extends ConsoleCommand
         } else {
             $scheduler->run();
         }
-        $this->writeSuccessMessage(array('Scheduled Tasks executed'));
+        $this->writeSuccessMessage('Scheduled Tasks executed');
         return self::SUCCESS;
     }
     private function forceRunAllTasksIfRequested()
     {
         $force = $this->getInput()->getOption('force');
         if ($force && !defined('DEBUG_FORCE_SCHEDULED_TASKS')) {
-            define('DEBUG_FORCE_SCHEDULED_TASKS', true);
+            define('DEBUG_FORCE_SCHEDULED_TASKS', \true);
         }
     }
     private function runSingleTask(Scheduler $scheduler, $task)
@@ -55,7 +54,7 @@ class RunScheduledTasks extends ConsoleCommand
         try {
             $message = $scheduler->runTaskNow($task);
         } catch (\InvalidArgumentException $e) {
-            $message = $e->getMessage() . PHP_EOL . 'Available tasks:' . PHP_EOL . implode(PHP_EOL, $scheduler->getTaskList());
+            $message = $e->getMessage() . \PHP_EOL . 'Available tasks:' . \PHP_EOL . implode(\PHP_EOL, $scheduler->getTaskList());
             throw new \Exception($message);
         }
         $this->getOutput()->writeln($message);

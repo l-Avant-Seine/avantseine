@@ -4,7 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\Columns\Metrics\GoalSpecific;
 
@@ -22,7 +22,7 @@ class ConversionsEntry extends GoalSpecificProcessedMetric
 {
     public function getName()
     {
-        return Goals::makeGoalColumn($this->idGoal, 'nb_conversions_entry', false);
+        return Goals::makeGoalColumn($this->idGoal, 'nb_conversions_entry', \false);
     }
     public function getTranslatedName()
     {

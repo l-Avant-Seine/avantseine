@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Monolog\Processor;
 
@@ -21,8 +21,8 @@ use Piwik\Url;
  */
 class ExceptionToTextProcessor
 {
-    private $forcePrintBacktrace = false;
-    public function __construct($forcePrintBacktrace = false)
+    private $forcePrintBacktrace = \false;
+    public function __construct($forcePrintBacktrace = \false)
     {
         $this->forcePrintBacktrace = $forcePrintBacktrace;
     }
@@ -37,7 +37,7 @@ class ExceptionToTextProcessor
             return $record;
         }
         $exceptionStr = sprintf("%s(%d): %s", $exception instanceof \Exception ? $exception->getFile() : $exception['file'], $exception instanceof \Exception ? $exception->getLine() : $exception['line'], $this->getStackTrace($exception));
-        if (!isset($record['message']) || strpos($record['message'], '{exception}') === false) {
+        if (!isset($record['message']) || strpos($record['message'], '{exception}') === \false) {
             $record['message'] = $exceptionStr;
         } else {
             $record['message'] = str_replace('{exception}', $exceptionStr, $record['message']);
@@ -65,7 +65,7 @@ class ExceptionToTextProcessor
     }
     private function getStackTrace($exception)
     {
-        return Log::$debugBacktraceForTests ?: self::getMessageAndWholeBacktrace($exception, $this->forcePrintBacktrace ? true : null);
+        return Log::$debugBacktraceForTests ?: self::getMessageAndWholeBacktrace($exception, $this->forcePrintBacktrace ? \true : null);
     }
     /**
      * @param \Exception|array $exception

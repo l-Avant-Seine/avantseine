@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreAdminHome;
 
@@ -186,7 +185,7 @@ class Controller extends ControllerAdmin
         }
         $view->defaultReportSiteAlias = $aliasUrl;
         $mainUrl = Site::getMainUrlFor($view->idSite);
-        $view->defaultReportSiteDomain = @parse_url($mainUrl, PHP_URL_HOST);
+        $view->defaultReportSiteDomain = @parse_url($mainUrl, \PHP_URL_HOST);
         $dntChecker = new DoNotTrackHeaderChecker();
         $view->serverSideDoNotTrackEnabled = $dntChecker->isActive();
         return $view->render();
@@ -240,9 +239,9 @@ class Controller extends ControllerAdmin
         }
         $enableBrowserTriggerArchiving = Rules::isBrowserTriggerEnabled();
         $todayArchiveTimeToLive = Rules::getTodayArchiveTimeToLive();
-        $showWarningCron = false;
+        $showWarningCron = \false;
         if (!$enableBrowserTriggerArchiving && $todayArchiveTimeToLive < 3600) {
-            $showWarningCron = true;
+            $showWarningCron = \true;
         }
         $view->showWarningCron = $showWarningCron;
         $view->todayArchiveTimeToLive = $todayArchiveTimeToLive;

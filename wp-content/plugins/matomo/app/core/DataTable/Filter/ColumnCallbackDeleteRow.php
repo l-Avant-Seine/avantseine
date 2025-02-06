@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -65,7 +64,7 @@ class ColumnCallbackDeleteRow extends BaseFilter
                 $params[] = $row->getColumn($column);
             }
             $params = array_merge($params, $this->functionParams);
-            if (call_user_func_array($this->function, $params) === true) {
+            if (call_user_func_array($this->function, $params) === \true) {
                 $table->deleteRow($key);
             }
             $this->filterSubTable($row);

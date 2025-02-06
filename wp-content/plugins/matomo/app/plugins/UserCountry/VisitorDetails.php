@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry;
 
@@ -105,14 +104,14 @@ class VisitorDetails extends VisitorDetailsAbstract
         $this->cities = array();
         $this->continents = array();
         $this->countries = array();
-        $profile['hasLatLong'] = false;
+        $profile['hasLatLong'] = \false;
     }
     public function handleProfileVisit($visit, &$profile)
     {
         // realtime map only checks for latitude
-        $hasLatitude = $visit->getColumn('latitude') !== false;
+        $hasLatitude = $visit->getColumn('latitude') !== \false;
         if ($hasLatitude) {
-            $profile['hasLatLong'] = true;
+            $profile['hasLatLong'] = \true;
         }
         $countryCode = $visit->getColumn('countryCode');
         if (!isset($this->countries[$countryCode])) {

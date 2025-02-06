@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Monolog\Formatter;
 
@@ -26,7 +26,7 @@ class LineMessageFormatter implements FormatterInterface
      * @param string $logMessageFormat
      * @param bool $allowInlineLineBreaks If disabled, a log message will be created for each line
      */
-    public function __construct($logMessageFormat, $allowInlineLineBreaks = true)
+    public function __construct($logMessageFormat, $allowInlineLineBreaks = \true)
     {
         $this->logMessageFormat = $logMessageFormat;
         $this->allowInlineLineBreaks = $allowInlineLineBreaks;

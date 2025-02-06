@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Translation\Loader;
 
@@ -35,7 +35,7 @@ class JsonFileLoader implements \Piwik\Translation\Loader\LoaderInterface
     private function loadFile($filename)
     {
         $data = file_get_contents($filename);
-        $translations = json_decode($data, true);
+        $translations = json_decode($data, \true);
         if (is_null($translations) && Common::hasJsonErrorOccurred()) {
             throw new \Exception(sprintf('Not able to load translation file %s: %s', $filename, Common::getLastJsonError()));
         }

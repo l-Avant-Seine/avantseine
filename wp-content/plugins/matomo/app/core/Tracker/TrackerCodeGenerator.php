@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Tracker;
 
@@ -25,10 +25,10 @@ class TrackerCodeGenerator
      * whether matomo.js|php should be forced over piwik.js|php
      * @var bool
      */
-    private $shouldForceMatomoEndpoint = false;
+    private $shouldForceMatomoEndpoint = \false;
     public function forceMatomoEndpoint()
     {
-        $this->shouldForceMatomoEndpoint = true;
+        $this->shouldForceMatomoEndpoint = \true;
     }
     /**
      * @param int $idSite
@@ -46,9 +46,10 @@ class TrackerCodeGenerator
      * @param bool $crossDomain
      * @param bool $excludedQueryParams
      * @param array $excludedReferrers
+     * @param bool $disableCampaignParameters
      * @return string Javascript code.
      */
-    public function generate($idSite, $piwikUrl, $mergeSubdomains = false, $groupPageTitlesByDomain = false, $mergeAliasUrls = false, $visitorCustomVariables = null, $pageCustomVariables = null, $customCampaignNameQueryParam = null, $customCampaignKeywordParam = null, $doNotTrack = false, $disableCookies = false, $trackNoScript = false, $crossDomain = false, $excludedQueryParams = false, $excludedReferrers = [])
+    public function generate($idSite, $piwikUrl, $mergeSubdomains = \false, $groupPageTitlesByDomain = \false, $mergeAliasUrls = \false, $visitorCustomVariables = null, $pageCustomVariables = null, $customCampaignNameQueryParam = null, $customCampaignKeywordParam = null, $doNotTrack = \false, $disableCookies = \false, $trackNoScript = \false, $crossDomain = \false, $excludedQueryParams = \false, $excludedReferrers = [], $disableCampaignParameters = \false)
     {
         // changes made to this code should be mirrored in plugins/CoreAdminHome/javascripts/jsTrackingGenerator.js var generateJsCode
         if (substr($piwikUrl, 0, 4) !== 'http') {
@@ -64,7 +65,7 @@ class TrackerCodeGenerator
         }
         if ($crossDomain) {
             // When enabling cross domain, we also need to call `setDomains`
-            $mergeAliasUrls = true;
+            $mergeAliasUrls = \true;
         }
         if ($mergeSubdomains || $mergeAliasUrls) {
             $options .= $this->getJavascriptTagOptions($idSite, $mergeSubdomains, $mergeAliasUrls);
@@ -94,6 +95,9 @@ class TrackerCodeGenerator
                     $options .= sprintf('  _paq.push(["setCustomVariable", %d, %s, %s, "page"]);%s', $index++, json_encode($pageCustomVariable[0]), json_encode($pageCustomVariable[1]), "\n");
                 }
             }
+        }
+        if ($disableCampaignParameters) {
+            $options .= '  _paq.push(["disableCampaignParameters"]);' . "\n";
         }
         if ($customCampaignNameQueryParam) {
             $options .= '  _paq.push(["setCampaignNameKey", ' . json_encode($customCampaignNameQueryParam) . ']);' . "\n";
@@ -128,7 +132,7 @@ class TrackerCodeGenerator
             'options' => $options,
             'optionsBeforeTrackerUrl' => $optionsBeforeTrackerUrl,
             'protocol' => '//',
-            'loadAsync' => true,
+            'loadAsync' => \true,
             'trackNoScript' => $trackNoScript,
             'matomoJsFilename' => $this->getJsTrackerEndpoint(),
             'matomoPhpFilename' => $this->getPhpTrackerEndpoint(),
@@ -136,7 +140,7 @@ class TrackerCodeGenerator
         if (SettingsPiwik::isHttpsForced()) {
             $codeImpl['protocol'] = 'https://';
         }
-        $parameters = compact('mergeSubdomains', 'groupPageTitlesByDomain', 'mergeAliasUrls', 'visitorCustomVariables', 'pageCustomVariables', 'customCampaignNameQueryParam', 'customCampaignKeywordParam', 'doNotTrack');
+        $parameters = compact('mergeSubdomains', 'groupPageTitlesByDomain', 'mergeAliasUrls', 'visitorCustomVariables', 'pageCustomVariables', 'customCampaignNameQueryParam', 'customCampaignKeywordParam', 'doNotTrack', 'disableCampaignParameters');
         /**
          * Triggered when generating JavaScript tracking code server side. Plugins can use
          * this event to customise the JavaScript tracking code that is displayed to the
@@ -165,13 +169,13 @@ class TrackerCodeGenerator
             $setTrackerUrl = 'var u=((document.location.protocol === "https:") ? "https://{$httpsPiwikUrl}/" : "http://{$piwikUrl}/");';
             $codeImpl['httpsPiwikUrl'] = rtrim($codeImpl['httpsPiwikUrl'], "/");
         }
-        $codeImpl = array('setTrackerUrl' => htmlentities($setTrackerUrl, ENT_COMPAT | ENT_HTML401, 'UTF-8')) + $codeImpl;
+        $codeImpl = array('setTrackerUrl' => htmlentities($setTrackerUrl, \ENT_COMPAT | \ENT_HTML401, 'UTF-8')) + $codeImpl;
         $view = new View('@Morpheus/javascriptCode');
         $view->disableCacheBuster();
         $view->loadAsync = $codeImpl['loadAsync'];
         $view->trackNoScript = $codeImpl['trackNoScript'];
         $jsCode = $view->render();
-        $jsCode = htmlentities($jsCode, ENT_COMPAT | ENT_HTML401, 'UTF-8');
+        $jsCode = htmlentities($jsCode, \ENT_COMPAT | \ENT_HTML401, 'UTF-8');
         foreach ($codeImpl as $keyToReplace => $replaceWith) {
             $jsCode = str_replace('{$' . $keyToReplace . '}', $replaceWith, $jsCode);
         }
@@ -196,7 +200,7 @@ class TrackerCodeGenerator
     public function shouldPreferPiwikEndpoint()
     {
         if ($this->shouldForceMatomoEndpoint) {
-            return false;
+            return \false;
         }
         // only since 3.7.0 we use the default matomo.js|php... for all other installs we need to keep BC
         return DbHelper::wasMatomoInstalledBeforeVersion('3.7.0-b1');

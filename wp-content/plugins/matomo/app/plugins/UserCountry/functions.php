@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry;
 
@@ -84,10 +83,10 @@ function countryTranslate($label)
  * @return string|false Returns false if $label == DataTable::LABEL_SUMMARY_ROW, otherwise
  *                      explode($separator, $label)[$index].
  */
-function getElementFromStringArray($label, $separator, $index, $emptyValue = false)
+function getElementFromStringArray($label, $separator, $index, $emptyValue = \false)
 {
     if ($label == DataTable::LABEL_SUMMARY_ROW) {
-        return false;
+        return \false;
         // so no metadata/column is added
     }
     $segments = explode($separator, $label);
@@ -158,7 +157,7 @@ function getRegionNames()
 function getRegionName($label)
 {
     if ($label == DataTable::LABEL_SUMMARY_ROW) {
-        return false;
+        return \false;
         // so no metadata/column is added
     }
     if ($label == '') {

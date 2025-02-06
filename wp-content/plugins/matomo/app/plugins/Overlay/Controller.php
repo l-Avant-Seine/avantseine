@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Overlay;
 
@@ -90,16 +89,14 @@ class Controller extends \Piwik\Plugin\Controller
             }
             foreach ($showMetrics as $metric) {
                 $value = $row->getColumn($metric);
-                if ($value === false) {
+                if ($value === \false) {
                     // skip unique visitors for period != day
                     continue;
                 }
                 if ($metric == 'bounce_rate' || $metric == 'exit_rate') {
                     $value = $formatter->getPrettyPercentFromQuotient($value);
-                } else {
-                    if ($metric == 'avg_time_on_page') {
-                        $value = $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = true);
-                    }
+                } elseif ($metric == 'avg_time_on_page') {
+                    $value = $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = \true);
                 }
                 $data[] = array('name' => $translations[$metric], 'value' => $value);
             }
@@ -143,7 +140,7 @@ class Controller extends \Piwik\Plugin\Controller
         $view->knownUrls = json_encode($urls);
         $view->mainUrl = $site['main_url'];
         $this->outputCORSHeaders();
-        $view->setUseStrictReferrerPolicy(false);
+        $view->setUseStrictReferrerPolicy(\false);
         Common::sendHeader('Content-Type: text/html; charset=UTF-8');
         return $view->render();
     }

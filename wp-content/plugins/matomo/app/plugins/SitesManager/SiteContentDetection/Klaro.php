@@ -4,8 +4,7 @@
  * Matomo - free/libre analytics platform
  *
  * @link    https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager\SiteContentDetection;
 
@@ -24,12 +23,12 @@ class Klaro extends \Piwik\Plugins\SitesManager\SiteContentDetection\ConsentMana
     {
         $needle1 = 'klaro.js';
         $needle2 = 'kiprotect.com';
-        return strpos($data, $needle1) !== false || strpos($data, $needle2) !== false;
+        return strpos($data, $needle1) !== \false || strpos($data, $needle2) !== \false;
     }
     public function checkIsConnected(?string $data = null, ?array $headers = null) : bool
     {
         $needle1 = 'KlaroWatcher()';
         $needle2 = "title: 'Matomo',";
-        return strpos($data, $needle1) !== false || strpos($data, $needle2) !== false;
+        return strpos($data, $needle1) !== \false || strpos($data, $needle2) !== \false;
     }
 }

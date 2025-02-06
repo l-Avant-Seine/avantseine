@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Ecommerce\Columns;
 
@@ -44,7 +43,7 @@ class ProductViewName extends ActionDimension
         if (Manager::getInstance()->isPluginActivated('CustomVariables')) {
             $customVariables = CustomVariablesRequestProcessor::getCustomVariablesInPageScope($request);
             if (isset($customVariables['custom_var_k4']) && $customVariables['custom_var_k4'] === '_pkn') {
-                return $customVariables['custom_var_v4'] ?? false;
+                return $customVariables['custom_var_v4'] ?? \false;
             }
         }
         return parent::onLookupAction($request, $action);

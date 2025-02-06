@@ -24,6 +24,7 @@ use Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult;
 use Piwik\Plugins\Diagnostics\DiagnosticService;
 use Piwik\Plugins\SitesManager\Model;
 use Piwik\Plugins\UserCountry\LocationProvider;
+use Piwik\Plugins\WordPress\WordPress;
 use Piwik\SettingsPiwik;
 use Piwik\Tracker\Failures;
 use Piwik\Version;
@@ -196,9 +197,28 @@ class SystemReport {
 					$sync->sync_current_site();
 				}
 				if ( ! empty( $_POST[ self::TROUBLESHOOT_RUN_UPDATER ] ) ) {
-					Updater::unlock();
-					$sync = new Updater( $this->settings );
-					$sync->update();
+					$update_from_version = ! empty( $_POST['matomo_troubleshooting_update_from'] )
+						? sanitize_text_field( wp_unslash( $_POST['matomo_troubleshooting_update_from'] ) )
+						: null;
+					$update_from_version = trim( $update_from_version );
+
+					if ( ! empty( $update_from_version )
+						&& ! preg_match( '/^\d+(?:.\d+)*$/', $update_from_version )
+					) {
+						echo '<div class="error"><p>' . esc_html__( 'Matomo Update Error', 'matomo' )
+							. ': unrecognized version string "' . esc_html( $update_from_version )
+							. '", ignoring.</p></div>';
+
+						$update_from_version = '';
+					}
+
+					try {
+						Updater::unlock();
+						$sync = new Updater( $this->settings );
+						$sync->update( $update_from_version );
+					} catch ( \Exception $e ) {
+						echo '<div class="error"><p>' . esc_html__( 'Matomo Update Error', 'matomo' ) . ': ' . esc_html( matomo_anonymize_value( $e->getMessage() . ' =>' . $this->logger->get_readable_trace( $e ) ) ) . '</p></div>';
+					}
 				}
 			}
 			if ( $this->settings->is_network_enabled() ) {
@@ -262,28 +282,20 @@ class SystemReport {
 	}
 
 	public function errors_present() {
-		$cache_key   = 'matomo_system_report_has_errors';
-		$cache_value = get_transient( $cache_key );
+		$cache_key   = $this->get_errors_present_cache_key();
+		$cache_value = get_site_transient( $cache_key );
 
 		if ( false === $cache_value ) {
 			// pre-record that there were no errors found. in case the system report fails to execute, this will
 			// allow the rest of Matomo for WordPress to continue to still be usable.
-			set_transient( $cache_key, 0, WEEK_IN_SECONDS );
+			set_site_transient( $cache_key, 0, WEEK_IN_SECONDS );
 
 			$matomo_tables = $this->get_error_tables();
 
 			$matomo_tables = apply_filters( 'matomo_systemreport_tables', $matomo_tables );
 			$matomo_tables = $this->add_errors_first( $matomo_tables );
 
-			foreach ( $matomo_tables as $report_table ) {
-				foreach ( $report_table['rows'] as $row ) {
-					if ( ! empty( $row['is_error'] ) || ! empty( $row['is_warning'] ) ) {
-						$cache_value = true;
-					}
-				}
-			}
-
-			set_transient( $cache_key, (int) $cache_value, WEEK_IN_SECONDS );
+			$this->set_errors_present_transient( $matomo_tables );
 		}
 
 		return 1 === (int) $cache_value;
@@ -303,17 +315,22 @@ class SystemReport {
 			}
 		}
 
-		$matomo_tables = [];
+		$matomo_tables                    = [];
+		$matomo_has_exception_logs        = [];
+		$matomo_has_warning_and_no_errors = false;
+
 		if ( empty( $matomo_active_tab ) ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.prevent_path_disclosure_error_reporting
 			$this->initial_error_reporting = @error_reporting();
 			$matomo_tables                 = $this->get_error_tables();
-		}
-		$matomo_tables                    = apply_filters( 'matomo_systemreport_tables', $matomo_tables );
-		$matomo_tables                    = $this->add_errors_first( $matomo_tables );
-		$matomo_has_warning_and_no_errors = $this->has_only_warnings_no_error( $matomo_tables );
+			$matomo_tables                 = apply_filters( 'matomo_systemreport_tables', $matomo_tables );
 
-		$matomo_has_exception_logs = $this->logger->get_last_logged_entries();
+			$matomo_has_errors = $this->set_errors_present_transient( $matomo_tables );
+
+			$matomo_tables                    = $this->add_errors_first( $matomo_tables );
+			$matomo_has_warning_and_no_errors = $this->has_only_warnings_no_error( $matomo_tables );
+			$matomo_has_exception_logs        = $this->logger->get_last_logged_entries();
+		}
 
 		include dirname( __FILE__ ) . '/views/systemreport.php';
 	}
@@ -386,22 +403,49 @@ class SystemReport {
 		$rows = [];
 
 		if ( $this->shell_exec_available ) {
+			try {
+				$cli_multi = new CliMulti();
+
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$supports_async = $cli_multi->supportsAsync;
+			} catch ( \Exception $ex ) {
+				$rows[] = [
+					'name'       => esc_html__( 'PHP CLI configuration', 'matomo' ),
+					'value'      => esc_html__( 'Unexpected error', 'matomo' ),
+					'is_warning' => true,
+					'comment'    => sprintf( esc_html__( 'Could not detect whether async archiving is enabled: %s', 'matomo' ), $ex->getMessage() ),
+				];
+			}
+
 			$phpcli_version = $this->get_phpcli_output( '-r "echo phpversion();"' );
-            // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-			global $piwik_minimumPHPVersion;
+
+			$is_warning = false;
+			$comment    = '';
+
+			$advanced_settings_url = home_url( '/wp-admin/admin.php?page=matomo-settings&tab=advanced#matomo[disable_async_archiving]' );
+
+			$is_using_cli_archiving = ! \WpMatomo::is_async_archiving_manually_disabled() && $supports_async;
+
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-			if ( version_compare( $phpcli_version, $piwik_minimumPHPVersion ) <= 0 ) {
-				$is_error = true;
-				$comment  = sprintf( esc_html__( 'Your PHP cli version is not compatible with the %s. Please upgrade your PHP cli version, otherwise, you might have some archiving errors', 'matomo' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://matomo.org/faq/on-premise/matomo-requirements/', esc_html__( 'Matomo requirements', 'matomo' ) ) );
-			} else {
-				$is_error = false;
-				$comment  = '';
+			if ( version_compare( $phpcli_version, PHP_VERSION ) < 0 ) {
+				if ( $is_using_cli_archiving ) {
+					$is_warning = true;
+				}
+
+				$comment = sprintf(
+					esc_html__( 'The detected PHP CLI version does not match the PHP web version. To avoid archiving errors, %1$senable archiving via HTTP requests%2$s, or %3$smanually set the path to your PHP CLI executable%4$s to the one for PHP version %5$s.', 'matomo' ),
+					'<a href="' . $advanced_settings_url . '">',
+					'</a>',
+					'<a href="https://matomo.org/faq/how-to-solve-the-error-message-your-php-cli-version-is-not-compatible-with-the-matomo-requirements/" target="_blank" rel="noreferrer noopener">',
+					'</a>',
+					PHP_VERSION
+				);
 			}
 			$rows[] = [
-				'name'     => esc_html__( 'PHP cli Version', 'matomo' ),
-				'value'    => $phpcli_version,
-				'comment'  => $comment,
-				'is_error' => $is_error,
+				'name'       => esc_html__( 'PHP CLI Version', 'matomo' ),
+				'value'      => $phpcli_version,
+				'comment'    => $comment,
+				'is_warning' => $is_warning,
 			];
 
 			$is_error = false;
@@ -417,10 +461,12 @@ class SystemReport {
 				'name'     => esc_html__( 'MySQLi support', 'matomo' ),
 				'value'    => $value,
 				'comment'  => $comment,
-				'is_error' => $is_error,
+				'is_error' => $is_using_cli_archiving ? $is_error : false,
 			];
 
-			$this->check_wp_can_be_loaded_in_php_cli( $rows );
+			if ( $supports_async ) {
+				$this->check_wp_can_be_loaded_in_php_cli( $rows );
+			}
 		}
 
 		return $rows;
@@ -433,24 +479,6 @@ class SystemReport {
 
 		$wp_load_path = $this->find_wp_load_path();
 		if ( ! $wp_load_path ) {
-			return;
-		}
-
-		try {
-			$cli_multi = new CliMulti();
-
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$supports_async = $cli_multi->supportsAsync;
-		} catch ( \Exception $ex ) {
-			$rows[] = [
-				'name'       => esc_html__( 'PHP CLI configuration', 'matomo' ),
-				'value'      => esc_html__( 'Unexpected error', 'matomo' ),
-				'is_warning' => true,
-				'comment'    => sprintf( esc_html__( 'Could not detect whether async archiving is enabled: %s', 'matomo' ), $ex->getMessage() ),
-			];
-		}
-
-		if ( ! $supports_async ) {
 			return;
 		}
 
@@ -1424,6 +1452,9 @@ class SystemReport {
 			'comment' => ! empty( $disabled_functions ) ? $disabled_functions : '',
 		];
 
+		// try to set it before checking, since we try to set it in /app/bootstrap.php
+		@ini_set( 'zlib.output_compression', false );
+
 		$zlib_compression = ini_get( 'zlib.output_compression' );
 		$row              = [
 			'name'  => 'zlib.output_compression is off',
@@ -1985,5 +2016,26 @@ class SystemReport {
 		}
 
 		return $this->binary;
+	}
+
+	private function set_errors_present_transient( $matomo_tables ) {
+		$cache_key = $this->get_errors_present_cache_key();
+
+		$cache_value = false;
+		foreach ( $matomo_tables as $report_table ) {
+			foreach ( $report_table['rows'] as $row ) {
+				if ( ! empty( $row['is_error'] ) || ! empty( $row['is_warning'] ) ) {
+					$cache_value = true;
+				}
+			}
+		}
+
+		set_site_transient( $cache_key, (int) $cache_value, WEEK_IN_SECONDS );
+
+		return $cache_value;
+	}
+
+	private function get_errors_present_cache_key() {
+		return 'matomo_system_report_has_errors';
 	}
 }

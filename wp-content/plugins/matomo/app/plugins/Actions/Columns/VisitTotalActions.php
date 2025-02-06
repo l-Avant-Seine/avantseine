@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Columns;
 
@@ -49,7 +48,7 @@ class VisitTotalActions extends VisitDimension
      */
     public function onNewVisit(Request $request, Visitor $visitor, $action)
     {
-        $actionType = false;
+        $actionType = \false;
         if ($action) {
             $actionType = $action->getActionType();
         }
@@ -69,11 +68,11 @@ class VisitTotalActions extends VisitDimension
     public function onExistingVisit(Request $request, Visitor $visitor, $action)
     {
         if (!$action) {
-            return false;
+            return \false;
         }
         $increment = 'visit_total_actions + 1';
         $idActionUrl = $action->getIdActionUrlForEntryAndExitIds();
-        if ($idActionUrl !== false) {
+        if ($idActionUrl !== \false) {
             return $increment;
         }
         $actionType = $action->getActionType();
@@ -81,6 +80,6 @@ class VisitTotalActions extends VisitDimension
         if (in_array($actionType, $types)) {
             return $increment;
         }
-        return false;
+        return \false;
     }
 }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreAdminHome\Commands;
 
@@ -64,7 +63,7 @@ class FixDuplicateLogActions extends ConsoleCommand
      * @param Actions $actionsAccess
      * @param LoggerInterface $logger
      */
-    public function __construct(ArchiveInvalidator $invalidator = null, DuplicateActionRemover $duplicateActionRemover = null, Actions $actionsAccess = null, LoggerInterface $logger = null)
+    public function __construct(?ArchiveInvalidator $invalidator = null, ?DuplicateActionRemover $duplicateActionRemover = null, ?Actions $actionsAccess = null, ?LoggerInterface $logger = null)
     {
         parent::__construct();
         $this->archiveInvalidator = $invalidator ?: StaticContainer::get('Piwik\\Archive\\ArchiveInvalidator');
@@ -106,7 +105,7 @@ class FixDuplicateLogActions extends ConsoleCommand
         $this->getOutput()->write("Invalidating archives affected by duplicates fixed...");
         foreach ($archivesAffected as $archiveInfo) {
             $dates = array(Date::factory($archiveInfo['server_time']));
-            $this->archiveInvalidator->markArchivesAsInvalidated(array($archiveInfo['idsite']), $dates, $period = false);
+            $this->archiveInvalidator->markArchivesAsInvalidated(array($archiveInfo['idsite']), $dates, $period = \false);
         }
         $this->getOutput()->writeln("Done.");
     }
@@ -134,7 +133,7 @@ class FixDuplicateLogActions extends ConsoleCommand
                 $allArchivesAffected = array_merge($allArchivesAffected, $archivesAffected);
             }
         }
-        $allArchivesAffected = array_values(array_unique($allArchivesAffected, SORT_REGULAR));
+        $allArchivesAffected = array_values(array_unique($allArchivesAffected, \SORT_REGULAR));
         return array($numberRemoved, $allArchivesAffected);
     }
     private function fixDuplicateActionsInTable($table, $toIdAction, $fromIdActions)

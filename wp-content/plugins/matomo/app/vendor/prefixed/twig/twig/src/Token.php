@@ -42,7 +42,7 @@ final class Token
     }
     public function __toString()
     {
-        return sprintf('%s(%s)', self::typeToString($this->type, true), $this->value);
+        return \sprintf('%s(%s)', self::typeToString($this->type, \true), $this->value);
     }
     /**
      * Tests the current token for a type and/or a value.
@@ -75,7 +75,7 @@ final class Token
     {
         return $this->value;
     }
-    public static function typeToString(int $type, bool $short = false) : string
+    public static function typeToString(int $type, bool $short = \false) : string
     {
         switch ($type) {
             case self::EOF_TYPE:
@@ -124,7 +124,7 @@ final class Token
                 $name = 'SPREAD_TYPE';
                 break;
             default:
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
+                throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
         }
         return $short ? $name : 'Twig\\Token::' . $name;
     }
@@ -162,7 +162,7 @@ final class Token
             case self::SPREAD_TYPE:
                 return 'spread operator';
             default:
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
+                throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
         }
     }
 }

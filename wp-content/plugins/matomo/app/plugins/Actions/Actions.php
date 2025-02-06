@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions;
 
@@ -21,7 +20,7 @@ use Piwik\Tracker\Action;
  */
 class Actions extends \Piwik\Plugin
 {
-    const ACTIONS_REPORT_ROWS_DISPLAY = 100;
+    public const ACTIONS_REPORT_ROWS_DISPLAY = 100;
     /**
      * @see \Piwik\Plugin::registerEvents
      */
@@ -66,29 +65,29 @@ class Actions extends \Piwik\Plugin
     }
     public function isSiteSearchEnabled($idSites, $idSite)
     {
-        $idSites = Site::getIdSitesFromIdSitesString($idSites, true);
+        $idSites = Site::getIdSitesFromIdSitesString($idSites, \true);
         if (!empty($idSite)) {
             $idSites[] = $idSite;
         }
         if (empty($idSites)) {
-            return false;
+            return \false;
         }
         foreach ($idSites as $idSite) {
             if (!Site::isSiteSearchEnabledFor($idSite)) {
-                return false;
+                return \false;
             }
         }
-        return true;
+        return \true;
     }
     public function configureViewDataTable(ViewDataTable $view)
     {
         if ($this->pluginName == $view->requestConfig->getApiModuleToRequest()) {
             if ($view->isRequestingSingleDataTable()) {
                 // make sure custom visualizations are shown on actions reports
-                $view->config->show_all_views_icons = true;
-                $view->config->show_bar_chart = false;
-                $view->config->show_pie_chart = false;
-                $view->config->show_tag_cloud = false;
+                $view->config->show_all_views_icons = \true;
+                $view->config->show_bar_chart = \false;
+                $view->config->show_pie_chart = \false;
+                $view->config->show_tag_cloud = \false;
             }
         }
     }

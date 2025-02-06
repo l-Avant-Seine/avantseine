@@ -19,9 +19,6 @@ use Matomo\Dependencies\Symfony\Component\ErrorHandler\Error\FatalError;
  */
 class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function enhance(\Throwable $error) : ?\Throwable
     {
         // Some specific versions of PHP produce a fatal error when extending a not found class.
@@ -31,7 +28,7 @@ class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
         }
         $typeName = strtolower($matches[1]);
         $fullyQualifiedClassName = $matches[2];
-        if (false !== ($namespaceSeparatorIndex = strrpos($fullyQualifiedClassName, '\\'))) {
+        if (\false !== ($namespaceSeparatorIndex = strrpos($fullyQualifiedClassName, '\\'))) {
             $className = substr($fullyQualifiedClassName, $namespaceSeparatorIndex + 1);
             $namespacePrefix = substr($fullyQualifiedClassName, 0, $namespaceSeparatorIndex);
             $message = sprintf('Attempted to load %s "%s" from namespace "%s".', $typeName, $className, $namespacePrefix);
@@ -97,7 +94,8 @@ class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
     }
     private function findClassInPath(string $path, string $class, string $prefix) : array
     {
-        if (!($path = (realpath($path . '/' . strtr($prefix, '\\_', '//')) ?: realpath($path . '/' . \dirname(strtr($prefix, '\\_', '//')))) ?: realpath($path))) {
+        $path = (realpath($path . '/' . strtr($prefix, '\\_', '//')) ?: realpath($path . '/' . \dirname(strtr($prefix, '\\_', '//')))) ?: realpath($path);
+        if (!$path || !is_dir($path)) {
             return [];
         }
         $classes = [];
@@ -152,6 +150,6 @@ class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
     }
     private function classExists(string $class) : bool
     {
-        return class_exists($class, false) || interface_exists($class, false) || trait_exists($class, false);
+        return class_exists($class, \false) || interface_exists($class, \false) || trait_exists($class, \false);
     }
 }

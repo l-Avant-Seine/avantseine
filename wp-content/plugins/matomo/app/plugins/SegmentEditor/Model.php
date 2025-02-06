@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SegmentEditor;
 
@@ -42,7 +41,7 @@ class Model
      *                         for all sites. If supplied, must be a valid site ID.
      * @return array
      */
-    public function getSegmentsToAutoArchive($idSite = false)
+    public function getSegmentsToAutoArchive($idSite = \false)
     {
         $bind = array();
         $whereIdSite = '';
@@ -88,7 +87,7 @@ class Model
      * @param $idSite
      * @return array
      */
-    public function getAllSegmentsForAllUsers($idSite = false)
+    public function getAllSegmentsForAllUsers($idSite = \false)
     {
         $bind = array();
         $sqlWhereCondition = '';
@@ -184,7 +183,7 @@ class Model
         }
         $db = $this->getDb();
         $db->update($this->getTable(), $segment, "idsegment = {$idSegment}");
-        return true;
+        return \true;
     }
     public function createSegment($segment)
     {

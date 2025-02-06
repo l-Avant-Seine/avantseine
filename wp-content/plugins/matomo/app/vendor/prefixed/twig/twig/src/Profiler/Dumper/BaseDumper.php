@@ -24,7 +24,7 @@ abstract class BaseDumper
     protected abstract function formatTemplate(Profile $profile, $prefix) : string;
     protected abstract function formatNonTemplate(Profile $profile, $prefix) : string;
     protected abstract function formatTime(Profile $profile, $percent) : string;
-    private function dumpProfile(Profile $profile, $prefix = '', $sibling = false) : string
+    private function dumpProfile(Profile $profile, $prefix = '', $sibling = \false) : string
     {
         if ($profile->isRoot()) {
             $this->root = $profile->getDuration();
@@ -41,7 +41,7 @@ abstract class BaseDumper
         if ($profile->getDuration() * 1000 < 1) {
             $str = $start . "\n";
         } else {
-            $str = sprintf("%s %s\n", $start, $this->formatTime($profile, $percent));
+            $str = \sprintf("%s %s\n", $start, $this->formatTime($profile, $percent));
         }
         $nCount = \count($profile->getProfiles());
         foreach ($profile as $i => $p) {

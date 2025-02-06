@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Changes;
 
@@ -65,7 +64,7 @@ class UserChanges
     {
         $lastShown = isset($this->user['ts_changes_shown']) ? $this->user['ts_changes_shown'] : null;
         if (!$lastShown) {
-            return false;
+            return \false;
             // Never shown
         }
         // Less than 24hrs since last shown

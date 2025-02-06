@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Contents\Reports;
 
@@ -40,7 +39,7 @@ abstract class Base extends Report
     {
         $view->config->datatable_js_type = 'ContentsDataTable';
         $view->config->datatable_css_class = 'ContentsDataTable';
-        $view->config->show_table_all_columns = false;
+        $view->config->show_table_all_columns = \false;
         $view->config->columns_to_display = array_merge(array('label'), array_keys($this->getMetrics()), array_keys($this->getProcessedMetrics()));
         if (property_exists($view->config, 'selectable_columns')) {
             $view->config->selectable_columns = $this->metrics;
@@ -54,7 +53,7 @@ abstract class Base extends Report
     }
     private function hasSubtableId()
     {
-        $subtable = Common::getRequestVar('idSubtable', false, 'integer');
+        $subtable = Common::getRequestVar('idSubtable', \false, 'integer');
         return !empty($subtable);
     }
 }

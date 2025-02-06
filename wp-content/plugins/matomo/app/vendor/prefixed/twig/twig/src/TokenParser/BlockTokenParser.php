@@ -38,7 +38,7 @@ final class BlockTokenParser extends AbstractTokenParser
             5
         )->getValue();
         if ($this->parser->hasBlock($name)) {
-            throw new SyntaxError(sprintf("The block '%s' has already been defined line %d.", $name, $this->parser->getBlock($name)->getTemplateLine()), $stream->getCurrent()->getLine(), $stream->getSourceContext());
+            throw new SyntaxError(\sprintf("The block '%s' has already been defined line %d.", $name, $this->parser->getBlock($name)->getTemplateLine()), $stream->getCurrent()->getLine(), $stream->getSourceContext());
         }
         $this->parser->setBlock($name, $block = new BlockNode($name, new Node([]), $lineno));
         $this->parser->pushLocalScope();
@@ -47,14 +47,14 @@ final class BlockTokenParser extends AbstractTokenParser
             /* Token::BLOCK_END_TYPE */
             3
         )) {
-            $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
+            $body = $this->parser->subparse([$this, 'decideBlockEnd'], \true);
             if ($token = $stream->nextIf(
                 /* Token::NAME_TYPE */
                 5
             )) {
                 $value = $token->getValue();
                 if ($value != $name) {
-                    throw new SyntaxError(sprintf('Expected endblock for block "%s" (but "%s" given).', $name, $value), $stream->getCurrent()->getLine(), $stream->getSourceContext());
+                    throw new SyntaxError(\sprintf('Expected endblock for block "%s" (but "%s" given).', $name, $value), $stream->getCurrent()->getLine(), $stream->getSourceContext());
                 }
             }
         } else {

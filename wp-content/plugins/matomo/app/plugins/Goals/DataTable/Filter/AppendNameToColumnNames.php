@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\DataTable\Filter;
 
@@ -36,7 +35,7 @@ class AppendNameToColumnNames extends BaseFilter
      */
     public function filter($table)
     {
-        if (!isset($this->nameToAppend) || '' === $this->nameToAppend || false === $this->nameToAppend) {
+        if (!isset($this->nameToAppend) || '' === $this->nameToAppend || \false === $this->nameToAppend) {
             return;
         }
         foreach ($table->getRows() as $row) {

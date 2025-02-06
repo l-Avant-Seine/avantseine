@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreConsole\Commands;
 
@@ -55,7 +54,7 @@ class GeneratePlugin extends \Piwik\Plugins\CoreConsole\Commands\GeneratePluginB
     private function isTheme()
     {
         $commandName = $this->getInput()->getFirstArgument();
-        return false !== strpos($commandName, 'theme');
+        return \false !== strpos($commandName, 'theme');
     }
     protected function generatePluginFolder($pluginName)
     {

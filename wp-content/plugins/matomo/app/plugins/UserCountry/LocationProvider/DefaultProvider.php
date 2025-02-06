@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry\LocationProvider;
 
@@ -28,8 +27,8 @@ use Piwik\Url;
  */
 class DefaultProvider extends LocationProvider
 {
-    const ID = 'default';
-    const TITLE = 'General_Default';
+    public const ID = 'default';
+    public const TITLE = 'General_Default';
     /**
      * Guesses a visitor's location using a visitor's browser language.
      *
@@ -53,12 +52,12 @@ class DefaultProvider extends LocationProvider
     private function getCountryUsingProviderExtensionIfAvailable($ipAddress)
     {
         if (!Manager::getInstance()->isPluginInstalled('Provider') || !class_exists('Piwik\\Plugins\\Provider\\Provider') || Common::getRequestVar('dp', 0, 'int') === 1) {
-            return false;
+            return \false;
         }
         $privacyConfig = new PrivacyManagerConfig();
         // when using anonymized ip for enrichment we skip this check
         if ($privacyConfig->useAnonymizedIpForVisitEnrichment) {
-            return false;
+            return \false;
         }
         $hostname = $this->getHost($ipAddress);
         $hostnameExtension = ProviderProvider::getCleanHostname($hostname);
@@ -71,7 +70,7 @@ class DefaultProvider extends LocationProvider
         if (array_key_exists($hostnameDomain, $regionDataProvider->getCountryList())) {
             return $hostnameDomain;
         }
-        return false;
+        return \false;
     }
     /**
      * Returns the hostname given the IP address string
@@ -113,7 +112,7 @@ class DefaultProvider extends LocationProvider
      */
     public function isWorking()
     {
-        return true;
+        return \true;
     }
     /**
      * Returns an array describing the types of location information this provider will
@@ -129,7 +128,7 @@ class DefaultProvider extends LocationProvider
      */
     public function getSupportedLocationInfo()
     {
-        return [self::CONTINENT_CODE_KEY => true, self::CONTINENT_NAME_KEY => true, self::COUNTRY_CODE_KEY => true, self::COUNTRY_NAME_KEY => true];
+        return [self::CONTINENT_CODE_KEY => \true, self::CONTINENT_NAME_KEY => \true, self::COUNTRY_CODE_KEY => \true, self::COUNTRY_NAME_KEY => \true];
     }
     /**
      * Returns information about this location provider. Contains an id, title & description:

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\PagePerformance\Visualizations;
 
@@ -19,9 +18,9 @@ use Piwik\Plugins\PagePerformance\PagePerformance;
  */
 class PerformanceColumns extends HtmlTable
 {
-    const ID = 'tablePerformanceColumns';
-    const FOOTER_ICON = 'icon-page-performance';
-    const FOOTER_ICON_TITLE = 'PagePerformance_PerformanceTable';
+    public const ID = 'tablePerformanceColumns';
+    public const FOOTER_ICON = 'icon-page-performance';
+    public const FOOTER_ICON_TITLE = 'PagePerformance_PerformanceTable';
     public function beforeRender()
     {
         parent::beforeRender();
@@ -29,8 +28,8 @@ class PerformanceColumns extends HtmlTable
     public static function canDisplayViewDataTable($viewDataTable)
     {
         $request = $viewDataTable->getRequestArray();
-        if ($viewDataTable->config->show_table_performance === false) {
-            return false;
+        if ($viewDataTable->config->show_table_performance === \false) {
+            return \false;
         }
         $module = $request['module'] ?? '';
         $action = $request['action'] ?? '';
@@ -39,9 +38,9 @@ class PerformanceColumns extends HtmlTable
             $action = $request['actionToWidgetize'] ?: $action;
         }
         if ('Actions' === $module && in_array($action, PagePerformance::$availableForMethods)) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     public function beforeGenericFiltersAreAppliedToLoadedDataTable()
     {
@@ -63,7 +62,7 @@ class PerformanceColumns extends HtmlTable
     }
     protected function isPivoted()
     {
-        return false;
+        return \false;
         // Pivot not supported
     }
 }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Actions\Columns;
 
@@ -58,7 +57,7 @@ class ActionType extends ActionDimension
         $types = [];
         foreach ($availableTypes as $type) {
             if (empty($type['id']) || empty($type['name'])) {
-                throw new Exception("Invalid action added with event `Actions.addActionTypes`: " . var_export($type, true));
+                throw new Exception("Invalid action added with event `Actions.addActionTypes`: " . var_export($type, \true));
             }
             if (Development::isEnabled() && array_key_exists($type['id'], $types)) {
                 throw new Exception(sprintf("Action '%s' with id %s couldn't be added, as '%s' was already added for this id", $type['name'], $type['id'], $types[$type['id']]));

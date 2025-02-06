@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -23,7 +22,7 @@ class DbHelper
      * @param bool $forceReload Invalidate cache
      * @return array  Tables installed
      */
-    public static function getTablesInstalled($forceReload = true)
+    public static function getTablesInstalled($forceReload = \true)
     {
         return Schema::getInstance()->getTablesInstalled($forceReload);
     }
@@ -83,7 +82,7 @@ class DbHelper
         try {
             return Schema::getInstance()->hasTables();
         } catch (Exception $e) {
-            return false;
+            return \false;
         }
     }
     /**
@@ -122,10 +121,10 @@ class DbHelper
     {
         $installVersion = self::getInstallVersion();
         if (empty($installVersion)) {
-            return true;
+            return \true;
             // we assume yes it was installed
         }
-        return true === version_compare($version, $installVersion, '>');
+        return \true === version_compare($version, $installVersion, '>');
     }
     /**
      * Create all tables
@@ -193,7 +192,7 @@ class DbHelper
      * @return string
      * @throws Tracker\Db\DbException
      */
-    public static function getDefaultCharset()
+    public static function getDefaultCharset() : string
     {
         $result = \Piwik\Db::get()->fetchRow("SHOW CHARACTER SET LIKE 'utf8mb4'");
         if (empty($result)) {
@@ -211,6 +210,18 @@ class DbHelper
             // innodb_file_per_table is required for utf8mb4
         }
         return 'utf8mb4';
+    }
+    /**
+     * Returns the default collation for a charset.
+     *
+     * @param string $charset
+     *
+     * @return string
+     * @throws Exception
+     */
+    public static function getDefaultCollationForCharset(string $charset) : string
+    {
+        return Schema::getInstance()->getDefaultCollationForCharset($charset);
     }
     /**
      * Returns sql queries to convert all installed tables to utf8mb4
@@ -254,30 +265,18 @@ class DbHelper
             \Piwik\Log::debug("Dropping table {$table}");
             \Piwik\Db::query("DROP TABLE IF EXISTS `{$table}`");
         }
-        ArchiveTableCreator::refreshTableList($forceReload = true);
+        ArchiveTableCreator::refreshTableList($forceReload = \true);
     }
     /**
-     * Adds a MAX_EXECUTION_TIME hint into a SELECT query if $limit is bigger than 1
+     * Adds a MAX_EXECUTION_TIME hint into a SELECT query if $limit is bigger than 0
      *
      * @param string $sql  query to add hint to
-     * @param int $limit  time limit in seconds
+     * @param float $limit  time limit in seconds
      * @return string
      */
-    public static function addMaxExecutionTimeHintToQuery($sql, $limit)
+    public static function addMaxExecutionTimeHintToQuery(string $sql, float $limit) : string
     {
-        if ($limit <= 0) {
-            return $sql;
-        }
-        $sql = trim($sql);
-        $pos = stripos($sql, 'SELECT');
-        $isMaxExecutionTimeoutAlreadyPresent = stripos($sql, 'MAX_EXECUTION_TIME(') !== false;
-        if ($pos !== false && !$isMaxExecutionTimeoutAlreadyPresent) {
-            $timeInMs = $limit * 1000;
-            $timeInMs = (int) $timeInMs;
-            $maxExecutionTimeHint = ' /*+ MAX_EXECUTION_TIME(' . $timeInMs . ') */ ';
-            $sql = substr_replace($sql, 'SELECT ' . $maxExecutionTimeHint, $pos, strlen('SELECT'));
-        }
-        return $sql;
+        return Schema::getInstance()->addMaxExecutionTimeHintToQuery($sql, $limit);
     }
     /**
      * Add an origin hint to the query to identify the main parameters and segment for debugging
@@ -324,7 +323,7 @@ class DbHelper
      */
     public static function addJoinPrefixHintToQuery(string $sql, string $prefix) : string
     {
-        if (strpos(trim($sql), '/*+ JOIN_PREFIX(') === false) {
+        if (strpos(trim($sql), '/*+ JOIN_PREFIX(') === \false) {
             $select = 'SELECT';
             if (0 === strpos(trim($sql), $select)) {
                 $sql = trim($sql);

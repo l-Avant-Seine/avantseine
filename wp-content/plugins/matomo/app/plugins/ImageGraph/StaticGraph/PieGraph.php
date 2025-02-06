@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\ImageGraph\StaticGraph;
 
@@ -16,10 +15,10 @@ use Piwik\Plugins\ImageGraph\StaticGraph;
  */
 abstract class PieGraph extends StaticGraph
 {
-    const RADIUS_MARGIN = 40;
-    const PIE_RIGHT_MARGIN = 20;
-    const SECTOR_GAP = 2.5;
-    const SLICE_COLOR_KEY = "SLICE_COLOR";
+    public const RADIUS_MARGIN = 40;
+    public const PIE_RIGHT_MARGIN = 20;
+    public const SECTOR_GAP = 2.5;
+    public const SLICE_COLOR_KEY = "SLICE_COLOR";
     /**
      * @var Pie
      */
@@ -54,7 +53,7 @@ abstract class PieGraph extends StaticGraph
         if ($showLegend) {
             $this->pieChart->drawPieLegend(15, 40, array("Alpha" => 20));
         }
-        $this->pieConfig = array('Radius' => $radius, 'DrawLabels' => true, 'DataGapAngle' => self::SECTOR_GAP, 'DataGapRadius' => self::SECTOR_GAP);
+        $this->pieConfig = array('Radius' => $radius, 'DrawLabels' => \true, 'DataGapAngle' => self::SECTOR_GAP, 'DataGapRadius' => self::SECTOR_GAP);
     }
     /**
      * this method logic is close to Piwik's core filter_truncate.

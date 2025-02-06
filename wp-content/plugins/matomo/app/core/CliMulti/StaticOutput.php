@@ -3,15 +3,15 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\CliMulti;
 
 use Piwik\Common;
 class StaticOutput implements \Piwik\CliMulti\OutputInterface
 {
-    private $content = false;
+    private $content = \false;
     private $outputId = null;
     public function __construct($outputId)
     {
@@ -37,7 +37,7 @@ class StaticOutput implements \Piwik\CliMulti\OutputInterface
     }
     public function exists() : bool
     {
-        return $this->content !== false;
+        return $this->content !== \false;
     }
     public function get()
     {
@@ -45,6 +45,6 @@ class StaticOutput implements \Piwik\CliMulti\OutputInterface
     }
     public function destroy()
     {
-        $this->content = false;
+        $this->content = \false;
     }
 }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -45,7 +44,7 @@ use Exception;
 abstract class API
 {
     private static $instances;
-    protected $autoSanitizeInputParams = true;
+    protected $autoSanitizeInputParams = \true;
     /**
      * Returns the singleton instance for the derived class. If the singleton instance
      * has not been created, this method will create it.

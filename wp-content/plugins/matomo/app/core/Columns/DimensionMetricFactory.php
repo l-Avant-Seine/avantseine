@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Columns;
 
@@ -34,7 +33,7 @@ class DimensionMetricFactory
     /**
      * @return ArchivedMetric
      */
-    public function createCustomMetric($metricName, $readableName, $aggregation, $documentation = '', string $semanticType = null)
+    public function createCustomMetric($metricName, $readableName, $aggregation, $documentation = '', ?string $semanticType = null)
     {
         if (!$this->dimension->getDbTableName() || !$this->dimension->getColumnName()) {
             throw new \Exception(sprintf('Cannot make metric from dimension %s because DB table or column missing', $this->dimension->getId()));

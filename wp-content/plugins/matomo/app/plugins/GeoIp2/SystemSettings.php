@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\GeoIp2;
 
@@ -27,7 +26,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     {
         $this->title = Piwik::translate('GeoIp2_ServerBasedVariablesConfiguration');
         $geoIpAdminEnabled = UserCountry::isGeoLocationAdminEnabled();
-        $this->useCustomVars = $this->makeSetting('geoip2usecustom', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+        $this->useCustomVars = $this->makeSetting('geoip2usecustom', \false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('GeoIp2_ShowCustomServerVariablesConfig');
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });

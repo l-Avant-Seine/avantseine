@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\ProfessionalServices\Widgets;
 
@@ -33,7 +32,7 @@ class PromoAbTesting extends \Piwik\Plugins\ProfessionalServices\Widgets\Dismiss
         $view = new View('@ProfessionalServices/pluginAdvertising');
         $view->plugin = $pluginInfo;
         $view->widgetName = self::getDismissibleWidgetName();
-        $view->userCanDismiss = Piwik::isUserIsAnonymous() === false;
+        $view->userCanDismiss = Piwik::isUserIsAnonymous() === \false;
         $view->title = Piwik::translate('ProfessionalServices_PromoUnlockPowerOf', $pluginInfo['displayName']);
         $view->listOfFeatures = [Piwik::translate('ProfessionalServices_AbTestingFeature01'), Piwik::translate('ProfessionalServices_AbTestingFeature02'), Piwik::translate('ProfessionalServices_AbTestingFeature03')];
         return $view->render();

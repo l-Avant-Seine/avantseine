@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<style type="text/css">
-	.matomo-systemreport a {
+<style>
+	.matomo-systemreport table a {
 		color: inherit;
 		text-decoration: underline;
 	}
@@ -29,6 +29,7 @@ use WpMatomo\Admin\SystemReport;
 /** @var array $matomo_tables */
 /** @var array $matomo_has_exception_logs */
 /** @var bool $matomo_has_warning_and_no_errors */
+/** @var bool $matomo_has_errors */
 /** @var string $matomo_active_tab */
 /** @var \WpMatomo\Settings $settings */
 
@@ -51,6 +52,21 @@ if ( ! function_exists( 'matomo_format_value_text' ) ) {
 ?>
 
 <div class="wrap matomo-systemreport">
+	<?php
+	// if there are no errors, make sure the error notice is not displayed
+	// (if there were errors previously, it may have been output before the system
+	// report is shown)
+	if ( empty( $matomo_has_errors ) && empty( $matomo_active_tab ) ) {
+		?>
+		<script>
+			window.jQuery(document).ready(function ($) {
+				$('#matomo-systemreporterrors.notice').remove();
+			});
+		</script>
+		<?php
+	}
+	?>
+
 	<?php
 	if ( $matomo_has_warning_and_no_errors ) {
 		?>
@@ -129,7 +145,10 @@ if ( ! function_exists( 'matomo_format_value_text' ) ) {
 			echo '<h2>' . esc_html( $matomo_table['title'] ) . "</h2><table class='widefat'><thead></thead><tbody>";
 			foreach ( $matomo_table['rows'] as $matomo_row ) {
 				if ( ! empty( $matomo_row['section'] ) ) {
-					echo '</tbody><thead><tr><th colspan="3" class="section">' . esc_html( $matomo_row['section'] ) . '</th></tr></thead><tbody>';
+					$matomo_section_id = preg_replace( '/[^a-zA-Z0-9_-]/', '', strtolower( $matomo_row['section'] ) );
+					echo '</tbody><thead id="' . esc_attr( $matomo_section_id )
+						. '"><tr><th colspan="3" class="section">' . esc_html( $matomo_row['section'] ) . '</th></tr></thead><tbody id="'
+						. esc_attr( $matomo_section_id . '_body' ) . '">';
 					continue;
 				}
 				$matomo_value = $matomo_row['value'];
@@ -215,6 +234,13 @@ if ( ! function_exists( 'matomo_format_value_text' ) ) {
 					   class='button-primary'
 					   title="<?php esc_attr_e( 'Force trigger a Matomo update in case it failed error', 'matomo' ); ?>"
 					   value="<?php esc_html_e( 'Run Updater', 'matomo' ); ?>">
+				<label for="matomo_troubleshooting_update_from">Run updates from version:</label>
+				<input id="matomo_troubleshooting_update_from"
+					   type="text"
+					   name="matomo_troubleshooting_update_from"
+					   title="<?php esc_attr_e( 'Enter a version to re-run updates from, eg, "5.0.0".', 'matomo' ); ?>"
+					   value="">
+				<br/><br/>
 			<?php } ?>
 			<?php if ( $settings->is_network_enabled() ) { ?>
 				<input name="<?php echo esc_attr( SystemReport::TROUBLESHOOT_SYNC_ALL_USERS ); ?>" type="submit"

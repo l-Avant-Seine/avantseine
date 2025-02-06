@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreUpdater;
 
@@ -48,7 +48,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         $this->title = Piwik::translate('CoreAdminHome_UpdateSettings');
         $isWritable = Piwik::hasUserSuperUserAccess() && CoreAdminController::isGeneralSettingsAdminEnabled();
         $this->releaseChannel = $this->createReleaseChannel();
-        $this->releaseChannel->setIsWritableByCurrentUser($isWritable && SettingsPiwik::isMultiServerEnvironment() === false);
+        $this->releaseChannel->setIsWritableByCurrentUser($isWritable && SettingsPiwik::isMultiServerEnvironment() === \false);
         $this->sendPluginUpdateEmail = $this->createSendPluginUpdateEmail();
         $this->sendPluginUpdateEmail->setIsWritableByCurrentUser($isWritable && PluginUpdateCommunication::canBeEnabled());
         $dbSettings = new Settings();
@@ -65,6 +65,9 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             $field->uiControl = FieldConfig::UI_CONTROL_RADIO;
             $field->availableValues = array();
             foreach ($releaseChannels->getAllReleaseChannels() as $channel) {
+                if (!$channel->isSelectableInSettings()) {
+                    continue;
+                }
                 $name = $channel->getName();
                 $description = $channel->getDescription();
                 if (!empty($description)) {
@@ -82,7 +85,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     }
     private function createSendPluginUpdateEmail()
     {
-        return $this->makeSetting('enable_plugin_update_communication', $default = true, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+        return $this->makeSetting('enable_plugin_update_communication', $default = \true, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->introduction = Piwik::translate('CoreAdminHome_SendPluginUpdateCommunication');
             $field->uiControl = FieldConfig::UI_CONTROL_RADIO;
             $field->availableValues = array('1' => sprintf('%s (%s)', Piwik::translate('General_Yes'), Piwik::translate('General_Default')), '0' => Piwik::translate('General_No'));
@@ -91,7 +94,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     }
     private function createUpdateToUtf8mb4()
     {
-        return $this->makeSetting('update_to_utf8mb4', $default = false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+        return $this->makeSetting('update_to_utf8mb4', $default = \false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->introduction = Piwik::translate('CoreUpdater_ConvertToUtf8mb4');
             $field->title = Piwik::translate('CoreUpdater_TriggerDatabaseConversion');
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;

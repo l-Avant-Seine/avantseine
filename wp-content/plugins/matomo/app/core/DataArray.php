@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -199,13 +198,13 @@ class DataArray
         if (!isset($this->data[$label])) {
             $this->data[$label] = static::makeEmptyEventRow();
         }
-        $this->doSumEventsMetrics($row, $this->data[$label], $onlyMetricsAvailableInActionsTable = true);
+        $this->doSumEventsMetrics($row, $this->data[$label], $onlyMetricsAvailableInActionsTable = \true);
     }
     protected static function makeEmptyEventRow()
     {
-        return array(\Piwik\Metrics::INDEX_NB_UNIQ_VISITORS => 0, \Piwik\Metrics::INDEX_NB_VISITS => 0, \Piwik\Metrics::INDEX_EVENT_NB_HITS => 0, \Piwik\Metrics::INDEX_EVENT_NB_HITS_WITH_VALUE => 0, \Piwik\Metrics::INDEX_EVENT_SUM_EVENT_VALUE => 0, \Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE => false, \Piwik\Metrics::INDEX_EVENT_MAX_EVENT_VALUE => 0);
+        return array(\Piwik\Metrics::INDEX_NB_UNIQ_VISITORS => 0, \Piwik\Metrics::INDEX_NB_VISITS => 0, \Piwik\Metrics::INDEX_EVENT_NB_HITS => 0, \Piwik\Metrics::INDEX_EVENT_NB_HITS_WITH_VALUE => 0, \Piwik\Metrics::INDEX_EVENT_SUM_EVENT_VALUE => 0, \Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE => \false, \Piwik\Metrics::INDEX_EVENT_MAX_EVENT_VALUE => 0);
     }
-    const EVENT_VALUE_PRECISION = 2;
+    public const EVENT_VALUE_PRECISION = 2;
     /**
      * @param array $newRowToAdd
      * @param array $oldRowToUpdate
@@ -221,8 +220,8 @@ class DataArray
         $oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_SUM_EVENT_VALUE] += $newRowToAdd[\Piwik\Metrics::INDEX_EVENT_SUM_EVENT_VALUE];
         $oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_MAX_EVENT_VALUE] = round(max(0, $newRowToAdd[\Piwik\Metrics::INDEX_EVENT_MAX_EVENT_VALUE], $oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_MAX_EVENT_VALUE]), static::EVENT_VALUE_PRECISION);
         // Update minimum only if it is set
-        if ($newRowToAdd[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] !== false && $newRowToAdd[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] !== null) {
-            if ($oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] === false) {
+        if ($newRowToAdd[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] !== \false && $newRowToAdd[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] !== null) {
+            if ($oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] === \false) {
                 $oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] = round($newRowToAdd[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE], static::EVENT_VALUE_PRECISION);
             } else {
                 $oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE] = round(min($newRowToAdd[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE], $oldRowToUpdate[\Piwik\Metrics::INDEX_EVENT_MIN_EVENT_VALUE]), static::EVENT_VALUE_PRECISION);
@@ -246,7 +245,7 @@ class DataArray
                 $this->data[$label][$columnName] = 0;
             }
             if (!is_numeric($columnValue)) {
-                throw new Exception("DataArray->sumMetricsPivot expects rows of numeric values, non numeric found: " . var_export($columnValue, true) . " for column {$columnName}");
+                throw new Exception("DataArray->sumMetricsPivot expects rows of numeric values, non numeric found: " . var_export($columnValue, \true) . " for column {$columnName}");
             }
             $this->data[$label][$columnName] += $columnValue;
         }

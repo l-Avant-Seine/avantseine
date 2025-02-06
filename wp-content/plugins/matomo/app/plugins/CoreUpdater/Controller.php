@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreUpdater;
 
@@ -35,7 +34,7 @@ use Piwik\View;
 use Piwik\View\OneClickDone;
 class Controller extends \Piwik\Plugin\Controller
 {
-    private $coreError = false;
+    private $coreError = \false;
     private $warningMessages = array();
     private $errorMessages = array();
     private $deactivatedPlugins = array();
@@ -47,7 +46,7 @@ class Controller extends \Piwik\Plugin\Controller
      * @var Plugins
      */
     private $marketplacePlugins;
-    public function __construct(\Piwik\Plugins\CoreUpdater\Updater $updater, Plugins $marketplacePlugins = null)
+    public function __construct(\Piwik\Plugins\CoreUpdater\Updater $updater, ?Plugins $marketplacePlugins = null)
     {
         $this->updater = $updater;
         $this->marketplacePlugins = $marketplacePlugins;
@@ -147,7 +146,7 @@ class Controller extends \Piwik\Plugin\Controller
         if (empty($value)) {
             return json_encode(['Invalid token. ' . $task]);
         }
-        $value = json_decode($value, true);
+        $value = json_decode($value, \true);
         if (empty($value['nonce']) || empty($value['ttl']) || time() > (int) $value['ttl'] || $nonce !== $value['nonce']) {
             return json_encode(['Invalid nonce or nonce expired. ' . $task]);
         }
@@ -273,11 +272,11 @@ class Controller extends \Piwik\Plugin\Controller
         }
         $pluginNamesToUpdate = array();
         $dimensionsToUpdate = array();
-        $coreToUpdate = false;
+        $coreToUpdate = \false;
         // handle case of existing database with no tables
         if (!DbHelper::isInstalled()) {
             $this->errorMessages[] = Piwik::translate('CoreUpdater_EmptyDatabaseError', Config::getInstance()->database['dbname']);
-            $this->coreError = true;
+            $this->coreError = \true;
             $currentVersion = 'N/A';
         } else {
             $this->errorMessages = array();
@@ -288,7 +287,7 @@ class Controller extends \Piwik\Plugin\Controller
             }
             foreach ($componentsWithUpdateFile as $name => $filenames) {
                 if ($name == 'core') {
-                    $coreToUpdate = true;
+                    $coreToUpdate = \true;
                 } elseif (0 === strpos($name, 'log_')) {
                     $dimensionsToUpdate[] = $name;
                 } else {

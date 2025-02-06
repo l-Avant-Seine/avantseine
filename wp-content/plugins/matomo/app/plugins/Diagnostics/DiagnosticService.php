@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Diagnostics;
 
@@ -62,7 +62,7 @@ class DiagnosticService
     private function removeDisabledDiagnostics(array $diagnostics, array $disabledDiagnostics)
     {
         return array_filter($diagnostics, function (Diagnostic $diagnostic) use($disabledDiagnostics) {
-            return !in_array($diagnostic, $disabledDiagnostics, true);
+            return !in_array($diagnostic, $disabledDiagnostics, \true);
         });
     }
 }

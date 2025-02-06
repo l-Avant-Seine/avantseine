@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\DataTable\Filter;
 
@@ -27,14 +26,14 @@ class RemoveUnusedGoalRevenueColumns extends BaseFilter
         $columnsToCheck = [];
         foreach ($goals as $goalId) {
             foreach ($columnNames as $columnName) {
-                $columnsToCheck['goal_' . $goalId . '_' . $columnName] = true;
+                $columnsToCheck['goal_' . $goalId . '_' . $columnName] = \true;
             }
         }
         // Check if there are any values in each column
         foreach ($table->getRowsWithoutSummaryRow() as $row) {
             foreach ($columnsToCheck as $colName => $shouldRemove) {
                 if (isset($row[$colName]) && $row[$colName] > 0) {
-                    $columnsToCheck[$colName] = false;
+                    $columnsToCheck[$colName] = \false;
                 }
             }
         }

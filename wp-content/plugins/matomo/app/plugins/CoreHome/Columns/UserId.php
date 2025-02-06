@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Columns;
 
@@ -26,13 +25,13 @@ use Piwik\Tracker\Action;
  */
 class UserId extends VisitDimension
 {
-    const MAXLENGTH = 200;
+    public const MAXLENGTH = 200;
     /**
      * @var string
      */
     protected $columnName = 'user_id';
     protected $type = self::TYPE_TEXT;
-    protected $allowAnonymous = false;
+    protected $allowAnonymous = \false;
     protected $segmentName = 'userId';
     protected $nameSingular = 'General_UserId';
     protected $namePlural = 'General_UserIds';
@@ -87,11 +86,11 @@ class UserId extends VisitDimension
         if (!empty($idSites)) {
             foreach ($idSites as $idSite) {
                 if ($this->isUsedInSiteCached($idSite, $period, $date)) {
-                    return true;
+                    return \true;
                 }
             }
         }
-        return false;
+        return \false;
     }
     private function isUsedInSiteCached($idSite, $period, $date)
     {
@@ -105,7 +104,7 @@ class UserId extends VisitDimension
     }
     private function isUsedInSite($idSite, $period, $date)
     {
-        $result = \Piwik\API\Request::processRequest('VisitsSummary.get', ['columns' => 'nb_users', 'idSite' => $idSite, 'period' => $period, 'date' => $date, 'segment' => false], $default = []);
+        $result = \Piwik\API\Request::processRequest('VisitsSummary.get', ['columns' => 'nb_users', 'idSite' => $idSite, 'period' => $period, 'date' => $date, 'segment' => \false], $default = []);
         return $this->hasDataTableUsers($result);
     }
     public function hasDataTableUsers(DataTable\DataTableInterface $result)
@@ -113,12 +112,12 @@ class UserId extends VisitDimension
         if ($result instanceof Map) {
             foreach ($result->getDataTables() as $table) {
                 if ($this->hasDataTableUsers($table)) {
-                    return true;
+                    return \true;
                 }
             }
         }
         if (!$result->getRowsCount()) {
-            return false;
+            return \false;
         }
         $firstRow = $result->getFirstRow();
         if ($firstRow instanceof DataTable\Row && $firstRow->hasColumn(Metrics::INDEX_NB_USERS)) {

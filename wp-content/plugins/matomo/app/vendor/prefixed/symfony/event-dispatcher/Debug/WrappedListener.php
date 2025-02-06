@@ -30,20 +30,20 @@ final class WrappedListener
     private $stub;
     private $priority;
     private static $hasClassStub;
-    public function __construct($listener, ?string $name, Stopwatch $stopwatch, EventDispatcherInterface $dispatcher = null)
+    public function __construct($listener, ?string $name, Stopwatch $stopwatch, ?EventDispatcherInterface $dispatcher = null)
     {
         $this->listener = $listener;
         $this->optimizedListener = $listener instanceof \Closure ? $listener : (\is_callable($listener) ? \Closure::fromCallable($listener) : null);
         $this->stopwatch = $stopwatch;
         $this->dispatcher = $dispatcher;
-        $this->called = false;
-        $this->stoppedPropagation = false;
+        $this->called = \false;
+        $this->stoppedPropagation = \false;
         if (\is_array($listener)) {
             $this->name = \is_object($listener[0]) ? get_debug_type($listener[0]) : $listener[0];
             $this->pretty = $this->name . '::' . $listener[1];
         } elseif ($listener instanceof \Closure) {
             $r = new \ReflectionFunction($listener);
-            if (str_contains($r->name, '{closure}')) {
+            if (str_contains($r->name, '{closure')) {
                 $this->pretty = $this->name = 'closure';
             } elseif ($class = \PHP_VERSION_ID >= 80111 ? $r->getClosureCalledClass() : $r->getClosureScopeClass()) {
                 $this->name = $class->name;
@@ -90,7 +90,7 @@ final class WrappedListener
     public function __invoke(object $event, string $eventName, EventDispatcherInterface $dispatcher) : void
     {
         $dispatcher = $this->dispatcher ?: $dispatcher;
-        $this->called = true;
+        $this->called = \true;
         $this->priority = $dispatcher->getListenerPriority($eventName, $this->listener);
         $e = $this->stopwatch->start($this->name, 'event_listener');
         try {
@@ -101,7 +101,7 @@ final class WrappedListener
             }
         }
         if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
-            $this->stoppedPropagation = true;
+            $this->stoppedPropagation = \true;
         }
     }
 }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\MobileMessaging\SMSProvider;
 
@@ -31,7 +30,7 @@ class StubbedProvider extends SMSProvider
     }
     public function verifyCredential($credentials)
     {
-        return true;
+        return \true;
     }
     public function sendSMS($credentials, $smsText, $phoneNumber, $from)
     {

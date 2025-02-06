@@ -20,6 +20,8 @@ class ErrorNotice {
 		add_action(
 			'wp_ajax_matomo_system_report_error_dismissed',
 			function () {
+				check_ajax_referer( 'matomo-systemreport-notice-dismiss' );
+
 				if ( is_admin() ) {
 					update_user_meta( get_current_user_id(), self::OPTION_NAME_SYSTEM_REPORT_ERRORS_DISMISSED, true );
 				}
@@ -28,7 +30,11 @@ class ErrorNotice {
 	}
 
 	public function check_errors() {
-		if ( isset( $_GET['page'] ) && substr( sanitize_text_field( wp_unslash( $_GET['page'] ) ), 0, 7 ) === 'matomo-' ) {
+		$is_matomo_super_user = current_user_can( Capabilities::KEY_SUPERUSER );
+		if ( isset( $_GET['page'] )
+			&& substr( sanitize_text_field( wp_unslash( $_GET['page'] ) ), 0, 7 ) === 'matomo-'
+			&& $is_matomo_super_user
+		) {
 			$system_report = new \WpMatomo\Admin\SystemReport( $this->settings );
 			if ( ! get_user_meta( get_current_user_id(), self::OPTION_NAME_SYSTEM_REPORT_ERRORS_DISMISSED ) && $system_report->errors_present() ) {
 				echo '<div class="notice notice-warning is-dismissible" id="matomo-systemreporterrors"><p>'

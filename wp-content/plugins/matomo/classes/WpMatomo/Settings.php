@@ -36,6 +36,10 @@ class Settings {
 	const NETWORK_CONFIG_OPTIONS               = 'config_options';
 	const DISABLE_ASYNC_ARCHIVING_OPTION_NAME  = 'matomo_disable_async_archiving';
 
+	// NOTE: this is not a setting value, but is stored with setting values to avoid
+	// adding an extra get_option call to every WordPress backoffice request.
+	const INSTANCE_COMPONENTS_INSTALLED = 'instance-components-installed';
+
 	public static $is_doing_action_tracking_related = false;
 	/**
 	 * @internal tests only
@@ -54,9 +58,11 @@ class Settings {
 	/**
 	 * Register default configuration set
 	 *
+	 * (public for tests)
+	 *
 	 * @var array
 	 */
-	private $default_global_settings = [
+	public $default_global_settings = [
 		// Plugin settings
 		'last_settings_update'                     => 0,
 		self::OPTION_LAST_TRACKING_SETTINGS_CHANGE => 0,
@@ -403,18 +409,6 @@ class Settings {
 		return $this->get_global_option( 'track_crossdomain_linking' );
 	}
 
-	public function get_tracking_cookie_domain() {
-		if ( $this->get_global_option( 'track_across' )
-			 || $this->get_global_option( 'track_crossdomain_linking' ) ) {
-			$host = wp_parse_url( home_url(), PHP_URL_HOST );
-			if ( ! empty( $host ) ) {
-				return '*.' . $host;
-			}
-		}
-
-		return '';
-	}
-
 	public function should_delete_all_data_on_uninstall() {
 		if ( defined( 'MATOMO_REMOVE_ALL_DATA' ) ) {
 			return (bool) MATOMO_REMOVE_ALL_DATA;
@@ -496,5 +490,17 @@ class Settings {
 
 	public function is_async_archiving_disabled_by_option() {
 		return (bool) $this->get_global_option( self::DISABLE_ASYNC_ARCHIVING_OPTION_NAME );
+	}
+
+	public function get_matomo_major_version() {
+		$core_version = $this->get_global_option( 'core_version' );
+		$core_version = isset( $core_version ) ? $core_version : '';
+
+		$parts = explode( '.', $core_version );
+		if ( empty( $parts ) ) {
+			return 0;
+		}
+
+		return (int) $parts[0];
 	}
 }

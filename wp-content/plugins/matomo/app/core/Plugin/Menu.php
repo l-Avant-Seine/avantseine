@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -144,11 +143,11 @@ class Menu
     protected function urlForModuleActionWithDefaultUserParams($module, $controllerAction, $additionalParams = array())
     {
         $urlModuleAction = $this->urlForModuleAction($module, $controllerAction);
-        $date = Common::getRequestVar('date', false);
+        $date = Common::getRequestVar('date', \false);
         if ($date) {
             $urlModuleAction['date'] = $date;
         }
-        $period = Common::getRequestVar('period', false);
+        $period = Common::getRequestVar('period', \false);
         if ($period) {
             $urlModuleAction['period'] = $period;
         }
@@ -165,7 +164,7 @@ class Menu
      * @return array eg ['idSite' => 1, 'period' => 'day', 'date' => '2012-02-03']
      * @throws \Exception in case a website was not specified and a default website id could not be found
      */
-    public function urlForDefaultUserParams($websiteId = false, $defaultPeriod = false, $defaultDate = false)
+    public function urlForDefaultUserParams($websiteId = \false, $defaultPeriod = \false, $defaultDate = \false)
     {
         $userPreferences = new UserPreferences();
         if (empty($websiteId)) {
@@ -175,7 +174,7 @@ class Menu
             throw new \Exception("A website ID was not specified and a website to default to could not be found.");
         }
         if (empty($defaultPeriod)) {
-            $defaultPeriod = $userPreferences->getDefaultPeriod(false);
+            $defaultPeriod = $userPreferences->getDefaultPeriod(\false);
         }
         if (empty($defaultDate)) {
             $defaultDate = $userPreferences->getDefaultDate();

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -36,7 +35,7 @@ class AddSegmentByLabel extends BaseFilter
      * @param string $delimiter               The delimiter by which the label should be splitted.
      * @param bool $allowEmptyValue           Forces adding a segment metadata for empty values
      */
-    public function __construct($table, $segmentOrSegments, $delimiter = '', $allowEmptyValue = false)
+    public function __construct($table, $segmentOrSegments, $delimiter = '', $allowEmptyValue = \false)
     {
         parent::__construct($table);
         if (!is_array($segmentOrSegments)) {

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SitesManager;
 
@@ -54,10 +53,10 @@ class SiteUrls
         $this->sortUrlsByHost($allUrls);
         return $allUrls;
     }
-    public function addUrlByHost(&$allUrls, $idSite, $url, $addPath = true)
+    public function addUrlByHost(&$allUrls, $idSite, $url, $addPath = \true)
     {
         $urlParsed = @parse_url($url);
-        if ($urlParsed === false || !isset($urlParsed['host'])) {
+        if ($urlParsed === \false || !isset($urlParsed['host'])) {
             return;
         }
         $host = $this->toCanonicalHost($urlParsed['host']);
@@ -165,7 +164,7 @@ class SiteUrls
     {
         $idSite = $request->getIdSite();
         $url = $request->getParam('url');
-        $this->addUrlByHost($allUrls, $idSite, $url, $addPath = false);
+        $this->addUrlByHost($allUrls, $idSite, $url, $addPath = \false);
     }
     private function sortByPathDepth($pathA, $pathB)
     {

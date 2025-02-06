@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry;
 
@@ -37,7 +36,7 @@ require_once PIWIK_INCLUDE_PATH . "/plugins/UserCountry/LocationProvider.php";
  */
 class VisitorGeolocator
 {
-    const LAT_LONG_COMPARE_EPSILON = 0.0001;
+    public const LAT_LONG_COMPARE_EPSILON = 0.0001;
     /**
      * @var string[]
      */
@@ -66,7 +65,7 @@ class VisitorGeolocator
      * @var LoggerInterface
      */
     protected $logger;
-    public function __construct(\Piwik\Plugins\UserCountry\LocationProvider $provider = null, \Piwik\Plugins\UserCountry\LocationProvider $backupProvider = null, Cache $locationCache = null, RawLogDao $dao = null, LoggerInterface $logger = null)
+    public function __construct(?\Piwik\Plugins\UserCountry\LocationProvider $provider = null, ?\Piwik\Plugins\UserCountry\LocationProvider $backupProvider = null, ?Cache $locationCache = null, ?RawLogDao $dao = null, ?LoggerInterface $logger = null)
     {
         if ($provider === null) {
             // note: Common::getCurrentLocationProviderId() uses the tracker cache, which is why it's used here instead
@@ -83,7 +82,7 @@ class VisitorGeolocator
         $this->dao = $dao ?: new RawLogDao();
         $this->logger = $logger ?: StaticContainer::get(LoggerInterface::class);
     }
-    public function getLocation($userInfo, $useClassCache = true)
+    public function getLocation($userInfo, $useClassCache = \true)
     {
         $userInfoKey = md5(implode(',', $userInfo));
         if ($useClassCache && $this->locationCache->contains($userInfoKey)) {
@@ -116,10 +115,10 @@ class VisitorGeolocator
         $location = $provider->getLocation($userInfo);
         $providerId = $provider->getId();
         $ipAddress = $userInfo['ip'];
-        if ($location === false) {
-            return false;
+        if ($location === \false) {
+            return \false;
         }
-        Common::printDebug("GEO: Found IP {$ipAddress} location (provider '" . $providerId . "'): " . var_export($location, true));
+        Common::printDebug("GEO: Found IP {$ipAddress} location (provider '" . $providerId . "'): " . var_export($location, \true));
         return $location;
     }
     /**
@@ -133,7 +132,7 @@ class VisitorGeolocator
      * @return array|null The visit properties that were updated in the DB mapped to the updated values. If null,
      *                    required information was missing from `$visit`.
      */
-    public function attributeExistingVisit($visit, $useClassCache = true)
+    public function attributeExistingVisit($visit, $useClassCache = \true)
     {
         if (empty($visit['idvisit'])) {
             $this->logger->debug('Empty idvisit field. Skipping re-attribution..');
@@ -206,7 +205,7 @@ class VisitorGeolocator
                     $onLogProcessed($row, $updatedValues);
                 }
             }
-        }, $willDelete = false);
+        }, $willDelete = \false);
     }
     /**
      * @return LocationProvider

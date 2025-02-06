@@ -3,13 +3,13 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Session;
 
 use Exception;
+use Piwik\Access;
 use Piwik\Auth as AuthInterface;
 use Piwik\AuthResult;
 use Piwik\Piwik;
@@ -69,6 +69,8 @@ class SessionInitializer
     {
         $sessionIdentifier = new \Piwik\Session\SessionFingerprint();
         $sessionIdentifier->initialize($authResult->getIdentity(), $authResult->getTokenAuth(), $this->isRemembered());
+        // reload access
+        Access::getInstance()->reloadAccess();
         /**
          * @ignore
          */

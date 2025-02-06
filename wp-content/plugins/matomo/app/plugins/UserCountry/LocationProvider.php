@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\UserCountry;
 
@@ -33,24 +32,24 @@ require_once PIWIK_INCLUDE_PATH . '/plugins/UserCountry/functions.php';
  */
 abstract class LocationProvider
 {
-    const NOT_INSTALLED = 0;
-    const INSTALLED = 1;
-    const BROKEN = 2;
-    const CURRENT_PROVIDER_OPTION_NAME = 'usercountry.location_provider';
-    const GEOGRAPHIC_COORD_PRECISION = 3;
-    const CONTINENT_CODE_KEY = 'continent_code';
-    const CONTINENT_NAME_KEY = 'continent_name';
-    const COUNTRY_CODE_KEY = 'country_code';
-    const COUNTRY_NAME_KEY = 'country_name';
-    const REGION_CODE_KEY = 'region_code';
-    const REGION_NAME_KEY = 'region_name';
-    const CITY_NAME_KEY = 'city_name';
-    const AREA_CODE_KEY = 'area_code';
-    const LATITUDE_KEY = 'lat';
-    const LONGITUDE_KEY = 'long';
-    const POSTAL_CODE_KEY = 'postal_code';
-    const ISP_KEY = 'isp';
-    const ORG_KEY = 'org';
+    public const NOT_INSTALLED = 0;
+    public const INSTALLED = 1;
+    public const BROKEN = 2;
+    public const CURRENT_PROVIDER_OPTION_NAME = 'usercountry.location_provider';
+    public const GEOGRAPHIC_COORD_PRECISION = 3;
+    public const CONTINENT_CODE_KEY = 'continent_code';
+    public const CONTINENT_NAME_KEY = 'continent_name';
+    public const COUNTRY_CODE_KEY = 'country_code';
+    public const COUNTRY_NAME_KEY = 'country_name';
+    public const REGION_CODE_KEY = 'region_code';
+    public const REGION_NAME_KEY = 'region_name';
+    public const CITY_NAME_KEY = 'city_name';
+    public const AREA_CODE_KEY = 'area_code';
+    public const LATITUDE_KEY = 'lat';
+    public const LONGITUDE_KEY = 'long';
+    public const POSTAL_CODE_KEY = 'postal_code';
+    public const ISP_KEY = 'isp';
+    public const ORG_KEY = 'org';
     /**
      * An array of all provider instances. Access it through static methods.
      *
@@ -163,7 +162,7 @@ abstract class LocationProvider
      */
     public function isVisible()
     {
-        return true;
+        return \true;
     }
     /**
      * Returns a message that should be shown as diagnostics warning if provider is used
@@ -251,25 +250,25 @@ abstract class LocationProvider
      * @param bool $includeExtra Whether to include ISP/Org info in formatted location.
      * @return array
      */
-    public static function getAllProviderInfo($newline = "\n", $includeExtra = false)
+    public static function getAllProviderInfo($newline = "\n", $includeExtra = \false)
     {
         $allInfo = array();
         foreach (self::getAllProviders() as $provider) {
             $info = $provider->getInfo();
             $status = self::INSTALLED;
-            $location = false;
-            $statusMessage = false;
+            $location = \false;
+            $statusMessage = \false;
             $availableOrMessage = $provider->isAvailable();
-            if ($availableOrMessage !== true) {
+            if ($availableOrMessage !== \true) {
                 $status = self::NOT_INSTALLED;
                 if (is_string($availableOrMessage)) {
                     $statusMessage = $availableOrMessage;
                 }
             } else {
                 $workingOrError = $provider->isWorking();
-                if ($workingOrError === true) {
+                if ($workingOrError === \true) {
                     // if the implementation is configured correctly, get the location
-                    $locInfo = array('ip' => IP::getIpFromHeader(), 'lang' => Common::getBrowserLanguage(), 'disable_fallbacks' => true);
+                    $locInfo = array('ip' => IP::getIpFromHeader(), 'lang' => Common::getBrowserLanguage(), 'disable_fallbacks' => \true);
                     $location = $provider->getLocation($locInfo);
                     $location = self::prettyFormatLocation($location, $newline, $includeExtra);
                 } else {
@@ -307,9 +306,9 @@ abstract class LocationProvider
         try {
             $optionValue = Option::get(self::CURRENT_PROVIDER_OPTION_NAME);
         } catch (\Exception $e) {
-            $optionValue = false;
+            $optionValue = \false;
         }
-        return $optionValue === false ? self::getDefaultProviderId() : $optionValue;
+        return $optionValue === \false ? self::getDefaultProviderId() : $optionValue;
     }
     /**
      * Returns the provider instance of the current location provider.
@@ -423,9 +422,9 @@ abstract class LocationProvider
      * @param bool $includeExtra Whether to include ISP/Organization info.
      * @return string
      */
-    public static function prettyFormatLocation($locationInfo, $newline = "\n", $includeExtra = false)
+    public static function prettyFormatLocation($locationInfo, $newline = "\n", $includeExtra = \false)
     {
-        if ($locationInfo === false) {
+        if ($locationInfo === \false) {
             return Piwik::translate('General_Unknown');
         }
         // add latitude/longitude line
@@ -440,10 +439,8 @@ abstract class LocationProvider
         }
         if (!empty($locationInfo[self::REGION_CODE_KEY])) {
             $cityState[] = $locationInfo[self::REGION_CODE_KEY];
-        } else {
-            if (!empty($locationInfo[self::REGION_NAME_KEY])) {
-                $cityState[] = $locationInfo[self::REGION_NAME_KEY];
-            }
+        } elseif (!empty($locationInfo[self::REGION_NAME_KEY])) {
+            $cityState[] = $locationInfo[self::REGION_NAME_KEY];
         }
         if (!empty($cityState)) {
             $lines[] = implode(', ', $cityState);
@@ -455,10 +452,8 @@ abstract class LocationProvider
         // add country line
         if (!empty($locationInfo[self::COUNTRY_NAME_KEY])) {
             $lines[] = $locationInfo[self::COUNTRY_NAME_KEY];
-        } else {
-            if (!empty($locationInfo[self::COUNTRY_CODE_KEY])) {
-                $lines[] = $locationInfo[self::COUNTRY_CODE_KEY];
-            }
+        } elseif (!empty($locationInfo[self::COUNTRY_CODE_KEY])) {
+            $lines[] = $locationInfo[self::COUNTRY_CODE_KEY];
         }
         // add extra information (ISP/Organization)
         if ($includeExtra) {
@@ -486,5 +481,15 @@ abstract class LocationProvider
         } else {
             return $ip->toString();
         }
+    }
+    /**
+     * Returns true if the location provider can be used for security checks based
+     * on location, such as determining the current country where the user logs in from.
+     *
+     * @return bool
+     */
+    public function canBeUsedForLocationBasedSecurityChecks() : bool
+    {
+        return \false;
     }
 }

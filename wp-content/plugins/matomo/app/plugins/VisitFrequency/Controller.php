@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\VisitFrequency;
 
@@ -37,12 +36,12 @@ class Controller extends \Piwik\Plugin\Controller
     }
     public function getEvolutionGraph()
     {
-        $columns = Common::getRequestVar('columns', false);
-        if (false !== $columns) {
+        $columns = Common::getRequestVar('columns', \false);
+        if (\false !== $columns) {
             $columns = Piwik::getArrayFromApiParameter($columns);
         }
         $documentation = $this->translator->translate('VisitFrequency_ReturningVisitsDocumentation') . '<br />' . $this->translator->translate('General_BrokenDownReportDocumentation') . '<br />' . $this->translator->translate('VisitFrequency_ReturningVisitDocumentation');
-        $period = Common::getRequestVar('period', false);
+        $period = Common::getRequestVar('period', \false);
         $columnNames = array('nb_visits');
         if (SettingsPiwik::isUniqueVisitorsEnabled($period)) {
             $columnNames[] = 'nb_uniq_visitors';

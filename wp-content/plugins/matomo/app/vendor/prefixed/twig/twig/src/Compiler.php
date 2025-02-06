@@ -25,6 +25,8 @@ class Compiler
     private $sourceOffset;
     private $sourceLine;
     private $varNameSalt = 0;
+    private $didUseEcho = \false;
+    private $didUseEchoStack = [];
     public function __construct(Environment $env)
     {
         $this->env = $env;
@@ -58,19 +60,37 @@ class Compiler
     public function compile(Node $node, int $indentation = 0)
     {
         $this->reset($indentation);
-        $node->compile($this);
-        return $this;
+        $this->didUseEchoStack[] = $this->didUseEcho;
+        try {
+            $this->didUseEcho = \false;
+            $node->compile($this);
+            if ($this->didUseEcho) {
+                trigger_deprecation('twig/twig', '3.9', 'Using "%s" is deprecated, use "yield" instead in "%s", then flag the class with #[YieldReady].', $this->didUseEcho, \get_class($node));
+            }
+            return $this;
+        } finally {
+            $this->didUseEcho = array_pop($this->didUseEchoStack);
+        }
     }
     /**
      * @return $this
      */
-    public function subcompile(Node $node, bool $raw = true)
+    public function subcompile(Node $node, bool $raw = \true)
     {
-        if (false === $raw) {
+        if (!$raw) {
             $this->source .= str_repeat(' ', $this->indentation * 4);
         }
-        $node->compile($this);
-        return $this;
+        $this->didUseEchoStack[] = $this->didUseEcho;
+        try {
+            $this->didUseEcho = \false;
+            $node->compile($this);
+            if ($this->didUseEcho) {
+                trigger_deprecation('twig/twig', '3.9', 'Using "%s" is deprecated, use "yield" instead in "%s", then flag the class with #[YieldReady].', $this->didUseEcho, \get_class($node));
+            }
+            return $this;
+        } finally {
+            $this->didUseEcho = array_pop($this->didUseEchoStack);
+        }
     }
     /**
      * Adds a raw string to the compiled code.
@@ -79,6 +99,7 @@ class Compiler
      */
     public function raw(string $string)
     {
+        $this->checkForEcho($string);
         $this->source .= $string;
         return $this;
     }
@@ -90,6 +111,7 @@ class Compiler
     public function write(...$strings)
     {
         foreach ($strings as $string) {
+            $this->checkForEcho($string);
             $this->source .= str_repeat(' ', $this->indentation * 4) . $string;
         }
         return $this;
@@ -101,7 +123,7 @@ class Compiler
      */
     public function string(string $value)
     {
-        $this->source .= sprintf('"%s"', addcslashes($value, "\x00\t\"\$\\"));
+        $this->source .= \sprintf('"%s"', addcslashes($value, "\x00\t\"\$\\"));
         return $this;
     }
     /**
@@ -112,11 +134,11 @@ class Compiler
     public function repr($value)
     {
         if (\is_int($value) || \is_float($value)) {
-            if (false !== ($locale = setlocale(\LC_NUMERIC, '0'))) {
+            if (\false !== ($locale = setlocale(\LC_NUMERIC, '0'))) {
                 setlocale(\LC_NUMERIC, 'C');
             }
-            $this->raw(var_export($value, true));
-            if (false !== $locale) {
+            $this->raw(var_export($value, \true));
+            if (\false !== $locale) {
                 setlocale(\LC_NUMERIC, $locale);
             }
         } elseif (null === $value) {
@@ -125,12 +147,12 @@ class Compiler
             $this->raw($value ? 'true' : 'false');
         } elseif (\is_array($value)) {
             $this->raw('array(');
-            $first = true;
+            $first = \true;
             foreach ($value as $key => $v) {
                 if (!$first) {
                     $this->raw(', ');
                 }
-                $first = false;
+                $first = \false;
                 $this->repr($key);
                 $this->raw(' => ');
                 $this->repr($v);
@@ -147,7 +169,7 @@ class Compiler
     public function addDebugInfo(Node $node)
     {
         if ($node->getTemplateLine() != $this->lastLine) {
-            $this->write(sprintf("// line %d\n", $node->getTemplateLine()));
+            $this->write(\sprintf("// line %d\n", $node->getTemplateLine()));
             $this->sourceLine += substr_count($this->source, "\n", $this->sourceOffset);
             $this->sourceOffset = \strlen($this->source);
             $this->debugInfo[$this->sourceLine] = $node->getTemplateLine();
@@ -184,6 +206,13 @@ class Compiler
     }
     public function getVarName() : string
     {
-        return sprintf('__internal_compile_%d', $this->varNameSalt++);
+        return \sprintf('__internal_compile_%d', $this->varNameSalt++);
+    }
+    private function checkForEcho(string $string) : void
+    {
+        if ($this->didUseEcho) {
+            return;
+        }
+        $this->didUseEcho = preg_match('/^\\s*+(echo|print)\\b/', $string, $m) ? $m[1] : \false;
     }
 }

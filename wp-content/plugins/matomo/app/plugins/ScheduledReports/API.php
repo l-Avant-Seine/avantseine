@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\ScheduledReports;
 
@@ -48,21 +47,21 @@ use Piwik\Log\LoggerInterface;
  */
 class API extends \Piwik\Plugin\API
 {
-    const VALIDATE_PARAMETERS_EVENT = 'ScheduledReports.validateReportParameters';
-    const GET_REPORT_PARAMETERS_EVENT = 'ScheduledReports.getReportParameters';
-    const GET_REPORT_METADATA_EVENT = 'ScheduledReports.getReportMetadata';
-    const GET_REPORT_TYPES_EVENT = 'ScheduledReports.getReportTypes';
-    const GET_REPORT_FORMATS_EVENT = 'ScheduledReports.getReportFormats';
-    const GET_RENDERER_INSTANCE_EVENT = 'ScheduledReports.getRendererInstance';
-    const PROCESS_REPORTS_EVENT = 'ScheduledReports.processReports';
-    const GET_REPORT_RECIPIENTS_EVENT = 'ScheduledReports.getReportRecipients';
-    const ALLOW_MULTIPLE_REPORTS_EVENT = 'ScheduledReports.allowMultipleReports';
-    const SEND_REPORT_EVENT = 'ScheduledReports.sendReport';
-    const OUTPUT_DOWNLOAD = 1;
-    const OUTPUT_SAVE_ON_DISK = 2;
-    const OUTPUT_INLINE = 3;
-    const OUTPUT_RETURN = 4;
-    private $enableSaveReportOnDisk = false;
+    public const VALIDATE_PARAMETERS_EVENT = 'ScheduledReports.validateReportParameters';
+    public const GET_REPORT_PARAMETERS_EVENT = 'ScheduledReports.getReportParameters';
+    public const GET_REPORT_METADATA_EVENT = 'ScheduledReports.getReportMetadata';
+    public const GET_REPORT_TYPES_EVENT = 'ScheduledReports.getReportTypes';
+    public const GET_REPORT_FORMATS_EVENT = 'ScheduledReports.getReportFormats';
+    public const GET_RENDERER_INSTANCE_EVENT = 'ScheduledReports.getRendererInstance';
+    public const PROCESS_REPORTS_EVENT = 'ScheduledReports.processReports';
+    public const GET_REPORT_RECIPIENTS_EVENT = 'ScheduledReports.getReportRecipients';
+    public const ALLOW_MULTIPLE_REPORTS_EVENT = 'ScheduledReports.allowMultipleReports';
+    public const SEND_REPORT_EVENT = 'ScheduledReports.sendReport';
+    public const OUTPUT_DOWNLOAD = 1;
+    public const OUTPUT_SAVE_ON_DISK = 2;
+    public const OUTPUT_INLINE = 3;
+    public const OUTPUT_RETURN = 4;
+    private $enableSaveReportOnDisk = \false;
     // static cache storing reports
     public static $cache = [];
     /**
@@ -92,7 +91,7 @@ class API extends \Piwik\Plugin\API
      *
      * @return int idReport generated
      */
-    public function addReport($idSite, $description, $period, $hour, $reportType, $reportFormat, $reports, $parameters, $idSegment = false, $evolutionPeriodFor = 'prev', $evolutionPeriodN = null, $periodParam = null)
+    public function addReport($idSite, $description, $period, $hour, $reportType, $reportFormat, $reports, $parameters, $idSegment = \false, $evolutionPeriodFor = 'prev', $evolutionPeriodN = null, $periodParam = null)
     {
         Piwik::checkUserIsNotAnonymous();
         Piwik::checkUserHasViewAccess($idSite);
@@ -121,11 +120,11 @@ class API extends \Piwik\Plugin\API
      *
      * @see addReport()
      */
-    public function updateReport($idReport, $idSite, $description, $period, $hour, $reportType, $reportFormat, $reports, $parameters, $idSegment = false, $evolutionPeriodFor = 'prev', $evolutionPeriodN = null, $periodParam = null)
+    public function updateReport($idReport, $idSite, $description, $period, $hour, $reportType, $reportFormat, $reports, $parameters, $idSegment = \false, $evolutionPeriodFor = 'prev', $evolutionPeriodN = null, $periodParam = null)
     {
         Piwik::checkUserIsNotAnonymous();
         Piwik::checkUserHasViewAccess($idSite);
-        $scheduledReports = $this->getReports($idSite, $periodSearch = false, $idReport);
+        $scheduledReports = $this->getReports($idSite, $periodSearch = \false, $idReport);
         $report = reset($scheduledReports);
         $idReport = $report['idreport'];
         $currentUser = Piwik::getCurrentUserLogin();
@@ -148,7 +147,7 @@ class API extends \Piwik\Plugin\API
      */
     public function deleteReport($idReport)
     {
-        $APIScheduledReports = $this->getReports($idSite = false, $periodSearch = false, $idReport);
+        $APIScheduledReports = $this->getReports($idSite = \false, $periodSearch = \false, $idReport);
         $report = reset($APIScheduledReports);
         Piwik::checkUserHasSuperUserAccessOrIsTheUser($report['login']);
         $this->getModel()->updateReport($idReport, ['deleted' => 1]);
@@ -165,7 +164,7 @@ class API extends \Piwik\Plugin\API
      * @throws Exception
      * @return array
      */
-    public function getReports($idSite = false, $period = false, $idReport = false, $ifSuperUserReturnOnlySuperUserReports = false, $idSegment = false)
+    public function getReports($idSite = \false, $period = \false, $idReport = \false, $ifSuperUserReturnOnlySuperUserReports = \false, $idSegment = \false)
     {
         Piwik::checkUserHasSomeViewAccess();
         $cacheKey = (int) $idSite . '.' . (string) $period . '.' . (int) $idReport . '.' . (int) $ifSuperUserReturnOnlySuperUserReports;
@@ -198,16 +197,16 @@ class API extends \Piwik\Plugin\API
             $bind[] = $idSegment;
         }
         // Joining with the site table to work around pre-1.3 where reports could still be linked to a deleted site
-        $reports = Db::fetchAll("SELECT report.*\n\t\t\t\t\t\t\t\tFROM " . Common::prefixTable('report') . " AS `report`\n\t\t\t\t\t\t\t\t\tJOIN " . Common::prefixTable('site') . "\n\t\t\t\t\t\t\t\t\tUSING (idsite)\n\t\t\t\t\t\t\t\tWHERE deleted = 0\n\t\t\t\t\t\t\t\t\t{$sqlWhere}", $bind);
+        $reports = Db::fetchAll("SELECT report.*\n\t\t\t\t\t\t\t\tFROM " . Common::prefixTable('report') . " AS `report`\n\t\t\t\t\t\t\t\t\tJOIN " . Common::prefixTable('site') . "\n\t\t\t\t\t\t\t\t\tUSING (idsite)\n\t\t\t\t\t\t\t\tWHERE deleted = 0\n\t\t\t\t\t\t\t\t\t{$sqlWhere} ORDER BY description", $bind);
         // When a specific report was requested and not found, throw an error
-        if ($idReport !== false && empty($reports)) {
+        if ($idReport !== \false && empty($reports)) {
             throw new Exception("Requested report couldn't be found.");
         }
         foreach ($reports as &$report) {
             // decode report parameters
-            $report['parameters'] = json_decode($report['parameters'], true);
+            $report['parameters'] = json_decode($report['parameters'], \true);
             // decode report list
-            $report['reports'] = json_decode($report['reports'], true);
+            $report['reports'] = json_decode($report['reports'], \true);
             if (!empty($report['parameters']['additionalEmails']) && is_array($report['parameters']['additionalEmails'])) {
                 $report['parameters']['additionalEmails'] = array_values($report['parameters']['additionalEmails']);
             }
@@ -236,7 +235,7 @@ class API extends \Piwik\Plugin\API
      * @param bool|false|array $parameters array of parameters
      * @return array|void
      */
-    public function generateReport($idReport, $date, $language = false, $outputType = false, $period = false, $reportFormat = false, $parameters = false)
+    public function generateReport($idReport, $date, $language = \false, $outputType = \false, $period = \false, $reportFormat = \false, $parameters = \false)
     {
         Piwik::checkUserIsNotAnonymous();
         if (!$this->enableSaveReportOnDisk && $outputType == self::OUTPUT_SAVE_ON_DISK) {
@@ -249,7 +248,7 @@ class API extends \Piwik\Plugin\API
             $language = $translator->getDefaultLanguage();
         }
         $translator->setCurrentLanguage($language);
-        $reports = $this->getReports($idSite = false, $_period = false, $idReport);
+        $reports = $this->getReports($idSite = \false, $_period = \false, $idReport);
         $report = reset($reports);
         $idReport = $report['idreport'];
         $idSite = $report['idsite'];
@@ -260,8 +259,7 @@ class API extends \Piwik\Plugin\API
         if (empty($period)) {
             $period = $report['period_param'];
         }
-        $this->checkSinglePeriod($period, $date);
-        $date = Date::factory($date)->toString('Y-m-d');
+        $this->checkDateAndPeriodCombination($date, $period);
         // override report format
         if (!empty($reportFormat)) {
             self::validateReportFormat($reportType, $reportFormat);
@@ -270,7 +268,7 @@ class API extends \Piwik\Plugin\API
             $reportFormat = $report['format'];
         }
         // override and/or validate report parameters
-        $report['parameters'] = json_decode(self::validateReportParameters($reportType, empty($parameters) ? $report['parameters'] : $parameters), true);
+        $report['parameters'] = json_decode(self::validateReportParameters($reportType, empty($parameters) ? $report['parameters'] : $parameters), \true);
         $originalShowEvolutionWithinSelectedPeriod = Config::getInstance()->General['graphs_show_evolution_within_selected_period'];
         $originalDefaultEvolutionGraphLastPeriodsAmount = Config::getInstance()->General['graphs_default_evolution_graph_last_days_amount'];
         try {
@@ -287,7 +285,7 @@ class API extends \Piwik\Plugin\API
             }
             // the report will be rendered with the first 23 rows and will aggregate other rows in a summary row
             // 23 rows table fits in one portrait page
-            $initialFilterTruncate = Common::getRequestVar('filter_truncate', false);
+            $initialFilterTruncate = Common::getRequestVar('filter_truncate', \false);
             $_GET['filter_truncate'] = Config::getInstance()->General['scheduled_reports_truncate'];
             $prettyDate = null;
             $processedReports = [];
@@ -299,13 +297,13 @@ class API extends \Piwik\Plugin\API
                 if (isset($action['parameters'])) {
                     $apiParameters = $action['parameters'];
                 }
-                $mustRestoreGET = false;
+                $mustRestoreGET = \false;
                 // all Websites dashboard should not be truncated in the report
                 if ($apiModule == 'MultiSites') {
                     $mustRestoreGET = $_GET;
-                    $_GET['enhanced'] = true;
+                    $_GET['enhanced'] = \true;
                     if ($apiAction == 'getAll') {
-                        $_GET['filter_truncate'] = false;
+                        $_GET['filter_truncate'] = \false;
                         $_GET['filter_limit'] = -1;
                         // show all websites in all websites report
                         // when a view/admin user created a report, workaround the fact that "Super User"
@@ -316,11 +314,11 @@ class API extends \Piwik\Plugin\API
                         }
                     }
                 }
-                $params = ['idSite' => $idSite, 'period' => $period, 'date' => $date, 'apiModule' => $apiModule, 'apiAction' => $apiAction, 'apiParameters' => $apiParameters, 'flat' => 1, 'idGoal' => false, 'language' => $language, 'serialize' => 0, 'format' => 'original'];
+                $params = ['idSite' => $idSite, 'period' => $period, 'date' => $date, 'apiModule' => $apiModule, 'apiAction' => $apiAction, 'apiParameters' => $apiParameters, 'flat' => 1, 'idGoal' => \false, 'language' => $language, 'serialize' => 0, 'format' => 'original'];
                 if ($segment != null) {
                     $params['segment'] = urlencode($segment['definition']);
                 } else {
-                    $params['segment'] = false;
+                    $params['segment'] = \false;
                 }
                 try {
                     $processedReport = Request::processRequest('API.getProcessedReport', $params);
@@ -342,7 +340,7 @@ class API extends \Piwik\Plugin\API
             Config::setSetting('General', 'graphs_show_evolution_within_selected_period', $originalShowEvolutionWithinSelectedPeriod);
             Config::setSetting('General', 'graphs_default_evolution_graph_last_days_amount', $originalDefaultEvolutionGraphLastPeriodsAmount);
             // restore filter truncate parameter value
-            if ($initialFilterTruncate !== false) {
+            if ($initialFilterTruncate !== \false) {
                 $_GET['filter_truncate'] = $initialFilterTruncate;
             }
         }
@@ -419,10 +417,10 @@ class API extends \Piwik\Plugin\API
                 break;
         }
     }
-    public function sendReport($idReport, $period = false, $date = false, $force = false)
+    public function sendReport($idReport, $period = \false, $date = \false, $force = \false)
     {
         Piwik::checkUserIsNotAnonymous();
-        $reports = $this->getReports($idSite = false, false, $idReport);
+        $reports = $this->getReports($idSite = \false, \false, $idReport);
         $report = reset($reports);
         if (!empty($period)) {
             self::validatePeriodParam($period);
@@ -434,7 +432,7 @@ class API extends \Piwik\Plugin\API
         Context::changeIdSite($report['idsite'], function () use($report, $idReport, $period, $date, $force) {
             $language = \Piwik\Plugins\LanguagesManager\API::getInstance()->getLanguageForUser($report['login']);
             // generate report
-            $this->enableSaveReportOnDisk = true;
+            $this->enableSaveReportOnDisk = \true;
             try {
                 [$outputFilename, $prettyDate, $reportSubject, $reportTitle, $additionalFiles] = $this->generateReport($idReport, $date, $language, self::OUTPUT_SAVE_ON_DISK, $report['period_param']);
             } catch (NoAccessException $e) {
@@ -443,10 +441,10 @@ class API extends \Piwik\Plugin\API
                 Log::info("Skipping report as user does no longer have access to configured site");
                 return;
             } catch (\Throwable $e) {
-                $this->enableSaveReportOnDisk = false;
+                $this->enableSaveReportOnDisk = \false;
                 throw new RetryableException($e->getMessage());
             }
-            $this->enableSaveReportOnDisk = false;
+            $this->enableSaveReportOnDisk = \false;
             if (!file_exists($outputFilename)) {
                 throw new Exception("The report file wasn't found in {$outputFilename}");
             }
@@ -785,10 +783,15 @@ class API extends \Piwik\Plugin\API
             throw new NoAccessException(Piwik::translate('General_ExceptionPrivilege', ["'view'"]));
         }
     }
-    private function checkSinglePeriod($period, $date)
+    private function checkDateAndPeriodCombination($date, $period) : void
     {
+        if ('range' === $period) {
+            Period::checkDateFormat($date);
+            return;
+        }
         if (Period::isMultiplePeriod($date, $period)) {
             throw new Http\BadRequestException("This API method does not support multiple periods.");
         }
+        Date::factory($date);
     }
 }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DevicesDetection\Reports;
 
@@ -26,8 +25,8 @@ class GetBrowserVersions extends \Piwik\Plugins\DevicesDetection\Reports\Base
     }
     public function configureView(ViewDataTable $view)
     {
-        $view->config->show_search = true;
-        $view->config->show_exclude_low_population = false;
+        $view->config->show_search = \true;
+        $view->config->show_exclude_low_population = \false;
     }
     public function getRelatedReports()
     {

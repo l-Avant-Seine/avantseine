@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -23,7 +22,7 @@ require_once PIWIK_INCLUDE_PATH . '/core/Version.php';
  */
 class MetadataLoader
 {
-    const PLUGIN_JSON_FILENAME = 'plugin.json';
+    public const PLUGIN_JSON_FILENAME = 'plugin.json';
     /**
      * The name of the plugin whose metadata will be loaded.
      *
@@ -67,7 +66,7 @@ class MetadataLoader
     private function getDefaultPluginInformation()
     {
         $descriptionKey = $this->pluginName . '_PluginDescription';
-        return ['description' => $descriptionKey, 'homepage' => Url::addCampaignParametersToMatomoLink('https://matomo.org/'), 'authors' => [['name' => 'Matomo', 'homepage' => Url::addCampaignParametersToMatomoLink('https://matomo.org/')]], 'license' => 'GPL v3+', 'version' => Version::VERSION, 'theme' => false, 'require' => []];
+        return ['description' => $descriptionKey, 'homepage' => Url::addCampaignParametersToMatomoLink('https://matomo.org/'), 'authors' => [['name' => 'Matomo', 'homepage' => Url::addCampaignParametersToMatomoLink('https://matomo.org/')]], 'license' => 'GPL v3+', 'version' => Version::VERSION, 'theme' => \false, 'require' => []];
     }
     /**
      * It is important that this method works without using anything from DI
@@ -92,7 +91,7 @@ class MetadataLoader
         if (!$json) {
             return array();
         }
-        $info = json_decode($json, $assoc = true);
+        $info = json_decode($json, $assoc = \true);
         if (!is_array($info) || empty($info)) {
             throw new Exception("Invalid JSON file: {$path}");
         }

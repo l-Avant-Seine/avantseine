@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\ReportRenderer;
 
@@ -107,7 +106,7 @@ class Tsv extends ReportRenderer
         $tsvRenderer = new TsvDataTableRenderer();
         $tsvRenderer->setIdSite($this->idSite);
         $tsvRenderer->setTable($table);
-        $tsvRenderer->setConvertToUnicode(false);
+        $tsvRenderer->setConvertToUnicode(\false);
         $tsvRenderer->setApiMethod($this->getApiMethodNameFromUniqueId($uniqueId));
         return $tsvRenderer;
     }

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Marketplace;
 
@@ -40,7 +39,7 @@ class UpdateCommunication
     public function isEnabled()
     {
         if (!self::canBeEnabled()) {
-            return false;
+            return \false;
         }
         return $this->updaterSettings->sendPluginUpdateEmail->getValue();
     }
@@ -53,10 +52,10 @@ class UpdateCommunication
     public static function canBeEnabled()
     {
         $isEnabled = (bool) Config::getInstance()->General['enable_update_communication'];
-        if ($isEnabled === true && \Piwik\Plugins\Marketplace\Marketplace::isMarketplaceEnabled() === true && SettingsPiwik::isInternetEnabled() === true) {
-            return true;
+        if ($isEnabled === \true && \Piwik\Plugins\Marketplace\Marketplace::isMarketplaceEnabled() === \true && SettingsPiwik::isInternetEnabled() === \true) {
+            return \true;
         }
-        return false;
+        return \false;
     }
     /**
      * Sends an email to all super users if there is an update available for any plugins from the Marketplace.
@@ -84,8 +83,8 @@ class UpdateCommunication
     }
     protected function sendNotifications($pluginsToBeNotified)
     {
-        $hasThemeUpdate = false;
-        $hasPluginUpdate = false;
+        $hasThemeUpdate = \false;
+        $hasPluginUpdate = \false;
         foreach ($pluginsToBeNotified as $plugin) {
             $hasThemeUpdate = $hasThemeUpdate || $plugin['isTheme'];
             $hasPluginUpdate = $hasPluginUpdate || !$plugin['isTheme'];
@@ -130,9 +129,9 @@ class UpdateCommunication
         $latestVersion = $this->getLatestVersion($plugin);
         $lastVersionSent = $this->getLatestVersionSent($plugin);
         if (!empty($lastVersionSent) && ($latestVersion == $lastVersionSent || version_compare($latestVersion, $lastVersionSent) == -1)) {
-            return true;
+            return \true;
         }
-        return false;
+        return \false;
     }
     protected function getNotificationSentOptionName($plugin)
     {

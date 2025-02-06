@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\VisitTime;
 
@@ -30,18 +29,18 @@ class API extends \Piwik\Plugin\API
         Piwik::checkUserHasViewAccess($idSite);
         $archive = Archive::build($idSite, $period, $date, $segment);
         $dataTable = $archive->getDataTable($name);
-        $dataTable->filter('Sort', array('label', 'asc', true, false));
+        $dataTable->filter('Sort', array('label', 'asc', \true, \false));
         $dataTable->queueFilter('ColumnCallbackReplace', array('label', __NAMESPACE__ . '\\getTimeLabel'));
         $dataTable->queueFilter('ReplaceColumnNames');
         return $dataTable;
     }
-    public function getVisitInformationPerLocalTime($idSite, $period, $date, $segment = false)
+    public function getVisitInformationPerLocalTime($idSite, $period, $date, $segment = \false)
     {
         $table = $this->getDataTable(\Piwik\Plugins\VisitTime\Archiver::LOCAL_TIME_RECORD_NAME, $idSite, $period, $date, $segment);
         $table->filter('AddSegmentValue');
         return $table;
     }
-    public function getVisitInformationPerServerTime($idSite, $period, $date, $segment = false, $hideFutureHoursWhenToday = false)
+    public function getVisitInformationPerServerTime($idSite, $period, $date, $segment = \false, $hideFutureHoursWhenToday = \false)
     {
         $table = $this->getDataTable(\Piwik\Plugins\VisitTime\Archiver::SERVER_TIME_RECORD_NAME, $idSite, $period, $date, $segment);
         $timezone = Site::getTimezoneFor($idSite);
@@ -67,7 +66,7 @@ class API extends \Piwik\Plugin\API
      * @throws Exception
      * @return DataTable
      */
-    public function getByDayOfWeek($idSite, $period, $date, $segment = false)
+    public function getByDayOfWeek($idSite, $period, $date, $segment = \false)
     {
         Piwik::checkUserHasViewAccess($idSite);
         // metrics to query

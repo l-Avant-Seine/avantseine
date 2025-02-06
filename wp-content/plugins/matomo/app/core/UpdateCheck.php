@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -15,21 +14,21 @@ use Piwik\Container\StaticContainer;
  */
 class UpdateCheck
 {
-    const CHECK_INTERVAL = 28800;
+    public const CHECK_INTERVAL = 28800;
     // every 8 hours
-    const UI_CLICK_CHECK_INTERVAL = 10;
+    public const UI_CLICK_CHECK_INTERVAL = 10;
     // every 10s when user clicks UI link
-    const LAST_CHECK_FAILED = 'UpdateCheck_LastCheckFailed';
-    const LAST_TIME_CHECKED = 'UpdateCheck_LastTimeChecked';
-    const LATEST_VERSION = 'UpdateCheck_LatestVersion';
-    const SOCKET_TIMEOUT = 5;
+    public const LAST_CHECK_FAILED = 'UpdateCheck_LastCheckFailed';
+    public const LAST_TIME_CHECKED = 'UpdateCheck_LastTimeChecked';
+    public const LATEST_VERSION = 'UpdateCheck_LatestVersion';
+    public const SOCKET_TIMEOUT = 5;
     /**
      * Check for a newer version
      *
      * @param bool $force Force check
      * @param int $interval Interval used for update checks
      */
-    public static function check($force = false, $interval = null)
+    public static function check($force = \false, $interval = null)
     {
         if (!\Piwik\SettingsPiwik::isAutoUpdateEnabled()) {
             return;
@@ -38,7 +37,7 @@ class UpdateCheck
             $interval = self::CHECK_INTERVAL;
         }
         $lastTimeChecked = \Piwik\Option::get(self::LAST_TIME_CHECKED);
-        if ($force || $lastTimeChecked === false || time() - $interval > $lastTimeChecked) {
+        if ($force || $lastTimeChecked === \false || time() - $interval > $lastTimeChecked) {
             // set the time checked first, so that parallel Piwik requests don't all trigger the http requests
             \Piwik\Option::set(self::LAST_TIME_CHECKED, time(), $autoLoad = 1);
             $latestVersion = self::getLatestAvailableVersionNumber();
@@ -105,6 +104,6 @@ class UpdateCheck
         if (!empty($latestVersion) && version_compare(\Piwik\Version::VERSION, $latestVersion) == -1) {
             return $latestVersion;
         }
-        return false;
+        return \false;
     }
 }

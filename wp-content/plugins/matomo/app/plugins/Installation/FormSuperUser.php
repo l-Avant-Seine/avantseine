@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Installation;
 
@@ -21,7 +20,7 @@ use Piwik\Url;
  */
 class FormSuperUser extends QuickForm2
 {
-    function __construct($id = 'generalsetupform', $method = 'post', $attributes = null, $trackSubmit = false)
+    function __construct($id = 'generalsetupform', $method = 'post', $attributes = null, $trackSubmit = \false)
     {
         parent::__construct($id, $method, $attributes = array('autocomplete' => 'off'), $trackSubmit);
     }
@@ -68,9 +67,9 @@ class RuleIsValidLoginString extends HTML_QuickForm2_Rule
             }
         } catch (\Exception $e) {
             $this->setMessage($e->getMessage());
-            return false;
+            return \false;
         }
-        return true;
+        return \true;
     }
 }
 /**

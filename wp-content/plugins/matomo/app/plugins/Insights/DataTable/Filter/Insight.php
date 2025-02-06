@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Insights\DataTable\Filter;
 
@@ -48,7 +47,7 @@ class Insight extends DataTable\Filter\CalculateEvolutionFilter
         } else {
             $growthPercentage = '-100%';
         }
-        $this->addRow($table, $row, $growthPercentage, $newValue, $oldValue, $difference, $isDisappeared = true);
+        $this->addRow($table, $row, $growthPercentage, $newValue, $oldValue, $difference, $isDisappeared = \true);
     }
     private function addRowIfNewOrMover(DataTable $table, DataTable\Row $row)
     {
@@ -58,18 +57,18 @@ class Insight extends DataTable\Filter\CalculateEvolutionFilter
         } elseif ($pastRow && !$this->considerMovers) {
             return;
         }
-        $isNew = false;
-        $isMover = false;
-        $isDisappeared = false;
+        $isNew = \false;
+        $isMover = \false;
+        $isDisappeared = \false;
         if (!$pastRow) {
-            $isNew = true;
+            $isNew = \true;
             $oldValue = 0;
         } else {
-            $isMover = true;
+            $isMover = \true;
             $oldValue = $pastRow->getColumn($this->columnValueToRead);
         }
         $difference = $this->getDividend($row);
-        if ($difference === false) {
+        if ($difference === \false) {
             return;
         }
         $newValue = $row->getColumn($this->columnValueToRead);
@@ -91,7 +90,7 @@ class Insight extends DataTable\Filter\CalculateEvolutionFilter
         }
         return $table->getRowFromLabel($row->getColumn('label'));
     }
-    private function addRow(DataTable $table, DataTable\Row $row, $growthPercentage, $newValue, $oldValue, $difference, $disappeared = false, $isNew = false, $isMover = false)
+    private function addRow(DataTable $table, DataTable\Row $row, $growthPercentage, $newValue, $oldValue, $difference, $disappeared = \false, $isNew = \false, $isMover = \false)
     {
         $columns = $row->getColumns();
         $columns['growth_percent'] = $growthPercentage;

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\DataTable\Filter;
 
@@ -43,7 +42,7 @@ class Limit extends BaseFilter
      * @param int $limit Number of rows to keep (specify -1 to keep all rows).
      * @param bool $keepSummaryRow Whether to keep the summary row or not.
      */
-    public function __construct($table, $offset, $limit = -1, $keepSummaryRow = false)
+    public function __construct($table, $offset, $limit = -1, $keepSummaryRow = \false)
     {
         parent::__construct($table);
         $this->offset = $offset;

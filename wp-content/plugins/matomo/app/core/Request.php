@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -142,8 +141,14 @@ class Request
     public function getFloatParameter(string $name, ?float $default = null) : float
     {
         $parameter = $this->getParameter($name, $default);
-        if ((is_string($parameter) || is_numeric($parameter)) && ((string) $parameter === (string) (float) $parameter || (string) $parameter === (string) (int) $parameter)) {
+        if (is_float($parameter) || is_int($parameter)) {
             return (float) $parameter;
+        }
+        // Regex for all supported float notations in PHP (see https://www.php.net/manual/en/language.types.float.php)
+        $floatRegex = "/^[-+]?((([0-9]+(_[0-9]+)*)|(([0-9]+(_[0-9]+)*)?\\.([0-9]+(_[0-9]+)*))|(([0-9]+(_[0-9]+)*)\\.([0-9]+(_[0-9]+)*)?))([eE][+-]?([0-9]+(_[0-9]+)*))?)\$/";
+        if (is_string($parameter) && preg_match($floatRegex, $parameter)) {
+            // underscores would break numbers if not removed before
+            return (float) str_replace('_', '', $parameter);
         }
         if (null !== $default) {
             return $default;
@@ -188,14 +193,14 @@ class Request
     public function getBoolParameter(string $name, ?bool $default = null) : bool
     {
         $parameter = $this->getParameter($name, $default);
-        if ($parameter === false || $parameter === true) {
+        if ($parameter === \false || $parameter === \true) {
             return $parameter;
         }
         if (\is_string($parameter) && \strtolower($parameter) === 'false' || $parameter === '0' || $parameter === 0) {
-            return false;
+            return \false;
         }
         if (\is_string($parameter) && \strtolower($parameter) === 'true' || $parameter === '1' || $parameter === 1) {
-            return true;
+            return \true;
         }
         if (null !== $default) {
             return $default;
@@ -246,7 +251,7 @@ class Request
             }
         }
         if (is_string($parameter)) {
-            $decodedValue = \json_decode($parameter, true);
+            $decodedValue = \json_decode($parameter, \true);
             if ($decodedValue !== null && $decodedValue !== '') {
                 return $this->filterNullBytes($decodedValue);
             }

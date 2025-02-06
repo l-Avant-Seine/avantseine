@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik;
 
@@ -17,8 +16,8 @@ namespace Piwik;
  */
 class ProxyHttp
 {
-    const DEFLATE_ENCODING_REGEX = '/(?:^|, ?)(deflate)(?:,|$)/';
-    const GZIP_ENCODING_REGEX = '/(?:^|, ?)((x-)?gzip)(?:,|$)/';
+    public const DEFLATE_ENCODING_REGEX = '/(?:^|, ?)(deflate)(?:,|$)/';
+    public const GZIP_ENCODING_REGEX = '/(?:^|, ?)((x-)?gzip)(?:,|$)/';
     /**
      * Returns true if the current request appears to be a secure HTTPS connection
      *
@@ -63,7 +62,7 @@ class ProxyHttp
      *                               file should be sent as a different filename to the client you can specify
      *                               a custom filename here.
      */
-    public static function serverStaticFile($file, $contentType, $expireFarFutureDays = 100, $byteStart = false, $byteEnd = false, $filename = false)
+    public static function serverStaticFile($file, $contentType, $expireFarFutureDays = 100, $byteStart = \false, $byteEnd = \false, $filename = \false)
     {
         // if the file cannot be found return HTTP status code '404'
         if (empty($file) || !file_exists($file)) {
@@ -80,7 +79,7 @@ class ProxyHttp
         // set some HTTP response headers
         self::overrideCacheControlHeaders('public');
         \Piwik\Common::sendHeader('Vary: Accept-Encoding');
-        if (false === $filename) {
+        if (\false === $filename) {
             $filename = basename($file);
         }
         \Piwik\Common::sendHeader('Content-Disposition: inline; filename=' . $filename);
@@ -94,13 +93,13 @@ class ProxyHttp
             return;
         }
         // if we have to serve the file, serve it now, either in the clear or compressed
-        if ($byteStart === false) {
+        if ($byteStart === \false) {
             $byteStart = 0;
         }
-        if ($byteEnd === false) {
+        if ($byteEnd === \false) {
             $byteEnd = filesize($file);
         }
-        $compressed = false;
+        $compressed = \false;
         $encoding = '';
         $compressedFileLocation = \Piwik\AssetManager::getInstance()->getAssetDirectory() . '/' . basename($file);
         if (!($byteStart == 0 && $byteEnd == filesize($file))) {
@@ -117,7 +116,7 @@ class ProxyHttp
                     if (self::shouldCompressFile($file, $filegz)) {
                         self::compressFile($file, $filegz, $encoding, $byteStart, $byteEnd);
                     }
-                    $compressed = true;
+                    $compressed = \true;
                     $file = $filegz;
                     $byteStart = 0;
                     $byteEnd = filesize($file);
@@ -125,7 +124,7 @@ class ProxyHttp
             } else {
                 // if a compressed file exists, the file was manually compressed so we just serve that
                 if ($extension == '.gz' && !self::shouldCompressFile($file, $filegz)) {
-                    $compressed = true;
+                    $compressed = \true;
                     $file = $filegz;
                     $byteStart = 0;
                     $byteEnd = filesize($file);
@@ -152,7 +151,7 @@ class ProxyHttp
         // clearing all output buffers combined with output compressions had bugs on certain PHP versions
         // manually removing the Content-Encoding header fixes this
         // See https://github.com/php/php-src/issues/8218
-        if ($phpOutputCompressionEnabled && (version_compare(PHP_VERSION, '8.0.17', '=') || version_compare(PHP_VERSION, '8.0.18', '=') || version_compare(PHP_VERSION, '8.1.4', '=') || version_compare(PHP_VERSION, '8.1.5', '='))) {
+        if ($phpOutputCompressionEnabled && (version_compare(\PHP_VERSION, '8.0.17', '=') || version_compare(\PHP_VERSION, '8.0.18', '=') || version_compare(\PHP_VERSION, '8.1.4', '=') || version_compare(\PHP_VERSION, '8.1.5', '='))) {
             header_remove("Content-Encoding");
         }
         if (!_readfile($file, $byteStart, $byteEnd)) {
@@ -222,7 +221,7 @@ class ProxyHttp
         } elseif (preg_match(self::DEFLATE_ENCODING_REGEX, $acceptEncoding, $matches)) {
             return array('deflate', '.deflate');
         } else {
-            return array(false, false);
+            return array(\false, \false);
         }
     }
     private static function canCompressInPhp()
@@ -244,7 +243,7 @@ class ProxyHttp
         } elseif ($compressionEncoding == 'gzip' || $compressionEncoding == 'x-gzip') {
             $data = self::gzencode($data);
         }
-        if (false === $data) {
+        if (\false === $data) {
             throw new \Exception('compressing file ' . $fileToCompress . ' failed');
         }
         file_put_contents($compressedFilePath, $data);

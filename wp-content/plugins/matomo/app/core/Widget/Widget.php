@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Widget;
 
@@ -58,7 +57,7 @@ class Widget
      */
     protected function renderTemplate($template, array $variables = array())
     {
-        if (false === strpos($template, '@') || false === strpos($template, '/')) {
+        if (\false === strpos($template, '@') || \false === strpos($template, '/')) {
             $aPluginName = explode('\\', get_class($this));
             $aPluginName = $aPluginName[2];
             $template = '@' . $aPluginName . '/' . $template;

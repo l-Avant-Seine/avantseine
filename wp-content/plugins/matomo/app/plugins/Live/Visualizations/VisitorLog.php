@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Live\Visualizations;
 
@@ -27,10 +26,10 @@ use Piwik\Tracker\Action;
  */
 class VisitorLog extends Visualization
 {
-    const ID = 'VisitorLog';
-    const TEMPLATE_FILE = "@Live/_dataTableViz_visitorLog.twig";
-    const FOOTER_ICON_TITLE = '';
-    const FOOTER_ICON = '';
+    public const ID = 'VisitorLog';
+    public const TEMPLATE_FILE = "@Live/_dataTableViz_visitorLog.twig";
+    public const FOOTER_ICON_TITLE = '';
+    public const FOOTER_ICON = '';
     public static function getDefaultConfig()
     {
         return new \Piwik\Plugins\Live\Visualizations\VisitorLog\Config();
@@ -47,8 +46,8 @@ class VisitorLog extends Visualization
         }
         $this->requestConfig->request_parameters_to_modify['filter_limit'] = $this->requestConfig->filter_limit + 1;
         // request one more record, to check if a next page is available
-        $this->requestConfig->disable_generic_filters = true;
-        $this->requestConfig->filter_sort_column = false;
+        $this->requestConfig->disable_generic_filters = \true;
+        $this->requestConfig->filter_sort_column = \false;
         $view = $this;
         $this->config->filters[] = function (DataTable $table) use($view) {
             if (Plugin\Manager::getInstance()->isPluginActivated('PrivacyManager') && PrivacyManager::haveLogsBeenPurged($table)) {
@@ -65,7 +64,7 @@ class VisitorLog extends Visualization
     }
     public function afterGenericFiltersAreAppliedToLoadedDataTable()
     {
-        $this->requestConfig->filter_sort_column = false;
+        $this->requestConfig->filter_sort_column = \false;
     }
     private function isInPopover()
     {
@@ -76,18 +75,18 @@ class VisitorLog extends Visualization
      */
     public function beforeRender()
     {
-        $this->config->show_as_content_block = false;
+        $this->config->show_as_content_block = \false;
         $this->config->title = Piwik::translate('Live_VisitorLog');
-        $this->config->disable_row_actions = true;
+        $this->config->disable_row_actions = \true;
         $this->config->datatable_js_type = 'VisitorLog';
-        $this->config->enable_sort = false;
-        $this->config->show_search = false;
-        $this->config->show_exclude_low_population = false;
-        $this->config->show_offset_information = false;
-        $this->config->show_all_views_icons = false;
-        $this->config->show_table_all_columns = false;
-        $this->config->show_export_as_rss_feed = false;
-        $this->config->disable_all_rows_filter_limit = true;
+        $this->config->enable_sort = \false;
+        $this->config->show_search = \false;
+        $this->config->show_exclude_low_population = \false;
+        $this->config->show_offset_information = \false;
+        $this->config->show_all_views_icons = \false;
+        $this->config->show_table_all_columns = \false;
+        $this->config->show_export_as_rss_feed = \false;
+        $this->config->disable_all_rows_filter_limit = \true;
         $this->config->documentation = Piwik::translate('Live_VisitorLogDocumentation', array('<br />', '<br />'));
         if (!is_array($this->config->custom_parameters)) {
             $this->config->custom_parameters = array();
@@ -108,12 +107,12 @@ class VisitorLog extends Visualization
         } else {
             // It's opening in a popover, just show a few records and don't give the user any actions to play with
             $this->config->footer_icons = array();
-            $this->config->show_export = false;
-            $this->config->show_pagination_control = false;
-            $this->config->show_limit_control = false;
+            $this->config->show_export = \false;
+            $this->config->show_pagination_control = \false;
+            $this->config->show_limit_control = \false;
         }
         $this->assignTemplateVar('actionsToDisplayCollapsed', StaticContainer::get('Live.pageViewActionsToDisplayCollapsed'));
-        $enableAddNewSegment = Common::getRequestVar('enableAddNewSegment', false);
+        $enableAddNewSegment = Common::getRequestVar('enableAddNewSegment', \false);
         if ($enableAddNewSegment) {
             $this->config->datatable_actions[] = ['id' => 'addSegmentToMatomo', 'title' => Piwik::translate('SegmentEditor_AddThisToMatomo'), 'icon' => 'icon-segment'];
         }
@@ -141,15 +140,13 @@ class VisitorLog extends Visualization
                 if ($action['type'] == 'action') {
                     if (empty($actionGroups[$idPageView]['pageviewAction'])) {
                         $actionGroups[$idPageView]['pageviewAction'] = $action;
+                    } elseif (empty($actionGroups[$idPageView]['pageviewAction']['url'])) {
+                        // set this action as the pageview action either if there isn't one set already, or the existing one
+                        // has no URL
+                        $actionGroups[$idPageView]['refreshActions'][] = $actionGroups[$idPageView]['pageviewAction'];
+                        $actionGroups[$idPageView]['pageviewAction'] = $action;
                     } else {
-                        if (empty($actionGroups[$idPageView]['pageviewAction']['url'])) {
-                            // set this action as the pageview action either if there isn't one set already, or the existing one
-                            // has no URL
-                            $actionGroups[$idPageView]['refreshActions'][] = $actionGroups[$idPageView]['pageviewAction'];
-                            $actionGroups[$idPageView]['pageviewAction'] = $action;
-                        } else {
-                            $actionGroups[$idPageView]['refreshActions'][] = $action;
-                        }
+                        $actionGroups[$idPageView]['refreshActions'][] = $action;
                     }
                 } else {
                     $actionGroups[$idPageView]['actionsOnPage'][] = $action;

@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\API;
 
@@ -24,11 +23,11 @@ use Piwik\View;
  */
 class Controller extends \Piwik\Plugin\Controller
 {
-    function index()
+    public function index()
     {
         $tokenAuth = Common::getRequestVar('token_auth', 'anonymous', 'string');
-        $format = Common::getRequestVar('format', false);
-        $serialize = Common::getRequestVar('serialize', false);
+        $format = Common::getRequestVar('format', \false);
+        $serialize = Common::getRequestVar('serialize', \false);
         $token = 'token_auth=' . $tokenAuth;
         // when calling the API through http, we limit the number of returned results
         if (!isset($_GET['filter_limit'])) {
@@ -44,7 +43,7 @@ class Controller extends \Piwik\Plugin\Controller
             if ($format == 'original' && $serialize != 1) {
                 Original::sendPlainTextHeader();
             }
-            $response = var_export($response, true);
+            $response = var_export($response, \true);
         }
         return $response;
     }
@@ -53,11 +52,11 @@ class Controller extends \Piwik\Plugin\Controller
         Piwik::checkUserHasSomeViewAccess();
         $ApiDocumentation = new DocumentationGenerator();
         $prefixUrls = Common::getRequestVar('prefixUrl', 'https://demo.matomo.org/', 'string');
-        $hostname = parse_url($prefixUrls, PHP_URL_HOST);
+        $hostname = parse_url($prefixUrls, \PHP_URL_HOST);
         if (empty($hostname) || !UrlHelper::isLookLikeUrl($prefixUrls) || strpos($prefixUrls, 'http') !== 0 || !Url::isValidHost($hostname)) {
             $prefixUrls = '';
         }
-        return $ApiDocumentation->getApiDocumentationAsStringForDeveloperReference($outputExampleUrls = true, $prefixUrls);
+        return $ApiDocumentation->getApiDocumentationAsStringForDeveloperReference($outputExampleUrls = \true, $prefixUrls);
     }
     public function listAllAPI()
     {

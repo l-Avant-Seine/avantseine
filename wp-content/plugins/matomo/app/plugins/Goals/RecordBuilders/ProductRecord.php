@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\RecordBuilders;
 
@@ -21,16 +20,16 @@ use Piwik\Plugins\Goals\Archiver;
 use Piwik\Tracker\GoalManager;
 class ProductRecord extends \Piwik\Plugins\Goals\RecordBuilders\Base
 {
-    const SKU_FIELD = 'idaction_sku';
-    const NAME_FIELD = 'idaction_name';
-    const CATEGORY_FIELD = 'idaction_category';
-    const CATEGORY2_FIELD = 'idaction_category2';
-    const CATEGORY3_FIELD = 'idaction_category3';
-    const CATEGORY4_FIELD = 'idaction_category4';
-    const CATEGORY5_FIELD = 'idaction_category5';
-    const ITEMS_SKU_RECORD_NAME = 'Goals_ItemsSku';
-    const ITEMS_NAME_RECORD_NAME = 'Goals_ItemsName';
-    const ITEMS_CATEGORY_RECORD_NAME = 'Goals_ItemsCategory';
+    public const SKU_FIELD = 'idaction_sku';
+    public const NAME_FIELD = 'idaction_name';
+    public const CATEGORY_FIELD = 'idaction_category';
+    public const CATEGORY2_FIELD = 'idaction_category2';
+    public const CATEGORY3_FIELD = 'idaction_category3';
+    public const CATEGORY4_FIELD = 'idaction_category4';
+    public const CATEGORY5_FIELD = 'idaction_category5';
+    public const ITEMS_SKU_RECORD_NAME = 'Goals_ItemsSku';
+    public const ITEMS_NAME_RECORD_NAME = 'Goals_ItemsName';
+    public const ITEMS_CATEGORY_RECORD_NAME = 'Goals_ItemsCategory';
     protected $actionMapping = [self::SKU_FIELD => 'idaction_product_sku', self::NAME_FIELD => 'idaction_product_name', self::CATEGORY_FIELD => 'idaction_product_cat', self::CATEGORY2_FIELD => 'idaction_product_cat2', self::CATEGORY3_FIELD => 'idaction_product_cat3', self::CATEGORY4_FIELD => 'idaction_product_cat4', self::CATEGORY5_FIELD => 'idaction_product_cat5'];
     /**
      * @var string
@@ -74,11 +73,11 @@ class ProductRecord extends \Piwik\Plugins\Goals\RecordBuilders\Base
         if ($this->usesEcommerce($this->getSiteId($archiveProcessor))) {
             foreach ($this->dimensionsToAggregate as $dimension) {
                 $query = $logAggregator->queryEcommerceItems($dimension);
-                if ($query !== false) {
+                if ($query !== \false) {
                     $this->aggregateFromEcommerceItems($itemReports, $query, $dimension);
                 }
                 $query = $this->queryItemViewsForDimension($logAggregator, $dimension);
-                if ($query !== false) {
+                if ($query !== \false) {
                     $this->aggregateFromEcommerceViews($itemReports, $query, $dimension);
                 }
             }
@@ -116,7 +115,7 @@ class ProductRecord extends \Piwik\Plugins\Goals\RecordBuilders\Base
     {
         while ($row = $query->fetch()) {
             $label = $this->getRowLabel($row, $dimension);
-            if ($label === false) {
+            if ($label === \false) {
                 continue;
                 // ignore empty additional categories
             }
@@ -140,7 +139,7 @@ class ProductRecord extends \Piwik\Plugins\Goals\RecordBuilders\Base
     {
         $column = $this->actionMapping[$dimension];
         $where = "log_link_visit_action.{$column} is not null";
-        return $logAggregator->queryActionsByDimension(['label' => 'log_action1.name'], $where, ['AVG(log_link_visit_action.product_price) AS `avg_price_viewed`'], false, null, [$column]);
+        return $logAggregator->queryActionsByDimension(['label' => 'log_action1.name'], $where, ['AVG(log_link_visit_action.product_price) AS `avg_price_viewed`'], \false, null, [$column]);
     }
     protected function roundColumnValues(array &$row) : void
     {

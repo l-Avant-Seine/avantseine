@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals;
 
@@ -55,7 +54,7 @@ use Piwik\Validators\WhitelistedValue;
  */
 class API extends \Piwik\Plugin\API
 {
-    const AVG_PRICE_VIEWED = 'avg_price_viewed';
+    public const AVG_PRICE_VIEWED = 'avg_price_viewed';
     /**
      * Return a single goal.
      *
@@ -75,10 +74,11 @@ class API extends \Piwik\Plugin\API
      * Returns all Goals for a given website, or list of websites
      *
      * @param string|array $idSite Array or Comma separated list of website IDs to request the goals for
+     * @param bool $orderByName
      *
      * @return array Array of Goal attributes
      */
-    public function getGoals($idSite)
+    public function getGoals($idSite, bool $orderByName = \false) : array
     {
         $cacheId = self::getCacheId($idSite);
         $cache = $this->getGoalsInfoStaticCache();
@@ -88,7 +88,7 @@ class API extends \Piwik\Plugin\API
             // result is in the cache, it would just return the result
             $idSite = Site::getIdSitesFromIdSitesString($idSite);
             if (empty($idSite)) {
-                return array();
+                return [];
             }
             Piwik::checkUserHasViewAccess($idSite);
             $goals = $this->getModel()->getActiveGoals($idSite);
@@ -98,7 +98,16 @@ class API extends \Piwik\Plugin\API
             }
             $cache->save($cacheId, $cleanedGoals);
         }
-        return $cache->fetch($cacheId);
+        $goals = $cache->fetch($cacheId);
+        if ($orderByName) {
+            uasort($goals, function ($a, $b) {
+                if ($a['name'] == $b['name']) {
+                    return $a['idgoal'] > $b['idgoal'] ? -1 : 1;
+                }
+                return strcasecmp($a['name'], $b['name']);
+            });
+        }
+        return $goals;
     }
     private function formatGoal($goal)
     {
@@ -130,7 +139,7 @@ class API extends \Piwik\Plugin\API
      *
      * @return int ID of the new goal
      */
-    public function addGoal($idSite, $name, $matchAttribute, $pattern, $patternType, $caseSensitive = false, $revenue = false, $allowMultipleConversionsPerVisit = false, $description = '', $useEventValueAsRevenue = false)
+    public function addGoal($idSite, $name, $matchAttribute, $pattern, $patternType, $caseSensitive = \false, $revenue = \false, $allowMultipleConversionsPerVisit = \false, $description = '', $useEventValueAsRevenue = \false)
     {
         Piwik::checkUserHasWriteAccess($idSite);
         $patternType = Common::unsanitizeInputValue($patternType);
@@ -168,7 +177,7 @@ class API extends \Piwik\Plugin\API
      * @return void
      * @see addGoal() for parameters description
      */
-    public function updateGoal($idSite, $idGoal, $name, $matchAttribute, $pattern, $patternType, $caseSensitive = false, $revenue = false, $allowMultipleConversionsPerVisit = false, $description = '', $useEventValueAsRevenue = false)
+    public function updateGoal($idSite, $idGoal, $name, $matchAttribute, $pattern, $patternType, $caseSensitive = \false, $revenue = \false, $allowMultipleConversionsPerVisit = \false, $description = '', $useEventValueAsRevenue = \false)
     {
         Piwik::checkUserHasWriteAccess($idSite);
         $patternType = Common::unsanitizeInputValue($patternType);
@@ -311,14 +320,14 @@ class API extends \Piwik\Plugin\API
             // skip if CustomVariables plugin is not available or table already contains visits
             return;
         }
-        $ecommerceViews = \Piwik\Plugins\CustomVariables\API::getInstance()->getCustomVariablesValuesFromNameId($idSite, $period, $date, $idSubtable, $segment, $_leavePriceViewedColumn = true);
+        $ecommerceViews = \Piwik\Plugins\CustomVariables\API::getInstance()->getCustomVariablesValuesFromNameId($idSite, $period, $date, $idSubtable, $segment, $_leavePriceViewedColumn = \true);
         // For Product names and SKU reports, and for Category report
         // Use the Price (tracked on page views)
         // ONLY when the price sold in conversions is not found (ie. product viewed but not sold)
         foreach ($ecommerceViews->getRows() as $rowView) {
             // If there is not already a 'sum price' for this product
             $rowFound = $dataTable->getRowFromLabel($rowView->getColumn('label'));
-            $price = $rowFound ? $rowFound->getColumn(Metrics::INDEX_ECOMMERCE_ITEM_PRICE) : false;
+            $price = $rowFound ? $rowFound->getColumn(Metrics::INDEX_ECOMMERCE_ITEM_PRICE) : \false;
             if (empty($price)) {
                 // If a price was tracked on the product page
                 if ($rowView->getColumn(Metrics::INDEX_ECOMMERCE_ITEM_PRICE_VIEWED)) {
@@ -330,19 +339,19 @@ class API extends \Piwik\Plugin\API
         $ecommerceViews->filter('ReplaceColumnNames');
         $dataTable->addDataTable($ecommerceViews);
     }
-    public function getItemsSku($idSite, $period, $date, $abandonedCarts = false, $segment = false)
+    public function getItemsSku($idSite, $period, $date, $abandonedCarts = \false, $segment = \false)
     {
         $dataTable = $this->getItems('Goals_ItemsSku', $idSite, $period, $date, $abandonedCarts, $segment);
         $dataTable->filter('AddSegmentByLabel', ['productSku']);
         return $dataTable;
     }
-    public function getItemsName($idSite, $period, $date, $abandonedCarts = false, $segment = false)
+    public function getItemsName($idSite, $period, $date, $abandonedCarts = \false, $segment = \false)
     {
         $dataTable = $this->getItems('Goals_ItemsName', $idSite, $period, $date, $abandonedCarts, $segment);
         $dataTable->filter('AddSegmentByLabel', ['productName']);
         return $dataTable;
     }
-    public function getItemsCategory($idSite, $period, $date, $abandonedCarts = false, $segment = false)
+    public function getItemsCategory($idSite, $period, $date, $abandonedCarts = \false, $segment = \false)
     {
         $dataTable = $this->getItems('Goals_ItemsCategory', $idSite, $period, $date, $abandonedCarts, $segment);
         $dataTable->filter('AddSegmentByLabel', ['productCategory']);
@@ -364,12 +373,10 @@ class API extends \Piwik\Plugin\API
     {
         if ($idGoal == Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_ORDER) {
             return GoalManager::IDGOAL_ORDER;
+        } elseif ($idGoal == Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_CART) {
+            return GoalManager::IDGOAL_CART;
         } else {
-            if ($idGoal == Piwik::LABEL_ID_GOAL_IS_ECOMMERCE_CART) {
-                return GoalManager::IDGOAL_CART;
-            } else {
-                return $idGoal;
-            }
+            return $idGoal;
         }
     }
     /**
@@ -385,12 +392,12 @@ class API extends \Piwik\Plugin\API
      *
      * @return DataTable
      */
-    public function get($idSite, $period, $date, $segment = false, $idGoal = false, $columns = array(), $showAllGoalSpecificMetrics = false, $compare = false)
+    public function get($idSite, $period, $date, $segment = \false, $idGoal = \false, $columns = array(), $showAllGoalSpecificMetrics = \false, $compare = \false)
     {
         Piwik::checkUserHasViewAccess($idSite);
         /** @var DataTable|DataTable\Map $table */
         $table = null;
-        $segments = array('' => false, '_new_visit' => VisitFrequencyAPI::NEW_VISITOR_SEGMENT, '_returning_visit' => VisitFrequencyAPI::RETURNING_VISITOR_SEGMENT);
+        $segments = array('' => \false, '_new_visit' => VisitFrequencyAPI::NEW_VISITOR_SEGMENT, '_returning_visit' => VisitFrequencyAPI::RETURNING_VISITOR_SEGMENT);
         foreach ($segments as $appendToMetricName => $predefinedSegment) {
             $startingArchiveDependent = \Piwik\Plugin\Archiver::$ARCHIVE_DEPENDENT;
             try {
@@ -401,7 +408,7 @@ class API extends \Piwik\Plugin\API
                     // userid=5;visitorType%3D%3Dreturning%2CvisitorType%3D%3DreturningCustomer;visitorType%3D%3Dnew;
                     // it would also archive dependends for these segments that we already combined here and then combine
                     // segments again when archiving dependends
-                    \Piwik\Plugin\Archiver::$ARCHIVE_DEPENDENT = false;
+                    \Piwik\Plugin\Archiver::$ARCHIVE_DEPENDENT = \false;
                 }
                 $segmentToUse = $this->appendSegment($segment, $predefinedSegment);
                 /** @var DataTable|DataTable\Map $tableSegmented */
@@ -423,9 +430,9 @@ class API extends \Piwik\Plugin\API
         if (!empty($compare)) {
             $getMetricsReport = ReportsProvider::factory('Goals', 'getMetrics');
             $table->queueFilter(function (DataTable $t) use($getMetricsReport) {
-                $t->setMetadata(Metrics\Formatter::PROCESSED_METRICS_FORMATTED_FLAG, false);
+                $t->setMetadata(Metrics\Formatter::PROCESSED_METRICS_FORMATTED_FLAG, \false);
                 $formatter = new Metrics\Formatter();
-                $formatter->formatMetrics($t, $getMetricsReport, $metricsToFormat = null, $formatAll = true);
+                $formatter->formatMetrics($t, $getMetricsReport, $metricsToFormat = null, $formatAll = \true);
             });
         }
         return $table;
@@ -438,11 +445,11 @@ class API extends \Piwik\Plugin\API
      * @deprecated
      * @internal
      */
-    public function getMetrics($idSite, $period, $date, $segment = false, $idGoal = false, $columns = array(), $showAllGoalSpecificMetrics = false)
+    public function getMetrics($idSite, $period, $date, $segment = \false, $idGoal = \false, $columns = array(), $showAllGoalSpecificMetrics = \false)
     {
         Piwik::checkUserHasViewAccess($idSite);
         $archive = Archive::build($idSite, $period, $date, $segment);
-        $showAllGoalSpecificMetrics = $showAllGoalSpecificMetrics && $idGoal === false;
+        $showAllGoalSpecificMetrics = $showAllGoalSpecificMetrics && $idGoal === \false;
         // Mapping string idGoal to internal ID
         $idGoal = self::convertSpecialGoalIds($idGoal);
         $isEcommerceGoal = $idGoal === GoalManager::IDGOAL_ORDER || $idGoal === GoalManager::IDGOAL_CART;
@@ -465,7 +472,7 @@ class API extends \Piwik\Plugin\API
         }
         if ($showAllGoalSpecificMetrics && !empty($requestedColumns)) {
             foreach ($requestedColumns as $requestedColumn) {
-                if (strpos($requestedColumn, '_conversion_rate') !== false) {
+                if (strpos($requestedColumn, '_conversion_rate') !== \false) {
                     $columnIdGoal = \Piwik\Plugins\Goals\Goals::getGoalIdFromGoalColumn($requestedColumn);
                     if ($columnIdGoal) {
                         $goalConversionRate = new GoalConversionRate($idSite, $columnIdGoal);
@@ -543,21 +550,21 @@ class API extends \Piwik\Plugin\API
     /**
      * @ignore
      */
-    public function getConversions($idSite, $period, $date, $segment = false, $idGoal = false)
+    public function getConversions($idSite, $period, $date, $segment = \false, $idGoal = \false)
     {
         return $this->getNumeric($idSite, $period, $date, $segment, \Piwik\Plugins\Goals\Archiver::getRecordName('nb_conversions', $idGoal));
     }
     /**
      * @ignore
      */
-    public function getNbVisitsConverted($idSite, $period, $date, $segment = false, $idGoal = false)
+    public function getNbVisitsConverted($idSite, $period, $date, $segment = \false, $idGoal = \false)
     {
         return $this->getNumeric($idSite, $period, $date, $segment, \Piwik\Plugins\Goals\Archiver::getRecordName('nb_visits_converted', $idGoal));
     }
     /**
      * @ignore
      */
-    public function getConversionRate($idSite, $period, $date, $segment = false, $idGoal = false)
+    public function getConversionRate($idSite, $period, $date, $segment = \false, $idGoal = \false)
     {
         $table = $this->get($idSite, $period, $date, $segment, $idGoal, 'conversion_rate');
         $table->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, array(new ConversionRate()));
@@ -566,7 +573,7 @@ class API extends \Piwik\Plugin\API
     /**
      * @ignore
      */
-    public function getRevenue($idSite, $period, $date, $segment = false, $idGoal = false)
+    public function getRevenue($idSite, $period, $date, $segment = \false, $idGoal = \false)
     {
         return $this->getNumeric($idSite, $period, $date, $segment, \Piwik\Plugins\Goals\Archiver::getRecordName('revenue', $idGoal));
     }
@@ -590,7 +597,7 @@ class API extends \Piwik\Plugin\API
         Piwik::checkUserHasViewAccess($idSite);
         $archive = Archive::build($idSite, $period, $date, $segment);
         // check for the special goal ids
-        $realGoalId = $idGoal != true ? false : self::convertSpecialGoalIds($idGoal);
+        $realGoalId = $idGoal != \true ? \false : self::convertSpecialGoalIds($idGoal);
         // get the data table
         $dataTable = $archive->getDataTable(\Piwik\Plugins\Goals\Archiver::getRecordName($recordName, $realGoalId), $idSubtable = null);
         $dataTable->queueFilter('ReplaceColumnNames');
@@ -609,10 +616,10 @@ class API extends \Piwik\Plugin\API
      *
      * @return false|DataTable
      */
-    public function getDaysToConversion($idSite, $period, $date, $segment = false, $idGoal = false)
+    public function getDaysToConversion($idSite, $period, $date, $segment = \false, $idGoal = \false)
     {
         $dataTable = $this->getGoalSpecificDataTable(\Piwik\Plugins\Goals\Archiver::DAYS_UNTIL_CONV_RECORD_NAME, $idSite, $period, $date, $segment, $idGoal);
-        $dataTable->queueFilter('Sort', array('label', 'asc', true, false));
+        $dataTable->queueFilter('Sort', array('label', 'asc', \true, \false));
         $dataTable->queueFilter('BeautifyRangeLabels', array(Piwik::translate('Intl_OneDay'), Piwik::translate('Intl_NDays')));
         return $dataTable;
     }
@@ -629,10 +636,10 @@ class API extends \Piwik\Plugin\API
      *
      * @return bool|DataTable
      */
-    public function getVisitsUntilConversion($idSite, $period, $date, $segment = false, $idGoal = false)
+    public function getVisitsUntilConversion($idSite, $period, $date, $segment = \false, $idGoal = \false)
     {
         $dataTable = $this->getGoalSpecificDataTable(\Piwik\Plugins\Goals\Archiver::VISITS_UNTIL_RECORD_NAME, $idSite, $period, $date, $segment, $idGoal);
-        $dataTable->queueFilter('Sort', array('label', 'asc', true, false));
+        $dataTable->queueFilter('Sort', array('label', 'asc', \true, \false));
         $dataTable->queueFilter('BeautifyRangeLabels', array(Piwik::translate('General_OneVisit'), Piwik::translate('General_NVisits')));
         return $dataTable;
     }
@@ -652,7 +659,7 @@ class API extends \Piwik\Plugin\API
             return;
         }
         // Enrich the datatable with Product/Categories views, and conversion rates
-        $customVariables = \Piwik\Plugins\CustomVariables\API::getInstance()->getCustomVariables($idSite, $period, $date, $segment, $expanded = false, $_leavePiwikCoreVariables = true);
+        $customVariables = \Piwik\Plugins\CustomVariables\API::getInstance()->getCustomVariables($idSite, $period, $date, $segment, $expanded = \false, $_leavePiwikCoreVariables = \true);
         $mapping = array('Goals_ItemsSku' => '_pks', 'Goals_ItemsName' => '_pkn', 'Goals_ItemsCategory' => '_pkc');
         $customVarNameToLookFor = $mapping[$recordName];
         // Handle case where date=last30&period=day

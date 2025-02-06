@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals\Columns\Metrics;
 
@@ -40,7 +40,7 @@ class ProductConversionRate extends ProcessedMetric
         $orders = $this->getMetric($row, 'orders');
         $abandonedCarts = $this->getMetric($row, 'abandoned_carts');
         $visits = $this->getMetric($row, 'nb_visits');
-        return Piwik::getQuotientSafe($orders === false ? $abandonedCarts : $orders, $visits, GoalManager::REVENUE_PRECISION + 2);
+        return Piwik::getQuotientSafe($orders === \false ? $abandonedCarts : $orders, $visits, GoalManager::REVENUE_PRECISION + 2);
     }
     public function getDependentMetrics()
     {

@@ -2,23 +2,21 @@
 Contributors: matomoteam
 Tags: matomo,analytics,statistics,stats,ecommerce
 Requires at least: 4.8
-Tested up to: 6.5.2
-Stable tag: 5.0.6
+Tested up to: 6.7.1
+Stable tag: 5.2.0
 Requires PHP: 7.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Privacy friendly, GDPR compliant and self-hosted, Matomo is the #1 Google Analytics alternative that gives you full control over your data and protects user privacy. Free, secure, and open.
+Privacy friendly, GDPR compliant and self-hosted. Matomo is the #1 Google Analytics alternative that gives you control of your data. Free and secure.
 
 == Description ==
 
 _Already a Matomo On-Premise or Matomo Cloud user? You need to use the [Connect Matomo plugin](https://wordpress.org/plugins/wp-piwik/) instead of this plugin._
 
-**New in Matomo 5.0:**
+**New in version 5.1.4: fixes for a couple security issues. It is recommended to update to this version.**
 
-* Improved compatibility with other WordPress plugins.
-* Important security fixes.
-* Many other bug fixes and performance improvements.
+[youtube https://www.youtube.com/watch?v=puxi_Ey0iLc]
 
 For all you WordPress website owners wanting an easier way to get customer insights to grow your business, you can now get the solution the professionals use, for free!
 
@@ -29,8 +27,6 @@ Matomo’s mission is to give control and data ownership back to the user. By ho
 It’s also easier for you to get insights from Matomo Analytics with it’s time-saving interface design and out-of-the-box features, which require less manual configuration than Google Analytics.
 
 Matomo is free, secure and open - your ethical user insights platform.
-
-[youtube https://www.youtube.com/watch?v=puxi_Ey0iLc]
 
 **How Matomo Analytics for Wordpress solves problems:**
 

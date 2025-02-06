@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\PrivacyManager;
 
@@ -21,7 +20,7 @@ use Piwik\Piwik;
 class ReportsPurger
 {
     // constant used in database purging estimate to signify a table should be dropped
-    const DROP_TABLE = -1;
+    public const DROP_TABLE = -1;
     /**
      * The max set of rows each table scan select should query at one time.
      */
@@ -90,7 +89,7 @@ class ReportsPurger
      * @param bool $optimize If tables should be optimized after rows are deleted. Normally,
      *                       this is handled by a scheduled task.
      */
-    public function purgeData($optimize = false)
+    public function purgeData($optimize = \false)
     {
         list($oldNumericTables, $oldBlobTables) = $this->getArchiveTablesToPurge();
         // process blob tables first, since archive status is stored in the numeric archives
@@ -103,7 +102,7 @@ class ReportsPurger
                 Db::deleteAllRows($table, $where, "idarchive ASC", $this->maxRowsToDeletePerQuery);
             }
             if ($optimize) {
-                Db::optimizeTables($oldBlobTables);
+                Db\Schema::getInstance()->optimizeTables($oldBlobTables);
             }
         }
         $this->segmentArchiveIds = null;
@@ -124,7 +123,7 @@ class ReportsPurger
                 Db::deleteAllRows($table, $where, "idarchive ASC", $this->maxRowsToDeletePerQuery, $bind);
             }
             if ($optimize) {
-                Db::optimizeTables($oldNumericTables);
+                Db\Schema::getInstance()->optimizeTables($oldNumericTables);
             }
         }
     }
@@ -192,7 +191,7 @@ class ReportsPurger
         $oldBlobTables = array();
         foreach (DbHelper::getTablesInstalled() as $table) {
             $type = ArchiveTableCreator::getTypeFromTableName($table);
-            if ($type === false) {
+            if ($type === \false) {
                 continue;
             }
             $date = ArchiveTableCreator::getDateFromTableName($table);

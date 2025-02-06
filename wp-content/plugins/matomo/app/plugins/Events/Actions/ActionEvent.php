@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Events\Actions;
 
@@ -55,7 +54,7 @@ class ActionEvent extends Action
     }
     protected function getActionsToLookup()
     {
-        $actionUrl = false;
+        $actionUrl = \false;
         $url = $this->getActionUrl();
         if (!empty($url)) {
             // normalize urls by stripping protocol and www

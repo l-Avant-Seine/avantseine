@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreVisualizations\Visualizations\Cloud;
 
@@ -21,7 +20,7 @@ class Config extends VisualizationConfig
      *
      * Default value: false
      */
-    public $display_logo_instead_of_label = false;
+    public $display_logo_instead_of_label = \false;
     public function __construct()
     {
         parent::__construct();

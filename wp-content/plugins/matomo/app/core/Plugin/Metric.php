@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugin;
 
@@ -33,7 +33,7 @@ abstract class Metric
     /**
      * The sub-namespace name in a plugin where Metric components are stored.
      */
-    const COMPONENT_SUBNAMESPACE = 'Metrics';
+    public const COMPONENT_SUBNAMESPACE = 'Metrics';
     /**
      * Returns the column name of this metric, eg, `"nb_visits"` or `"avg_time_on_site"`.
      *
@@ -117,7 +117,7 @@ abstract class Metric
      */
     public function beforeFormat($report, DataTable $table)
     {
-        return true;
+        return \true;
     }
     /**
      * Helper method that will access a metric in a {@link Piwik\DataTable\Row} or array either by
@@ -133,7 +133,7 @@ abstract class Metric
     {
         if ($row instanceof Row) {
             $value = $row->getColumn($columnName);
-            if ($value === false) {
+            if ($value === \false) {
                 if (empty($mappingNameToId)) {
                     $mappingNameToId = Metrics::getMappingFromNameToId();
                 }
@@ -189,7 +189,7 @@ abstract class Metric
     public static function getActualMetricColumn(DataTable $table, $columnName, $mappingNameToId = null)
     {
         $firstRow = $table->getFirstRow();
-        if (!empty($firstRow) && $firstRow->hasColumn($columnName) === false) {
+        if (!empty($firstRow) && $firstRow->hasColumn($columnName) === \false) {
             if (empty($mappingIdToName)) {
                 $mappingNameToId = Metrics::getMappingFromNameToId();
             }

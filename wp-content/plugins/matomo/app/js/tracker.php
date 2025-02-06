@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
+
 use Piwik\ProxyHttp;
 
 /**
@@ -23,6 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'
  * @see core/Piwik.php
  */
 define('PIWIK_DOCUMENT_ROOT', '..');
+
+// ensure errors are not printed
+ini_set('display_errors', 0);
 
 if (file_exists(PIWIK_DOCUMENT_ROOT . '/bootstrap.php')) {
     require_once PIWIK_DOCUMENT_ROOT . '/bootstrap.php';

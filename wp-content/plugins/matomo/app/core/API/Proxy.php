@@ -3,13 +3,13 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\API;
 
 use Exception;
+use Piwik\Http\BadRequestException;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
 use Piwik\Context;
@@ -20,7 +20,7 @@ use ReflectionClass;
 use ReflectionMethod;
 // prevent upgrade error eg from Matomo 3.x to Matomo 4.x. Refs https://github.com/matomo-org/matomo/pull/16468
 // the `false` is important otherwise it would fail and try to load the proxy.php file again.
-if (!class_exists('Piwik\\API\\NoDefaultValue', false)) {
+if (!class_exists('Piwik\\API\\NoDefaultValue', \false)) {
     // phpcs:ignoreFile PSR1.Classes.ClassDeclaration.MultipleClasses
     class NoDefaultValue
     {
@@ -39,7 +39,7 @@ class Proxy
     // array of already registered plugins names
     protected $alreadyRegistered = array();
     protected $metadataArray = array();
-    private $hideIgnoredFunctions = true;
+    private $hideIgnoredFunctions = \true;
     // when a parameter doesn't have a default value we use this
     private $noDefaultValue;
     public function __construct()
@@ -86,7 +86,7 @@ class Proxy
                 $this->loadMethodMetadata($className, $method);
             }
             $this->setDocumentation($rClass, $className);
-            $this->alreadyRegistered[$className] = true;
+            $this->alreadyRegistered[$className] = \true;
         }
     }
     /**
@@ -99,7 +99,7 @@ class Proxy
     {
         // Doc comment
         $doc = $rClass->getDocComment();
-        $doc = str_replace(" * " . PHP_EOL, "<br>", $doc);
+        $doc = str_replace(" * " . \PHP_EOL, "<br>", $doc);
         // boldify the first line only if there is more than one line, otherwise too much bold
         if (substr_count($doc, '<br>') > 1) {
             $firstLineBreak = strpos($doc, "<br>");
@@ -341,14 +341,14 @@ class Proxy
      */
     public function isDeprecatedMethod($class, $methodName)
     {
-        return $this->metadataArray[$class][$methodName]['isDeprecated'] ?? false;
+        return $this->metadataArray[$class][$methodName]['isDeprecated'] ?? \false;
     }
     /**
      * Check if given method uses unsanitized input parameters.
      */
     public function usesUnsanitizedInputParams($class, $methodName)
     {
-        return $this->metadataArray[$class][$methodName]['unsanitizedInputParams'] ?? false;
+        return $this->metadataArray[$class][$methodName]['unsanitizedInputParams'] ?? \false;
     }
     /**
      * Returns the 'moduleName' part of '\\Piwik\\Plugins\\moduleName\\API'
@@ -530,8 +530,8 @@ class Proxy
         }
         $this->metadataArray[$class][$name]['parameters'] = $aParameters;
         $this->metadataArray[$class][$name]['numberOfRequiredParameters'] = $method->getNumberOfRequiredParameters();
-        $this->metadataArray[$class][$name]['isDeprecated'] = false !== strstr($docComment, '@deprecated');
-        $this->metadataArray[$class][$name]['unsanitizedInputParams'] = false !== strstr($docComment, '@unsanitized');
+        $this->metadataArray[$class][$name]['isDeprecated'] = \false !== strstr($docComment, '@deprecated');
+        $this->metadataArray[$class][$name]['unsanitizedInputParams'] = \false !== strstr($docComment, '@unsanitized');
     }
     /**
      * Checks that the method exists in the class
@@ -543,7 +543,7 @@ class Proxy
     private function checkMethodExists($className, $methodName)
     {
         if (!$this->isMethodAvailable($className, $methodName)) {
-            throw new Exception(Piwik::translate('General_ExceptionMethodNotFound', array($methodName, $className)));
+            throw new BadRequestException(Piwik::translate('General_ExceptionMethodNotFound', [$methodName, $className]));
         }
     }
     /**
@@ -553,13 +553,13 @@ class Proxy
     public function shouldHideAPIMethod($docComment)
     {
         $hideLine = strstr($docComment, '@hide');
-        if ($hideLine === false) {
-            return false;
+        if ($hideLine === \false) {
+            return \false;
         }
         $hideLine = trim($hideLine);
         $hideLine .= ' ';
         $token = trim(strtok($hideLine, " "), "\n");
-        $hide = false;
+        $hide = \false;
         if (!empty($token)) {
             /**
              * This event exists for checking whether a Plugin API class or a Plugin API method tagged
@@ -578,15 +578,15 @@ class Proxy
     protected function checkIfMethodIsAvailable(ReflectionMethod $method)
     {
         if (!$method->isPublic() || $method->isConstructor() || $method->getName() === 'getInstance') {
-            return false;
+            return \false;
         }
-        if ($this->hideIgnoredFunctions && false !== strstr($method->getDocComment(), '@ignore')) {
-            return false;
+        if ($this->hideIgnoredFunctions && \false !== strstr($method->getDocComment(), '@ignore')) {
+            return \false;
         }
         if ($this->shouldHideAPIMethod($method->getDocComment())) {
-            return false;
+            return \false;
         }
-        return true;
+        return \true;
     }
     /**
      * Returns true if the method is found in the API of the given class name.

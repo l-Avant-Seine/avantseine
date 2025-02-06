@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\Goals;
 
@@ -50,7 +49,7 @@ class Goals extends \Piwik\Plugin
             return (int) $column;
         }
     }
-    public static function makeGoalColumn($idGoal, $column, $forceInt = true)
+    public static function makeGoalColumn($idGoal, $column, $forceInt = \true)
     {
         if ($forceInt) {
             // in non-archiver code idGoal can be, eg, ecommerceOrder
@@ -61,7 +60,7 @@ class Goals extends \Piwik\Plugin
     public static function getGoalColumns($idGoal)
     {
         $columns = array('nb_conversions', 'nb_visits_converted', 'revenue');
-        if ($idGoal === false) {
+        if ($idGoal === \false) {
             return $columns;
         }
         // Orders
@@ -158,7 +157,7 @@ class Goals extends \Piwik\Plugin
                 return;
             }
         }
-        $goals = Request::processRequest('Goals.getGoals', ['idSite' => $idSite, 'filter_limit' => '-1'], $default = []);
+        $goals = Request::processRequest('Goals.getGoals', ['idSite' => $idSite, 'filter_limit' => '-1', 'orderByName' => \true], $default = []);
         $order = 900;
         foreach ($goals as $goal) {
             $category = new Subcategory();
@@ -235,12 +234,10 @@ class Goals extends \Piwik\Plugin
                 $goalMetricsToUse = $pageGoalMetrics;
                 $goalProcessedMetricsToUse = $pageGoalProcessedMetrics;
                 $goalMetricTypesToUse = $pageGoalMetricTypes;
-            } else {
-                if (in_array($request, AddColumnsProcessedMetricsGoal::ACTIONS_ENTRY_PAGE_REPORTS_WITH_GOAL_METRICS)) {
-                    $goalMetricsToUse = $entryPageGoalMetrics;
-                    $goalProcessedMetricsToUse = $entryPageGoalProcessedMetrics;
-                    $goalMetricTypesToUse = $entryPageGoalMetricTypes;
-                }
+            } elseif (in_array($request, AddColumnsProcessedMetricsGoal::ACTIONS_ENTRY_PAGE_REPORTS_WITH_GOAL_METRICS)) {
+                $goalMetricsToUse = $entryPageGoalMetrics;
+                $goalProcessedMetricsToUse = $entryPageGoalProcessedMetrics;
+                $goalMetricTypesToUse = $entryPageGoalMetricTypes;
             }
             // Select this report from the API metadata array
             // and add the Goal metrics to it

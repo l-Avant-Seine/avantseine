@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\SegmentEditor;
 
@@ -26,18 +25,18 @@ use Piwik\Plugins\SegmentEditor\API as SegmentEditorAPI;
  */
 class SegmentSelectorControl extends UIControl
 {
-    const TEMPLATE = "@SegmentEditor/_segmentSelector";
+    public const TEMPLATE = "@SegmentEditor/_segmentSelector";
     /**
      * Constructor.
      */
-    public function __construct($idSite = false)
+    public function __construct($idSite = \false)
     {
         parent::__construct();
         $this->jsClass = "SegmentSelectorControl";
         $this->cssIdentifier = "segmentEditorPanel";
         $this->cssClass = "piwikTopControl borderedControl piwikSelector";
-        $this->idSite = $idSite ?: Common::getRequestVar('idSite', false, 'int');
-        $this->selectedSegment = Common::getRequestVar('segment', false, 'string');
+        $this->idSite = $idSite ?: Common::getRequestVar('idSite', \false, 'int');
+        $this->selectedSegment = Common::getRequestVar('segment', \false, 'string');
         $formatter = StaticContainer::get('Piwik\\Plugins\\SegmentEditor\\SegmentFormatter');
         $this->segmentDescription = $formatter->getHumanReadable(Request::getRawSegmentFromRequest(), $this->idSite);
         $this->isAddingSegmentsForAllWebsitesEnabled = \Piwik\Plugins\SegmentEditor\SegmentEditor::isAddingSegmentsForAllWebsitesEnabled();
@@ -79,7 +78,7 @@ class SegmentSelectorControl extends UIControl
     private function wouldApplySegment($savedSegment)
     {
         if (Rules::isBrowserArchivingAvailableForSegments()) {
-            return true;
+            return \true;
         }
         return (bool) $savedSegment['auto_archive'];
     }
@@ -96,7 +95,7 @@ class SegmentSelectorControl extends UIControl
     {
         // when browser archiving is disabled for segments, we force new segments to be created as pre-processed
         if (!Rules::isBrowserArchivingAvailableForSegments()) {
-            return false;
+            return \false;
         }
         return (bool) Config::getInstance()->General['enable_create_realtime_segments'];
     }

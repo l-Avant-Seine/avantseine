@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\GeoIp2\LocationProvider;
 
@@ -21,8 +20,8 @@ use Piwik\Plugins\UserCountry\LocationProvider;
  */
 abstract class GeoIp2 extends LocationProvider
 {
-    const TEST_IP = '194.57.91.215';
-    const SWITCH_TO_ISO_REGIONS_OPTION_NAME = 'usercountry.switchtoisoregions';
+    public const TEST_IP = '194.57.91.215';
+    public const SWITCH_TO_ISO_REGIONS_OPTION_NAME = 'usercountry.switchtoisoregions';
     /**
      * Cached region name array. Data is from geoipregionvars.php.
      *
@@ -59,7 +58,7 @@ abstract class GeoIp2 extends LocationProvider
                 $bind = array($testIp);
                 return Piwik::translate('UserCountry_TestIPLocatorFailed', $bind);
             }
-            return true;
+            return \true;
         } catch (Exception $ex) {
             return $ex->getMessage();
         }
@@ -78,7 +77,7 @@ abstract class GeoIp2 extends LocationProvider
                 return $path;
             }
         }
-        return false;
+        return \false;
     }
     /**
      * Returns full path for a GeoIP 2 database managed by Piwik.
@@ -88,7 +87,7 @@ abstract class GeoIp2 extends LocationProvider
      */
     public static function getPathForGeoIpDatabase($filename)
     {
-        if (strpos($filename, '/') !== false && file_exists($filename)) {
+        if (strpos($filename, '/') !== \false && file_exists($filename)) {
             return $filename;
         }
         return StaticContainer::get('path.geoip2') . $filename;
@@ -125,7 +124,7 @@ abstract class GeoIp2 extends LocationProvider
                 }
             }
         }
-        return false;
+        return \false;
     }
     /**
      * Returns a region name for a country code + region code.
@@ -168,7 +167,7 @@ abstract class GeoIp2 extends LocationProvider
     public static function getRegions()
     {
         if (is_null(self::$regionNames)) {
-            self::$regionNames = (require_once __DIR__ . '/../data/isoRegionNames.php');
+            self::$regionNames = (require __DIR__ . '/../data/isoRegionNames.php');
         }
         return self::$regionNames;
     }
@@ -180,7 +179,7 @@ abstract class GeoIp2 extends LocationProvider
      * @param bool $returnOriginalIfNotFound  return given region code if no mapping was found
      * @return array
      */
-    public static function convertRegionCodeToIso($countryCode, $fipsRegionCode, $returnOriginalIfNotFound = false)
+    public static function convertRegionCodeToIso($countryCode, $fipsRegionCode, $returnOriginalIfNotFound = \false)
     {
         static $mapping;
         if (empty($mapping)) {
@@ -215,5 +214,14 @@ abstract class GeoIp2 extends LocationProvider
     {
         $ip = \Matomo\Network\IP::fromStringIP($info['ip']);
         return $ip->toString();
+    }
+    /**
+     * GeoIP2 providers can be used for location-based security checks
+     *
+     * @return bool
+     */
+    public function canBeUsedForLocationBasedSecurityChecks() : bool
+    {
+        return \true;
     }
 }

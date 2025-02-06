@@ -224,6 +224,13 @@ class WordPress extends Mysqli {
 	private function prepareWp( $sql, $bind = array() ) {
 		global $wpdb;
 
+		// make sure CREATE TABLE statements includ IF NOT EXISTS
+		if ( strpos( $sql, 'CREATE TABLE' ) !== false
+			&& strpos( $sql, 'CREATE TABLE IF NOT EXISTS' ) === false
+		) {
+			$sql = preg_replace( '/CREATE TABLE (?!IF NOT EXISTS)/', 'CREATE TABLE IF NOT EXISTS ', $sql );
+		}
+
 		$sql = str_replace( '%', '%%', $sql ); // eg when "value like 'done%'"
 
 		if ( is_array( $bind ) && empty( $bind ) ) {
@@ -272,8 +279,11 @@ class WordPress extends Mysqli {
 			$test_sql = trim( $test_sql );
 		}
 
-		if ( preg_match( '/^\s*(select)\s/i', $test_sql ) ) {
-			// WordPress does not fetch any result when doing a select... it's only supposed to be used for things like
+		if (
+			preg_match( '/^\s*(select)\s/i', $test_sql )
+			|| preg_match( '/\sfor select\s/i', $test_sql )
+		) {
+			// WordPress does not fetch any result when doing a query w/ a select... it's only supposed to be used for things like
 			// insert / update / drop ...
 			$result = $this->fetchAll( $sql, $bind );
 		} else {
@@ -468,12 +478,24 @@ class WordPress extends Mysqli {
 
 		$fields = array();
 		foreach ( $bind as $field => $val ) {
-			$fields[] = "`$field` = %s";
+			// wpdb's prepare doesn't seem to handle null values correctly. they are set to `''`
+			// in some cases, so we handle this explicitly here.
+			if ($val === null) {
+				unset($bind[$field]);
+				$fields[] = "`$field` = NULL";
+			} else {
+				$fields[] = "`$field` = %s";
+			}
 		}
 		$fields = implode( ', ', $fields );
 
-		$sql      = "UPDATE `$table` SET $fields " . ( ( $where ) ? " WHERE $where" : '' );
-		$prepared = $wpdb->prepare( $sql, $bind );
+		$sql = "UPDATE `$table` SET $fields " . ( ( $where ) ? " WHERE $where" : '' );
+
+		if ( empty( $bind ) ) {
+			$prepared = $sql;
+		} else {
+			$prepared = $wpdb->prepare( $sql, $bind );
+		}
 
 		$this->before_execute_query( $wpdb, '' );
 

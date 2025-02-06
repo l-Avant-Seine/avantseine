@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\DevicesDetection\RecordBuilders;
 
@@ -29,7 +28,7 @@ abstract class Base extends RecordBuilder
      * @var bool
      */
     private $enrichWithConversionMetrics;
-    public function __construct(string $recordName, string $labelSql, bool $enrichWithConversionMetrics = false)
+    public function __construct(string $recordName, string $labelSql, bool $enrichWithConversionMetrics = \false)
     {
         parent::__construct();
         $this->recordName = $recordName;

@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\PagePerformance\Columns\Metrics;
 
@@ -24,7 +24,7 @@ use Piwik\Columns\Dimension;
  */
 abstract class AveragePerformanceMetric extends ProcessedMetric
 {
-    const ID = '';
+    public const ID = '';
     public function getName()
     {
         return 'avg_' . static::ID;
@@ -48,7 +48,7 @@ abstract class AveragePerformanceMetric extends ProcessedMetric
         if ($formatter instanceof Formatter\Html && !$value) {
             return '-';
         } else {
-            return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = true);
+            return $formatter->getPrettyTimeFromSeconds($value, $displayAsSentence = \true);
         }
     }
     public function beforeCompute($report, DataTable $table)
@@ -74,7 +74,7 @@ abstract class AveragePerformanceMetric extends ProcessedMetric
     }
     private function hasAverageMetric(DataTable $table)
     {
-        return $table->getFirstRow()->getColumn($this->getName()) !== false;
+        return $table->getFirstRow()->getColumn($this->getName()) !== \false;
     }
     public function getSemanticType() : ?string
     {

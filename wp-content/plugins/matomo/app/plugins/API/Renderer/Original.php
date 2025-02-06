@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\API\Renderer;
 
@@ -22,7 +21,7 @@ class Original extends ApiRenderer
     }
     public function renderSuccess($message)
     {
-        return true;
+        return \true;
     }
     /**
      * @param $message
@@ -35,7 +34,7 @@ class Original extends ApiRenderer
         if ($this->shouldSerialize()) {
             $data = ['result' => 'error', 'message' => $message];
             if ($this->shouldSendBacktrace()) {
-                $data['backtrace'] = ExceptionToTextProcessor::getMessageAndWholeBacktrace($exception, true);
+                $data['backtrace'] = ExceptionToTextProcessor::getMessageAndWholeBacktrace($exception, \true);
             }
             return serialize($data);
         }
@@ -92,7 +91,7 @@ class Original extends ApiRenderer
                         }
                     }
                     // Force string value for segment metadata field (ensures consistency between PDO and mysqli)
-                    if (isset($allMetadata['segment']) && $allMetadata['segment'] === false) {
+                    if (isset($allMetadata['segment']) && $allMetadata['segment'] === \false) {
                         $table->setMetadata('segment', '');
                     }
                 });

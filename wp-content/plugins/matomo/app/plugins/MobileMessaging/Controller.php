@@ -3,9 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\MobileMessaging;
 
@@ -83,7 +82,7 @@ class Controller extends ControllerAdmin
         $view->provider = $currentProvider;
         $view->smsProviders = $providers;
         $view->smsProviderOptions = $providerOptions;
-        $defaultCountry = Common::getCountry(LanguagesManager::getLanguageCodeForCurrentUser(), true, IP::getIpFromHeader());
+        $defaultCountry = Common::getCountry(LanguagesManager::getLanguageCodeForCurrentUser(), \true, IP::getIpFromHeader());
         $view->defaultCallingCode = '';
         // construct the list of countries from the lang files
         $countries = array(array('key' => '', 'value' => ''));
@@ -96,7 +95,6 @@ class Controller extends ControllerAdmin
             }
         }
         $view->countries = $countries;
-        $view->phoneNumbers = $model->getPhoneNumbers(Piwik::getCurrentUserLogin());
         $this->setBasicVariablesView($view);
     }
     public function getCredentialFields()

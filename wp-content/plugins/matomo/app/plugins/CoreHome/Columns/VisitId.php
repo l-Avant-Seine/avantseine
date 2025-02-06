@@ -3,8 +3,8 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @link    https://matomo.org
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 namespace Piwik\Plugins\CoreHome\Columns;
 
@@ -27,7 +27,7 @@ class VisitId extends VisitDimension
     protected $nameSingular = 'General_Visit';
     protected $namePlural = 'General_ColumnNbVisits';
     protected $segmentName = 'visitId';
-    protected $allowAnonymous = false;
+    protected $allowAnonymous = \false;
     protected $metricId = 'visits';
     protected $type = self::TYPE_TEXT;
     public function configureSegments(SegmentsList $segmentsList, DimensionSegmentFactory $dimensionSegmentFactory)
