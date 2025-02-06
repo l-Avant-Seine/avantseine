@@ -1,5 +1,22 @@
 ## Changelog
 
+##### 6.1.2
+ - Fix possible error when code switch websites and could leave website in a broken state
+
+##### 6.1.1
+- Fix PHP Fatal error:  Uncaught Error: Class 'MailjetWp\\MailjetPlugin\\Front\\Mailjet
+
+##### 6.1
+- Added support Multisite settings across all sites. Now, you can use plugin settings from the main site on all your subdomains.
+
+##### 6.0.1
+* Removed old widget filter function `mailjet_subscription_widget_email_params`. It was deprecated and unsupported since we have Form Builder widget
+
+##### 6.0
+* Minimum PHP version required is 7.4
+* Code cleanup and improvements
+* In previous versions were fixed issues with infinite redirect, error during editing email templates in iframe. Warning issues according to SESSION
+
 ##### 5.5.4
 * Code improvements. Fix possible warnings and notices.
 

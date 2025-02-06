@@ -3,6 +3,7 @@
 namespace MailjetWp\MailjetPlugin\Includes\SettingsPages;
 
 use MailjetWp\MailjetPlugin\Admin\Partials\MailjetAdminDisplay;
+use MailjetWp\MailjetPlugin\Includes\Mailjet;
 use MailjetWp\MailjetPlugin\Includes\MailjetApi;
 use MailjetWp\MailjetPlugin\Includes\MailjetLogger;
 use MailjetWp\MailjetPlugin\Includes\MailjetSettings;
@@ -37,7 +38,7 @@ class InitialContactListsSettings
     }
     private function updateMailjetProfileName()
     {
-        $profileName = get_option('mj_profile_name');
+        $profileName = Mailjet::getOption('mj_profile_name');
         $newProfileName = MailjetApi::getProfileName();
         if (!$profileName) {
             add_option('mj_profile_name', $newProfileName);
@@ -45,12 +46,21 @@ class InitialContactListsSettings
             update_option('mj_profile_name', $newProfileName);
         }
     }
+
+    /**
+     * @return void
+     */
     private function createMailjetContactPropertiesThatWpSync()
     {
         MailjetApi::createMailjetContactProperty(SubscriptionOptionsSettings::PROP_USER_FIRSTNAME);
         MailjetApi::createMailjetContactProperty(SubscriptionOptionsSettings::PROP_USER_LASTNAME);
         MailjetApi::createMailjetContactProperty(SubscriptionOptionsSettings::WP_PROP_USER_ROLE);
     }
+
+    /**
+     * @param $args
+     * @return void
+     */
     public function mailjet_initial_contact_lists_cb($args)
     {
         $this->updateMailjetProfileName();
@@ -66,9 +76,9 @@ class InitialContactListsSettings
         }
         $this->createMailjetContactPropertiesThatWpSync();
         $mailjetContactLists = !empty($mailjetContactLists) ? $mailjetContactLists : array();
-        $mailjetSyncActivated = get_option('activate_mailjet_sync');
-        $mailjetInitialSyncActivated = get_option('activate_mailjet_initial_sync');
-        $mailjetSyncList = get_option('mailjet_sync_list');
+        $mailjetSyncActivated = Mailjet::getOption('activate_mailjet_sync');
+        $mailjetInitialSyncActivated = Mailjet::getOption('activate_mailjet_initial_sync');
+        $mailjetSyncList = Mailjet::getOption('mailjet_sync_list');
         // output the field
         ?>
 
@@ -174,7 +184,7 @@ class InitialContactListsSettings
             // as of WP 4.6 this value is used only internally
             // use $args' label_for to populate the id inside the callback
             __('Enable sending emails through Mailjet', 'mailjet-for-wordpress'),
-            array($this, 'mailjet_initial_contact_lists_cb'),
+            [$this, 'mailjet_initial_contact_lists_cb'],
             'mailjet_initial_contact_lists_page',
             'mailjet_initial_contact_lists_settings',
             ['label_for' => 'mailjet_initial_contact_lists', 'class' => 'mailjet_row', 'mailjet_custom_data' => 'custom']
@@ -191,9 +201,9 @@ class InitialContactListsSettings
             $executionError = false;
             $applyAndContinueBtnClicked = false;
             // Initial sync WP users to Mailjet - when the 'create_contact_list_btn' button is not the one that submits the form
-            $create_contact_list_btn = get_option('create_contact_list_btn');
-            $activate_mailjet_initial_sync = get_option('activate_mailjet_initial_sync');
-            $mailjet_sync_list = get_option('mailjet_sync_list');
+            $create_contact_list_btn = Mailjet::getOption('create_contact_list_btn');
+            $activate_mailjet_initial_sync = Mailjet::getOption('activate_mailjet_initial_sync');
+            $mailjet_sync_list = Mailjet::getOption('mailjet_sync_list');
             if (empty($create_contact_list_btn) && !empty($activate_mailjet_initial_sync) && (int)$mailjet_sync_list > 0) {
                 $syncResponse = SubscriptionOptionsSettings::syncAllWpUsers();
                 if (false === $syncResponse) {
@@ -203,10 +213,10 @@ class InitialContactListsSettings
                 }
             }
             // Create new Contact List
-            $create_list_name = get_option('create_list_name');
+            $create_list_name = Mailjet::getOption('create_list_name');
             if (!empty($create_contact_list_btn)) {
                 if (!empty($create_list_name)) {
-                    $createListResponse = MailjetApi::createMailjetContactList(get_option('create_list_name'));
+                    $createListResponse = MailjetApi::createMailjetContactList(Mailjet::getOption('create_list_name'));
                     if ($createListResponse->success()) {
                         add_settings_error('mailjet_messages', 'mailjet_message', __('Congratulations! You have just created a new contact list!', 'mailjet-for-wordpress'), 'updated');
                     } else {
@@ -233,7 +243,7 @@ class InitialContactListsSettings
                 update_option('contacts_list_ok', 1);
                 // add settings saved message with the class of "updated"
                 add_settings_error('mailjet_messages', 'mailjet_message', __('Settings Saved', 'mailjet-for-wordpress'), 'updated');
-                $contacts_list_ok = get_option('contacts_list_ok');
+                $contacts_list_ok = Mailjet::getOption('contacts_list_ok');
                 if (!($fromPage === 'plugins') || (!empty($contacts_list_ok) && '1' == $contacts_list_ok)) {
                     // Redirect if the create contact button is not set
                     if (empty($create_contact_list_btn)) {
@@ -242,8 +252,8 @@ class InitialContactListsSettings
                 }
             }
         }
-        $contacts_list_ok = get_option('contacts_list_ok');
-        $skipped = get_option('skip_mailjet_list');
+        $contacts_list_ok = Mailjet::getOption('contacts_list_ok');
+        $skipped = Mailjet::getOption('skip_mailjet_list');
         if (!($fromPage === 'plugins') && (!empty($contacts_list_ok) && '1' == $contacts_list_ok) && $skipped !== '') {
             MailjetSettings::redirectJs(admin_url('/admin.php?page=mailjet_dashboard_page'));
         }
