@@ -1404,7 +1404,7 @@ class UpdraftPlus_Admin {
 
 	public function show_admin_warning_disabledcron() {
 		$ret = '<div class="updraftmessage updated"><p>';
-		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.__('The scheduler is disabled in your WordPress install, via the DISABLE_WP_CRON setting.', 'updraftplus').' '.__('No backups can run (even &quot;Backup Now&quot;) unless either you have set up a facility to call the scheduler manually, or until it is enabled.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/my-scheduled-backups-and-pressing-backup-now-does-nothing-however-pressing-debug-backup-does-produce-a-backup/#disablewpcron/").'" target="_blank">'.__('Go here for more information.', 'updraftplus').'</a>';
+		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.__('The scheduler is disabled in your WordPress install, via the DISABLE_WP_CRON setting.', 'updraftplus').' '.__('No backups can run (even &quot;Backup Now&quot;) unless either you have set up a facility to call the scheduler manually, or until it is enabled.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://teamupdraft.com/documentation/updraftplus/topics/backing-up/troubleshooting/scheduled-or-manual-backup-stops-mid-way/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=unknown&utm_creative_format=unknown").'" target="_blank">'.__('Go here for more information.', 'updraftplus').'</a>';
 		$ret .= '</p></div>';
 		return $ret;
 	}
@@ -1453,7 +1453,7 @@ class UpdraftPlus_Admin {
 	 */
 	public function show_admin_warning_overdue_crons($howmany) {
 		$ret = '<div class="updraftmessage updated"><p>';
-		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('WordPress has a number (%d) of scheduled tasks which are overdue.', 'updraftplus'), $howmany).' '.__('Unless this is a development site, this means that the scheduler in your WordPress install is not working properly.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/scheduler-wordpress-installation-working/").'" target="_blank">'.__('Read this page for a guide to possible causes and how to fix it.', 'updraftplus').'</a>';
+		$ret .= '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('WordPress has a number (%d) of scheduled tasks which are overdue.', 'updraftplus'), $howmany).' '.__('Unless this is a development site, this means that the scheduler in your WordPress install is not working properly.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://teamupdraft.com/documentation/updraftplus/topics/general/troubleshooting/how-to-fix-the-wordpress-missed-schedule-error/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=unknown&utm_creative_format=unknown").'" target="_blank">'.__('Read this page for a guide to possible causes and how to fix it.', 'updraftplus').'</a>';
 		$ret .= '</p></div>';
 		return $ret;
 	}
@@ -1674,7 +1674,8 @@ class UpdraftPlus_Admin {
 			// TODO: FIXME: Failed downloads may leave log files forever (though they are small)
 			if ($debug_mode) $updraftplus->logfile_open($updraftplus->nonce);
 
-			set_error_handler(array($updraftplus, 'php_error'), E_ALL & ~E_STRICT);
+			$error_levels = version_compare(PHP_VERSION, '8.4.0', '>=') ? E_ALL : E_ALL & ~E_STRICT;
+			set_error_handler(array($updraftplus, 'php_error'), $error_levels);
 
 			$updraftplus->log("Requested to obtain file: timestamp=$timestamp, type=$type, index=$findex");
 
@@ -1942,7 +1943,8 @@ class UpdraftPlus_Admin {
 		
 		$this->logged = array();
 		// TODO: Add action for WP HTTP SSL stuff
-		set_error_handler(array($this, 'get_php_errors'), E_ALL & ~E_STRICT);
+		$error_levels = version_compare(PHP_VERSION, '8.4.0', '>=') ? E_ALL : E_ALL & ~E_STRICT;
+		set_error_handler(array($this, 'get_php_errors'), $error_levels);
 		
 		if (!class_exists($objname)) include_once(UPDRAFTPLUS_DIR."/methods/$method.php");
 
@@ -2002,7 +2004,8 @@ class UpdraftPlus_Admin {
 
 		if (UpdraftPlus_Options::get_updraft_option('updraft_debug_mode')) {
 			$updraftplus->logfile_open($updraftplus->nonce);
-			set_error_handler(array($updraftplus, 'php_error'), E_ALL & ~E_STRICT);
+			$error_levels = version_compare(PHP_VERSION, '8.4.0', '>=') ? E_ALL : E_ALL & ~E_STRICT;
+			set_error_handler(array($updraftplus, 'php_error'), $error_levels);
 		}
 
 		$updraft_dir = $updraftplus->backups_dir_location();
@@ -3034,15 +3037,11 @@ class UpdraftPlus_Admin {
 				if (get_template() === 'optimizePressTheme' || is_plugin_active('optimizePressPlugin') || is_plugin_active_for_network('optimizePressPlugin')) {
 					$this->show_admin_warning("<a href='https://optimizepress.zendesk.com/hc/en-us/articles/203699826-Update-URL-References-after-moving-domain' target='_blank'>" . __("OptimizePress 2.0 encodes its contents, so search/replace does not work.", "updraftplus") . ' ' . __("To fix this problem go here.", "updraftplus") . "</a>", "notice notice-warning");
 				}
+				$restore_success_no_addons = (isset($_GET['pval']) && 0 == $_GET['pval'] && !$updraftplus->have_addons) ? true : false;
 
 				echo "<div class=\"updated backup-restored\"><span><strong>".esc_html__('Your backup has been restored.', 'updraftplus').'</strong></span><br>';
 				// Unnecessary - will be advised of this below
 				// if (2 == $_GET['updraft_restore_success']) echo ' '.__('Your old (themes, uploads, plugins, whatever) directories have been retained with "-old" appended to their name. Remove them when you are satisfied that the backup worked properly.');
-				if (isset($_GET['pval']) && 0 == $_GET['pval'] && !$updraftplus->have_addons) {
-					$success_advert = true;
-				?>
-					<p><?php esc_html_e('For even more features and personal support, check out ', 'updraftplus'); ?><strong><a href="<?php echo esc_url($updraftplus->get_url('premium')); ?>" target="_blank">UpdraftPlus Premium</a>.</strong></p>
-				<?php }
 				$include_deleteform_div = false;
 
 			}
@@ -3052,7 +3051,7 @@ class UpdraftPlus_Admin {
 			// Close the div opened by the earlier section
 			if (isset($_GET['updraft_restore_success'])) echo '</div>';
 
-			if (empty($success_advert) && empty($this->no_settings_warning)) {
+			if (empty($restore_success_no_addons) && empty($this->no_settings_warning)) {
 
 				if (!class_exists('UpdraftPlus_Notices')) updraft_try_include_file('includes/updraftplus-notices.php', 'include_once');
 				global $updraftplus_notices;
@@ -3345,10 +3344,12 @@ class UpdraftPlus_Admin {
 	
 		global $updraftplus;
 
-		$further_options = wp_parse_args($further_options, array(
-			'under_username' => __("Not yet got an account (it's free)? Go get one!", 'updraftplus'),
-			'under_username_link' => $updraftplus->get_url('my-account')
-		));
+		if (!in_array($option_page, array('updraftplus-addons', 'temporary_clone'))) {
+			$further_options = wp_parse_args($further_options, array(
+				'under_username' => __("Not yet got an account (it's free)? Go get one!", 'updraftplus'),
+				'under_username_link' => $updraftplus->get_url('my-account')
+			));
+		}
 		
 		if ($include_form_container) {
 			UpdraftPlus_Options::options_form_begin('', false, array(), 'updraftplus_com_login'); // no need to echo as it's already echoed
@@ -3390,7 +3391,7 @@ class UpdraftPlus_Admin {
 		}
 		?>
 
-		<h2> <?php esc_html_e('Connect with your UpdraftPlus.Com account', 'updraftplus'); ?></h2>
+		<h2> <?php esc_html_e('Connect your TeamUpdraft.com account', 'updraftplus'); ?></h2>
 		<p class="updraftplus_com_login_status"></p>
 
 		<table class="form-table">
@@ -3400,8 +3401,10 @@ class UpdraftPlus_Admin {
 					<td>
 						<label for="<?php echo esc_attr($option_page); ?>_options_email">
 							<input id="<?php echo esc_attr($option_page); ?>_options_email" type="text" size="36" name="<?php echo esc_attr($option_page); ?>_options[email]" value="<?php echo esc_attr($options['email']); ?>" />
-							<br/>
-							<a target="_blank" href="<?php echo esc_url($further_options['under_username_link']); ?>"><?php echo esc_html($further_options['under_username']); ?></a>
+							<?php if (!empty($further_options['under_username_link']) && !empty($further_options['under_username'])) { ?>
+								<br/>
+								<a target="_blank" href="<?php echo esc_url($further_options['under_username_link']); ?>"><?php echo esc_html($further_options['under_username']); ?></a>
+							<?php } ?>
 						</label>
 					</td>
 				</tr>
@@ -3471,7 +3474,7 @@ class UpdraftPlus_Admin {
 			</tbody>
 		</table>
 
-		<p class="updraft-after-form-table">';
+		<p class="updraft-after-form-table">
 		
 		<?php
 		$connect = esc_html__('Connect', 'updraftplus');
@@ -3484,7 +3487,7 @@ class UpdraftPlus_Admin {
 		
 		<span class="updraftplus_spinner spinner"><?php esc_html_e('Processing', 'updraftplus'); ?>...</span></p>
 
-		<p class="updraft-after-form-table" style="font-size: 70%"><em><a href="https://updraftplus.com/faqs/tell-me-about-my-updraftplus-com-account/" target="_blank"><?php esc_html_e('Interested in knowing about your UpdraftPlus.Com password security? Read about it here.', 'updraftplus'); ?></a></em></p>
+		<p class="updraft-after-form-table" style="font-size: 70%"><em><a href="https://teamupdraft.com/privacy/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=password-security&utm_creative_format=text" target="_blank"><?php esc_html_e('Interested in knowing about your password security? Read about it here.', 'updraftplus'); ?></a></em></p>
 
 		<?php if ($include_form_container) { ?>
 			</form>
@@ -5605,7 +5608,10 @@ class UpdraftPlus_Admin {
 		$no_remote_configured = (empty($service) || array('none') === $service || array('') === $service) ? true : false;
 
 		if ($no_remote_configured && empty($active_remote_storage_list)) {
-			return '<input type="checkbox" disabled="disabled" id="backupnow_includecloud"> <em>'.sprintf(__("Backup won't be sent to any remote storage - none has been saved in the %s", 'updraftplus'), '<a href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus&amp;tab=settings" id="updraft_backupnow_gotosettings">'.__('settings', 'updraftplus')).'</a>. '.__('Not got any remote storage?', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/landing/vault/").'" target="_blank">'.__("Check out UpdraftVault.", 'updraftplus').'</a></em>';
+			return '<input type="checkbox" disabled="disabled" id="backupnow_includecloud"> <em>'.
+			/* translators: %s: "settings" which is the name of a tab on which remote storage settings are configured */
+			sprintf(__("Backup won't be sent to any remote storage - none has been saved in the %s", 'updraftplus'), '<a href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus&amp;tab=settings" id="updraft_backupnow_gotosettings">'.
+			__('settings', 'updraftplus')).'</a>. '.__('Not got any remote storage?', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://teamupdraft.com/updraftplus/updraftvault/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=check-out-vault&utm_creative_format=text").'" target="_blank">'.__("Check out UpdraftVault.", 'updraftplus').'</a></em>';
 		}
 
 		if (empty($active_remote_storage_list)) {
@@ -6158,7 +6164,7 @@ class UpdraftPlus_Admin {
 			return false;
 		} else {
 			$corrupted_files_count = count($corrupted_files);
-			return '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(_n('The file %s has a "byte order mark" (BOM) at its beginning.', 'The files %s have a "byte order mark" (BOM) at their beginning.', $corrupted_files_count, 'updraftplus'), '<strong>'.implode('</strong>, <strong>', $corrupted_files).'</strong>').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/problems-with-extra-white-space/").'" target="_blank">'.__('Follow this link for more information', 'updraftplus').'</a>';
+			return '<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(_n('The file %s has a "byte order mark" (BOM) at its beginning.', 'The files %s have a "byte order mark" (BOM) at their beginning.', $corrupted_files_count, 'updraftplus'), '<strong>'.implode('</strong>, <strong>', $corrupted_files).'</strong>').' <a href="'.apply_filters('updraftplus_com_link', "https://teamupdraft.com/documentation/updraftplus/topics/general/troubleshooting/problems-with-extra-white-space/?utm_source=udp-plugin&utm_medium=referral&utm_campaign=paac&utm_content=unknown&utm_creative_format=unknown").'" target="_blank">'.__('Follow this link for more information', 'updraftplus').'</a>';
 		}
 	}
 
@@ -6595,6 +6601,12 @@ class UpdraftPlus_Admin {
 			),
 			'span' => array(
 				'id' => true,
+			),
+			'img' => array(
+				'src' => true,
+				'width' => true,
+				'height' => true,
+				'alt' => true,
 			)
 		);
 	}
