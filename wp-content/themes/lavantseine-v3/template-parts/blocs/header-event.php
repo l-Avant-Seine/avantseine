@@ -22,52 +22,53 @@
 			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); 
 			?>
 
+						<div class="row mb-2">
 
+							<div class="s-17col s-1col-push">
 
-								
-			<?php 
-				$count = count($tags);
-				if ( $count > 0 ) : ?>
-						
-							<div class="row">
-								<div class="s-20col s-1col-push mb-2">
-									<ul class='nobullets teaser-tagslist'>
-										<?php 
-											foreach ( $tags as $term ) : 
-									 			$term_link = get_term_link( $term, '' ); ?>
-										    	<li class='teaser-tag'>
-										    		<a class='' href='<?php echo $term_link; ?>'><?php echo $term->name; ?></a>
-										    	</li>
-										<?php endforeach; ?>
-									</ul>
+								<h1 class=" h_1 teaser-title">
+									<?php the_title(); ?>
+								</h1>
 
-									<?php if( have_rows('event_keywords') ): ?>
-										<div class="keywords"> 
-											<?php while( have_rows('event_keywords') ) : the_row(); ?>
-												<span class="keyword"><?php the_sub_field('keyword'); ?></span>	
-											<?php endwhile; ?>
-										</div>
-									<?php endif; ?>
-									
-								</div>
+								<?php if ( get_field('noms_principaux') !== '') : ?>
+									<p class="teaser-subtitle">
+										<?php the_field('noms_principaux'); ?>
+									</p>
+								<?php endif; ?>
 							</div>
 
-			<?php endif; ?>
+							<div class="s-2col-push s-5col">
+								<?php 
+									$count = count($tags);
+									if ( $count > 0 ) : ?>
+										<div class="keywords_container">
+											<div class='teaser-tagslist'>
+												<?php foreach ( $tags as $term ) : 
+													$term_link = get_term_link( $term, '' ); ?>
+														<p class='teaser-tag'>
+															<a class='' href='<?php echo $term_link; ?>'>
+															<img src="<?php echo get_template_directory_uri(); ?>/assets/img/image.png" class="">
+															<?php echo $term->name; ?>
+															</a>
+														</p>
+												<?php endforeach; ?>
+											</div>
+
+											<?php if( have_rows('event_keywords') ): ?>
+												<div class="keywords"> 
+													<?php while( have_rows('event_keywords') ) : the_row(); ?>
+														<p class="keyword"><?php the_sub_field('keyword'); ?></p>	
+													<?php endwhile; ?>
+												</div>
+											<?php endif; ?>
+										</div>
+								<?php endif; ?>
 
 
+							</div>
 
-
-						<div class="row mb-2">
-							<h1 class="s-18col s-1col-push h_1 teaser-title">
-								<?php the_title(); ?>
-
-							</h1>
-							<?php if ( get_field('noms_principaux') !== '') : ?>
-								<p class="s-4col  teaser-subtitle">
-									<?php the_field('noms_principaux'); ?>
-								</p>
-							<?php endif; ?>
 						</div>
+
 
 			  		<div class="row mb-1">
 			  			<div class="s-22col s-1col-push">
@@ -81,16 +82,8 @@
 								<?php if ( isset( $main_tarif ) ) :  ?>
 
 										<span class="meta-item label_3">
-											<?php echo '<span class="label_2">tarif </span>' . $main_tarif;
-											// $t = 0;
-									  //   foreach ( $tarifs_list as $tarif ) {
-									  //   	if( $t > 0) {
-									  //   		echo ' | ';
-									  //   	}
-									  //   	echo '<span class="">' . $tarif->name . '</span>';
-									  //   	$t++;
-									  //   } ?>
-								</span>
+											<?php echo '<span class="label_2">tarif </span>' . $main_tarif; ?>
+									</span>
 								<?php endif; ?>
 
 								<?php if ($event_duration != '') : ?>
