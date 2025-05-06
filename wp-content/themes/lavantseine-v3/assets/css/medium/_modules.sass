@@ -86,12 +86,12 @@
 
 .page-tarifs
   .rounded-icon span
-    font-family: 'icomoon2' !important;
+    font-family: 'icomoon2' !important
     @extend .i2-euro 
 
 .page-comment-reserver  
   .rounded-icon span
-    font-family: 'icomoon2' !important;
+    font-family: 'icomoon2' !important
     @extend .i2-ticket
 
 
@@ -159,11 +159,12 @@
 
 
 .article-item
+  transition: all .5s
 
-	.item-header
-		position: relative
+  .item-header
+    position: relative
 
-	.item-cover
+  .item-cover
     border-radius: 0 30px 0 0
     margin-bottom: 0
     
@@ -172,20 +173,19 @@
       object-fit: cover
       width: 100%
 
-	.icon-video
-		position: absolute
-		top: 0
-		width: 60%
+  .icon-video
+    position: absolute
+    top: 0
+    width: 60%
 
-	.item-tax
-		background-color: $secondary_color
-		color: $white
-		padding: .3em .8em
+  .item-tax
+    background-color: $secondary_color
+    color: $white
+    padding: .3em .8em
 
-	.item-title
-		color: $primary_color
+  .item-title
+    color: $primary_color
 
-  transition: all .5s
 
 
 
@@ -311,9 +311,11 @@
     color: $blue_dark
 
 .teaser-title
-  border-bottom: 1px solid $white
   color: $blue_dark
   padding-bottom: 15px
+  transform: rotate(-5deg)
+  transform-origin: left bottom
+  margin-top: 30px
 
 
 
@@ -331,17 +333,14 @@
   a
     color: inherit
 
-.keywords
-
 .keyword
-  font-family: $title_font_family
   font-size: 20px
   display: inline-block
-  border: none
   color: $primary_color
   border-radius: 20px
-  background-color: white
+  background: none
   padding: 5px 15px 3px 15px
+  border: 1px solid
 
 .event-teaser--small
   .teaser-action,
@@ -412,13 +411,13 @@ $duration: 300s
     padding-right: 10%
     box-sizing: content-box
     -webkit-animation-iteration-count: infinite 
-		animation-iteration-count: infinite
+    animation-iteration-count: infinite
     -webkit-animation-timing-function: linear
-		animation-timing-function: linear
-   	-webkit-animation-name: ticker
-		animation-name: ticker
+    animation-timing-function: linear
+    -webkit-animation-name: ticker
+    animation-name: ticker
     -webkit-animation-duration: $duration
-		animation-duration: $duration
+    animation-duration: $duration
 
   .ticker__item 
     display: inline-block
@@ -428,7 +427,7 @@ $duration: 300s
     font-family: $title_font_family
 
     &.red
-    	color: $secondary_color
+      color: $secondary_color
 
 .agenda-ticker
   border-bottom: 1px solid $secondary_color

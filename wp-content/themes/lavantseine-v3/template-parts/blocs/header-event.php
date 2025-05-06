@@ -58,15 +58,15 @@
 
 
 						<div class="row mb-1">
-							<h1 class="s-22col s-1col-push h_1 teaser-title">
+							<h1 class="s-18col s-1col-push h_1 teaser-title">
 								<?php the_title(); ?>
-								<?php if ( get_field('noms_principaux') !== '') : ?>
-									<br>
-									<span class="teaser-subtitle">
-										<?php the_field('noms_principaux'); ?>
-									</span>
-								<?php endif; ?>
+
 							</h1>
+							<?php if ( get_field('noms_principaux') !== '') : ?>
+								<p class="s-4col  teaser-subtitle">
+									<?php the_field('noms_principaux'); ?>
+								</p>
+							<?php endif; ?>
 						</div>
 
 			  		<div class="row mb-1">
