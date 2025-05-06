@@ -7,8 +7,6 @@ const rename = require("gulp-rename");
 const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 
-sass.compiler = require("node-sass");
-
 
 
 // VARIABLES
@@ -28,7 +26,7 @@ var sassMain = sassfolder + 'style.sass';
 
 // task2 : compiler les fichiers dans le dossier scss => style.css
 function sassMainTask(){
-    const flags = {outputStyle: 'compact'};
+    const flags = {outputStyle: 'compressed'};
     return src( sassfiles )
     .pipe(sourcemaps.init())
     .pipe(sass(flags).on('error', sass.logError))
