@@ -30,7 +30,7 @@
 				if ( $count > 0 ) : ?>
 						
 							<div class="row">
-								<div class="s-20col s-1col-push mb-1">
+								<div class="s-20col s-1col-push mb-2">
 									<ul class='nobullets teaser-tagslist'>
 										<?php 
 											foreach ( $tags as $term ) : 
@@ -57,7 +57,7 @@
 
 
 
-						<div class="row mb-1">
+						<div class="row mb-2">
 							<h1 class="s-18col s-1col-push h_1 teaser-title">
 								<?php the_title(); ?>
 
