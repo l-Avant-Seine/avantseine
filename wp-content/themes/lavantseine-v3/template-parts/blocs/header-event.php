@@ -47,8 +47,8 @@
 													$term_link = get_term_link( $term, '' ); ?>
 														<p class='teaser-tag'>
 															<a class='' href='<?php echo $term_link; ?>'>
-															<img src="<?php echo get_template_directory_uri(); ?>/assets/img/image.png" class="">
-															<?php echo $term->name; ?>
+																<?php get_template_part('assets/SVG/svg', $term->name); ?>
+																<?php echo $term->name; ?>
 															</a>
 														</p>
 												<?php endforeach; ?>
