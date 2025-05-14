@@ -54,24 +54,16 @@
 												<?php endforeach; ?>
 											</div>
 
-											<?php if( have_rows('event_keywords') ): ?>
-												<div class="keywords"> 
-													<?php while( have_rows('event_keywords') ) : the_row(); ?>
-														<p class="keyword"><?php the_sub_field('keyword'); ?></p>	
-													<?php endwhile; ?>
-												</div>
-											<?php endif; ?>
+
 										</div>
 								<?php endif; ?>
-
-
 							</div>
 
 						</div>
 
 
-			  		<div class="row mb-1">
-			  			<div class="s-22col s-1col-push">
+			  		<div class="row mb-2">
+			  			<div class="s-17col s-1col-push">
 
 								<?php if( !get_field('eventDetail_is_news') ) : ?>
 									<span class="label_3 meta-item">
@@ -106,6 +98,17 @@
 								<?php endif; ?>
 
 			  			</div>
+
+
+						<div class="s-2col-push s-5col">
+							<?php if( have_rows('event_keywords') ): ?>
+								<div class="keywords"> 
+									<?php while( have_rows('event_keywords') ) : the_row(); ?>
+										<p class="keyword"><?php the_sub_field('keyword'); ?></p>	
+									<?php endwhile; ?>
+								</div>
+							<?php endif; ?>
+						</div>
 			  		</div>
 
 
