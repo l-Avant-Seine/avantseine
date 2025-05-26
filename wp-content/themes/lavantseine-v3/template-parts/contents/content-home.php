@@ -14,7 +14,7 @@ $today = time();
 <div class="cf">
 
 	<div class="webmag-ticker ticker-wrap">
-		<div class="ticker">
+		<div class="ticker" style="animation-duration: <?php echo get_field('thicker_speed', 'option') . 's'; ?>">
 
 			<?php for ($i = 0; $i < 50; $i++) {
 				if ($i % 2 === 0) { ?>

@@ -146,6 +146,29 @@
             "append": ""
         },
         {
+            "key": "field_6834769da8e58",
+            "label": "Vitesse du bandeau défilant",
+            "name": "thicker_speed",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "A définir entre 300 et 2000 pour ajuster la vitesse de défilement. \r\n300 -> plus lent\r\n2000 -> plus rapide",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 400,
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_591456c82d8ce",
             "label": "Etage Focus",
             "name": "",
@@ -706,5 +729,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1738838468
+    "modified": 1748268868
 }
