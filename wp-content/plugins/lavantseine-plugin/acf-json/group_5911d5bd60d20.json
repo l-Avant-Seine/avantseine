@@ -570,9 +570,10 @@
                         "class": "",
                         "id": ""
                     },
-                    "display_format": "d\/m\/Y g:i a",
-                    "return_format": "l d F Y - Ghi",
+                    "display_format": "d.m.Y H:i",
+                    "return_format": "l d F Y - H\\hi",
                     "first_day": 1,
+                    "allow_in_bindings": 1,
                     "parent_repeater": "field_592c7c3c43ee4"
                 },
                 {
@@ -680,5 +681,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1738838815
+    "modified": 1748452034
 }
