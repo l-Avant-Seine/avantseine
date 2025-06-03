@@ -314,6 +314,12 @@
   .label_3 
     color: $primary_color
 
+.stage_2
+  @include up-to(medium)
+    display: flex
+    flex-direction: column-reverse
+    gap: 10px
+
 .teaser-title
   color: $primary_color
   transform: rotate(-3deg)
@@ -344,6 +350,9 @@
     max-height: 130px
     max-width: 130px
     object-fit: contain
+    @include up-to(medium)
+      max-height: 100px
+      max-width: 100px
 
   a
     color: $primary_color

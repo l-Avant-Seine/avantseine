@@ -22,9 +22,9 @@
 			$tarifs_list = wp_get_post_terms($post->ID, 'tarif', array("fields" => "all")); 
 			?>
 
-						<div class="row mb-2">
+						<div class="row mb-2 stage_1">
 
-							<div class="s-17col s-1col-push">
+							<div class="s-22col m-17col s-1col-push">
 
 								<h1 class=" h_1 teaser-title">
 									<?php the_title(); ?>
@@ -37,7 +37,7 @@
 								<?php endif; ?>
 							</div>
 
-							<div class="s-2col-push s-5col">
+							<div class="s-22col s-2col-push m-5col">
 								<?php 
 									$count = count($tags);
 									if ( $count > 0 ) : ?>
@@ -62,8 +62,8 @@
 						</div>
 
 
-			  		<div class="row mb-2">
-			  			<div class="s-17col s-1col-push">
+			  		<div class="row mb-2 stage_2">
+			  			<div class="s-22col m-17col s-1col-push">
 
 								<?php if( !get_field('eventDetail_is_news') ) : ?>
 									<span class="label_3 meta-item">
@@ -100,7 +100,7 @@
 			  			</div>
 
 
-						<div class="s-2col-push s-5col">
+						<div class="s-22col s-2col-push m-5col">
 							<?php if( have_rows('event_keywords') ): ?>
 								<div class="keywords"> 
 									<?php while( have_rows('event_keywords') ) : the_row(); ?>
