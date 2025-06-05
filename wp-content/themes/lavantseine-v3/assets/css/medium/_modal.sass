@@ -90,7 +90,7 @@
 		color: white
 		@include up-to(large)
 			padding: 30px
-			overflow: scroll
+			overflow-y: scroll
 
 
 	.btn
@@ -114,6 +114,9 @@
 	p
 		font-size: 1.2rem
 		margin-bottom: 1em
+		@include up-to(large)
+			font-size: 1rem
+
 
 	a
 		@extend .btn--little
