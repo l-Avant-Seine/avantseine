@@ -257,13 +257,17 @@ class WpMatomo {
 			&& ! $tracking_code->is_hidden_user() ) {
 			$tracker = new AjaxTracker( self::$settings );
 
-			$woocommerce = new Woocommerce( $tracker, self::$settings );
-			$woocommerce->register_hooks();
+			$sync_config = new SiteSync\SyncConfig( self::$settings );
 
-			$easy_digital_downloads = new EasyDigitalDownloads( $tracker, self::$settings );
+			if ( function_exists( 'WC' ) ) {
+				$woocommerce = new Woocommerce( $tracker, self::$settings, $sync_config );
+				$woocommerce->register_hooks();
+			}
+
+			$easy_digital_downloads = new EasyDigitalDownloads( $tracker, self::$settings, $sync_config );
 			$easy_digital_downloads->register_hooks();
 
-			$member_press = new MemberPress( $tracker, self::$settings );
+			$member_press = new MemberPress( $tracker, self::$settings, $sync_config );
 			$member_press->register_hooks();
 
 			do_action( 'matomo_ecommerce_init', $tracker );
