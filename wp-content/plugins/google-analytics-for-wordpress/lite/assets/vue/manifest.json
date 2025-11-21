@@ -28,14 +28,14 @@
       "_vendor-d4221a22.min.js"
     ]
   },
-  "_WelcomeOverlay-835cad54.min.js": {
+  "_WelcomeOverlay-a6102ce2.min.js": {
     "css": [
       "css/WelcomeOverlay.css"
     ],
-    "file": "js/chunks/WelcomeOverlay-835cad54.min.js",
+    "file": "js/chunks/WelcomeOverlay-a6102ce2.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_index-2ecc880d.min.js",
+      "_index-5c4c103d.min.js",
       "_SettingsInfoTooltip-a59ee549.min.js",
       "_SlideDownUp-f067df8c.min.js"
     ]
@@ -46,11 +46,11 @@
       "_vendor-d4221a22.min.js"
     ]
   },
-  "_date-intervals-cb5f563c.min.js": {
-    "file": "js/chunks/date-intervals-cb5f563c.min.js",
+  "_date-intervals-10010191.min.js": {
+    "file": "js/chunks/date-intervals-10010191.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_index-2ecc880d.min.js"
+      "_index-5c4c103d.min.js"
     ]
   },
   "_html2canvas-6b47a9df.min.js": {
@@ -60,13 +60,7 @@
     ],
     "isDynamicEntry": true
   },
-  "_index-2ecc880d.min.js": {
-    "file": "js/chunks/index-2ecc880d.min.js",
-    "imports": [
-      "_vendor-d4221a22.min.js"
-    ]
-  },
-  "_index-4a0b7e92.min.js": {
+  "_index-171b23ee.min.js": {
     "assets": [
       "img/logo-MonsterInsights.png",
       "img/logo-MonsterInsights@2x.png",
@@ -94,15 +88,21 @@
     "css": [
       "css/index.css"
     ],
-    "file": "js/chunks/index-4a0b7e92.min.js",
+    "file": "js/chunks/index-171b23ee.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_index-2ecc880d.min.js",
+      "_index-5c4c103d.min.js",
       "_SlideDownUp-f067df8c.min.js"
     ]
   },
-  "_report-table-helper-d4fbf606.min.js": {
-    "file": "js/chunks/report-table-helper-d4fbf606.min.js",
+  "_index-5c4c103d.min.js": {
+    "file": "js/chunks/index-5c4c103d.min.js",
+    "imports": [
+      "_vendor-d4221a22.min.js"
+    ]
+  },
+  "_report-table-helper-d06e944a.min.js": {
+    "file": "js/chunks/report-table-helper-d06e944a.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
       "_SettingsInfoTooltip-a59ee549.min.js"
@@ -375,9 +375,9 @@
     "file": "img/icon-celebrate-small.png",
     "src": "src/assets/img/icon-celebrate-small.png"
   },
-  "src/assets/img/icon-download.png": {
-    "file": "img/icon-download.png",
-    "src": "src/assets/img/icon-download.png"
+  "src/assets/img/icon-download-prettylinks.svg": {
+    "file": "img/icon-download-prettylinks.svg",
+    "src": "src/assets/img/icon-download-prettylinks.svg"
   },
   "src/assets/img/icon-exception-report.svg": {
     "file": "img/icon-exception-report.svg",
@@ -502,6 +502,18 @@
   "src/assets/img/monsterinsights-setup-checklist-site-note.png": {
     "file": "img/monsterinsights-setup-checklist-site-note.png",
     "src": "src/assets/img/monsterinsights-setup-checklist-site-note.png"
+  },
+  "src/assets/img/plugins/charitable-logo.png": {
+    "file": "img/charitable-logo.png",
+    "src": "src/assets/img/plugins/charitable-logo.png"
+  },
+  "src/assets/img/plugins/membermouse-logo.png": {
+    "file": "img/membermouse-logo.png",
+    "src": "src/assets/img/plugins/membermouse-logo.png"
+  },
+  "src/assets/img/plugins/wishlistmember-logo.svg": {
+    "file": "img/wishlistmember-logo.svg",
+    "src": "src/assets/img/plugins/wishlistmember-logo.svg"
   },
   "src/assets/img/popular-posts/popular-products-bg.jpg": {
     "file": "img/popular-products-bg.jpg",
@@ -702,6 +714,10 @@
   "src/assets/img/reports/lite-modals/bullet.svg": {
     "file": "img/bullet.svg",
     "src": "src/assets/img/reports/lite-modals/bullet.svg"
+  },
+  "src/assets/img/reports/lite-modals/custom-events-report-screen.png": {
+    "file": "img/custom-events-report-screen.png",
+    "src": "src/assets/img/reports/lite-modals/custom-events-report-screen.png"
   },
   "src/assets/img/reports/lite-modals/ecommerce-funnel@2x.png": {
     "file": "img/ecommerce-funnel@2x.png",
@@ -1045,10 +1061,10 @@
     "file": "js/frontend.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_date-intervals-cb5f563c.min.js",
+      "_date-intervals-10010191.min.js",
       "_WidgetReportError-93c27f3c.min.js",
       "_LaunchWizardButton-71308ffc.min.js",
-      "_index-2ecc880d.min.js"
+      "_index-5c4c103d.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1134,6 +1150,7 @@
       "img/bg-cart-abandonment@2x.png",
       "img/bg-engagement-pages@2x.png",
       "img/bg-countries.png",
+      "img/custom-events-report-screen.png",
       "img/social-media-report@2x.png",
       "img/exceptions-report.png",
       "img/bg-ai-insights.png",
@@ -1151,11 +1168,11 @@
     "file": "js/reports.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_date-intervals-cb5f563c.min.js",
+      "_date-intervals-10010191.min.js",
       "_SettingsInfoTooltip-a59ee549.min.js",
-      "_report-table-helper-d4fbf606.min.js",
-      "_index-4a0b7e92.min.js",
-      "_index-2ecc880d.min.js",
+      "_report-table-helper-d06e944a.min.js",
+      "_index-171b23ee.min.js",
+      "_index-5c4c103d.min.js",
       "_LaunchWizardButton-71308ffc.min.js",
       "_SlideDownUp-f067df8c.min.js"
     ],
@@ -1176,7 +1193,7 @@
       "img/edd-xsell-banner.svg",
       "img/monsterinsights-addons-upsell-logo.svg",
       "img/prettylinks-ad-bg.png",
-      "img/icon-download.png",
+      "img/icon-download-prettylinks.svg",
       "img/pretty-links-logo-white.svg",
       "img/icon-star.png",
       "img/mi-and-pl-logo.svg",
@@ -1276,6 +1293,7 @@
       "img/bg-cart-abandonment@2x.png",
       "img/bg-engagement-pages@2x.png",
       "img/bg-countries.png",
+      "img/custom-events-report-screen.png",
       "img/social-media-report@2x.png",
       "img/exceptions-report.png",
       "img/bg-ai-insights.png",
@@ -1289,6 +1307,9 @@
       "img/give-wp.png",
       "img/lifterlms.png",
       "img/restrict-content-pro.png",
+      "img/charitable-logo.png",
+      "img/wishlistmember-logo.svg",
+      "img/membermouse-logo.png",
       "img/monsterinsights-report-ecommerce.png",
       "img/icon-addon-eu-compliance.png",
       "img/icon-addon-ads.png",
@@ -1311,12 +1332,12 @@
     "file": "js/settings.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_index-2ecc880d.min.js",
+      "_index-5c4c103d.min.js",
       "_SlideDownUp-f067df8c.min.js",
-      "_WelcomeOverlay-835cad54.min.js",
+      "_WelcomeOverlay-a6102ce2.min.js",
       "_LaunchWizardButton-71308ffc.min.js",
       "_SettingsInfoTooltip-a59ee549.min.js",
-      "_index-4a0b7e92.min.js"
+      "_index-171b23ee.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/settings/settings.js"
@@ -1398,6 +1419,7 @@
       "img/bg-cart-abandonment@2x.png",
       "img/bg-engagement-pages@2x.png",
       "img/bg-countries.png",
+      "img/custom-events-report-screen.png",
       "img/social-media-report@2x.png",
       "img/exceptions-report.png",
       "img/bg-ai-insights.png",
@@ -1416,11 +1438,11 @@
     "file": "js/widget.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_date-intervals-cb5f563c.min.js",
-      "_report-table-helper-d4fbf606.min.js",
+      "_date-intervals-10010191.min.js",
+      "_report-table-helper-d06e944a.min.js",
       "_SettingsInfoTooltip-a59ee549.min.js",
       "_WidgetReportError-93c27f3c.min.js",
-      "_index-2ecc880d.min.js"
+      "_index-5c4c103d.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1469,9 +1491,9 @@
     "file": "js/wizard.min.js",
     "imports": [
       "_vendor-d4221a22.min.js",
-      "_WelcomeOverlay-835cad54.min.js",
+      "_WelcomeOverlay-a6102ce2.min.js",
       "_SettingsInfoTooltip-a59ee549.min.js",
-      "_index-2ecc880d.min.js",
+      "_index-5c4c103d.min.js",
       "_LaunchWizardButton-71308ffc.min.js",
       "_SlideDownUp-f067df8c.min.js"
     ],

@@ -4,7 +4,7 @@ Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, analytics, google analytics dashboard, Website Analytics
 Requires at least: 5.6.0
 Tested up to: 6.8.3
-Stable tag: 9.9.0
+Stable tag: 9.10.0
 Requires PHP: 7.2
 License: GPL v3
 
@@ -121,6 +121,15 @@ MonsterInsights&reg; is a registered trademark of MonsterInsights LLC. When writ
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+= 9.10.0: November 17, 2025 =
+- New: Sync site annotations with GA4 automatically
+- New: Create custom conversions in GA and access detailed event tracking reports.
+- New: Product Feeds Report for enhanced insights for AdTribes users
+- Enhancements: Various performance improvements and bug fixes.
+
+= 9.9.1: October 16, 2025 =
+- Fixed: Minor updates and bug fixes
+
 = 9.9.0: October 15, 2025 =
 - New: Unlock new organic traffic insights with our completely updated Google Search Console report
 - New: Automatically track eCommerce sales with LinkedIn and SnapChat PPC campaigns-

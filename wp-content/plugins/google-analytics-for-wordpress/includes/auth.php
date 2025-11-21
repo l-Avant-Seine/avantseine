@@ -94,6 +94,8 @@ final class MonsterInsights_Auth {
 		if ( $needs_update ) {
 			update_option( 'monsterinsights_over_time', $over_time, false );
 		}
+		monsterinsights_update_option( 'site_notes_import_synced', 0 );
+		monsterinsights_update_option( 'site_notes_export_synced', 0 );
 	}
 
 	public function set_network_analytics_profile( $data = array() ) {
