@@ -76,52 +76,54 @@ $marge-xxlarge: 240px;
 
 .flex {
     display: flex;
+
+
+    &.--vcentered {
+        @extend .flex;
+        justify-content: center;
+    }
+    &.--centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+    }
+    &.--end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    &.--col {
+        flex-direction: column;
+    }
+    &.--col-jstf {
+        justify-content: space-between;
+    }
+    &.--top {
+        align-items: flex-start;
+    }
+    &.--hcentered {
+        align-items: center;
+    }
+    &.--bottom {
+        align-items: flex-end;
+    }
+    &.--justify {
+        justify-content: space-between;
+    }
+
+    &.--wrap {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &.--gap-m {
+        gap: 40px;
+    }
 }
 
-.fl-col {
-    flex-direction: column;
-}
-.fl-col-jstf {
-    @extend .fl-col;
-    display: flex !important;
-    justify-content: space-between;
-}
-.fl-top {
-    @extend .flex;
-    align-items: flex-start;
-}
-.fl-hcentered {
-    @extend .flex;
-    align-items: center;
-}
-.fl-bottom {
-    @extend .flex;
-    align-items: flex-end;
-}
 
-.fl-justify {
-    @extend .flex;
-    justify-content: space-between;
-}
 
-.fl-vcentered {
-    @extend .flex;
-    justify-content: center;
-}
-.fl-centered {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-}
 
-.fl-end {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.fl-wrap {
-    display: flex;
-    flex-wrap: wrap;
+.inversed {
+    transform: scaleX(-1);
 }

@@ -45,6 +45,28 @@
                     $data
                 );
                 
+
+            elseif( get_row_layout() == 'mod_largebanner' ): 
+                
+                $data = array (
+                    'wysiwyg' => get_sub_field('mod_wysiwyg'),
+                    'label' => get_sub_field('mod_label'),
+                    'link' => get_sub_field('mod_link'),
+                    'picto' => get_sub_field('mod_picto'),
+                    'img' => get_sub_field('mod_img'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'banner',
+                    $data
+                );
+
+
+
+                
+
+
             endif; 
 
         endwhile;
