@@ -18,10 +18,7 @@
                 foreach ( $posts as $post ) : setup_postdata( $post ); ?>
 
                     <div class="swiper-slide">
-                        <a href="<?php the_permalink(); ?>" class="--block">
-                            <?php the_post_thumbnail(); ?>
-                            <h2><?php the_title(); ?></h2>
-                        </a>
+                        <?php get_template_part('Components/Blocs/bloc', 'magazine'); ?>
                     </div>
 
                 <?php endforeach; wp_reset_query();?>

@@ -5,15 +5,11 @@
 
 html,
 body {
-	min-height: 100%;
+	min-height: 100vh;
 }
 
 body {
 	position: relative;
-	font-family: $circular;
-	color: $primary_color;
-	font-size: 90%;
-	line-height: 1.2;
 	overflow-x: hidden;
 }
 .site {
@@ -23,8 +19,4 @@ body {
 }
 .no-scroll {
 	overflow: hidden;
-}
-
-.site-content {
-	padding-top: 80px;
 }
