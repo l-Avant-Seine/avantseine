@@ -18,6 +18,7 @@ use Piwik\Container\StaticContainer;
 use Piwik\Development;
 use Piwik\EventDispatcher;
 use Piwik\Exception\PluginDeactivatedException;
+use Piwik\Exception\PluginNotFoundException;
 use Piwik\Filesystem;
 use Piwik\Log;
 use Piwik\Notification;
@@ -258,10 +259,13 @@ class Manager
      * Checks whether the given plugin is activated, if not triggers an exception.
      *
      * @param  string $pluginName
-     * @throws PluginDeactivatedException
+     * @throws PluginDeactivatedException|PluginNotFoundException
      */
-    public function checkIsPluginActivated($pluginName)
+    public function checkIsPluginActivated($pluginName) : void
     {
+        if (!$this->isPluginInFilesystem($pluginName)) {
+            throw new PluginNotFoundException($pluginName);
+        }
         if (!$this->isPluginActivated($pluginName)) {
             throw new PluginDeactivatedException($pluginName);
         }
@@ -269,7 +273,7 @@ class Manager
     /**
      * Returns `true` if plugin is loaded (in memory).
      *
-     * @param string $name Name of plugin, eg, `'Acions'`.
+     * @param string $name Name of plugin, eg, `'Actions'`.
      * @return bool
      * @api
      */
@@ -444,8 +448,6 @@ class Manager
     /**
      * Returns the plugin directory path relative to Matomo's root directory.
      *
-     * @param string $pluginName
-     * @return string
      */
     public static function getRelativePluginDirectory(string $pluginName) : string
     {
@@ -511,7 +513,10 @@ class Manager
      *                                  given subclass. If the requested file exists but does not extend this class
      *                                  a warning will be shown to advice a developer to extend this certain class.
      *
-     * @return \stdClass[]
+     * @template T of object
+     * @phpstan-param class-string<T>|''|false|null $expectedSubclass
+     *
+     * @return array<class-string<T>>
      */
     public function findComponents($componentName, $expectedSubclass)
     {
@@ -525,6 +530,12 @@ class Manager
         }
         return $components;
     }
+    /**
+     * @template T of object
+     * @param string $directoryWithinPlugin
+     * @param class-string<T>|''|false|null $expectedSubclass
+     * @return array<class-string<T>>
+     */
     public function findMultipleComponents($directoryWithinPlugin, $expectedSubclass)
     {
         $plugins = $this->getPluginsLoadedAndActivated();
@@ -621,7 +632,7 @@ class Manager
             return;
         }
         if (!$this->isPluginInFilesystem($pluginName)) {
-            throw new \Exception("Plugin '{$pluginName}' cannot be found in the filesystem in plugins/ directory.");
+            throw new PluginNotFoundException($pluginName);
         }
         $this->deactivateThemeIfTheme($pluginName);
         // Load plugin
@@ -655,13 +666,12 @@ class Manager
      *
      * If no theme is enabled, the **Morpheus** plugin is returned (this is the base and default theme).
      *
-     * @return Plugin
      * @api
      */
-    public function getThemeEnabled()
+    public function getThemeEnabled() : ?Plugin
     {
         $plugins = $this->getLoadedPlugins();
-        $theme = \false;
+        $theme = null;
         foreach ($plugins as $plugin) {
             /* @var $plugin Plugin */
             if ($plugin->isTheme() && $this->isPluginActivated($plugin->getPluginName())) {
@@ -1118,7 +1128,6 @@ class Manager
     /**
      * Install a specific plugin
      *
-     * @param Plugin $plugin
      * @throws \Piwik\Plugin\PluginException if installation fails
      */
     private function executePluginInstall(Plugin $plugin)
@@ -1133,7 +1142,6 @@ class Manager
      * Add a plugin in the loaded plugins array
      *
      * @param string $pluginName plugin name without prefix (eg. 'UserCountry')
-     * @param Plugin $newPlugin
      * @internal
      */
     public function addLoadedPlugin($pluginName, Plugin $newPlugin)
@@ -1174,7 +1182,6 @@ class Manager
     /**
      * Install a plugin, if necessary
      *
-     * @param Plugin $plugin
      */
     private function installPluginIfNecessary(Plugin $plugin)
     {

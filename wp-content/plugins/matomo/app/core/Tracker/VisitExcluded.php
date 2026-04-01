@@ -32,9 +32,6 @@ class VisitExcluded
     public $idSite;
     public $userAgent;
     public $ip;
-    /**
-     * @param Request $request
-     */
     public function __construct(\Piwik\Tracker\Request $request)
     {
         $this->spamFilter = new ReferrerSpamFilter();
@@ -296,7 +293,6 @@ class VisitExcluded
      * are also supported.
      *
      * @internal param string $this ->userAgent The user agent string.
-     * @return bool
      */
     protected function isUserAgentExcluded() : bool
     {
@@ -308,8 +304,8 @@ class VisitExcluded
                     return \true;
                 }
                 // if the string is a valid regex, and the user agent matches, this visit should be excluded
-                if (@preg_match($excludedUserAgent, '') !== \false) {
-                    return preg_match($excludedUserAgent, $this->userAgent) ? \true : \false;
+                if (@preg_match($excludedUserAgent, '') !== \false && preg_match($excludedUserAgent, $this->userAgent) === 1) {
+                    return \true;
                 }
             }
         }

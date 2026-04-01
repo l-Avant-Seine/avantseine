@@ -23,6 +23,7 @@ use Piwik\Plugin;
 use Piwik\Plugins\CoreAdminHome\API;
 use Piwik\Plugins\Diagnostics\Diagnostic\DiagnosticResult;
 use Piwik\Plugins\Diagnostics\DiagnosticService;
+use Piwik\Plugins\LanguagesManager\LanguagesManager;
 use Piwik\Plugins\SitesManager\Model;
 use Piwik\Plugins\UserCountry\LocationProvider;
 use Piwik\Plugins\WordPress\WordPress;
@@ -132,7 +133,8 @@ class SystemReport {
 		) {
 			if ( ! empty( $_POST[ self::TROUBLESHOOT_ARCHIVE_NOW ] ) ) {
 				Bootstrap::do_bootstrap();
-				$scheduled_tasks = new ScheduledTasks( $this->settings );
+				$sync_config     = new \WpMatomo\Site\Sync\SyncConfig( $this->settings );
+				$scheduled_tasks = new ScheduledTasks( $this->settings, $sync_config );
 
 				if ( ! defined( 'PIWIK_ARCHIVE_NO_TRUNCATE' ) ) {
 					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
@@ -185,7 +187,8 @@ class SystemReport {
 			}
 
 			if ( ! empty( $_POST[ self::TROUBLESHOOT_UPDATE_GEOIP_DB ] ) ) {
-				$scheduled_tasks = new ScheduledTasks( $this->settings );
+				$sync_config     = new \WpMatomo\Site\Sync\SyncConfig( $this->settings );
+				$scheduled_tasks = new ScheduledTasks( $this->settings, $sync_config );
 				$scheduled_tasks->update_geo_ip2_db();
 			}
 
@@ -675,6 +678,30 @@ class SystemReport {
 				'value'   => $upgrade_in_progress,
 				'comment' => '',
 			];
+
+			$lang = esc_html__( 'Unknown', 'matomo' );
+			try {
+				$login     = WpMatomo\User::get_matomo_user_login( get_current_user_id() );
+				$user_lang = \Piwik\Plugins\LanguagesManager\API::getInstance()->getLanguageForUser( $login );
+				$lang      = isset( $user_lang ) ? $user_lang : $lang;
+			} catch ( \Throwable $ex ) {
+				$lang = esc_html__( 'Error', 'matomo' ) . ': ' . $ex->getMessage();
+			}
+
+			$rows[] = [
+				'name'  => esc_html__( 'Current Matomo User Language', 'matomo' ),
+				'value' => $lang,
+			];
+
+			$lang = LanguagesManager::getLanguageForSession();
+			if ( empty( $lang ) ) {
+				$lang = esc_html__( 'None', 'matomo' );
+			}
+
+			$rows[] = [
+				'name'  => esc_html__( 'Current Matomo Language Cookie Value', 'matomo' ),
+				'value' => $lang,
+			];
 		}
 
 		if ( ! $wpmatomo_updater->load_plugin_functions() ) {
@@ -736,7 +763,9 @@ class SystemReport {
 			'section' => 'Crons',
 		];
 
-		$scheduled_tasks = new ScheduledTasks( $this->settings );
+		$sync_config = new \WpMatomo\Site\Sync\SyncConfig( $this->settings );
+
+		$scheduled_tasks = new ScheduledTasks( $this->settings, $sync_config );
 		$all_events      = $scheduled_tasks->get_all_events();
 
 		$rows[] = [
@@ -938,6 +967,32 @@ class SystemReport {
 						'comment'    => __( 'The .yml files in the wp-content/plugins/matomo/app/vendor directory are accessible from the internet. This can cause some web security tools to flag your website as suspicious. If you are using Apache, it is probably due to your server configuration disabling the use of .htaccess files. If you are instead using nginx, it is due to your nginx configuration allowing .yml files. You may need to contact your hosting provider to fix this.', 'matomo' ),
 						'is_warning' => true,
 					];
+				}
+			}
+
+			// check that AI tracking script is accessible
+			if ( $this->settings->is_ai_bot_tracking_enabled() ) {
+				$track_ai_url = plugins_url( 'misc/track_ai_bot.php', MATOMO_ANALYTICS_FILE );
+
+				$result = wp_remote_post(
+					$track_ai_url . '?mtm_check=1',
+					array(
+						'method'    => 'GET',
+						'sslverify' => false,
+						'timeout'   => 2,
+					)
+				);
+
+				if ( is_array( $result ) ) {
+					$response_code = (int) $result['response']['code'];
+					if ( 201 !== $response_code ) {
+						$rows[] = [
+							'name'       => __( 'Standalone AI bot tracking script is not accessible. ', 'matomo' ),
+							'value'      => 'warning',
+							'comment'    => sprintf( __( 'The tracking script located at %s is not accessible from the internet. Your web server configuration should be changed to allow direct HTTP requests to this script. You may need to contact your hosting provider to fix this.', 'matomo' ), $track_ai_url ),
+							'is_warning' => true,
+						];
+					}
 				}
 			}
 		}
@@ -1343,10 +1398,15 @@ class SystemReport {
 
 		$is_system_cron_set_up = defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON;
 		$rows[]                = [
-			'name'       => 'System Cron Set Up',
+			'name'       => esc_html__( 'System Cron Set Up', 'matomo' ),
 			'value'      => $is_system_cron_set_up,
 			'is_warning' => ! $is_system_cron_set_up,
 			'comment'    => $is_system_cron_set_up ? null : $system_cron_warning,
+		];
+
+		$rows[] = [
+			'name'  => esc_html__( 'Current User Locale', 'matomo' ),
+			'value' => get_user_locale( get_current_user_id() ),
 		];
 
 		return $rows;

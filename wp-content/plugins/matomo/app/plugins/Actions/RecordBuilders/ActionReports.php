@@ -250,8 +250,8 @@ class ActionReports extends ArchiveProcessor\RecordBuilder
     }
     protected function updateQuerySelectFromForSiteSearch(string &$select, array &$from) : void
     {
-        $selectFlagNoResultKeywords = ",\n                CASE WHEN (MAX(log_link_visit_action.search_count) = 0)\n                THEN 1 ELSE 0 END\n                    AS `" . PiwikMetrics::INDEX_SITE_SEARCH_HAS_NO_RESULT . "`";
-        //we need an extra JOIN to know whether the referrer "idaction_name_ref" was a Site Search request
+        $selectFlagNoResultKeywords = ",\n                MAX(log_link_visit_action.search_count) = 0 AS `" . PiwikMetrics::INDEX_SITE_SEARCH_HAS_NO_RESULT . "`";
+        // we need an extra JOIN to know whether the referrer "idaction_name_ref" was a Site Search request
         $from[] = array("table" => "log_action", "tableAlias" => "log_action_name_ref", "joinOn" => "log_link_visit_action.idaction_name_ref = log_action_name_ref.idaction");
         $selectPageIsFollowingSiteSearch = ",\n                SUM( CASE WHEN log_action_name_ref.type = " . Action::TYPE_SITE_SEARCH . "\n                      THEN 1 ELSE 0 END)\n                    AS `" . PiwikMetrics::INDEX_PAGE_IS_FOLLOWING_SITE_SEARCH_NB_HITS . "`";
         $select .= $selectFlagNoResultKeywords . $selectPageIsFollowingSiteSearch;
@@ -282,9 +282,7 @@ class ActionReports extends ArchiveProcessor\RecordBuilder
     /**
      * Add goals data for each combination of url / title and pageviews / entries
      *
-     * @param int   $rankingQueryLimit
      *
-     * @return void
      */
     protected function archiveDayActionsGoals(ArchiveProcessor $archiveProcessor, int $rankingQueryLimit) : void
     {
@@ -326,7 +324,6 @@ class ActionReports extends ArchiveProcessor\RecordBuilder
     /**
      * Get a list of goal ids for a site
      *
-     * @param string $idSite
      *
      * @return array
      */
@@ -345,7 +342,6 @@ class ActionReports extends ArchiveProcessor\RecordBuilder
     /**
      * Query goal entry page data and update actions data table
      *
-     * @param int   $rankingQueryLimit
      * @param bool  $isUrl              If true then query goal data by url, else by name
      *
      * @return int|null Count of records processed

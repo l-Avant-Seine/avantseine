@@ -278,6 +278,7 @@ reddit:
   - reddit.com
   - np.reddit.com
   - pay.reddit.com
+  - com.reddit.frontpage
 
 Renren:
   - renren.com
@@ -287,6 +288,7 @@ Skyrock:
 
 Snapchat:
   - snapchat.com
+  - com.snapchat.android
 
 Sonico.com:
   - sonico.com
@@ -314,6 +316,8 @@ Telegram:
 Threads:
   - threads.net
   - l.threads.net
+  - threads.com
+  - l.threads.com
 
 TikTok:
   - tiktok.com

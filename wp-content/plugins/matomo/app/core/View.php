@@ -10,6 +10,7 @@ namespace Piwik;
 
 use Exception;
 use Piwik\AssetManager\UIAssetCacheBuster;
+use Piwik\Request\AuthenticationToken;
 use Piwik\Container\StaticContainer;
 use Piwik\Plugins\CoreAdminHome\Controller;
 use Piwik\Plugins\CorePluginsAdmin\CorePluginsAdmin;
@@ -369,7 +370,6 @@ class View implements ViewInterface
     /**
      * Add form to view
      *
-     * @param QuickForm2 $form
      * @ignore
      */
     public function addForm(\Piwik\QuickForm2 $form)
@@ -436,8 +436,8 @@ class View implements ViewInterface
      */
     private function validTokenAuthInUrl()
     {
-        $tokenAuth = \Piwik\Common::getRequestVar('token_auth', '', 'string', $_GET);
-        return $tokenAuth && $tokenAuth === \Piwik\Piwik::getCurrentUserTokenAuth();
+        $token = StaticContainer::get(AuthenticationToken::class);
+        return !$token->wasTokenAuthProvidedSecurely() && $token->getAuthToken() === \Piwik\Piwik::getCurrentUserTokenAuth();
     }
     /**
      * Returns whether a strict Referrer-Policy header will be sent. Generally this should be set to 'true'.

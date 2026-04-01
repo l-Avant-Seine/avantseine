@@ -85,7 +85,6 @@ abstract class Metric
      *
      * See {@link \Piwik\Columns\Dimension} for the list of available semantic types.
      *
-     * @return string|null
      */
     public function getSemanticType() : ?string
     {
@@ -112,7 +111,6 @@ abstract class Metric
      * formatting (for example, the site ID).
      *
      * @param Report $report
-     * @param DataTable $table
      * @return bool Return `true` to format the metric for the table, `false` to skip formatting.
      */
     public function beforeFormat($report, DataTable $table)
@@ -163,7 +161,6 @@ abstract class Metric
      * Helper method that will determine the actual column name for a metric in a
      * {@link Piwik\DataTable} and return every column value for this name.
      *
-     * @param DataTable $table
      * @param string $columnName
      * @param int[]|null $mappingNameToId A custom mapping of metric names to special index values. By
      *                                    default {@link Metrics::getMappingFromNameToId()} is used.
@@ -171,7 +168,7 @@ abstract class Metric
      */
     public static function getMetricValues(DataTable $table, $columnName, $mappingNameToId = null)
     {
-        if (empty($mappingIdToName)) {
+        if (empty($mappingNameToId)) {
             $mappingNameToId = Metrics::getMappingFromNameToId();
         }
         $columnName = self::getActualMetricColumn($table, $columnName, $mappingNameToId);
@@ -180,7 +177,6 @@ abstract class Metric
     /**
      * Helper method that determines the actual column for a metric in a {@link Piwik\DataTable}.
      *
-     * @param DataTable $table
      * @param string $columnName
      * @param int[]|null $mappingNameToId A custom mapping of metric names to special index values. By
      *                                    default {@link Metrics::getMappingFromNameToId()} is used.
@@ -190,7 +186,7 @@ abstract class Metric
     {
         $firstRow = $table->getFirstRow();
         if (!empty($firstRow) && $firstRow->hasColumn($columnName) === \false) {
-            if (empty($mappingIdToName)) {
+            if (empty($mappingNameToId)) {
                 $mappingNameToId = Metrics::getMappingFromNameToId();
             }
             if (array_key_exists($columnName, $mappingNameToId)) {

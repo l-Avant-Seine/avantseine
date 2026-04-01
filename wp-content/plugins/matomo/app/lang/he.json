@@ -246,6 +246,7 @@
         "Locale": "he_IL.UTF-8",
         "Logout": "להתנתק",
         "MainMetrics": "מדדים עיקריים",
+        "ManagePlugins": "ניהול תוספים",
         "Matches": "התאמות",
         "Measurable": "מדיד",
         "Measurables": "מדידים",
@@ -428,9 +429,9 @@
         "Visitors": "מבקרים",
         "VisitsWith": "ביקורים עם %s",
         "Warning": "אזהרה",
+        "WarningFileIntegrityNoHashFile": "לא ניתן לבצע בדיקת תקינות קבצים מכיוון שהפונקציה hash_file() חסרה.",
         "WarningFileIntegrityNoManifest": "לא ניתן לבצע בדיקת תקינות קבצים מכיוון שהקובץ manifest.inc.php חסר.",
         "WarningFileIntegrityNoManifestDeployingFromGit": "אם אתם מפעילים את פיוויק מתוך GIT, אז ההודעה הזו רגילה.",
-        "WarningFileIntegrityNoHashFile": "לא ניתן לבצע בדיקת תקינות קבצים מכיוון שהפונקציה hash_file() חסרה.",
         "WarningPasswordStored": "%1$sאזהרה:%2$s הסיסמה תאוכסן בקובץ ההגדרות וחושפת לכל כיצד להתחבר.",
         "WarningPiwikWillStopSupportingPHPVersion": "פיוויק יפסיק לתמוך ב-PHP %1$s בשדרוג הראשי הבא. שדרגו את גירסת ה-PHP שלכם לפחות לגירסת PHP %2$s לפני שזה מאוחר מדי!",
         "Warnings": "אזהרות",
@@ -555,14 +556,14 @@
         "ColumnExitPageURL": "כתובת עמוד יציאה",
         "ColumnNoResultKeyword": "מילות מפתח ללא תוצאות חיפוש",
         "ColumnPageName": "שם העמוד",
+        "ColumnPageURL": "כתובת העמוד",
         "ColumnPagesPerSearch": "עמודי תוצאות חיפוש",
         "ColumnPagesPerSearchDocumentation": "מבקרים יחפשו באתרך, ולפעמים ילחצו ״קדימה״ לצפייה בתוצאות נוספות. זהו ממוצע עמודי תוצאות החיפוש שנצפו למילת מפתח זו.",
-        "ColumnPageURL": "כתובת העמוד",
         "ColumnSearchCategory": "קטגורית חיפוש",
-        "ColumnSearches": "חיפושים",
-        "ColumnSearchesDocumentation": "מספר הביקורים שחיפשו אחר מילת מפתח זו במנוע החיפוש של אתרך.",
         "ColumnSearchExitsDocumentation": "אחוז הביקורים שעזבו את האתר אחרי חיפוש מילת מפתח זו במנוע החיפוש של אתרך.",
         "ColumnSearchResultsCount": "מספר תוצאות חיפוש",
+        "ColumnSearches": "חיפושים",
+        "ColumnSearchesDocumentation": "מספר הביקורים שחיפשו אחר מילת מפתח זו במנוע החיפוש של אתרך.",
         "ColumnSiteSearchKeywords": "מילות מפתח ייחודיות",
         "ColumnUniqueClicks": "לחיצות ייחודיות",
         "ColumnUniqueClicksDocumentation": "מספר הביקורים שכללו לחיצה על קישור זה. אם קישור נלחץ יותר מפעם אחת במהלך ביקור, הוא יספר פעם אחת בלבד.",
@@ -576,26 +577,26 @@
         "OneSearch": "חיפוש 1",
         "OutlinkDocumentation": "קישור יוצא הוא קישור שמוביל את המשתמש מחוץ לאתרך (לדומיין אחר).",
         "OutlinksReportDocumentation": "דו״ח זה מציג רשימה היררכית של כתובות שנלחצו על ידי משתמשי אתרך.",
-        "PagesReportDocumentation": "דו״ח זה מכיל מידע אודות כתובת עמודים שבוקרו. %s הטבלה מאורגנת באופן היררכי, הכתובות מוצגות כמבנה תיקיות.",
         "PageTitlesReportDocumentation": "דו״ח זה מכיל מידע אודות כותרות העמודים שבוקרו. %1$s כותרת העמוד היא תגית HTML %2$s שרוב הדפדפנים מציגים בכותרת החלון שלהם.",
         "PageUrls": "כתובות עמוד",
+        "PagesReportDocumentation": "דו״ח זה מכיל מידע אודות כתובת עמודים שבוקרו. %s הטבלה מאורגנת באופן היררכי, הכתובות מוצגות כמבנה תיקיות.",
+        "PagesSubcategoryHelp3": "השתמש בצלמיות הפלוס והמינוס בצד שמאל על מהת לנווט.",
         "SiteSearchCategories1": "דו״ח זה מציג רשימה של קטגוריות שמבקרים בחרו כאשר חיפשו באתרך.",
         "SiteSearchCategories2": "לדוגמה, אתרי מסחר מקוונים מציגים בד״כ בחירת ״קטגוריה״ כדי שהמבקרים יוכלו לצמצם את תוצאות החיפוש למוצרים בקטגוריה מסויימת.",
         "SiteSearchKeyword": "מילת מפתח (חיפוש באתר)",
         "SiteSearchKeywordsDocumentation": "דו״ח זה מציג רשימה של מילות חיפוש שמבקרים חיפשו אחריהן במנוע החיפוש הפנימי של אתרך.",
+        "SubmenuPageTitles": "כותרות עמוד",
         "SubmenuPagesEntry": "עמודי כניסה",
         "SubmenuPagesExit": "עמודי יציאה",
-        "SubmenuPageTitles": "כותרות עמוד",
         "SubmenuSitesearch": "חיפוש באתר",
         "WidgetEntryPageTitles": "כותרות עמוד כניסה",
         "WidgetExitPageTitles": "כותרות עמוד יציאה",
+        "WidgetPageTitles": "כותרות עמוד",
         "WidgetPagesEntry": "עמודי כניסה",
         "WidgetPagesExit": "עמודי יציאה",
-        "WidgetPageTitles": "כותרות עמוד",
         "WidgetSearchCategories": "קטגוריות חיפוש",
         "WidgetSearchKeywords": "מילות חיפוש באתר",
-        "WidgetSearchNoResultKeywords": "מילות חיפוש ללא תוצאות",
-        "PagesSubcategoryHelp3": "השתמש בצלמיות הפלוס והמינוס בצד שמאל על מהת לנווט."
+        "WidgetSearchNoResultKeywords": "מילות חיפוש ללא תוצאות"
     },
     "Annotations": {
         "Annotations": "הערות הסבר",
@@ -610,6 +611,10 @@
         "LoginToAnnotate": "יש להתחבר כדי ליצור הערה.",
         "NoAnnotations": "אין הסברים על טווח תאריכים זה"
     },
+    "BotTracking": {
+        "PageUrl": "כתובת העמוד",
+        "SiteWithoutDataBackToMatomo": "חזרה ל Matomo"
+    },
     "CoreAdminHome": {
         "Administration": "ניהול",
         "BrandingSettings": "הגדרות מיתוג",
@@ -621,6 +626,7 @@
         "ImageTrackingIntro1": "כאשר המבקרים ביטלו את יישום הג'אווה או שלא בשימוש, אתה יכול להשתמש בתמונת קישור למעקב אחרי המבקרים",
         "ImageTrackingLink": "קישור מעקב כתמונה",
         "JavaScriptTracking": "מעקב בג'אווה-סקריפט",
+        "Login": "משתמש",
         "LogoUpload": "בחירת קובץ לוגו",
         "MenuDiagnostic": "אבחון",
         "MenuGeneralSettings": "הגדרות כלליות",
@@ -638,6 +644,7 @@
         "ChangeVisualization": "ערוך תצוגה",
         "CheckForUpdates": "בדוק עדכונים",
         "CheckPiwikOut": "בדוק את מטומו!",
+        "ChooseWebsite": "בחירת אתר",
         "ChooseX": "בחר %1$s",
         "ClickToEditX": "לחץ לעריכה %s",
         "ClickToSeeFullInformation": "לחץ למידע מלא",
@@ -744,8 +751,8 @@
         "YourDatabaseIsOutOfDate": "מסד הנתונים של הMatomo שלך לא בתוקף, חובה לשדרג אותו לפני שנמשיך."
     },
     "DBStats": {
-        "DatabaseUsage": "צריכת מסד נתונים",
         "DataSize": "משקל מידע",
+        "DatabaseUsage": "צריכת מסד נתונים",
         "IndexSize": "משקל מפתח (index)",
         "LearnMore": "בכדי ללמוד עוד אודות כיצד Matomo מעבדת מידע וכיצד לשפר את ביצועיה של Matomo עבור אתרים בעלי תעבורה בינונית עד גבוהה, מומלץ להציץ במדריך %s.",
         "MainDescription": "Matomo מאכסנת את כל המידע אודות ניתוח פעילות הרשת במסד נתונים. כרגע, טבלאות Matomo צורכות %s.",
@@ -774,9 +781,12 @@
     "DevicesDetection": {
         "BrowserEngine": "דפדפן",
         "BrowserFamily": "משפחת דפדפן",
-        "Browsers": "דפדפן",
         "BrowserVersion": "גרסת דפדפן",
+        "Browsers": "דפדפן",
         "ColumnBrowser": "דפדפן"
+    },
+    "Events": {
+        "Event": "אירוע"
     },
     "Feedback": {
         "DoYouHaveBugReportOrFeatureRequest": "האם יש לך דיווח תקלה או בקשת תכונה?",
@@ -787,8 +797,11 @@
         "GeoIPDatabases": "מסד נתונים GeoIP"
     },
     "Goals": {
+        "CategoryTextGeneral_Actions": "עמודים",
         "CategoryTextReferrers_Referrers": "הפניות",
-        "ColumnConversions": "המרות"
+        "ColumnConversions": "המרות",
+        "EntryPages": "עמודי כניסה",
+        "PageTitles": "כותרות עמוד"
     },
     "Installation": {
         "Congratulations": "ברכות",
@@ -805,10 +818,12 @@
         "Optional": "אופציונלי",
         "Password": "סיסמה",
         "PasswordDoNotMatch": "סיסמה לא תואמת",
+        "PasswordRepeat": "סיסמה (שוב)",
         "PercentDone": "%s %% עברו",
         "Requirements": "דרישות Matomo",
         "SetupWebsite": "הגדרת אתר",
         "SystemCheck": "בדיקת מערכת",
+        "SystemCheckFileIntegrity": "שלמות הקובץ",
         "SystemCheckPhp": "גרסת PHP",
         "Welcome": "ברוכים הבאים"
     },
@@ -1703,30 +1718,30 @@
         "NumberFormatCurrencyCompact10000000000000000Other": "",
         "NumberFormatCurrencyCompact1000000000000000One": "",
         "NumberFormatCurrencyCompact1000000000000000Other": "",
-        "NumberFormatCurrencyCompact100000000000000One": "¤000T‏",
-        "NumberFormatCurrencyCompact100000000000000Other": "¤000T‏",
-        "NumberFormatCurrencyCompact10000000000000One": "¤00T‏",
-        "NumberFormatCurrencyCompact10000000000000Other": "¤00T‏",
-        "NumberFormatCurrencyCompact1000000000000One": "¤0T‏",
-        "NumberFormatCurrencyCompact1000000000000Other": "¤0T‏",
-        "NumberFormatCurrencyCompact100000000000One": "¤000B‏",
-        "NumberFormatCurrencyCompact100000000000Other": "¤000B‏",
-        "NumberFormatCurrencyCompact10000000000One": "¤00B‏",
-        "NumberFormatCurrencyCompact10000000000Other": "¤00B‏",
-        "NumberFormatCurrencyCompact1000000000One": "¤0B‏",
-        "NumberFormatCurrencyCompact1000000000Other": "¤0B‏",
-        "NumberFormatCurrencyCompact100000000One": "¤000M‏",
-        "NumberFormatCurrencyCompact100000000Other": "¤000M‏",
-        "NumberFormatCurrencyCompact10000000One": "¤00M‏",
-        "NumberFormatCurrencyCompact10000000Other": "¤00M‏",
-        "NumberFormatCurrencyCompact1000000One": "¤0M‏",
-        "NumberFormatCurrencyCompact1000000Other": "¤0M‏",
-        "NumberFormatCurrencyCompact100000One": "¤000K‏",
-        "NumberFormatCurrencyCompact100000Other": "¤000K‏",
-        "NumberFormatCurrencyCompact10000One": "¤00K‏",
-        "NumberFormatCurrencyCompact10000Other": "¤00K‏",
-        "NumberFormatCurrencyCompact1000One": "¤0K‏",
-        "NumberFormatCurrencyCompact1000Other": "¤0K‏",
+        "NumberFormatCurrencyCompact100000000000000One": "‏000T‏ ‏¤",
+        "NumberFormatCurrencyCompact100000000000000Other": "‏000T‏ ‏¤",
+        "NumberFormatCurrencyCompact10000000000000One": "‏00T‏ ‏¤",
+        "NumberFormatCurrencyCompact10000000000000Other": "‏00T‏ ‏¤",
+        "NumberFormatCurrencyCompact1000000000000One": "‏0T‏ ‏¤",
+        "NumberFormatCurrencyCompact1000000000000Other": "‏0T‏ ‏¤",
+        "NumberFormatCurrencyCompact100000000000One": "‏000B‏ ‏¤",
+        "NumberFormatCurrencyCompact100000000000Other": "‏000B‏ ‏¤",
+        "NumberFormatCurrencyCompact10000000000One": "‏00B‏ ‏¤",
+        "NumberFormatCurrencyCompact10000000000Other": "‏00B‏ ‏¤",
+        "NumberFormatCurrencyCompact1000000000One": "‏0B‏ ‏¤",
+        "NumberFormatCurrencyCompact1000000000Other": "‏0B‏ ‏¤",
+        "NumberFormatCurrencyCompact100000000One": "‏000M‏ ‏¤",
+        "NumberFormatCurrencyCompact100000000Other": "‏000M‏ ‏¤",
+        "NumberFormatCurrencyCompact10000000One": "‏00M‏ ‏¤",
+        "NumberFormatCurrencyCompact10000000Other": "‏00M‏ ‏¤",
+        "NumberFormatCurrencyCompact1000000One": "‏0M‏ ‏¤",
+        "NumberFormatCurrencyCompact1000000Other": "‏0M‏ ‏¤",
+        "NumberFormatCurrencyCompact100000One": "‏000K‏ ‏¤",
+        "NumberFormatCurrencyCompact100000Other": "‏000K‏ ‏¤",
+        "NumberFormatCurrencyCompact10000One": "‏00K‏ ‏¤",
+        "NumberFormatCurrencyCompact10000Other": "‏00K‏ ‏¤",
+        "NumberFormatCurrencyCompact1000One": "‏0K‏ ‏¤",
+        "NumberFormatCurrencyCompact1000Other": "‏0K‏ ‏¤",
         "NumberFormatNumber": "#,##0.###",
         "NumberFormatNumberCompact1000000000000000000One": "",
         "NumberFormatNumberCompact1000000000000000000Other": "",
@@ -1811,6 +1826,7 @@
         "Timezone_America_CiudadJuarez": "סיודד חוארס",
         "Timezone_America_CoralHarbour": "אטיקוקן",
         "Timezone_America_Cordoba": "קורדובה",
+        "Timezone_America_Coyhaique": "קויאיקה",
         "Timezone_America_Creston": "קרסטון",
         "Timezone_America_Cuiaba": "קויאבה",
         "Timezone_America_Danmarkshavn": "דנמרקסהוון",
@@ -1972,11 +1988,10 @@
         "Timezone_Pacific_Bougainville": "בוגנוויל",
         "Timezone_Pacific_Chatham": "צ׳אטהאם",
         "Timezone_Pacific_Easter": "אי הפסחא",
-        "Timezone_Pacific_Enderbury": "אנדרבורי",
+        "Timezone_Pacific_Enderbury": "קנטון",
         "Timezone_Pacific_Galapagos": "גלפאגוס",
         "Timezone_Pacific_Gambier": "איי גמבייה",
         "Timezone_Pacific_Honolulu": "הונולולו",
-        "Timezone_Pacific_Kanton": "קנטון",
         "Timezone_Pacific_Kiritimati": "קיריטימאטי",
         "Timezone_Pacific_Kosrae": "קוסרה",
         "Timezone_Pacific_Kwajalein": "קוואג׳ליין",
@@ -2003,12 +2018,17 @@
         "RememberMe": "זכור אותי"
     },
     "Marketplace": {
-        "ActivateLicenseKey": "הפעל",
         "ActionActivatePlugin": "הפעל תוסף",
         "ActionInstall": "להתקין",
+        "ActivateLicenseKey": "הפעל",
         "Authors": "כותבים",
         "PluginKeywords": "מילות מפתח",
-        "PluginVersionInfo": "%1$s מתוך %2$s"
+        "PluginVersionInfo": "%1$s מתוך %2$s",
+        "Sort": "מיון"
+    },
+    "MultiSites": {
+        "AllWebsitesDashboardTitle": "כל האתרים",
+        "TotalPageviews": "סך כל הצפיות בדפים"
     },
     "Overlay": {
         "Clicks": "%s לחיצות",
@@ -2021,7 +2041,11 @@
     },
     "PrivacyManager": {
         "AnonymizeData": "הפוך מידע לאנונימי",
-        "AnonymizeIpInlineHelp": "הסתרת הספרות האחרונות של כתובת הIP של המבקרים בכדי להתיישר עם החוקים \/ תקנות המקומיים."
+        "AnonymizeIpInlineHelp": "הסתרת הספרות האחרונות של כתובת הIP של המבקרים בכדי להתיישר עם החוקים \/ תקנות המקומיים.",
+        "ComplianceTableSettingStatus": "מצב"
+    },
+    "ProfessionalServices": {
+        "PromoOverview": "מבט כללי"
     },
     "Referrers": {
         "Campaigns": "קמפיינים",
@@ -2068,7 +2092,19 @@
         "CategoryDate": "תאריך",
         "CategoryEmail": "אימייל",
         "CategoryErrors": "שגיאות",
+        "ChooseWebsite": "בחירת אתר",
+        "DiffAdded": "נוסף",
+        "DiffPaused": "הוקפא",
+        "EditTag": "לערוך תגית",
+        "EtrackerTagTransactionCurrencyTitle": "מטבע",
+        "Import": "ייבא",
+        "InvalidDebugUrlError": "שגיאה",
+        "MatomoConfigurationMatomoUserIdTitle": "User ID",
+        "MatomoTagEcommerceViewPrice": "מחיר",
         "PageUrlVariableName": "כתובת העמוד",
+        "Priority": "עדיפות",
+        "Tag": "תג",
+        "Unlimited": "ללא הגבלה",
         "Version": "גרסה"
     },
     "Tour": {
@@ -2079,6 +2115,9 @@
     "Transitions": {
         "BouncesInline": "%s קפיצות",
         "TransitionsSubcategoryHelp2": "פרטים נוספים"
+    },
+    "TwoFactorAuth": {
+        "TwoFAShort": "אימות דו-שלבי"
     },
     "UserCountry": {
         "CannotLocalizeLocalIP": "כתובת איי.פי. %s היא כתובת מקומית ולא ניתן לאתרה גיאוגרפית.",
@@ -2096,10 +2135,10 @@
     "UserCountryMap": {
         "Cities": "ערים",
         "Countries": "מדינות",
-        "map": "מפה",
         "MinutesAgo": "לפני %s דקות",
         "VisitorMap": "מפת מבקרים",
-        "WorldWide": "כלל-עולמי"
+        "WorldWide": "כלל-עולמי",
+        "map": "מפה"
     },
     "UserId": {
         "UserId": "מזהה משתמש",
@@ -2110,6 +2149,7 @@
     },
     "UsersManager": {
         "2FA": "אימות דו-שלבי",
+        "Active": "פעיל",
         "AllWebsites": "כל האתרים",
         "Email": "אימייל",
         "ManageAccess": "ניהול הרשאות",
@@ -2117,6 +2157,7 @@
         "MenuUsers": "משתמשים",
         "PrivNone": "אין הרשאות",
         "PrivView": "הצג",
+        "Status": "מצב",
         "User": "משתמש",
         "Username": "שם משתמש",
         "UsersManagement": "ניהול משתמשים"
@@ -2137,16 +2178,11 @@
     },
     "VisitTime": {
         "ColumnLocalTime": "זמן מקומי",
-        "ColumnServerTime": "זמן שרת",
         "DayOfWeek": "יום בשבוע",
         "LocalTime": "ביקורים לזמן מקומי",
-        "NHour": "שעה %s",
-        "ServerTime": "ביקורים לזמן שרת",
         "SubmenuTimes": "זמנים",
         "VisitsByDayOfWeek": "ביקורים לפי יום בשבוע",
-        "WidgetByDayOfWeekDocumentation": "גרף זה מציג את מספר הביקורים שאתרך קיבל בכל יום בשבוע.",
-        "WidgetLocalTime": "ביקורים לפי זמן מקומי",
-        "WidgetServerTime": "ביקורים לפי זמן שרת"
+        "WidgetByDayOfWeekDocumentation": "גרף זה מציג את מספר הביקורים שאתרך קיבל בכל יום בשבוע."
     },
     "VisitorInterest": {
         "BetweenXYMinutes": "%1$s-%2$s דקות",
@@ -2158,12 +2194,12 @@
         "OnePage": "עמוד 1",
         "VisitNum": "מספר ביקור",
         "VisitsByDaysSinceLast": "ביקורים לפי ימים מאז ביקור אחרון",
-        "visitsByVisitCount": "ביקורים לפי מספר ביקור",
         "VisitsPerDuration": "ביקורים למשך ביקור",
         "VisitsPerNbOfPages": "ביקורים למספר עמודים",
         "WidgetLengths": "משך ביקורים",
         "WidgetPages": "עמודים לביקור",
-        "WidgetVisitsByDaysSinceLast": "ביקורים לפי ימים מאז ביקור אחרון"
+        "WidgetVisitsByDaysSinceLast": "ביקורים לפי ימים מאז ביקור אחרון",
+        "visitsByVisitCount": "ביקורים לפי מספר ביקור"
     },
     "VisitsSummary": {
         "GenerateQueries": "%s שאילתות בוצעו",

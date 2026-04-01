@@ -27,7 +27,6 @@ class WriteAccessCheck implements \Piwik\Plugins\Diagnostics\Diagnostic\Diagnost
      */
     private $tmpPath;
     /**
-     * @param Translator $translator
      * @param string $tmpPath Path to the temp directory.
      */
     public function __construct(Translator $translator, $tmpPath)
@@ -68,7 +67,7 @@ class WriteAccessCheck implements \Piwik\Plugins\Diagnostics\Diagnostic\Diagnost
      */
     private function getDirectories()
     {
-        $directoriesToCheck = array($this->tmpPath, $this->tmpPath . '/assets/', $this->tmpPath . '/cache/', $this->tmpPath . '/climulti/', $this->tmpPath . '/latest/', $this->tmpPath . '/logs/', $this->tmpPath . '/sessions/', $this->tmpPath . '/tcpdf/', StaticContainer::get('path.tmp.templates'));
+        $directoriesToCheck = array($this->tmpPath, $this->tmpPath . '/assets/', $this->tmpPath . '/cache/', $this->tmpPath . '/climulti/', $this->tmpPath . '/latest/', $this->tmpPath . '/logs/', $this->tmpPath . '/logos/', $this->tmpPath . '/sessions/', $this->tmpPath . '/tcpdf/', StaticContainer::get('path.tmp.templates'));
         if (!DbHelper::isInstalled()) {
             // at install, need /config to be writable (so we can create config.ini.php)
             $directoriesToCheck[] = PIWIK_USER_PATH . '/config/';

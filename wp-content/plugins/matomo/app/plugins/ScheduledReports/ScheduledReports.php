@@ -45,10 +45,12 @@ class ScheduledReports extends \Piwik\Plugin
     public const EVOLUTION_GRAPH_PARAMETER = 'evolutionGraph';
     public const ADDITIONAL_EMAILS_PARAMETER = 'additionalEmails';
     public const DISPLAY_FORMAT_PARAMETER = 'displayFormat';
+    public const ENFORCE_ORDER_PARAMETER = 'enforceOrder';
     public const EMAIL_ME_PARAMETER_DEFAULT_VALUE = \true;
     public const EVOLUTION_GRAPH_PARAMETER_DEFAULT_VALUE = \false;
+    public const ENFORCE_ORDER_PARAMETER_DEFAULT_VALUE = \false;
     public const EMAIL_TYPE = 'email';
-    private static $availableParameters = array(self::EMAIL_ME_PARAMETER => \false, self::EVOLUTION_GRAPH_PARAMETER => \false, self::ADDITIONAL_EMAILS_PARAMETER => \false, self::DISPLAY_FORMAT_PARAMETER => \true);
+    private static $availableParameters = array(self::EMAIL_ME_PARAMETER => \false, self::EVOLUTION_GRAPH_PARAMETER => \false, self::ADDITIONAL_EMAILS_PARAMETER => \false, self::DISPLAY_FORMAT_PARAMETER => \true, self::ENFORCE_ORDER_PARAMETER => \false);
     private static $managedReportTypes = array(self::EMAIL_TYPE => 'plugins/Morpheus/images/email.png');
     private static $managedReportFormats = array(ReportRenderer::HTML_FORMAT => 'plugins/Morpheus/images/html_icon.png', ReportRenderer::PDF_FORMAT => 'plugins/Morpheus/icons/dist/plugins/pdf.png', ReportRenderer::CSV_FORMAT => 'plugins/Morpheus/images/export.png', ReportRenderer::TSV_FORMAT => 'plugins/Morpheus/images/export.png');
     public const OPTION_KEY_LAST_SENT_DATERANGE = 'report_last_sent_daterange_';
@@ -79,10 +81,9 @@ class ScheduledReports extends \Piwik\Plugin
     {
         $translationKeys[] = "ScheduledReports_ReportSent";
         $translationKeys[] = "ScheduledReports_ReportUpdated";
-        $translationKeys[] = "ScheduledReports_ReportHourWithUTC";
+        $translationKeys[] = "ScheduledReports_ReportHourWithUtcOnly";
         $translationKeys[] = "ScheduledReports_EvolutionGraphsShowForEachInPeriod";
         $translationKeys[] = "ScheduledReports_EvolutionGraphsShowForPreviousN";
-        $translationKeys[] = 'ScheduledReports_EmailSchedule';
         $translationKeys[] = 'ScheduledReports_ReportFormat';
         $translationKeys[] = 'ScheduledReports_SendReportTo';
         $translationKeys[] = 'ScheduledReports_MustBeLoggedIn';
@@ -92,14 +93,14 @@ class ScheduledReports extends \Piwik\Plugin
         $translationKeys[] = 'ScheduledReports_NoRecipients';
         $translationKeys[] = 'ScheduledReports_SendReportNow';
         $translationKeys[] = 'ScheduledReports_CreateAndScheduleReport';
-        $translationKeys[] = 'ScheduledReports_DescriptionOnFirstPage';
+        $translationKeys[] = 'ScheduledReports_DescriptionOnFirstPageScheduledReport';
         $translationKeys[] = 'SegmentEditor_ChooseASegment';
         $translationKeys[] = 'ScheduledReports_WeeklyScheduleHelp';
         $translationKeys[] = 'ScheduledReports_MonthlyScheduleHelp';
         $translationKeys[] = 'ScheduledReports_ReportPeriod';
-        $translationKeys[] = 'ScheduledReports_ReportPeriodHelp';
-        $translationKeys[] = 'ScheduledReports_ReportPeriodHelp2';
-        $translationKeys[] = 'ScheduledReports_ReportHour';
+        $translationKeys[] = 'ScheduledReports_ScheduleReportPeriodHelp';
+        $translationKeys[] = 'ScheduledReports_ScheduleReportPeriodHelp2';
+        $translationKeys[] = 'ScheduledReports_ReportHourLocal';
         $translationKeys[] = 'ScheduledReports_ReportType';
         $translationKeys[] = 'ScheduledReports_AggregateReportsFormat';
         $translationKeys[] = 'ScheduledReports_EvolutionGraph';
@@ -107,10 +108,21 @@ class ScheduledReports extends \Piwik\Plugin
         $translationKeys[] = 'ScheduledReports_ReportIncludeNWebsites';
         $translationKeys[] = 'SegmentEditor_LoadingSegmentedDataMayTakeSomeTime';
         $translationKeys[] = 'General_Download';
-        $translationKeys[] = 'ScheduledReports_Segment_Help';
+        $translationKeys[] = 'ScheduledReports_Segment_HelpScheduledReport';
         $translationKeys[] = 'SegmentEditor_AddNewSegment';
         $translationKeys[] = 'ScheduledReports_SentToMe';
         $translationKeys[] = 'ScheduledReports_AlsoSendReportToTheseEmails';
+        $translationKeys[] = 'ScheduledReports_ReportSchedule';
+        $translationKeys[] = 'ScheduledReports_SendingReport';
+        $translationKeys[] = 'ScheduledReports_ManageTooltip';
+        $translationKeys[] = 'ScheduledReports_CreateTooltip';
+        $translationKeys[] = 'CoreHome_LearnMoreFullStop';
+        $translationKeys[] = 'ScheduledReports_SelectedReports';
+        $translationKeys[] = 'ScheduledReports_SelectedReportsHelp';
+        $translationKeys[] = "ScheduledReports_ReportAdded";
+        $translationKeys[] = "ScheduledReports_ReportWillBeSentAt";
+        $translationKeys[] = "ScheduledReports_ReportHourEqualsUtc";
+        $translationKeys[] = "ScheduledReports_NoteDeliveryTime";
     }
     /**
      * Delete reports for the website
@@ -159,6 +171,11 @@ class ScheduledReports extends \Piwik\Plugin
         // additionalEmails is an optional parameter
         if (isset($parameters[self::ADDITIONAL_EMAILS_PARAMETER])) {
             $parameters[self::ADDITIONAL_EMAILS_PARAMETER] = self::checkAdditionalEmails($parameters[self::ADDITIONAL_EMAILS_PARAMETER]);
+        }
+        if (!isset($parameters[self::ENFORCE_ORDER_PARAMETER])) {
+            $parameters[self::ENFORCE_ORDER_PARAMETER] = self::ENFORCE_ORDER_PARAMETER_DEFAULT_VALUE;
+        } else {
+            $parameters[self::ENFORCE_ORDER_PARAMETER] = self::valueIsTrue($parameters[self::ENFORCE_ORDER_PARAMETER]);
         }
     }
     // based on https://www.php.net/manual/en/filter.filters.validate.php -> FILTER_VALIDATE_BOOLEAN
@@ -266,7 +283,7 @@ class ScheduledReports extends \Piwik\Plugin
         $generatedReport = new \Piwik\Plugins\ScheduledReports\GeneratedReport($report, $reportTitle, $prettyDate, $contents, $additionalFiles);
         $reportFormat = $generatedReport->getReportFormat();
         $customReplyTo = null;
-        if (Config::getInstance()->General['scheduled_reports_replyto_is_user_email_and_alias'] || !isset($reportDetails['login'])) {
+        if (Config::getInstance()->General['scheduled_reports_replyto_is_user_email_and_alias'] && isset($report['login'])) {
             $userModel = new UserModel();
             $customReplyTo = $userModel->getUser($report['login']);
         }

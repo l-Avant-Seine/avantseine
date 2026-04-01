@@ -40,6 +40,10 @@ class SessionAuth implements Auth
      */
     private $user;
     private $tokenAuth;
+    /**
+     * @var bool
+     */
+    private $sessionExpired = \false;
     public function __construct(?UsersModel $userModel = null, $shouldDestroySession = \true)
     {
         $this->userModel = $userModel ?: new UsersModel();
@@ -49,7 +53,9 @@ class SessionAuth implements Auth
     {
         // empty
     }
-    public function setTokenAuth($token_auth)
+    public function setTokenAuth(
+#[\SensitiveParameter]
+$token_auth)
     {
         $this->tokenAuth = $token_auth;
     }
@@ -67,16 +73,21 @@ class SessionAuth implements Auth
     {
         // empty
     }
-    public function setPassword($password)
+    public function setPassword(
+#[\SensitiveParameter]
+$password)
     {
         // empty
     }
-    public function setPasswordHash($passwordHash)
+    public function setPasswordHash(
+#[\SensitiveParameter]
+$passwordHash)
     {
         // empty
     }
     public function authenticate()
     {
+        $this->sessionExpired = \false;
         $sessionFingerprint = new \Piwik\Session\SessionFingerprint();
         $userModel = $this->userModel;
         $this->checkIfSessionFailedToRead();
@@ -125,7 +136,9 @@ class SessionAuth implements Auth
     {
         return new AuthResult(AuthResult::FAILURE, null, null);
     }
-    private function makeAuthSuccess($user, $tokenAuth)
+    private function makeAuthSuccess($user,
+#[\SensitiveParameter]
+$tokenAuth)
     {
         $this->user = $user;
         $this->tokenAuth = $tokenAuth;
@@ -179,7 +192,14 @@ class SessionAuth implements Auth
             return \true;
         }
         $isExpired = Date::now()->getTimestampUTC() > $expirationTime;
+        if ($isExpired) {
+            $this->sessionExpired = \true;
+        }
         return $isExpired;
+    }
+    public function wasSessionExpired() : bool
+    {
+        return $this->sessionExpired;
     }
     private function checkIfSessionFailedToRead()
     {

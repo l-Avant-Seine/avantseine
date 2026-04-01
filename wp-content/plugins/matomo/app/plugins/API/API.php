@@ -20,6 +20,7 @@ use Piwik\Container\StaticContainer;
 use Piwik\DataTable;
 use Piwik\DataTable\Filter\ColumnDelete;
 use Piwik\Date;
+use Piwik\Http\BadRequestException;
 use Piwik\IP;
 use Piwik\Period;
 use Piwik\Piwik;
@@ -113,6 +114,7 @@ class API extends \Piwik\Plugin\API
     /**
      * Returns the section [APISettings] if defined in config.ini.php
      * @return array
+     * @deprecated May be removed in one of the next major releases
      */
     public function getSettings()
     {
@@ -133,7 +135,7 @@ class API extends \Piwik\Plugin\API
         foreach ($types as $type) {
             $measurableSettings = $this->settingsProvider->getAllMeasurableSettings($idSite = 0, $type->getId());
             $settingsMetadata = new SettingsMetadata();
-            $available[] = array('id' => $type->getId(), 'name' => Piwik::translate($type->getName()), 'description' => Piwik::translate($type->getDescription()), 'howToSetupUrl' => $type->getHowToSetupUrl(), 'settings' => $settingsMetadata->formatSettings($measurableSettings));
+            $available[] = array('id' => $type->getId(), 'name' => Piwik::translate($type->getName()), 'description' => Piwik::translate($type->getDescription()), 'longDescription' => Piwik::translate($type->getLongDescription()), 'howToSetupUrl' => $type->getHowToSetupUrl(), 'settings' => $settingsMetadata->formatSettings($measurableSettings));
         }
         return $available;
     }
@@ -142,7 +144,7 @@ class API extends \Piwik\Plugin\API
         if (empty($idSites)) {
             Piwik::checkUserHasSomeViewAccess();
         } else {
-            $idSites = Site::getIdSitesFromIdSitesString($idSites);
+            $idSites = Site::getIdSitesFromIdSitesString($idSites, \false, \true);
             Piwik::checkUserHasViewAccess($idSites);
         }
         $isNotAnonymous = !Piwik::isUserIsAnonymous();
@@ -371,6 +373,10 @@ class API extends \Piwik\Plugin\API
         if (empty($urls) || !is_array($urls)) {
             return [];
         }
+        $limit = $this->getBulkRequestLimit();
+        if ($limit > -1 && count($urls) > $limit) {
+            throw new BadRequestException(Piwik::translate('General_MaximumNumberOfBulkRequestUrlsIs', [$limit]));
+        }
         $request = \Piwik\Request::fromRequest();
         $queryParameters = $request->getParameters();
         unset($queryParameters['urls']);
@@ -379,13 +385,27 @@ class API extends \Piwik\Plugin\API
             $params = \Piwik\Request::fromQueryString($url)->getParameters();
             $params['format'] = 'json';
             $params += $queryParameters;
-            if (!empty($params['method']) && is_string($params['method']) && trim($params['method']) === 'API.getBulkRequest') {
+            $method = $params['method'] ?? '';
+            if (!empty($method) && is_string($method) && preg_replace('/[^\\w\\.]+/', '', Common::sanitizeInputValue($method)) === 'API.getBulkRequest') {
                 continue;
             }
             $req = new Request($params);
             $result[] = json_decode($req->process(), \true);
         }
         return $result;
+    }
+    private function getBulkRequestLimit() : int
+    {
+        $configLimit = Config::getInstance()->General['API_bulk_request_limit'] ?? -1;
+        $configLimit = (int) $configLimit;
+        if (Piwik::isUserIsAnonymous()) {
+            $defaultLimit = Piwik::isUserHasSomeViewAccess() ? 50 : 10;
+            if ($configLimit > -1) {
+                return min($defaultLimit, $configLimit);
+            }
+            return $defaultLimit;
+        }
+        return $configLimit;
     }
     /**
      * Return true if plugin is activated, false otherwise
@@ -416,7 +436,6 @@ class API extends \Piwik\Plugin\API
         // if segment has suggested values callback then return result from it instead
         $suggestedValuesCallbackRequiresTable = \false;
         if (!empty($segment['suggestedValuesApi']) && is_string($segment['suggestedValuesApi']) && !Rules::isBrowserTriggerEnabled()) {
-            $now = Date::now()->setTimezone(Site::getTimezoneFor($idSite));
             if ($idSite === 'all') {
                 $now = Date::now()->setTimezone(\Piwik\Plugins\SitesManager\API::getInstance()->getDefaultTimezone());
             } else {
@@ -542,17 +561,17 @@ class API extends \Piwik\Plugin\API
     private function getSuggestedValuesForSegmentName($idSite, $segment, $maxSuggestionsToReturn)
     {
         $startDate = Date::now()->subDay(self::$_autoSuggestLookBack)->toString();
-        $requestLastVisits = "method=Live.getLastVisitsDetails\n        &idSite={$idSite}\n        &period=range\n        &date={$startDate},today\n        &format=original\n        &serialize=0\n        &flat=1";
+        $requestLastVisits = ['method' => 'Live.getLastVisitsDetails', 'idSite' => $idSite, 'period' => 'range', 'date' => $startDate . ',today', 'format' => 'original', 'serialize' => 0, 'flat' => 1];
         $segmentName = $segment['segment'];
         // Select non empty fields only
         // Note: this optimization has only a very minor impact
-        $requestLastVisits .= "&segment={$segmentName}" . urlencode('!=');
+        $requestLastVisits['segment'] = $segmentName . urlencode('!=');
         // By default Live fetches all actions for all visitors, but we'd rather do this only when required
         if ($this->doesSegmentNeedActionsData($segmentName)) {
-            $requestLastVisits .= "&filter_limit=400";
+            $requestLastVisits['filter_limit'] = 400;
         } else {
-            $requestLastVisits .= "&doNotFetchActions=1";
-            $requestLastVisits .= "&filter_limit=800";
+            $requestLastVisits['doNotFetchActions'] = 1;
+            $requestLastVisits['filter_limit'] = 800;
         }
         $request = new Request($requestLastVisits);
         $table = $request->process();

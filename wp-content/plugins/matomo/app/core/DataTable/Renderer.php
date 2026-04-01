@@ -31,7 +31,10 @@ abstract class Renderer extends BaseFactory
      */
     protected $exception;
     protected $renderSubTables = \false;
+    /** @var bool */
     protected $hideIdSubDatatable = \false;
+    /** @var bool */
+    protected $hideMetadata = \false;
     /**
      * Whether to translate column names (i.e. metric names) or not
      * @var bool
@@ -39,14 +42,14 @@ abstract class Renderer extends BaseFactory
     public $translateColumnNames = \false;
     /**
      * Column translations
-     * @var array
+     * @var null|array
      */
-    private $columnTranslations = \false;
+    private $columnTranslations = null;
     /**
      * The API method that has returned the data that should be rendered
-     * @var string
+     * @var null|string
      */
-    public $apiMethod = \false;
+    public $apiMethod = null;
     /**
      * API metadata for the current report
      * @var array
@@ -63,25 +66,24 @@ abstract class Renderer extends BaseFactory
     /**
      * Sets whether to render subtables or not
      *
-     * @param bool $enableRenderSubTable
      */
-    public function setRenderSubTables($enableRenderSubTable)
+    public function setRenderSubTables(bool $enableRenderSubTable) : void
     {
-        $this->renderSubTables = (bool) $enableRenderSubTable;
+        $this->renderSubTables = $enableRenderSubTable;
     }
-    /**
-     * @param bool $bool
-     */
-    public function setHideIdSubDatableFromResponse($bool)
+    public function setHideIdSubDatableFromResponse(bool $hideIdSubDataTable) : void
     {
-        $this->hideIdSubDatatable = (bool) $bool;
+        $this->hideIdSubDatatable = $hideIdSubDataTable;
+    }
+    public function setHideMetadataFromResponse(bool $hideMetadata) : void
+    {
+        $this->hideMetadata = $hideMetadata;
     }
     /**
      * Returns whether to render subtables or not
      *
-     * @return bool
      */
-    protected function isRenderSubtables()
+    protected function isRenderSubtables() : bool
     {
         return $this->renderSubTables;
     }
@@ -100,9 +102,8 @@ abstract class Renderer extends BaseFactory
     public abstract function render();
     /**
      * @see render()
-     * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->render();
     }
@@ -182,7 +183,7 @@ abstract class Renderer extends BaseFactory
         // load the translations only once
         // when multiple dates are requested (date=...,...&period=day), the meta data would
         // be loaded lots of times otherwise
-        if ($this->columnTranslations === \false) {
+        if ($this->columnTranslations === null) {
             $meta = $this->getApiMetaData();
             if ($meta === \false) {
                 return $names;
@@ -215,7 +216,7 @@ abstract class Renderer extends BaseFactory
     protected function getApiMetaData()
     {
         if ($this->apiMetaData === null) {
-            list($apiModule, $apiAction) = explode('.', $this->apiMethod);
+            [$apiModule, $apiAction] = explode('.', $this->apiMethod);
             if (!$apiModule || !$apiAction) {
                 $this->apiMetaData = \false;
             }
@@ -374,7 +375,7 @@ abstract class Renderer extends BaseFactory
     {
         $array = [];
         foreach ($table->getRows() as $id => $row) {
-            $newRow = array('columns' => $row->getColumns(), 'metadata' => $row->getMetadata(), 'idsubdatatable' => $row->getIdSubDataTable());
+            $newRow = ['columns' => $row->getColumns(), 'metadata' => $row->getMetadata(), 'idsubdatatable' => $row->getIdSubDataTable()];
             if ($id == DataTable::ID_SUMMARY_ROW) {
                 $newRow['issummaryrow'] = \true;
             }
@@ -385,12 +386,12 @@ abstract class Renderer extends BaseFactory
             if ($this->isRenderSubtables() && $subTable) {
                 $subTable = $this->convertTable($subTable);
                 $newRow['subtable'] = $subTable;
-                if ($this->hideIdSubDatatable === \false && isset($newRow['metadata']['idsubdatatable_in_db'])) {
+                if ($this->hideIdSubDatatable === \false && $this->hideMetadata === \false && isset($newRow['metadata']['idsubdatatable_in_db'])) {
                     $newRow['columns']['idsubdatatable'] = $newRow['metadata']['idsubdatatable_in_db'];
                 }
                 unset($newRow['metadata']['idsubdatatable_in_db']);
             }
-            if ($this->hideIdSubDatatable !== \false) {
+            if ($this->hideIdSubDatatable || $this->hideMetadata) {
                 unset($newRow['idsubdatatable']);
             }
             $array[] = $newRow;
@@ -428,12 +429,16 @@ abstract class Renderer extends BaseFactory
     {
         $flatArray = [];
         foreach ($array as $row) {
-            $newRow = $row['columns'] + $row['metadata'];
+            if ($this->hideMetadata) {
+                $newRow = $row['columns'];
+            } else {
+                $newRow = $row['columns'] + $row['metadata'];
+            }
             if (isset($row['idsubdatatable']) && $this->hideIdSubDatatable === \false) {
-                $newRow += array('idsubdatatable' => $row['idsubdatatable']);
+                $newRow += ['idsubdatatable' => $row['idsubdatatable']];
             }
             if (isset($row['subtable'])) {
-                $newRow += array('subtable' => $this->flattenArray($row['subtable']));
+                $newRow += ['subtable' => $this->flattenArray($row['subtable'])];
             }
             $flatArray[] = $newRow;
         }

@@ -19,7 +19,7 @@ class VisitTotalInteractions extends VisitDimension
     protected $type = self::TYPE_NUMBER;
     protected $segmentName = 'interactions';
     protected $nameSingular = 'General_NbInteractions';
-    protected $acceptValues = 'Any positive integer';
+    protected $acceptValues = 'General_AnyPositiveInteger';
     public function __construct()
     {
         $this->suggestedValuesCallback = function ($idSite, $maxValuesToReturn) {
@@ -28,8 +28,6 @@ class VisitTotalInteractions extends VisitDimension
         };
     }
     /**
-     * @param Request $request
-     * @param Visitor $visitor
      * @param Action|null $action
      * @return int
      */
@@ -41,8 +39,6 @@ class VisitTotalInteractions extends VisitDimension
         return 0;
     }
     /**
-     * @param Request $request
-     * @param Visitor $visitor
      * @param Action|null $action
      * @return int
      */

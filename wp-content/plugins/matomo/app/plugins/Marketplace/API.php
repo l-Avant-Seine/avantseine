@@ -61,9 +61,6 @@ class API extends \Piwik\Plugin\API
         $this->pluginTrialService = $pluginTrialService;
     }
     /**
-     * @param string $pluginName
-     *
-     * @return bool
      * @throws Service\Exception If the marketplace request failed
      *
      * @internal
@@ -128,9 +125,7 @@ class API extends \Piwik\Plugin\API
         return \true;
     }
     /**
-     * @param string $pluginName
      *
-     * @return bool
      *
      * @unsanitized
      * @internal
@@ -152,9 +147,7 @@ class API extends \Piwik\Plugin\API
         return \true;
     }
     /**
-     * @param string $pluginName
      *
-     * @return bool
      * @throws Service\Exception If the marketplace request failed
      *
      * @internal

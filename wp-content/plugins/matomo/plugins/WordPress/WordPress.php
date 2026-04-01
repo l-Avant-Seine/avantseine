@@ -10,6 +10,7 @@
 namespace Piwik\Plugins\WordPress;
 
 use Exception;
+use Piwik\Access;
 use Piwik\API\Request;
 use Piwik\Common;
 use Piwik\Config;
@@ -73,7 +74,37 @@ class WordPress extends Plugin
             'Visualization.beforeRender' => 'onBeforeRenderView',
             'AssetManager.getStylesheetFiles'  => 'getStylesheetFiles',
             'Controller.CorePluginsAdmin.safemode.end' => 'modifySafemodeHtml',
+            'Tracker.setTrackerCacheGeneral' => ['function' => 'setTrackerCacheGeneral', 'after' => true],
+            'Platform.initialized' => ['function' => 'onPlatformInitialized', 'before' => true],
+            'Template.jsGlobalVariables' => 'addJsGlobalVariables',
         );
+    }
+
+    public function addJsGlobalVariables(&$output) {
+        $output .= 'piwik.mwpHomeUrl = ' . json_encode(\home_url()) . ";\n";
+
+        $settings = WpMatomo::$settings ?: new Settings();
+        $isAiBotTrackingEnabledInMwp = $settings->is_ai_bot_tracking_enabled();
+        $output .= 'piwik.isAiBotTrackingEnabledInMwp = ' . json_encode($isAiBotTrackingEnabledInMwp) . ";\n";
+    }
+
+    public function onPlatformInitialized()
+    {
+        // set language to WordPress locale
+        if (is_admin()) {
+            $languageCookieName = Config::getInstance()->General['language_cookie_name'];
+
+            $locale = get_user_locale();
+            $_COOKIE[$languageCookieName] = WpMatomo\User\Sync::get_matomo_lang_from_locale($locale);
+        }
+    }
+
+    public function setTrackerCacheGeneral(&$cache)
+    {
+        $settings = WpMatomo::$settings ?: new Settings();
+        Access::doAsSuperUser(function () use(&$cache, $settings) { // see SitesManager::setTrackerCacheGeneral
+            $cache['global_excluded_user_agents'] = $settings->get_global_user_agent_exclusions();
+        });
     }
 
     public function allowUpdateSiteForMeasurableSettings($finalParameters)
@@ -138,6 +169,7 @@ class WordPress extends Plugin
         $translationKeys[] = 'WordPress_SaveChanges';
         $translationKeys[] = 'WordPress_NoMeasurableSettingsAvailable';
         $translationKeys[] = 'General_Confirm'; // this is not loaded client side by default for some reason
+        $translationKeys[] = 'WordPress_AIBotTrackingIsNotEnabled';
 	}
 
     public function modifyTourChallenges(&$challenges)

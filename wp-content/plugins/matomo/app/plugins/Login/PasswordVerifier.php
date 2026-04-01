@@ -34,7 +34,9 @@ class PasswordVerifier
     {
         return new SessionNamespace('Login');
     }
-    public function isPasswordCorrect($userLogin, $password)
+    public function isPasswordCorrect($userLogin,
+#[\SensitiveParameter]
+$password)
     {
         /**
          * @ignore
@@ -74,7 +76,6 @@ class PasswordVerifier
         unset($sessionNamespace->redirectParams);
     }
     /**
-     * @param Date $now
      * @ignore
      * tests only
      */

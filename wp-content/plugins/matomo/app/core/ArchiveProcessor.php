@@ -171,9 +171,8 @@ class ArchiveProcessor
      * @param array $columnsToRenameAfterAggregation Columns mapped to new names for columns that must change names
      *                                               when summed because they cannot be summed, eg,
      *                                               `array('nb_uniq_visitors' => 'sum_daily_nb_uniq_visitors')`.
-     * @param bool|array $countRowsRecursive if set to true, will calculate the recursive rows count for all record names
-     *                                       which makes it slower. If you only need it for some records pass an array of
-     *                                       recordNames that defines for which ones you need a recursive row count.
+     * @param string[]|bool $countRowsRecursive array of recordNames that defines for which ones you need a recursive row count, or true if it should be done for all
+     * @param string[] $countLeafRows array of recordNames that defines for which ones you need a leaf row count.
      * @return array Returns the row counts of each aggregated report before truncation, eg,
      *
      *                   array(
@@ -185,7 +184,7 @@ class ArchiveProcessor
      *                   )
      * @api
      */
-    public function aggregateDataTableRecords($recordNames, $maximumRowsInDataTableLevelZero = null, $maximumRowsInSubDataTable = null, $defaultColumnToSortByBeforeTruncation = null, &$columnsAggregationOperation = null, $columnsToRenameAfterAggregation = null, $countRowsRecursive = \true)
+    public function aggregateDataTableRecords($recordNames, $maximumRowsInDataTableLevelZero = null, $maximumRowsInSubDataTable = null, $defaultColumnToSortByBeforeTruncation = null, &$columnsAggregationOperation = null, $columnsToRenameAfterAggregation = null, $countRowsRecursive = \true, array $countLeafRows = [])
     {
         /** @var LoggerInterface $logger */
         $logger = StaticContainer::get(LoggerInterface::class);
@@ -201,6 +200,9 @@ class ArchiveProcessor
             $nameToCount[$recordName]['level0'] = $table->getRowsCount();
             if ($countRowsRecursive === \true || is_array($countRowsRecursive) && in_array($recordName, $countRowsRecursive)) {
                 $nameToCount[$recordName]['recursive'] = $table->getRowsCountRecursive();
+            }
+            if (in_array($recordName, $countLeafRows)) {
+                $nameToCount[$recordName]['leafs'] = $table->getLeafRowsCount();
             }
             $columnToSortByBeforeTruncation = $defaultColumnToSortByBeforeTruncation;
             if (empty($columnToSortByBeforeTruncation)) {
@@ -224,8 +226,8 @@ class ArchiveProcessor
      * as metrics for the current period.
      *
      * @param array|string $columns Array of metric names to aggregate.
-     * @param bool|string|string[] $operationToApply The operation to apply to the metric. Either `'sum'`, `'max'` or `'min'`.
-     *                                               Can also be an array mapping record names to operations.
+     * @param string|string[]|false $operationsToApply The operation to apply to the metric. Either `'sum'`, `'max'` or `'min'`.
+     *                                                Can also be an array mapping record names to operations.
      * @return array|int Returns the array of aggregate values. If only one metric was aggregated,
      *                   the aggregate value will be returned as is, not in an array.
      *                   For example, if `array('nb_visits', 'nb_hits')` is supplied for `$columns`,
@@ -346,7 +348,7 @@ class ArchiveProcessor
             $tableId = $archiveDataRow['name'] == $name ? null : $this->getSubtableIdFromBlobName($archiveDataRow['name']);
             $blobTable = \Piwik\DataTable::fromSerializedArray($archiveDataRow['value']);
             // see https://github.com/piwik/piwik/issues/4377
-            $blobTable->filter(function ($table) use($columnsToRenameAfterAggregation, $name) {
+            $blobTable->filter(function ($table) use($columnsToRenameAfterAggregation) {
                 if ($this->areColumnsNotAlreadyRenamed($table)) {
                     /**
                      * This makes archiving and range dates a lot faster. Imagine we archive a week, then we will
@@ -587,6 +589,9 @@ class ArchiveProcessor
         }
         $operationForColumn = $this->getOperationForColumns($columns, $operationsToApply);
         $dataTable = $this->getArchive()->getDataTableFromNumeric($columns);
+        if ($dataTable->wasBuiltWithoutArchives()) {
+            return (new Row())->getColumns();
+        }
         $results = $this->getAggregatedDataTableMap($dataTable, $operationForColumn);
         if ($results->getRowsCount() > 1) {
             throw new Exception("A DataTable is an unexpected state:" . var_export($results, \true));

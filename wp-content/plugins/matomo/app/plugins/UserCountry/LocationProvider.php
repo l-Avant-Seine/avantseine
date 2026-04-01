@@ -36,7 +36,7 @@ abstract class LocationProvider
     public const INSTALLED = 1;
     public const BROKEN = 2;
     public const CURRENT_PROVIDER_OPTION_NAME = 'usercountry.location_provider';
-    public const GEOGRAPHIC_COORD_PRECISION = 3;
+    public const GEOGRAPHIC_COORD_PRECISION = 2;
     public const CONTINENT_CODE_KEY = 'continent_code';
     public const CONTINENT_NAME_KEY = 'continent_name';
     public const COUNTRY_CODE_KEY = 'country_code';
@@ -167,7 +167,6 @@ abstract class LocationProvider
     /**
      * Returns a message that should be shown as diagnostics warning if provider is used
      *
-     * @return null|string
      */
     public function getUsageWarning() : ?string
     {
@@ -194,7 +193,6 @@ abstract class LocationProvider
     /**
      * Get all lo that are defined by the given plugin.
      *
-     * @param Plugin $plugin
      * @return LocationProvider[]
      */
     protected static function getLocationProviders(Plugin $plugin)
@@ -486,7 +484,6 @@ abstract class LocationProvider
      * Returns true if the location provider can be used for security checks based
      * on location, such as determining the current country where the user logs in from.
      *
-     * @return bool
      */
     public function canBeUsedForLocationBasedSecurityChecks() : bool
     {

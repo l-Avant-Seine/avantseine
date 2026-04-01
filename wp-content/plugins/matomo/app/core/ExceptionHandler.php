@@ -15,6 +15,7 @@ use Piwik\API\ResponseBuilder;
 use Piwik\Container\ContainerDoesNotExistException;
 use Piwik\Container\StaticContainer;
 use Piwik\Exception\IRedirectException;
+use Piwik\Http\HttpCodeException;
 use Piwik\Plugins\CoreAdminHome\CustomLogo;
 use Piwik\Plugins\Monolog\Processor\ExceptionToTextProcessor;
 use Piwik\Log\LoggerInterface;
@@ -58,7 +59,7 @@ class ExceptionHandler
     {
         // Set an appropriate HTTP response code.
         switch (\true) {
-            case ($exception instanceof \Piwik\Http\HttpCodeException || $exception instanceof \Piwik\Exception\NotSupportedBrowserException) && $exception->getCode() > 0:
+            case $exception instanceof HttpCodeException && $exception->getCode() > 0:
                 // For these exception types, use the exception-provided error code.
                 http_response_code($exception->getCode());
                 break;
@@ -70,8 +71,8 @@ class ExceptionHandler
         }
         // Log the error with an appropriate loglevel.
         switch (\true) {
-            case $exception instanceof \Piwik\Exception\NotSupportedBrowserException:
-                // These unsupported browsers are really a client-side problem, so log only at DEBUG level.
+            case $exception instanceof HttpCodeException && $exception->getCode() >= 400 && $exception->getCode() < 500:
+                // Log exceptions, resulting in 4xx HTTP status code, only at debug level
                 self::logException($exception, \Piwik\Log::DEBUG);
                 break;
             default:
@@ -87,12 +88,30 @@ class ExceptionHandler
         }
         exit(1);
     }
+    public static function replaceSensitiveValues(string $message) : string
+    {
+        $dbConfig = \Piwik\Db::getDatabaseConfig();
+        $valuesToReplace = ['tokenauth' => \Piwik\Piwik::getCurrentUserTokenAuth(), 'generalSalt' => \Piwik\SettingsPiwik::getSalt(), 'dbuser' => $dbConfig['username'], 'dbpass' => $dbConfig['password']];
+        $mailConfig = \Piwik\Config::getInstance()->mail;
+        if (!empty($mailConfig['username'])) {
+            $valuesToReplace['smtpuser'] = $mailConfig['username'];
+        }
+        if (!empty($mailConfig['password'])) {
+            $valuesToReplace['smtppass'] = $mailConfig['password'];
+        }
+        // Remove possible empty entries
+        $valuesToReplace = array_filter($valuesToReplace);
+        // replace all sensitive values
+        $message = str_replace(array_values($valuesToReplace), array_keys($valuesToReplace), $message);
+        // remove the document root from all messages
+        return str_replace(PIWIK_DOCUMENT_ROOT, '', $message);
+    }
     /**
      * @param Exception|\Throwable $ex
      */
     private static function getErrorResponse($ex)
     {
-        $debugTrace = $ex->getTraceAsString();
+        $debugTrace = self::replaceSensitiveValues($ex->getTraceAsString());
         $message = $ex->getMessage();
         $isHtmlMessage = method_exists($ex, 'isHtmlMessage') && $ex->isHtmlMessage();
         if (!$isHtmlMessage && Request::isApiRequest($_GET)) {
@@ -119,9 +138,8 @@ class ExceptionHandler
                 // DI container may not be setup at this point
             }
         }
-        // Unsupported browser errors shouldn't be written to the web server log. At DEBUG logging level this error will
-        // be written to the application log instead
-        $writeErrorLog = !$ex instanceof \Piwik\Exception\NotSupportedBrowserException;
+        // Exceptions that should result in 4xx status code should not be logged
+        $writeErrorLog = !($ex instanceof HttpCodeException && $ex->getCode() >= 400 && $ex->getCode() < 500);
         $redirectUrl = null;
         $countdownToRedirect = null;
         if ($ex instanceof IRedirectException) {
@@ -146,6 +164,18 @@ class ExceptionHandler
             // this can happen when an error occurs before the Piwik environment is created
         }
         return $result;
+    }
+    public static function shouldPrintBackTraceWithMessage() : bool
+    {
+        if (class_exists('\\Piwik\\SettingsServer') && class_exists('\\Piwik\\Common') && \Piwik\SettingsServer::isArchivePhpTriggered() && \Piwik\Common::isPhpCliMode()) {
+            return \true;
+        }
+        try {
+            $isDevelopmentModeEnabled = \Piwik\Development::isEnabled();
+        } catch (Exception $e) {
+            $isDevelopmentModeEnabled = \false;
+        }
+        return $isDevelopmentModeEnabled || defined('PIWIK_PRINT_ERROR_BACKTRACE') && PIWIK_PRINT_ERROR_BACKTRACE || !empty($GLOBALS['PIWIK_PRINT_ERROR_BACKTRACE']) || !empty($GLOBALS['PIWIK_TRACKER_DEBUG']);
     }
     private static function logException($exception, $loglevel = \Piwik\Log::ERROR)
     {

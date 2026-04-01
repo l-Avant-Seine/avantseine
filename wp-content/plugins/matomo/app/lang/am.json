@@ -38,6 +38,7 @@
         "LoadingData": "ውሂብ በማስገባት ላይ…",
         "Locale": "am_ET.UTF-8",
         "Logout": "ውጣ",
+        "ManagePlugins": "ተሰኪዎች መመነጅ",
         "NUniqueVisitors": "%s የተለዩ ጎብኚዎች",
         "NVisits": "%s ጉበኝቶች",
         "Next": "ቀጥል",
@@ -86,8 +87,11 @@
         "ColumnUniqueClicks": "ብቸኛ ጠቅአድርጎች",
         "ColumnUniqueDownloads": "ብቸኛ የወረዱ"
     },
+    "BotTracking": {
+        "SiteWithoutDataBackToMatomo": "ወደፒዊክ ተመለስ"
+    },
     "CoreHome": {
-        "CategoryNoData": "No data in this category. Try to \"Include all population\".",
+        "CategoryNoData": "በዚህ ፈርጅ ምንም ውሂብ የለም. \"ሁሉንም ምድብ\" ለማጠቃለል ይሞክሩ።",
         "ShowJSCode": "ለማስገባት የጃቫ ስክሪፕትን ኮድ አሳይ",
         "SystemSummaryPhpVersion": "የፒ ኤች ፒ ስሪት"
     },
@@ -116,12 +120,12 @@
         "PiwikUpdatedSuccessfully": "የፒዊክ ማላቅ ተሳክቷል!",
         "PiwikWillBeUpgradedFromVersionXToVersionY": "የፒዊክ የውሂብ ጎታዎ ከ %1$sስሪት ወደ %2$sስሪት ይልቃል.",
         "TheFollowingPluginsWillBeUpgradedX": "የሚከተሉት ተሰኪዎችም ይልቃሉ: %s.",
-        "ThereIsNewVersionAvailableForUpdate": "ለማላቅ ዝግጁ የሆነ የፒዊክ ሰሪት አለ",
         "TheUpgradeProcessMayTakeAWhilePleaseBePatient": "የውሂብ ጎታ ማላቅ ሂደቱ ጥቂት ጊዜ ስለሚወስድ እባክዎ በትዕግስት ይጠብቁ",
+        "ThereIsNewVersionAvailableForUpdate": "ለማላቅ ዝግጁ የሆነ የፒዊክ ሰሪት አለ",
         "UpdateAutomatically": "ራስሰር አልቅ",
         "UpdateHasBeenCancelledExplanation": "ፒዊክ አንድ ጠቅ አርግ ማላቅ ተሰርዟል። ከላይ ያለውን የስህተት መልዕክት መጠገን ካልቻልክ ፒዊክን በእጅ እንድታልቅትመከራለህ። %1$s ለመጀመር የ %2$sማላቂያ ስነዳ %3$sተመልከት!",
-        "UpdateTitle": "ፒዊክ › አልቅ",
         "UpdateSuccessTitle": "ፒዊክን ማላቅ በተሳካ ሁኔታ ተጠናቋል!",
+        "UpdateTitle": "ፒዊክ › አልቅ",
         "UpgradeComplete": "ማላቅ ተጠናቋል!",
         "UpgradePiwik": "ፒዊክን አልቅ",
         "VerifyingUnpackedFiles": "የተበተኑትን ፋይሎች በመበተን ላይ",
@@ -131,8 +135,8 @@
         "YourDatabaseIsOutOfDate": "የፒዊክ የውሂብ ጎታዎ ቀኑ ሰላለፈበት ከመቀጠልዎ በፊት ማላቅ ያስፈልገዋል"
     },
     "DBStats": {
-        "DatabaseUsage": "የውሂብ ጎታ አጠቃቀም",
         "DataSize": "የውሂብ መጠን",
+        "DatabaseUsage": "የውሂብ ጎታ አጠቃቀም",
         "IndexSize": "የመረጃ ጠቋሚ መጠን",
         "MainDescription": "ፒዊክ የድር ምዘናዎቹን ውሂብ በመይ ኤስ ኪው ኤል ይውሂብ ጎታ ውስጥ በማከማቸት ላይ ነው። በአሁን ወቅት የፒዊክ ሰንጠረዦች እየተጠቀሙ ያሉት %s።",
         "Table": "ሰንጠረዥ",
@@ -1351,11 +1355,10 @@
         "Timezone_Pacific_Bougainville": "ቦጌይንቪል",
         "Timezone_Pacific_Chatham": "ቻታም",
         "Timezone_Pacific_Easter": "ፋሲካ",
-        "Timezone_Pacific_Enderbury": "ኢንደርበሪ",
+        "Timezone_Pacific_Enderbury": "ካንቶን",
         "Timezone_Pacific_Galapagos": "ጋላፓጎስ",
         "Timezone_Pacific_Gambier": "ጋምቢየር",
         "Timezone_Pacific_Honolulu": "ሆኖሉሉ",
-        "Timezone_Pacific_Kanton": "ካንቶን",
         "Timezone_Pacific_Kiritimati": "ኪሪቲማቲ",
         "Timezone_Pacific_Kosrae": "ኮስሬ",
         "Timezone_Pacific_Kwajalein": "ክዋጃሊን",
@@ -1385,6 +1388,12 @@
     },
     "PagePerformance": {
         "ColumnTimeServer": "የአገልጋይ ሰዓት"
+    },
+    "PrivacyManager": {
+        "ComplianceTableSettingStatus": "ሁኔታ"
+    },
+    "ProfessionalServices": {
+        "PromoOverview": "አጠቃላይ እይታ"
     },
     "Referrers": {
         "ColumnSearchEngine": "የመፈለጊያ ሞተሮች",
@@ -1434,6 +1443,8 @@
     "TagManager": {
         "CategoryClicks": "ጠቃድርጎች",
         "CategoryEmail": "ኢ-ሜይል",
+        "EtrackerTagTransactionCurrencyTitle": "ገንዘብ",
+        "InvalidDebugUrlError": "ስህተት",
         "Version": "ስሪት"
     },
     "UserCountry": {
@@ -1449,6 +1460,7 @@
         "LanguageCode": "የቋንቋ ኮድ"
     },
     "UsersManager": {
+        "Active": "ገባሪ",
         "AllWebsites": "ሁሉንም ድር ጣቢያዎች",
         "ApplyToAllWebsites": "በሁሉም ድር ጣቢያዎች ላይ ተግብር",
         "DeleteConfirm": "እርግጠኛ ነህ ተጠቃሚዎቹን መሰረዝ ትፈልጋለህ %s?",
@@ -1462,6 +1474,7 @@
         "PrivAdmin": "አስተዳዳሪ",
         "PrivNone": "መድረሻ የለም",
         "PrivView": "ትእይታ",
+        "Status": "ሁኔታ",
         "User": "ተጠቃሚ",
         "UsersManagement": "የተጠቃሚዎች ምነጃ",
         "UsersManagementMainDescription": "አዳዲስ ተጤቃሚዎችን ይፍጠሩ ወይም ያሉትን ያልቁ።ፈቃዳቸውን ከላይ ማዘጋጀት ይቻላል."
@@ -1476,13 +1489,8 @@
     },
     "VisitTime": {
         "ColumnLocalTime": "አካባቢያዊ ሰዓት",
-        "ColumnServerTime": "የአገልጋይ ሰዓት",
         "LocalTime": "ጉብኝቶች ከአካባቢያዊ ሰዓት",
-        "NHour": "%s ሰ",
-        "ServerTime": "ጉብኝቶች ከአገልጋይ ሰዓት",
-        "SubmenuTimes": "ሰዓታት",
-        "WidgetLocalTime": "ጉብኝቶች በአካባቢያዊ ሰዓት",
-        "WidgetServerTime": "ጉብኝቶች በአገልጋይ ሰዓት"
+        "SubmenuTimes": "ሰዓታት"
     },
     "VisitorInterest": {
         "ColumnPagesPerVisit": "ጉብኝት ከገፆች ጋር",

@@ -21,9 +21,8 @@ class Json extends Renderer
     /**
      * Computes the dataTable output and returns the string/binary
      *
-     * @return string
      */
-    public function render()
+    public function render() : string
     {
         return $this->renderTable($this->table);
     }

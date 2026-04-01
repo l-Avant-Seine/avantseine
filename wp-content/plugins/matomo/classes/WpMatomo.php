@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // if accessed directly
 }
 
+use WpMatomo\Admin\AdBlockDetector;
 use WpMatomo\Admin\Admin;
 use WpMatomo\Admin\Chart;
 use WpMatomo\Admin\Dashboard;
@@ -40,6 +41,8 @@ use WpMatomo\User\Sync as UserSync;
 
 class WpMatomo {
 
+	const VERSION = '5.8.0';
+
 	/**
 	 * @var Settings
 	 */
@@ -65,6 +68,9 @@ class WpMatomo {
 
 		add_action( 'init', [ $this, 'init_plugin' ] );
 
+		$adblock_detector = new AdBlockDetector();
+		$adblock_detector->register_hooks();
+
 		$capabilities = new Capabilities( self::$settings );
 		$capabilities->register_hooks();
 
@@ -74,7 +80,8 @@ class WpMatomo {
 		$compatibility = new \WpMatomo\Compatibility();
 		$compatibility->register_hooks();
 
-		$scheduled_tasks = new ScheduledTasks( self::$settings );
+		$site_config     = new SiteSync\SyncConfig( self::$settings );
+		$scheduled_tasks = new ScheduledTasks( self::$settings, $site_config );
 		$scheduled_tasks->schedule();
 		$scheduled_tasks->register_ajax();
 
@@ -133,8 +140,12 @@ class WpMatomo {
 
 		$tracking_code = new TrackingCode( self::$settings );
 		$tracking_code->register_hooks();
+
 		$annotations = new Annotations( self::$settings );
 		$annotations->register_hooks();
+
+		$ai_bot_tracking = new \WpMatomo\AIBotTracking( self::$settings );
+		$ai_bot_tracking->register_hooks();
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			new MatomoCommands();
@@ -151,6 +162,8 @@ class WpMatomo {
 		// TODO: need better way of doing ajax?
 		MarketplaceSetupWizard::register_ajax();
 		WpMatomo\Admin\TrackingSettings::register_ajax();
+
+		\WpMatomo\Admin\GetStarted::register_hooks();
 	}
 
 	private function check_compatibility() {

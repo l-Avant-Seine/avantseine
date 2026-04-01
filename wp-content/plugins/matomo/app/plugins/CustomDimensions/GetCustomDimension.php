@@ -59,7 +59,6 @@ class GetCustomDimension extends Report
      * Here you can configure how your report should be displayed. For instance whether your report supports a search
      * etc. You can also change the default request config. For instance change how many rows are displayed by default.
      *
-     * @param ViewDataTable $view
      */
     public function configureView(ViewDataTable $view)
     {
@@ -160,7 +159,7 @@ class GetCustomDimension extends Report
         } elseif ($this->scopeOfDimension === \Piwik\Plugins\CustomDimensions\CustomDimensions::SCOPE_VISIT) {
             $this->categoryId = 'General_Visitors';
             $this->dimension = new CustomVisitDimension($dimensionField, $this->name, $dimension['idcustomdimension']);
-            $this->metrics = array('nb_visits', 'nb_actions');
+            $this->metrics = ['nb_visits', 'nb_uniq_visitors', 'nb_actions', 'nb_users'];
             $this->processedMetrics = array(new AverageTimeOnSite(), new BounceRate(), new ActionsPerVisit());
         } else {
             return \false;

@@ -34,7 +34,6 @@ class Updates_4_6_0_b4 extends PiwikUpdates
         $this->migration = $factory;
     }
     /**
-     * @param Updater $updater
      * @return Migration\Db[]
      */
     public function getMigrations(Updater $updater)
@@ -77,7 +76,7 @@ class Updates_4_6_0_b4 extends PiwikUpdates
                 }
                 $sqlPlaceholders = Common::getSqlStringFieldsArray($doneFlagsToMigrate);
                 $bind = array_keys($doneFlagsToMigrate);
-                $selectSql = sprintf('SELECT 1 FROM %s where `name` in (%s) LIMIT 1', $table, $sqlPlaceholders);
+                $selectSql = sprintf('SELECT 1 FROM `%s` where `name` in (%s) LIMIT 1', $table, $sqlPlaceholders);
                 $archiveTableHasDoneFlags = Db::fetchOne($selectSql, $bind);
                 if (!$archiveTableHasDoneFlags) {
                     continue;
@@ -93,9 +92,6 @@ class Updates_4_6_0_b4 extends PiwikUpdates
         }
         return $migrations;
     }
-    /**
-     * @param Updater $updater
-     */
     public function doUpdate(Updater $updater)
     {
         $updater->executeMigrations(__FILE__, $this->getMigrations($updater));

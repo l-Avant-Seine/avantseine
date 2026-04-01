@@ -31,7 +31,7 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
     protected $nameSingular = 'UserCountry_Country';
     protected $namePlural = 'UserCountryMap_Countries';
     protected $segmentName = 'countryCode';
-    protected $acceptValues = 'ISO 3166-1 alpha-2 country codes (de, us, fr, in, es, etc.)';
+    protected $acceptValues = 'UserCountry_CountrySegmentHelp';
     public function configureSegments(SegmentsList $segmentsList, DimensionSegmentFactory $dimensionSegmentFactory)
     {
         $segment = new Segment();
@@ -64,8 +64,6 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
         return \Piwik\Plugins\UserCountry\countryTranslate($value);
     }
     /**
-     * @param Request $request
-     * @param Visitor $visitor
      * @param Action|null $action
      * @return mixed
      */
@@ -84,8 +82,6 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
         return Visit::UNKNOWN_CODE;
     }
     /**
-     * @param Request $request
-     * @param Visitor $visitor
      * @param Action|null $action
      * @return int
      */
@@ -94,8 +90,6 @@ class Country extends \Piwik\Plugins\UserCountry\Columns\Base
         return $this->getUrlOverrideValueIfAllowed('country', $request);
     }
     /**
-     * @param Request $request
-     * @param Visitor $visitor
      * @param Action|null $action
      * @return mixed
      */

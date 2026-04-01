@@ -337,7 +337,6 @@ class PivotByDimension extends BaseFilter
         }
     }
     /**
-     * @param Row $columnRow
      * @param $pivotColumn
      * @return false|mixed
      */
@@ -362,12 +361,12 @@ class PivotByDimension extends BaseFilter
     private function getRequestParamOverride(DataTable $table)
     {
         $params = array('pivotBy' => '', 'column' => '', 'flat' => 0, 'totals' => 0, 'disable_queued_filters' => 1, 'disable_generic_filters' => 1, 'showColumns' => '', 'hideColumns' => '');
-        /** @var Site $site */
+        /** @var Site|false $site */
         $site = $table->getMetadata('site');
         if (!empty($site)) {
             $params['idSite'] = $site->getId();
         }
-        /** @var Period $period */
+        /** @var Period|false $period */
         $period = $table->getMetadata('period');
         if (!empty($period)) {
             $params['period'] = $period->getLabel();
@@ -428,7 +427,6 @@ class PivotByDimension extends BaseFilter
      * Returns true if pivoting by subtable is supported for a report. Will return true if the report
      * has a subtable dimension and if the subtable dimension is different than the report's dimension.
      *
-     * @param Report $report
      * @return bool
      */
     public static function isPivotingReportBySubtableSupported(Report $report)

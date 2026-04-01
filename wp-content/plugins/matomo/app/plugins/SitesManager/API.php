@@ -25,14 +25,17 @@ use Piwik\Measurable\Type\TypeManager;
 use Piwik\Option;
 use Piwik\Piwik;
 use Piwik\Plugin\SettingsProvider;
+use Piwik\Request\AuthenticationToken;
 use Piwik\Plugins\CorePluginsAdmin\SettingsMetadata;
+use Piwik\Plugins\FeatureFlags\FeatureFlagManager;
+use Piwik\Plugins\PrivacyManager\FeatureFlags\PrivacyCompliance;
+use Piwik\Plugins\SitesManager\Settings\FilterPIIParameters;
 use Piwik\Plugins\SitesManager\SiteContentDetection\ConsentManagerDetectionAbstract;
 use Piwik\Plugins\SitesManager\SiteContentDetection\SiteContentDetectionAbstract;
 use Piwik\Plugins\WebsiteMeasurable\Settings\Urls;
 use Piwik\ProxyHttp;
 use Piwik\Scheduler\Scheduler;
 use Piwik\Settings\Measurable\MeasurableProperty;
-use Piwik\Settings\Measurable\MeasurableSettings;
 use Piwik\SettingsPiwik;
 use Piwik\SettingsServer;
 use Piwik\Site;
@@ -101,19 +104,8 @@ class API extends \Piwik\Plugin\API
      * Returns the javascript tag for the given idSite.
      * This tag must be included on every page to be tracked by Matomo
      *
-     * @param int    $idSite
-     * @param string $piwikUrl
-     * @param bool   $mergeSubdomains
-     * @param bool   $groupPageTitlesByDomain
-     * @param bool   $mergeAliasUrls
      * @param array  $visitorCustomVariables
      * @param array  $pageCustomVariables
-     * @param string $customCampaignNameQueryParam
-     * @param string $customCampaignKeywordParam
-     * @param bool   $doNotTrack
-     * @param bool   $disableCookies
-     * @param bool   $trackNoScript
-     * @param bool   $crossDomain
      * @param bool   $forceMatomoEndpoint Whether the Matomo endpoint should be forced if Matomo was installed prior 3.7.0.
      * @param string|array  $excludedQueryParams array or comma separated string of excluded query parameters.
      * @param string|array  $excludedReferrers array or comma separated string of ignored referrers. Defaults to configured ignored referrers
@@ -214,10 +206,9 @@ class API extends \Piwik\Plugin\API
      * Returns the website information : name, main_url
      *
      * @throws Exception if the site ID doesn't exist or the user doesn't have access to it
-     * @param int $idSite
      * @return array
      */
-    public function getSiteFromId($idSite)
+    public function getSiteFromId(int $idSite)
     {
         Piwik::checkUserHasViewAccess($idSite);
         $site = $this->getModel()->getSiteFromId($idSite);
@@ -235,10 +226,9 @@ class API extends \Piwik\Plugin\API
      * Returns the list of all URLs registered for the given idSite (main_url + alias URLs).
      *
      * @throws Exception if the website ID doesn't exist or the user doesn't have access to it
-     * @param int $idSite
      * @return array list of URLs
      */
-    public function getSiteUrlsFromId($idSite)
+    public function getSiteUrlsFromId(int $idSite)
     {
         Piwik::checkUserHasViewAccess($idSite);
         return $this->getModel()->getSiteUrlsFromId($idSite);
@@ -308,15 +298,54 @@ class API extends \Piwik\Plugin\API
         }
         if ($fetchAliasUrls) {
             foreach ($sites as &$site) {
-                $site['alias_urls'] = $this->getSiteUrlsFromId($site['idsite']);
+                $site['alias_urls'] = $this->getSiteUrlsFromId((int) $site['idsite']);
             }
+        }
+        return $sites;
+    }
+    /**
+     * Returns the list of websites, where the current user has at least the provided access level
+     *
+     * @param string $permission one of view, write or admin
+     * @param null|string $pattern pattern to match name against
+     * @param null|int $limit optional parameter to limit the amount of returned records
+     * @param int[] $sitesToExclude optional array of Integer IDs of sites to exclude from the result.
+     * @param string[] $siteTypesToExclude optional array of site types to exclude from the result.
+     * @return array for each site, an array of information (idsite, name, main_url, etc.)
+     */
+    public function getSitesWithMinimumAccess(string $permission, ?string $pattern = null, ?int $limit = null, array $sitesToExclude = [], array $siteTypesToExclude = []) : array
+    {
+        switch (strtolower($permission)) {
+            case Access\Role\Admin::ID:
+                $sitesId = Access::getInstance()->getSitesIdWithAdminAccess();
+                break;
+            case Access\Role\Write::ID:
+                $sitesId = Access::getInstance()->getSitesIdWithAtLeastWriteAccess();
+                break;
+            case Access\Role\View::ID:
+                $sitesId = Access::getInstance()->getSitesIdWithAtLeastViewAccess();
+                break;
+            default:
+                throw new Exception('Invalid permission provided');
+        }
+        // Remove the sites to exclude from the list of IDs.
+        if (is_array($sitesId) && is_array($sitesToExclude) && count($sitesToExclude)) {
+            $sitesId = array_diff($sitesId, $sitesToExclude);
+        }
+        if (empty($pattern)) {
+            $sites = $this->getSitesFromIds($sitesId, $limit, $siteTypesToExclude);
+        } else {
+            $sites = $this->getModel()->getPatternMatchSites($sitesId, $pattern, $limit, $siteTypesToExclude);
+            foreach ($sites as &$site) {
+                $this->enrichSite($site);
+            }
+            $sites = Site::setSitesFromArray($sites);
         }
         return $sites;
     }
     /**
      * Returns the messages to warn users on site deletion.
      *
-     * @param int $idSite
      * @return array messages to warn users
      * @throws Exception if the website ID doesn't exist or the user doesn't have super user access to it
      * @internal
@@ -426,11 +455,12 @@ class API extends \Piwik\Plugin\API
      *
      * @param array $idSites list of website ID
      * @param bool $limit
+     * @param string[] $siteTypesToExclude optional array of site types to exclude from the result.
      * @return array
      */
-    private function getSitesFromIds($idSites, $limit = \false)
+    private function getSitesFromIds($idSites, $limit = \false, array $siteTypesToExclude = [])
     {
-        $sites = $this->getModel()->getSitesFromIds($idSites, $limit);
+        $sites = $this->getModel()->getSitesFromIds($idSites, $limit, $siteTypesToExclude);
         foreach ($sites as &$site) {
             $this->enrichSite($site);
         }
@@ -635,11 +665,11 @@ class API extends \Piwik\Plugin\API
         }
         return $coreProperties;
     }
-    public function getSiteSettings($idSite)
+    public function getSiteSettings(int $idSite)
     {
         Piwik::checkUserHasAdminAccess($idSite);
         $measurableSettings = $this->settingsProvider->getAllMeasurableSettings($idSite, $idMeasurableType = \false);
-        return $this->settingsMetadata->formatSettings($measurableSettings);
+        return $this->settingsMetadata->formatSettings($measurableSettings, $idSite);
     }
     private function setAndValidateMeasurableSettings($idSite, $idType, $settingValues)
     {
@@ -647,9 +677,6 @@ class API extends \Piwik\Plugin\API
         $this->settingsMetadata->setPluginSettings($measurableSettings, $settingValues);
         return $measurableSettings;
     }
-    /**
-     * @param MeasurableSettings[] $measurableSettings
-     */
     private function saveMeasurableSettings($idSite, $idType, $settingValues)
     {
         $measurableSettings = $this->setAndValidateMeasurableSettings($idSite, $idType, $settingValues);
@@ -671,15 +698,16 @@ class API extends \Piwik\Plugin\API
      *
      * Requires Super User access.
      *
-     * @param int $idSite
      * @param string $passwordConfirmation the current user's password, only required when the request is authenticated with session token auth
      * @throws Exception
      */
-    public function deleteSite($idSite, $passwordConfirmation = null)
+    public function deleteSite(int $idSite,
+#[\SensitiveParameter]
+$passwordConfirmation = null)
     {
         Piwik::checkUserHasSuperUserAccess();
         \Piwik\Plugins\SitesManager\SitesManager::dieIfSitesAdminIsDisabled();
-        if (Common::getRequestVar('force_api_session', 0)) {
+        if (StaticContainer::get(AuthenticationToken::class)->isSessionToken()) {
             $this->confirmCurrentUserPassword($passwordConfirmation);
         }
         $lock = new Lock(StaticContainer::get(LockBackend::class), 'SitesManager.deleteSite');
@@ -710,13 +738,15 @@ class API extends \Piwik\Plugin\API
     }
     private function checkValidTimezone($timezone)
     {
-        $timezones = $this->getTimezonesList();
-        foreach (array_values($timezones) as $cities) {
-            foreach ($cities as $timezoneId => $city) {
-                if ($timezoneId == $timezone) {
-                    return \true;
-                }
-            }
+        try {
+            Date::factory('today', $timezone);
+        } catch (\Exception $e) {
+            throw new Exception($this->translator->translate('SitesManager_ExceptionInvalidTimezone', [$timezone]));
+        }
+        $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC);
+        $timezones = array_merge($timezones, array_keys($this->getTimezonesListUTCOffsets()));
+        if (in_array($timezone, $timezones)) {
+            return \true;
         }
         throw new Exception($this->translator->translate('SitesManager_ExceptionInvalidTimezone', [$timezone]));
     }
@@ -765,11 +795,10 @@ class API extends \Piwik\Plugin\API
      * If some URLs given in parameter are already recorded as alias URLs for this website,
      * they won't be duplicated. The 'main_url' of the website won't be affected by this method.
      *
-     * @param int $idSite
      * @param array|string $urls When calling API via HTTP specify multiple URLs via `&urls[]=http...&urls[]=http...`.
      * @return int the number of inserted URLs
      */
-    public function addSiteAliasUrls($idSite, $urls)
+    public function addSiteAliasUrls(int $idSite, $urls)
     {
         Piwik::checkUserHasAdminAccess($idSite);
         if (empty($urls)) {
@@ -795,7 +824,7 @@ class API extends \Piwik\Plugin\API
      *
      * @return int the number of inserted URLs
      */
-    public function setSiteAliasUrls($idSite, $urls = [])
+    public function setSiteAliasUrls(int $idSite, $urls = [])
     {
         Piwik::checkUserHasAdminAccess($idSite);
         $mainUrl = Site::getMainUrlFor($idSite);
@@ -896,10 +925,10 @@ class API extends \Piwik\Plugin\API
      *
      * @return string Comma separated list of URL parameters
      */
-    public function getExcludedQueryParametersGlobal() : string
+    public function getExcludedQueryParametersGlobal(?int $idSite = null) : string
     {
         Piwik::checkUserHasSomeViewAccess();
-        switch ($this->getExclusionTypeForQueryParams()) {
+        switch ($this->getExclusionTypeForQueryParams($idSite)) {
             case \Piwik\Plugins\SitesManager\SitesManager::URL_PARAM_EXCLUSION_TYPE_NAME_COMMON_SESSION_PARAMETERS:
                 return '';
             case \Piwik\Plugins\SitesManager\SitesManager::URL_PARAM_EXCLUSION_TYPE_NAME_MATOMO_RECOMMENDED_PII:
@@ -941,8 +970,9 @@ class API extends \Piwik\Plugin\API
      *
      * @return array list of urls/hosts
      */
-    public function getExcludedReferrers($idSite)
+    public function getExcludedReferrers(int $idSite)
     {
+        Piwik::checkUserHasViewAccess($idSite);
         try {
             $attributes = Cache::getCacheWebsiteAttributes($idSite);
             if (isset($attributes['excluded_referrers'])) {
@@ -1112,7 +1142,6 @@ class API extends \Piwik\Plugin\API
      *  - custom
      * @param string|null $queryParamsToExclude (Optional) Comma separated list of query parameters to exclude when $exclusionType is 'custom'.
      *                                         Ignored if $exclusionType is not 'custom'.
-     * @return void
      * @throws Exception
      */
     public function setGlobalQueryParamExclusion(string $exclusionType, ?string $queryParamsToExclude = null) : void
@@ -1140,11 +1169,14 @@ class API extends \Piwik\Plugin\API
      * Gets the exclusion type, if the option is not present in the store then it infers the type based on if there are
      * custom exclusions already defined.
      *
-     * @return string
      */
-    public function getExclusionTypeForQueryParams() : string
+    public function getExclusionTypeForQueryParams(?int $idSite = null) : string
     {
         Piwik::checkUserHasSomeViewAccess();
+        $featureFlagManager = StaticContainer::get(FeatureFlagManager::class);
+        if ($featureFlagManager->isFeatureActive(PrivacyCompliance::class)) {
+            return FilterPIIParameters::getInstance($idSite)->getValue();
+        }
         $result = Option::get(self::OPTION_EXCLUDE_TYPE_QUERY_PARAMS_GLOBAL);
         if (!empty($result)) {
             return $result;
@@ -1262,7 +1294,7 @@ class API extends \Piwik\Plugin\API
      */
     public function updateSiteCreatedTime($idSites, Date $minDate)
     {
-        $idSites = Site::getIdSitesFromIdSitesString($idSites);
+        $idSites = Site::getIdSitesFromIdSitesString($idSites, \false, \true);
         Piwik::checkUserHasAdminAccess($idSites);
         $minDateSql = $minDate->subDay(1)->getDatetime();
         $this->getModel()->updateSiteCreatedTime($idSites, $minDateSql);

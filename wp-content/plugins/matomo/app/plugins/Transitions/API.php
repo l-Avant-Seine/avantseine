@@ -34,18 +34,17 @@ use Piwik\Tracker\TableLogAction;
  */
 class API extends \Piwik\Plugin\API
 {
-    public function getTransitionsForPageTitle(string $pageTitle, $idSite, $period, $date, $segment = \false, $limitBeforeGrouping = 0)
+    public function getTransitionsForPageTitle(string $pageTitle, int $idSite, $period, $date, $segment = \false, $limitBeforeGrouping = 0)
     {
         return $this->getTransitionsForAction($pageTitle, 'title', $idSite, $period, $date, $segment, $limitBeforeGrouping);
     }
-    public function getTransitionsForPageUrl(string $pageUrl, $idSite, $period, $date, $segment = \false, $limitBeforeGrouping = 0)
+    public function getTransitionsForPageUrl(string $pageUrl, int $idSite, $period, $date, $segment = \false, $limitBeforeGrouping = 0)
     {
         return $this->getTransitionsForAction($pageUrl, 'url', $idSite, $period, $date, $segment, $limitBeforeGrouping);
     }
     /**
      * General method to get transitions for an action
      *
-     * @param string $actionName
      * @param string $actionType "url"|"title"
      * @param $idSite
      * @param $period
@@ -56,7 +55,7 @@ class API extends \Piwik\Plugin\API
      * @return array
      * @throws Exception
      */
-    public function getTransitionsForAction(string $actionName, string $actionType, $idSite, $period, $date, $segment = \false, $limitBeforeGrouping = 0, $parts = 'all')
+    public function getTransitionsForAction(string $actionName, string $actionType, int $idSite, $period, $date, $segment = \false, $limitBeforeGrouping = 0, $parts = 'all')
     {
         Piwik::checkUserHasViewAccess($idSite);
         if (!$this->isPeriodAllowed($idSite, $period, $date)) {
@@ -75,7 +74,7 @@ class API extends \Piwik\Plugin\API
         // prepare log aggregator
         $site = new Site($idSite);
         $period = Period\Factory::build($period, $date);
-        $segment = new Segment($segment, $idSite, $period->getDateTimeStart()->setTimezone($site->getTimezone()), $period->getDateTimeEnd()->setTimezone($site->getTimezone()));
+        $segment = new Segment($segment, [$idSite], $period->getDateTimeStart()->setTimezone($site->getTimezone()), $period->getDateTimeEnd()->setTimezone($site->getTimezone()));
         $params = new ArchiveProcessor\Parameters($site, $period, $segment);
         $logAggregator = new LogAggregator($params);
         // prepare the report
@@ -116,8 +115,6 @@ class API extends \Piwik\Plugin\API
     /**
      * Derive the action ID from the request action name and type.
      *
-     * @param string $actionName
-     * @param string $actionType
      *
      * @return array|int|string
      */
@@ -192,7 +189,6 @@ class API extends \Piwik\Plugin\API
      *
      * @param $idaction
      * @param $actionType
-     * @param LogAggregator $logAggregator
      * @param  $limitBeforeGrouping
      * @param $includeLoops
      * @return array(followingPages:DataTable, outlinks:DataTable, downloads:DataTable)
@@ -283,18 +279,19 @@ class API extends \Piwik\Plugin\API
 				WHEN ' . Common::REFERRER_TYPE_DIRECT_ENTRY . ' THEN \'\'
 				WHEN ' . Common::REFERRER_TYPE_SEARCH_ENGINE . ' THEN log_visit.referer_name
 				WHEN ' . Common::REFERRER_TYPE_SOCIAL_NETWORK . ' THEN log_visit.referer_name
+				WHEN ' . Common::REFERRER_TYPE_AI_ASSISTANT . ' THEN log_visit.referer_name
 				WHEN ' . Common::REFERRER_TYPE_WEBSITE . ' THEN log_visit.referer_url
-				WHEN ' . Common::REFERRER_TYPE_CAMPAIGN . ' THEN CONCAT(log_visit.referer_name, \' \', log_visit.referer_keyword)
+				WHEN ' . Common::REFERRER_TYPE_CAMPAIGN . ' THEN CONCAT_WS(\' \', log_visit.referer_name, log_visit.referer_keyword)
 			END', 'referer_type');
         $rankingQuery->addLabelColumn('referrer_data');
         // get one limited group per referrer type
-        $rankingQuery->partitionResultIntoMultipleGroups('referer_type', array(Common::REFERRER_TYPE_DIRECT_ENTRY, Common::REFERRER_TYPE_SEARCH_ENGINE, Common::REFERRER_TYPE_SOCIAL_NETWORK, Common::REFERRER_TYPE_WEBSITE, Common::REFERRER_TYPE_CAMPAIGN));
+        $rankingQuery->partitionResultIntoMultipleGroups('referer_type', array(Common::REFERRER_TYPE_DIRECT_ENTRY, Common::REFERRER_TYPE_SEARCH_ENGINE, Common::REFERRER_TYPE_SOCIAL_NETWORK, Common::REFERRER_TYPE_AI_ASSISTANT, Common::REFERRER_TYPE_WEBSITE, Common::REFERRER_TYPE_CAMPAIGN));
         $type = $this->getColumnTypeSuffix($actionType);
         $where = 'visit_entry_idaction_' . $type . ' = ' . intval($idaction);
         $metrics = array(Metrics::INDEX_NB_VISITS);
         $data = $logAggregator->queryVisitsByDimension($dimensions, $where, [], $metrics, $rankingQuery, \false, Config::getInstance()->General['live_query_max_execution_time']);
         // array is prefilled with available keys and empty values are removed in the end to ensure the order is static
-        $referrerData = [Common::REFERRER_TYPE_DIRECT_ENTRY => [], Common::REFERRER_TYPE_SEARCH_ENGINE => [], Common::REFERRER_TYPE_SOCIAL_NETWORK => [], Common::REFERRER_TYPE_WEBSITE => [], Common::REFERRER_TYPE_CAMPAIGN => []];
+        $referrerData = [Common::REFERRER_TYPE_DIRECT_ENTRY => [], Common::REFERRER_TYPE_SEARCH_ENGINE => [], Common::REFERRER_TYPE_SOCIAL_NETWORK => [], Common::REFERRER_TYPE_AI_ASSISTANT => [], Common::REFERRER_TYPE_WEBSITE => [], Common::REFERRER_TYPE_CAMPAIGN => []];
         $referrerSubData = array();
         foreach ($data as $referrerType => &$subData) {
             $referrerData[$referrerType] = array(Metrics::INDEX_NB_VISITS => 0);
@@ -467,6 +464,8 @@ class API extends \Piwik\Plugin\API
                 return \Piwik\Plugins\Transitions\Controller::getTranslation('fromSearchEngines');
             case Common::REFERRER_TYPE_SOCIAL_NETWORK:
                 return \Piwik\Plugins\Transitions\Controller::getTranslation('fromSocialNetworks');
+            case Common::REFERRER_TYPE_AI_ASSISTANT:
+                return \Piwik\Plugins\Transitions\Controller::getTranslation('fromAIAssistants');
             case Common::REFERRER_TYPE_WEBSITE:
                 return \Piwik\Plugins\Transitions\Controller::getTranslation('fromWebsites');
             case Common::REFERRER_TYPE_CAMPAIGN:
@@ -512,7 +511,6 @@ class API extends \Piwik\Plugin\API
      * @param $period
      * @param $date
      *
-     * @return bool
      */
     public function isPeriodAllowed($idSite, $period, $date) : bool
     {

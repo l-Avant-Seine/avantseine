@@ -27,7 +27,6 @@ use Piwik\Plugins\Goals\Columns\Metrics\GoalSpecific\Conversions;
 use Piwik\Plugins\Goals\Columns\Metrics\GoalSpecific\Revenue;
 use Piwik\Plugins\Goals\Columns\Metrics\GoalSpecific\RevenuePerVisit;
 use Piwik\Site;
-use Piwik\Url;
 /**
  * This class generates a Row evolution dataset, from input request
  *
@@ -220,7 +219,7 @@ class RowEvolution
         $this->enhanceRowEvolutionMetaData($metadata, $dataTable);
         // if we have a recursive label and no url, use the path
         if (!$urlFound) {
-            $label = \Piwik\Request::fromRequest()->getStringParameter('labelPretty', $label);
+            $label = Common::sanitizeInputValue(\Piwik\Request::fromRequest()->getStringParameter('labelPretty', '')) ?: $label;
             $actualLabel = $this->formatQueryLabelForDisplay($idSite, $apiModule, $apiAction, $label);
         }
         $return = ['label' => SafeDecodeLabel::decodeLabelSafe($actualLabel), 'reportData' => $dataTable, 'metadata' => $metadata];
@@ -313,8 +312,10 @@ class RowEvolution
         if (isset($metadata['metrics']['nb_visits'])) {
             $parameters['filter_add_columns_when_show_all_columns'] = '0';
         }
-        $url = Url::getQueryStringFromParameters($parameters);
-        $request = new Request($url);
+        $parameters = array_filter($parameters, function ($value) {
+            return $value !== null && $value !== \false;
+        });
+        $request = new Request($parameters);
         try {
             $dataTable = $request->process();
         } catch (Exception $e) {
@@ -423,7 +424,7 @@ class RowEvolution
             $metrics = array_keys($metadata['metrics']);
             $column = reset($metrics);
         }
-        $labelPretty = \Piwik\Request::fromRequest()->getStringParameter('labelPretty', '');
+        $labelPretty = Common::sanitizeInputValue(\Piwik\Request::fromRequest()->getStringParameter('labelPretty', ''));
         $labelPretty = Piwik::getArrayFromApiParameter($labelPretty);
         // get the processed label and logo (if any) for every requested label
         $actualLabels = $logos = [];
