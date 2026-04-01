@@ -75,6 +75,17 @@
                     $data
                 );
                 
+            elseif( get_row_layout() == 'mode_4posts' ): 
+                
+                $data = array (
+                    'relations' => get_sub_field('mod_relations'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'pagescolumns',
+                    $data
+                );
 
 
             endif; 

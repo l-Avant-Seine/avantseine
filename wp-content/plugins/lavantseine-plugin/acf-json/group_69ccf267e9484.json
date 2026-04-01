@@ -314,6 +314,52 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_69cd12f66dcbf": {
+                    "key": "layout_69cd12f66dcbf",
+                    "name": "mode_4posts",
+                    "label": "Module 4 pages côte à côte",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_69cd130c6dcc5",
+                            "label": "Sélectionner les pages à afficher en colonnes",
+                            "name": "mod_relations",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "post",
+                                "page",
+                                "event"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "filters": [
+                                "search",
+                                "post_type",
+                                "taxonomy"
+                            ],
+                            "return_format": "object",
+                            "min": "",
+                            "max": "",
+                            "allow_in_bindings": 0,
+                            "elements": "",
+                            "bidirectional": 0,
+                            "bidirectional_target": []
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -356,5 +402,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775047117
+    "modified": 1775047471
 }
