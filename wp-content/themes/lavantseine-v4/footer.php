@@ -16,7 +16,7 @@
 
 		<section id="section-transition" class="section-transition">
 			<div class="wrap">
-				<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+				<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
 			</div>
 		</section>
 

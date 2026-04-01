@@ -57,7 +57,7 @@
 							<?php 
 								set_query_var('focus_event_id', $focus_event_id);
 								set_query_var('post', $post);
-								get_template_part('template-parts/blocs/header', 'event'); ?>
+								get_template_part('Components/blocs/header', 'event'); ?>
 
 				  		<div class="row teaser-actions">
 

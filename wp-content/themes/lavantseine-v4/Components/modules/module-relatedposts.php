@@ -75,7 +75,7 @@
 
 			 	while ( $star_post->have_posts() ) : $star_post->the_post(); ?>
 
-					<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
+					<?php get_template_part('Components/blocs/bloc', 'article'); ?>	 
 
 			<?php endwhile; 
 			wp_reset_postdata();
@@ -94,10 +94,10 @@
 			 		<?php if ( !$star_post->have_posts() ) : ?>
 
 						<?php if( $k === 0 ) : ?>
-							<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
+							<?php get_template_part('Components/blocs/bloc', 'article'); ?>	 
 
 						<?php else : ?>
-							<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
+							<?php get_template_part('Components/blocs/bloc', 'article'); ?>	 
 
 					<?php endif; ?>
 				<?php endif; ?>
@@ -139,7 +139,7 @@
 
 			 		echo '<div class="put-on-1col">';
 						set_query_var('icons', false);
-						get_template_part('template-parts/blocs/bloc', 'page');
+						get_template_part('Components/blocs/bloc', 'page');
 					echo '</div>';
 				endwhile;
 			endif;

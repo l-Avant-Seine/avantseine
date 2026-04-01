@@ -117,7 +117,7 @@ else :
 				<?php set_query_var( 'root', $root ); ?>
 				<?php set_query_var( 'root_title', $root_title ); ?>
 				<?php set_query_var( 'root_title_url', $root_title_url ); ?>
-				<?php get_template_part('template-parts/loops/loop', 'childpages'); ?>
+				<?php get_template_part('Components/loops/loop', 'childpages'); ?>
 			</div>
 
 
@@ -139,7 +139,7 @@ else :
 
 				        <?php elseif( get_row_layout() == 'la_brochure' ): ?>
 
-									<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
+									<?php get_template_part('Components/modules/module', 'brochures'); ?>
 
 
 				        <?php elseif( get_row_layout() == 'cette_semaine' ): ?>
@@ -167,7 +167,7 @@ else :
 							set_query_var('pages_list', $pages);
 							set_query_var('title', '');
 							set_query_var('icons', true);
-							get_template_part('template-parts/modules/module', 'pages'); 
+							get_template_part('Components/modules/module', 'pages'); 
 						?>
 					</div>
 
@@ -215,19 +215,19 @@ else :
 
 						switch ($post_type) {
 							case 'event':
-								get_template_part( 'template-parts/blocs/bloc', 'event' );
+								get_template_part( 'Components/blocs/bloc', 'event' );
 								break;
 
 							case 'post':
-								get_template_part( 'template-parts/blocs/bloc', 'article' );
+								get_template_part( 'Components/blocs/bloc', 'article' );
 								break;
 
 							case 'page':
-								get_template_part( 'template-parts/blocs/bloc', 'page' );
+								get_template_part( 'Components/blocs/bloc', 'page' );
 								break;
 
 							default:
-								get_template_part( 'template-parts/blocs/bloc', 'page' );
+								get_template_part( 'Components/blocs/bloc', 'page' );
 								break;
 						}
 						

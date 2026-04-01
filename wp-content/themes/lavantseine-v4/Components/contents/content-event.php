@@ -112,7 +112,7 @@
 	            <?php
                 set_query_var('focus_event_id', '');
                 set_query_var('post', $post);
-                get_template_part('template-parts/blocs/header', 'event'); ?>
+                get_template_part('Components/blocs/header', 'event'); ?>
 
 	            <div class="row teaser-actions">
 
@@ -388,7 +388,7 @@
 
 	                <?php set_query_var('relational_tag', 'relational_tag'); ?>
 	                <?php set_query_var('arborescence', 'arborescence'); ?>
-	                <?php get_template_part('template-parts/modules/module', 'relatedposts'); ?>
+	                <?php get_template_part('Components/modules/module', 'relatedposts'); ?>
 
 	            </div><!-- .event-aside -->
 
@@ -441,19 +441,19 @@
 
                                     switch ($post_type) {
                                         case 'event':
-                                            get_template_part('template-parts/blocs/bloc', 'event');
+                                            get_template_part('Components/blocs/bloc', 'event');
                                             break;
 
                                         case 'post':
-                                            get_template_part('template-parts/blocs/bloc', 'article');
+                                            get_template_part('Components/blocs/bloc', 'article');
                                             break;
 
                                         case 'page':
-                                            get_template_part('template-parts/blocs/bloc', 'page');
+                                            get_template_part('Components/blocs/bloc', 'page');
                                             break;
 
                                         default:
-                                            get_template_part('template-parts/blocs/bloc', 'page');
+                                            get_template_part('Components/blocs/bloc', 'page');
                                             break;
                                     }
 

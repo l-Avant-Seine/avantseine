@@ -32,19 +32,19 @@ get_header();
 
 				switch ($post_type) {
 					case 'event':
-						get_template_part( 'template-parts/blocs/bloc', 'event' );
+						get_template_part( 'Components/blocs/bloc', 'event' );
 						break;
 
 					case 'post':
-						get_template_part( 'template-parts/blocs/bloc', 'article' );
+						get_template_part( 'Components/blocs/bloc', 'article' );
 						break;
 
 					case 'page':
-						get_template_part( 'template-parts/blocs/bloc', 'page' );
+						get_template_part( 'Components/blocs/bloc', 'page' );
 						break;
 
 					default:
-						get_template_part( 'template-parts/blocs/bloc', 'page' );
+						get_template_part( 'Components/blocs/bloc', 'page' );
 						break;
 				}
 
@@ -57,7 +57,7 @@ get_header();
 			</div>
 
 		<?php else :
-			get_template_part( 'template-parts/contents/content', 'none' ); ?>
+			get_template_part( 'Components/contents/content', 'none' ); ?>
 
 		<?php endif; ?>
 

@@ -16,7 +16,7 @@ $category = get_category($term);
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main page-category" cat-slug="<?php echo $category->slug; ?>" role="main">
 			
-			<?php get_template_part( 'template-parts/contents/content', 'magazine' ); ?>
+			<?php get_template_part( 'Components/contents/content', 'magazine' ); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

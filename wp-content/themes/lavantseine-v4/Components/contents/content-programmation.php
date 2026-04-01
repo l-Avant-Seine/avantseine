@@ -71,7 +71,7 @@
 
 
 					<div class="mb-2">
-						<?php get_template_part('template-parts/modules/module', 'brochures'); ?>
+						<?php get_template_part('Components/modules/module', 'brochures'); ?>
 					</div>
 
 				</div><!-- .filters	 -->
@@ -132,7 +132,7 @@
 
 					set_query_var('query', $query);
 					set_query_var('previous_month', $previous_month);
-					get_template_part('template-parts/loops/loop', 'events');
+					get_template_part('Components/loops/loop', 'events');
 				?>
 
 

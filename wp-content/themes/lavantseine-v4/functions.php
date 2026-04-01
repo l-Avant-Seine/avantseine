@@ -48,30 +48,11 @@ if ( ! function_exists( 'lavantseine_v2_setup' ) ) :
  * as indicating support for post thumbnails.
  */
 function lavantseine_v2_setup() {
-	/*
-	 * Make theme available for translation.
-	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on l\'Avant-Seine v2.0, use a find and replace
-	 * to change 'lavantseine-v4' to the name of your theme in all the template files.
-	 */
+
 	load_theme_textdomain( 'lavantseine-v4', get_template_directory() . '/languages' );
 
-	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
-
-	/*
-	 * Let WordPress manage the document title.
-	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
-	 * provide it for us.
-	 */
 	add_theme_support( 'title-tag' );
-
-	/*
-	 * Enable support for Post Thumbnails on posts and pages.
-	 *
-	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-	 */
 	add_theme_support( 'post-thumbnails' );
 
 	//add_image_size( 'box-thumbnail', 168, 9999 );
@@ -162,6 +143,11 @@ function lavantseine_v4_scripts() {
 	//wp_enqueue_script('salvattore');
 
 	wp_localize_script('lavantseine-v4-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
+
+	if (is_admin()) return
+    wp_dequeue_script( 'jquery');
+    wp_deregister_script( 'jquery');   
+
 }
 add_action( 'wp_enqueue_scripts', 'lavantseine_v4_scripts' );
 
@@ -238,7 +224,7 @@ function load_more() {
 
 			endif;
 
-			get_template_part( 'template-parts/blocs/bloc', 'event' ); ?>
+			get_template_part( 'Components/blocs/bloc', 'event' ); ?>
 
 		</div>
 
@@ -297,7 +283,7 @@ function search() {
 			<?php
 				while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
 				
-					get_template_part( 'template-parts/blocs/bloc', 'article' );
+					get_template_part( 'Components/blocs/bloc', 'article' );
 				endwhile; ?>
 		
 	<?php }
@@ -318,19 +304,19 @@ function search() {
 
 					switch ($post_type) {
 						case 'event':
-							get_template_part( 'template-parts/blocs/bloc', 'event' );
+							get_template_part( 'Components/blocs/bloc', 'event' );
 							break;
 
 						case 'post':
-							get_template_part( 'template-parts/blocs/bloc', 'article' );
+							get_template_part( 'Components/blocs/bloc', 'article' );
 							break;
 
 						case 'page':
-							get_template_part( 'template-parts/blocs/bloc', 'page' );
+							get_template_part( 'Components/blocs/bloc', 'page' );
 							break;
 
 						default:
-							get_template_part( 'template-parts/blocs/bloc', 'page' );
+							get_template_part( 'Components/blocs/bloc', 'page' );
 							break;
 					}
 
@@ -391,7 +377,7 @@ function get_posts_from_term() {
  	if ( $ajax_query->have_posts() ) : ?>
  		<div id="webmag-innergrid" data-columns class="row">
 			<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); 
-	 		get_template_part( 'template-parts/blocs/bloc', 'article' );
+	 		get_template_part( 'Components/blocs/bloc', 'article' );
 			endwhile; ?>
 		</div>
 
@@ -437,7 +423,7 @@ function load_more_posts() {
 	if ( $ajax_query->have_posts() ) : 
 		while ( $ajax_query->have_posts() ) : 
 			$ajax_query->the_post(); 
-	 		get_template_part( 'template-parts/blocs/bloc', 'article' );
+	 		get_template_part( 'Components/blocs/bloc', 'article' );
 		endwhile; 
 	endif;
 
@@ -521,7 +507,7 @@ function get_events_filtered() {
 
 	set_query_var('query', $ajax_query);
 	set_query_var('previous_month', $previous_month);
-	get_template_part('template-parts/loops/loop', 'events');
+	get_template_part('Components/loops/loop', 'events');
 
 	die();
 }

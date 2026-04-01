@@ -15,7 +15,7 @@ $rdv = get_query_var( 'rdv' );
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main page-taxonomy" cat-slug="<?php echo $rdv->slug; ?>" role="main">
 			
-			<?php get_template_part( 'template-parts/contents/content', 'programmation' ); ?>
+			<?php get_template_part( 'Components/contents/content', 'programmation' ); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

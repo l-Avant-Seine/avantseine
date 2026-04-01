@@ -22,7 +22,7 @@
 			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
 				<?php set_query_var('excerpt', $excerpt); ?>
-				<?php get_template_part('template-parts/blocs/bloc', 'article'); ?>	 
+				<?php get_template_part('Components/blocs/bloc', 'article'); ?>	 
 
 			<?php endwhile; ?>
 		</div>

@@ -56,7 +56,7 @@
 
 		<div class="m-6col post-aside mb-2">
 				<?php set_query_var('taxo', 'relational_tag'); ?>
-				<?php get_template_part( 'template-parts/modules/module', 'relatedevent' ); ?>
+				<?php get_template_part( 'Components/modules/module', 'relatedevent' ); ?>
 		</div>
 
 

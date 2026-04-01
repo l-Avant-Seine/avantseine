@@ -13,22 +13,6 @@ $today = time();
 	<div id="main-webmag" class="cf mb-3">
 
 
-					<div class="webmag-ticker ticker-wrap">
-						<div class="ticker">
-
-							<?php for ($i=0; $i < 50; $i++) { 
-								if( $i % 2 === 0 ) { ?>
-									<span class="ticker__item">Le magazine de l'Avant Seine !</span>
-								<?php }
-								else { ?>
-									<span class="ticker__item red">Le magazine de l'Avant Seine !</span>
-								<?php }
-							} ?>	
-						</div>
-					</div>
-
-
-
 				<div class="webmag-filters mb-2">
 					<div class="wrap">
 						<div class="mb-05">
@@ -94,7 +78,7 @@ $today = time();
 
 							<?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
 								<?php
-									get_template_part( 'template-parts/blocs/bloc', 'article' );
+									get_template_part( 'Components/blocs/bloc', 'article' );
 								?>
 							<?php endwhile; ?>
 

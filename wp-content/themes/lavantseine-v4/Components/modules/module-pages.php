@@ -11,7 +11,7 @@
 		foreach ( $pages_list as $post ) :
 			set_query_var('icons', $icons);
 			setup_postdata( $post );
-			get_template_part( 'template-parts/blocs/bloc', 'page' ); 
+			get_template_part( 'Components/blocs/bloc', 'page' ); 
 
 		endforeach; wp_reset_query();?>
 
