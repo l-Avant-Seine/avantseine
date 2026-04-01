@@ -9,9 +9,9 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 4.9
-	Tested up to: 6.9
-	Stable tag: 3.2.4
-	Version:    3.2.4
+	Tested up to: 7.0
+	Stable tag: 3.3
+	Version:    3.3
 	Requires PHP: 5.6.20
 	Text Domain: disable-gutenberg
 	Domain Path: /languages
@@ -32,7 +32,7 @@
 	You should have received a copy of the GNU General Public License
 	with this program. If not, visit: https://www.gnu.org/licenses/
 	
-	Copyright 2025 Monzilla Media. All rights reserved.
+	Copyright 2018-2026 Monzilla Media. All rights reserved.
 */
 
 if (!defined('ABSPATH')) die();
@@ -76,7 +76,7 @@ if (!class_exists('DisableGutenberg')) {
 		
 		function constants() {
 			
-			if (!defined('DISABLE_GUTENBERG_VERSION')) define('DISABLE_GUTENBERG_VERSION', '3.2.4');
+			if (!defined('DISABLE_GUTENBERG_VERSION')) define('DISABLE_GUTENBERG_VERSION', '3.3');
 			if (!defined('DISABLE_GUTENBERG_REQUIRE')) define('DISABLE_GUTENBERG_REQUIRE', '4.9');
 			if (!defined('DISABLE_GUTENBERG_AUTHOR'))  define('DISABLE_GUTENBERG_AUTHOR',  'Jeff Starr');
 			if (!defined('DISABLE_GUTENBERG_NAME'))    define('DISABLE_GUTENBERG_NAME',    'Disable Gutenberg');
