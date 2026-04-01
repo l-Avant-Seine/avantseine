@@ -40,39 +40,38 @@ End Facebook Pixel Code -->
 
 <?php
 	//$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019-mobile.png';
-	$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2025.png'; ?>
+	$header_logo_file = get_field('site_logo', 'option'); ?>
 				
 </head>
 
 <body <?php body_class(); ?>>
 <div id="page" class="site">
 
-	<header id="masthead" class="site-header cf" role="banner">
+	<header id="masthead" class="site-header" role="banner">
 
-		<nav class="site-branding">
-			<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home">
-				<img class="site-logo" id="site-logo" src="<?php echo $header_logo_file ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
-			</a>
-		</nav>
+		<img src="<?php the_field('logo_texture', 'option'); ?>" alt="" class="header_texture">
 
-		<div class="site-menus is-flex">
+		<div class="flex --hcentered --jstf">
+			<nav class="header-branding">
+				<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home" class="logo_link">
+					<img class="site-logo" id="site-logo" src="<?php echo $header_logo_file ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
+				</a>
+			</nav>
 
-			<nav id="site-navigation" class="cf siteMenus-primary flx-2" role="navigation">
-
-				<?php 
-					wp_nav_menu( array( 
-						'theme_location' => 'primary', 
-						'menu_id' => 'primary-menu',
-					) ); 
-				?>
-
+			<nav id="site-navigation" class="header-navigation main-navigation" role="navigation">
+					<?php 
+						wp_nav_menu( array( 
+							'theme_location' => 'primary', 
+							'menu_id' => 'primary-menu',
+						) ); 
+					?>
 			</nav><!-- #site-navigation -->
 
+			<div class="header-cta">
+				<a href="#" class="btn">Billetterie</a>
+			</div>
 
-
-
-		</div><!-- .site-menus -->
-
+		</div>
 
 		<!-- <div id="siteMenus-searchform" class="siteMenus-searchform">
 			<div class="inner">

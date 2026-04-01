@@ -5,3 +5,19 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
+
+.btn {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	padding: 10px 20px;
+	border-radius: 32px;
+	font-size: 1.5rem;
+	line-height: 1.1;
+	transition: background-color .3s, color .3s;
+
+	&:hover {
+		background-color: black;
+		color: white;
+	}
+}
