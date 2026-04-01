@@ -19,16 +19,15 @@
                 );
 
 
-            elseif( get_row_layout() == 'mod_bigtypo' ): 
+            elseif( get_row_layout() == 'mod_calendar' ): 
                 
                 $data = array (
-                    'ancre' => get_sub_field('mod_id'),
                     'title' => get_sub_field('mod_title'),
                 );
 
                 get_template_part( 
                     'Components/modules/module', 
-                    'message',
+                    'calendar',
                     $data
                 );
 
