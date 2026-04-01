@@ -39,9 +39,17 @@ body {
 
 
 // HEADS
-
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+}
 .h1 {
+	font-size: 10rem;
+	line-height: 1;
+	font-weight: 700;
 
+	@include up-to(large) {
+		font-size: 8rem;
+	}
 }
 
 .h2 {
@@ -59,6 +67,7 @@ body {
 // BODY
 
 p {
+	margin-top: 0;
 	font-size: 1.5rem;
 	line-height: 1.5;
 }
@@ -68,4 +77,13 @@ p {
 	font-size: 1.5rem;
 	line-height: 1;
 	padding: 5px 10px;
+}
+
+.label_1 {
+	font-size: 1.4rem;
+	text-transform: uppercase;
+}
+.label_2 {
+	font-size: 2.4rem;
+	font-weight: bold;
 }

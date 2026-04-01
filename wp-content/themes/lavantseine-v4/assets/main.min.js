@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const swiperCover = new Swiper('.swiper-cover', {
     slidesPerView : 1,
     spaceBetween : 0,
+    autoplay: {
+      delay: 4000
+    },
+    loop: true,
   });
 
 

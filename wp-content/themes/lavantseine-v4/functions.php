@@ -137,7 +137,7 @@ function lavantseine_v4_scripts() {
 	wp_register_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js' , '', '', false );
 
 	//wp_register_script( 'salvattore', get_template_directory_uri() .'/assets/js/lib/salvattore.js' , 'jquery', '', true );
-	//wp_register_script( 'blazy', get_template_directory_uri() .'/assets/js/lib/blazy.js' , 'jquery', '', true );
+	wp_enqueue_script( 'blazy', get_template_directory_uri() .'/assets/js/lib/blazy.js' , 'jquery', '', true );
 
 	//wp_enqueue_script('blazy');
 	//wp_enqueue_script('salvattore');

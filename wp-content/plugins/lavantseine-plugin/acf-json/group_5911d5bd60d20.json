@@ -332,6 +332,32 @@
             "selected": 0
         },
         {
+            "key": "field_69cd601d689a9",
+            "label": "Visuel texture",
+            "name": "event_texture",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
             "key": "field_5912b6dcd925b",
             "label": "Code media",
             "name": "eventDetail_mediaMarkup",
@@ -574,6 +600,7 @@
                     "return_format": "l d F Y - H\\hi",
                     "first_day": 1,
                     "allow_in_bindings": 1,
+                    "default_to_current_date": 0,
                     "parent_repeater": "field_592c7c3c43ee4"
                 },
                 {
@@ -681,5 +708,8 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1748452034
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1775067247
 }

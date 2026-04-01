@@ -1,4 +1,9 @@
-.site-header {
+
+/* 
+ * HEADER
+ */
+
+ .site-header {
     display: flex;
     background-color: #EA4B94;
     padding-right: 3vw;
@@ -44,10 +49,42 @@
     }
 }
 
+
 section {
     background-color: lightblue;
     padding: 40px 0;
 }
+
+.module-slider {
+    padding: 0;
+
+    .wp-post-image {
+        width: 100%;
+        height: 50vh;
+        object-fit: cover;
+    }
+    .mod_text {
+        position: absolute;
+        bottom: 0;
+        left: 3vw;
+        //max-width: 50vw;
+    }
+    .mod_title {
+        color: white;
+        position: relative;
+        z-index: 1;
+        padding-bottom: 30px;
+    }
+
+    .mod_texture {
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        left: 0;
+        max-height: 300px;
+    }
+}
+
 
 
 
