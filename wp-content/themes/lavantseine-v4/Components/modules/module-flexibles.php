@@ -88,6 +88,23 @@
                 );
 
 
+            elseif( get_row_layout() == 'mod_magazine' ): 
+                
+                $data = array (
+                    'title' => get_sub_field('mod_title'),
+                    'relations' => get_sub_field('mod_relations'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'magazine',
+                    $data
+                );
+
+
+                
+
+
             endif; 
 
         endwhile;

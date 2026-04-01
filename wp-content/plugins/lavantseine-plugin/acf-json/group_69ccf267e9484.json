@@ -360,6 +360,69 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_69cd14dc31d10": {
+                    "key": "layout_69cd14dc31d10",
+                    "name": "mod_magazine",
+                    "label": "Module Magazine en slider",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_69cd14f531d16",
+                            "label": "Titre du module",
+                            "name": "mod_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69cd150031d17",
+                            "label": "Sélectionner les actualités à afficher dans le module",
+                            "name": "mod_relations",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "post"
+                            ],
+                            "post_status": "",
+                            "taxonomy": "",
+                            "filters": [
+                                "search",
+                                "post_type",
+                                "taxonomy"
+                            ],
+                            "return_format": "object",
+                            "min": "",
+                            "max": "",
+                            "allow_in_bindings": 0,
+                            "elements": "",
+                            "bidirectional": 0,
+                            "bidirectional_target": []
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -402,5 +465,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775047471
+    "modified": 1775047960
 }

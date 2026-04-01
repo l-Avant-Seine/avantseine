@@ -1,7 +1,5 @@
 
 
-
-
 .hidden,
 .visuallyhidden {
     border: 0;
@@ -16,18 +14,14 @@
     visibility: hidden;
 }
 
-
 // POSITIONS
 
 .is-relative {
     position: relative;
 }
-
 .is-absolute {
     position: absolute;
 }
-
-
 
 
 // MARGINS
@@ -77,7 +71,6 @@ $marge-xxlarge: 240px;
 .flex {
     display: flex;
 
-
     &.--vcentered {
         @extend .flex;
         justify-content: center;
@@ -122,6 +115,9 @@ $marge-xxlarge: 240px;
 }
 
 
+.--block {
+    display: block;
+}
 
 
 .inversed {

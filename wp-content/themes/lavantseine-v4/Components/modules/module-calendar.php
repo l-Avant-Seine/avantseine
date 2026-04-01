@@ -6,8 +6,7 @@
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 	$today = time();
 
-
-		$args = array(
+	$args = array(
 			'post_type' 			=> 'event',
 			'posts_per_page' 		=> -1,
 			'post_status'			=> 'publish', 
@@ -21,47 +20,62 @@
 			       'compare' => '>=',
 			    ) 
 			)	
-		);
+	);
 
-	$last_events = get_posts( $args );
-
-	
+	$next_events = get_posts( $args );
 ?>
 
-	<section class="mod_calendar">
+
+<section class="mod_calendar">
 	
-		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>
+    <div class="inner">
+
+        <div class="swiper-calendar">
+
+            <div class="swiper-wrapper">
+                <?php foreach ( $next_events as $post ) : setup_postdata( $post ); ?>
+
+                    <div class="swiper-slide">
+
+                        <?php 
+                            $focus_event_id = $post->ID;
+                            $focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'homeslide' );
+                            $event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
+                        ?>
+
+						<?php 
+							set_query_var('focus_event_id', $focus_event_id);
+							set_query_var('post', $post);
+							get_template_part('Components/blocs/bloc', 'event'); ?>
+                    
+                    </div>
+
+                <?php endforeach; wp_reset_query();?>
+            </div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+            
+        </div><!-- .swiper-container -->
+
+
+		<?php foreach ( $next_events as $post ) : setup_postdata( $post ); ?>
 		
-		  <div class="slide  is-flex ">
 		  	
-		  	<div class="cf event-teaser">
-					<?php 
-						$focus_event_id = $post->ID;
-						$focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'homeslide' );
-						$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
-					?>
 
 
-			  	<div class="slide-text">
-			  		<div class="inner">
 	
-							<?php 
-								set_query_var('focus_event_id', $focus_event_id);
-								set_query_var('post', $post);
-								get_template_part('Components/blocs/header', 'event'); ?>
 
 
-					  	<a href="<?php the_permalink(); ?>" class="btn-primary">en savoir plus</a>
 
-
-					</div>
-			  </div>
-		  </div>
 
 		<?php endforeach; 
 		wp_reset_postdata(); ?>
-	
-	</section>
+
+
+	</div>
+</section>
 
 
 
