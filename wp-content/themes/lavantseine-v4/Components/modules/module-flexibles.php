@@ -63,7 +63,17 @@
                 );
 
 
+            elseif( get_row_layout() == 'mod_pagealone' ): 
+                
+                $data = array (
+                    'page' => get_sub_field('mod_page'),
+                );
 
+                get_template_part( 
+                    'Components/modules/module', 
+                    'pagealone',
+                    $data
+                );
                 
 
 
