@@ -265,14 +265,14 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "https:\/\/www.facebook.com\/lAvantSeine",
             "allow_in_bindings": 0,
             "placeholder": ""
         },
         {
             "key": "field_69cd2d84eea67",
-            "label": "Lien X",
-            "name": "link_x",
+            "label": "Lien Youtube",
+            "name": "link_youtube",
             "aria-label": "",
             "type": "url",
             "instructions": "",
@@ -283,7 +283,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "https:\/\/www.youtube.com\/channel\/UCtUb1swrX34VbClR53YcagA",
             "allow_in_bindings": 0,
             "placeholder": ""
         },
@@ -301,7 +301,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "http:\/\/instagram.com\/avantseine",
             "allow_in_bindings": 0,
             "placeholder": ""
         },
@@ -319,7 +319,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "https:\/\/www.tiktok.com\/@avantseine?lang=fr",
             "allow_in_bindings": 0,
             "placeholder": ""
         },
@@ -337,7 +337,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "https:\/\/www.linkedin.com\/company\/l\\'avant-seine-th%C3%A9%C3%A2tre-de-colombes\/",
             "allow_in_bindings": 0,
             "placeholder": ""
         },
@@ -389,5 +389,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775054446
+    "modified": 1775058166
 }
