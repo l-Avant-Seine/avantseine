@@ -5,6 +5,7 @@ body {
 	font-size: 16px;
 }
 
+
 @font-face {
 	font-family: Circular;
 	font-weight: 700;
@@ -33,6 +34,12 @@ $bold: 			700;
 $book: 			400;
 
 
-
 // HEADS
 
+
+// BODY
+
+p {
+	font-size: 1.5rem;
+	line-height: 1.5;
+}

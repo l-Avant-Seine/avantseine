@@ -68,7 +68,7 @@ End Facebook Pixel Code -->
 			</nav><!-- #site-navigation -->
 
 			<div class="header-cta">
-				<a href="#" class="btn">Billetterie</a>
+				<a href="<?php the_field('link_billetterie', 'option'); ?>" target="_blank" class="btn">Billetterie</a>
 			</div>
 
 		</div>

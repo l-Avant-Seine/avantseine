@@ -1,64 +1,86 @@
-<?php
-/**
- * The template for displaying the footer
- *
- * Contains the closing of the #content div and all content after.
- *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
- * @package l\'Avant-Seine_v2.0
- */
 
-?>
 
 		</div><!-- #content -->
 
-
-		<section id="section-transition" class="section-transition">
-			<div class="wrap">
-				<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
-			</div>
-		</section>
-
-
 		<footer id="mastfooter" class="site-footer" role="contentinfo">
 
+			<div class="footer_upper wrapper">
 
-			<div class="footer-infos wrap row mb-3">
-				
-				<?php
-					if( have_rows('footer_cols', 'options') ):
-				    while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
-							<div class="footer-col m-5col">
-				        <?php the_sub_field('colonne'); ?>
+				<div class="grid mb-large">
+					<div class="m_6col">
+						<div class="wrap">
+							<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
+						</div>
+					</div>
+					
+					<div class="m_6col">
+						<div class="wrap">
+							<?php get_template_part('Components/blocs/bloc', 'reseaux');  ?>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="grid">
+					<div class="m_2col">
+						<nav class="header-branding">
+							<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home" class="logo_link">
+								<img class="site-logo" id="site-logo" src="<?php the_field('footer_logo', 'option'); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
+							</a>
+						</nav>
+					</div>
+					<?php
+						if( have_rows('footer_cols', 'options') ):
+						while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
+							<div class="footer-col m_3col">
+								<?php the_sub_field('colonne'); ?>
 							</div>
-							<div class="footer-col--empty m-1col">
-								&nbsp;
-							</div>
-				    <?php endwhile;
-				endif;
-				?>			
+						<?php endwhile;
+					endif;
+					?>			
+				</div>
 			</div>
 
-			<div class="footer-logos">
-				<div class="wrap row">
-					<div class="m-22col">
+			<div class="texture">
+				<img src="<?php the_field('footer_texture', 'option'); ?>" alt="">
+			</div>
+
+			<div class="footer_lower">
+				<div class="wrapper ">
+					<div class="">
 						<?php 
 
 						$images = get_field('logos_partenaires', 'options');
 
 						if( $images ): ?>
-						    <ul class=" no-bullets is-flex">
+						    <ul class="no-bullets flex --gap-s --centered">
 						        <?php foreach( $images as $image ): ?>
 						            <li class="logo-item flx-1">
-													<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
+										<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
 						            </li>
 						        <?php endforeach; ?>
 						    </ul>
 						<?php endif; ?>
 					</div>
+
+					<nav id="footer-navigation" class="footer-navigation" role="navigation">
+							<?php 
+								wp_nav_menu( array( 
+									'theme_location' => 'footer', 
+									'menu_id' => 'footer-menu',
+								) ); 
+							?>
+					</nav><!-- #site-navigation -->
+					
 				</div>
 			</div>
+
+
+
+
+
+
+
 
 		</footer><!-- #mastfooter -->
 
@@ -90,6 +112,8 @@
 <?php endif; ?>
 
 
+
+
 		<?php if( is_home() ) : ?>
 			<img src="https://secure.adnxs.com/seg?add=17307151&t=2" width="1" height="1" />
 		<?php elseif( is_page( 'programmation' ) ) : ?>
@@ -99,15 +123,6 @@
 		<?php endif; ?>
 
 
-		<!-- http://addtocalendar.com/-->
-	  <script type="text/javascript">(function () {
-	    if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
-	    if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
-	        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-	        s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
-	        s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
-	        var h = d[g]('body')[0];h.appendChild(s); }})();
-	  </script>
 
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
