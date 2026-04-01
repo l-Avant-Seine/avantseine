@@ -59,8 +59,44 @@ function monsterinsights_admin_menu()
 	}
 
 	if ( $hook === 'monsterinsights_reports' ) {
-		add_submenu_page( $parent_slug, __( 'General Reports:', 'google-analytics-for-wordpress' ), __( 'Reports', 'google-analytics-for-wordpress' ), 'monsterinsights_view_dashboard', 'monsterinsights_reports', 'monsterinsights_reports_page' );
+		// Add Overview report page (Vue 3 app) - this is the visible Reports menu item
+		add_submenu_page(
+			$parent_slug,
+			__( 'Overview Report:', 'google-analytics-for-wordpress' ),
+			__( 'Reports', 'google-analytics-for-wordpress' ),
+			'monsterinsights_view_dashboard',
+			'monsterinsights_overview_report',
+			'monsterinsights_overview_report_page'
+		);
+
+		// Register reports page with empty parent to keep it accessible but hidden from menu
+		add_submenu_page( '', __( 'General Reports:', 'google-analytics-for-wordpress' ), __( 'Reports', 'google-analytics-for-wordpress' ), 'monsterinsights_view_dashboard', 'monsterinsights_reports', 'monsterinsights_reports_page' );
 	}
+
+	/**
+	 * Output the Custom Dashboard app mount node.
+	 *
+	 * @return void
+	 */
+	function monsterinsights_custom_dashboard_page() {
+		do_action( 'monsterinsights_head' );
+		// Hide WordPress admin notices on this page - Vue app handles its own notifications
+		echo '<style>.monsterinsights_page_monsterinsights_custom_dashboard .notice:not(.monsterinsights-notice),.monsterinsights_page_monsterinsights_custom_dashboard .error:not(.monsterinsights-notice),.monsterinsights_page_monsterinsights_custom_dashboard .updated:not(.monsterinsights-notice){display:none !important;}</style>';
+		echo '<div id="monsterinsights-custom-dashboard-app" class="mi-custom-dashboard-app">';
+		echo '<div class="mi-app-loading"><span class="dashicons dashicons-update mi-spin"></span></div>';
+		echo '<style>.mi-app-loading{display:flex;align-items:center;justify-content:center;min-height:400px;}.mi-spin{animation:mi-spin 1s linear infinite;font-size:40px;width:40px;height:40px;color:#338eef;}@keyframes mi-spin{to{transform:rotate(360deg);}}</style>';
+		echo '</div>';
+	}
+
+// 	// Add Dashboard page (Vue 3 app)
+// 	add_submenu_page(
+// 		$parent_slug,
+// 		__( 'Dashboard:', 'google-analytics-for-wordpress' ),
+// 		__( 'Dashboard', 'google-analytics-for-wordpress' ) . $new_indicator,
+// 		'monsterinsights_view_dashboard',
+// 		'monsterinsights_custom_dashboard',
+// 		'monsterinsights_custom_dashboard_page'
+// 	);
 
 	// then settings page
 	add_submenu_page( $parent_slug, __( 'MonsterInsights', 'google-analytics-for-wordpress' ), __( 'Settings', 'google-analytics-for-wordpress' ), 'monsterinsights_save_settings', 'monsterinsights_settings', 'monsterinsights_settings_page' );
@@ -68,9 +104,15 @@ function monsterinsights_admin_menu()
 	// Add dashboard submenu.
 	add_submenu_page( 'index.php', __( 'General Reports:', 'google-analytics-for-wordpress' ), __( 'Insights', 'google-analytics-for-wordpress' ), 'monsterinsights_view_dashboard', 'admin.php?page=monsterinsights_reports' );
 
-	// If the setup checklist is not dismissed, remove the own submenu of `Insights` main menu that we added on line 52.
+	// Remove own auto-generated `Insights` submenu when Reports submenu is explicitly registered.
+	// Because the first submenu slug is not `monsterinsights_reports`, WordPress adds this item automatically.
+	if ( $hook === 'monsterinsights_reports' ) {
+		remove_submenu_page( 'monsterinsights_reports', 'monsterinsights_reports' );
+	}
+
+	// If the setup checklist is not dismissed, remove the own submenu of `Insights` main menu.
 	// This way the Checklist will be the first submenu which is an important thing for onboarding.
-	if ( $hide_reports_submenu ) {
+	if ( $hide_reports_submenu && $hook !== 'monsterinsights_reports' ) {
 
 		// Check if the user has the capability to save settings and view dashboard.
 		// We should skip this for editors that have only view capability have only item in the submenu, removing that would break the menu.
@@ -118,7 +160,7 @@ function monsterinsights_admin_menu()
 	add_submenu_page($parent_slug, __('SEO', 'google-analytics-for-wordpress'), __('SEO', 'google-analytics-for-wordpress'), 'manage_options', $seo_url);
 
 	// Google PAX
-	add_submenu_page($parent_slug, __('Google Ads', 'google-analytics-for-wordpress'), __('Google Ads', 'google-analytics-for-wordpress'), 'monsterinsights_view_dashboard', $submenu_base . '#/google-ads');
+	add_submenu_page($parent_slug, __('Google Ads', 'google-analytics-for-wordpress'), __('Google Ads', 'google-analytics-for-wordpress') . $new_indicator, 'monsterinsights_view_dashboard', $submenu_base . '#/google-ads');
 
 	// then tools
 	add_submenu_page($parent_slug, __('Tools:', 'google-analytics-for-wordpress'), __('Tools', 'google-analytics-for-wordpress'), 'manage_options', $submenu_base . '#/tools');
@@ -140,10 +182,7 @@ function monsterinsights_admin_menu()
 	add_submenu_page(
 		$parent_slug,
 		__('Privacy Compliance:', 'google-analytics-for-wordpress'),
-		sprintf(
-			'<span class="monsterinsights-sidebar-label--tight">%s</span>' . $new_indicator,
-			__('Privacy Compliance', 'google-analytics-for-wordpress')
-		),
+		__('Privacy Compliance', 'google-analytics-for-wordpress'),
 		'manage_options',
 		$submenu_base . '#/wpconsent'
 	);
@@ -990,6 +1029,13 @@ add_action( 'in_admin_footer', 'monsterinsights_in_admin_footer' );
  * Display notice in admin to install WPConsent.
  */
 function monsterinsights_wpconsent_install_notice() {
+	global $pagenow;
+
+	// Dont show the notice on update page.
+	if ( 'update-core.php' === $pagenow ) {
+		return;
+	}
+
 	// If WPConsent plugin active.
 	if ( function_exists( 'WPConsent' ) ) {
 		return;
@@ -1045,6 +1091,19 @@ function monsterinsights_wpconsent_install_notice() {
 add_action( 'admin_notices', 'monsterinsights_wpconsent_install_notice' );
 
 /**
+ * Add Overview report page (Vue 3 app)
+ */
+function monsterinsights_overview_report_page() {
+	do_action( 'monsterinsights_head' );
+	// Hide WordPress admin notices on this page - Vue app handles its own notifications
+	echo '<style>.monsterinsights_page .notice:not(.monsterinsights-notice),.monsterinsights_page .error:not(.monsterinsights-notice),.monsterinsights_page .updated:not(.monsterinsights-notice){display:none !important;}</style>';
+	echo '<div id="monsterinsights-overview-report-app">';
+	echo '<div class="mi-app-loading"><span class="dashicons dashicons-update mi-spin"></span></div>';
+	echo '<style>.mi-app-loading{display:flex;align-items:center;justify-content:center;min-height:400px;}.mi-spin{animation:mi-spin 1s linear infinite;font-size:40px;width:40px;height:40px;color:#338eef;}@keyframes mi-spin{to{transform:rotate(360deg);}}</style>';
+	echo '</div>';
+}
+
+/**
  * Add EEA Compliance file.
  */
 require_once __DIR__ . '/eea-compliance.php';
@@ -1053,3 +1112,8 @@ require_once __DIR__ . '/eea-compliance.php';
  * Add translations functionality.
  */
 require_once __DIR__ . '/translations.php';
+
+/**
+ * Report filter CRUD ajax handler.
+ */
+require_once __DIR__ . '/reports/filter-ajax.php';

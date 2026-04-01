@@ -52,7 +52,7 @@ class MonsterInsights_SiteNotes_Controller {
 		}
 
 		add_filter('monsterinsights_report_overview_data', array($this, 'prepare_data_overview_chart'));
-		add_filter('monsterinsights_report_traffic_sessions_chart_data', array($this, 'prepare_traffic_sessions_chart_data'), 10, 3);
+		add_filter('monsterinsights_report_traffic_sessions_chart_data', array($this, 'prepare_traffic_sessions_chart_data'), 10, 4);
 		add_action('save_post', array($this, 'save_custom_fields'));
 		add_filter('monsterinsights_gutenberg_tool_vars', array($this, 'add_categories_to_editor'));
 		add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
@@ -1158,11 +1158,34 @@ class MonsterInsights_SiteNotes_Controller {
 	}
 
 	public function load_metabox_assets() {
+		// Don't load classic editor assets on block editor
+		if ( $this->is_gutenberg_editor() ) {
+			return;
+		}
+
 		wp_register_style('monsterinsights-admin-metabox-sitenotes-style', plugins_url('assets/css/admin-metabox-sitenotes.css', MONSTERINSIGHTS_PLUGIN_FILE), array(), monsterinsights_get_asset_version());
 		wp_enqueue_style('monsterinsights-admin-metabox-sitenotes-style');
 
 		wp_register_script('monsterinsights-admin-metabox-sitenotes-script', plugins_url('assets/js/admin-metabox-sitenotes.js', MONSTERINSIGHTS_PLUGIN_FILE), array('jquery'), monsterinsights_get_asset_version());
 		wp_enqueue_script('monsterinsights-admin-metabox-sitenotes-script');
+	}
+
+	/**
+	 * Check if the current screen is the Gutenberg (block) editor.
+	 *
+	 * @return bool True if on block editor, false otherwise.
+	 */
+	private function is_gutenberg_editor() {
+		if ( function_exists( 'is_gutenberg_page' ) && is_gutenberg_page() ) {
+			return true;
+		}
+
+		$current_screen = get_current_screen();
+		if ( method_exists( $current_screen, 'is_block_editor' ) && $current_screen->is_block_editor() ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -1174,12 +1197,14 @@ class MonsterInsights_SiteNotes_Controller {
 	 *
 	 * @return array
 	 */
-	public function prepare_traffic_sessions_chart_data( $data, $start_date, $end_date ) {
-
-		if ( ! isset( $data['data']['sessions_chart'] ) ) {
+	public function prepare_traffic_sessions_chart_data( $data, $start_date, $end_date, $custom_chart_type = null ) {
+		$chart_type = 'sessions_chart';
+		if ( ! isset( $data['data']['sessions_chart'] ) && null === $custom_chart_type ) {
 			return $data;
 		}
-
+		if (  isset( $data['data'][ $custom_chart_type ] ) ) {
+			$chart_type = $custom_chart_type;
+		}
 		$params = array(
 			'per_page' => - 1,
 			'filter'   => array(
@@ -1208,8 +1233,7 @@ class MonsterInsights_SiteNotes_Controller {
 			);
 		}
 
-		$data['data']['sessions_chart']['notes'] = $prepared_notes;
-
+		$data['data'][ $chart_type ]['notes'] = $prepared_notes;
 		return $data;
 	}
 
