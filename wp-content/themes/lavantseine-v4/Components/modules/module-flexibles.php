@@ -79,6 +79,9 @@
                 
                 $data = array (
                     'relations' => get_sub_field('mod_relations'),
+                    'title' => get_sub_field('mod_title'),
+                    'label' => get_sub_field('mod_label'),
+                    'link' => get_sub_field('mod_link'),
                 );
 
                 get_template_part( 

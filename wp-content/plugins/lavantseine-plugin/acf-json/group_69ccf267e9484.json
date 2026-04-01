@@ -322,6 +322,27 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_69cd6662f666f",
+                            "label": "Titre du module",
+                            "name": "mod_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
                             "key": "field_69cd130c6dcc5",
                             "label": "Sélectionner les pages à afficher en colonnes",
                             "name": "mod_relations",
@@ -356,6 +377,49 @@
                             "elements": "",
                             "bidirectional": 0,
                             "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_69cd680861b5d",
+                            "label": "Label du bouton à droite du titre",
+                            "name": "mod_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69cd681561b5e",
+                            "label": "Lien du bouton à droite du titre",
+                            "name": "mod_link",
+                            "aria-label": "",
+                            "type": "page_link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": "",
+                            "post_status": "",
+                            "taxonomy": "",
+                            "allow_archives": 1,
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0
                         }
                     ],
                     "min": "",
@@ -465,5 +529,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775047960
+    "modified": 1775069228
 }
