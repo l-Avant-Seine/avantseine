@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('UPDRAFTPLUS_DIR')) die('No access.');
+if (!defined('ABSPATH')) exit;
+if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
 /*
 	- A container for all the remote commands implemented. Commands map exactly onto method names (and hence this class should not implement anything else, beyond the constructor, and private methods)
@@ -377,7 +378,9 @@ class UpdraftPlus_Commands {
 
 		$vault = $updraftplus_admin->get_updraftvault($instance_id);
 
-		return $vault->ajax_vault_recountquota(false);
+		$return_data_only = isset($_REQUEST['return_data_only']) ? true : false;
+
+		return $vault->ajax_vault_recountquota(false, $return_data_only);
 	}
 	
 	/**
@@ -394,8 +397,9 @@ class UpdraftPlus_Commands {
 
 		$instance_id = empty($credentials['instance_id']) ? '' : $credentials['instance_id'];
 
-		return $updraftplus_admin->get_updraftvault($instance_id)->ajax_vault_connect(false, $credentials);
-	
+		$return_data_only = isset($credentials['return_data_only']) && $credentials['return_data_only'] ? true : false;
+
+		return $updraftplus_admin->get_updraftvault($instance_id)->ajax_vault_connect(false, $credentials, $return_data_only);
 	}
 	
 	/**
@@ -1147,7 +1151,7 @@ class UpdraftPlus_Commands {
 			}
 			$content .= '</div>'; // end .updraftclone-main-row
 
-			$content .= isset($response['clone_list']) ? '<div class="clone-list"><h3>'.__('Current clones', 'updraftplus').' - <a target="_blank" href="https://updraftplus.com/my-account/clones/">'.__('manage', 'updraftplus').'</a></h3>'.$response['clone_list'].'</div>' : '';
+			$content .= isset($response['clone_list']) ? '<div class="clone-list"><h3>'.__('Current clones', 'updraftplus').' - <a target="_blank" href="https://teamupdraft.com/my-account/clones/">'.__('manage', 'updraftplus').'</a></h3>'.$response['clone_list'].'</div>' : '';
 
 			$response['html'] = $content;
 		}
