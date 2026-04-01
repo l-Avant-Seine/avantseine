@@ -15,10 +15,6 @@ $today = time();
 
 
 
-
-
-
-
 	<div class="row wrap mb-2 is-relative">
 
 		<div class="m-14col">

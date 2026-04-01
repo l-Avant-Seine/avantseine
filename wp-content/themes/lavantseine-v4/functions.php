@@ -131,10 +131,10 @@ add_action( 'widgets_init', 'lavantseine_v2_widgets_init' );
 function lavantseine_v4_scripts() {
 	wp_enqueue_style( 'lavantseine-v4-style', get_template_directory_uri() . '/assets/main.min.css' );
 
-	wp_enqueue_script( 'lavantseine-v4-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array(), '', true );
+	wp_enqueue_script( 'lavantseine-v4-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('swiper'), '', true );
 
-	wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css' );
-	wp_enqueue_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js' , '', '', true );
+	wp_register_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css' );
+	wp_register_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js' , '', '', false );
 
 	//wp_register_script( 'salvattore', get_template_directory_uri() .'/assets/js/lib/salvattore.js' , 'jquery', '', true );
 	//wp_register_script( 'blazy', get_template_directory_uri() .'/assets/js/lib/blazy.js' , 'jquery', '', true );

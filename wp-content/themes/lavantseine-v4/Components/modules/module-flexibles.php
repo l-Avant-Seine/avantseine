@@ -1,22 +1,20 @@
 <?php 
 
-    if( have_rows('modules') ):
-        while ( have_rows('modules') ) : the_row();
+    if( have_rows('flexible_contents') ):
+        while ( have_rows('flexible_contents') ) : the_row();
 
             $today = date('Y-m-d');
 
 
-            if( get_row_layout() == 'mod_bigtypo' ): 
+            if( get_row_layout() == 'mod_slide' ): 
                 
                 $data = array (
-                    'ancre' => get_sub_field('mod_id'),
-                    'title' => get_sub_field('mod_title'),
+                    'posts' => get_sub_field('mod_relations'),
                 );
 
-                set_query_var( 'design', get_sub_field('mod_design') );
                 get_template_part( 
-                    'components/modules/module', 
-                    'message',
+                    'Components/modules/module', 
+                    'slider',
                     $data
                 );
 
@@ -29,7 +27,7 @@
                 );
 
                 get_template_part( 
-                    'components/modules/module', 
+                    'Components/modules/module', 
                     'message',
                     $data
                 );
