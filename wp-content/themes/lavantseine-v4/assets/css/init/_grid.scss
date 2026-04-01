@@ -60,6 +60,10 @@ $marge_wrapper--mobile: 20px;
     @include up-to(medium) {
         grid-column-gap: 1.6rem;
     }
+
+    &.--centered {
+        align-items: center;
+    }
 }
 
 

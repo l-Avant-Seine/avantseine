@@ -50,8 +50,11 @@
 }
 
 
+/* 
+ * SECTIONS
+ */
+
 section {
-    background-color: lightblue;
     padding: 40px 0;
 }
 
@@ -87,7 +90,18 @@ section {
 
 
 
+.mod_pagealone {
+    background-image: url('../Components/textures/yellow_horiz.png');
+    background-position: bottom -108px center;
+    background-repeat: no-repeat;
+    background-size: 100% 217px;
+}
 
+
+
+/* 
+ * FOOTER
+ */
 
 .site-footer {
     background-color: $rose;
