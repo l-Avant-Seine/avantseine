@@ -1,0 +1,118 @@
+/* 
+ * Grid system
+ * 
+ * @package sasskit
+ */
+
+
+
+
+/* 
+ * GRID VARIABLES SETTING
+ */ 
+
+$cols: 12;
+
+$mobile_first:                      true !default; 
+$minimal_breakpoint:                300px !default; 
+$medium_breakpoint:                 800px !default; 
+$large_breakpoint:                  1200px !default; 
+$wide_breakpoint:                   1550px !default; 
+
+$max-width: 1800px;
+$marge_wrapper: 40px;
+$marge_wrapper--mobile: 20px;
+
+
+
+
+.wrapper {
+    max-width: $max-width;
+    width: calc(100% - #{$marge_wrapper * 2});
+    margin-left: auto;
+    margin-right: auto;
+
+    @include at-least(medium) {
+        width: calc(100% - #{$marge_wrapper * 2});
+    }
+
+    @include up-to(medium) {
+        width: calc(100% - #{$marge_wrapper--mobile * 2});
+    }
+}
+
+
+
+/* 
+ * DON'T TOUCHE THIS !
+ */
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    display: grid;
+    grid-row-gap: 0;
+    grid-template-columns: repeat($cols, minmax(0, 1fr));
+
+    @include at-least(medium) {
+        grid-column-gap: $marge_wrapper;
+    }
+    @include up-to(medium) {
+        grid-column-gap: 1.6rem;
+    }
+}
+
+
+@mixin parse-columns($suffix: ''){
+
+        .#{$suffix}_0col {
+            display: none;
+        }
+        .#{$suffix}_hide {
+            display: none;
+        }
+        .#{$suffix}_show {
+            display: block;
+        }
+        
+        @for $i from 1 through $cols {
+
+            .#{$suffix}_#{$i}col {
+                grid-column: span #{$i};
+                max-width: 100%;
+                display: block;
+            
+                .grid {
+                    grid-template-columns: repeat(#{$i}, 1fr);
+
+                    // We don't need that....
+                    // @for $j from 1 through ($i - 1) {
+                    //     .#{$suffix}-#{$j}col {
+                    //         grid-column: span #{$j};
+                    //     }
+                    // }
+                }
+            }
+
+        }
+}
+
+
+/* 
+ * GRID GENERATOR
+ */
+
+
+@include at-least(minimal) {
+    @include parse-columns('s');
+}
+@include at-least(medium) {
+    @include parse-columns('m');
+}
+@include at-least(large) {
+    @include parse-columns('l');
+}
+@include at-least(wide) {
+    @include parse-columns('w');
+}
+

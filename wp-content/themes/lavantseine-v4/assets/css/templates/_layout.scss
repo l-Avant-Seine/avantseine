@@ -1,0 +1,30 @@
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	min-height: 100%;
+}
+
+body {
+	position: relative;
+	font-family: $circular;
+	color: $primary_color;
+	font-size: 90%;
+	line-height: 1.2;
+	overflow-x: hidden;
+}
+.site {
+	overflow-x: hidden;
+	min-height: 100%;
+	position: relative;
+}
+.no-scroll {
+	overflow: hidden;
+}
+
+.site-content {
+	padding-top: 80px;
+}

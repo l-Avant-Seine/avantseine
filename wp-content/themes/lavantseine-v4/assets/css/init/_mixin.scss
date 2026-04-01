@@ -1,0 +1,41 @@
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+// Responsive Breakpoints
+@mixin at-least($point) {
+	@if $point == wide {
+	  @media (min-width: $wide_breakpoint) { @content; }
+	}
+	@else if $point == large {
+	  @media (min-width: $large_breakpoint) { @content; }
+	}
+	@else if $point == medium {
+	  @media (min-width: $medium_breakpoint) { @content; }
+	}
+	@else if $point == minimal {
+	  @media (min-width: $minimal_breakpoint) { @content; }
+	}  
+	@else {
+	  @media (min-width: $point) { @content; }
+	}
+  }
+  
+  @mixin up-to($point) {
+	@if $point == wide {
+	  @media (max-width: $wide_breakpoint) { @content; }
+	}
+	@else if $point == large {
+	  @media (max-width: $large_breakpoint) { @content; }
+	}
+	@else if $point == medium {
+	  @media (max-width: $medium_breakpoint) { @content; }
+	}
+	@else {
+	  @media (max-width: $point) { @content; }
+	}
+  }

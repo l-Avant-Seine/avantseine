@@ -1,0 +1,44 @@
+
+
+
+.salgrid
+	display: flex
+	flex-wrap: wrap
+	justify-content: space-between
+
+.salgrid .focus-item:first-child
+	width: 100%
+
+.salgrid .article-item,
+.salgrid .focus-item
+	width: 48%
+
+
+#salgrid_3[data-columns]::before
+	content: '3 .m-8col'
+
+	@include up-to(medium)
+		content: '1'
+
+
+.column
+
+	&:nth-child(3)
+		float: right
+
+
+
+#page_grid[data-columns]::before
+	content: '3 .m-8col'
+
+	@include up-to(medium)
+		content: '2 .s-12col'
+		
+
+.column
+
+	&:nth-child(3)
+		float: right
+
+
+

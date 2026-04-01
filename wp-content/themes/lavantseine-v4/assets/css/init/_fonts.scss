@@ -1,0 +1,33 @@
+
+@font-face {
+	font-family: Circular;
+	font-weight: 700;
+	src: url(fonts/CircularPro-Bold.otf);
+}
+@font-face {
+	font-family: Circular;
+	font-weight: 400;
+	src: url(fonts/CircularPro-Book.otf);
+}
+@font-face {
+	font-family: Circular;
+	font-weight: 900;
+	src: url(fonts/CircularStd-Black.otf);
+}
+
+// FAMILIES
+
+$circular: Circular, Arial, Helvetica, sans-serif;
+
+$title_font_family: $circular;
+
+
+// WEIGHTS 
+$black:			900;
+$bold: 			700;
+$book: 			400;
+
+
+
+// HEADS
+

@@ -1,0 +1,125 @@
+<?php
+/**
+ * The template for displaying the footer
+ *
+ * Contains the closing of the #content div and all content after.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package l\'Avant-Seine_v2.0
+ */
+
+?>
+
+		</div><!-- #content -->
+
+
+		<section id="section-transition" class="section-transition">
+			<div class="wrap">
+				<?php get_template_part('template-parts/blocs/bloc', 'newsletter');  ?>
+			</div>
+		</section>
+
+
+		<footer id="mastfooter" class="site-footer" role="contentinfo">
+
+
+			<div class="footer-infos wrap row mb-3">
+				
+				<?php
+					if( have_rows('footer_cols', 'options') ):
+				    while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
+							<div class="footer-col m-5col">
+				        <?php the_sub_field('colonne'); ?>
+							</div>
+							<div class="footer-col--empty m-1col">
+								&nbsp;
+							</div>
+				    <?php endwhile;
+				endif;
+				?>			
+			</div>
+
+			<div class="footer-logos">
+				<div class="wrap row">
+					<div class="m-22col">
+						<?php 
+
+						$images = get_field('logos_partenaires', 'options');
+
+						if( $images ): ?>
+						    <ul class=" no-bullets is-flex">
+						        <?php foreach( $images as $image ): ?>
+						            <li class="logo-item flx-1">
+													<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
+						            </li>
+						        <?php endforeach; ?>
+						    </ul>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+
+		</footer><!-- #mastfooter -->
+
+		
+	</div><!-- #page -->
+
+	<?php wp_footer(); ?>
+
+
+<?php if( get_field('popin_content', "options") !== '' ) : ?>
+		<div id="popin" class="popin_outer disnone">
+			<div class="popin_inner">
+				<?php 
+					$cover = get_field('popin_media', "options"); 
+					$size = 'medium';
+					if( $cover ) {
+						echo "<img class='popin_media' src='" . $cover['url'] . "'>";
+					}
+				?>
+				
+				<button id="popin_close" class="btn">x</button>
+
+				<div class="popin_content">
+					<h3 class="h_3 mb-2"><?php the_field('popin_title', "options"); ?></h3>
+					<div><?php the_field('popin_content', "options"); ?></div>
+				</div>
+			</div>
+		</div>
+<?php endif; ?>
+
+
+		<?php if( is_home() ) : ?>
+			<img src="https://secure.adnxs.com/seg?add=17307151&t=2" width="1" height="1" />
+		<?php elseif( is_page( 'programmation' ) ) : ?>
+			<img src="https://secure.adnxs.com/seg?add=17307153&t=2" width="1" height="1" />
+		<?php else : ?>
+			<img src="https://secure.adnxs.com/seg?add=17307149&t=2" width="1" height="1" />	
+		<?php endif; ?>
+
+
+		<!-- http://addtocalendar.com/-->
+	  <script type="text/javascript">(function () {
+	    if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
+	    if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
+	        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+	        s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
+	        s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
+	        var h = d[g]('body')[0];h.appendChild(s); }})();
+	  </script>
+
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130862498-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-130862498-1');
+		</script>
+
+
+	</body>
+</html>

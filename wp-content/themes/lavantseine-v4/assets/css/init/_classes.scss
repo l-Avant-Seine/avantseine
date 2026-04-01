@@ -1,0 +1,127 @@
+
+
+
+
+.hidden,
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+// POSITIONS
+
+.is-relative {
+    position: relative;
+}
+
+.is-absolute {
+    position: absolute;
+}
+
+
+
+
+// MARGINS
+
+$marge: 20px;
+$marge-medium: 40px;
+$marge-large: 60px;
+$marge-xlarge: 120px;
+$marge-xxlarge: 240px;
+
+
+.mb-small {
+    margin-bottom: $marge;
+}
+.mb-medium {
+    margin-bottom: $marge-medium;
+}
+.mb-large {
+    @include at-least(medium) {
+        margin-bottom: $marge-large;
+    }
+    @include up-to(medium) {
+        margin-bottom: $marge-medium;
+    }
+}
+.mb-xlarge {
+    @include at-least(medium) {
+        margin-bottom: $marge-xlarge;
+    }
+    @include up-to(medium) {
+        margin-bottom: $marge * 5;
+    }
+}
+.mb-xxlarge {
+    @include at-least(medium) {
+        margin-bottom: $marge-xxlarge;
+    }
+    @include up-to(medium) {
+        margin-bottom: $marge-xlarge;
+    }
+}
+
+
+
+// FLEX
+
+.flex {
+    display: flex;
+}
+
+.fl-col {
+    flex-direction: column;
+}
+.fl-col-jstf {
+    @extend .fl-col;
+    display: flex !important;
+    justify-content: space-between;
+}
+.fl-top {
+    @extend .flex;
+    align-items: flex-start;
+}
+.fl-hcentered {
+    @extend .flex;
+    align-items: center;
+}
+.fl-bottom {
+    @extend .flex;
+    align-items: flex-end;
+}
+
+.fl-justify {
+    @extend .flex;
+    justify-content: space-between;
+}
+
+.fl-vcentered {
+    @extend .flex;
+    justify-content: center;
+}
+.fl-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.fl-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fl-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}

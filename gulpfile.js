@@ -10,7 +10,7 @@ const sourcemaps = require('gulp-sourcemaps');
 
 
 // VARIABLES
-var theme_folder = './wp-content/themes/lavantseine-v3/';
+var theme_folder = './wp-content/themes/lavantseine-v4/';
 var assets_folder = theme_folder + 'assets/';
 
 var jsfolder = assets_folder + 'js/';
@@ -19,19 +19,19 @@ var libjs = jsfolder + 'libs/*.js';
 var alljs = [mainjs];
 
 var sassfolder = assets_folder + 'css/';
-var sassfiles = sassfolder + '**/*.sass';
-var sassMain = sassfolder + 'style.sass';
+var sassfiles = sassfolder + '**/*.scss';
+var sassMain = sassfolder + 'main.scss';
 
 
 
 // task2 : compiler les fichiers dans le dossier scss => style.css
 function sassMainTask(){
     const flags = {outputStyle: 'compressed'};
-    return src( sassfiles )
+    return src( sassMain )
     .pipe(sourcemaps.init())
     .pipe(sass(flags).on('error', sass.logError))
     .pipe(sourcemaps.write('./maps'))
-    .pipe(rename("style.css"))
+    .pipe(rename("main.min.css"))
     .pipe(dest(assets_folder));
 }
 
@@ -55,7 +55,6 @@ const runcss = series( sassMainTask );
 function watchCSS(){
     watch(sassfiles, runcss);
     console.log(sassfiles);
-    console.log(assets_folder);
 }
 // task6 : si modification dans le dossier JS , lancer la task4
 function watchJS(){
