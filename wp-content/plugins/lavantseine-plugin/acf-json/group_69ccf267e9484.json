@@ -93,6 +93,58 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_69cd06a2e4faf": {
+                    "key": "layout_69cd06a2e4faf",
+                    "name": "mod_contact",
+                    "label": "Module Contact",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_69cd06b4e4fb5",
+                            "label": "Titre Newsletter",
+                            "name": "mod_title_news",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69cd06c4e4fb6",
+                            "label": "Titre Réseaux sociaux",
+                            "name": "mod_title_rs",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -135,5 +187,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775043779
+    "modified": 1775044305
 }

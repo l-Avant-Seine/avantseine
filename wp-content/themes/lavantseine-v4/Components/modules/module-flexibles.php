@@ -31,6 +31,19 @@
                     $data
                 );
 
+
+            elseif( get_row_layout() == 'mod_contact' ): 
+                
+                $data = array (
+                    'title_news' => get_sub_field('mod_title_news'),
+                    'title_rs' => get_sub_field('mod_title_rs'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'contact',
+                    $data
+                );
                 
             endif; 
 
