@@ -1,0 +1,27 @@
+.single-event {
+    background-color: $gray_light;
+
+    .single_texts {
+        background-color: white;
+        padding: 60px;
+    }
+
+    .single_frame {
+        background-color: white;
+        overflow: hidden;
+    }
+    .frame_row {
+        padding: 15px;
+        border-bottom: 1px solid;
+    }
+    .frame_row:has(.frame_col) {
+        padding: 0px;
+    }
+    .frame_col:first-child {
+        border-right: 1px solid;
+    }
+    .frame_col {
+        width: 50%;
+        padding: 15px;
+    }
+}

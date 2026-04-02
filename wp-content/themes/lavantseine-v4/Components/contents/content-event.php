@@ -58,11 +58,6 @@
                 $otherdates .= ' à ' . get_sub_field('date_endtime');
             }
 
-            if (get_sub_field('baby-sitting')) :
-                $otherdates .= '<a class="event-babysitting" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant • Informations et réservations" title="dès 3 ans / 6 € par enfant • Informations et réservations"><span class="icon-cocarde"> • </span>Baby-Sitting !</a>';
-                $babysitting = true;
-            endif;
-
             $otherdates .= '</li>';
         endwhile;
 
@@ -71,151 +66,107 @@
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	    <header class="event-header mb-2">
+	    <header class="single_header mb-large">
 
-	        <div class="event-cover">
-	            <img src="<?php if (get_field('gif')) : the_field('gif');
-                            else : the_post_thumbnail_url('full');
-                            endif; ?>" alt="">
+            <?php get_template_part('Components/blocs/bloc', 'slide'); ?>
+
+        </header>
 
 
-                <?php if ( $logo_festival ): ?>
-					<?php if ( $logo_festival ): ?>
-						<div class="logo_festival">
-							<img src="<?php echo $logo_festival['url']; ?>" class="">
-						</div>
-					<?php endif; ?>
-				<?php endif; ?>
+        <div class="single_contents">
 
-                
-	            <?php if ($enfantsdabord || $trenteans) : ?>
-	                <div class="pictos-trente">
+            <div class="wrapper grid">
 
-	                    <?php if ($enfantsdabord) : ?>
-	                        <div class="picto-enfantsdabord">
-	                            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
-	                        </div>
-	                    <?php endif; ?>
+                <div class="s_12col m_7col">
 
-	                    <?php if ($trenteans) : ?>
-	                        <div class="picto-trenteans">
-	                            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
-	                        </div>
-	                    <?php endif; ?>
-	                </div>
-	            <?php endif; ?>
+                    <div class="single_texts">
 
-	        </div>
 
-	        <div class="event-titles">
+                        <div class="single_body body mb-large">
+                            <?php the_content(); ?>
 
-	            <?php
-                set_query_var('focus_event_id', '');
-                set_query_var('post', $post);
-                get_template_part('Components/blocs/header', 'event'); ?>
+                            <?php if ($eventDetail_mediaMarkup) { ?>
+                                <div class="mb-2"><?php echo $eventDetail_mediaMarkup; ?></div>
+                            <?php } ?>
 
-	            <div class="row teaser-actions">
+                        </div>
 
-	                <div class="s-12col s-1col-push ">
 
-                        <?php if( !get_field('hide_booking_btn') ) : ?>
-                            <?php if (intval($event_last_date) > $today) : ?>
-                                <a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
+                        <div class="single_mentions">
+
+                            <?php if ($event_distribution) : ?>
+                                <h4 class="h_4 mb-05">
+                                    Distribution et mentions complètes
+                                </h4>
+
+                                <div class="mb-1">
+                                    <?php echo $event_distribution; ?>
+                                </div>
                             <?php endif; ?>
-                        <?php endif; ?>
-
-	                </div>
-
-	            </div>
-
-	        </div><!-- .event-titles -->
-
-	    </header><!-- .event-header -->
 
 
-	    <div class="event-content mb-2">
+                            <div class="">
 
-	        <div class="wrap row">
-
-	            <div class="m-16col" itemprop="mainContentOfPage">
-	                <div class="">
-	                    <div class="copy mb-2">
-	                        <?php the_content(); ?>
-	                    </div>
-
-	                    <?php if ($eventDetail_mediaMarkup) { ?>
-	                        <div class="mb-2"><?php echo $eventDetail_mediaMarkup; ?></div>
-	                    <?php } ?>
-
-	                    <?php get_template_part('part', 'postslide');    ?>
-
-	                </div>
-
-	                <div id="event-details" class="event-details">
-
-	                    <div class="event-distribution row clearfix mb-2">
-
-	                        <?php if ($event_distribution) : ?>
-	                            <h4 class="h_4 mb-05">
-	                                Distribution et mentions complètes
-	                            </h4>
-
-	                            <div class="mb-1">
-	                                <?php echo $event_distribution; ?>
-	                            </div>
-	                        <?php endif; ?>
-
-
-	                        <div class="">
-
-	                            <?php
+                                <?php
                                 if ($event_mentions) :
                                     echo $event_mentions;
                                 endif; ?>
 
-	                            <?php if ($attached) : ?>
-	                                <p class="attached-file">
-	                                    <a href="<?php echo $attached['url']; ?>" class="btn--big">
-	                                        Dossier de presse
-	                                    </a>
-	                                </p>
-	                            <?php endif; ?>
+                                <?php if ($attached) : ?>
+                                    <p class="attached-file">
+                                        <a href="<?php echo $attached['url']; ?>" class="btn--big">
+                                            Dossier de presse
+                                        </a>
+                                    </p>
+                                <?php endif; ?>
 
-	                            <?php if ($presskit) : ?>
-	                                <a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
-	                            <?php endif; ?>
+                                <?php if ($presskit) : ?>
+                                    <a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
+                                <?php endif; ?>
 
-	                        </div>
+                            </div>
+                        </div>
 
-	                    </div>
+	                </div>
+                </div>
 
 
-	                    <div class="row cf mb-1">
+                <div class="s_12col m_3col">
 
-	                        <div class="m-8col event-dateslist">
-	                            <h4 class="h_4">Date(s)</h4>
-	                            <?php
+                    <div class="single_frame mb-small">
+
+                            <?php if( have_rows('event_keywords') ): $words = []; ?>
+									<?php while( have_rows('event_keywords') ) : the_row(); ?>
+										<?php array_push( $words, get_sub_field('keyword') ); ?>
+									<?php endwhile; ?>
+							<?php endif; ?>
+
+                        <?php if( $words ) get_template_part('Components/modules/module', 'ticker', array('words' => $words)); ?>
+
+                    </div>
+
+                    <div class="single_frame">
+
+                        
+                    <?php
 
                                 if ($exhibition) {
                                     echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
                                 } else {
 
                                     if ($event_first_date) :
-                                        echo '<ul class="nobullets  ">';
-                                        echo '<li>';
-                                        if (get_field('eventDetail_first_date_endtime') != '') {
-                                            echo strftime('%A %d %B %G - %kh%M', $event_first_date);
-                                        } else {
-                                            echo strftime('%A %d %B %G - %kh%M', $event_first_date);
-                                        }
+                                        echo '<ul class=" no-bullets">';
+                                            echo '<li class="frame_row">';
+                                                if (get_field('eventDetail_first_date_endtime') != '') {
+                                                    echo strftime('%A %d %B %G - %kh%M', $event_first_date);
+                                                } else {
+                                                    echo strftime('%A %d %B %G - %kh%M', $event_first_date);
+                                                }
 
-                                        if (get_field('eventDetail_first_date_endtime') != '') {
-                                            echo ' à ' . get_field('eventDetail_first_date_endtime');
-                                        }
-                                        if (get_field('eventDetail_first_date_babysitting')) :
-                                            echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"> • </span>Baby-Sitting !</a>';
-                                        endif;
-                                        echo '</li>';
+                                                if (get_field('eventDetail_first_date_endtime') != '') {
+                                                    echo ' à ' . get_field('eventDetail_first_date_endtime');
+                                                }
+                                            echo '</li>';
 
                                         if (isset($otherdates)) {
                                             echo $otherdates;
@@ -225,24 +176,21 @@
                                             foreach ($event_other_dates as $date) {
                                                 $date = strtotime($date['date']);
                                                 if ($date != '') :
-                                                    echo '<li>' . strftime('%A %d %b %G - %kh%M', $date) . '.</li>';
+                                                    echo '<li class="frame_row">' . strftime('%A %d %b %G - %kh%M', $date) . '.</li>';
                                                 endif;
                                             }
                                         endif;
 
                                         if ($event_last_date && $event_last_date != $event_first_date) :
-                                            echo '<li>';
-                                            if (get_field('eventDetail_last_date_endtime') != '') {
-                                                echo strftime('%A %d %B %G - %kh%M', $event_last_date);
-                                            } else {
-                                                echo strftime('%A %d %B %G - %kh%M', $event_last_date);
-                                            }
-                                            if (get_field('eventDetail_last_date_endtime') != '') {
-                                                echo ' à ' . get_field('eventDetail_last_date_endtime');
-                                            }
-                                            if (get_field('eventDetail_last_date_babysitting')) :
-                                                echo '<a class="event-babysitting" target="_blank" title="dès 3 ans / 6 € par enfant • Informations et réservations" href="/pratiques-et-services/service-baby-sitting/"><span class="icon-cocarde"> • </span>Baby-Sitting !</a>';
-                                            endif;
+                                            echo '<li class="frame_row">';
+                                                if (get_field('eventDetail_last_date_endtime') != '') {
+                                                    echo strftime('%A %d %B %G - %kh%M', $event_last_date);
+                                                } else {
+                                                    echo strftime('%A %d %B %G - %kh%M', $event_last_date);
+                                                }
+                                                if (get_field('eventDetail_last_date_endtime') != '') {
+                                                    echo ' à ' . get_field('eventDetail_last_date_endtime');
+                                                }
                                             echo '</li>';
 
                                         endif;
@@ -252,34 +200,21 @@
                                 }
                                 ?>
 
-	                            <?php if (get_field('has_rep_scolaire') == 1) : ?>
-	                                <a href="<?php echo esc_url(home_url('/')) ?>/en-action/emmenez-vos-eleves/" class="event-scolaire">
-	                                    <div class="rounded-icon">
-	                                        <span class="icon-CARTABLE"> </span>
-	                                    </div>
-	                                    <div>
-	                                        <p><?php the_field('date_scolaire'); ?></p>
-	                                    </div>
-	                                </a>
-	                            <?php endif;
-                                
-                                if ($age && !is_wp_error($age)) { ?>
-	                                <h4 class="h_4" style="margin-top: 20px;">Âges</h4>
-	                            <?php
-                                    foreach ($age as $term) {
-                                        echo $term->name;
-                                    };
-                                } ?>
 
-	                        </div>
+                        <div class="frame_row flex">
 
-	                        <div class="m-8col mb-2 event-practicallist">
+                            <div class="frame_col">
+                                <?php if ($age && !is_wp_error($age)) : ?>
+                                    <h4 class="h_4">Âges</h4>
+                                    <?php foreach ($age as $term) {
+                                            echo $term->name;
+                                    }; ?>
+                                <?php endif; ?>
+                            </div>
 
-	                            <h4 class="h_4">Tarifs</h4>
 
-	                            <div class="inner">
-	                                <?php
-
+                            <div class="frame_col">
+                                <?php
 
                                     $main_tarif_id = get_post_meta($post->ID, '_yoast_wpseo_primary_tarif', true);
 
@@ -350,127 +285,123 @@
                                                 echo "<ul class='no-bullets'><li>" . $event_text2 . "</li></ul>";
                                             endif;
                                         }
-                                    }
+                                    } ?>
 
-                                    ?>
+                            </div>
+                        </div>
 
-	                            </div>
-	                        </div>
 
-	                    </div>
+                        <div class="frame_row">
 
-	                    <div class="row mb-2">
-	                        <div class="m-8col mb-2 m-first">
-	                            <?php if (intval($event_last_date) > $today) : ?>
-	                                <a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
+                            <?php if ($babysitting) : ?>
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+                            <?php endif; ?>
+
+
+                        </div>
+                    </div>
+
+
+
+                    <?php if ($enfantsdabord || $trenteans) : ?>
+                        <div class="pictos-trente">
+
+                            <?php if ($enfantsdabord) : ?>
+                                <div class="picto-enfantsdabord">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($trenteans) : ?>
+                                <div class="picto-trenteans">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
+                                </div>
+                            <?php endif; ?>
+
+                        </div>
+                    <?php endif; ?>
+
+                    
+
+                    <?php if ( $logo_festival ): ?>
+                        <?php if ( $logo_festival ): ?>
+                            <div class="logo_festival">
+                                <img src="<?php echo $logo_festival['url']; ?>" class="">
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                    
+
+                </div>
+
+            </div>
+
+
+
+            <?php get_template_part('part', 'postslide');    ?>
+
+
+        </div>
+
+
+
+	        <div class="event-titles">
+
+	            <div class="row teaser-actions">
+
+	                <div class="s-12col s-1col-push ">
+
+                        <?php if( !get_field('hide_booking_btn') ) : ?>
+                            <?php if (intval($event_last_date) > $today) : ?>
+                                <a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+	                </div>
+
+	            </div>
+
+	        </div><!-- .event-titles -->
+
+	    </header><!-- .event-header -->
+
+
+
+	                        
+
+	                            <?php if (get_field('has_rep_scolaire') == 1) : ?>
+	                                <a href="<?php echo esc_url(home_url('/')) ?>/en-action/emmenez-vos-eleves/" class="event-scolaire">
+	                                    <div class="rounded-icon">
+	                                        <span class="icon-CARTABLE"> </span>
+	                                    </div>
+	                                    <div>
+	                                        <p><?php the_field('date_scolaire'); ?></p>
+	                                    </div>
+	                                </a>
 	                            <?php endif; ?>
+                                
+
+
+
 	                        </div>
+
+
+	                                
+
+
+                                
 	                    </div>
 
-	                </div><!-- .event-details -->
 
-	            </div><!-- .event-details -->
-
-
-	            <div class="event-aside m-7col m-last">
-
-	                <?php if ($babysitting) : ?>
-	                    <div class="cf mb-2">
-	                        <div class="rounded-icon mb-05">
-	                            <span class="icon-BALLON"></span>
-	                        </div>
-	                        <h4 class="h_4">Baby Sitting</h4>
-	                        <p class="mb-05">Venir au théâtre quand on a des enfants ? Trop facile.</p>
-	                        <a class="btn-inline" target="_blank" href="/pratiques-et-services/service-baby-sitting/" alt="dès 3 ans / 6 € par enfant" title="dès 3 ans / 6 € par enfant">plus d'infos</a>
-	                    </div>
-	                <?php endif; ?>
-
-	                <?php set_query_var('relational_tag', 'relational_tag'); ?>
-	                <?php set_query_var('arborescence', 'arborescence'); ?>
-	                <?php get_template_part('Components/modules/module', 'relatedposts'); ?>
-
-	            </div><!-- .event-aside -->
 
 	        </div>
 
 	    </div><!-- .event-content  -->
 
 
+        <?php get_template_part('Components/modules/module', 'flexibles'); ?>
 
-	    <div class="event-rebonds">
-
-	        <?php
-
-            $relational_tags = wp_get_post_terms($post->ID, 'relational_tag', array('orderby' => 'none',));
-
-            if (!empty($relational_tags)) :
-                $relational_tag = $relational_tags[0];
-            endif;
-
-
-            if (isset($relational_tag)) : ?>
-	            <!-- Les articles et événements liés à la page par le tag 'arborescence' -->
-
-	            <?php
-                $args = array(
-                    'post_type'             => array('event'),
-                    'posts_per_page'    => 6,
-                    'orderby'                    => 'post_date',
-                    'order'                     => 'DESC',
-                    'relational_tag'    => $relational_tag->slug,
-                    'post__not_in'        => array($post->ID)
-                );
-
-                $related_posts_query = new WP_Query($args);
-                $posts_found = $related_posts_query->found_posts; ?>
-
-	            <?php if ($related_posts_query->have_posts()) : ?>
-
-	                <section class="cf event-rebonds">
-
-	                    <div class="wrap">
-	                        <h4 class="h_4 mb-1">
-	                            Voir aussi
-	                        </h4>
-
-	                        <div id="salgrid_3" data-columns class="row">
-	                            <?php while ($related_posts_query->have_posts()) : $related_posts_query->the_post();
-
-                                    $post_type = get_post_type();
-
-                                    switch ($post_type) {
-                                        case 'event':
-                                            get_template_part('Components/blocs/bloc', 'event');
-                                            break;
-
-                                        case 'post':
-                                            get_template_part('Components/blocs/bloc', 'article');
-                                            break;
-
-                                        case 'page':
-                                            get_template_part('Components/blocs/bloc', 'page');
-                                            break;
-
-                                        default:
-                                            get_template_part('Components/blocs/bloc', 'page');
-                                            break;
-                                    }
-
-                                endwhile;
-                                wp_reset_postdata(); ?>
-
-	                        </div>
-
-	                    </div>
-	                </section>
-
-	            <?php endif; ?>
-
-	        <?php endif; ?>
-
-
-
-	    </div>
 
 
 	</article><!-- #post-## -->
