@@ -21,6 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
       delay: 4000
     },
     loop: true,
+    navigation: {
+      nextEl: '.swiper-btn-next',
+      prevEl: '.swiper-btn-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+    },
   });
 
 
@@ -30,10 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-
   const swiperMagazine = new Swiper('.swiper-magazine', {
     slidesPerView : 3.5,
+    slidesPerGroup: 3,
     spaceBetween : 20,
+    navigation: {
+      nextEl: '.swiper-btn-next',
+      prevEl: '.swiper-btn-prev',
+    },
   });
 
 

@@ -1,7 +1,12 @@
 
 /* 
- * HEADER
+ * SWIPER
  */
+
+.swiper-btn-prev,
+.swiper-btn-next {
+    cursor: pointer;
+}
 
 
 /* 
@@ -12,8 +17,9 @@ section {
     padding: 40px 0;
 }
 
-.module-slider {
+.mod_slider {
     padding: 0;
+    position: relative;
 
     .wp-post-image {
         width: 100%;
@@ -39,6 +45,23 @@ section {
         bottom: 0;
         left: 0;
         max-height: 300px;
+    }
+    .mod_nav {
+        .swiper-btn-prev {
+            position: absolute;
+            left: 20px;
+            top: 45%;
+            z-index: 2;
+        }
+        .swiper-btn-next {
+            position: absolute;
+            right: 20px;
+            top: 45%;
+            z-index: 2;
+        }
+        path {
+            stroke: white;
+        }
     }
 }
 
@@ -86,39 +109,16 @@ section {
 
 
 
-/* 
- * FOOTER
- */
+.mod_magazine {
+    background-color: $green;
 
-.site-footer {
-    background-color: $rose;
-}
-.footer_upper {
-    background-color: $rose;
-    padding: 40px;
-    .site-logo {
-        width: 160px;
-    }
-}
-.footer_lower {
-    background-color: $bleu;
-
-    .wrapper {
+    .mod_nav {
         position: relative;
-        top: -170px;
     }
-}
-.footer-navigation {
-    padding: 80px 0 20px; 
+} 
 
-    ul {
-        @extend .no-bullets;
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-    }
-    a {
-        font-size: 1.5rem;
-        color: white;
-    }
+
+
+.mod_calendar {
+    position: relative;
 }
