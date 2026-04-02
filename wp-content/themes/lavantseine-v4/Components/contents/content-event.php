@@ -146,9 +146,19 @@
                     </div>
 
                     <div class="single_frame">
-
                         
-                    <?php
+
+                        <div class="frame_row --nopad">
+                            <span class="h4_2 flex --hcentered --gap-s">
+                                <?php foreach($tags as $tag) { 
+                                    $image = get_field('visuel_white', 'discipline' . '_' . $tag->term_id); ?>
+                                    <img src="<?php echo $image; ?>" class="single_taxmedia">
+                                    <?php echo $tag->name; ?>
+                                <?php } ?></span>
+                        </div>
+
+
+                        <?php
 
                                 if ($exhibition) {
                                     echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
@@ -156,7 +166,7 @@
 
                                     if ($event_first_date) :
                                         echo '<ul class=" no-bullets">';
-                                            echo '<li class="frame_row">';
+                                            echo '<li class="frame_row h4_2">';
                                                 if (get_field('eventDetail_first_date_endtime') != '') {
                                                     echo strftime('%A %d %B %G - %kh%M', $event_first_date);
                                                 } else {
@@ -176,13 +186,13 @@
                                             foreach ($event_other_dates as $date) {
                                                 $date = strtotime($date['date']);
                                                 if ($date != '') :
-                                                    echo '<li class="frame_row">' . strftime('%A %d %b %G - %kh%M', $date) . '.</li>';
+                                                    echo '<li class="frame_row h4_2">' . strftime('%A %d %b %G - %kh%M', $date) . '.</li>';
                                                 endif;
                                             }
                                         endif;
 
                                         if ($event_last_date && $event_last_date != $event_first_date) :
-                                            echo '<li class="frame_row">';
+                                            echo '<li class="frame_row h4_2">';
                                                 if (get_field('eventDetail_last_date_endtime') != '') {
                                                     echo strftime('%A %d %B %G - %kh%M', $event_last_date);
                                                 } else {

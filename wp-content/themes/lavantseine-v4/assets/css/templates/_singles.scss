@@ -6,6 +6,11 @@
         padding: 60px;
     }
 
+    .single_taxmedia {
+        width: 54px;
+        height: 54px;
+    }
+
     .single_frame {
         background-color: white;
         overflow: hidden;
@@ -13,8 +18,10 @@
     .frame_row {
         padding: 15px;
         border-bottom: 1px solid;
+        
     }
-    .frame_row:has(.frame_col) {
+    .frame_row:has(.frame_col),
+    .frame_row.--nopad {
         padding: 0px;
     }
     .frame_col:first-child {
