@@ -11,17 +11,15 @@
 	<div id="main-agenda" class="cf mb-3">
 
 
-		<?php get_template_part('Components/modules/module', 'calendar', array( 'title' => 'a venir')); ?>
 
-
-		<div class="wrapper row">
+		<div class="wrap row">
 			<span class="h_2">
 				<?php if( is_tax() ) : echo get_the_archive_title(); endif; ?>
 			</span>
 		</div><!-- .row -->
 
 
-		<div id="agenda-maingrid" class="row">
+		<div id="agenda-maingrid" class="row wrap">
 			
 				<div class="agenda-grid-item m-8col prog-filters">
 					
@@ -39,9 +37,20 @@
 								  <label for="switch-passed"></label>
 								</div>
 
+								<div class="">
+								  <input id="switch-tocome" class="cmn-toggle cmn-toggle-round" <?php if( !isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_tocome" type="checkbox">
+								  <label for="switch-tocome"></label>
+								  <span>à venir</span>
+								</div>
+
 							</div>
-	
+							
+							<div class="cf filter-saisons-list disnone radio filter-item">
+								<?php custom_taxonomy_list('saison', 'slug', 'DESC', '', 'saison', 'Toutes les saisons passées'); ?>
+							</div>
+
 					</form>
+
 
 					<div class="mb-2">
 						<?php get_template_part('Components/modules/module', 'brochures'); ?>
@@ -49,6 +58,15 @@
 
 				</div><!-- .filters	 -->
 		
+
+
+<!-- 			<?php if( get_field('cette_semaine', 'options' ) ) : ?>
+				<div class="offset-right module-week">	
+					<h3 class="h4">cette <br>semaine <br><span class="title-diamond">&#x02666;</span></h3>
+
+					<?php the_field('cette_semaine', 'options'); ?>
+				</div>
+			<?php endif; ?> -->
 
 
 
@@ -59,8 +77,8 @@
 
 					$args = array(
 					   	'post_type' 			=> 'event',
-						'posts_per_page' 	=> '-1',
-						'post_status'			=> 'publish', 
+							'posts_per_page' 	=> '18',
+							'post_status'			=> 'publish', 
 					   	'meta_key' => 'eventDetail_first_date',
 					   	'orderby' => 'meta_value_num',
 					   	'order' => 'ASC',
@@ -101,6 +119,14 @@
 
 
 		</div><!-- .row -->
+
+
+
+		<div class="wrap row module-actions">
+			<br><br>
+			<a class="load-more btn-primary" href="#" posts_found="<?php echo $posts_found; ?>">voir plus de spectacles</a>
+		</div><!-- .row -->
+
 
 
 </div>

@@ -59,7 +59,7 @@ function html_tag_schema()
 if ( ! function_exists( 'get_event_dates' ) ) :
 	function get_event_dates($event_first_date, $event_last_date, $event_other_dates = array(), $exhibition = false) {
 		$event_dates = '';
-		$date_label_opentag ='<span class="label_2">';
+		$date_label_opentag ='<span class="">';
 		$date_label_closetag ='</span>';
 
 
@@ -147,8 +147,6 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 						$event_dates .= strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
 					}
 
-
-
 				}
 			}
 
@@ -160,22 +158,6 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 	}
 endif;
 
-
-
-
-/*
- * Social Buttons Sharing
- */
-if ( ! function_exists( 'lavantseine_display_share_buttons' ) ) :
-	function lavantseine_display_share_buttons() {
-		echo '<a href="#" id="js-shareTrigger" class="btn-primary">Partager !</a>';
-		echo '<div class="box-share-list">';
-		echo '<ul class="inner no-bullets">';
-		echo '<li><a class="twitter customer share" href="https://twitter.com/share?url='. get_the_permalink() .'&amp;hashtags=lavantseine" title="Twitter share" target="_blank">Twitter</a></li>';
-		echo '<li><a class="facebook customer share" href="https://www.facebook.com/sharer.php?u='. get_the_permalink() .'" title="Partager sur Facebook" target="_blank">Facebook</a></li>';
-		echo '</ul></div>';
-	}
-endif;
 
 
 

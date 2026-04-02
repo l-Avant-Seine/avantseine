@@ -216,7 +216,7 @@ function load_more() {
 
 			if ( $previous_month != $month ): ?>
 
-					<span class="h_2 month"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
+					<span class="h2_3 month"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
 						en <?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
 					</span>
 

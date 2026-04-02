@@ -1,47 +1,45 @@
 
 
 
-				<?php if ( $query->have_posts() ) : ?>
+	<?php if ( $query->have_posts() ) : ?>
+		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-							<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-								<div class="agenda-grid-item event-outer m-8col">
+			<?php
+				$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
+				$month = date( 'Y/m', $event_first_date );
 
-									<?php
-										$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-										$month = date( 'Y/m', $event_first_date );
+				if ( $previous_month != $month ): ?>
 
-										if ( $previous_month != $month ): ?>
+					<?php if( $previous_month ) : ?>
+						</div><!-- .grid -->
+					<?php endif; ?>
 
-												<span class="h_2 month"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
-													en <?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
-												</span>
+						<div class="archive_month mb-medium"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
+							<h3 class="h2_3 wrapper"><?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?></h3>
+						</div>
+					<div class="grid archive_list mb-medium wrapper">
 
-											<?php $previous_month = $month;
+					<?php $previous_month = $month;
 
-										endif;
-									
-										get_template_part( 'Components/blocs/bloc', 'event' ); ?>
-								</div>
-							<?php endwhile; ?>
+				endif; ?>
 
-				<?php else : ?>
+			<div class="archive_item m_3col">
+				<?php get_template_part( 'Components/blocs/bloc', 'event' ); ?>
+			</div>
+		
+		<?php endwhile; ?>
+
+	<?php else : ?>
 					
-					<div class="no-posts m-16col">
-						<h3 class="h_3 ">
-							Il n'y a aucun événement correspondant à votre recherche.
-						</h3>
-						<div class="clearfix">
-							<a class="btn--big " href="/programmation">Rejouer</a>
-						</div>					
-					</div>
+		<div class="no-posts m-16col">
+			<h3 class="h_3 ">
+				Il n'y a aucun événement correspondant à votre recherche.
+			</h3>				
+		</div>
 
-					
+		<?php get_template_part( 'content', 'none' ); ?>
 
-					<?php get_template_part( 'content', 'none' ); ?>
+	<?php endif; wp_reset_postdata(); ?>
 
-				<?php endif; ?>
-
-				<?php wp_reset_postdata(); ?>
-
-				
+</div>
