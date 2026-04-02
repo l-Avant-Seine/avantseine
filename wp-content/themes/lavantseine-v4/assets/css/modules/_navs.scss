@@ -104,3 +104,40 @@
 
 
 
+
+/* 
+ * FOOTER
+ */
+
+.site-footer {
+    background-color: $rose;
+}
+.footer_upper {
+    background-color: $rose;
+    padding: 40px;
+    .site-logo {
+        width: 160px;
+    }
+}
+.footer_lower {
+    background-color: $bleu;
+
+    .wrapper {
+        position: relative;
+        top: -170px;
+    }
+}
+.footer-navigation {
+    padding: 80px 0 20px; 
+
+    ul {
+        @extend .no-bullets;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+    a {
+        font-size: 1.5rem;
+        color: white;
+    }
+}

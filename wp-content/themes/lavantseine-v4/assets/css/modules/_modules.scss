@@ -121,4 +121,8 @@ section {
 
 .mod_calendar {
     position: relative;
+    background-color: $bleu;
+    .mod_title {
+        color: $jaune;
+    }
 }

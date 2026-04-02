@@ -71,6 +71,15 @@ $marge-xxlarge: 240px;
 
 
 
+.txt-center {
+	text-align: center;
+}
+
+.txt-right {
+	text-align: right;
+}
+
+
 // FLEX
 
 .flex {
@@ -98,6 +107,9 @@ $marge-xxlarge: 240px;
     }
     &.--hcentered {
         align-items: center;
+    }
+    &.--hbottom {
+        align-items: flex-end;
     }
     &.--bottom {
         align-items: flex-end;

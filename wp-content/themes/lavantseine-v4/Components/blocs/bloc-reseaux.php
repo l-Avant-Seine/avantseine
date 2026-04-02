@@ -4,19 +4,19 @@
     <div classs="">
         <ul class="no-bullets flex --gap-xs">
             <li><a href="<?php the_field('link_facebook', 'option'); ?>" target="_blank" class="btn--social">
-                <?php get_template_part('Components/svgs/svg', 'fb'); ?>
+                <?php get_template_part('Components/svgs/svg', 'social-fb'); ?>
             </a></li>
             <li><a href="<?php the_field('link_instagram', 'option'); ?>" target="_blank" class="btn--social">
-                <?php get_template_part('Components/svgs/svg', 'ig'); ?>
+                <?php get_template_part('Components/svgs/svg', 'social-ig'); ?>
             </a></li>
             <li><a href="<?php the_field('link_youtube', 'option'); ?>" target="_blank" class="btn--social">
-                <?php get_template_part('Components/svgs/svg', 'yt'); ?>
+                <?php get_template_part('Components/svgs/svg', 'social-yt'); ?>
             </a></li>
             <li><a href="<?php the_field('link_linkedin', 'option'); ?>" target="_blank" class="btn--social">
-                <?php get_template_part('Components/svgs/svg', 'li'); ?>
+                <?php get_template_part('Components/svgs/svg', 'social-li'); ?>
             </a></li>
             <li><a href="<?php the_field('link_tiktok', 'option'); ?>" target="_blank" class="btn--social">
-                <?php get_template_part('Components/svgs/svg', 'tt'); ?>
+                <?php get_template_part('Components/svgs/svg', 'social-tt'); ?>
             </a></li>
         </ul>
     </div>

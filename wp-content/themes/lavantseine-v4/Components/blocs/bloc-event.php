@@ -2,18 +2,14 @@
 /**
  * @package lavantseine
  */
-$babysitting = false;
 
-	$event_shortText = get_field( 'eventDetail_shortText' );
+
 	$event_dates = get_field( 'eventDetail_dates' );
 	$event_text2 = get_field( 'eventDetail_text2' );
 	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 	$event_other_dates = get_field('eventDetail_otherdates');
 	$today = time();
-	$event_dealer_link = get_field( 'eventDetail_dealer-link' );
-	$event_first_date_babysitting = get_field( 'eventDetail_first_date_babysitting' );
-	$event_last_date_babysitting = get_field( 'eventDetail_last_date_babysitting' );
 
 	$enfantsdabord = get_field( 'enfants_dabord' );
 	$trenteans = get_field( 'trenteans' );
@@ -22,103 +18,36 @@ $babysitting = false;
 
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
-
-	if( $event_first_date_babysitting || $event_last_date_babysitting ) {
-		$babysitting = true;
-	}
-
-	if( have_rows('eventDetail_otherdates') ):
-	  while ( have_rows('eventDetail_otherdates') ) : the_row();
-				if( get_sub_field('baby-sitting') ) : 
-					$babysitting = true;
-				endif; 
-	  endwhile;	
-	endif; 
-
 ?>
 
 
 
 
-<article id="event-<?php the_ID(); ?>" class="event-item" itemscope itemtype="http://schema.org/Event">
-
-		<div class="item-hover">
-
-				<div class="mb-05">
-					<?php echo $event_shortText; ?>
-				</div>
-
-				<div class="item-actions">
-					<?php if( ! get_field('hide_booking_btn') ) : ?>
-						<?php if( intval($event_last_date) > $today ) : ?>
-							<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
-						<?php endif; ?>
-					<?php endif; ?>
-
-					<a href="<?php the_permalink(); ?>" class="btn-primary empty">en savoir plus</a>
-
-				</div>
-
-		</div>
-
-		<div class="item-breather">
+	<article id="event-<?php the_ID(); ?>" class="bloc_event" itemscope itemtype="http://schema.org/Event">
 			
-			<div class="item-cover ratio2for3">
+		<a href="<?php the_permalink(); ?>" class="--block" rel="bookmark">
 
-				<?php if ( $babysitting ): ?>
-					<div class="icon-babysitting">
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_BabySitting.png" class="">
+			<div class="bloc_upper">
+
+				<?php if( !get_field('eventDetail_is_news') ) : ?>
+					<div class="item-dates">
+						<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
 					</div>
 				<?php endif; ?>
 
-
-				<?php if ( $logo_festival ): ?>
-					<?php if ( $logo_festival ): ?>
-						<div class="logo_festival">
-							<img src="<?php echo $logo_festival['url']; ?>" class="">
-						</div>
-					<?php endif; ?>
-				<?php endif; ?>
-
-
-				<?php if ( $enfantsdabord || $trenteans ): ?>
-					<div class="pictos-trente">
-							
-						<?php if ( $enfantsdabord ): ?>
-							<div class="picto-enfantsdabord">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
-							</div>
-						<?php endif; ?>
-
-						<?php if ( $trenteans ): ?>
-							<div class="picto-trenteans">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
-							</div>
-						<?php endif; ?>
-					</div>
-				<?php endif; ?>
-
-
-
-
-				<div class="ratio2for3-content">
-					<img class=" b-lazy" 
-							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-							data-src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>">
-				</div>
 			</div>
 
-			<a href="<?php the_permalink(); ?>" rel="bookmark">
 
-					<h3 class="h_3 item-title" itemprop="name">	
-							<?php the_title(); ?>
+			<div class="bloc_lower">
+
+				<div class="bloc_title mb-small">
+					<h3 class="h2_2" itemprop="name">	
+						<?php the_title(); ?>
 					</h3>
+				</div>
 
-					<?php if( !get_field('eventDetail_is_news') ) : ?>
-						<div class="item-dates">
-							<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
-						</div>
-					<?php endif; ?>
+				<div class="bloc_content flex --hbottom --jstf mb-small">
+
 
 					<?php if( get_field('noms_principaux') ) { ?>
 						<div class="item-names">
@@ -126,9 +55,48 @@ $babysitting = false;
 						</div>
 					<?php } ?>	
 
-			</a>
+						<div class="item-names txt-right">
+							À 19h<br>
+							Durée 1h20<br>
+							De 2 à 5 ans
+						</div>
+
+				</div>
+
+					<div class="bloc_cover">
+
+						<?php if ( $logo_festival ): ?>
+							<?php if ( $logo_festival ): ?>
+								<div class="logo_festival">
+									<img src="<?php echo $logo_festival['url']; ?>" class="">
+								</div>
+							<?php endif; ?>
+						<?php endif; ?>
+
+						<?php if ( $enfantsdabord || $trenteans ): ?>
+							<div class="pictos-trente">
+									
+								<?php if ( $enfantsdabord ): ?>
+									<div class="picto-enfantsdabord">
+										<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+									</div>
+								<?php endif; ?>
+
+								<?php if ( $trenteans ): ?>
+									<div class="picto-trenteans">
+										<img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_30ans.png" class="">
+									</div>
+								<?php endif; ?>
+							</div>
+						<?php endif; ?>
+
+						<img class="bloc_img" src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>">
+					</div>
+					
+			</div>
+
+		</a>
 		
-		</div>
 
 
 </article><!-- #event-## -->

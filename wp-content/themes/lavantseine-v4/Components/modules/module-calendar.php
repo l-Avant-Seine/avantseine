@@ -6,31 +6,44 @@
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 	$today = time();
 
-	$args = array(
-			'post_type' 			=> 'event',
-			'posts_per_page' 		=> -1,
-			'post_status'			=> 'publish', 
-			'meta_key' => 'eventDetail_first_date',
-			'orderby' => 'meta_value_num',
-			'order' => 'ASC',
-			'meta_query' => array(
-			   	array(
-			       'key' => 'eventDetail_last_date',
-			       'value' => $today,
-			       'compare' => '>=',
-			    ) 
-			)	
+	$queryargs = array(
+		'post_type' 			=> 'event',
+		'posts_per_page' 		=> -1,
+		'post_status'			=> 'publish', 
+		'meta_key' => 'eventDetail_first_date',
+		'orderby' => 'meta_value_num',
+		'order' => 'ASC',
+		'meta_query' => array(
+		   	array(
+		       'key' => 'eventDetail_last_date',
+		       'value' => $today,
+		       'compare' => '>=',
+		    ) 
+		)
 	);
 
-	$next_events = get_posts( $args );
+	$next_events = get_posts( $queryargs );
 ?>
 
 
 <section class="mod_calendar">
 	
-    <div class="inner">
+    <div class="inner wrapper">
 
         <div class="swiper-calendar">
+
+
+            <div class="mod_nav flex --gap-xs">
+                <div class="swiper-btn-prev">
+                    <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
+                </div>
+                <div class="swiper-btn-next">
+                    <?php get_template_part('Components/svgs/svg', 'arrow'); ?> 
+                </div>
+            </div>
+
+
+            <h2 class="mod_title"><?php echo $args['title']; ?></h2>
 
             <div class="swiper-wrapper">
                 <?php foreach ( $next_events as $post ) : setup_postdata( $post ); ?>
@@ -53,8 +66,6 @@
                 <?php endforeach; wp_reset_query();?>
             </div>
 
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
             
         </div><!-- .swiper-container -->
