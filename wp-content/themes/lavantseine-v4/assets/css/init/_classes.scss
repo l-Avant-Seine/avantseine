@@ -77,15 +77,11 @@ $marge-xxlarge: 240px;
     display: flex;
 
     &.--vcentered {
-        @extend .flex;
         justify-content: center;
     }
     &.--centered {
-        display: flex;
         justify-content: center;
         align-items: center;
-        text-align: center;
-        height: 100%;
     }
     &.--end {
         display: flex;

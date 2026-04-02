@@ -3,52 +3,6 @@
  * HEADER
  */
 
- .site-header {
-    display: flex;
-    background-color: #EA4B94;
-    padding-right: 3vw;
-    padding-left: 3vw;
-    position: relative;
-
-    & > div {
-        width: 100%;
-    }
-}
-
-.header_texture {
-    position: absolute;
-    z-index: 0;
-    height: 100%;
-    width: 20vw;
-    background-size: 100% 100%;
-    left: 0;
-}
-
-.header-branding {
-
-    .logo_link {
-        position: relative;
-        z-index: 1;
-        padding: 10px 0;
-        display: block;
-    }
-}
-
-.main-navigation {
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        gap: 20px;
-    }
-    a {
-        font-size: 2rem;
-        line-height: 1;
-        font-weight: 400;
-    }
-}
-
 
 /* 
  * SECTIONS

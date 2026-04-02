@@ -14,12 +14,35 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>	
 
+	<div class="wrapper">
+
+    <header class="pagehead">
+
+      <?php if( ! get_field('hide_title') ) : ?>
+        <div class="mb-large">
+          <h1 class="h1_2 txt-center"><?php the_title(); ?></h1>
+        </div>
+      <?php endif; ?>
+
+      <?php if (get_field('pageDetail_intro') !== '' ) : ?>
+        <div class="flex --centered">
+          <div class="big_typo m_10col mb-large">
+            <?php the_field('pageDetail_intro'); ?>
+          </div>
+        </div>
+      <?php endif; ?>
+
+    </header>
+
+    <div class="flex --centered">
+      <div class="pagecontent">
+        <?php the_content(); ?>
+      </div>
+      
+    </div>
 
 
-	<div class="">
 
-		<h1 class=""><?php the_title(); ?></h1>
-		<div class=""><?php the_content(); ?></div>
 
 	</div><!-- .row -->
 

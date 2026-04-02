@@ -88,19 +88,4 @@ End Facebook Pixel Code -->
 
 	</header><!-- #masthead -->
 
-	<div id="modal" class="modal">
-		<div class="modal-inner wrap">
-			<h2 id="modal-title" class="h_2 mb-2">Nous cherchons...</h2>
-
-			<div id="modal-content"></div>
-		</div>
-	</div>
-
-	<div id="cta-menu" class="cta-menu m-hide">
-		<?php 
-		//wp_nav_menu( array(
-			//'theme_location' => 'footer', 
-		//) ); ?>
-	</div>
-
 	<div id="content" class="site-content">

@@ -92,6 +92,15 @@
 	<?php wp_footer(); ?>
 
 
+	<div id="modal" class="modal">
+		<div class="modal-inner wrap">
+			<h2 id="modal-title" class="h_2 mb-2">Nous cherchons...</h2>
+
+			<div id="modal-content"></div>
+		</div>
+	</div>
+
+
 <?php if( get_field('popin_content', "options") !== '' ) : ?>
 		<div id="popin" class="popin_outer disnone">
 			<div class="popin_inner">

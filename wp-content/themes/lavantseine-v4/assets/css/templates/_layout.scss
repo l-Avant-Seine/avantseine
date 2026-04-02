@@ -20,3 +20,30 @@ body {
 .no-scroll {
 	overflow: hidden;
 }
+
+.page-template-default:not(.home) {
+	.site-content {
+		padding-top: 200px;
+		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			background-image: url('../Components/textures/yellow_horiz.png');
+			background-repeat: no-repeat;
+			transform: rotate(180deg);
+		}
+	}
+	.pagehead {
+		.big_typo {
+			max-width: 900px;
+		}
+	}
+	.pagecontent {
+			max-width: 900px;
+
+	}
+}
