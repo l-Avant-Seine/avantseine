@@ -1,20 +1,20 @@
 
 <section class="mod_banner">
-    <div class="inner">
+    <div class="inner wrapper">
 
         <div class="flex --centered mb-small">
             <img src="<?php echo $args['picto']; ?>">
         </div>
 
-        <div class="flex --centered --gap-m">
+        <div class="flex --jstf --hcentered --gap-m">
             <img class="inversed" src="<?php echo $args['img']; ?>">
 
             <div class="">
-                <div class="body">
+                <div class="h2_2 txt-center">
                     <?php echo $args['wysiwyg']; ?>
                 </div>
 
-                <div class="mod_action">
+                <div class="mod_action txt-center">
                     <a href="<?php echo $args['link']; ?>" class="btn"> <?php echo $args['label']; ?></a>
                 </div>
             </div>

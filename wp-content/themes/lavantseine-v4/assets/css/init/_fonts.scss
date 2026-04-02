@@ -37,6 +37,10 @@ body {
 	font-size: 16px;
 }
 
+.txt-center {
+	text-align: center;
+}
+
 
 // HEADS
 h1, h2, h3, h4, h5, h6 {
@@ -61,6 +65,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 4rem;
 	font-weight: 100;
 	line-height: 1.1;
+	p {
+		font-size: inherit;
+		line-height: inherit;
+	}
 }
 
 .h3 {
@@ -71,6 +79,8 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 2rem;
 	line-height: 1;
 }
+
+
 // BODY
 
 p {
