@@ -114,6 +114,12 @@ $marge-xxlarge: 240px;
         display: flex;
         flex-wrap: wrap;
     }
+    &.--gap-xs {
+        gap: 10px;
+    }
+    &.--gap-s {
+        gap: 20px;
+    }
     &.--gap-m {
         gap: 40px;
     }

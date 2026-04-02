@@ -104,6 +104,34 @@ section {
 }
 
 
+.mod_contact {
+    position: relative;
+    overflow: hidden;
+
+    .texture {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 50vw;
+        bottom: 0;
+        height: 100%;
+        object-fit: cover;
+
+        &.inversed {
+            transform: scaleX(-1);
+            right: 0;
+            left: auto;
+        }
+    }
+    .mod_title  {
+        color: yellow;
+        text-align: center;
+    }
+}
+
+
+
 /* 
  * FOOTER
  */
