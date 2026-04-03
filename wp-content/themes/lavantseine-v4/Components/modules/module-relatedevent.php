@@ -14,20 +14,20 @@
 	$arborescence = wp_get_post_terms($post->ID , 'arborescence', $tax_args);
 	$tags = wp_get_post_terms( $post->ID , $taxonomy, $tax_args);
 
+	// var_dump($arborescence);
+	// var_dump($tags);
 
 	if ( !empty($tags) ) {
 			
-			echo '<h3 class="h_4 mb-1">dans <br> la programmation</h3>';
-
 			$tag_slug = $tags[0]->slug;
 
 			// STAR POST
 			$star_event = new WP_Query(array(
 				"$param_type" 			=> $tag_slug,
-				'post_status'    => 'publish',
+				'post_status'    		=> 'publish',
 				'post_type' 			=> 'event',
-				'posts_per_page'	=> 1,
-				'order' 					=> 'DESC',
+				'posts_per_page'		=> 1,
+				'order' 				=> 'DESC',
 			));
 
 
@@ -70,39 +70,18 @@
 				'post_status'    	=> 'publish',
 				'post_type' 			=> 'page',
 				'posts_per_page'	=> 1,
-				'tax_query' => array(
-					array( 
-						'taxonomy' => 'arborescence',
-						'field'    => 'term_id',
-						'terms'    => $arborescence[0]->term_id,
-					),
-				),
+				// 'tax_query' => array(
+				// 	array( 
+				// 		'taxonomy' => 'arborescence',
+				// 		'field'    => 'term_id',
+				// 		'terms'    => $arborescence[0]->term_id,
+				// 	),
+				// ),
 			));
-			//var_dump($arborescence_page);
 
 				if ( $arborescence_page->have_posts() ) : 
 				 	while ( $arborescence_page->have_posts() ) : $arborescence_page->the_post(); ?>
-					<div class="page-teaser--small">
-						<div class="mb-1">
-							<a href="<?php the_permalink(); ?>">
-								<?php the_post_thumbnail(); ?>		</a>			
-						</div>
-						
-						<h4 class="h_4"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
-						
-						<div class="mb-05">
-							<?php 
-								if( get_field('pageDetail_intro') != '' ) : 
-									the_field('pageDetail_intro'); 
-								else : 
-									the_excerpt(); 
-								endif; 
-								?>
-						</div>
-
-						<a href="<?php the_permalink(); ?>" class="btn-inline">en savoir plus</a>
-						
-					</div>
+						<?php get_template_part('Components/blocs/bloc', 'event'); ?>
 				<?php endwhile; 
 				wp_reset_postdata();
 				endif; 
@@ -126,8 +105,6 @@
 				    )
 				)
 			));
-
-			echo '<h3 class="h4">le prochain <br>spectacle <br><span class="title-diamond">&#x02666;</span></h3>';
 
 
 			 if ( $next_event->have_posts() ) : 

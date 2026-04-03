@@ -38,7 +38,8 @@
 
     $enfantsdabord = get_field('enfants_dabord');
     $trenteans = get_field('trenteans');
-	$logo_festival = get_field( 'logo_festival' );
+	$logo_festival = get_field( 'event_festival_logo' );
+	$partenaires = get_field( 'event_partenaires' );
 
     $age = get_the_terms(get_the_ID(), 'public');
 
@@ -50,7 +51,7 @@
         $otherdates = '';
 
         while (have_rows('eventDetail_otherdates')) : the_row();
-            $otherdates .= '<li>';
+            $otherdates .= '<li class="frame_row h4_2">';
             $otherdates .= get_sub_field('date');
             //$otherdates .= strftime('%A %d %B %G - %kh%M', strtotime( get_sub_field('date') ) );
 
@@ -73,7 +74,7 @@
         </header>
 
 
-        <div class="single_contents">
+        <section class="single_contents">
 
             <div class="wrapper grid">
 
@@ -133,20 +134,20 @@
 
                 <div class="s_12col m_3col">
 
-                    <div class="single_frame mb-small">
 
-                            <?php if( have_rows('event_keywords') ): $words = []; ?>
+                        <?php if( have_rows('event_keywords') ): $words = []; ?>
 									<?php while( have_rows('event_keywords') ) : the_row(); ?>
 										<?php array_push( $words, get_sub_field('keyword') ); ?>
 									<?php endwhile; ?>
+                            <?php if( ! empty($words) ) : ?>
+                                <div class="single_frame mb-small">
+                                    <?php get_template_part('Components/modules/module', 'ticker', array('words' => $words)); ?>
+                                </div>
 							<?php endif; ?>
+						<?php endif; ?>
 
-                        <?php if( $words ) get_template_part('Components/modules/module', 'ticker', array('words' => $words)); ?>
 
-                    </div>
-
-                    <div class="single_frame">
-                        
+                    <div class="single_frame mb-medium">
 
                         <div class="frame_row --nopad">
                             <span class="h4_2 flex --hcentered --gap-s">
@@ -301,20 +302,28 @@
                         </div>
 
 
-                        <div class="frame_row">
 
-                            <?php if ($babysitting) : ?>
+                        <?php if ($babysitting) : ?>
+                            <div class="frame_row">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
-                            <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
 
 
-                        </div>
-                    </div>
+                        <?php if ( ! empty($partenaires) ) : ?>
+                            <div class="frame_row flex --centered">
+                                <?php foreach( $partenaires as $p ) : ?>
+                                    <img src="<?php echo $p["logo"]?> " class="single_partners_logo">
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+
+                    </div><!-- .single_frame -->
 
 
 
                     <?php if ($enfantsdabord || $trenteans) : ?>
-                        <div class="pictos-trente">
+                        <div class="pictos-trente mb-medium">
 
                             <?php if ($enfantsdabord) : ?>
                                 <div class="picto-enfantsdabord">
@@ -332,49 +341,43 @@
                     <?php endif; ?>
 
                     
-
                     <?php if ( $logo_festival ): ?>
                         <?php if ( $logo_festival ): ?>
-                            <div class="logo_festival">
-                                <img src="<?php echo $logo_festival['url']; ?>" class="">
+                            <div class="single_logo_festival mb-medium">
+                                <img src="<?php echo $logo_festival; ?>" class="">
                             </div>
                         <?php endif; ?>
                     <?php endif; ?>
 
-                    
+                    <a href="/programmation" class="flex --gap-m --hcentered">
+                        <span>Programmation <br>complète</span>
+                        <?php get_template_part('Components/svgs/svg', 'arrow'); ?>
+                    </a>
 
                 </div>
 
             </div>
 
 
-
-            <?php get_template_part('part', 'postslide');    ?>
-
-
-        </div>
+        </section>
 
 
+        <section class="mod_relatedevents">
+                <div class="wrapper">
+                        <div class="mod_title mb-medium">
+                            <h3 class="h2_2">ça pourrait vous plaire !</h3>
+                        </div>
 
-	        <div class="event-titles">
+                        <div class="mod_list grid">
+                            <div class="m_3col">
+                                <?php set_query_var('taxo', 'relational_tag'); ?>
+                                <?php get_template_part('Components/modules/module', 'relatedevent');    ?>
+                            </div>
+                        </div>
+                </div>
+        </section>
 
-	            <div class="row teaser-actions">
 
-	                <div class="s-12col s-1col-push ">
-
-                        <?php if( !get_field('hide_booking_btn') ) : ?>
-                            <?php if (intval($event_last_date) > $today) : ?>
-                                <a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary">réserver</a>
-                            <?php endif; ?>
-                        <?php endif; ?>
-
-	                </div>
-
-	            </div>
-
-	        </div><!-- .event-titles -->
-
-	    </header><!-- .event-header -->
 
 
 
@@ -390,24 +393,7 @@
 	                                    </div>
 	                                </a>
 	                            <?php endif; ?>
-                                
-
-
-
-	                        </div>
-
-
-	                                
-
-
-                                
-	                    </div>
-
-
-
-	        </div>
-
-	    </div><!-- .event-content  -->
+                            
 
 
         <?php get_template_part('Components/modules/module', 'flexibles'); ?>
