@@ -35,19 +35,15 @@
 
 
 
-                            <div class="swiper-wrapper">
-                                <?php 
-                                foreach ( $posts as $post ) : setup_postdata( $post ); ?>
+            <div class="swiper-wrapper">
+                <?php foreach ( $posts as $post ) : setup_postdata( $post ); ?>
 
-                                    <div class="swiper-slide">
-                                        <?php get_template_part('Components/blocs/bloc', 'event'); ?>
-                                    </div>
+                    <div class="swiper-slide">
+                         <?php get_template_part('Components/blocs/bloc', 'event'); ?>
+                    </div>
 
-                                <?php endforeach; wp_reset_query();?>
-                            </div>
-
-
-                            <div class="swiper-pagination"></div>
+                <?php endforeach; wp_reset_query();?>
+            </div>
                             
 
         </div>

@@ -40,9 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
       nextEl: '.swiper-btn-next',
       prevEl: '.swiper-btn-prev',
     },
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
+  });
+
+  const swiperVisuels = new Swiper('.swiper-visuels', {
+    slidesPerView : 2,
+    spaceBetween : 40,
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-btn-next',
+      prevEl: '.swiper-btn-prev',
     },
   });
 

@@ -121,7 +121,19 @@
                 );
 
 
+            elseif( get_row_layout() == 'mod_visuels' ): 
                 
+                $data = array (
+                    'title' => get_sub_field('mod_title'),
+                    'visuels' => get_sub_field('mod_visuels'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'visuels',
+                    $data
+                );
+         
 
 
             endif; 
