@@ -51,11 +51,11 @@
 										<?php endif; ?>
 									</div>
 
-									<?php if( $logo_festival && $linked) : ?>
-										<div class="">
+									<div class="">
+										<?php if( $logo_festival && $linked) : ?>
 											<img src="<?php echo $logo_festival; ?>" class="bloc_festival">
-										</div>
-									<?php endif; ?>
+										<?php endif; ?>
+									</div>
 
 								</div>
                             </div>
