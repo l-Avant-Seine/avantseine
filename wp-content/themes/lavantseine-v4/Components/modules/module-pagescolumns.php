@@ -1,8 +1,8 @@
 <?php 
-    $posts = $args['relations']; 
+    $posts = $args['relations'];
 ?>
 
-<section class="mod_pagecolumns cf">
+<section class="mod_pagecolumns">
 	<div class="inner wrapper">
     
         <div class="flex --jstf --vcentered mb-large">
@@ -17,11 +17,11 @@
         <div class="grid">
 
                 <?php 
-                foreach ( $posts as $post ) : setup_postdata( $post ); ?>
+                foreach ( $posts as $key => $post) : setup_postdata( $post ); ?>
 
                     <div class="s_6col m_3col">
 
-                        <img src="<?php echo get_template_directory_uri(); ?>/Components/textures/moon.png">
+                        <img class="mod_icon mb-small" src="<?php echo get_template_directory_uri(); ?>/assets/img/demilunes/demilune<?php echo $key+1; ?>.png">
                         <a href="<?php the_permalink(); ?>" class="--block">
                             <h2 class="mod_title h2_2 mb-small"><?php the_title(); ?></h2>
                             <div class="mod_excerpt mb-small"><?php the_field('pageDetail_intro'); ?></div>

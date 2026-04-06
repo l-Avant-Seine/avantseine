@@ -69,7 +69,9 @@ section {
 
 .mod_pagecolumns {
     padding: 80px 0;
-
+    .mod_icon {
+        max-width: 100px;
+    }
 }
 
 
@@ -129,6 +131,12 @@ section {
     .mod_title {
         border-bottom: 1px solid black;
         padding-bottom: 40px;
+        p {
+            margin-bottom: 0;
+        }
+    }
+    img {
+        display: inline-block;
     }
 }
 

@@ -140,6 +140,7 @@
                 
                 $data = array (
                     'title' => get_sub_field('mod_title'),
+                    'intro' => get_sub_field('mod_intro'),
                     'left' => get_sub_field('mod_left'),
                     'right' => get_sub_field('mod_right'),
                 );

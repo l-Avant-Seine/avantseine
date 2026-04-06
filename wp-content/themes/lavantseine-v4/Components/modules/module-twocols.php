@@ -2,9 +2,14 @@
 <section class="mod_twocols">
 
     <div class="mod_title wrapper --narrow mb-medium">
-        <div class="txt-center">
+        <div class="txt-center mb-medium">
             <h2 class="h1_2"><?php echo $args['title']; ?></h2>
         </div>
+
+        <div class="txt-center big_typo">
+            <?php echo $args['intro']; ?>
+        </div>
+
     </div>
 
 
