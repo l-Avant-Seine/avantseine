@@ -26,7 +26,7 @@
 
       <?php if (get_field('pageDetail_intro') !== '' ) : ?>
         <div class="flex --centered">
-          <div class="big_typo m_10col mb-large">
+          <div class="big_typo m_10col mb-large txt-center">
             <?php the_field('pageDetail_intro'); ?>
           </div>
         </div>
@@ -40,9 +40,6 @@
       </div>
       
     </div>
-
-
-
 
 	</div><!-- .row -->
 

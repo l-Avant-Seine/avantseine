@@ -136,6 +136,19 @@
                 );
          
 
+            elseif( get_row_layout() == 'mod_twocols' ): 
+                
+                $data = array (
+                    'title' => get_sub_field('mod_title'),
+                    'left' => get_sub_field('mod_left'),
+                    'right' => get_sub_field('mod_right'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'twocols',
+                    $data
+                );
 
             endif; 
 
