@@ -14,7 +14,7 @@
                 foreach ( $posts as $post ) : setup_postdata( $post ); ?>
 
                     <div class="swiper-slide">
-                        <?php get_template_part('Components/blocs/bloc', 'slide'); ?>
+                        <?php get_template_part('Components/blocs/bloc', 'slide', array('linked' => true)); ?>
                     </div>
 
                 <?php endforeach; wp_reset_query();?>

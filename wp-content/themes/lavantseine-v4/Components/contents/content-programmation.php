@@ -10,48 +10,15 @@
 
 	<div id="main-agenda" class="cf mb-3">
 
-
+		<?php if( ! is_archive()) : ?>
 		<?php get_template_part('Components/modules/module', 'calendar', array( 'title' => 'a venir')); ?>
+		<?php endif; ?>
 
-
-		<div class="wrapper row">
-			<span class="h_2">
-				<?php if( is_tax() ) : echo get_the_archive_title(); endif; ?>
-			</span>
-		</div><!-- .row -->
+		<?php get_template_part('Components/modules/module', 'progtitle'); ?>
 
 
 		<div id="agenda-maingrid" class="row">
 			
-				<div class="agenda-grid-item m-8col prog-filters">
-					
-					<form action="" id="prog-filters" class="cf mb-2" name="prog-filters">
-
-							<div class="label h_4--red">filtrer</div>
-
-							<?php custom_taxonomy_dropdown('discipline', 'date', 'DESC', '', 'discipline', 'Quelle discipline ?', ''); ?>
-
-							<div class="cf switch filter-item">
-
-								<div class="">
-									<span>passés</span>
-								  <input id="switch-passed" class="cmn-toggle cmn-toggle-round" <?php if( isset($_GET['is_archives']) ) : echo 'checked=""'; endif; ?> name="is_archives" type="checkbox">
-								  <label for="switch-passed"></label>
-								</div>
-
-							</div>
-	
-					</form>
-
-					<div class="mb-2">
-						<?php get_template_part('Components/modules/module', 'brochures'); ?>
-					</div>
-
-				</div><!-- .filters	 -->
-		
-
-
-
 				<?php
 					setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 					$today = time();
@@ -74,18 +41,13 @@
 					);
 
 			    if ( is_tax() ) {
-			    	if( isset($discipline) OR isset($rdv) ) {
+			    	if( isset($discipline) ) {
 							$args['tax_query'] = array(
 								'relation' => 'OR',
 				        array(
 				            'taxonomy' => 'discipline',
 				            'field' => 'slug',
 				            'terms' => $discipline
-				        ),
-				        array(
-				            'taxonomy' => 'rdv',
-				            'field' => 'slug',
-				            'terms' => $rdv
 				        ),
 				      );
 				    }

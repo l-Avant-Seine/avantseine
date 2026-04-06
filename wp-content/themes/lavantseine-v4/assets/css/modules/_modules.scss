@@ -21,13 +21,6 @@ section {
     padding: 0;
     position: relative;
 
-    .mod_texture {
-        position: absolute;
-        z-index: 0;
-        bottom: 0;
-        left: 0;
-        max-height: 300px;
-    }
     .mod_nav {
         .swiper-btn-prev {
             position: absolute;
@@ -114,6 +107,11 @@ section {
 .mod_magtitle {
     padding: 60px 0;
     background-color: $vert;
+}
+
+.mod_progtitle {
+    background-color: $jaune;
+
 }
 
 

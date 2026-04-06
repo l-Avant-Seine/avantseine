@@ -18,10 +18,15 @@
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
 
-	var_dump($logo_festival); 
+	$linked = isset($args['linked']) ? $args['linked'] : false;
+
 ?>
 
 <article class="bloc_slide">
+
+	<?php if($linked) : ?>
+		<a class="block" href="<?php the_permalink(); ?>">
+	<?php endif; ?>
 
                         <?php the_post_thumbnail('homeslide'); ?>
 
@@ -46,7 +51,7 @@
 										<?php endif; ?>
 									</div>
 
-									<?php if( $logo_festival ) : ?>
+									<?php if( $logo_festival && $linked) : ?>
 										<div class="">
 											<img src="<?php echo $logo_festival; ?>" class="bloc_festival">
 										</div>
@@ -55,7 +60,11 @@
 								</div>
                             </div>
 
-                            <img class="mod_texture" src="<?php the_field('event_texture'); ?>">
+                            <img class="bloc_texture" src="<?php the_field('event_texture'); ?>">
                         </div>
 
+	<?php if($linked) : ?>
+		</a>
+	<?php endif; ?>
+		
 </article>

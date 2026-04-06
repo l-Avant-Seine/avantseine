@@ -237,6 +237,44 @@ endif;
 
 
 
+if ( ! function_exists( 'custom_taxonomy_buttons' ) ) :
+/**
+ * Display terms in list for filter or else
+ *
+ * @return void
+ */
+	function custom_taxonomy_buttons( $taxonomy, $orderby = 'date', $order = 'DESC', $limit = '-1', $name, $show_option_all = null ) {
+
+	$discipline = get_query_var( 'discipline' );
+
+			$args = array(
+				'orderby' 	=> $orderby,
+				'order' 		=> $order,
+				'number' 		=> $limit,
+				'hide_empty' => false,
+			);
+
+			$terms = get_terms( $taxonomy, $args ); 
+			$name = ( $name ) ? $name : $taxonomy;
+
+			if ( $show_option_all ) {
+				printf( '<a href="/programmation" class="tag">%s</a>', esc_html( $show_option_all ) );
+
+			}
+
+			if ( $terms ) {
+				foreach ( $terms as $term ) {
+					if($discipline === $term->slug) $class = "tag active";
+					else $class = "tag";
+					
+					printf( '<a class="' . $class . '" href="' . esc_url( get_term_link( $term ) ) . '">%s</a>', esc_attr( $term->slug ), esc_attr( $term->slug ), esc_attr( $taxonomy ), esc_html( $term->slug ), esc_html( $term->name ) );
+				}
+			}
+
+	}
+endif;
+
+
 
 
 if ( ! function_exists( 'lavantseine_paging_nav' ) ) :

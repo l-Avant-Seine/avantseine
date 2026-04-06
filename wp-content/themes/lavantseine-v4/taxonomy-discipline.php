@@ -8,13 +8,12 @@
 get_header();
 
 $discipline = get_query_var( 'discipline' );
-
 ?>
 
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main page-taxonomy" cat-slug="<?php echo $discipline->slug; ?>" role="main">
-			
+		<main id="main" class="site-main page-taxonomy" cat-slug="<?php echo $discipline; ?>" role="main">
+
 			<?php get_template_part( 'Components/contents/content', 'programmation' ); ?>
 
 		</main><!-- #main -->

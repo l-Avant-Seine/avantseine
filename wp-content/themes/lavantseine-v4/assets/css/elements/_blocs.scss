@@ -23,7 +23,13 @@
     .bloc_festival {
         max-width: 175px;
     }
-
+    .bloc_texture {
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        left: 0;
+        max-height: 300px;
+    }
 }
 
 .bloc_event {
@@ -44,6 +50,9 @@
         height: 100%;
         width: 100%;
         object-fit: cover;
+    }
+    .item-names {
+        width: 50%
     }
 }
 
