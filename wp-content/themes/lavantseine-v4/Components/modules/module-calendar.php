@@ -33,7 +33,7 @@
         <div class="swiper-calendar">
 
 
-            <div class="mod_nav flex --gap-xs">
+            <div class="mod_nav flex --gap-xs mb-small">
                 <div class="swiper-btn-prev">
                     <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
                 </div>
@@ -42,8 +42,9 @@
                 </div>
             </div>
 
-
-            <h2 class="mod_title"><?php echo $args['title']; ?></h2>
+            <div class="mod_title mb-small">
+                <h2 class="h2"><?php echo $args['title']; ?></h2>
+            </div>
 
             <div class="swiper-wrapper">
                 <?php foreach ( $next_events as $post ) : setup_postdata( $post ); ?>
