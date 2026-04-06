@@ -8,10 +8,14 @@
 
 ?>
 
+
+
+	<?php get_template_part('Components/modules/module', 'magtitle'); ?>
+
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-
-	<nav class="single_nav wrapper mb-small">
+	<nav class="single_nav wrapper --narrow mb-small">
 
 		<div class="mb-small">
 			<a href="/magazine" class="flex --gap-xs --hcentered">
@@ -43,7 +47,7 @@
 	</nav>
 
 
-	<header class="single_header wrapper mb-medium" itemprop="image">
+	<header class="single_header wrapper --narrow mb-medium" itemprop="image">
 
 		<div class="single_titles mb-small">
 			<h1 class="h1_3" itemprop="name"><?php the_title(); ?></h1>
@@ -61,7 +65,7 @@
 
 
 
-	<div class="single_content wrapper mb-large">
+	<div class="single_content wrapper --narrow mb-large">
 
 
 		<div class="grid">

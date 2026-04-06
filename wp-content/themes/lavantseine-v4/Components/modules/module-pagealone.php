@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="m_6col">
+            <div class="m_6col bloc_cover_outer">
                 <?php the_post_thumbnail(); ?>
             </div>
 

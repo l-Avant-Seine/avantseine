@@ -15,7 +15,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 		<div class="inner">
 
 			<header class="bloc_header mb-small">
-				<div class="">
+				<div class="bloc_cover_outer">
 					<img class="bloc_cover" loading="lazy" 
 						src="<?php the_post_thumbnail_url('top-thumbnail'); ?>">
 				</div>

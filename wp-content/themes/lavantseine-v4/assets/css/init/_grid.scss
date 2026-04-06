@@ -20,7 +20,7 @@ $large_breakpoint:                  1200px !default;
 $wide_breakpoint:                   1550px !default; 
 
 $max-width: 1600px;
-$marge_wrapper: 40px;
+$marge_wrapper: 20px;
 $marge_wrapper--mobile: 20px;
 
 
@@ -39,8 +39,11 @@ $marge_wrapper--mobile: 20px;
     @include up-to(medium) {
         width: calc(100% - #{$marge_wrapper--mobile * 2});
     }
-}
 
+    &.--narrow {
+        max-width: 1200px;
+    }
+}
 
 
 /* 

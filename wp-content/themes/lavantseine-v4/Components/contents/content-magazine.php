@@ -10,6 +10,8 @@ $term_queried = get_queried_object();
 ?>
 
 
+	<?php get_template_part('Components/modules/module', 'magtitle'); ?>
+
 	<?php get_template_part('Components/modules/module', 'flexibles'); ?>
 
 			
@@ -72,7 +74,7 @@ $term_queried = get_queried_object();
 								$args = array(
 									'post_type' 		=> 'post',
 									'order'				=> 'DESC',
-									'posts_per_page'	=> '12',
+									'posts_per_page'	=> '24',
 									'paged'				=> $paged,						
 								);
 
@@ -85,7 +87,7 @@ $term_queried = get_queried_object();
 
 							<?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
 
-								<div class="s_8col m_4col l_3col">
+								<div class="s_8col m_4col l_3col mb-small">
 									<?php get_template_part( 'Components/blocs/bloc', 'magazine' ); ?>
 								</div>
 							<?php endwhile; ?>

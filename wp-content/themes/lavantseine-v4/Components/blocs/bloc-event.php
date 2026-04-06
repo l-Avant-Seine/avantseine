@@ -63,9 +63,7 @@
 
 				</div>
 
-					<div class="bloc_cover">
-
-
+					<div class="bloc_cover_outer">
 
 						<?php if ( $enfantsdabord || $trenteans ): ?>
 							<div class="pictos-trente">
