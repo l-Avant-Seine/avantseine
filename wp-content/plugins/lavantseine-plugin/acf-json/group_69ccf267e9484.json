@@ -487,6 +487,112 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_69d38fd943edd": {
+                    "key": "layout_69d38fd943edd",
+                    "name": "mod_spectacles",
+                    "label": "Module Spectacles ",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_69d38ff543ee3",
+                            "label": "Titre du module",
+                            "name": "mod_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Ça pourrait vous plaire !",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69d3900b43ee4",
+                            "label": "Label du bouton",
+                            "name": "mod_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Voir la saison complète",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69d3901943ee5",
+                            "label": "Lien du boutpn",
+                            "name": "mod_link",
+                            "aria-label": "",
+                            "type": "page_link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": "",
+                            "post_status": "",
+                            "taxonomy": "",
+                            "allow_archives": 1,
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0
+                        },
+                        {
+                            "key": "field_69d3903843ee6",
+                            "label": "Liste des spectacles",
+                            "name": "mod_relations",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "event"
+                            ],
+                            "post_status": "",
+                            "taxonomy": "",
+                            "filters": [
+                                "search",
+                                "post_type",
+                                "taxonomy"
+                            ],
+                            "return_format": "object",
+                            "min": "",
+                            "max": "",
+                            "allow_in_bindings": 0,
+                            "elements": "",
+                            "bidirectional": 0,
+                            "bidirectional_target": []
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",
@@ -529,5 +635,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775069228
+    "modified": 1775472858
 }

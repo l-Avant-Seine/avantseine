@@ -10,7 +10,13 @@ $today = time();
 ?>
 
 
-	<div id="main-webmag" class="cf mb-3">
+	        <?php get_template_part('Components/modules/module', 'flexibles'); ?>
+
+			
+
+	<div id="main-webmag" class="">
+
+
 
 
 				<div class="webmag-filters mb-2">

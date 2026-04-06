@@ -32,6 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+  const swiperSpectacles = new Swiper('.swiper-spectacles', {
+    slidesPerView : 4,
+    spaceBetween : 20,
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-btn-next',
+      prevEl: '.swiper-btn-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+    },
+  });
+
+
   const swiperCalendar = new Swiper('.swiper-calendar', {
     slidesPerView : 3,
     slidesPerGroup: 3,

@@ -105,6 +105,22 @@
                 );
 
 
+            elseif( get_row_layout() == 'mod_spectacles' ): 
+                
+                $data = array (
+                    'title' => get_sub_field('mod_title'),
+                    'relations' => get_sub_field('mod_relations'),
+                    'label' => get_sub_field('mod_label'),
+                    'link' => get_sub_field('mod_links'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'spectacles',
+                    $data
+                );
+
+
                 
 
 

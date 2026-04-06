@@ -362,38 +362,7 @@
         </section>
 
 
-        <section class="mod_relatedevents">
-                <div class="wrapper">
-                        <div class="mod_title mb-medium">
-                            <h3 class="h2_2">ça pourrait vous plaire !</h3>
-                        </div>
 
-                        <div class="mod_list grid">
-                            <div class="m_3col">
-                                <?php set_query_var('taxo', 'relational_tag'); ?>
-                                <?php get_template_part('Components/modules/module', 'relatedevent');    ?>
-                            </div>
-                        </div>
-                </div>
-        </section>
-
-
-
-
-
-	                        
-
-	                            <?php if (get_field('has_rep_scolaire') == 1) : ?>
-	                                <a href="<?php echo esc_url(home_url('/')) ?>/en-action/emmenez-vos-eleves/" class="event-scolaire">
-	                                    <div class="rounded-icon">
-	                                        <span class="icon-CARTABLE"> </span>
-	                                    </div>
-	                                    <div>
-	                                        <p><?php the_field('date_scolaire'); ?></p>
-	                                    </div>
-	                                </a>
-	                            <?php endif; ?>
-                            
 
 
         <?php get_template_part('Components/modules/module', 'flexibles'); ?>

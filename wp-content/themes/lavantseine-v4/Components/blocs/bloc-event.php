@@ -65,13 +65,7 @@
 
 					<div class="bloc_cover">
 
-						<?php if ( $logo_festival ): ?>
-							<?php if ( $logo_festival ): ?>
-								<div class="logo_festival">
-									<img src="<?php echo $logo_festival['url']; ?>" class="">
-								</div>
-							<?php endif; ?>
-						<?php endif; ?>
+
 
 						<?php if ( $enfantsdabord || $trenteans ): ?>
 							<div class="pictos-trente">
