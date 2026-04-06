@@ -24,9 +24,7 @@
 
 <article class="bloc_slide">
 
-	<?php if($linked) : ?>
-		<a class="block" href="<?php the_permalink(); ?>">
-	<?php endif; ?>
+
 
                         <?php the_post_thumbnail('homeslide'); ?>
 
@@ -34,13 +32,19 @@
 
                             <div class="bloc_title">
 
-                                <h2 class="h1 "><?php the_title(); ?></h2>
+								<?php if($linked) : ?>
+									<a class="block" href="<?php the_permalink(); ?>">
+								<?php endif; ?>
+                                
+									<h2 class="h1 "><?php the_title(); ?></h2>
 
-
+								<?php if($linked) : ?>
+									</a>
+								<?php endif; ?>
+								
 								<div class="flex --gap-l">
 
 									<div>
-
 										<p class="label_1"><?php the_field('noms_principaux'); ?></p>
 										<p class="label_2"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></p>
 
@@ -63,8 +67,6 @@
                             <img class="bloc_texture" src="<?php the_field('event_texture'); ?>">
                         </div>
 
-	<?php if($linked) : ?>
-		</a>
-	<?php endif; ?>
+
 		
 </article>
