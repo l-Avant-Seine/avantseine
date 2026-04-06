@@ -13,31 +13,46 @@
 
 	$enfantsdabord = get_field( 'enfants_dabord' );
 	$trenteans = get_field( 'trenteans' );
-	$logo_festival = get_field( 'logo_festival' );
+	$logo_festival = get_field( 'event_festival_logo' );
 
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
 
+	var_dump($logo_festival); 
 ?>
 
 <article class="bloc_slide">
 
                         <?php the_post_thumbnail('homeslide'); ?>
 
-                        <div class="bloc_text">
+                        <div class="bloc_text ">
 
                             <div class="bloc_title">
+
                                 <h2 class="h1 "><?php the_title(); ?></h2>
-                                <p class="label_1"><?php the_field('noms_principaux'); ?></p>
-                                <p class="label_2"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></p>
 
-								<?php if( !get_field('hide_booking_btn') ) : ?>
-									<?php if (intval($event_last_date) > $today) : ?>
-                                		<p><a href="<?php the_field('eventDetail_dealer-link'); ?>" target="_blank" class="btn">Réserver</a></p>
+
+								<div class="flex --gap-l">
+
+									<div>
+
+										<p class="label_1"><?php the_field('noms_principaux'); ?></p>
+										<p class="label_2"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></p>
+
+										<?php if( !get_field('hide_booking_btn') ) : ?>
+											<?php if (intval($event_last_date) > $today) : ?>
+												<p><a href="<?php the_field('eventDetail_dealer-link'); ?>" target="_blank" class="btn">Réserver</a></p>
+											<?php endif; ?>
+										<?php endif; ?>
+									</div>
+
+									<?php if( $logo_festival ) : ?>
+										<div class="">
+											<img src="<?php echo $logo_festival; ?>" class="bloc_festival">
+										</div>
 									<?php endif; ?>
-								<?php endif; ?>
 
-								
+								</div>
                             </div>
 
                             <img class="mod_texture" src="<?php the_field('event_texture'); ?>">
