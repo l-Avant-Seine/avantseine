@@ -584,7 +584,7 @@ function accordeon_shortcode( $atts , $content = null ) {
 
   $return_string = '<div class="entry-accordeon">'; 
 
-   	$return_string .= '<div class="accordeon-title flex --gap-s"><h3 class="h_3 btn-inline">'.$titre.'</h3><span>' . get_template_part('Components/svgs/svg', 'arrow') . '</span></div>';
+   	$return_string .= '<div class="accordeon-title flex --gap-xs"><h3 class="h_3 btn-inline">'.$titre.'</h3><span><svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.0457 0.353516L7.19922 7.19995L0.352783 0.353516" stroke="#000"/></svg></span></div>';
    	$return_string .= '<div class="accordeon-content">'; 
 
    	$return_string .= $content; 
