@@ -49,11 +49,11 @@
 				<div class="bloc_content flex --hbottom --jstf mb-small">
 
 
-					<?php if( get_field('noms_principaux') ) { ?>
-						<div class="item-names">
+					<div class="item-names">
+						<?php if( get_field('noms_principaux') ) { ?>
 							<?php the_field( 'noms_principaux' ); ?>
-						</div>
-					<?php } ?>	
+						<?php } ?>	
+					</div>
 
 						<div class="item-names txt-right">
 							À 19h<br>

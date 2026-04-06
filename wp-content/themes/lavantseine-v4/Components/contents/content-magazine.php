@@ -6,86 +6,88 @@
  */
 
 $today = time();
-
+$term_queried = get_queried_object();
 ?>
 
 
-	        <?php get_template_part('Components/modules/module', 'flexibles'); ?>
+	<?php get_template_part('Components/modules/module', 'flexibles'); ?>
 
 			
 
-	<div id="main-webmag" class="">
+	<div id="main-webmag" class="archives_magazine">
 
 
+			<div class="mb-medium wrapper">
+				<div class="mod_title">
+                    <h2 class="h2_3">Tous les articles <?php echo $term_queried->name; ?></h2>
+                </div>
+			</div>
 
 
-				<div class="webmag-filters mb-2">
-					<div class="wrap">
-						<div class="mb-05">
+				<div class="webmag-filters mb-large">
+					<div class="wrapper">
 
-							<form id="search_in_magazine" class="searchbar" action="/" method="get">
-							    <input type="text" name="s" id="search" placeholder="votre recherche" value="<?php the_search_query(); ?>" />
-							    <input type="submit" alt="Search" class="btn-primary" value="rechercher dans le magazine" />
-							</form>
+						<div class="flex --gap-xs --wrap">
+							<?php 
+								$terms = get_terms( 
+									'category', 
+									array(
+										'hide_empty' => false,
+										'exclude'	=> array('1'),
+									)
+								); 
 
+								if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+									$term_list = '';
 
+									if ( is_category() ) {
+										$term_list .= '<a href="/magazine" alt="" class="tag">Voir tous les articles</a>';
+									}
+
+									foreach ( $terms as $term ) {
+										if ( $term_queried->term_id == $term->term_id ) $class = "tag active";
+										else $class = "tag ";
+										
+										$term_list .= '<a href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( 'View all post filed under %s', 'my_localization_domain' ), $term->name ) ) . '" class="' . $class . '" cat-slug="' . $term->slug . '">' . $term->name . '</a>';
+									}
+									echo $term_list;
+								}
+							?>
 						</div>
-
-						<?php 
-							$terms = get_terms( 
-								'category', 
-								array(
-						    	'hide_empty' => false,
-						    	'exclude'	=> array('1'),
-								)
-							); 
-
-							if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-							    $term_list = '';
-							    foreach ( $terms as $term ) {
-							        $term_list .= '<a href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( 'View all post filed under %s', 'my_localization_domain' ), $term->name ) ) . '" class="postmeta-term js-postmeta-term btn-primary" cat-slug="' . $term->slug . '">' . $term->name . '</a>';
-							    }
-							    echo $term_list;
-							}
-						?>
 					</div>
 				</div>
 
 
-				<div id="salgrid_3" data-columns class="webmag-grid cf wrap row">
+				<div id="" class="webmag-grid grid wrapper">
 
 	
 						<?php
+						
 							// QUERY ALL POST
 							if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
 							elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
 							else { $paged = 1; }
 
-							$args = array(
-								'post_type' 		=> 'post',
-								'order'				=> 'DESC',
-								'posts_per_page'	=> '12',
-								'paged'				=> $paged,						
-							);
+							if ( ! is_category() ) : 
+								$args = array(
+									'post_type' 		=> 'post',
+									'order'				=> 'DESC',
+									'posts_per_page'	=> '12',
+									'paged'				=> $paged,						
+								);
 
- 							if( isset($_GET['tag']) ) : 
-								$args['arborescence'] = $_GET['tag'];
-							endif;
+								$wp_query = new WP_Query( $args );
 
- 							if( isset($_GET['relational_tag']) ) : 
-								$args['relational_tag'] = explode(' ', $_GET['relational_tag']);
-							endif;
-
-							$wp_query = new WP_Query( $args );
-
+							endif; 
 						?>
 
 						<?php if ( $wp_query->have_posts() ) : ?>
 
 							<?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
-								<?php
-									get_template_part( 'Components/blocs/bloc', 'article' );
-								?>
+
+								<div class="s_8col m_4col l_3col">
+									<?php get_template_part( 'Components/blocs/bloc', 'magazine' ); ?>
+								</div>
 							<?php endwhile; ?>
 
 

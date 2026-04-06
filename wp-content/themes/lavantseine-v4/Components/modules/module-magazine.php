@@ -1,6 +1,9 @@
 <?php 
     $posts = $args['relations']; 
     $title = $args['title']; 
+    $simple = $args['simple']; 
+    wp_enqueue_script('swiper');
+    wp_enqueue_style('swiper');
 ?>
 
 <section class="mod_magazine">
@@ -9,12 +12,14 @@
         <div class="swiper-magazine">
 
             <div class="flex --jstf --hcentered mb-large">
-                <div class="mod_cta">
-                    <a href="/magazine" class="btn">voir toutes les actualités</a>
-                </div>
+                <?php if( ! $simple ) : ?>
+                    <div class="mod_cta">
+                        <a href="/magazine" class="btn">voir toutes les actualités</a>
+                    </div>
+                <?php endif; ?>
 
                 <div class="mod_title">
-                    <h2 class="h1_2"><?php echo $title; ?></h2>
+                    <h2 class="<?php echo $simple ? 'h2_3' : 'h1_2'; ?>"><?php echo $title; ?></h2>
                 </div>
 
                 <div class="mod_nav flex --gap-xs">

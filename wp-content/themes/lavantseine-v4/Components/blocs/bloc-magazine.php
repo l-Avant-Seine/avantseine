@@ -14,8 +14,8 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 	<a href="<?php the_permalink(); ?>" rel="bookmark">
 		<div class="inner">
 
-			<header class="item-header  mb-1">
-				<div class="ratio2for3 mb-small">
+			<header class="bloc_header mb-small">
+				<div class="">
 					<img class="bloc_cover" loading="lazy" 
 						src="<?php the_post_thumbnail_url('top-thumbnail'); ?>">
 				</div>
@@ -24,7 +24,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 			<div class="bloc_text mb-small">
 
 
-				<div class="bloc_tax flex --gap-s">
+				<div class="bloc_tax flex --gap-s mb-small">
 					<?php 
 					$categories = get_the_category();
 					if($categories) : foreach($categories as $category) : ?>
@@ -33,7 +33,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 				</div>
 
 
-				<h2 class="h3 item-title cf">	
+				<h2 class="h3 bloc_title mb-small">	
 					<?php the_title(); ?>
 				</h2>
 

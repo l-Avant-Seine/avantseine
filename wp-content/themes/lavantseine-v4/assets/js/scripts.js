@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const swiperSpectacles = new Swiper('.swiper-spectacles', {
     slidesPerView : 4,
+    slidesPerGroup: 3,
     spaceBetween : 20,
     loop: true,
     navigation: {

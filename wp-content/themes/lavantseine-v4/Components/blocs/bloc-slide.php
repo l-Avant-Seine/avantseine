@@ -22,7 +22,7 @@
 
 <article class="bloc_slide">
 
-                        <?php the_post_thumbnail(); ?>
+                        <?php the_post_thumbnail('homeslide'); ?>
 
                         <div class="bloc_text">
 

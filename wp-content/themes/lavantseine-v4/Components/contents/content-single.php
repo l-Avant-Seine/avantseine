@@ -11,108 +11,97 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 
-	<header class="post-header wrap mb-2" itemprop="image">
+	<nav class="single_nav wrapper mb-small">
 
-		<div class="post-titles row">
-			<div class="m-20col m-1col-push m-first mb-1">
+		<div class="mb-small">
+			<a href="/magazine" class="flex --gap-xs --hcentered">
+                        <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
+				<span>Retour au magazine</span>
+			</a>
+		</div>
 
-				<div class="post-metas is-flex">
+		<div class="single_metas flex --gap-xs --hcentered">
 
-					<div class="flx-2">
-						<?php
+			<?php
 							$categories = get_the_category();
 							$separator = ' ';
 							$output = '';
 							if($categories){
 								foreach($categories as $category) {
-									$output .= '<a href="'.get_category_link( $category->term_id ).'" title="' . esc_attr( sprintf( __( "View all posts in %s" ), $category->name ) ) . '" class="post-term label_1">'.$category->cat_name.'</a>'.$separator;
+									$output .= '<a href="'.get_category_link( $category->term_id ).'" title="' . esc_attr( sprintf( __( "View all posts in %s" ), $category->name ) ) . '" class="post-term tag">'.$category->cat_name.'</a>'.$separator;
 								}
 							echo trim($output, $separator);
 							}
 						?>
-					</div>
 
 					<div class="flx-1 text-on-right">
 						<span class="label_1"><?php the_date('d/m/Y', '', ''); ?></span>
 					</div>
-				</div>
-			</div><!-- .single-metas -->
 
-			<div class="m-20col m-1col-push m-first">
-				<h1 class="h_1 clearfix" itemprop="name"><?php the_title(); ?></h1>
-			</div>
 
 		</div>
+	</nav>
 
-		<div class="post-cover">
-			<img src="<?php  the_post_thumbnail_url(''); ?>" alt="">
+
+	<header class="single_header wrapper mb-medium" itemprop="image">
+
+		<div class="single_titles mb-small">
+			<h1 class="h1_3" itemprop="name"><?php the_title(); ?></h1>
+		</div>
+
+		<div class="single_cover mb-medium">
+			<img src="<?php  the_post_thumbnail_url('homeslide'); ?>" alt="">
+		</div>
+
+		<div class="single_excerpt big_typo mb-0">
+			<?php the_field('postDetail_shortText') ?>
 		</div>
 
 	</header>
 
 
 
-	<div class="wrap post-content row">
+	<div class="single_content wrapper mb-large">
 
-		<div class="m-6col post-aside mb-2">
+
+		<div class="grid">
+
+			<div class="m_8col" itemprop="mainContentOfPage">
+
+				<div class="copy">
+					<?php the_content(); ?>
+				</div>
+			</div>
+
+			<div class="m_4col">
 				<?php set_query_var('taxo', 'relational_tag'); ?>
 				<?php get_template_part( 'Components/modules/module', 'relatedevent' ); ?>
+			</div>
+
 		</div>
 
 
 
-		<div class="m-16col m-last post-copy mb-2"  itemprop="mainContentOfPage">
 
-			<?php
 
-			$media_items = get_posts(array(
-				'post_type'		=>	'attachment',
-				'post_parent' 	=> get_the_ID(),
-				'posts_per_page' => -1,
-				'meta_key'      => '_media_tag',
-				'meta_value'	=> 'slide'
-			));
-
-			if ($media_items):
-				wp_enqueue_script( 'slick' );
-				 ?>
-				<ul class="single-slides nobullets mb-2">
-					<?php foreach ( $media_items as $media_item ) : ?>
-						<li class="slide">
-							<?php the_attachment_link( $media_item->ID, true, false, false ); ?>
-							<div class="bx-caption">
-								<?php echo get_post(get_post_thumbnail_id())->post_excerpt; ?></div>
-						</li>
-					<?php endforeach; ?>
-				</ul><!-- slides -->
-
-			<?php endif; ?>
-
+		<div class="m_8col" itemprop="mainContentOfPage">
 
 			<?php if ( $postDetail_mediaMarkup ) { ?>
 					<div class="mb-2">
 						<?php echo $postDetail_mediaMarkup; ?>
 					</div>
 			<?php } ?>
-			
-			<div class="copy">
-				<?php the_content(); ?>
-
-			</div>
+		
 			
 		</div>
 
-
-
-
 	</div><!-- .post-content -->
-
 </article><!-- #post-## -->
 
 
 
 
-    <script type="application/ld+json">
+<script type="application/ld+json">
     {
       "@context": "http://schema.org",
       "@type": "Article",
@@ -128,4 +117,4 @@
       },
       "name": "<?php echo get_the_title(); ?>",
     }
-    </script>
+</script>

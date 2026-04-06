@@ -95,6 +95,7 @@
                 
                 $data = array (
                     'title' => get_sub_field('mod_title'),
+                    'simple' => get_sub_field('mod_simpledisplay'),
                     'relations' => get_sub_field('mod_relations'),
                 );
 
