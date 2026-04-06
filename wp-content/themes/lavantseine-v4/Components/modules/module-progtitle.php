@@ -12,7 +12,7 @@
                 <a href="<?php the_field('prog_brochure', 'option'); ?>" class="btn" target="_blank">Télécharger la brochure</a>
             </div>
                         
-			<div class="flex --gap-xs --wrap --centered">
+			<div class="flex --gap-xs --wrap --centered mb-small">
 				<?php 
                     if( is_archive() )
                         custom_taxonomy_buttons('discipline', 'date', 'DESC', '', 'discipline', 'Voir tout'); 
@@ -20,6 +20,10 @@
                         custom_taxonomy_buttons('discipline', 'date', 'DESC', '', 'discipline', false); 
                     ?>
 			</div>
+
+            <div class="mb-large">
+                <a href="/saison/2012-2013/" class="tag">Saisons passées</a>
+            </div>
 
         </div>
         

@@ -144,6 +144,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+  const archives_groups = document.querySelectorAll('.archives_group');
+
+  archives_groups.forEach( el => {
+    console.log(el);
+    const title = el.querySelector('.group_title');
+    const list = el.querySelector('.group_list');
+
+    const list_height = list.offsetHeight;
+    list.style.maxHeight = list_height + 'px';
+
+    list.classList.add('small')
+
+    title.addEventListener('click', () => {
+
+      const small = document.querySelector('.group_list:not(.small)')
+      if(small) small.classList.add('small');
+
+      el.classList.toggle('open');
+      list.classList.toggle('small');
+      list.scrollIntoView();
+    })
+
+  })
+
+
   /* EVENTS */
 
   document.addEventListener("scroll", documentIsScrolling, false);

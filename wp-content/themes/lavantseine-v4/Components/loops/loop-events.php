@@ -7,7 +7,7 @@
 
 			<?php
 				$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-				$month = date( 'Y/m', $event_first_date );
+				if($event_first_date) $month = date( 'Y/m', $event_first_date );
 
 				if ( $previous_month != $month ): ?>
 
@@ -32,8 +32,8 @@
 
 	<?php else : ?>
 					
-		<div class="no-posts m-16col">
-			<h3 class="h_3 ">
+		<div class="no_results flex --centered">
+			<h3 class="h2_2">
 				Il n'y a aucun événement correspondant à votre recherche.
 			</h3>				
 		</div>

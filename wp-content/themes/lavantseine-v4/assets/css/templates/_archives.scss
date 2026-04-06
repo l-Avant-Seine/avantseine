@@ -14,3 +14,28 @@
     background-color: $gray_light;
     padding: 40px 0;
 }
+
+.archive,
+.page-template-page-programmation {
+    .no_results {
+        padding: 100px;
+    }   
+}
+
+.archives_group {
+    padding: 0;
+
+    .group_title {
+        padding: 20px;
+        background-color: $jaune;
+        cursor: pointer;
+    }
+
+    .group_list {
+        transition: all .3s;
+        &.small {
+            max-height: 0 !important;
+            overflow: hidden;
+        }
+    }
+}
