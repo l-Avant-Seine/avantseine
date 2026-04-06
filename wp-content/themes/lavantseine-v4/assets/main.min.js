@@ -144,31 +144,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  /* SAISONS ARCHIVES */
 
   const archives_groups = document.querySelectorAll('.archives_group');
 
-  archives_groups.forEach( el => {
-    console.log(el);
-    const title = el.querySelector('.group_title');
-    const list = el.querySelector('.group_list');
+  if(archives_groups) {
+    archives_groups.forEach( el => {
+      console.log(el);
+      const title = el.querySelector('.group_title');
+      const list = el.querySelector('.group_list');
 
-    const list_height = list.offsetHeight;
-    list.style.maxHeight = list_height + 'px';
+      const list_height = list.offsetHeight;
+      list.style.maxHeight = list_height + 'px';
 
-    list.classList.add('small')
+      list.classList.add('small')
 
-    title.addEventListener('click', () => {
+      title.addEventListener('click', () => {
 
-      const small = document.querySelector('.group_list:not(.small)')
-      if(small) small.classList.add('small');
+        const small = document.querySelector('.group_list:not(.small)')
+        if(small) small.classList.add('small');
 
-      el.classList.toggle('open');
-      list.classList.toggle('small');
-      list.scrollIntoView();
+        el.classList.toggle('open');
+        list.classList.toggle('small');
+        list.scrollIntoView();
+      })
+
     })
+  }
 
-  })
 
+  /* ACCORDEONS */
+  const accordeons = document.querySelectorAll('.entry-accordeon');
+
+  if (accordeons) {
+    accordeons.forEach( el => {
+
+      const title = el.querySelector('.accordeon-title');
+      const content = el.querySelector('.accordeon-content');
+      const content_height = content.offsetHeight;
+      content.style.maxHeight = content_height + 'px';
+
+      el.classList.add('close');
+
+      title.addEventListener('click', event => {
+        event.preventDefault();
+
+        el.classList.toggle('close');
+        el.querySelector('span').classList.toggle('icon-fleche_accordeon').toggle('icon-fleche_accordeon-bottom');
+      });
+      
+    })
+  }
+
+
+  
 
   /* EVENTS */
 
