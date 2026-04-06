@@ -129,20 +129,20 @@ add_action( 'widgets_init', 'lavantseine_v2_widgets_init' );
  * Enqueue scripts and styles.
  */
 function lavantseine_v4_scripts() {
-	wp_enqueue_style( 'lavantseine-v4-style', get_template_directory_uri() . '/assets/main.min.css' );
 
+	wp_enqueue_style( 'lavantseine-v4-style', get_template_directory_uri() . '/assets/main.min.css' );
 	wp_enqueue_script( 'lavantseine-v4-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('swiper'), '', true );
 
 	wp_register_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css' );
 	wp_register_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js' , '', '', false );
 
-	//wp_register_script( 'salvattore', get_template_directory_uri() .'/assets/js/lib/salvattore.js' , 'jquery', '', true );
-	wp_enqueue_script( 'blazy', get_template_directory_uri() .'/assets/js/lib/blazy.js' , 'jquery', '', true );
 
-	//wp_enqueue_script('blazy');
-	//wp_enqueue_script('salvattore');
+	// ENQUEUE PARTICULAR SCRIPTS
+	wp_add_inline_script( 'lavantseine-v4-scripts', 'const ajax_datas = ' . json_encode( array(
+        'ajaxUrl' 	=> admin_url( 'admin-ajax.php' ),
+        'nonce' 	=> wp_create_nonce( 'handle_contents_loading' )
+    ) ), 'before' );
 
-	wp_localize_script('lavantseine-v4-scripts', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 
 	if (is_admin()) return
     wp_dequeue_script( 'jquery');
@@ -153,363 +153,54 @@ add_action( 'wp_enqueue_scripts', 'lavantseine_v4_scripts' );
 
 
 
-
-/**
- * Load more events
- */
-add_action( 'wp_ajax_load_more', 'load_more' );
-add_action( 'wp_ajax_nopriv_load_more', 'load_more' );
-
-function load_more() {
-	global $post; 
-
-	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-	$today = time();
-
-	$offset = $_POST['offset'];
-	$step = $_POST['step'];
-	$previous_month = $_POST['previous_month'];
-	$pastEvents = $_POST['pastEvents'];
-	$is_archives = $_POST['is_archives'];
-
-	$args = array(
-	    'post_type' =>'event',
-	    'offset' => $offset,
-	    'posts_per_page' => $step,
-			'post_status'			=> 'publish', 
-			'meta_key' => 'eventDetail_first_date',
-			'orderby' => 'meta_value_num',
-	);
-
-	if( $is_archives === 'true' ) {
-		$args['order'] = 'DESC';
-		$args['meta_query'] = array(
-			array(
-	    	'key' => 'eventDetail_last_date',
-			  'value' => $today,
-		    'compare' => '<=',
-	    )
-		);
-	}
-	else {
-		$args['meta_query'] = array(
-			array(
-	    	'key' => 'eventDetail_last_date',
-			  'value' => $today,
-		    'compare' => '>=',
-	    )
-		);
-		$args['order'] = 'ASC';
-	}
-
-	$ajax_query = new WP_Query($args);
-
 	
-	if ( $ajax_query->have_posts() ) : while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); ?>
-
-		<div class="agenda-grid-item event-outer m-8col">
-
-
-			<?php 
-			$event_first_date = get_post_meta( $post->ID, 'eventDetail_first_date', true );
-			$month = date( 'Y/m', $event_first_date );
-
-			if ( $previous_month != $month ): ?>
-
-					<span class="h2_3 month"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
-						en <?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?>
-					</span>
-
-				<?php $previous_month = $month;
-
-			endif;
-
-			get_template_part( 'Components/blocs/bloc', 'event' ); ?>
-
-		</div>
-
-	<?php 
-		endwhile; 
-	endif;
-
-	die();
-}
-
-
-
-
-
-/**
- * Load Search results
- */
-add_action( 'wp_ajax_search', 'search' );
-add_action( 'wp_ajax_nopriv_search', 'search' );
-
-function search() {
-
-	$keyword = $_POST['keyword'];
-	$magazine = $_POST['magazine'];
-	$term_slug = $_POST['term_slug'];
-
-	if( $magazine ) {
-		$args = array(
-			'post_type' => array('post'),
-			's' => $keyword,
-			'posts_per_page' 	=> '12',
-		);
-	}
-	else {
-		$args = array(
-			'post_type' => array('event', 'post', 'page'),
-			's' => $keyword,
-			'posts_per_page' 	=> '10',
-		);
-	}
-
-	if( $term_slug != '' ) {
-		$args['category_name'] = $term_slug;
-	}
-
-	$args['post_status'] = 'publish';
-
-
-	$ajax_query = new WP_Query($args);
-
-
-	if ( $ajax_query->have_posts() ) :
-
-	if( $magazine ) { ?>
-
-			<?php
-				while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
-				
-					get_template_part( 'Components/blocs/bloc', 'article' );
-				endwhile; ?>
-		
-	<?php }
-	else { ?>
-
-			<h2 class="h_2 mb-2">
-				Il y a <span><?php echo $ajax_query->found_posts; ?></span> résultat<?php if( $ajax_query->found_posts > 1 ) : echo 's'; endif; ?> pour la recherche <em><?php echo $keyword; ?></em>
-
-				<?php if( $ajax_query->found_posts > 10 ) : ?>
-					<br>Voici les 10 premiers...
-				<?php endif; ?>
-			</h2>
-
-			<div id="salgrid_3" data-columns class="row mb-2">
-			<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
-				
-				$post_type = get_post_type(); 
-
-					switch ($post_type) {
-						case 'event':
-							get_template_part( 'Components/blocs/bloc', 'event' );
-							break;
-
-						case 'post':
-							get_template_part( 'Components/blocs/bloc', 'article' );
-							break;
-
-						case 'page':
-							get_template_part( 'Components/blocs/bloc', 'page' );
-							break;
-
-						default:
-							get_template_part( 'Components/blocs/bloc', 'page' );
-							break;
-					}
-
-			endwhile; ?>
-			</div>
-			
-			<div class="row mb-2">
-				<a href="/?s=<?php echo $keyword ?>" class="btn-primary is-centered">Voir tous les résulats</a>
-			</div>
-
-		<?php }
-		
- 	endif;
-
-	die();
-}
-
-
-
-function add_query_vars_filter( $vars ){
-  $vars[] = "rdv";
-  $vars[] = "discipline";
- 	return $vars;
-}
-
-//Add custom query vars
-add_filter( 'query_vars', 'add_query_vars_filter' );
-
-
-
-
-
-/**
- * Get posts filtered by term
- */
-add_action( 'wp_ajax_get_posts_from_term', 'get_posts_from_term' );
-add_action( 'wp_ajax_nopriv_get_posts_from_term', 'get_posts_from_term' );
-
-function get_posts_from_term() {
-
-	$term = $_POST['term'];
-	$keyword = $_POST['keyword'];
-
-	$args = array(
-	    'post_type' 			=>'post',
-	    'category_name' 	=> $term,
-			'order'						=> 'DESC',
-			'posts_per_page'	=> '12',
-			'post_status'			=> 'publish',
-	);
-
-	if( $keyword != '' ) {
-		$args['s'] = $keyword;
-	}
-
-	$ajax_query = new WP_Query($args);
-
- 	if ( $ajax_query->have_posts() ) : ?>
- 		<div id="webmag-innergrid" data-columns class="row">
-			<?php while ( $ajax_query->have_posts() ) : $ajax_query->the_post(); 
-	 		get_template_part( 'Components/blocs/bloc', 'article' );
-			endwhile; ?>
-		</div>
-
-		<div class="row">
-			<a href="#" posts_found="<?php echo $ajax_query->found_posts; ?>" class="load-more-posts btn--big is-centered m-3col">Charger plus d'articles <br>(il y a <?php echo $ajax_query->found_posts; ?> articles au total)</a>
-		</div>
-
-	<?php else : 
-		get_template_part( 'content', 'none' ); 
-
-	endif; 
-
-
-	die();
-}
-
-
-
-/**
- * Load more posts from category
- */
-add_action( 'wp_ajax_load_more_posts', 'load_more_posts' );
-add_action( 'wp_ajax_nopriv_load_more_posts', 'load_more_posts' );
-
-function load_more_posts() {
-	global $post; 
-
-	$offset = $_POST['offset'];
-	$step = $_POST['step'];
-	$cat = $_POST['cat'];
-
-	$args = array(
-	    'post_type' 			=>'post',
-	    'category_name' 	=> $cat,
-	    'offset' 					=> $offset,
-	    'posts_per_page' 	=> $step,
-			'post_status'			=> 'publish', 
-			'order'						=> 'DESC',
-	);
-
-	$ajax_query = new WP_Query($args);
-
-	if ( $ajax_query->have_posts() ) : 
-		while ( $ajax_query->have_posts() ) : 
-			$ajax_query->the_post(); 
-	 		get_template_part( 'Components/blocs/bloc', 'article' );
-		endwhile; 
-	endif;
-
-	die();
-}
-
-
-
-
-
-
 /**
  * Get events filtered
  */
-add_action( 'wp_ajax_get_events_filtered', 'get_events_filtered' );
-add_action( 'wp_ajax_nopriv_get_events_filtered', 'get_events_filtered' );
+add_action( 'wp_ajax_get_events', 'get_events' );
+add_action( 'wp_ajax_nopriv_get_events', 'get_events' );
 
-function get_events_filtered() {
+function get_events() {
 
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 	$today = time();
-	$previous_month = false;
 
-	$rdv_value = $_POST['rdv_value'];
-	$discipline_value = $_POST['discipline_value'];
-	$public_value = $_POST['public_value'];
-	$tarif_value = $_POST['tarif_value'];
-	$is_archives = $_POST['is_archives'];
-	$saison_value = $_POST['saison_value'];
-
-	$args = array(
-	   	'post_type' 			=> 'event',
-			'posts_per_page' 	=> '18',
-			'post_status'			=> 'publish', 
-	   	'meta_key' 				=> 'eventDetail_first_date',
-	   	'orderby' 				=> 'meta_value_num',
-	   	'order' 					=> 'ASC',
-	   	'meta_query' 			=> array(
-	       	array(
-	           'key' => 'eventDetail_last_date',
-	           'value' => $today,
-	           'compare' => '>=',
-	        )
-	    )
+	$queryargs = array(
+		'post_type' 			=> 'event',
+		'posts_per_page' 		=> -1,
+		'post_status'			=> 'publish', 
+		'meta_key' 				=> 'eventDetail_first_date',
+		'orderby' 				=> 'meta_value_num',
+		'order' 				=> 'ASC',
+		'meta_query' => array(
+		   	array(
+		       'key' => 'eventDetail_last_date',
+		       'value' => $today,
+		       'compare' => '>=',
+		    ) 
+		)
 	);
 
-	if( $is_archives === 'true' ) {
-		$args['order'] = 'DESC';
-		$args['meta_query'] = array(
-	       	array(
-	           'key' 			=> 'eventDetail_last_date',
-	           'value' 		=> $today,
-	           'compare' 	=> '<=',
-	        )
-	    );
-	}
+	$posts = get_posts( $queryargs ); 
+	ob_start();
 
-	if( $saison_value !== '0' ) {
-		$args['saison'] = $saison_value;
-		$args['posts_per_page'] = '-1';
-	}
+	foreach ( $posts as $post ) :  ?>
 
-	if( $rdv_value !== 0 ) {
-		$args['rdv'] = $rdv_value;
-	}
+        <div class="swiper-slide" data-id="<?php echo $post->post_title; ?>">
 
-	if( $discipline_value !== 0 ) {
-		$args['discipline'] = $discipline_value;
-	}
+			<?php 
+                $focus_event_id = $post->ID;
+				get_template_part('Components/blocs/bloc', 'event', array('post' => $post)); ?>
+                    
+        </div>
 
-	if( $public_value !== 0 ) {
-		$args['public'] = $public_value;
-	}
 
-	if( $tarif_value !== 0 ) {
-		$args['tarif'] = $tarif_value;
-	}
+	<?php endforeach; wp_reset_query();?>
 
-	$ajax_query = new WP_Query($args);
-	$previous_month = false;
-
-	set_query_var('query', $ajax_query);
-	set_query_var('previous_month', $previous_month);
-	get_template_part('Components/loops/loop', 'events');
-
-	die();
+	<?php 
+	    $content = ob_get_clean();
+    	wp_send_json_success( $content );
+		die();
 }
 
 
@@ -523,48 +214,6 @@ function custom_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 
-
-
-// CUSTOM MENU WALKER
-
-class Microdot_Walker_Nav_Menu extends Walker_Nav_Menu {
-    public function start_lvl( &$output, $depth = 0, $args = array() ) {
-        $output .= '<ul>';
-    }
-
-    public function end_lvl( &$output, $depth = 0, $args = array() ) {
-        $output .= '</ul>';
-    }
-
-    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-        $classes = array();
-        if( !empty( $item->classes ) ) {
-            $classes = (array) $item->classes;
-        }
-
-        $active_class = '';
-        if( in_array('current-menu-item', $classes) ) {
-            $active_class = ' class="active menu-item"';
-        } else if( in_array('current-menu-parent', $classes) ) {
-            $active_class = ' class="active-parent menu-item"';
-        } else if( in_array('current-menu-ancestor', $classes) ) {
-            $active_class = ' class="active-ancestor menu-item"';
-        } else {
-        		$active_class = ' class="menu-item"';
-        }
-
-        $url = '';
-        if( !empty( $item->url ) ) {
-            $url = $item->url;
-        }
-
-        $output .= '<li'. $active_class . '><a href="' . $url . '">' . $item->title . '</a></li>';
-    }
-
-    public function end_el( &$output, $item, $depth = 0, $args = array() ) {
-        $output .= '</li>';
-    }
-}
 
 
 
@@ -597,6 +246,7 @@ function accordeon_shortcode( $atts , $content = null ) {
 
 }
 add_shortcode( 'accordeon', 'accordeon_shortcode' );
+
 
 
  // init process for registering our button

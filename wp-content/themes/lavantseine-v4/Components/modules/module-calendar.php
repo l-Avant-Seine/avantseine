@@ -3,26 +3,6 @@
     wp_enqueue_script('swiper');
     wp_enqueue_style('swiper');
 
-	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-	$today = time();
-
-	$queryargs = array(
-		'post_type' 			=> 'event',
-		'posts_per_page' 		=> -1,
-		'post_status'			=> 'publish', 
-		'meta_key' => 'eventDetail_first_date',
-		'orderby' => 'meta_value_num',
-		'order' => 'ASC',
-		'meta_query' => array(
-		   	array(
-		       'key' => 'eventDetail_last_date',
-		       'value' => $today,
-		       'compare' => '>=',
-		    ) 
-		)
-	);
-
-	$next_events = get_posts( $queryargs );
 ?>
 
 
@@ -31,7 +11,6 @@
     <div class="inner wrapper">
 
         <div class="swiper-calendar">
-
 
             <div class="mod_nav flex --gap-xs mb-small">
                 <div class="swiper-btn-prev">
@@ -46,45 +25,13 @@
                 <h2 class="h2"><?php echo $args['title']; ?></h2>
             </div>
 
-            <div class="swiper-wrapper">
-                <?php foreach ( $next_events as $post ) : setup_postdata( $post ); ?>
+            <div class="swiper-wrapper" id="calendar_inner">
 
-                    <div class="swiper-slide">
-
-                        <?php 
-                            $focus_event_id = $post->ID;
-                            $focus_event_media_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'homeslide' );
-                            $event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date', $post->ID ) );
-                        ?>
-
-						<?php 
-							set_query_var('focus_event_id', $focus_event_id);
-							set_query_var('post', $post);
-							get_template_part('Components/blocs/bloc', 'event'); ?>
-                    
-                    </div>
-
-                <?php endforeach; wp_reset_query();?>
             </div>
 
             <div class="swiper-pagination"></div>
             
         </div><!-- .swiper-container -->
-
-
-		<?php foreach ( $next_events as $post ) : setup_postdata( $post ); ?>
-		
-		  	
-
-
-	
-
-
-
-
-		<?php endforeach; 
-		wp_reset_postdata(); ?>
-
 
 	</div>
 </section>

@@ -134,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sub_menus = document.querySelectorAll('.sub-menu');
 
     parent_items.forEach(el => {
-      console.log(el );
       el.addEventListener('click', event => {
         event.preventDefault()
         el.nextElementSibling.classList.add('displayed')
@@ -197,6 +196,60 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+
+
+
+
+
+  const calendar = document.querySelector('.mod_calendar');
+  const calendar_inner = document.querySelector('#calendar_inner');
+
+  if( calendar ) {
+
+  // DATAS
+    const data = new FormData();
+    const ajaxurl = ajax_datas.ajaxUrl;
+    data.set('nonce', ajax_datas.nonce);
+
+    const fetchAndDisplayDatas = async ( append = false ) => {
+        console.log('fetchAndDisplayDatas', data)
+
+        data.set('action', 'get_events');
+
+        fetch(ajaxurl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cache-Control': 'no-cache',
+            },
+            body: new URLSearchParams(data),
+        })
+        .then( response => { console.log(response); return response.json();  } )
+        .then( body => {
+
+            if (!body.success) return;
+
+            if( append ) {
+                setTimeout( () => {
+                    calendar_inner.insertAdjacentHTML('beforeend', body.data); 
+                }, 400)
+            } else {
+                setTimeout( () => {
+                    calendar_inner.innerHTML = body.data; 
+                }, 400)
+            }
+        });
+    }
+
+
+
+    fetchAndDisplayDatas( false ).then( () => {
+
+        });
+
+
+
+  }
   
 
   /* EVENTS */

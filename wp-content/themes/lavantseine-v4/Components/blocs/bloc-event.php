@@ -3,6 +3,8 @@
  * @package lavantseine
  */
 
+	$post = $args['post'];
+	setup_postdata( $post );
 
 	$event_dates = get_field( 'eventDetail_dates' );
 	$event_text2 = get_field( 'eventDetail_text2' );
