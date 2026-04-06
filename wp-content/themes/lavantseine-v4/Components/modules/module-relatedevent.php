@@ -39,25 +39,8 @@
 
 			 		$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 
-					<div class="event-teaser--small">
+						<?php get_template_part('Components/blocs/bloc', 'event'); ?>
 
-						<h4 class="cf h_2 teaser-title">
-							<a href="<?php the_permalink(); ?>"><?php the_title() ?></a>
-						</h4>
-
-						<div class="cf teaser-meta">
-							<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates); ?>
-						</div>
-
-						<div class="cf teaser-action">
-							<a href="<?php the_permalink(); ?>" class="btn-inline">plus d'infos</a>
-						</div>
-
-						<div class="cf teaser-action">
-							<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn-primary ">réserver mes places</a>
-						</div>
-						
-					</div>
 			<?php endwhile; 
 			wp_reset_postdata();
 			endif; 
@@ -109,38 +92,8 @@
 
 			 if ( $next_event->have_posts() ) : 
 			 	while ( $next_event->have_posts() ) : $next_event->the_post(); ?>
-				<div class="event-teaser--small">
-					<div class="relatedPost-media">
-						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
-						<?php 
-							$terms = wp_get_post_terms( $post->ID, array('category') );
-							$count = count($terms);
-							if ( $count > 0 ){
-							    echo "<ul class='no-bullets'>";
-							    foreach ( $terms as $term ) {
-							    	$term_link = get_term_link( $term, '' );
-								    echo "<a href='". $term_link ."'><li class='postmeta-term'>" . $term->name . "</li></a><br>";
-							    }
-							    echo "</ul>";
-							}
-						?>						
-					</div>
-					
-					<span class="relatedPost-date meta-date">Publié le <?php the_time('d/m/Y'); ?></span>
-					<h4 class="h3 relatedPost-title"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a></h4>
-					<div class="relatedPost-text">
-						<?php 
-							$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-							echo "<p>".$post_shortText. "</p>"; 
-						?>
-					</div>
+						<?php get_template_part('Components/blocs/bloc', 'event'); ?>
 
-					<div class="clearfix"><a href="<?php the_permalink(); ?>" class="btn--big bordered"><span class="icon-arrow-right"></span>en savoir plus</a></div>
-					<div class="clearfix">
-						<a href="<?php echo $event_dealer_link; ?>" target="_blank" class="btn--big black">Acheter mes places</a>
-					</div>
-					
-				</div>
 			<?php endwhile; 
 			wp_reset_postdata();
 			endif; 
