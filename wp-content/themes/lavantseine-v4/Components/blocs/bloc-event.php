@@ -11,12 +11,12 @@
 	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 	$event_other_dates = get_field('eventDetail_otherdates');
-	$today = time();
+
+	$today = new DateTime("today"); // This object represents current date/time with time set to midnight
 
 	$enfantsdabord = get_field( 'enfants_dabord' );
 	$trenteans = get_field( 'trenteans' );
 	$logo_festival = get_field( 'logo_festival' );
-
 
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
@@ -33,7 +33,29 @@
 
 				<?php if( !get_field('eventDetail_is_news') ) : ?>
 					<div class="item-dates">
-						<?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?>
+						<?php 
+							if( isset($args['date']) ) {
+
+								$match_date = new DateTime('@' . $args['date']);
+								$match_date->setTime( 0, 0, 0 ); 
+								$diff = $today->diff( $match_date );
+								$diffDays = $diff->format( "%R%a" ); 
+
+								switch( $diffDays ) {
+									case 0:
+										echo "Aujourd'hui";
+										break;
+									case +1:
+										echo "Demain";
+										break;
+									default:
+										echo get_event_dates( intval($args['date']), intval($args['date']) );
+								}
+
+							} 
+							else {
+								echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); 
+							} ?>
 					</div>
 				<?php endif; ?>
 

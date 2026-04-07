@@ -661,7 +661,7 @@
                     "name": "date",
                     "aria-label": "",
                     "type": "date_time_picker",
-                    "instructions": "",
+                    "instructions": "format affichage : l d F Y - H\\hi",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -670,10 +670,10 @@
                         "id": ""
                     },
                     "display_format": "d.m.Y H:i",
-                    "return_format": "l d F Y - H\\hi",
+                    "return_format": "d\/m\/Y g:i a",
                     "first_day": 1,
-                    "allow_in_bindings": 1,
                     "default_to_current_date": 0,
+                    "allow_in_bindings": 1,
                     "parent_repeater": "field_592c7c3c43ee4"
                 },
                 {
@@ -784,5 +784,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775205686
+    "modified": 1775563056
 }

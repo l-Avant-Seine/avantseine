@@ -182,18 +182,45 @@ function get_events() {
 	);
 
 	$posts = get_posts( $queryargs ); 
-	ob_start();
+	$dates = [];
+	ob_start(); ?>
 
-	foreach ( $posts as $post ) :  ?>
+	<?php foreach ( $posts as $post ) :
 
-        <div class="swiper-slide" data-id="<?php echo $post->post_title; ?>">
+		$event_first_date = get_field( 'eventDetail_first_date', $post->ID );
+		$event_last_date = get_field( 'eventDetail_last_date', $post->ID );
+		$event_other_dates = get_field('eventDetail_otherdates', $post->ID);
 
-			<?php 
-                $focus_event_id = $post->ID;
-				get_template_part('Components/blocs/bloc', 'event', array('post' => $post)); ?>
-                    
+		$dates[ strval($event_first_date) ] = $post->ID;
+		
+		if( $event_other_dates ) {
+			foreach( $event_other_dates as $o) {
+				$dates[ strval(strtotime($o['date'])) ] = $post->ID;
+			}
+		}
+
+		if( $event_last_date !== $event_first_date ) {
+			$dates[ strval($event_last_date) ] = $post->ID;
+		}
+
+	 endforeach; wp_reset_query(); ksort($dates); 
+	 ?>
+
+
+
+
+
+
+	<?php foreach ( $dates as $key => $d ) :  ?>
+		<?php //echo date('d.m.Y H:i', intval($key)); echo ' - ' . $d; ?>
+	<?php endforeach; ?>
+
+
+	<?php foreach ( $dates as $key => $d ) :  ?>
+
+        <div class="swiper-slide" data-postdate="<?php echo $key; ?>" data-postid="<?php echo $d; ?>">
+			<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $d, 'date' => $key )); ?>
         </div>
-
 
 	<?php endforeach; wp_reset_query();?>
 
@@ -202,6 +229,7 @@ function get_events() {
     	wp_send_json_success( $content );
 		die();
 }
+
 
 
 

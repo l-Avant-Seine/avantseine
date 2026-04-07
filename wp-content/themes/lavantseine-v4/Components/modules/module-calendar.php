@@ -25,9 +25,7 @@
                 <h2 class="h2"><?php echo $args['title']; ?></h2>
             </div>
 
-            <div class="swiper-wrapper" id="calendar_inner">
-
-            </div>
+            <div class="swiper-wrapper" id="calendar_inner"></div>
 
             <div class="swiper-pagination"></div>
             
