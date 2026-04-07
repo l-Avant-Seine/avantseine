@@ -186,7 +186,7 @@ function get_events() {
 		
 		if( $event_other_dates ) {
 			foreach( $event_other_dates as $o) {
-				$dates[ strval(strtotime($o['date'])) ] = $post->ID;
+				if( isset($o['date'])) $dates[ strval(strtotime($o['date'])) ] = $post->ID;
 			}
 		}
 

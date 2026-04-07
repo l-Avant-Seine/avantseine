@@ -46,7 +46,7 @@ $event_details_fields = array(
         'id'    => $prefix.'last_date_endtime',  
         'type'  => 'text'  
     )
-);  
+); 
 
 
 // The Callback  
