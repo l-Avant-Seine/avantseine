@@ -10,7 +10,7 @@
     $today = time();
     //$post_meta_data = get_post_custom($post->ID);
 
-    $tags = wp_get_post_terms($post->ID, array('discipline', 'rdv'), array("fields" => "all"));
+    $tags = wp_get_post_terms($post->ID, array('discipline'), array("fields" => "all"));
 
     $event_dates = get_field('eventDetail_dates');
     $event_duration = get_field('eventDetail_duration');
@@ -163,11 +163,12 @@
 
                                 if ($exhibition) {
                                     echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition);
-                                } else {
+                                } 
+                                else {
 
                                     if ($event_first_date) :
                                         echo '<ul class=" no-bullets">';
-                                            echo '<li class="frame_row h4_2">';
+                                            echo '<li class="frame_row flex --jstf --hcentered h4_2"><span>';
                                                 if (get_field('eventDetail_first_date_endtime') != '') {
                                                     echo strftime('%A %d %B %G - %kh%M', $event_first_date);
                                                 } else {
@@ -177,6 +178,9 @@
                                                 if (get_field('eventDetail_first_date_endtime') != '') {
                                                     echo ' à ' . get_field('eventDetail_first_date_endtime');
                                                 }
+                                                
+                                                echo '</span><a href="' . get_field('eventDetail_dealer-link') . '" target="_blank" class="btn">Réserver</a>';
+
                                             echo '</li>';
 
                                         if (isset($otherdates)) {
@@ -187,13 +191,13 @@
                                             foreach ($event_other_dates as $date) {
                                                 $date = strtotime($date['date']);
                                                 if ($date != '') :
-                                                    echo '<li class="frame_row h4_2">' . strftime('%A %d %b %G - %kh%M', $date) . '.</li>';
+                                                    echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>' . strftime('%A %d %b %G - %kh%M', $date) . '</span><a href="' . get_field('eventDetail_dealer-link') . '" target="_blank" class="btn">Réserver</a></li>';
                                                 endif;
                                             }
                                         endif;
 
                                         if ($event_last_date && $event_last_date != $event_first_date) :
-                                            echo '<li class="frame_row h4_2">';
+                                            echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>';
                                                 if (get_field('eventDetail_last_date_endtime') != '') {
                                                     echo strftime('%A %d %B %G - %kh%M', $event_last_date);
                                                 } else {
@@ -202,7 +206,7 @@
                                                 if (get_field('eventDetail_last_date_endtime') != '') {
                                                     echo ' à ' . get_field('eventDetail_last_date_endtime');
                                                 }
-                                            echo '</li>';
+                                            echo '</span><a href="' . get_field('eventDetail_dealer-link') . '" target="_blank" class="btn">Réserver</a></li>';
 
                                         endif;
 
