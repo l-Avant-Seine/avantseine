@@ -195,7 +195,7 @@ function get_events() {
 		}
 
 	 endforeach; wp_reset_query(); ksort($dates); 
-	 ?>
+	?>
 
 
 	<?php foreach ( $dates as $key => $d ) :  ?>
