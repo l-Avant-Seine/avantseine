@@ -182,7 +182,7 @@ function get_events() {
 		$event_last_date = get_field( 'eventDetail_last_date', $post->ID );
 		$event_other_dates = get_field('eventDetail_otherdates', $post->ID);
 
-		$dates[ strval($event_first_date) ] = $post->ID;
+		if($event_first_date) $dates[ strval($event_first_date) ] = $post->ID;
 		
 		if( $event_other_dates ) {
 			foreach( $event_other_dates as $o) {
@@ -191,7 +191,7 @@ function get_events() {
 		}
 
 		if( $event_last_date !== $event_first_date ) {
-			$dates[ strval($event_last_date) ] = $post->ID;
+			if($event_last_date) $dates[ strval($event_last_date) ] = $post->ID;
 		}
 
 	 endforeach; wp_reset_query(); ksort($dates); 
