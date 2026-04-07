@@ -47,7 +47,7 @@ if ( ! function_exists( 'lavantseine_v2_setup' ) ) :
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function lavantseine_v2_setup() {
+function lavantseine_v4_setup() {
 
 	load_theme_textdomain( 'lavantseine-v4', get_template_directory() . '/languages' );
 
@@ -82,18 +82,9 @@ function lavantseine_v2_setup() {
 		'gallery',
 		'caption',
 	) );
-
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'lavantseine_v2_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
-
-	// Add theme support for selective refresh for widgets.
-	add_theme_support( 'customize-selective-refresh-widgets' );
 }
 endif;
-add_action( 'after_setup_theme', 'lavantseine_v2_setup' );
+add_action( 'after_setup_theme', 'lavantseine_v4_setup' );
 
 
 
@@ -205,10 +196,6 @@ function get_events() {
 
 	 endforeach; wp_reset_query(); ksort($dates); 
 	 ?>
-
-
-
-
 
 
 	<?php foreach ( $dates as $key => $d ) :  ?>
