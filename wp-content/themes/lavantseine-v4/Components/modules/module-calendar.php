@@ -6,29 +6,16 @@
 ?>
 
 
-<section class="mod_calendar">
+<section class="mod_calendar loading">
 	
     <div class="inner wrapper">
 
-        <div class="swiper-calendar">
-
-            <div class="mod_nav flex --gap-xs mb-small">
-                <div class="swiper-btn-prev">
-                    <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
-                </div>
-                <div class="swiper-btn-next">
-                    <?php get_template_part('Components/svgs/svg', 'arrow'); ?> 
-                </div>
+            <div id="loader" class="loader flex --centered">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/loader.gif">
             </div>
 
-            <div class="mod_title mb-small">
-                <h2 class="h2"><?php echo $args['title']; ?></h2>
-            </div>
+        <div id="calendar_inner">
 
-            <div class="swiper-wrapper" id="calendar_inner"></div>
-
-            <div class="swiper-pagination"></div>
-            
         </div><!-- .swiper-container -->
 
 	</div>

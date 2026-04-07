@@ -54,19 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  const swiperCalendar = new Swiper('.swiper-calendar', {
-    slidesPerView : 3,
-    slidesPerGroup: 3,
-    spaceBetween : 20,
-    navigation: {
-      nextEl: '.swiper-btn-next',
-      prevEl: '.swiper-btn-prev',
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-    },
-  });
+
 
 
   const swiperMagazine = new Swiper('.swiper-magazine', {
@@ -203,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const calendar = document.querySelector('.mod_calendar');
   const calendar_inner = document.querySelector('#calendar_inner');
+  const loader = document.querySelector('#loader');
 
   if( calendar ) {
 
@@ -235,9 +224,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 400)
             } else {
                 setTimeout( () => {
-                    calendar_inner.innerHTML = body.data; 
+                    calendar_inner.innerHTML = body.data;                   
                 }, 400)
             }
+          
+        })
+        .then( () => {
+            console.log('then')
+            setTimeout( () => {
+
+                  const swiperCalendar = new Swiper('.swiper-calendar', {
+                    slidesPerView : 3,
+                    slidesPerGroup: 3,
+                    spaceBetween : 20,
+                    navigation: {
+                      nextEl: '.cal-btn-next',
+                      prevEl: '.cal-btn-prev',
+                    },
+                  });
+
+                  const swiperDates = new Swiper('.swiper-dates', {
+                    slidesPerView : 14,
+                    slidesPerGroup: 14,
+                    spaceBetween : 10,
+                    navigation: {
+                      nextEl: '.dates-btn-next',
+                      prevEl: '.dates-btn-prev',
+                    },
+                  });
+
+
+            }, 1000)
+        })
+        .then( () => {
+
+          setTimeout( () => {
+            calendar.classList.remove('loading')
+            calendar_inner.classList.add('visible')
+            loader.classList.add('hidden');
+          }, 1000 )
+
         });
     }
 

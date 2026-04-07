@@ -18,10 +18,6 @@ define('VIDEOCHANNEL_URL','https://www.youtube.com/channel/UCtUb1swrX34VbClR53Yc
 define('RESERVATION_URL','https://lavant-seine.mapado.com/');
 
 
-setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-$today = time();
-$previous_month = false;
-
 
 function add_file_types_to_uploads($file_types){
 	$new_filetypes = array();
@@ -154,7 +150,34 @@ add_action( 'wp_ajax_nopriv_get_events', 'get_events' );
 function get_events() {
 
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-	$today = time();
+	$today_ts = time();
+	$today_formated = date('Y-m-d', $today_ts);
+	$fmt_dayletter = datefmt_create(
+		'fr_FR',
+		IntlDateFormatter::FULL,
+		IntlDateFormatter::FULL,
+		'Europe/Paris',
+		IntlDateFormatter::GREGORIAN,
+		'EE'
+	);
+	$fmt_daynbr = datefmt_create(
+		'fr_FR',
+		IntlDateFormatter::FULL,
+		IntlDateFormatter::FULL,
+		'Europe/Paris',
+		IntlDateFormatter::GREGORIAN,
+		'ee'
+	);
+	$fmt_month = datefmt_create(
+		'fr_FR',
+		IntlDateFormatter::FULL,
+		IntlDateFormatter::FULL,
+		'Europe/Paris',
+		IntlDateFormatter::GREGORIAN,
+		'MM'
+	);
+	//https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax 
+
 
 	$queryargs = array(
 		'post_type' 			=> 'event',
@@ -166,7 +189,7 @@ function get_events() {
 		'meta_query' => array(
 		   	array(
 		       'key' => 'eventDetail_last_date',
-		       'value' => $today,
+		       'value' => $today_ts,
 		       'compare' => '>=',
 		    ) 
 		)
@@ -174,9 +197,11 @@ function get_events() {
 
 	$posts = get_posts( $queryargs ); 
 	$dates = [];
-	ob_start(); ?>
-
-	<?php foreach ( $posts as $post ) :
+	ob_start(); 
+	
+	
+	// FORMAT AND SORT DATES ARRAY
+	foreach ( $posts as $post ) :
 
 		$event_first_date = get_field( 'eventDetail_first_date', $post->ID );
 		$event_last_date = get_field( 'eventDetail_last_date', $post->ID );
@@ -194,22 +219,78 @@ function get_events() {
 			if($event_last_date) $dates[ strval($event_last_date) ] = $post->ID;
 		}
 
-	 endforeach; wp_reset_query(); ksort($dates); 
-	?>
+	endforeach; wp_reset_query(); ksort($dates); ?>
 
 
-	<?php foreach ( $dates as $key => $d ) :  ?>
-		<?php //echo date('d.m.Y H:i', intval($key)); echo ' - ' . $d; ?>
-	<?php endforeach; ?>
+	<!-- DISPLAY CALENDAR DAYS  --> 
+
+		<div class="swiper-dates">
+
+                <div class="dates-btn-prev">
+                    <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
+                </div>
+
+                <div class="swiper-wrapper">
+
+					<?php for ( $i = 0 ; $i < 365 ; $i++ ) {
+
+						$current_ts = strtotime(  $today_formated . ' +' . $i . ' day');
+						$current = date('Y-m-d', $current_ts);
+						$current_day_letter = datefmt_format($fmt_dayletter, $current_ts);
+						$current_day_nbr = datefmt_format($fmt_daynbr, $current_ts);
+						$current_month = datefmt_format($fmt_dayletter, $current_ts);
+						$current_year = datefmt_format($fmt_dayletter, $current_ts);
+						
+						if( $current == array_key_last($dates) ) break; ?>
+						
+						<div class="swiper-slide date " data-date="<?php echo $current; ?>">
+							<div class="inner flex --col --centered">
+								<span class="meta"><?php echo $current_day_letter; ?></span>
+								<span class="h3"><?php echo $current_day_nbr; ?></span>
+							</div>
+						</div>
+
+					<?php } ?>
+					
+				</div>
+                <div class="dates-btn-next">
+                    <?php get_template_part('Components/svgs/svg', 'arrow'); ?> 
+                </div>
+		</div>
 
 
-	<?php foreach ( $dates as $key => $d ) :  ?>
 
-        <div class="swiper-slide" data-postdate="<?php echo $key; ?>" data-postid="<?php echo $d; ?>">
-			<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $d, 'date' => $key )); ?>
-        </div>
+	<!-- DISPLAY EVENTS  --> 
 
-	<?php endforeach; wp_reset_query();?>
+		<div class="swiper-calendar">
+
+			<div class="mod_title mb-small">
+                <h2 class="h2">Calendrier</h2>
+            </div>
+
+			<div class="cal-btn-prev">
+                    <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
+            </div>
+
+            <div class="swiper-wrapper">
+
+				<?php foreach ( $dates as $key => $d ) :  ?>
+
+					<div class="swiper-slide" data-postdate="<?php echo $key; ?>" data-postid="<?php echo $d; ?>">
+						<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $d, 'date' => $key )); ?>
+					</div>
+
+				<?php endforeach; wp_reset_query();?>
+				
+			</div>
+
+			<div class="cal-btn-next">
+                <?php get_template_part('Components/svgs/svg', 'arrow'); ?> 
+			</div>
+        </div><!-- .swiper-container -->
+
+
+
 
 	<?php 
 	    $content = ob_get_clean();

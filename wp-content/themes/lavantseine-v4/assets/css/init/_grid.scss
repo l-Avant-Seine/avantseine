@@ -28,17 +28,9 @@ $marge_wrapper--mobile: 20px;
 
 .wrapper {
     max-width: $max-width;
-    width: calc(100% - #{$marge_wrapper * 2});
+    width: 90vw;
     margin-left: auto;
     margin-right: auto;
-
-    @include at-least(medium) {
-        width: calc(100% - #{$marge_wrapper * 2});
-    }
-
-    @include up-to(medium) {
-        width: calc(100% - #{$marge_wrapper--mobile * 2});
-    }
 
     &.--narrow {
         max-width: 1200px;
