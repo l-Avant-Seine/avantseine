@@ -2,14 +2,15 @@
 <section class="mod_banner">
     <div class="inner wrapper">
 
-        <div class="flex --centered mb-small">
-            <img src="<?php echo $args['picto']; ?>">
-        </div>
-
         <div class="flex --jstf --hcentered --gap-m">
             <img class="inversed" src="<?php echo $args['img']; ?>">
 
             <div class="">
+
+                <div class="flex --centered mb-small">
+                    <img src="<?php echo $args['picto']; ?>">
+                </div>
+                
                 <div class="h2_2 txt-center">
                     <?php echo $args['wysiwyg']; ?>
                 </div>

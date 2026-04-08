@@ -11,7 +11,7 @@
 
         <div class="grid wrapper">
 
-            <div class="m_6col">
+            <div class="m_6col flex --col --centered">
                 <h2 class="mod_title h2_2 mb-medium"><?php echo $args['title_news']; ?></h2>
 
                 <div>
@@ -23,14 +23,11 @@
                 </div>
             </div>
 
-            <div class="m_6col">
+            <div class="m_6col flex --col --centered">
                 <h2 class="mod_title h2_2 mb-medium"><?php echo $args['title_rs']; ?></h2>
 
                 <div class="flex --gap-m --hcentered">
 				    <?php get_template_part('Components/blocs/bloc', 'reseaux');  ?>
-                    <div class="mod_cta">
-                        <a href="" class="btn">Téléchargez la brochure</a>
-                    </div>
                 </div>
 
             </div>
