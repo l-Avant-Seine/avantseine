@@ -98,7 +98,7 @@ section {
 
 
 .mod_magazine {
-    background-color: $vert;
+    background-color: var(--color-three);
 
     .mod_nav {
         position: relative;
@@ -107,11 +107,11 @@ section {
 
 .mod_magtitle {
     padding: 60px 0;
-    background-color: $vert;
+    background-color: var(--color-three);
 }
 
 .mod_progtitle {
-    background-color: $jaune;
+    background-color: var(--color-five);
 
 }
 
@@ -119,7 +119,7 @@ section {
 
 .mod_calendar {
     position: relative;
-    background-color: $bleu;
+    background-color: var(--color-one);
     transition: all .3s;
     max-height: 1000px;
     min-height: 100px;
@@ -130,12 +130,12 @@ section {
         overflow: hidden;
     }
     .mod_title {
-        color: $jaune;
+        color: var(--color-five);
     }
 
     .loader {
         transition: all .4s;
-        background-color: $jaune;
+        background-color: var(--color-five);
         z-index: 99;
         position: absolute;
         top: 0;
@@ -146,7 +146,7 @@ section {
 
     .date {
         aspect-ratio: 1/1;
-        background-color: $vert;
+        background-color: var(--color-three);
 
         &.inactive {
             background: none;
@@ -236,18 +236,18 @@ $duration: 20000s;
         font-family: $title_font_family;
 
         &:nth-child(1n) {
-            color: $vert;
+            color: var(--color-three);
         }
         &:nth-child(2n) {
-            color: $rose;
+            color: var(--color-four);
         }
         &:nth-child(3n) {
-            color: $bleu;
+            color: var(--color-one);
         }
     }
 }
 .agenda-ticker{
-  border-bottom: 1px solid $secondary_color;
+  border-bottom: 1px solid black;
 }
 
 
@@ -258,7 +258,7 @@ $duration: 20000s;
 
 	.btn-inline {
 		margin-bottom: 0;
-        color: $bleu;
+        color: var(--color-one);
     }
 	&:hover {
 		cursor: pointer;
@@ -266,7 +266,7 @@ $duration: 20000s;
     span {
         transition: transform .3s;
         path {
-            stroke: $rose;
+            stroke: var(--color-four);
         }
     }
 }
@@ -291,12 +291,12 @@ $duration: 20000s;
 
 
 .mod_spectacles {
-    background-color: $rose;
+    background-color: var(--color-four);
 }
 
 
 .mod_visuels {
-    background-color: $rose;
+    background-color: var(--color-four);
     position: relative;
 
     .mod_nav {

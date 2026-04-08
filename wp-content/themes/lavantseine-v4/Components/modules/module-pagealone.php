@@ -11,7 +11,7 @@
 
             <div class="m_6col">
 
-                <div class="mb-large">
+                <div class="mb-xlarge">
                     <h2 class="h2 mb-medium"><?php the_title(); ?></h2>
                     <?php the_excerpt(); ?>
                 </div>

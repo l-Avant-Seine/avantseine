@@ -7,11 +7,11 @@
 
             <div class="">
 
-                <div class="flex --centered mb-small">
+                <div class="flex --centered mb-medium">
                     <img src="<?php echo $args['picto']; ?>">
                 </div>
                 
-                <div class="h2_2 txt-center">
+                <div class="h2_2 txt-center mb-medium">
                     <?php echo $args['wysiwyg']; ?>
                 </div>
 

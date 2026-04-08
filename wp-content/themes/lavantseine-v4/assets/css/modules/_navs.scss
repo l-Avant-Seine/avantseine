@@ -2,7 +2,7 @@
 
 .site-header {
     display: flex;
-    background-color: #EA4B94;
+    background-color: var(--color-four);
     padding-right: 3vw;
     padding-left: 3vw;
     position: relative;
@@ -85,7 +85,7 @@
         transform: translateY(-500%);
         position: absolute;
         top: 100%;
-        background: $bleu;
+        background: var(--color-one);
         left: 0;
         right: 0;
         padding: 20px;
@@ -114,17 +114,17 @@
  */
 
 .site-footer {
-    background-color: $rose;
+    background-color: var(--color-four);
 }
 .footer_upper {
-    background-color: $rose;
+    background-color: var(--color-four);
     padding: 40px;
     .site-logo {
         width: 160px;
     }
 }
 .footer_lower {
-    background-color: $bleu;
+    background-color: var(--color-one);
 
     .wrapper {
         position: relative;

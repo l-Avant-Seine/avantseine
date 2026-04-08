@@ -23,7 +23,6 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 
 			<div class="bloc_text mb-small">
 
-
 				<div class="bloc_tax flex --gap-s mb-small">
 					<?php 
 					$categories = get_the_category();

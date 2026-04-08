@@ -5,7 +5,7 @@
 
 
 .archive_month {
-    background-color: $jaune;
+    background-color: var(--color-five);
     padding: 20px;
 }
 
@@ -27,7 +27,7 @@
 
     .group_title {
         padding: 20px;
-        background-color: $jaune;
+        background-color: var(--color-five);
         cursor: pointer;
     }
 

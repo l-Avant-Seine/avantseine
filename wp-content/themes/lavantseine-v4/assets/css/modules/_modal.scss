@@ -5,8 +5,8 @@
 	display: none;
 	position: absolute;
 	background: white;
-	border-top: 1px solid $secondary_color;
-	border-bottom: 1px solid $secondary_color;
+	border-top: 1px solid var(--color-four);
+	border-bottom: 1px solid var(--color-four);
 	padding-top: 20vh;
 	padding-bottom: 20vh;
 	z-index: 3;
@@ -17,7 +17,7 @@
 }
 .siteMenus-searchform {
 	display: none;
-	background-color: $primary_color;
+	background-color: var(--color-one);
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -105,7 +105,7 @@
 		cursor: pointer;
 		width: 22px;
 		height: 22px;
-		background: $primary_color;
+		background: var(--color-one);
 		color: white;
 		display: flex;
 		align-items: center;
@@ -123,7 +123,7 @@
 	}
 
 	a {
-		background-color: $secondary_color;
+		background-color: var(--color-four);
 		color: white;
 		padding: 3px 10px;
 	}
