@@ -94,7 +94,11 @@ section {
     }
 }
 
-
+.texture {
+    img {
+        width: 100%;
+    }
+}
 .texture--inversed {
     transform: rotate(-180deg);
 }
