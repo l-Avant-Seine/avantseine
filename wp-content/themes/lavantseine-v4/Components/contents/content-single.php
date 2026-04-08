@@ -94,7 +94,7 @@
 </article><!-- #post-## -->
 
 
-        <?php get_template_part('Components/modules/module', 'flexibles'); ?>
+	<?php get_template_part('Components/modules/module', 'flexibles'); ?>
 
 
 <script type="application/ld+json">

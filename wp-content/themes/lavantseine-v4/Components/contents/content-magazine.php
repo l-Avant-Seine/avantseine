@@ -10,14 +10,20 @@ $term_queried = get_queried_object();
 ?>
 
 
+<div class="archives_magazine">
+
+
 	<?php get_template_part('Components/modules/module', 'magtitle'); ?>
 
 	<?php get_template_part('Components/modules/module', 'flexibles'); ?>
 
 			
+	<div class="archives_inner">
 
-	<div id="main-webmag" class="archives_magazine">
 
+		<div class="archives_bg texture--inversed">
+			<img src="<?php the_field('texture_from_five_to_none', 'option'); ?>" >
+		</div>
 
 			<div class="mb-medium wrapper">
 				<div class="mod_title">
@@ -104,8 +110,10 @@ $term_queried = get_queried_object();
 					<?php lavantseine_paging_nav(); ?>
 				</div>
 				
-				<?php wp_reset_postdata(); ?>
+		<?php wp_reset_postdata(); ?>
 
-	</div><!-- #main-magazine -->
+	</div>
+</div>
+</div><!-- #main-magazine -->
 
 

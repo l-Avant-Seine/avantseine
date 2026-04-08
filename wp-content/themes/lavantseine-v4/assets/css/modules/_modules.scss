@@ -95,6 +95,10 @@ section {
 }
 
 
+.texture--inversed {
+    transform: rotate(-180deg);
+}
+
 
 .mod_magazine {
     position: relative;

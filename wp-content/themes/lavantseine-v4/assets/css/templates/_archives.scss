@@ -9,10 +9,27 @@
     padding: 20px;
 }
 
-
 .archives_magazine {
+    .mod_magazine + .mod_magazine {
+        .bg_upper {
+            background-color: var(--color-five);
+        }
+    }
+    
+}
+.archives_inner {
     background-color: $gray_light;
-    padding: 40px 0;
+    padding: $marge 0;
+    position: relative;
+    z-index: 2;
+
+    .archives_bg {
+        z-index: -1;
+        position: absolute;
+        top: 0; 
+        left: 0;
+        right: 0;
+    }
 }
 
 .archive,
