@@ -39,7 +39,6 @@ End Facebook Pixel Code -->
 
 
 <?php
-	//$header_logo_file = get_bloginfo( 'template_url' ) . '/assets/img/avtseine-logo-2019-mobile.png';
 	$header_logo_file = get_field('site_logo', 'option'); ?>
 	
 	<style>
