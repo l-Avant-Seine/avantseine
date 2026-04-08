@@ -39,7 +39,7 @@
 
 			 		$event_dealer_link = get_field( 'eventDetail_dealer-link' ); ?>
 
-						<?php get_template_part('Components/blocs/bloc', 'event'); ?>
+						<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $post->ID)); ?>
 
 			<?php endwhile; 
 			wp_reset_postdata();

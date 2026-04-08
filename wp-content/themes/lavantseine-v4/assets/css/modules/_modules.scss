@@ -323,7 +323,32 @@ $duration: 20000s;
 
 
 .mod_spectacles {
-    background-color: var(--color-four);
+    position: relative;
+    background-position: center 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    .mod_bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+
+    }
+    .bg_upper {
+        background-color: var(--color-four);
+        height: 60%;
+        flex: 0 0 60%;
+    }
+    .bg_lower {
+        background-color: var(--color-five);
+        height: 40%;
+        flex: 0 0 40%;
+    }
+
+
 }
 
 

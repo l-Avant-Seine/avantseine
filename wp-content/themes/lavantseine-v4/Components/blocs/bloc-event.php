@@ -12,7 +12,10 @@
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 	$event_other_dates = get_field('eventDetail_otherdates');
 
+	if($event_first_date) {
 	$event_hour = strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
+
+	} 
 
 	$event_duration = get_field( 'eventDetail_duration' );
     $age = get_the_terms(get_the_ID(), 'public');
@@ -23,7 +26,7 @@
 	$trenteans = get_field( 'trenteans' );
 	$logo_festival = get_field( 'logo_festival' );
 
-	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
+	$event_landscape_media = get_post_meta( get_the_ID(), 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
 ?>
 

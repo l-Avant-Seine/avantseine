@@ -19,6 +19,7 @@
 	$exhibition = get_field( 'eventDetail_exhibition' );
 
 	$linked = isset($args['linked']) ? $args['linked'] : false;
+    $tags = wp_get_post_terms($post->ID, array('discipline'), array("fields" => "all"));
 
 ?>
 
@@ -50,7 +51,7 @@
 
 										<?php if( !get_field('hide_booking_btn') ) : ?>
 											<?php if (intval($event_last_date) > $today) : ?>
-												<p><a href="<?php the_field('eventDetail_dealer-link'); ?>" target="_blank" class="btn">Réserver</a></p>
+												<p class="mb-0"><a href="<?php the_field('eventDetail_dealer-link'); ?>" target="_blank" class="btn">Réserver</a></p>
 											<?php endif; ?>
 										<?php endif; ?>
 									</div>
@@ -64,7 +65,11 @@
 								</div>
                             </div>
 
-                            <img class="bloc_texture" src="<?php the_field('event_texture'); ?>">
+							<?php foreach($tags as $tag) { 
+                                $image = get_field('visuel_colored', 'discipline' . '_' . $tag->term_id); ?>
+	                            <img class="bloc_texture" src="<?php echo $image; ?>">
+                            <?php } ?>
+
                         </div>
 
 

@@ -9,7 +9,15 @@
 ?>
 
 
-    <section class="mod_spectacles">
+    <section class="mod_spectacles"  style="background-image: url('<?php the_field('texture_from_five_to_none', 'option'); ?>')">
+
+        <div class="mod_bg flex --col">
+            <div class="bg_upper">
+            </div>
+            <div class="bg_lower">
+            </div>
+        </div>
+        
         <div class="wrapper swiper-spectacles">
 
             <div class="flex --jstf mb-medium">
@@ -39,7 +47,7 @@
                 <?php foreach ( $posts as $post ) : setup_postdata( $post ); ?>
 
                     <div class="swiper-slide">
-                         <?php get_template_part('Components/blocs/bloc', 'event'); ?>
+                         <?php get_template_part('Components/blocs/bloc', 'event', array('post' => $post->ID)); ?>
                     </div>
 
                 <?php endforeach; wp_reset_query();?>

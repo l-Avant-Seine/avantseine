@@ -15,9 +15,21 @@
 					
 					<div class="m_6col">
 						<div class="wrap">
-						    <h3 class="h3">Suivez-nous sur les réseaux !</h3>
 
-							<?php get_template_part('Components/blocs/bloc', 'reseaux');  ?>
+							<div class="mb-small">
+						    	<h3 class="h3">Suivez-nous sur les réseaux !</h3>
+							</div>
+
+							<div class="flex --jstf --hcentered">
+								<?php get_template_part('Components/blocs/bloc', 'reseaux');  ?>
+
+							    <div class="">
+									<a href="<?php the_field('prog_brochure', 'option'); ?>" class="btn" target="_blank">Télécharger la brochure</a>
+								</div>
+								
+							</div>
+
+
 						</div>
 					</div>
 				</div>

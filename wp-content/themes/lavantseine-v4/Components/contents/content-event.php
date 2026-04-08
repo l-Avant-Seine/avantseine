@@ -67,10 +67,8 @@
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	    <header class="single_header mb-large">
-
+	    <header class="single_header">
             <?php get_template_part('Components/blocs/bloc', 'slide'); ?>
-
         </header>
 
 

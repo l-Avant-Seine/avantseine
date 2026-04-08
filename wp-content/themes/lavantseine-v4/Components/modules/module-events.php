@@ -9,7 +9,7 @@
 
 		<?php foreach ( $last_events as $post ) : setup_postdata( $post ); ?>
 			<div class="m-3col item">
-				<?php get_template_part('Components/blocs/bloc', 'event'); ?>
+				<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $post->ID)); ?>
 			</div>
 		<?php endforeach; ?>	
 

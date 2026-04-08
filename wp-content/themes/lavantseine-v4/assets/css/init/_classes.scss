@@ -37,7 +37,9 @@ $marge-large: 60px;
 $marge-xlarge: 100px;
 $marge-xxlarge: 240px;
 
-
+.mb-0 {
+    margin-bottom: 0;
+}
 .mb-small {
     margin-bottom: $marge;
 }
