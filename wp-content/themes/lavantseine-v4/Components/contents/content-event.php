@@ -42,6 +42,7 @@
 	$partenaires = get_field( 'event_partenaires' );
 
     $age = get_the_terms(get_the_ID(), 'public');
+    $services = get_the_terms(get_the_ID(), 'services');
 
     if ($event_first_date_babysitting || $event_last_date_babysitting) {
         $babysitting = true;
@@ -305,15 +306,19 @@
 
 
 
-                        <?php if ($babysitting) : ?>
-                            <div class="frame_row">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_enfantsdabord.png" class="">
+
+                        <?php if ($services && !is_wp_error($services)) : ?>
+                            <div class="frame_row single_services flex --centered --gap-xs">
+                                    <?php foreach ($services as $s) {
+                                        $image = get_field('picto', 'services' . '_' . $s->term_id); ?>
+                                        <img src="<?php echo $image; ?>" class="single_servicemedia">
+                                    <?php }; ?>
                             </div>
                         <?php endif; ?>
 
 
                         <?php if ( ! empty($partenaires) ) : ?>
-                            <div class="frame_row flex --centered">
+                            <div class="frame_row flex --centered --gap-xs">
                                 <?php foreach( $partenaires as $p ) : ?>
                                     <img src="<?php echo $p["logo"]?> " class="single_partners_logo">
                                 <?php endforeach; ?>
@@ -351,6 +356,7 @@
                         <?php endif; ?>
                     <?php endif; ?>
 
+
                     <a href="/programmation" class="flex --gap-m --hcentered">
                         <span>Programmation <br>complète</span>
                         <?php get_template_part('Components/svgs/svg', 'arrow'); ?>
@@ -359,11 +365,7 @@
                 </div>
 
             </div>
-
-
         </section>
-
-
 
 
 

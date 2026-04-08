@@ -42,6 +42,37 @@ function create_taxonomies() {
 
 
 	/**
+	 * Add Options categories (hierarchical)
+	 */
+
+	$labels = array(
+		'name'              => _x( 'Services', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Service', 'taxonomy singular name' ),
+		'search_items'      => __( 'Rechercher un Service' ),
+		'all_items'         => __( 'Toutes les Services' ),
+		'parent_item'       => __( 'Nom du Services' ),
+		'parent_item_colon' => __( '' ),
+		'edit_item'         => __( 'Editer le Services' ),
+		'update_item'       => __( 'Mettre à jour le Service' ),
+		'add_new_item'      => __( 'Ajouter un Service' ),
+		'new_item_name'     => __( 'Nom du nouveau Service' ),
+		'menu_name'         => __( 'Services' ),
+	);
+
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'services' ),
+	);
+
+	register_taxonomy( 'services', array( 'event' ), $args );
+
+	
+
+	/**
 	 * Add RENDEZ-VOUS categories (hierarchical)
 	 */
 
