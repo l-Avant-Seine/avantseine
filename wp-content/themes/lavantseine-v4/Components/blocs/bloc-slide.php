@@ -65,13 +65,13 @@
 								</div>
                             </div>
 
-							<?php foreach($tags as $tag) { 
-                                $image = get_field('visuel_colored', 'discipline' . '_' . $tag->term_id); ?>
-	                            <img class="bloc_texture" src="<?php echo $image; ?>">
-                            <?php } ?>
-
                         </div>
 
+
+		<?php foreach($tags as $tag) { 
+                $image = get_field('visuel_colored', 'discipline' . '_' . $tag->term_id); ?>
+                <img class="bloc_texture" src="<?php echo $image; ?>">
+        <?php } ?>
 
 		
 </article>

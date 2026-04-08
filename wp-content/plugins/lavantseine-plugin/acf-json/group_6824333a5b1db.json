@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_6824333adc543",
-            "label": "Visuel couleur",
+            "label": "Grand picto",
             "name": "visuel_colored",
             "aria-label": "",
             "type": "image",
@@ -30,7 +30,7 @@
         },
         {
             "key": "field_68244975d4028",
-            "label": "Visuel blanc",
+            "label": "Petit picto",
             "name": "visuel_white",
             "aria-label": "",
             "type": "image",
@@ -76,5 +76,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775129806
+    "modified": 1775662890
 }
