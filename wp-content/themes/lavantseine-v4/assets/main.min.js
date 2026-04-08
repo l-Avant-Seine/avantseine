@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   });
 
                   const swiperDates = new Swiper('.swiper-dates', {
-                    slidesPerView : 14,
-                    slidesPerGroup: 14,
+                    slidesPerView : 7,
+                    slidesPerGroup: 7,
                     spaceBetween : 10,
                     navigation: {
                       nextEl: '.dates-btn-next',

@@ -151,6 +151,8 @@ function get_events() {
 
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 	$today_ts = time();
+	$today = new DateTime("today");  
+
 	$today_formated = date('Y-m-d', $today_ts);
 	$fmt_dayletter = datefmt_create(
 		'fr_FR',
@@ -166,7 +168,7 @@ function get_events() {
 		IntlDateFormatter::FULL,
 		'Europe/Paris',
 		IntlDateFormatter::GREGORIAN,
-		'ee'
+		'dd'
 	);
 	$fmt_month = datefmt_create(
 		'fr_FR',
@@ -219,7 +221,7 @@ function get_events() {
 			if($event_last_date) $dates[ strval($event_last_date) ] = $post->ID;
 		}
 
-	endforeach; wp_reset_query(); ksort($dates); ?>
+	endforeach; wp_reset_query(); ksort($dates); var_dump($dates); ?>
 
 
 	<!-- DISPLAY CALENDAR DAYS  --> 
@@ -243,8 +245,9 @@ function get_events() {
 						
 						if( $current == array_key_last($dates) ) break; ?>
 						
-						<div class="swiper-slide date " data-date="<?php echo $current; ?>">
-							<div class="inner flex --col --centered">
+						<div class="swiper-slide date <?php if( in_array( $current_ts, $dates) ) echo 'inactive'; ?>" data-date="<?php echo $current; ?>">
+							<div class="inner flex --col --centered ">
+								<?php echo $current_ts; ?>
 								<span class="meta"><?php echo $current_day_letter; ?></span>
 								<span class="h3"><?php echo $current_day_nbr; ?></span>
 							</div>

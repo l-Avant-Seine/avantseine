@@ -7,16 +7,13 @@
 
 
 <section class="mod_calendar loading">
-	
     <div class="inner wrapper">
 
-            <div id="loader" class="loader flex --centered">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/loader.gif">
-            </div>
+        <div id="loader" class="loader flex --centered">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/loader.gif">
+        </div>
 
-        <div id="calendar_inner">
-
-        </div><!-- .swiper-container -->
+        <div id="calendar_inner"></div>
 
 	</div>
 </section>
