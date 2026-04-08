@@ -108,7 +108,7 @@ section {
     position: relative;
     background-position: center 50%;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 100% auto;
 
     .mod_bg {
         position: absolute;
@@ -152,6 +152,12 @@ section {
 }
 
 
+.mod_banner {
+
+    .mod_picto img {
+        max-width: 100px;
+    }
+}
 
 .mod_calendar {
     position: relative;

@@ -7,7 +7,7 @@
 
             <div class="">
 
-                <div class="flex --centered mb-medium">
+                <div class="mod_picto flex --centered mb-medium">
                     <img src="<?php echo $args['picto']; ?>">
                 </div>
                 
