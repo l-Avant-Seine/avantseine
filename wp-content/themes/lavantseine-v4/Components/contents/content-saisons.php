@@ -7,8 +7,8 @@
 
 $saisons = get_terms( array(
     'taxonomy'   => 'saison',
-	'orderby' => 'slug',
-	'order'	=> 'DESC',
+	'orderby' => 'name',
+	'order'	=> 'ASC',
     'hide_empty' => true,
 ) );
 

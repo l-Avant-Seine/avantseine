@@ -16,8 +16,19 @@
 					<?php endif; ?>
 
 						<div class="archive_month mb-medium"  month="<?php echo $month; ?>" data-date="<?php print strtotime($month.'/01') ?>">
-							<h3 class="h2_3 wrapper"><?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?></h3>
+
+							<div class="wrapper flex --jstf --hcentered">
+
+								<h3 class="h2_3 "><?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?></h3>
+
+								<?php if( $previous_month === false && !is_archive() ) { ?>
+									<a href="/saison/2012-2013/" class="btn-inline">Saisons passées</a>
+								<?php } ?>
+							</div>
+
 							<img src="<?php the_field('texture_from_five_to_none', 'option'); ?>" class="archive_month_bg">
+
+
 						</div>
 					<div class="grid archive_list mb-medium wrapper">
 

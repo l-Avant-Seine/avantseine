@@ -21,10 +21,6 @@
                     ?>
 			</div>
 
-            <div class="mb-large">
-                <a href="/saison/2012-2013/" class="tag">Saisons passées</a>
-            </div>
-
         </div>
         
         <img src="<?php the_field('prog_picto', 'option'); ?>" class="inversed">

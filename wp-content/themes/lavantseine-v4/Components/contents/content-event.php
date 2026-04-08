@@ -304,9 +304,6 @@
                             </div>
                         </div>
 
-
-
-
                         <?php if ($services && !is_wp_error($services)) : ?>
                             <div class="frame_row single_services flex --centered --gap-xs">
                                     <?php foreach ($services as $s) {
