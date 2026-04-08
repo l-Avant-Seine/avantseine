@@ -258,11 +258,9 @@ function get_events() {
 						$current_day_letter = datefmt_format($fmt_dayletter, $current_ts);
 						$current_day_nbr = datefmt_format($fmt_daynbr, $current_ts);
 						$current_month = datefmt_format($fmt_month, $current_ts);
-						$current_year = datefmt_format($fmt_dayletter, $current_ts);
-
-						if( $current_ts == array_key_last($dates) ) break; ?>
+						$current_year = datefmt_format($fmt_dayletter, $current_ts); ?>
 						
-						<div data-index="<?php echo $j; ?>" class="swiper-slide date <?php if( array_key_exists( $current_ts, $dates) ) { echo 'inactive'; $j++; } ?>"  data-date="<?php echo $current; ?>">
+						<div data-index="<?php if( array_key_exists( $current_ts, $dates) ) { echo $j; $j++; } ?>" class="swiper-slide date <?php if( ! array_key_exists( $current_ts, $dates) ) echo 'inactive'; ?>"  data-date="<?php echo $current; ?>">
 							<div class="inner flex --col --centered ">
 								<?php // echo $current_ts; ?>
 								<span class="meta"><?php echo $current_day_letter; ?></span>
@@ -270,7 +268,9 @@ function get_events() {
 							</div>
 						</div>
 
-					<?php } ?>
+					<?php 
+						if( $current_ts == array_key_last( $dates ) ) break; 
+					} ?>
 					
 				</div>
 

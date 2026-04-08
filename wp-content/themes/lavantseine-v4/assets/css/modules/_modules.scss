@@ -200,10 +200,12 @@ section {
             pointer-events: none;
         }
         .date {
-            cursor: pointer;
             aspect-ratio: 1/1;
-            background-color: var(--color-three);
 
+            &:not(.inactive) {
+                cursor: pointer;
+                background-color: var(--color-three);
+            }
             &.inactive {
                 background: none;
             }
