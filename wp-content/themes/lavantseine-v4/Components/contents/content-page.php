@@ -35,7 +35,7 @@
     </header>
 
     <div class="flex --centered">
-      <div class="pagecontent">
+      <div class="pagecontent copy">
         <?php the_content(); ?>
       </div>
       

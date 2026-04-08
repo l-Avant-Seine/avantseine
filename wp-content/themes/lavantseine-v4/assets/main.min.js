@@ -134,22 +134,24 @@ document.addEventListener('DOMContentLoaded', () => {
   /* SAISONS ARCHIVES */
 
   const archives_groups = document.querySelectorAll('.archives_group');
+  const archives_groups_not_first = document.querySelectorAll('.archives_group:not(:first-child)');
 
   if(archives_groups) {
     archives_groups.forEach( el => {
-      console.log(el);
       const title = el.querySelector('.group_title');
       const list = el.querySelector('.group_list');
 
       const list_height = list.offsetHeight;
       list.style.maxHeight = list_height + 'px';
 
+      // archives_groups_not_first.forEach( a => a.classList.add('small') );
       list.classList.add('small')
-
+      
       title.addEventListener('click', () => {
 
+//        if( title.classList.contains('') ) 
         const small = document.querySelector('.group_list:not(.small)')
-        if(small) small.classList.add('small');
+        if( small ) small.classList.add('small');
 
         el.classList.toggle('open');
         list.classList.toggle('small');
@@ -196,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if( calendar ) {
 
   // DATAS
+    let swiperCalendar, swiperDates;
     const data = new FormData();
     const ajaxurl = ajax_datas.ajaxUrl;
     data.set('nonce', ajax_datas.nonce);
@@ -233,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('then')
             setTimeout( () => {
 
-                  const swiperCalendar = new Swiper('.swiper-calendar', {
+                  swiperCalendar = new Swiper('.swiper-calendar', {
                     slidesPerView : 3,
                     slidesPerGroup: 3,
                     spaceBetween : 20,
@@ -241,10 +244,24 @@ document.addEventListener('DOMContentLoaded', () => {
                       nextEl: '.cal-btn-next',
                       prevEl: '.cal-btn-prev',
                     },
+                    breakpoints: {
+                      320: {
+                        slidesPerView : 1.2,
+                        slidesPerGroup: 1,
+                      },
+                      600: {
+                        slidesPerView : 2.2,
+                        slidesPerGroup: 2,
+                      },
+                      1200: {
+                        slidesPerView : 4,
+                        slidesPerGroup: 3,
+                      }
+                    }
                   });
 
-                  const swiperDates = new Swiper('.swiper-dates', {
-                    slidesPerView : 7,
+                  swiperDates = new Swiper('.swiper-dates', {
+                    slidesPerView : 14,
                     slidesPerGroup: 7,
                     spaceBetween : 10,
                     navigation: {
@@ -262,6 +279,19 @@ document.addEventListener('DOMContentLoaded', () => {
             calendar.classList.remove('loading')
             calendar_inner.classList.add('visible')
             loader.classList.add('hidden');
+
+
+            const dates = document.querySelectorAll('.date');
+            dates.forEach( el => {
+              el.addEventListener('click', () => {
+                console.log('fgege')
+
+                const i = el.getAttribute('data-index');
+
+                swiperCalendar.slideTo(i, 100)
+
+              })
+            })
           }, 1000 )
 
         });

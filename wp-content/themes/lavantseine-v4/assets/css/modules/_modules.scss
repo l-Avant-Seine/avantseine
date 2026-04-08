@@ -186,19 +186,50 @@ section {
         bottom: 0;
     }
 
-    .date {
-        aspect-ratio: 1/1;
-        background-color: var(--color-three);
+    .swiper-dates {
+        padding: 0 40px;
+    }
+        .dates-btn-prev,
+        .dates-btn-next {
+            position: relative;
+            z-index: 3;
+            cursor: pointer;
+        }
+        .swiper-button-disabled {
+            opacity: .2;
+            pointer-events: none;
+        }
+        .date {
+            cursor: pointer;
+            aspect-ratio: 1/1;
+            background-color: var(--color-three);
 
-        &.inactive {
-            background: none;
+            &.inactive {
+                background: none;
+            }
+
+            .inner {
+                height: 100%;
+                width: 100%;
+                color: white;
+            }
         }
 
-        .inner {
-            height: 100%;
-            width: 100%;
-            color: white;
-        }
+    .swiper-calendar {
+        position: relative;
+    }
+    .cal-btn-prev,
+    .cal-btn-next {
+        position: absolute;
+        z-index: 3;
+        top: 45%;
+        cursor: pointer;
+    }
+    .cal-btn-prev {
+        left: -40px;
+    }
+    .cal-btn-next {
+        right: -40px;
     }
 }
 

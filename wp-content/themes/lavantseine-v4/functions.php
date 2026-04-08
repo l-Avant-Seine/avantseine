@@ -150,10 +150,11 @@ add_action( 'wp_ajax_nopriv_get_events', 'get_events' );
 function get_events() {
 
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
-	$today_ts = time();
 	$today = new DateTime("today");  
-
+	$today->modify('midnight'); 
+	$today_ts = strtotime($today->format('Y-m-d H:i:s'));
 	$today_formated = date('Y-m-d', $today_ts);
+
 	$fmt_dayletter = datefmt_create(
 		'fr_FR',
 		IntlDateFormatter::FULL,
@@ -198,7 +199,7 @@ function get_events() {
 	);
 
 	$posts = get_posts( $queryargs ); 
-	$dates = [];
+	$dates = []; // array of timestamps 
 	ob_start(); 
 	
 	
@@ -209,24 +210,40 @@ function get_events() {
 		$event_last_date = get_field( 'eventDetail_last_date', $post->ID );
 		$event_other_dates = get_field('eventDetail_otherdates', $post->ID);
 
-		if($event_first_date) $dates[ strval($event_first_date) ] = $post->ID;
-		
+		if($event_first_date) { 
+
+			$d = new DateTime( date('m/d/Y', $event_first_date) );
+			$d->modify('midnight'); 
+			$d_ts = strtotime($d->format('Y-m-d H:i:s'));
+			$dates[ strval($d_ts) ] = $post->ID;
+		}
+
 		if( $event_other_dates ) {
 			foreach( $event_other_dates as $o) {
-				if( isset($o['date'])) $dates[ strval(strtotime($o['date'])) ] = $post->ID;
+				if( isset($o['date'])) {
+					$d = new DateTime( date('m/d/Y', $o['date'] ) );
+					$d->modify('midnight'); 
+					$d_ts = strtotime($d->format('Y-m-d H:i:s'));
+					$dates[ strval($d_ts) ] = $post->ID;
+				}
 			}
 		}
 
 		if( $event_last_date !== $event_first_date ) {
-			if($event_last_date) $dates[ strval($event_last_date) ] = $post->ID;
+			if($event_last_date) {
+				$d = new DateTime( date('m/d/Y', $event_last_date) );
+				$d->modify('midnight'); 
+				$d_ts = strtotime($d->format('Y-m-d H:i:s'));
+				$dates[ strval($d_ts) ] = $post->ID;		
+			}
 		}
 
-	endforeach; wp_reset_query(); ksort($dates); var_dump($dates); ?>
+	endforeach; wp_reset_query(); ksort($dates); //var_dump($dates); ?>
 
 
 	<!-- DISPLAY CALENDAR DAYS  --> 
 
-		<div class="swiper-dates">
+		<div class="swiper-dates flex --jstf --hcentered --gap-s mb-large">
 
                 <div class="dates-btn-prev">
                     <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
@@ -234,38 +251,40 @@ function get_events() {
 
                 <div class="swiper-wrapper">
 
-					<?php for ( $i = 0 ; $i < 365 ; $i++ ) {
+					<?php $j = 0; for ( $i = 0 ; $i < 365 ; $i++ ) {
 
 						$current_ts = strtotime(  $today_formated . ' +' . $i . ' day');
 						$current = date('Y-m-d', $current_ts);
 						$current_day_letter = datefmt_format($fmt_dayletter, $current_ts);
 						$current_day_nbr = datefmt_format($fmt_daynbr, $current_ts);
-						$current_month = datefmt_format($fmt_dayletter, $current_ts);
+						$current_month = datefmt_format($fmt_month, $current_ts);
 						$current_year = datefmt_format($fmt_dayletter, $current_ts);
+
+						if( $current_ts == array_key_last($dates) ) break; ?>
 						
-						if( $current == array_key_last($dates) ) break; ?>
-						
-						<div class="swiper-slide date <?php if( in_array( $current_ts, $dates) ) echo 'inactive'; ?>" data-date="<?php echo $current; ?>">
+						<div data-index="<?php echo $j; ?>" class="swiper-slide date <?php if( array_key_exists( $current_ts, $dates) ) { echo 'inactive'; $j++; } ?>"  data-date="<?php echo $current; ?>">
 							<div class="inner flex --col --centered ">
-								<?php echo $current_ts; ?>
+								<?php // echo $current_ts; ?>
 								<span class="meta"><?php echo $current_day_letter; ?></span>
-								<span class="h3"><?php echo $current_day_nbr; ?></span>
+								<span class="h3"><?php echo $current_day_nbr; ?>.<?php echo $current_month; ?></span>
 							</div>
 						</div>
 
 					<?php } ?>
 					
 				</div>
-                <div class="dates-btn-next">
+
+				<div class="dates-btn-next">
                     <?php get_template_part('Components/svgs/svg', 'arrow'); ?> 
                 </div>
+
 		</div>
 
 
 
 	<!-- DISPLAY EVENTS  --> 
 
-		<div class="swiper-calendar">
+		<div class="swiper-calendar wrapper">
 
 			<div class="mod_title mb-small">
                 <h2 class="h2">Calendrier</h2>
