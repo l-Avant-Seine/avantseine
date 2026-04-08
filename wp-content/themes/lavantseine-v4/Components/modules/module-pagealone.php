@@ -4,7 +4,8 @@
     setup_postdata( $post );
 ?>
 
-<section class="mod_pagealone">
+<section class="mod_pagealone" style="background-image: url('<?php the_field('texture_from_five_to_none', 'option'); ?>');
+">
     <div class="inner wrapper">
 
         <div class="grid --centered">

@@ -18,10 +18,6 @@ get_header(); ?>
 
 		</main><!-- #main -->
 
-		<div id="content-to-content">
-			<?php // lavantseine_post_nav(); ?>
-		</div><!-- #content-to-content -->
-
 	</div><!-- #primary -->
 
 <?php get_footer(); ?>

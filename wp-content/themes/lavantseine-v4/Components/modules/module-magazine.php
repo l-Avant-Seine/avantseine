@@ -6,7 +6,15 @@
     wp_enqueue_style('swiper');
 ?>
 
-<section class="mod_magazine">
+<section class="mod_magazine" style="background-image: url('<?php the_field('texture_from_five_to_none', 'option'); ?>')">
+
+    <div class="mod_bg flex --col">
+        <div class="bg_upper">
+        </div>
+        <div class="bg_lower">
+        </div>
+    </div>
+
 	<div class="inner wrapper">
 
         <div class="swiper-magazine">

@@ -44,7 +44,7 @@
 			</div>
 
 			<div class="texture">
-				<img src="<?php the_field('footer_texture', 'option'); ?>" alt="">
+				<img src="<?php the_field('texture_from_one_to_none', 'option'); ?>" alt="">
 			</div>
 
 			<div class="footer_lower">

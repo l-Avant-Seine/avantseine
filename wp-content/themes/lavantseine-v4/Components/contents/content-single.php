@@ -71,21 +71,12 @@
 		<div class="grid">
 
 			<div class="m_8col" itemprop="mainContentOfPage">
-
 				<div class="copy">
 					<?php the_content(); ?>
 				</div>
 			</div>
 
-			<div class="m_4col">
-				<?php set_query_var('taxo', 'relational_tag'); ?>
-				<?php get_template_part( 'Components/modules/module', 'relatedevent' ); ?>
-			</div>
-
 		</div>
-
-
-
 
 
 		<div class="m_8col" itemprop="mainContentOfPage">
@@ -103,6 +94,7 @@
 </article><!-- #post-## -->
 
 
+        <?php get_template_part('Components/modules/module', 'flexibles'); ?>
 
 
 <script type="application/ld+json">
