@@ -12,6 +12,11 @@
 	$event_last_date = htmlspecialchars( get_field( 'eventDetail_last_date' ) );
 	$event_other_dates = get_field('eventDetail_otherdates');
 
+	$event_hour = strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
+
+	$event_duration = get_field( 'eventDetail_duration' );
+    $age = get_the_terms(get_the_ID(), 'public');
+
 	$today = new DateTime("today"); // This object represents current date/time with time set to midnight
 
 	$enfantsdabord = get_field( 'enfants_dabord' );
@@ -32,7 +37,7 @@
 			<div class="bloc_upper">
 
 				<?php if( !get_field('eventDetail_is_news') ) : ?>
-					<div class="item-dates">
+					<div class="item-dates h4_2">
 						<?php 
 							if( isset($args['date']) ) {
 
@@ -73,16 +78,23 @@
 				<div class="bloc_content flex --hbottom --jstf mb-small">
 
 
-					<div class="item-names">
+					<div class="item-names label_1">
 						<?php if( get_field('noms_principaux') ) { ?>
 							<?php the_field( 'noms_principaux' ); ?>
 						<?php } ?>	
 					</div>
 
-						<div class="item-names txt-right">
-							À 19h<br>
-							Durée 1h20<br>
-							De 2 à 5 ans
+						<div class="item-names txt-right meta">
+							<p class="meta">À <?php echo $event_hour; ?></p>
+							<p class="meta">Durée <span class=""><?php echo $event_duration; ?></span></p>
+							<?php if ($age && !is_wp_error($age)) { ?>
+								<p class="meta">
+									<?php
+										foreach ($age as $term) {
+											echo $term->name;
+										}; ?>
+								</p>
+							<?php } ?>
 						</div>
 
 				</div>
