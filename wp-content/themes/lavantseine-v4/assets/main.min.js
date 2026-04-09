@@ -29,7 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
       el: '.swiper-pagination',
       type: 'bullets',
     },
+    on: {
+      init: function() {
+        console.log('swiper init');
+        const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p));
+      }
+    }
   });
+
+
 
 
   const swiperSpectacles = new Swiper('.swiper-spectacles', {
@@ -190,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
   const calendar = document.querySelector('.mod_calendar');
   const calendar_inner = document.querySelector('#calendar_inner');
   const loader = document.querySelector('#loader');
@@ -204,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
     data.set('nonce', ajax_datas.nonce);
 
     const fetchAndDisplayDatas = async ( append = false ) => {
-        console.log('fetchAndDisplayDatas', data)
 
         data.set('action', 'get_events');
 
@@ -216,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: new URLSearchParams(data),
         })
-        .then( response => { console.log(response); return response.json();  } )
+        .then( response => { return response.json();  } )
         .then( body => {
 
             if (!body.success) return;
@@ -315,16 +321,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-
-    fetchAndDisplayDatas( false ).then( () => {
-
-        });
-
-
+    fetchAndDisplayDatas( false );
 
   }
   
+
+
 
   /* EVENTS */
 

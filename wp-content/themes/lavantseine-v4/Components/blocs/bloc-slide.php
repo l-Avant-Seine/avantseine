@@ -15,19 +15,40 @@
 	$trenteans = get_field( 'trenteans' );
 	$logo_festival = get_field( 'event_festival_logo' );
 
+	$video = get_field( 'eventDetail_mediaMarkup' );
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
 
 	$linked = isset($args['linked']) ? $args['linked'] : false;
     $tags = wp_get_post_terms($post->ID, array('discipline'), array("fields" => "all"));
 
+	wp_enqueue_script('plyr');
+	wp_enqueue_style('plyr');
+
+	if( $video !== ''  ) {
+
+	}
+
 ?>
 
 <article class="bloc_slide">
 
 
+					<?php if( $video !== '' ) : ?>
 
-                        <?php the_post_thumbnail('homeslide'); ?>
+						<div class="plyr__video-embed js-player" id="player">
+							  <iframe
+								src="https://www.youtube.com/embed/<?php echo $video; ?>?origin=https://plyr.io&iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1&mute=1&autoplay=1"
+								allowfullscreen
+								allowtransparency
+								allow="autoplay"
+							></iframe>
+							
+						</div>
+
+					<?php else : 
+					 	the_post_thumbnail('homeslide');
+					endif; ?>
 
                         <div class="bloc_text ">
 
