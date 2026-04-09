@@ -54,10 +54,21 @@ document.addEventListener('DOMContentLoaded', () => {
     slidesPerView : 2,
     spaceBetween : 40,
     loop: true,
+    centeredSlides: true,
     navigation: {
       nextEl: '.swiper-btn-next',
       prevEl: '.swiper-btn-prev',
     },
+    breakpoints: {
+      320: {
+        slidesPerView : 1.2,
+        slidesPerGroup: 1,
+      },
+      1000: {
+        slidesPerView : 2,
+        slidesPerGroup: 2,
+      }
+    }
   });
 
 

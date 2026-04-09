@@ -131,7 +131,7 @@
                 </div>
 
 
-                <div class="s_12col m_3col contents_practical">
+                <div class="s_12col m_5col l_4col w_3col contents_practical">
 
                     <?php if( have_rows('event_keywords') ): $words = []; ?>
 						<?php while( have_rows('event_keywords') ) : the_row(); ?>
