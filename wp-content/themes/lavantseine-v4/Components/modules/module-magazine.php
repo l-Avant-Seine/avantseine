@@ -1,8 +1,6 @@
 <?php 
     $posts = $args['relations']; 
-var_dump($posts);
-
-$title = $args['title']; 
+    $title = $args['title']; 
     $simple = $args['simple']; 
     wp_enqueue_script('swiper');
     wp_enqueue_style('swiper');

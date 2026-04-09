@@ -8,7 +8,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 
 ?>
 
-
+grgrkjh jeh fe
 <article id="post-<?php the_ID(); ?>" class="bloc-magazine" <?php post_class(); ?>>
 
 	<a href="<?php the_permalink(); ?>" rel="bookmark">
