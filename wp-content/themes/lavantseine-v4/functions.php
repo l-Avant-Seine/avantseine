@@ -215,7 +215,7 @@ function get_events() {
 			$d = new DateTime( date('m/d/Y', $event_first_date) );
 			$d->modify('midnight'); 
 			$d_ts = strtotime($d->format('Y-m-d H:i:s'));
-			$dates[ strval($d_ts) ] = $post->ID;
+			$dates[ $event_first_date ] = array( 'id' => $post->ID, 'day_ts' => strval($d_ts));
 		}
 
 		if( $event_other_dates ) {
@@ -224,7 +224,7 @@ function get_events() {
 					$d = new DateTime( date('m/d/Y', $o['date'] ) );
 					$d->modify('midnight'); 
 					$d_ts = strtotime($d->format('Y-m-d H:i:s'));
-					$dates[ strval($d_ts) ] = $post->ID;
+					$dates[ $o['date']  ] = array( 'id' => $post->ID, 'day_ts' => strval($d_ts) );
 				}
 			}
 		}
@@ -234,7 +234,7 @@ function get_events() {
 				$d = new DateTime( date('m/d/Y', $event_last_date) );
 				$d->modify('midnight'); 
 				$d_ts = strtotime($d->format('Y-m-d H:i:s'));
-				$dates[ strval($d_ts) ] = $post->ID;		
+				$dates[ $event_last_date ] = array( 'id' => $post->ID, 'day_ts' => strval($d_ts) );		
 			}
 		}
 
@@ -251,16 +251,27 @@ function get_events() {
 
                 <div class="swiper-wrapper">
 
-					<?php $j = 0; for ( $i = 0 ; $i < 365 ; $i++ ) {
+					<?php 
+					$j = 0; 
+					$last_date = end( $dates );
+					$last_date = $last_date['day_ts'];
+
+					for ( $i = 0 ; $i < 365 ; $i++ ) {
 
 						$current_ts = strtotime(  $today_formated . ' +' . $i . ' day');
 						$current = date('Y-m-d', $current_ts);
 						$current_day_letter = datefmt_format($fmt_dayletter, $current_ts);
 						$current_day_nbr = datefmt_format($fmt_daynbr, $current_ts);
 						$current_month = datefmt_format($fmt_month, $current_ts);
-						$current_year = datefmt_format($fmt_dayletter, $current_ts); ?>
+						$current_year = datefmt_format($fmt_dayletter, $current_ts); 
+
+						$day_exist = false;
+						foreach( $dates as $d) {
+							if( $current_ts == $d['day_ts'] ) { $day_exist = true; break; }
+						} 
+						?>
 						
-						<div data-index="<?php if( array_key_exists( $current_ts, $dates) ) { echo $j; $j++; } ?>" class="swiper-slide date <?php if( ! array_key_exists( $current_ts, $dates) ) echo 'inactive'; ?>"  data-date="<?php echo $current; ?>">
+						<div data-index="<?php if( $day_exist ) { echo $j; $j++; } ?>" class="swiper-slide date <?php if( ! $day_exist ) echo 'inactive'; ?>"  data-date="<?php echo $current; ?>">
 							<div class="inner flex --col --centered ">
 								<?php // echo $current_ts; ?>
 								<span class="meta"><?php echo $current_day_letter; ?></span>
@@ -269,7 +280,7 @@ function get_events() {
 						</div>
 
 					<?php 
-						if( $current_ts == array_key_last( $dates ) ) break; 
+						if( $current_ts == $last_date ) break; 
 					} ?>
 					
 				</div>
@@ -298,8 +309,8 @@ function get_events() {
 
 				<?php foreach ( $dates as $key => $d ) :  ?>
 
-					<div class="swiper-slide" data-postdate="<?php echo $key; ?>" data-postid="<?php echo $d; ?>">
-						<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $d, 'date' => $key )); ?>
+					<div class="swiper-slide" data-postdate="<?php echo $key; ?>" data-postid="<?php echo $d['id']; ?>">
+						<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $d['id'], 'date' => $key )); ?>
 					</div>
 
 				<?php endforeach; wp_reset_query();?>
