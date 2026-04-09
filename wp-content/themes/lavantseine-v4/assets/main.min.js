@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     on: {
       init: function() {
         console.log('swiper init');
-        const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p));
+        if( typeof Plyr !== 'undefined' ) {
+          const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p));
+        }
       }
     }
   });

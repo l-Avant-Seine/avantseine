@@ -34,7 +34,13 @@
 <article class="bloc_slide">
 
 
-					<?php if( $video !== '' ) : ?>
+					<?php if( str_contains($video, '<iframe' ) ) : ?>
+
+						<div class="plyr__video-embed js-player" id="player">
+							<?php echo $video; ?>
+						</div>
+
+					<?php elseif( $video !== '' ) : ?>
 
 						<div class="plyr__video-embed js-player" id="player">
 							  <iframe
@@ -43,10 +49,10 @@
 								allowtransparency
 								allow="autoplay"
 							></iframe>
-							
+
 						</div>
 
-					<?php else : 
+					<?php else :
 					 	the_post_thumbnail('homeslide');
 					endif; ?>
 
