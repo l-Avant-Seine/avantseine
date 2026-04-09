@@ -252,9 +252,10 @@ function get_events() {
                 <div class="swiper-wrapper">
 
 					<?php 
-					$j = 0; 
+					$j = 1; 
 					$last_date = end( $dates );
 					$last_date = $last_date['day_ts'];
+					$previous_ts = 0;
 
 					for ( $i = 0 ; $i < 365 ; $i++ ) {
 
@@ -265,13 +266,19 @@ function get_events() {
 						$current_month = datefmt_format($fmt_month, $current_ts);
 						$current_year = datefmt_format($fmt_dayletter, $current_ts); 
 
+
 						$day_exist = false;
 						foreach( $dates as $d) {
-							if( $current_ts == $d['day_ts'] ) { $day_exist = true; break; }
+							if( $current_ts == $d['day_ts'] ) { 
+								$day_exist = true; 
+								if( $previous_ts != $current_ts || $previous_ts == 0 ) $j++;
+								$previous_ts = $current_ts;  
+								break;
+							}
 						} 
 						?>
 						
-						<div data-index="<?php if( $day_exist ) { echo $j; $j++; } ?>" class="swiper-slide date <?php if( ! $day_exist ) echo 'inactive'; ?>"  data-date="<?php echo $current; ?>">
+						<div data-index="<?php if( $day_exist ) { echo $j; } ?>" class="swiper-slide date <?php if( ! $day_exist ) echo 'inactive'; ?>"  data-date="<?php echo $current; ?>">
 							<div class="inner flex --col --centered ">
 								<?php // echo $current_ts; ?>
 								<span class="meta"><?php echo $current_day_letter; ?></span>
@@ -279,7 +286,9 @@ function get_events() {
 							</div>
 						</div>
 
+						
 					<?php 
+						
 						if( $current_ts == $last_date ) break; 
 					} ?>
 					
