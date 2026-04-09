@@ -23,7 +23,6 @@ body {
 
 .page-template-default:not(.home) {
 	.site-content {
-		padding-top: 140px;
 		position: relative;
 
 		&:before {
@@ -35,6 +34,12 @@ body {
 			background-image: url('../Components/textures/yellow_horiz.png');
 			background-repeat: no-repeat;
 			transform: rotate(180deg);
+		}
+		@include at-least(medium) {
+			padding-top: 140px;
+		}
+		@include up-to(medium) {
+			padding-top: 40px;
 		}
 	}
 	.pagehead {
