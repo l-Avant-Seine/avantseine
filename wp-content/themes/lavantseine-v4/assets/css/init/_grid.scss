@@ -53,7 +53,8 @@ $marge_wrapper--mobile: 20px;
         grid-column-gap: $marge_wrapper;
     }
     @include up-to(medium) {
-        grid-column-gap: 1.6rem;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
     }
 
     &.--centered {
@@ -83,13 +84,6 @@ $marge_wrapper--mobile: 20px;
             
                 .grid {
                     grid-template-columns: repeat(#{$i}, 1fr);
-
-                    // We don't need that....
-                    // @for $j from 1 through ($i - 1) {
-                    //     .#{$suffix}-#{$j}col {
-                    //         grid-column: span #{$j};
-                    //     }
-                    // }
                 }
             }
 

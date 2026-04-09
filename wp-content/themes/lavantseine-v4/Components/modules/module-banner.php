@@ -3,7 +3,7 @@
     <div class="inner wrapper">
 
         <div class="flex --jstf --hcentered --gap-m">
-            <img class="inversed" src="<?php echo $args['img']; ?>">
+            <img class="inversed cover_aside" src="<?php echo $args['img']; ?>">
 
             <div class="">
 
@@ -19,7 +19,7 @@
                     <a href="<?php echo $args['link']; ?>" class="btn"> <?php echo $args['label']; ?></a>
                 </div>
             </div>
-            <img src="<?php echo $args['img']; ?>">
+            <img class=" cover_aside" src="<?php echo $args['img']; ?>">
         </div>
     </div>   
 </section>

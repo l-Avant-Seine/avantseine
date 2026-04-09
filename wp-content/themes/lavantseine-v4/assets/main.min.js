@@ -39,9 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-
-
-
   const swiperSpectacles = new Swiper('.swiper-spectacles', {
     slidesPerView : 4,
     slidesPerGroup: 3,
@@ -64,9 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-
-
-
   const swiperMagazine = new Swiper('.swiper-magazine', {
     slidesPerView : 3.5,
     slidesPerGroup: 3,
@@ -75,6 +69,20 @@ document.addEventListener('DOMContentLoaded', () => {
       nextEl: '.swiper-btn-next',
       prevEl: '.swiper-btn-prev',
     },
+    breakpoints: {
+      320: {
+        slidesPerView : 1.2,
+        slidesPerGroup: 1,
+      },
+      600: {
+        slidesPerView : 2.2,
+        slidesPerGroup: 2,
+      },
+      1200: {
+        slidesPerView : 4,
+        slidesPerGroup: 3,
+      }
+    }
   });
 
 

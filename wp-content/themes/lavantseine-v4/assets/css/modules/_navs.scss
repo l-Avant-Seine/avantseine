@@ -36,6 +36,10 @@
     z-index: 0;
     height: 100%;
     left: 0;
+
+    @include up-to(medium) {
+        display: none;
+    }
 }
 
 .header-branding {
@@ -100,6 +104,11 @@
             transform: none;
             z-index: 3;
         }
+        @include up-to(large) {
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+        }
     }
 
 }
@@ -119,6 +128,11 @@
 .footer_upper {
     background-color: var(--color-four);
     padding: 40px;
+
+    @include up-to(large) {
+		padding: 20px;
+	}
+
     .site-logo {
         width: 160px;
     }
@@ -128,7 +142,9 @@
 
     .wrapper {
         position: relative;
-        top: -170px;
+        @include at-least(large) {
+            top: -170px;
+        }
     }
 }
 .footer-navigation {

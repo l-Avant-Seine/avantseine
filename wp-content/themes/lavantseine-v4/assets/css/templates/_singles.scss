@@ -4,6 +4,9 @@
     .single_texts {
         background-color: white;
         padding: 60px;
+        @include up-to(large) {
+            padding: 20px;
+        }
     }
 
     .single_taxmedia {
@@ -38,6 +41,19 @@
     .single_logo_festival {
         max-width: 200px;   
         max-height: 200px;   
+    }
+
+    .single_contents {
+        .contents_main {
+            @include up-to(large) {
+                order: 2;
+            }
+        }
+    }
+    .single_cta {
+        @include up-to(large) {
+            display: none;
+            }   
     }
 }
 

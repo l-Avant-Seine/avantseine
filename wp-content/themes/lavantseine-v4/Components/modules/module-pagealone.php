@@ -10,7 +10,7 @@
 
         <div class="grid --centered">
 
-            <div class="m_6col">
+            <div class="s_12col m_6col bloc_texts">
 
                 <div class="mb-xlarge">
                     <h2 class="h2 mb-medium"><?php the_title(); ?></h2>
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="m_6col bloc_cover_outer">
+            <div class="s_12col m_6col bloc_cover_outer">
                 <?php the_post_thumbnail(); ?>
             </div>
 

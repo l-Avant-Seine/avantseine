@@ -77,7 +77,7 @@
 
             <div class="wrapper grid">
 
-                <div class="s_12col m_7col">
+                <div class="s_12col m_7col contents_main">
 
                     <div class="single_texts">
 
@@ -131,19 +131,18 @@
                 </div>
 
 
-                <div class="s_12col m_3col">
+                <div class="s_12col m_3col contents_practical">
 
-
-                        <?php if( have_rows('event_keywords') ): $words = []; ?>
-									<?php while( have_rows('event_keywords') ) : the_row(); ?>
-										<?php array_push( $words, get_sub_field('keyword') ); ?>
-									<?php endwhile; ?>
-                            <?php if( ! empty($words) ) : ?>
-                                <div class="single_frame mb-small">
-                                    <?php get_template_part('Components/modules/module', 'ticker', array('words' => $words)); ?>
-                                </div>
-							<?php endif; ?>
+                    <?php if( have_rows('event_keywords') ): $words = []; ?>
+						<?php while( have_rows('event_keywords') ) : the_row(); ?>
+							<?php array_push( $words, get_sub_field('keyword') ); ?>
+						<?php endwhile; ?>
+                        <?php if( ! empty($words) ) : ?>
+                            <div class="single_frame mb-small">
+                                <?php get_template_part('Components/modules/module', 'ticker', array('words' => $words)); ?>
+                            </div>
 						<?php endif; ?>
+					<?php endif; ?>
 
 
                     <div class="single_frame mb-medium">
@@ -354,10 +353,12 @@
                     <?php endif; ?>
 
 
-                    <a href="/programmation" class="flex --gap-m --hcentered">
-                        <span>Programmation <br>complète</span>
-                        <?php get_template_part('Components/svgs/svg', 'arrow'); ?>
-                    </a>
+                    <div class="single_cta">
+                        <a href="/programmation" class="flex --gap-m --hcentered">
+                            <span>Programmation <br>complète</span>
+                            <?php get_template_part('Components/svgs/svg', 'arrow'); ?>
+                        </a>
+                    </div>
 
                 </div>
 

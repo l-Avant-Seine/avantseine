@@ -11,7 +11,7 @@
 
         <div class="grid wrapper">
 
-            <div class="m_6col flex --col --centered">
+            <div class="s_12col m_6col flex --col --centered">
                 <h2 class="mod_title h2_2 mb-medium"><?php echo $args['title_news']; ?></h2>
 
                 <div>
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div class="m_6col flex --col --centered">
+            <div class="s_12col m_6col flex --col --centered">
                 <h2 class="mod_title h2_2 mb-medium"><?php echo $args['title_rs']; ?></h2>
 
                 <div class="flex --gap-m --hcentered">

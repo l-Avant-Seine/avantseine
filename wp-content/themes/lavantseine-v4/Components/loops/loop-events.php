@@ -36,7 +36,7 @@
 
 				endif; ?>
 
-			<div class="archive_item m_3col mb-small">
+			<div class="archive_item s_12col m_4col l_3col mb-small">
 				<?php get_template_part( 'Components/blocs/bloc', 'event', array('post' => $post->ID) ); ?>
 			</div>
 		

@@ -56,6 +56,11 @@ section {
             object-fit: cover;
         }
     }
+    .bloc_texts {
+        @include up-to(medium) {
+            order: 2;
+        }
+    }
 }
 
 
@@ -149,6 +154,11 @@ section {
 .mod_progtitle {
     background-color: var(--color-five);
 
+    img {
+        @include up-to(large) {
+            display: none
+        }
+    }
 }
 
 
@@ -156,6 +166,11 @@ section {
 
     .mod_picto img {
         max-width: 100px;
+    }
+    .cover_aside {
+        @include up-to(large) {
+            display: none
+        }
     }
 }
 
@@ -192,6 +207,9 @@ section {
 
     .swiper-dates {
         padding: 0 40px;
+    	@include up-to(large) {
+            padding: 0 20px;
+        }
     }
         .dates-btn-prev,
         .dates-btn-next {

@@ -7,20 +7,20 @@
 			<div class="footer_upper wrapper">
 
 				<div class="grid mb-large">
-					<div class="m_6col">
+					<div class="s_12col m_6col">
 						<div class="wrap">
 							<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
 						</div>
 					</div>
 					
-					<div class="m_6col">
+					<div class="s_12col m_6col">
 						<div class="wrap">
 
 							<div class="mb-small">
 						    	<h3 class="h3">Suivez-nous sur les réseaux !</h3>
 							</div>
 
-							<div class="flex --jstf --hcentered">
+							<div class="flex --jstf --hcentered --wrap --gap-s">
 								<?php get_template_part('Components/blocs/bloc', 'reseaux');  ?>
 
 							    <div class="">
@@ -36,7 +36,7 @@
 
 
 				<div class="grid">
-					<div class="m_2col">
+					<div class="s_12col m_2col">
 						<nav class="header-branding">
 							<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home" class="logo_link">
 								<img class="site-logo" id="site-logo" src="<?php the_field('footer_logo', 'option'); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
@@ -46,7 +46,7 @@
 					<?php
 						if( have_rows('footer_cols', 'options') ):
 						while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
-							<div class="footer-col m_3col">
+							<div class="footer-col s_12col m_3col">
 								<?php the_sub_field('colonne'); ?>
 							</div>
 						<?php endwhile;

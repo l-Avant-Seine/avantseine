@@ -15,11 +15,11 @@
 
     <div class="mod_contents grid wrapper --narrow">
 
-        <div class="m_6col">
+        <div class="s_12col m_6col">
             <?php echo $args['left']; ?>
         </div>
 
-        <div class="m_6col">
+        <div class="s_12col m_6col">
             <?php echo $args['right']; ?>
         </div>
 
