@@ -8,7 +8,7 @@ $terms = get_the_terms( get_the_ID(), 'relational_tag' );
 
 ?>
 
-grgrkjh jeh fe
+
 <article id="post-<?php the_ID(); ?>" class="bloc-magazine" <?php post_class(); ?>>
 
 	<a href="<?php the_permalink(); ?>" rel="bookmark">
@@ -38,10 +38,8 @@ grgrkjh jeh fe
 
 
 				<?php
-					if( $terms) : 
-						$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
-						echo "<p class='clearfix item-excerpt'>".$post_shortText. "</p>";
-					endif;
+					$post_shortText = get_post_meta( $post->ID, 'postDetail_shortText', true );
+					echo "<p class='clearfix item-excerpt'>".$post_shortText. "</p>";
 				?>
 			</div>
 

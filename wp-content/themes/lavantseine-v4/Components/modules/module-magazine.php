@@ -45,7 +45,7 @@
                 <?php 
                 foreach ( $posts as $post ) : setup_postdata( $post ); ?>
 
-                    <div class="swiper-slide">
+                    <div class="swiper-slide"><?php the_title(); ?>
                         <?php get_template_part('Components/Blocs/bloc', 'magazine'); ?>
                     </div>
 
