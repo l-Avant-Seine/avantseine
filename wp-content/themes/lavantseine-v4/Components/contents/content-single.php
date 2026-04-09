@@ -70,7 +70,7 @@
 
 		<div class="grid">
 
-			<div class="m_8col" itemprop="mainContentOfPage">
+			<div class="s_12col m_8col" itemprop="mainContentOfPage">
 				<div class="copy">
 					<?php the_content(); ?>
 				</div>
@@ -79,7 +79,7 @@
 		</div>
 
 
-		<div class="m_8col" itemprop="mainContentOfPage">
+		<div class="s_12col m_8col" itemprop="mainContentOfPage">
 
 			<?php if ( $postDetail_mediaMarkup ) { ?>
 					<div class="mb-2">
