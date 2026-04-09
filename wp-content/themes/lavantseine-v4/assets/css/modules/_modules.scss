@@ -164,11 +164,11 @@ section {
     background-color: var(--color-one);
     transition: all .3s;
     max-height: 1000px;
-    min-height: 100px;
+    min-height: 150px;
 
     &.loading {
-        max-height: 500px;
-        min-height: 500px;
+        max-height: 200px;
+        min-height: 200px;
         overflow: hidden;
     }
     .mod_title {
@@ -177,13 +177,17 @@ section {
 
     .loader {
         transition: all .4s;
-        background-color: var(--color-five);
+        background-color: var(--color-one);
         z-index: 99;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+
+        img {
+            max-height: 100px;
+        }
     }
 
     .swiper-dates {
