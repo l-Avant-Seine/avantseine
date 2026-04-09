@@ -4,10 +4,10 @@
     
     .wp-post-image {
         width: 100%;
-        height: 50vh;
+        aspect-ratio: 16/9;
         object-fit: cover;
         @include up-to(medium) {
-            height: 70vh;
+             aspect-ratio: 9/16;
         }
     }
 
@@ -37,10 +37,10 @@
         aspect-ratio: unset;
         iframe {
             position: relative;
-            height: 50vh;
+            aspect-ratio: 16/9;
 
             @include up-to(medium) {
-                height: 70vh;
+                aspect-ratio: 9/16;
             }
         }
     }
