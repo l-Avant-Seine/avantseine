@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* VARIABLES */
-
+  $body = document.body;
   $masthead = document.getElementById('masthead');
   $main = document.getElementById('primary');
   $main_nav = document.getElementById('site-navigation');
@@ -144,6 +144,20 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault()
         el.nextElementSibling.classList.add('displayed')
       })
+    })
+
+
+    const close_menu = document.querySelector('#close_menu');
+    const menu_trigger = document.querySelector('#open_menu');
+    const site_navigation = document.querySelector('#site-navigation');
+
+    menu_trigger.addEventListener('click', () => {
+      site_navigation.classList.add('open');
+      $body.classList.add('no-scroll')
+    })
+    close_menu.addEventListener('click', () => {
+      site_navigation.classList.remove('open');
+      $body.classList.remove('no-scroll')
     })
 
 

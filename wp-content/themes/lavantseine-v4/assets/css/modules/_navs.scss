@@ -11,7 +11,6 @@
         width: 100%;
     }
 
-
 	&.fixed {
 		position: fixed;
 		top: 0;
@@ -28,6 +27,45 @@
 
     &:has(.sub-menu) {
         margin-bottom: 0;
+    }
+}
+
+.header-navigation {
+    @include up-to(medium) {
+        transition: transform .4s;
+        transform: translateX(-100vw);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100vh;
+        background-color: var(--color-four);
+        z-index: 9999;
+
+        & > div {
+            height: 100%;
+        }
+        .menu {
+            height: 100%;
+            flex-direction: column;
+            padding: 80px 40px;
+            overflow-y: scroll;
+            gap: 20px;
+        }
+        .sub-menu {
+            position: relative;
+            flex-direction: column;
+        }
+
+        &.open {
+            transform: none;
+        }
+        #close_menu {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+        }
     }
 }
 
@@ -49,7 +87,21 @@
         z-index: 1;
         padding: 10px 0;
         display: block;
+
+        img {
+            @include up-to(large) {
+                height: 70px;
+                width: auto;
+            }
+            @include at-least(large) {
+                width: 100px;
+            }
+        }
+
     }
+
+
+
 }
 
 .main-navigation {
@@ -71,6 +123,9 @@
         @include up-to(large) {
             font-size: 1.5rem;
         }
+        @include up-to(medium) {
+            font-size: 2rem;
+        }
         &:hover {
             opacity: .5;
         }
@@ -86,16 +141,9 @@
         }
     }
     .sub-menu {
-        transform: translateY(-500%);
-        position: absolute;
-        top: 100%;
-        background: var(--color-one);
         left: 0;
         right: 0;
         padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         
         a {
             color: white;
@@ -108,6 +156,15 @@
             flex-wrap: wrap;
             gap: 15px;
             padding: 15px;
+        }
+        @include at-least(medium) {
+            background: var(--color-one);
+            top: 100%;
+            transform: translateY(-500%);
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 

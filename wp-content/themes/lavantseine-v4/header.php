@@ -70,6 +70,7 @@ End Facebook Pixel Code -->
 			</nav>
 
 			<nav id="site-navigation" class="header-navigation main-navigation" role="navigation">
+				<button id="close_menu" class="">Fermer</button>
 					<?php 
 						wp_nav_menu( array( 
 							'theme_location' => 'primary', 
@@ -78,9 +79,14 @@ End Facebook Pixel Code -->
 					?>
 			</nav><!-- #site-navigation -->
 
+			
 			<div class="header-cta">
 				<a href="<?php the_field('link_billetterie', 'option'); ?>" target="_blank" class="btn">Billetterie</a>
 			</div>
+
+			<button id="open_menu" class="header-hamburger">
+				Menu
+			</button>
 
 		</div>
 
