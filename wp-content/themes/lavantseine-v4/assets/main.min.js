@@ -48,6 +48,20 @@ document.addEventListener('DOMContentLoaded', () => {
       nextEl: '.swiper-btn-next',
       prevEl: '.swiper-btn-prev',
     },
+    breakpoints: {
+      320: {
+        slidesPerView : 1.2,
+        slidesPerGroup: 1,
+      },
+      760: {
+        slidesPerView : 2.2,
+        slidesPerGroup: 1,
+      },
+      1000: {
+        slidesPerView : 4,
+        slidesPerGroup: 3,
+      }
+    }
   });
 
   const swiperVisuels = new Swiper('.swiper-visuels', {

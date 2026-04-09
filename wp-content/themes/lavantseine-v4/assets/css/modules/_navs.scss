@@ -68,6 +68,12 @@
         }
     }
 }
+        #close_menu,
+        .header-hamburger {
+           @include at-least(medium) {
+            display: none;
+           }
+        }
 
 .header_texture {
     position: absolute;
