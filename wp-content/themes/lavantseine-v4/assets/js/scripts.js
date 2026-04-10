@@ -317,8 +317,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   });
 
                   swiperDates = new Swiper('.swiper-dates', {
-                    slidesPerView : 14,
-                    slidesPerGroup: 7,
+                    slidesPerView: "auto",
+                    freeMode: true,
                     spaceBetween : 10,
                     navigation: {
                       nextEl: '.dates-btn-next',
@@ -326,19 +326,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     breakpoints: {
                       320: {
-                        slidesPerView : 5,
                         slidesPerGroup: 4,
                       },
                       820: {
-                        slidesPerView : 10,
                         slidesPerGroup: 7,
                       },
                       1200: {
-                        slidesPerView : 14,
                         slidesPerGroup: 7,
                       },
                       1600: {
-                        slidesPerView : 18,
                         slidesPerGroup: 15,
                       }
                     }

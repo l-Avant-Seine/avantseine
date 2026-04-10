@@ -271,8 +271,10 @@ section {
             pointer-events: none;
         }
         .month {
-            aspect-ratio: 1/1;
+            aspect-ratio: 16/9;
             color: var(--color-five);
+            height: 75px;
+            width: auto;
             .inner {
                 height: 100%;
                 width: 100%;
@@ -280,6 +282,8 @@ section {
         }
         .date {
             aspect-ratio: 1/1;
+            height: 75px;
+            width: auto;
 
             &:not(.inactive) {
                 cursor: pointer;
