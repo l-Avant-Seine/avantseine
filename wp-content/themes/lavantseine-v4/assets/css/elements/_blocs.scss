@@ -1,13 +1,14 @@
 
 .bloc_slide {
     position: relative;
-                min-height: 400px;
-             background-color: $gray; 
+    min-height: 400px;
+    background-color: $gray; 
 
 
     .wp-post-image {
         width: 100%;
         aspect-ratio: 16/9;
+        max-height: 80vh;
         object-fit: cover;
         @include up-to(medium) {
              aspect-ratio: 9/16;
@@ -41,7 +42,7 @@
         iframe {
             position: relative;
             aspect-ratio: 16/9;
-
+            max-height: 80vh;
             @include up-to(medium) {
                 aspect-ratio: 9/16;
             }
