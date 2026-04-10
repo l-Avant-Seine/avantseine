@@ -83,7 +83,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 
 					if( $event_other_dates[0] != '' &&  $event_first_date != $event_last_date ) {
 
-						if( !strcmp( strftime('%A %d %b %G', $event_first_date ), strftime('%A %d %b %G', $event_last_date ) ) ) {
+						if( !strcmp( strftime('%a %d %b %G', $event_first_date ), strftime('%a %d %b %G', $event_last_date ) ) ) {
 
 							// Si même date mais plusieurs horaires dans la journée
 							$event_dates .= $date_label_opentag . strftime('%A ', $event_first_date) . $date_label_closetag;
@@ -132,7 +132,7 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 				}
 				// si 1 seule date
 				else {
-					$event_dates .= $date_label_opentag . strftime('%A ', $event_first_date) . $date_label_closetag;
+					$event_dates .= $date_label_opentag . strftime('%a. ', $event_first_date) . $date_label_closetag;
 					$event_dates .= strftime('%d.%m.%G', $event_first_date );
 
 					// Meme date mais 2 horaires

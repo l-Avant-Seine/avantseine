@@ -147,14 +147,16 @@
 
                     <div class="single_frame mb-medium">
 
-                        <div class="frame_row --nopad">
-                            <span class="h4_2 flex --hcentered --gap-s">
-                                <?php foreach($tags as $tag) { 
-                                    $image = get_field('visuel_white', 'discipline' . '_' . $tag->term_id); ?>
-                                    <img src="<?php echo $image; ?>" class="single_taxmedia">
-                                    <?php echo $tag->name; ?>
-                                <?php } ?></span>
-                        </div>
+                        <?php if($tags) : ?>
+                            <div class="frame_row --nopad">
+                                <span class="h4_2 flex --hcentered --gap-s">
+                                    <?php foreach($tags as $tag) { 
+                                        $image = get_field('visuel_white', 'discipline' . '_' . $tag->term_id); ?>
+                                        <img src="<?php echo $image; ?>" class="single_taxmedia">
+                                        <?php echo $tag->name; ?>
+                                    <?php } ?></span>
+                            </div>
+                        <?php endif; ?>
 
 
                         <?php
