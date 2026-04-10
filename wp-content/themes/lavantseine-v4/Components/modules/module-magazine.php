@@ -19,14 +19,14 @@
 
         <div class="swiper-magazine">
 
-            <div class="flex --jstf --hcentered mb-large">
+            <div class="mod_upper flex --jstf --hcentered mb-large">
                 <?php if( ! $simple ) : ?>
                     <div class="mod_cta">
                         <a href="/magazine" class="btn">voir toutes les actualités</a>
                     </div>
                 <?php endif; ?>
 
-                <div class="mod_title">
+                <div class="mod_title txt-center">
                     <h2 class="<?php echo $simple ? 'h2_3' : 'h1_2'; ?>"><?php echo $title; ?></h2>
                 </div>
 
@@ -41,7 +41,7 @@
 
             </div>
             
-            <div class="swiper-wrapper">
+            <div class="mod_lower swiper-wrapper">
                 <?php 
                 foreach ( $posts as $post ) : setup_postdata( $post ); ?>
 

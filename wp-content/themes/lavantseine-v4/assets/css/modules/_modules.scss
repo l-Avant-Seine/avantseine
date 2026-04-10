@@ -69,6 +69,13 @@ section {
     .mod_icon {
         max-width: 100px;
     }
+
+    .wrapper > div {
+        @include up-to(medium) {
+            flex-direction: column;
+            gap: 20px
+        }
+    }
 }
 
 
@@ -134,13 +141,16 @@ section {
         height: 40%;
         flex: 0 0 40%;
     }
-
     .inner {
         position: relative;
         z-index: 1;
     }
-     
-
+    .mod_upper {
+        @include up-to(large) {
+            flex-direction: column;
+            gap: 20px
+        }
+    }
     .mod_nav {
         position: relative;
     }
@@ -149,6 +159,14 @@ section {
 .mod_magtitle {
     padding: 60px 0;
     background-color: var(--color-three);
+    .wrapper {
+        justify-content: center;
+    }
+    img {
+        @include up-to(large) {
+            display: none
+        }
+    }
 }
 
 .mod_progtitle {

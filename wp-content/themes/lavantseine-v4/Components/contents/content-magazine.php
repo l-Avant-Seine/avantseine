@@ -93,7 +93,7 @@ $term_queried = get_queried_object();
 
 							<?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>
 
-								<div class="s_8col m_4col l_3col mb-small">
+								<div class="s_12col m_4col l_3col mb-small">
 									<?php get_template_part( 'Components/blocs/bloc', 'magazine' ); ?>
 								</div>
 							<?php endwhile; ?>
