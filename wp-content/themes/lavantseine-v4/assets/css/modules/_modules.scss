@@ -212,6 +212,9 @@ section {
     }
     .mod_title {
         color: var(--color-five);
+        margin-left: 5vw;
+        margin-right: 5vw;
+        margin-bottom: 40px;
     }
 
     .loader {
@@ -230,16 +233,38 @@ section {
     }
 
     .swiper-dates {
-        padding: 0 40px;
+        margin: 0 5vw 40px 5vw;
+        overflow: hidden;
+        position: relative;
+        padding: 0 60px;
+
     	@include up-to(large) {
-            padding: 0 20px;
+            margin: 0 2vw 20px 2vw;
         }
     }
         .dates-btn-prev,
         .dates-btn-next {
-            position: relative;
+            position: absolute;
             z-index: 3;
             cursor: pointer;
+            background-color: var(--color-one);
+            height: 100%;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            path {
+                stroke: white;
+            }
+        }
+        .dates-btn-prev {
+            left: 0;
+            justify-content: flex-start;
+        }
+        .dates-btn-next {
+            right: 0;
+            justify-content: flex-end;
         }
         .swiper-button-disabled {
             opacity: .2;
@@ -265,19 +290,38 @@ section {
 
     .swiper-calendar {
         position: relative;
+        margin-left: 2vw;
+        margin-right: 2vw;
+        padding: 0 3vw;
+        overflow: hidden;
+        @include up-to(large) {
+            margin-left: 2vw;
+            margin-right: 2vw;
+        }
     }
     .cal-btn-prev,
     .cal-btn-next {
         position: absolute;
         z-index: 3;
-        top: 45%;
+        height: 100%;
+        width: 3vw;
+        top: 0;
+        background-color: var(--color-one);
+        display: flex;
+        align-items: center;
         cursor: pointer;
+        
+        path {
+            stroke: white;
+        }
     }
     .cal-btn-prev {
-        left: -40px;
+        left: 0;
+        justify-content: flex-start;
     }
     .cal-btn-next {
-        right: -40px;
+        right: 0;
+        justify-content: flex-end;
     }
 }
 

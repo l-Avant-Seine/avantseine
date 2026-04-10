@@ -163,7 +163,7 @@ function get_events() {
 		IntlDateFormatter::FULL,
 		'Europe/Paris',
 		IntlDateFormatter::GREGORIAN,
-		'EE'
+		'ccc'
 	);
 	$fmt_daynbr = datefmt_create(
 		'fr_FR',
@@ -308,11 +308,11 @@ function get_events() {
 
 	<!-- DISPLAY EVENTS  --> 
 
-		<div class="swiper-calendar wrapper">
+		<div class="mod_title">
+            <h2 class="h2">Calendrier</h2>
+        </div>
 
-			<div class="mod_title mb-small">
-                <h2 class="h2">Calendrier</h2>
-            </div>
+		<div class="swiper-calendar">
 
 			<div class="cal-btn-prev">
                     <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>

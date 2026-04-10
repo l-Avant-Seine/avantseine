@@ -295,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     slidesPerView : 3,
                     slidesPerGroup: 3,
                     spaceBetween : 20,
+                    fadeEffect: { crossFade: true, },
                     navigation: {
                       nextEl: '.cal-btn-next',
                       prevEl: '.cal-btn-prev',
@@ -337,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         slidesPerGroup: 7,
                       },
                       1600: {
-                        slidesPerView : 20,
+                        slidesPerView : 18,
                         slidesPerGroup: 15,
                       }
                     }
