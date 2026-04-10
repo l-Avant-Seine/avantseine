@@ -270,6 +270,14 @@ section {
             opacity: .2;
             pointer-events: none;
         }
+        .month {
+            aspect-ratio: 1/1;
+            color: var(--color-five);
+            .inner {
+                height: 100%;
+                width: 100%;
+            }
+        }
         .date {
             aspect-ratio: 1/1;
 

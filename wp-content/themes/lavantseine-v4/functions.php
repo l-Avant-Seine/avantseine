@@ -181,6 +181,22 @@ function get_events() {
 		IntlDateFormatter::GREGORIAN,
 		'MM'
 	);
+	$fmt_month_full = datefmt_create(
+		'fr_FR',
+		IntlDateFormatter::FULL,
+		IntlDateFormatter::FULL,
+		'Europe/Paris',
+		IntlDateFormatter::GREGORIAN,
+		'LLLL'
+	);
+	$fmt_year = datefmt_create(
+		'fr_FR',
+		IntlDateFormatter::FULL,
+		IntlDateFormatter::FULL,
+		'Europe/Paris',
+		IntlDateFormatter::GREGORIAN,
+		'YY'
+	);
 	//https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax 
 
 
@@ -255,6 +271,7 @@ function get_events() {
 
 					<?php 
 					$j = 0; 
+					$previous_month = 0; 
 					$last_date_in_array = end( $dates );
 					$last_date_in_array = $last_date_in_array['day_ts'];
 
@@ -264,8 +281,9 @@ function get_events() {
 						$current_day_formated = date('Y-m-d', $current_day_ts);
 						$current_day_letter = datefmt_format($fmt_dayletter, $current_day_ts);
 						$current_day_nbr = datefmt_format($fmt_daynbr, $current_day_ts);
+						$current_month_full = datefmt_format($fmt_month_full, $current_day_ts);
 						$current_month = datefmt_format($fmt_month, $current_day_ts);
-						$current_year = datefmt_format($fmt_dayletter, $current_day_ts); 
+						$current_year = datefmt_format($fmt_year, $current_day_ts);
 
 						$day_exist_in_array = false;
 						$occurrence = 0;
@@ -282,18 +300,27 @@ function get_events() {
 						} 
 						?>
 						
+						<?php if( $previous_month  !== $current_month_full ) { ?>
+							<div class="swiper-slide month">
+								<div class="inner flex --col --vcentered txt-right">
+									<span class="h3"><?php echo $current_month_full; ?></span><br>
+									<span class="h3"><?php echo $current_year; ?></span>
+								</div>
+							</div>
+						<?php } ?>
+						
 						<div data-index="<?php if( $day_exist_in_array ) { echo $j; } ?>" class="swiper-slide date <?php if( ! $day_exist_in_array ) echo 'inactive'; ?>"  data-date="<?php echo $current_day_formated; ?>">
 							<div class="inner flex --col --centered ">
 								<?php // echo $current_ts; ?>
 								<span class="meta"><?php echo $current_day_letter; ?></span>
-								<span class="h3"><?php echo $current_day_nbr; ?>.<?php echo $current_month; ?></span>
+								<span class="h3"><?php echo $current_day_nbr; ?></span>
 							</div>
 						</div>
 
 						
 					<?php if( $current_day_ts == $last_date_in_array ) break; 
 					$j = $j + $occurrence;
-
+					$previous_month = $current_month_full;
 				} ?>
 					
 				</div>
