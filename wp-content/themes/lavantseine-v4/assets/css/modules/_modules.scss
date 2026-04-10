@@ -15,6 +15,9 @@
 
 section {
     padding: 60px 0;
+    @include up-to(medium) {
+        padding: 30px 0;
+    }
 }
 
 .mod_slider {
@@ -166,6 +169,9 @@ section {
         @include up-to(large) {
             display: none
         }
+    }
+    @include up-to(large) {
+        padding: 30px 0;
     }
 }
 

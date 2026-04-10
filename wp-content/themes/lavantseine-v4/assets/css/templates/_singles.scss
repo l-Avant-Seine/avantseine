@@ -49,6 +49,11 @@
                 order: 2;
             }
         }
+        .grid {
+            @include up-to(medium) {
+                grid-row-gap: 0;
+            }
+        }
     }
     .single_cta {
         @include up-to(large) {

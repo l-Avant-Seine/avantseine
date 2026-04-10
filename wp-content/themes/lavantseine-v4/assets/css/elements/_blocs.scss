@@ -1,7 +1,10 @@
 
 .bloc_slide {
     position: relative;
-    
+                min-height: 400px;
+             background-color: $gray; 
+
+
     .wp-post-image {
         width: 100%;
         aspect-ratio: 16/9;

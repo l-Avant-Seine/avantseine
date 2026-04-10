@@ -53,13 +53,13 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: $bold;
 
 	@include up-to(wide) {
-		font-size: 10rem;
+		font-size: 9rem;
 	}
 	@include up-to(large) {
-		font-size: 8rem;
+		font-size: 7rem;
 	}
 	@include up-to(medium) {
-		font-size: 5rem;
+		font-size: 4rem;
 	}
 }
 .h1_2 {

@@ -193,7 +193,7 @@
     padding: 40px;
 
     @include up-to(large) {
-		padding: 20px;
+		padding: 20px 0;
 	}
 
     .site-logo {
