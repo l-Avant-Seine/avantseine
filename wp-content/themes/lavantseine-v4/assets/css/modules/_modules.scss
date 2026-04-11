@@ -238,8 +238,9 @@ section {
         position: relative;
         padding: 0 60px;
 
-    	@include up-to(large) {
-            margin: 0 2vw 20px 2vw;
+    	@include up-to(medium) {
+            margin: 0 1vw 20px 1vw;
+            padding: 0 20px;
         }
     }
         .dates-btn-prev,
@@ -254,6 +255,10 @@ section {
             align-items: center;
             justify-content: center;
 
+            @include up-to(medium) {
+                width: 40px;
+            }
+            
             path {
                 stroke: white;
             }
@@ -271,7 +276,7 @@ section {
             pointer-events: none;
         }
         .month {
-            aspect-ratio: 16/9;
+            aspect-ratio: 4/3;
             color: var(--color-five);
             height: 75px;
             width: auto;
