@@ -373,6 +373,26 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
 
+  const popin = document.querySelector('#popin'); 
+  const popin_close = document.querySelector('#popin_close'); 
+  const popin_link = document.querySelector('#popin .btn'); 
+  if (popin) {
+
+    if( ! sessionStorage.getItem('popin_closed') ) {
+      popin.classList.remove('hidden');
+    }
+    popin_close.addEventListener('click', () => {
+      popin.classList.add('hidden');
+      sessionStorage.setItem('popin_closed', true);
+    })
+    popin_link.addEventListener('click', () => {
+      sessionStorage.setItem('popin_closed', true);
+    })
+  }
+
+
+
+
 
   /* EVENTS */
 

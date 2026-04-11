@@ -114,22 +114,43 @@
 
 
 <?php if( get_field('popin_content', "options") !== '' ) : ?>
-		<div id="popin" class="popin_outer disnone">
-			<div class="popin_inner">
+		<div id="popin" class="popin_outer hidden">
+
+			<div class="popin_inner"  style="background-image: url('<?php the_field('texture_from_four_to_none', 'option'); ?>')">
+
+				<div class="popin_bg">
+					<div class="bg_upper"></div>
+					<div class="bg_lower"></div>
+				</div>
+				
+				<div class="popin_title mb-medium">
+					<h3 class="h1_3"><?php the_field('popin_title', "options"); ?></h3>
+				</div>
+
 				<?php 
 					$cover = get_field('popin_media', "options"); 
 					$size = 'medium';
 					if( $cover ) {
-						echo "<img class='popin_media' src='" . $cover['url'] . "'>";
+						echo "<img class='popin_media mb-medium' src='" . $cover['url'] . "'>";
 					}
 				?>
 				
-				<button id="popin_close" class="btn">x</button>
+				<button id="popin_close" class="popin_close">
+					<?php get_template_part('Components/svgs/svg', 'close'); ?>
+				</button>
 
-				<div class="popin_content">
-					<h3 class="h_3 mb-2"><?php the_field('popin_title', "options"); ?></h3>
+				<div class="popin_content copy">
 					<div><?php the_field('popin_content', "options"); ?></div>
+
+					<?php if( get_field('popin_label', "options") !== '' ) : ?>
+						<div class="popin_cta">
+							<a href="<?php the_field('popin_url', "options"); ?>" class="btn"><?php the_field('popin_label', "options"); ?></a>
+						</div>
+					<?php endif; ?>
+
 				</div>
+
+
 			</div>
 		</div>
 <?php endif; ?>
