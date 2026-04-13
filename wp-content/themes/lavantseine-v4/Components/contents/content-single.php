@@ -5,6 +5,7 @@
 
 	$postDetail_mediaMarkup = get_post_meta( $post->ID, 'postDetail_mediaMarkup', true );
 	$postDetail_showPic = get_post_meta( $post->ID, 'postDetail_showPic', true );
+	$event_linked = get_field( 'events_linked' );
 
 ?>
 
@@ -75,6 +76,21 @@
 					<?php the_content(); ?>
 				</div>
 			</div>
+
+
+
+			<div class="s_12col m_4col">
+				<div class="">
+					<?php if ($event_linked) : ?>
+                		<?php foreach ( $event_linked as $post ) : setup_postdata( $post ); ?>
+							<div class="mb-medium">
+								<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $post) ); ?>
+							</div>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</div>
+			</div>
+
 
 		</div>
 

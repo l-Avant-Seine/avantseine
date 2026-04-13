@@ -13,12 +13,12 @@
 	$event_other_dates = get_field('eventDetail_otherdates');
 
 	if($event_first_date) {
-	$event_hour = strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
-
+		$event_hour = strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
 	} 
 
 	$event_duration = get_field( 'eventDetail_duration' );
     $age = get_the_terms(get_the_ID(), 'public');
+    $tags = wp_get_post_terms($post, array('discipline'), array("fields" => "all"));
 
 	$today = new DateTime("today"); // This object represents current date/time with time set to midnight
 
@@ -37,7 +37,7 @@
 			
 		<a href="<?php the_permalink(); ?>" class="--block" rel="bookmark">
 
-			<div class="bloc_upper">
+			<div class="bloc_upper flex --jstf --hcentered --gap-s">
 
 				<?php if( !get_field('eventDetail_is_news') ) : ?>
 					<div class="item-dates h4_2">
@@ -66,6 +66,18 @@
 							} ?>
 					</div>
 				<?php endif; ?>
+
+				<?php if($tags) : ?>
+					<div class="item-tags">
+                        <span class="h4_2 flex --hcentered --gap-xs">
+                            <?php foreach($tags as $tag) { 
+                                $image = get_field('visuel_white', 'discipline' . '_' . $tag->term_id); ?>
+                                <span><?php echo $tag->name; ?></span>
+                                <img src="<?php echo $image; ?>" class="bloc_taxmedia">
+                            <?php } ?></span>
+                    </div>
+                <?php endif; ?>
+
 
 			</div>
 

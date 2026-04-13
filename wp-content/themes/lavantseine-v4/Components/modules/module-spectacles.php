@@ -4,7 +4,7 @@
     $label = $args['label'];
     $link = $args['link'];
 
-        wp_enqueue_script('swiper');
+    wp_enqueue_script('swiper');
     wp_enqueue_style('swiper');
 ?>
 
@@ -32,7 +32,7 @@
                         <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
                     </div>
 
-                                        <a class="btn" href="<?php echo $link; ?>"><?php echo $label; ?></a>
+                    <a class="btn" href="<?php echo $link; ?>"><?php echo $label; ?></a>
 
                     <div class="swiper-btn-next">
                         <?php get_template_part('Components/svgs/svg', 'arrow'); ?> 
