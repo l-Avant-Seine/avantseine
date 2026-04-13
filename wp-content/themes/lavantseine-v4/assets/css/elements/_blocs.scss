@@ -55,6 +55,7 @@
     
     .bloc_upper {
         border-bottom: 1px solid;
+        min-height: 50px;
         padding-left: 10px;
     }   
     .bloc_lower {
@@ -72,11 +73,13 @@
         width: 50%;
         flex: 0 0 auto
     }
+    .item-dates {
+    }
     .item-tags {
         flex: 0 0 auto
     }
     .bloc_taxmedia {
-        height: 48px;
+        height: 50px;
     }
 }
 
