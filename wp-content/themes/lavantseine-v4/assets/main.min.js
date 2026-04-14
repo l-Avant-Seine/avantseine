@@ -161,15 +161,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    const item_opened = document.querySelector('.current-page-parent .sub-menu');
+    if(item_opened) item_opened.classList.add('displayed');
+
     const parent_items = document.querySelectorAll('.menu-item-has-children > a');
     const sub_menus = document.querySelectorAll('.sub-menu');
 
     parent_items.forEach(el => {
       el.addEventListener('click', event => {
         event.preventDefault()
-        el.nextElementSibling.classList.add('displayed')
+        const displayed = document.querySelector('.sub-menu.displayed')
+        if( displayed ) displayed.classList.remove('displayed');
+        el.nextElementSibling.classList.add('displayed');
+
       })
     })
+
+
+
 
 
     const close_menu = document.querySelector('#close_menu');
@@ -391,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-
+displayed
 
 
   /* EVENTS */

@@ -3,8 +3,11 @@
 
     .single_texts {
         background-color: white;
-        padding: 60px;
+        padding: 60px 85px;
         @include up-to(large) {
+            padding: 30px 40px;
+        }
+        @include up-to(medium) {
             padding: 20px;
         }
     }

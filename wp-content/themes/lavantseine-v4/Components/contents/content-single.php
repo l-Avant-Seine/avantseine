@@ -71,13 +71,13 @@
 
 		<div class="grid">
 
-			<div class="s_12col m_8col" itemprop="mainContentOfPage">
+			<div class="s_12col m_7col" itemprop="mainContentOfPage">
 				<div class="copy">
 					<?php the_content(); ?>
 				</div>
 			</div>
 
-
+			<div class="s_hide m_show m_1col"></div>
 
 			<div class="s_12col m_4col">
 				<div class="">

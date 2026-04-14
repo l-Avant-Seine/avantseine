@@ -139,23 +139,19 @@
     .current-page-parent > a,
     .current-menu-item > a {
         color: white;
-        pointer-events: none;
-
-        & + .sub-menu {
-            transform: none;
-            z-index: 2;
-        }
     }
     .sub-menu {
         left: 0;
         right: 0;
         padding: 20px;
-        
+        opacity: 0;
+
         a {
             color: white;
         }
         &.displayed {
             transform: none;
+            opacity: 1;
             z-index: 3;
         }
         @include up-to(large) {

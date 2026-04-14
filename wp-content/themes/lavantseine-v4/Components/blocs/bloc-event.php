@@ -92,7 +92,6 @@
 
 				<div class="bloc_content flex --hbottom --jstf mb-small">
 
-
 					<div class="item-names label_1">
 						<?php if( get_field('noms_principaux') ) { ?>
 							<?php the_field( 'noms_principaux' ); ?>
