@@ -66,31 +66,37 @@
         &.open {
             transform: none;
         }
-        #close_menu {
-            position: absolute;
-            top: 30px;
-            right: 20px;
-            path {
-                stroke: #fff;
-            }
-        }
     }
 }
-        #close_menu,
-        .header-hamburger {
-           @include at-least(medium) {
-            display: none;
-           }
-        }
+
+#close_menu {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+
+    path {
+        stroke: #fff;
+    }
+    
+    @include at-least(medium) {
+        display: none;
+    }
+}
+
 
 .header-hamburger {
     width: 40px;
     background: rgba(0,0,0,0);
     cursor: pointer;
-    display: flex;
     flex-shrink: 0;
     gap: 10px;
     flex-direction: column;
+    @include at-least(medium) {
+        display: none;
+    }
+    @include up-to(medium) {
+        display: flex;
+    }
 }
 .burger-menu__stick {
     display: block;

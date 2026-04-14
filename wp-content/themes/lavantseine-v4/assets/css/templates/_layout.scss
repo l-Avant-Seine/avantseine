@@ -21,6 +21,11 @@ body {
 	overflow: hidden;
 }
 
+.home {
+	.page_bg {
+		display: none;
+	}
+}
 .page-template-default:not(.home) {
 
 	.page_bg {
@@ -33,6 +38,7 @@ body {
 		transform: rotate(180deg);
 		background-repeat: no-repeat;
 	}
+	
 	.site-content {
 		position: relative;
 

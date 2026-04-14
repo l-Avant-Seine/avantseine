@@ -8,8 +8,9 @@
  */
  ?>
 
-
-
+<?php if( ! is_home() ) : ?>
+  <img src="<?php the_field('texture_from_five_to_none', 'option'); ?>" alt="" class="page_bg --inversed">
+<?php endif; ?>
 
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>	
