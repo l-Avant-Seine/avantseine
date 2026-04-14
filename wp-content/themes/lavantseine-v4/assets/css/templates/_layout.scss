@@ -22,6 +22,17 @@ body {
 }
 
 .page-template-default:not(.home) {
+
+	.page_bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		z-index: -1;
+		transform: rotate(180deg);
+		background-repeat: no-repeat;
+	}
 	.site-content {
 		position: relative;
 
