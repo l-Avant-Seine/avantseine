@@ -75,6 +75,31 @@
            }
         }
 
+.header-hamburger {
+    width: 40px;
+    background: rgba(0,0,0,0);
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    gap: 10px;
+    flex-direction: column;
+}
+.burger-menu__stick {
+    display: block;
+    height: 1px;
+    left: 0;
+    transform: rotate(0deg);
+    transition: transform .25s ease-in-out;
+    transform-origin: left center;
+    will-change: transform;
+    background-color: #000;
+
+    &:first-child {
+        transform-origin: left center;
+    }
+
+}
+
 .header_texture {
     position: absolute;
     z-index: 0;
@@ -144,7 +169,6 @@
         left: 0;
         right: 0;
         padding: 20px;
-        opacity: 0;
 
         a {
             color: white;
@@ -167,6 +191,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
         }
     }
 

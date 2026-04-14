@@ -70,7 +70,9 @@ End Facebook Pixel Code -->
 			</nav>
 
 			<nav id="site-navigation" class="header-navigation main-navigation" role="navigation">
-				<button id="close_menu" class="">Fermer</button>
+				<button id="close_menu" class="">
+					<?php get_template_part('Components/svgs/svg', 'close'); ?>
+				</button>
 					<?php 
 						wp_nav_menu( array( 
 							'theme_location' => 'primary', 
@@ -85,7 +87,9 @@ End Facebook Pixel Code -->
 			</div>
 
 			<button id="open_menu" class="header-hamburger">
-				Menu
+				<span class="burger-menu__stick"></span>				
+				<span class="burger-menu__stick"></span>
+				<span class="burger-menu__stick"></span>
 			</button>
 
 		</div>
