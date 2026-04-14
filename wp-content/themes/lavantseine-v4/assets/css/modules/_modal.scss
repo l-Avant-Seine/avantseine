@@ -65,6 +65,7 @@
 	right: 0;
 	bottom: 0;
 	z-index: -1;
+	height: 100%;
 }
     .bg_upper {
         background-color: var(--color-five);
@@ -82,19 +83,28 @@
 	max-height: 70vh;
 	box-shadow: 0 0 10px black;
 	position: relative;
-	overflow: hidden;
-	padding: 40px 100px 40px 40px;
-    background-position: center 50%;
+    background-position: center 47%;
     background-repeat: no-repeat;
     background-size: contain;
-	
+
 	@include up-to(large) {
 		max-width: 90vw;
 		max-height: 90vh;
 	}
+	.popin_contents {
+		overflow-y: scroll;
+		height: 100%;
+		padding: 40px 100px 40px 40px;
+		max-height: 70vh;
+		@include up-to(large) {
+			padding: 60px 20px;
+	    	max-height: 90vh;
+		}
+	}
 
 	.popin_media {
-		max-width: 600px;
+		width: 600px;
+		max-width: 100%;
 	}
 	.popin_content {
 		position: relative;
@@ -109,5 +119,9 @@
 		border: none;
 		cursor: pointer;
 		z-index: 9999;
+		@include up-to(medium) {
+			top: 20px;
+			right: 15px;
+		}
 	}
 }
