@@ -16,9 +16,9 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<nav class="single_nav wrapper --narrow mb-small">
+	<nav class="single_nav wrapper --narrow mb-medium">
 
-		<div class="mb-small">
+		<div class="mb-medium">
 			<a href="/magazine" class="flex --gap-xs --hcentered">
                         <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
 				<span>Retour au magazine</span>
@@ -50,7 +50,7 @@
 
 	<header class="single_header wrapper --narrow mb-medium" itemprop="image">
 
-		<div class="single_titles mb-small">
+		<div class="single_titles mb-medium">
 			<h1 class="h1_3" itemprop="name"><?php the_title(); ?></h1>
 		</div>
 

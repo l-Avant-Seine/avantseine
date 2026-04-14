@@ -162,9 +162,6 @@ section {
 .mod_magtitle {
     padding: 60px 0;
     background-color: var(--color-three);
-    .wrapper {
-        justify-content: center;
-    }
     img {
         @include up-to(large) {
             display: none
