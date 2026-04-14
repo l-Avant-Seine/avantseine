@@ -7,6 +7,11 @@
     padding-left: 3vw;
     position: relative;
 
+    @include up-to(medium) {
+        padding-right: 20px;
+        padding-left: 10px;
+    }
+
     & > div {
         width: 100%;
     }
@@ -65,6 +70,9 @@
             position: absolute;
             top: 30px;
             right: 20px;
+            path {
+                stroke: #fff;
+            }
         }
     }
 }
@@ -92,7 +100,7 @@
     transition: transform .25s ease-in-out;
     transform-origin: left center;
     will-change: transform;
-    background-color: #000;
+    background-color: #fff;
 
     &:first-child {
         transform-origin: left center;
