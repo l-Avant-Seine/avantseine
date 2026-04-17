@@ -203,8 +203,10 @@
             transform: translateY(-500%);
             position: absolute;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
+            row-gap: 20px;
             opacity: 0;
         }
     }
