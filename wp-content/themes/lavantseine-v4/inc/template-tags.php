@@ -267,7 +267,7 @@ if ( ! function_exists( 'custom_taxonomy_buttons' ) ) :
 					if($discipline === $term->slug) $class = "tag active";
 					else $class = "tag";
 					
-					printf( '<a class="' . $class . '" href="' . esc_url( get_term_link( $term ) ) . '">%s</a>', esc_attr( $term->slug ), esc_attr( $term->slug ), esc_attr( $taxonomy ), esc_html( $term->slug ), esc_html( $term->name ) );
+					printf( '<a class="' . $class . '" href="' . esc_url( get_term_link( $term ) ) . '">%s</a>', esc_html( $term->name ) );
 				}
 			}
 
