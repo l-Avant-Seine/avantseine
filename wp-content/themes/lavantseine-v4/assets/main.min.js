@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
   $main_nav = document.getElementById('site-navigation');
 
 
-const player = new Plyr('#player');
 
   /* SWIPER */
   
@@ -36,7 +35,7 @@ const player = new Plyr('#player');
         if( typeof Plyr !== 'undefined' ) {
           const players = Array.from(document.querySelectorAll('.js-player')).map((p) => {
             const player = new Plyr(p, {
-              controls: [],
+              hideControls: true,
               autoplay: true,
               muted: true
             })
