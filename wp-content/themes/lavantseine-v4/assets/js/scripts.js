@@ -35,9 +35,11 @@ const player = new Plyr('#player');
         console.log('swiper init');
         if( typeof Plyr !== 'undefined' ) {
           const players = Array.from(document.querySelectorAll('.js-player')).map((p) => {
-            const player = new Plyr(p)
-            player.volume = 0;
-            player.play;
+            const player = new Plyr(p, {
+              controls: [],
+              autoplay: true,
+              muted: true
+            })
           });
         }
       }
