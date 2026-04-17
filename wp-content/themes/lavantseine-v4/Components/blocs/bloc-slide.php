@@ -22,11 +22,9 @@
 	$linked = isset($args['linked']) ? $args['linked'] : false;
     $tags = wp_get_post_terms($post->ID, array('discipline'), array("fields" => "all"));
 
-	wp_enqueue_script('plyr');
-	wp_enqueue_style('plyr');
-
 	if( $video !== ''  ) {
-
+		wp_enqueue_script('plyr');
+		wp_enqueue_style('plyr');
 	}
 
 ?>
@@ -49,7 +47,6 @@
 								allowtransparency
 								allow="autoplay"
 							></iframe>
-
 						</div>
 
 					<?php else :
