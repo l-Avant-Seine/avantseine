@@ -48,6 +48,11 @@
             }
         }
     }
+
+    .plyr--video .plyr__controls,
+    .plyr--full-ui.plyr--video .plyr__control--overlaid {
+        display: none !important;
+    } 
 }
 
 .bloc_event {
