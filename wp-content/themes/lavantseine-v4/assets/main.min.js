@@ -409,6 +409,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  if( document.querySelector('.event .single_header')) {
+    const players = Array.from(document.querySelectorAll('.js-player')).map((p) => {
+      const player = new Plyr(p, {
+        hideControls: true,
+        autoplay: true,
+        muted: true,
+        loop: { active: true },
+        youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 }
+      })
+    });
+  }
+
   /* EVENTS */
 
   document.addEventListener("scroll", documentIsScrolling, false);
