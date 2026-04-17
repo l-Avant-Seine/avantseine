@@ -37,7 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const player = new Plyr(p, {
               hideControls: true,
               autoplay: true,
-              muted: true
+              muted: true,
+              loop: { active: true },
+              youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 }
             })
           });
         }
