@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $main_nav = document.getElementById('site-navigation');
 
 
+const player = new Plyr('#player');
 
   /* SWIPER */
   
@@ -399,8 +400,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-
-displayed
 
 
   /* EVENTS */

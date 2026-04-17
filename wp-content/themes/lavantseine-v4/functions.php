@@ -124,7 +124,7 @@ function lavantseine_v4_scripts() {
 	wp_register_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js' , '', '', false );
 
 	wp_register_style( 'plyr', get_template_directory_uri() . '/assets/js/lib/plyr/plyr.css' );
-	wp_register_script( 'plyr', get_template_directory_uri() . '/assets/js/lib/plyr/js/plyr.js'  , '', '', array('in_footer' => false) );
+	wp_register_script( 'plyr',  'https://cdn.plyr.io/3.8.4/plyr.polyfilled.js'  , '', '', array('in_footer' => false) );
 
 	// ENQUEUE PARTICULAR SCRIPTS
 	wp_add_inline_script( 'lavantseine-v4-scripts', 'const ajax_datas = ' . json_encode( array(
