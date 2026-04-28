@@ -9,6 +9,8 @@
 				<div class="grid mb-large">
 					<div class="s_12col m_6col">
 						<div class="wrap">
+							<h3 class="h3 mb-small">Recevez les dernières actualités de l’Avant Seine !</h3>
+
 							<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
 						</div>
 					</div>

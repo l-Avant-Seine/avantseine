@@ -11,16 +11,10 @@
 
         <div class="grid wrapper">
 
-            <div class="s_12col m_6col flex --col --centered">
+            <div class="s_12col m_6col flex --col">
                 <h2 class="mod_title h2_2 mb-medium"><?php echo $args['title_news']; ?></h2>
 
-                <div>
-                    <form action="">
-                        <input type="text">
-                        <input type="submit">
-                    </form>
-
-                </div>
+				<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
             </div>
 
             <div class="s_12col m_6col flex --col --centered">
