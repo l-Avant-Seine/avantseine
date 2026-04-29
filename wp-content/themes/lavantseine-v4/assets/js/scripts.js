@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: new URLSearchParams(data),
         })
-        .then( response => { console.log(response); return response.json();  } )
+        .then( response => { return response.json();  } )
         .then( body => {
 
           console.log(body); 
