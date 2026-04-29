@@ -288,8 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: new URLSearchParams(data),
         })
-        .then( response => { return response.json();  } )
+        .then( response => { console.log(response); return response.json();  } )
         .then( body => {
+
+          console.log(body); 
 
             if (!body.success) return;
 

@@ -228,7 +228,7 @@ function get_events() {
 		$event_last_date = get_field( 'eventDetail_last_date', $post->ID );
 		$event_other_dates = get_field('eventDetail_otherdates', $post->ID);
 
-		if($event_first_date) { 
+		if( $event_first_date ) { 
 
 			$d = new DateTime( date('m/d/Y', $event_first_date) );
 			$d->modify('midnight'); 
@@ -273,7 +273,12 @@ function get_events() {
 					$j = 0; 
 					$previous_month = 0; 
 					$last_date_in_array = end( $dates );
-					$last_date_in_array = $last_date_in_array['day_ts'];
+					if( $last_date_in_array ) {
+						$last_date_in_array = $last_date_in_array['day_ts'];
+					}
+					else {
+						$last_date_in_array = '';
+					}
 
 					for ( $i = 0 ; $i < 365 ; $i++ ) {
 
@@ -297,6 +302,7 @@ function get_events() {
 								$occurrence++;
 								$day_exist_in_array = true; 
 							}
+							
 						} 
 						?>
 						
@@ -330,7 +336,11 @@ function get_events() {
                 </div>
 
 		</div>
-
+	<?php 
+	    $content = ob_get_clean();
+    	wp_send_json_success( $content );
+		die();
+	?>
 
 
 	<!-- DISPLAY EVENTS  --> 
@@ -347,13 +357,13 @@ function get_events() {
 
             <div class="swiper-wrapper">
 
-				<?php foreach ( $dates as $key => $d ) :  ?>
+				<?php foreach ( $dates as $key => $d ) : if( is_array( $d ) ) :  ?>
 
 					<div class="swiper-slide" data-postdate="<?php echo $key; ?>" data-postid="<?php echo $d['id']; ?>">
 						<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $d['id'], 'date' => $key )); ?>
 					</div>
 
-				<?php endforeach; wp_reset_query();?>
+				<?php endif; endforeach; wp_reset_query();?>
 				
 			</div>
 
@@ -365,10 +375,9 @@ function get_events() {
 
 
 
+
+
 	<?php 
-	    $content = ob_get_clean();
-    	wp_send_json_success( $content );
-		die();
 }
 
 
