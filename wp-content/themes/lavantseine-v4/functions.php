@@ -255,12 +255,6 @@ function get_events() {
 
 	endforeach; wp_reset_query(); ksort($dates); //var_dump($dates); ?>
 
-	<?php 
-	    $content = ob_get_clean();
-    	wp_send_json_success( $content );
-		die();
-	?>
-	
 
 	<!-- DISPLAY CALENDAR DAYS  --> 
 
@@ -373,7 +367,12 @@ function get_events() {
 
 
 
-
+	<?php 
+	    $content = ob_get_clean();
+    	wp_send_json_success( $content );
+		die();
+	?>
+	
 
 
 	<?php 
