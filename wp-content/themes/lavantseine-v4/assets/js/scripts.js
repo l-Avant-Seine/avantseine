@@ -402,9 +402,11 @@ document.addEventListener('DOMContentLoaded', () => {
       popin.classList.add('hidden');
       sessionStorage.setItem('popin_closed', true);
     })
-    popin_link.addEventListener('click', () => {
-      sessionStorage.setItem('popin_closed', true);
-    })
+    if(popin_link) {
+      popin_link.addEventListener('click', () => {
+        sessionStorage.setItem('popin_closed', true);
+      })
+    }
   }
 
 
