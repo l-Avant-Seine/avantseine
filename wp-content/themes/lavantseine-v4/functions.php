@@ -222,7 +222,7 @@ function get_events() {
 	
 	
 	// FORMAT AND SORT DATES ARRAY
-	foreach ( $posts as $post ) :
+	if( isset($posts) ) : foreach ( $posts as $post ) :
 
 		$event_first_date = get_field( 'eventDetail_first_date', $post->ID );
 		$event_last_date = get_field( 'eventDetail_last_date', $post->ID );
@@ -256,7 +256,7 @@ function get_events() {
 			}
 		}
 
-	endforeach; wp_reset_query(); ksort($dates); //var_dump($dates); ?>
+	endif; endforeach; wp_reset_query(); ksort($dates); //var_dump($dates); ?>
 
 	<?php 
 	    $content = ob_get_clean();
