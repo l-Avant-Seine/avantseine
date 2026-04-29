@@ -220,9 +220,6 @@ function get_events() {
 	$dates = []; // array of timestamps 
 	ob_start(); 
 	
-	    $content = ob_get_clean();
-    	wp_send_json_success( $content );
-		die();
 	
 	// FORMAT AND SORT DATES ARRAY
 	foreach ( $posts as $post ) :
@@ -261,8 +258,12 @@ function get_events() {
 
 	endforeach; wp_reset_query(); ksort($dates); //var_dump($dates); ?>
 
-
-
+	<?php 
+	    $content = ob_get_clean();
+    	wp_send_json_success( $content );
+		die();
+	?>
+	
 
 	<!-- DISPLAY CALENDAR DAYS  --> 
 
