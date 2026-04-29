@@ -235,6 +235,17 @@ function get_events() {
 			$dates[ $event_first_date ] = array( 'id' => $post->ID, 'day_ts' => strval($d_ts));
 		}
 
+		if( $event_other_dates ) {
+			foreach( $event_other_dates as $o) {
+				if( isset($o['date'])) {
+					$d = new DateTime( date('m/d/Y', $o['date'] ) );
+					$d->modify('midnight'); 
+					$d_ts = strtotime($d->format('Y-m-d H:i:s'));
+					$dates[ $o['date']  ] = array( 'id' => $post->ID, 'day_ts' => strval($d_ts) );
+				}
+			}
+		}
+
 
 
 	endforeach; wp_reset_query(); ksort($dates); //var_dump($dates); ?>
