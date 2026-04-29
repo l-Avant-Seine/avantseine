@@ -237,7 +237,10 @@ function get_events() {
 
 		if( is_array( $event_other_dates ) ) {
 			foreach( $event_other_dates as $o) {
+				if( isset($o['date'])) {
+					$d = new DateTime( date('m/d/Y', $o['date'] ) );
 
+				}
 			}
 		}
 
