@@ -291,8 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then( response => { return response.json();  } )
         .then( body => {
 
-          console.log(body); 
-
             if (!body.success) return;
 
             if( append ) {
