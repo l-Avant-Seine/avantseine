@@ -52,7 +52,7 @@ if ( ! function_exists( 'matomo_format_value_text' ) ) {
 }
 ?>
 
-<div class="wrap matomo-systemreport">
+<div class="matomo-systemreport">
 	<?php
 	// if there are no errors, make sure the error notice is not displayed
 	// (if there were errors previously, it may have been output before the system
@@ -82,8 +82,6 @@ if ( ! function_exists( 'matomo_format_value_text' ) ) {
 			<p><?php esc_html_e( 'Only you are seeing this page as you are the super admin', 'matomo' ); ?></p>
 		</div>
 	<?php } ?>
-	<div id="icon-plugins" class="icon32"></div>
-	<h1><?php matomo_header_icon(); ?><?php esc_html_e( 'Diagnostics', 'matomo' ); ?></h1>
 
 	<h2 class="nav-tab-wrapper">
 		<a href="?page=<?php echo esc_attr( Menu::SLUG_SYSTEM_REPORT ); ?>"
@@ -164,7 +162,7 @@ if ( ! function_exists( 'matomo_format_value_text' ) ) {
 				} elseif ( ! empty( $matomo_row['is_warning'] ) ) {
 					$matomo_class = 'warning';
 				}
-				echo "<tr class='" . esc_attr( $matomo_class ) . "'>";
+				echo "<tr class='" . esc_attr( $matomo_class ) . "'" . ( isset( $matomo_row['name'] ) ? ' id="matomo-diagnostic-' . esc_attr( sanitize_key( $matomo_row['name'] ) ) : '' ) . '">';
 				echo "<td width='30%'>" . esc_html( $matomo_row['name'] ) . '</td>';
 				echo "<td width='" . ( ! empty( $matomo_table['has_comments'] ) ? 20 : 70 ) . "%'>" . esc_html( $matomo_value ) . '</td>';
 				if ( ! empty( $matomo_table['has_comments'] ) ) {
