@@ -10,8 +10,8 @@ Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 4.9
 Tested up to: 7.0
-Stable tag: 3.3
-Version:    3.3
+Stable tag: 3.3.1
+Version:    3.3.1
 Requires PHP: 5.6.20
 Text Domain: disable-gutenberg
 Domain Path: /languages
@@ -25,9 +25,9 @@ Disable Gutenberg Block Editor and restore the Classic Editor and original Edit 
 
 This plugin disables the new Gutenberg Editor (aka Block Editor) and replaces it with the Classic Editor. You can disable Gutenberg completely, or selectively disable for posts, pages, roles, post types, and theme templates. Plus you can hide the Gutenberg nag, menu item, and more!
 
-> &#9824; The all-in-one, COMPLETE solution for handling Gutenberg.
-> &#9824; Hide ALL traces of Gutenberg and replace with Classic Editor.
-> &#9824; Restores original Edit Post screen (TinyMCE, meta boxes, etc.).
+> &#9824; The all-in-one, COMPLETE solution for handling Gutenberg
+> &#9824; Hide ALL traces of Gutenberg and replace with Classic Editor
+> &#9824; Restores original Edit Post screen (TinyMCE, meta boxes, etc.)
 
 The Disable Gutenberg plugin restores the classic (original) WordPress editor and the "Edit Post" screen. So you can continue using plugins and theme functions that extend the Classic Editor. Supports awesome features like Meta Boxes, Quicktags, Custom Fields, and everything else the Classic Editor can do.
 
@@ -78,7 +78,7 @@ _Automatically replaces Gutenberg with the Classic Editor._
 * One-click restore plugin default options
 * Translation ready
 
-> &#9824; Works great with Google AMP and the WordPress [AMP plugin](https://wordpress.org/plugins/amp/).
+> &#9824; Works great with Google AMP and the WordPress [AMP plugin](https://wordpress.org/plugins/amp/)
 
 Disable Gutenberg is developed and maintained by [Jeff Starr](https://x.com/perishable), 15-year [WordPress developer](https://plugin-planet.com/) and [book author](https://books.perishablepress.com/).
 
@@ -114,6 +114,7 @@ And/or purchase one of my premium WordPress plugins:
 * [Banhammer Pro](https://plugin-planet.com/banhammer-pro/) - Monitor traffic and ban the bad guys
 * [GA Google Analytics Pro](https://plugin-planet.com/ga-google-analytics-pro/) - Connect WordPress to Google Analytics
 * [Head Meta Pro](https://plugin-planet.com/head-meta-pro/) - Ultimate Meta Tags for WordPress
+* [REST Pro Tools](https://plugin-planet.com/rest-pro-tools/) - Awesome tools for managing the WP REST API
 * [Simple Ajax Chat Pro](https://plugin-planet.com/simple-ajax-chat-pro/) - Unlimited chat rooms
 * [USP Pro](https://plugin-planet.com/usp-pro/) - Unlimited front-end forms
 
@@ -299,14 +300,12 @@ Thank you to everyone for using Disable Gutenberg and for all the [awesome 5-sta
 If you have any feedback or suggestions to make this plugin the absolute best it can be, and/or would like to help with development, please reach me via the [contact form](https://plugin-planet.com/support/#contact) at Plugin Planet.
 
 
-**3.3 (2026/01/28)**
+**3.3.1 (2026/04/17)**
 
-* Adds small blurb about pro version
+* Fixes bug with reset options
 * Updates plugin settings page
 * Improves readme.txt documentation
-* Generates new language template
-* Tests on PHP 8.4 and 8.5
-* Tests on WordPress 6.9
+* Tests on WordPress 7.0
 
 
 Full changelog @ [https://plugin-planet.com/wp/changelog/disable-gutenberg.txt](https://plugin-planet.com/wp/changelog/disable-gutenberg.txt)
