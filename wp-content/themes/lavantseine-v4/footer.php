@@ -2,63 +2,71 @@
 
 		</div><!-- #content -->
 
-		<footer id="mastfooter" class="site-footer" role="contentinfo">
-
-			<div class="footer_upper wrapper">
-
-				<div class="grid mb-large">
-					<div class="s_12col m_6col">
-						<div class="wrap">
-							<h3 class="h3 mb-small">Recevez les dernières actualités de l’Avant Seine !</h3>
-
-							<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
-						</div>
-					</div>
-					
-					<div class="s_12col m_6col">
-						<div class="wrap">
-
-							<div class="mb-small">
-						    	<h3 class="h3">Suivez-nous sur les réseaux !</h3>
-							</div>
-
-							<div class="flex --jstf --hcentered --wrap --gap-s">
-								<?php get_template_part('Components/blocs/bloc', 'reseaux');  ?>
-
-							    <div class="">
-									<a href="<?php the_field('prog_brochure', 'option'); ?>" class="btn" target="_blank">Télécharger la brochure</a>
-								</div>
-								
-							</div>
+		<footer id="mastfooter" class="site-footer" role="contentinfo" style="background-image: url('<?php the_field('texture_from_one_to_none', 'option'); ?>');">
 
 
-						</div>
-					</div>
+			<div class="mod_bg flex --col">
+				<div class="bg_upper">
 				</div>
-
-
-				<div class="grid">
-					<div class="s_12col m_2col">
-						<nav class="header-branding">
-							<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home" class="logo_link">
-								<img class="site-logo" id="site-logo" src="<?php the_field('footer_logo', 'option'); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
-							</a>
-						</nav>
-					</div>
-					<?php
-						if( have_rows('footer_cols', 'options') ):
-						while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
-							<div class="footer-col s_12col m_3col">
-								<?php the_sub_field('colonne'); ?>
-							</div>
-						<?php endwhile;
-					endif;
-					?>			
+				<div class="bg_lower">
 				</div>
 			</div>
 
-			<div class="texture">
-				<img src="<?php the_field('texture_from_one_to_none', 'option'); ?>" alt="">
+			
+			<div class="footer_upper ">
+
+				<div class="wrapper">
+
+					<div class="grid mb-large">
+						<div class="s_12col m_6col">
+							<div class="wrap">
+								<h3 class="h3 mb-small">Recevez les dernières actualités de l’Avant Seine !</h3>
+
+								<?php get_template_part('Components/blocs/bloc', 'newsletter');  ?>
+							</div>
+						</div>
+						
+						<div class="s_12col m_6col">
+							<div class="wrap">
+
+								<div class="mb-small">
+									<h3 class="h3">Suivez-nous sur les réseaux !</h3>
+								</div>
+
+								<div class="flex --jstf --hcentered --wrap --gap-s">
+									<?php get_template_part('Components/blocs/bloc', 'reseaux');  ?>
+
+									<div class="">
+										<a href="<?php the_field('prog_brochure', 'option'); ?>" class="btn" target="_blank">Télécharger la brochure</a>
+									</div>
+									
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
+
+					<div class="grid">
+						<div class="s_12col m_2col">
+							<nav class="header-branding">
+								<a href="<?php echo esc_url( home_url( '/' ) ) ?>" rel="home" class="logo_link">
+									<img class="site-logo" id="site-logo" src="<?php the_field('footer_logo', 'option'); ?>" alt="<?php echo get_bloginfo( 'name' ); ?>" title="" width="100">
+								</a>
+							</nav>
+						</div>
+						<?php
+							if( have_rows('footer_cols', 'options') ):
+							while ( have_rows('footer_cols', 'options') ) : the_row(); ?>
+								<div class="footer-col s_12col m_3col">
+									<?php the_sub_field('colonne'); ?>
+								</div>
+							<?php endwhile;
+						endif;
+						?>			
+					</div>
+				</div>
 			</div>
 
 			<div class="footer_lower">

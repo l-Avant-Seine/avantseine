@@ -223,29 +223,43 @@
  */
 
 .site-footer {
-    background-color: var(--color-four);
+    position: relative;
+    background-position: center 60%;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+
+    .mod_bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    .bg_upper {
+        background-color: var(--color-four);
+        height: 60%;
+        flex: 0 0 60%;
+    }
+    .bg_lower {
+        background-color: var(--color-one);
+        height: 40%;
+        flex: 0 0 40%;
+    }
 }
 .footer_upper {
-    background-color: var(--color-four);
-    padding: 40px;
+    padding: 60px 0;
 
     @include up-to(large) {
 		padding: 20px 0;
 	}
-
     .site-logo {
         width: 160px;
     }
 }
 .footer_lower {
-    background-color: var(--color-one);
+    padding: 60px 0;
 
-    .wrapper {
-        position: relative;
-        @include at-least(large) {
-            top: -170px;
-        }
-    }
 }
 .footer-navigation {
     padding: 80px 0 20px; 
