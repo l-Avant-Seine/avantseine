@@ -99,8 +99,6 @@
 					</div>
 
 						<div class="item-names txt-right meta">
-							<!-- <p class="meta">À <?php echo $event_hour; ?></p> -->
-							<p class="meta">Durée <span class=""><?php echo $event_duration; ?></span></p>
 							<?php if ($age && !is_wp_error($age)) { ?>
 								<p class="meta">
 									<?php
