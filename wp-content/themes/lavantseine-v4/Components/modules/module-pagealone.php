@@ -23,7 +23,7 @@
             </div>
 
             <div class="s_12col m_6col bloc_cover_outer">
-                <?php the_post_thumbnail(); ?>
+                <?php the_post_thumbnail('top-thumbnail'); ?>
             </div>
 
         </div>
