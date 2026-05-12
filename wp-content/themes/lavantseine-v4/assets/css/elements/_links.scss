@@ -43,3 +43,23 @@ button {
 .btn-inline {
 	border-bottom: 1px solid;
 }
+
+
+div[class*="btn-next"],
+div[class*="btn-prev"] {
+
+	path {
+		transition: stroke .3s;
+	}
+	&:hover {
+		path {
+			stroke: #ffffff97;
+		}
+	}
+
+	&.swiper-button-disabled {
+		opacity: .2;
+		pointer-events: none;
+	}
+
+}
