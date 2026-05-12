@@ -189,6 +189,14 @@ p {
 	}
 }
 
+.label_0 {
+	font-size: 1.7rem;
+	font-weight: $book;
+	line-height: 1.6;
+	span {
+		font-weight: $bold;
+	}
+}
 .label_1 {
 	font-size: 1.6rem;
 	text-transform: uppercase;

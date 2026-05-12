@@ -229,15 +229,6 @@
                         <div class="frame_row flex">
 
                             <div class="frame_col">
-                                <?php if ($age && !is_wp_error($age)) : ?>
-                                    <?php foreach ($age as $term) {
-                                            echo $term->name;
-                                    }; ?>
-                                <?php endif; ?>
-                            </div>
-
-
-                            <div class="frame_col">
                                 <?php
 
                                     $main_tarif_id = get_post_meta($post->ID, '_yoast_wpseo_primary_tarif', true);
@@ -249,7 +240,7 @@
 
                                         echo "<ul class='no-bullets'>";
 
-                                        echo "<li>tarif " .  $main_tarif->name . "<br>" . $main_tarif->description . "</li>";
+                                        echo "<li class='label_0'><span>tarif " . $main_tarif->name . "</span><br>" . $main_tarif->description . "</li>";
 
                                         $term_list = wp_get_post_terms(
                                             $post->ID,
@@ -264,7 +255,7 @@
                                         if ($count > 0) {
 
                                             foreach ($term_list as $term) {
-                                                echo "<li class=''>tarif " . $term->name . "<br>" . $term->description . "</li>";
+                                                echo "<li class='label_0'><span>tarif " . $term->name . "</span><br>" . $term->description . "</li>";
                                             }
 
                                             echo '<li><a href="/pratique/tarifs/" class="btn-inline">tous les tarifs et conditions</a></li>';
@@ -293,7 +284,7 @@
                                             echo "<ul class='no-bullets'>";
 
                                             foreach ($term_list as $term) {
-                                                echo "<li class=''>tarif " . $term->name . "<br>" . $term->description . "</li>";
+                                                echo "<li class='label_0'><span>tarif " . $term->name . "</span><br>" . $term->description . "</li>";
                                             }
 
                                             echo '<li><a href="/pratique/tarifs/" class="btn-inline">tous les tarifs et conditions</a></li>';
@@ -312,6 +303,16 @@
                                     } ?>
 
                             </div>
+
+                            <div class="frame_col">
+                                <?php if ($age && !is_wp_error($age)) : ?>
+                                    <?php foreach ($age as $term) {
+                                        echo "<span class='label_0'>" . $term->name . "</span>";
+                                    }; ?>
+                                <?php endif; ?>
+                            </div>
+
+
                         </div>
 
                         <?php if ($services && !is_wp_error($services)) : ?>
