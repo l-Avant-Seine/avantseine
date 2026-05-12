@@ -6,7 +6,7 @@
 ?>
 
 
-<section class="mod_calendar loading">
+<section class="mod_calendar loading <?php echo $args['context'] === 'programmation' ? '--prog' : '' ?>" data-title="<?php echo $args['title']; ?>">
     <div class="inner">
 
         <div id="loader" class="loader flex --centered">
@@ -15,10 +15,17 @@
 
         <div id="calendar_inner"></div>
 
-        <div class="mod_bg">
-            <div class="mod_color"></div>
-            <img class="mod_texture" src="<?php the_field('texture_from_one_to_none', 'option'); ?>">
-        </div>
+        <?php if( $args['context'] !== 'programmation' ) : ?>
+
+            <div class="mod_bg">
+                <div class="mod_color"></div>
+                <img class="mod_texture --inversed" src="<?php the_field('texture_from_one_to_none', 'option'); ?>">
+            </div>
+
+        <?php else :  ?>
+            <img class="mod_texture" src="<?php the_field('texture_from_four_to_none', 'option'); ?>">
+
+        <?php endif; ?>
 
 	</div>
 

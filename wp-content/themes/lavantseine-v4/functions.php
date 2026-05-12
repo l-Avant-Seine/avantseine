@@ -151,6 +151,8 @@ add_action( 'wp_ajax_nopriv_get_events', 'get_events' );
 
 function get_events() {
 
+    $title = $_REQUEST["title"];
+
 	setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
 	$today = new DateTime("today");  
 	$today->modify('midnight'); 
@@ -339,7 +341,7 @@ function get_events() {
 	<!-- DISPLAY EVENTS  --> 
 
 		<div class="mod_title">
-            <h2 class="h2">Calendrier</h2>
+            <h2 class="h2"><?php echo  $title; ?></h2>
         </div>
 
 		<div class="swiper-calendar">

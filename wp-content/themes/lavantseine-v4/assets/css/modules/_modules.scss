@@ -200,6 +200,14 @@ section {
     max-height: 1000px;
     min-height: 150px;
 
+    &.--prog {
+        background-color: var(--color-one);
+        padding-bottom: 0;
+
+        .mod_texture {
+            margin-top: -50px;
+        }
+    }
     &.loading {
         max-height: 200px;
         min-height: 200px;
@@ -220,15 +228,18 @@ section {
         display: flex;
         flex-direction: column;
         z-index: -1;
-        
+
         .mod_color {
             background-color: var(--color-one);
             min-height: 75%;
         }
+        .mod_texture {
+            &.--inversed {
+                transform: scaleY(-1);
+            }
+        }
     }
-    .mod_texture {
-        transform: scaleY(-1);
-    }
+
 
     .loader {
         transition: all .4s;

@@ -11,7 +11,9 @@
 	<div id="main-agenda" class="cf mb-3">
 
 		<?php if( ! is_archive()) : ?>
-		<?php get_template_part('Components/modules/module', 'calendar', array( 'title' => 'a venir')); ?>
+			<div class="">
+				<?php get_template_part('Components/modules/module', 'calendar', array( 'title' => 'À venir', 'context' => 'programmation' )); ?>
+			</div>
 		<?php endif; ?>
 
 		<?php get_template_part('Components/modules/module', 'progtitle'); ?>

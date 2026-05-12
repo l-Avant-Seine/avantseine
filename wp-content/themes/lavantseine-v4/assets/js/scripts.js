@@ -267,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const calendar = document.querySelector('.mod_calendar');
   const calendar_inner = document.querySelector('#calendar_inner');
   const loader = document.querySelector('#loader');
+  const title = calendar.getAttribute('data-title');
 
   if( calendar ) {
 
@@ -279,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchAndDisplayDatas = async ( append = false ) => {
 
         data.set('action', 'get_events');
+        data.set('title', title);
 
         fetch(ajaxurl, {
             method: 'POST',
