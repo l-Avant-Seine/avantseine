@@ -230,7 +230,6 @@
 
                             <div class="frame_col">
                                 <?php if ($age && !is_wp_error($age)) : ?>
-                                    <h4 class="h_4">Âges</h4>
                                     <?php foreach ($age as $term) {
                                             echo $term->name;
                                     }; ?>
