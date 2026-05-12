@@ -265,11 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const calendar = document.querySelector('.mod_calendar');
-  const calendar_inner = document.querySelector('#calendar_inner');
-  const loader = document.querySelector('#loader');
-  const title = calendar.getAttribute('data-title');
 
   if( calendar ) {
+  const title = calendar.getAttribute('data-title');
+  const loader = document.querySelector('#loader');
+  const calendar_inner = document.querySelector('#calendar_inner');
 
   // DATAS
     let swiperCalendar, swiperDates;
