@@ -15,7 +15,13 @@
 
         <div id="calendar_inner"></div>
 
+        <div class="mod_bg">
+            <div class="mod_color"></div>
+            <img class="mod_texture" src="<?php the_field('texture_from_one_to_none', 'option'); ?>">
+        </div>
+
 	</div>
+
 </section>
 
 

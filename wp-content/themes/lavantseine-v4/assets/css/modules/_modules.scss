@@ -196,10 +196,11 @@ section {
 
 .mod_calendar {
     position: relative;
-    background-color: var(--color-one);
     transition: all .3s;
     max-height: 1000px;
     min-height: 150px;
+    background-color: var(--color-one);
+
 
     &.loading {
         max-height: 200px;
@@ -211,6 +212,22 @@ section {
         margin-left: 5vw;
         margin-right: 5vw;
         margin-bottom: 40px;
+    }
+    .mod_bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        .mod_color {
+            background-color: var(--color-one);
+            min-height: 75%;
+        }
+    }
+    .mod_texture {
+        transform: scaleY(-1);
     }
 
     .loader {
