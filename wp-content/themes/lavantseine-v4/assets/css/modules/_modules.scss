@@ -219,6 +219,8 @@ section {
         bottom: 0;
         display: flex;
         flex-direction: column;
+        z-index: -1;
+        
         .mod_color {
             background-color: var(--color-one);
             min-height: 75%;
