@@ -12,6 +12,20 @@
         }
     }
 
+    .single_chapo {
+        border-bottom: 1px solid black;
+        padding-bottom: 20px;
+        margin-bottom: 40px;
+    }
+    .single_mentions {
+        border-top: 1px solid black;
+        padding-top: 40px;
+        margin-top: 40px; 
+        span path {
+            stroke: none;
+        }
+    }
+
     .single_taxmedia {
         width: 54px;
         height: 54px;

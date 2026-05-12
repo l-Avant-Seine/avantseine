@@ -82,50 +82,60 @@
                     <div class="single_texts">
 
 
-                        <div class="single_body body mb-large">
+                        <div class="single_body body mb-medium">
+
+                            <div class="single_chapo big_typo">
+                                <?php the_field('eventDetail_shortText') ?>
+                            </div>
+
                             <?php the_content(); ?>
-
-                            <?php if ($eventDetail_mediaMarkup) { ?>
-                                <div class="mb-2"><?php echo $eventDetail_mediaMarkup; ?></div>
-                            <?php } ?>
-
                         </div>
 
 
-                        <div class="single_mentions">
 
-                            <?php if ($event_distribution) : ?>
-                                <h4 class="h_4 mb-05">
-                                    Distribution et mentions complètes
-                                </h4>
+                        <?php if ($event_distribution) : ?>
+                            <div class="single_mentions">
+                                <div class="entry-accordeon">
 
-                                <div class="mb-1">
-                                    <?php echo $event_distribution; ?>
+                                    <div class="accordeon-title flex --jstf --gap-xs">
+                                        <h3 class="h4_2">Distribution et mentions complètes</h3>
+
+                                        <span>
+						                    <?php get_template_part('Components/svgs/svg', 'plus'); ?>
+                                        </span>
+                                    </div>
+                                    <div class="accordeon-content">
+
+                                        <?php echo $event_distribution; ?>
+
+                                        <?php if ($event_mentions) :
+                                            echo $event_mentions;
+                                        endif; ?>
+                                            
+
+                                        <div class="">
+
+                                            <?php if ($attached) : ?>
+                                                <p class="attached-file">
+                                                    <a href="<?php echo $attached['url']; ?>" class="btn--big">
+                                                        Dossier de presse
+                                                    </a>
+                                                </p>
+                                            <?php endif; ?>
+
+                                            <?php if ($presskit) : ?>
+                                                <a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
+                                            <?php endif; ?>
+
+                                        </div>    
+                                    </div>
+                                
                                 </div>
+                            </div>
                             <?php endif; ?>
 
 
-                            <div class="">
 
-                                <?php
-                                if ($event_mentions) :
-                                    echo $event_mentions;
-                                endif; ?>
-
-                                <?php if ($attached) : ?>
-                                    <p class="attached-file">
-                                        <a href="<?php echo $attached['url']; ?>" class="btn--big">
-                                            Dossier de presse
-                                        </a>
-                                    </p>
-                                <?php endif; ?>
-
-                                <?php if ($presskit) : ?>
-                                    <a href="<?php echo $presskit['url']; ?>" class="btn--big">Dossier de presse</a>
-                                <?php endif; ?>
-
-                            </div>
-                        </div>
 
 	                </div>
                 </div>
