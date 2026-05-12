@@ -9,9 +9,11 @@
             <div class="">
                 <h2 class="h2"><?php echo $args['title']; ?></h2>
             </div>
+            <?php if( $args['label'] !== '') : ?>
             <div class="">
                 <a href="<?php echo $args['link']; ?>" class="btn"><?php echo $args['label']; ?></a>
             </div>
+            <?php endif; ?>
         </div>
         
         <div class="grid">
