@@ -316,7 +316,7 @@
                         </div>
 
                         <?php if ($services && !is_wp_error($services)) : ?>
-                            <div class="frame_row single_services flex --centered --gap-xs">
+                            <div class="frame_row single_services flex --centered --wrap --gap-s">
                                     <?php foreach ($services as $s) {
                                         $image = get_field('picto', 'services' . '_' . $s->term_id); ?>
                                         <img src="<?php echo $image; ?>" class="single_servicemedia">
