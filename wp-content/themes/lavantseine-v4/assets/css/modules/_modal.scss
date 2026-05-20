@@ -79,8 +79,8 @@
 	}
 
 .popin_inner {
-	max-width: 60vw;
-	max-height: 70vh;
+	max-width: 75vw;
+	max-height: 85vh;
 	box-shadow: 0 0 10px black;
 	position: relative;
     background-position: center 47%;
@@ -95,7 +95,7 @@
 		overflow-y: scroll;
 		height: 100%;
 		padding: 40px 100px 40px 40px;
-		max-height: 70vh;
+		max-height: 85vh;
 		@include up-to(large) {
 			padding: 60px 20px;
 	    	max-height: 90vh;
