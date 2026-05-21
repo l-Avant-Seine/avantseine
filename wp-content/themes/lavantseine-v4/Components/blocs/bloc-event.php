@@ -35,7 +35,7 @@
 
 	<article id="event-<?php the_ID(); ?>" class="bloc_event" itemscope itemtype="http://schema.org/Event">
 			
-		<a href="<?php the_permalink(); ?>" class="--block" rel="bookmark">
+		<a href="<?php the_permalink(); ?>" class="flex --col " rel="bookmark">
 
 			<div class="bloc_upper flex --jstf --hcentered --gap-s">
 
@@ -85,34 +85,36 @@
 			</div>
 
 
-			<div class="bloc_lower">
+			<div class="bloc_lower flex --col --jstf">
+				<div>
 
-				<div class="bloc_title mb-small">
-					<h3 class="h2_2" itemprop="name">	
-						<?php the_title(); ?>
-					</h3>
-				</div>
-
-				<div class="bloc_content flex --hbottom --jstf mb-small">
-
-					<div class="item-names label_1">
-						<?php if( get_field('noms_principaux') ) { ?>
-							<?php the_field( 'noms_principaux' ); ?>
-						<?php } ?>	
+					<div class="bloc_title mb-small">
+						<h3 class="h2_2" itemprop="name">	
+							<?php the_title(); ?>
+						</h3>
 					</div>
 
-						<div class="item-names txt-right meta">
-							<?php if ($age && !is_wp_error($age)) { ?>
-								<p class="meta">
-									<?php
-										foreach ($age as $term) {
-											echo $term->name;
-										}; ?>
-								</p>
-							<?php } ?>
+					<div class="bloc_content flex --hbottom --jstf mb-small">
+
+						<div class="item-names label_1">
+							<?php if( get_field('noms_principaux') ) { ?>
+								<?php the_field( 'noms_principaux' ); ?>
+							<?php } ?>	
 						</div>
 
-				</div>
+							<div class="item-names txt-right meta">
+								<?php if ($age && !is_wp_error($age)) { ?>
+									<p class="meta">
+										<?php
+											foreach ($age as $term) {
+												echo $term->name;
+											}; ?>
+									</p>
+								<?php } ?>
+							</div>
+
+					</div>
+				</div>				
 
 					<div class="bloc_cover_outer">
 

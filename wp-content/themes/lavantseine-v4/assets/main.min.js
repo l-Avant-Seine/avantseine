@@ -260,6 +260,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+  const checkHeights = () => {
+
+    let max_height = 0;
+    const blocs = document.querySelectorAll('.swiper-slide .bloc_event')
+    blocs.forEach( el => {
+      el.style.height = 'auto';
+      if( el.offsetHeight > max_height ) max_height = el.offsetHeight
+    })
+
+    blocs.forEach(el => {
+      el.style.height = `${max_height}px`
+    })
+  }
 
 
 
@@ -308,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then( () => {
             console.log('then')
+
             setTimeout( () => {
 
                   swiperCalendar = new Swiper('.swiper-calendar', {
@@ -367,6 +381,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                   });
 
+
+                  checkHeights()
 
             }, 1000)
         })
@@ -436,5 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* EVENTS */
 
   document.addEventListener("scroll", documentIsScrolling, false);
+  window.addEventListener("resize", () => {
+    checkHeights();
+  }); 
 
 })
