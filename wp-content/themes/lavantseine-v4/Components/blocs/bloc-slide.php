@@ -33,13 +33,13 @@
 <article class="bloc_slide">
 
 
-					<?php if( str_contains($video, '<iframe' ) ) : ?>
+					<?php if(  $video && str_contains($video, '<iframe' ) ) : ?>
 
 						<div class="plyr__video-embed js-player" id="player">
 							<?php echo $video; ?>
 						</div>
 
-					<?php elseif( $video !== '' ) : ?>
+					<?php elseif(  $video && $video !== '' ) : ?>
 
 						<div class="plyr__video-embed js-player" id="player">
 							  <iframe
