@@ -82,7 +82,7 @@
                     <div class="single_texts">
 
 
-                        <div class="single_body body mb-medium">
+                        <div class="single_body copy mb-medium">
 
                             <div class="single_chapo big_typo">
                                 <?php the_field('eventDetail_shortText') ?>
