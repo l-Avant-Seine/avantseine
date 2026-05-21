@@ -37,17 +37,17 @@
         left: 0;
         max-height: 300px;
     }
-    .plyr__video-embed {
-        aspect-ratio: unset;
-        iframe {
-            position: relative;
-            aspect-ratio: 16/9;
-            max-height: 80vh;
-            @include up-to(medium) {
-                aspect-ratio: 9/16;
-            }
-        }
-    }
+    // .plyr__video-embed {
+    //     aspect-ratio: unset;
+    //     iframe {
+    //         position: relative;
+    //         aspect-ratio: 16/9;
+    //         max-height: 80vh;
+    //         @include up-to(medium) {
+    //             aspect-ratio: 9/16;
+    //         }
+    //     }
+    // }
 
     .plyr--video .plyr__controls,
     .plyr--full-ui.plyr--video .plyr__control--overlaid {

@@ -157,16 +157,18 @@
 
                     <div class="single_frame mb-medium">
 
-                        <?php if($tags) :  $icon_name = ""; ?>
+                        <?php if($tags) :  $icon_name = ""; $tag_name = ""; ?>
                             <div class="frame_row --nopad">
                                 <span class="h4_2 flex --hcentered --gap-s">
                                     <?php foreach($tags as $tag) { 
         								$icon_name .= $tag->slug;
-								        $image = get_template_directory_uri() . '/assets/img/disciplines/' . $icon_name . '.png';  
+        								$tag_name .= $tag->name . ' ';
+                                    }
+                                    $image = get_template_directory_uri() . '/assets/img/disciplines/' . $icon_name . '.png'; 
                                     ?>
                                         <img src="<?php echo $image; ?>" class="single_taxmedia">
-                                        <?php echo $tag->name; ?>
-                                    <?php } ?></span>
+                                        <?php echo $tag_name; ?>
+                                    </span>
                             </div>
                         <?php endif; ?>
 
