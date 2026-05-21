@@ -180,9 +180,9 @@
                                         echo '<ul class=" no-bullets">';
                                             echo '<li class="frame_row flex --jstf --hcentered h4_2"><span>';
                                                 if (get_field('eventDetail_first_date_endtime') != '') {
-                                                    echo strftime('%A %d %B %G - %kh%M', $event_first_date);
+                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_first_date);
                                                 } else {
-                                                    echo strftime('%A %d %B %G - %kh%M', $event_first_date);
+                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_first_date);
                                                 }
 
                                                 if (get_field('eventDetail_first_date_endtime') != '') {
