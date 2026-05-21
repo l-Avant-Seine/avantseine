@@ -119,7 +119,6 @@ $marge-xxlarge: 240px;
     &.--justify {
         justify-content: space-between;
     }
-
     &.--wrap {
         display: flex;
         flex-wrap: wrap;
@@ -135,6 +134,17 @@ $marge-xxlarge: 240px;
     }
     &.--gap-l {
         gap: 80px;
+    }
+
+    .s_6col {
+        @include up-to(medium) {
+            width: 50%;
+        }
+    } 
+    .m_3col {
+        @include at-least(medium) {
+            width: 25%;
+        }
     }
 }
 
