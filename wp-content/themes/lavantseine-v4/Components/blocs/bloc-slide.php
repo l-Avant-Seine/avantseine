@@ -70,7 +70,7 @@
 								<div class="flex --gap-l">
 
 									<div>
-										<p class="label_1"><?php the_field('noms_principaux'); ?></p>
+										<p class="label_2 --uppercase"><?php the_field('noms_principaux'); ?></p>
 										<p class="label_2"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></p>
 
 										<?php if( !get_field('hide_booking_btn') ) : ?>
