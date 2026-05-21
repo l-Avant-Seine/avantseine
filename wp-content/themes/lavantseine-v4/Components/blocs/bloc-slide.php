@@ -15,7 +15,8 @@
 	$trenteans = get_field( 'trenteans' );
 	$logo_festival = get_field( 'event_festival_logo' );
 
-	$video = get_field( 'eventDetail_mediaMarkup' );
+	//$video = get_field( 'eventDetail_mediaMarkup' );
+	$video = get_field( 'event_vimeo_id' );
 	$event_landscape_media = get_post_meta( $post->ID, 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
 
@@ -42,7 +43,7 @@
 
 						<div class="plyr__video-embed js-player" id="player">
 							  <iframe
-								src="https://www.youtube.com/embed/<?php echo $video; ?>?origin=https://plyr.io&iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1&mute=1&autoplay=1"
+								src="https://player.vimeo.com/video/<?php echo $video; ?>?loop=true&amp;byline=false&amp;muted=true&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"
 								allowfullscreen
 								allowtransparency
 								allow="autoplay"
@@ -92,12 +93,13 @@
                         </div>
 
 
-		<?php $icon_name = ""; foreach($tags as $tag) { 
+		<?php $icon_name = ""; $tag_name = ""; foreach($tags as $tag) { 
 				$icon_name .= $tag->slug;
+				$tag_name .= $tag->name . ' ';
+		}
 				$image = get_template_directory_uri() . '/assets/img/disciplines/' . $icon_name . '-big.png';  
 		?>
 				<img class="bloc_texture" src="<?php echo $image; ?>">
-        <?php } ?>
 
 		
 </article>
