@@ -72,7 +72,7 @@
                         <span class="h4_2 flex --hcentered --gap-xs">
                             <?php foreach($tags as $tag) { 
 								$icon_name .= $tag->slug;
-                                $image = get_field('visuel_white', 'discipline' . '_' . $tag->term_id); 
+                                //$image = get_field('visuel_white', 'discipline' . '_' . $tag->term_id); 
 								$image = get_template_directory_uri() . '/assets/img/disciplines/' . $icon_name . '.png'; 
 							?>
                                 <span><?php echo $tag->name; ?></span>

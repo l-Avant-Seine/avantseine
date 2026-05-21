@@ -92,9 +92,11 @@
                         </div>
 
 
-		<?php foreach($tags as $tag) { 
-                $image = get_field('visuel_colored', 'discipline' . '_' . $tag->term_id); ?>
-                <img class="bloc_texture" src="<?php echo $image; ?>">
+		<?php $icon_name = ""; foreach($tags as $tag) { 
+				$icon_name .= $tag->slug;
+				$image = get_template_directory_uri() . '/assets/img/disciplines/' . $icon_name . '-big.png';  
+		?>
+				<img class="bloc_texture" src="<?php echo $image; ?>">
         <?php } ?>
 
 		

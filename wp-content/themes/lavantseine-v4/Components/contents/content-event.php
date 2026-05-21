@@ -157,11 +157,13 @@
 
                     <div class="single_frame mb-medium">
 
-                        <?php if($tags) : ?>
+                        <?php if($tags) :  $icon_name = ""; ?>
                             <div class="frame_row --nopad">
                                 <span class="h4_2 flex --hcentered --gap-s">
                                     <?php foreach($tags as $tag) { 
-                                        $image = get_field('visuel_white', 'discipline' . '_' . $tag->term_id); ?>
+        								$icon_name .= $tag->slug;
+								        $image = get_template_directory_uri() . '/assets/img/disciplines/' . $icon_name . '.png';  
+                                    ?>
                                         <img src="<?php echo $image; ?>" class="single_taxmedia">
                                         <?php echo $tag->name; ?>
                                     <?php } ?></span>
