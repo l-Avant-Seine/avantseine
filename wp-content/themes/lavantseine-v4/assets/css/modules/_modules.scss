@@ -299,10 +299,10 @@ section {
             justify-content: flex-end;
         }
         .month {
-            aspect-ratio: 4/3;
             color: var(--color-five);
             height: 75px;
             width: auto;
+            padding-left: 15px;
             .inner {
                 height: 100%;
                 width: 100%;
