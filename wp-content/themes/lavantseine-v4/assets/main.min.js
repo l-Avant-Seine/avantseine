@@ -2,6 +2,7 @@ console.log('script main')
 
 document.addEventListener('DOMContentLoaded', () => {
 
+console.log('BEGIN')
 
 
   /* VARIABLES */
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $main_nav = document.getElementById('site-navigation');
 
 
+console.log('STEP SWIPER')
 
   /* SWIPER */
   
@@ -121,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+console.log('HEAD')
 
 
   /* HEAD */
@@ -237,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+console.log('STEP ACCORDEON')
 
   /* ACCORDEONS */
   const accordeons = document.querySelectorAll('.entry-accordeon');
