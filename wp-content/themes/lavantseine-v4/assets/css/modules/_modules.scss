@@ -23,7 +23,8 @@ section {
 .mod_slider {
     padding: 0;
     position: relative;
-
+    background-color: var(--color-one);
+    
     .mod_nav {
         .swiper-btn-prev {
             position: absolute;
@@ -359,7 +360,7 @@ section {
         justify-content: center;
         cursor: pointer;
         transition: all .3s;
-        
+
         path {
             stroke: white;
         }
