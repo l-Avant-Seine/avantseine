@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const swiperVisuels = new Swiper('.swiper-visuels', {
     spaceBetween : 40,
-    centeredSlides: true,
+    //centeredSlides: true,
     navigation: {
       nextEl: '.swiper-btn-next',
       prevEl: '.swiper-btn-prev',
