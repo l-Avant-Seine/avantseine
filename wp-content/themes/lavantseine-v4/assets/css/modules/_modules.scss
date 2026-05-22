@@ -351,11 +351,12 @@ section {
         position: absolute;
         z-index: 3;
         height: 100%;
-        width: 3vw;
+        width: 5vw;
         top: 0;
         //background-color: var(--color-one);
         display: flex;
         align-items: center;
+        justify-content: center;
         cursor: pointer;
         
         path {
@@ -363,12 +364,10 @@ section {
         }
     }
     .cal-btn-prev {
-        left: 20px;
-        justify-content: flex-start;
+        left: 0;
     }
     .cal-btn-next {
-        right: 20px;
-        justify-content: flex-end;
+        right: 0;
     }
 }
 
