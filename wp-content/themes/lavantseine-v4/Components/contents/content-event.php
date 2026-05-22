@@ -205,7 +205,7 @@
                                             foreach ($event_other_dates as $date) {
                                                 $date = strtotime($date['date']);
                                                 if ($date != '') :
-                                                    echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>' . strftime('%A %d %b %G - %kh%M', $date) . '</span><a href="' . get_field('eventDetail_dealer-link') . '" target="_blank" class="btn">Réserver</a></li>';
+                                                    echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>' . strftime('%a %d.%m.%y - %kh%M', $date) . '</span><a href="' . get_field('eventDetail_dealer-link') . '" target="_blank" class="btn">Réserver</a></li>';
                                                 endif;
                                             }
                                         endif;
@@ -213,9 +213,9 @@
                                         if ($event_last_date && $event_last_date != $event_first_date) :
                                             echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>';
                                                 if (get_field('eventDetail_last_date_endtime') != '') {
-                                                    echo strftime('%A %d %B %G - %kh%M', $event_last_date);
+                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_last_date);
                                                 } else {
-                                                    echo strftime('%A %d %B %G - %kh%M', $event_last_date);
+                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_last_date);
                                                 }
                                                 if (get_field('eventDetail_last_date_endtime') != '') {
                                                     echo ' à ' . get_field('eventDetail_last_date_endtime');
