@@ -276,7 +276,7 @@ section {
         .dates-btn-prev,
         .dates-btn-next {
             position: absolute;
-            z-index: 3;
+            z-index: 1;
             cursor: pointer;
             background-color: var(--color-one);
             height: 100%;
@@ -362,7 +362,7 @@ section {
         cursor: pointer;
         transition: all .3s;
         padding-top: 40px;
-        
+
         path {
             stroke: white;
                 stroke-width: 2px;
