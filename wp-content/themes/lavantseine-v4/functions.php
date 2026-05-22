@@ -240,10 +240,11 @@ function get_events() {
 		if( is_array( $event_other_dates ) ) {
 			foreach( $event_other_dates as $o) {
 				if( isset($o['date']) && $o['date'] !== '' ) {
-					$d = new DateTime( date('m/d/Y', $o['date'] ) );
+					$unixtimestamp = strtotime($o['date']);
+					$d = new DateTime( date('m/d/Y',  $unixtimestamp) );
 					$d->modify('midnight'); 
 					$d_ts = strtotime($d->format('Y-m-d H:i:s'));
-					$dates[ $o['date']  ] = array( 'id' => $post->ID, 'day_ts' => strval($d_ts) );
+					$dates[ $unixtimestamp  ] = array( 'id' => $post->ID, 'day_ts' => strval($d_ts) );
 				}
 			}
 		}
