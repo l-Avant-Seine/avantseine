@@ -24,7 +24,7 @@ section {
     padding: 0;
     position: relative;
     background-color: var(--color-one);
-    
+
     .mod_nav {
         .swiper-btn-prev {
             position: absolute;
@@ -309,6 +309,7 @@ section {
             .inner {
                 height: 100%;
                 width: 100%;
+                line-height: 0;
             }
         }
         .date {
