@@ -73,9 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const swiperVisuels = new Swiper('.swiper-visuels', {
-    slidesPerView : 2,
     spaceBetween : 40,
-    loop: true,
     centeredSlides: true,
     navigation: {
       nextEl: '.swiper-btn-next',
@@ -88,7 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       1000: {
         slidesPerView : 2,
-        slidesPerGroup: 2,
+        slidesPerGroup: 1,
+      },
+      1600: {
+        slidesPerView : 3,
+        slidesPerGroup: 1,
       }
     }
   });
