@@ -20,6 +20,8 @@
     $event_last_date = htmlspecialchars(get_field('eventDetail_last_date'));
     $event_last_date_babysitting = get_field('eventDetail_last_date_babysitting');
 
+    $date_format = 'D d.m.y -  G\hi';
+    
     $exhibition = get_field('eventDetail_exhibition');
 
     $event_other_dates = get_field('eventDetail_otherdates');
@@ -47,23 +49,6 @@
     if ($event_first_date_babysitting || $event_last_date_babysitting) {
         $babysitting = true;
     }
-
-    if (have_rows('eventDetail_otherdates')) :
-        $otherdates = '';
-
-        while (have_rows('eventDetail_otherdates')) : the_row();
-            $otherdates .= '<li class="frame_row h4_2">';
-            $otherdates .= get_sub_field('date');
-            //$otherdates .= strftime('%A %d %B %G - %kh%M', strtotime( get_sub_field('date') ) );
-
-            if (get_sub_field('date_endtime') != '') {
-                $otherdates .= ' à ' . get_sub_field('date_endtime');
-            }
-
-            $otherdates .= '</li>';
-        endwhile;
-
-    endif;
     ?>
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -184,9 +169,9 @@
                                         echo '<ul class=" no-bullets">';
                                             echo '<li class="frame_row flex --jstf --hcentered h4_2"><span>';
                                                 if (get_field('eventDetail_first_date_endtime') != '') {
-                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_first_date);
+                                                    echo date_i18n($date_format, $event_first_date);
                                                 } else {
-                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_first_date);
+                                                    echo date_i18n($date_format, $event_first_date);
                                                 }
 
                                                 if (get_field('eventDetail_first_date_endtime') != '') {
@@ -197,15 +182,12 @@
 
                                             echo '</li>';
 
-                                        if (isset($otherdates)) {
-                                            echo $otherdates;
-                                        }
-
                                         if ($event_other_dates) :
                                             foreach ($event_other_dates as $date) {
-                                                $date = strtotime($date['date']);
-                                                if ($date != '') :
-                                                    echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>' . strftime('%a %d.%m.%y - %kh%M', $date) . '</span><a href="' . get_field('eventDetail_dealer-link') . '" target="_blank" class="btn">Réserver</a></li>';
+                                                $unixtimestamp = strtotime($date['date']);
+
+                                                if ($unixtimestamp != '') :
+                                                    echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>' . date_i18n($date_format, $unixtimestamp) . '</span><a href="' . get_field('eventDetail_dealer-link') . '" target="_blank" class="btn">Réserver</a></li>';
                                                 endif;
                                             }
                                         endif;
@@ -213,9 +195,9 @@
                                         if ($event_last_date && $event_last_date != $event_first_date) :
                                             echo '<li class="frame_row h4_2 flex --jstf --hcentered"><span>';
                                                 if (get_field('eventDetail_last_date_endtime') != '') {
-                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_last_date);
+                                                    echo date_i18n($date_format, $event_last_date);
                                                 } else {
-                                                    echo strftime('%a %d.%m.%y - %kh%M', $event_last_date);
+                                                    echo date_i18n($date_format, $event_last_date);
                                                 }
                                                 if (get_field('eventDetail_last_date_endtime') != '') {
                                                     echo ' à ' . get_field('eventDetail_last_date_endtime');

@@ -691,7 +691,7 @@
                         "id": ""
                     },
                     "display_format": "d.m.Y H:i",
-                    "return_format": "d\/m\/Y g:i a",
+                    "return_format": "d.m.Y g:i a",
                     "first_day": 1,
                     "default_to_current_date": 0,
                     "allow_in_bindings": 1,
@@ -805,5 +805,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1779378873
+    "modified": 1779431395
 }
