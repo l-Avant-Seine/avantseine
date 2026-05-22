@@ -81,8 +81,10 @@ End Facebook Pixel Code -->
 					?>
 			</nav><!-- #site-navigation -->
 
+
 			
-			<div class="header-cta">
+			<div class="header-cta flex --gap-xs --centered">
+				<?php get_search_form(); ?>
 				<a href="<?php the_field('link_billetterie', 'option'); ?>" target="_blank" class="btn">Billetterie</a>
 			</div>
 

@@ -71,3 +71,14 @@
         }
     }
 }
+
+.search-content {
+    background-color: $gray_light;
+}
+.--search {
+        flex-wrap: wrap;
+
+        & > * {
+        flex: 0 0 calc(25% - 30px);
+    }
+}

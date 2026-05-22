@@ -16,20 +16,25 @@ button {
 	border: none;
 }
 .btn {
-	display: inline-block;
 	color: black;
 	border: 1px solid black;
 	background-color: white;
-	padding: 10px 20px;
 	border-radius: 32px;
 	font-size: 1.5rem;
 	line-height: 1.2;
 	font-weight: $book;
 	transition: background-color .3s, color .3s;
 
-	&:hover {
+	&:not(.--nohover):hover {
 		background-color: black;
 		color: white;
+	}
+
+	&:not(.flex) {
+		display: inline-block;
+	}
+	&:not(.--nopad) {
+		padding: 10px 20px;
 	}
 }
 

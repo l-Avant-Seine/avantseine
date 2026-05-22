@@ -455,6 +455,13 @@ console.log('STEP ACCORDEON')
     });
   }
 
+
+  const searchform_trigger = document.querySelector('#searchform_trigger');
+  const searchform = document.querySelector('#searchform');
+  searchform_trigger.addEventListener('click', () => {
+    searchform.classList.toggle('closed');
+  })
+
   /* EVENTS */
 
   document.addEventListener("scroll", documentIsScrolling, false);

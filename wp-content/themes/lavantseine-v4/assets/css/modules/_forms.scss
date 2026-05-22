@@ -1,3 +1,23 @@
 
 
+.searchform_outer {
+}
+.searchbar {
+    transition: all .4s;
+    max-width: 500px;
+    &.closed {
+        max-width: 0;
+        overflow: hidden;
+    }
 
+    input[type="text"] {
+        border-radius: 30px;
+        border: none;
+        padding: 10px;
+      max-width: 200px;
+    }
+}
+
+#searchform_trigger {
+
+}

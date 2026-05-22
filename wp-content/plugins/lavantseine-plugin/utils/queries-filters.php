@@ -15,15 +15,3 @@ add_action('pre_get_posts','taxonomies_filter');
 
 
 
-
-
-function search_filter($query) {
-  if ( !is_admin() && $query->is_main_query() ) {
-    if ($query->is_search) {
-      $query->set('post_type', array( 'post', 'event', 'page' ) );
-      $query->set('orderby', 'post_type' );
-    }
-  }
-}
-
-add_action('pre_get_posts','search_filter');

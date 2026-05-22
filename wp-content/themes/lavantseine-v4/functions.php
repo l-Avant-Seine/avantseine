@@ -374,14 +374,7 @@ function get_events() {
 	    $content = ob_get_clean();
     	wp_send_json_success( $content );
 		die();
-	?>
-	
-
-
-	<?php 
 }
-
-
 
 
 
@@ -391,8 +384,6 @@ function custom_excerpt_length( $length ) {
 	return 60;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-
-
 
 
 
@@ -410,7 +401,7 @@ function accordeon_shortcode( $atts , $content = null ) {
 	);
 	$titre = $atts['titre'];
 
-  $return_string = '<div class="entry-accordeon">'; 
+  	$return_string = '<div class="entry-accordeon">'; 
 
    	$return_string .= '<div class="accordeon-title flex --gap-xs"><h3 class="h_3 title">'.$titre.'</h3><span><svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.0457 0.353516L7.19922 7.19995L0.352783 0.353516" stroke="#000"/></svg></span></div>';
    	$return_string .= '<div class="accordeon-content">'; 
@@ -500,3 +491,16 @@ add_action('init', function () {
         remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
     }
 });
+
+
+	function search_filter($query) {
+		if ( !is_admin() && $query->is_main_query() ) {
+			if ($query->is_search) {
+			$query->set('post_type', array( 'post', 'event', 'page' ) );
+			$query->set('post_status', 'publish' );
+			$query->set('orderby', 'date' );
+			$query->set('order', 'DESC' );
+			}
+		}
+	}
+add_action('pre_get_posts','search_filter');
