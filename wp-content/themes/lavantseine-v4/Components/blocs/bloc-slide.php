@@ -68,7 +68,7 @@
 									</a>
 								<?php endif; ?>
 								
-								<div class="flex --gap-l">
+								<div class="flex --gap-m">
 
 									<div>
 										<p class="label_2 --uppercase"><?php the_field('noms_principaux'); ?></p>
