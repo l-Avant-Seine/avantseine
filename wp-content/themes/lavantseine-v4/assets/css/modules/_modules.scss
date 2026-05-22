@@ -351,7 +351,7 @@ section {
         position: absolute;
         z-index: 3;
         height: 100%;
-        width: 5vw;
+        width: calc(5vw - 25px);
         top: 0;
         //background-color: var(--color-one);
         display: flex;
@@ -361,6 +361,10 @@ section {
         
         path {
             stroke: white;
+        }
+
+        &:hover {
+            background-color: rgba(255,255,255,.4);
         }
     }
     .cal-btn-prev {
