@@ -387,7 +387,6 @@
 	            "name": "l'Avant Seine, Théatre de Colombes"
 	        },
 	        "name": "<?php echo get_the_title(); ?>",
-	        "startDate": "<?php echo strftime('%Y-%m-%dT%H:%M:00', $event_first_date); ?>",
 	        "duration": "<?php echo $event_duration; ?>"
 	    }
 	</script>
