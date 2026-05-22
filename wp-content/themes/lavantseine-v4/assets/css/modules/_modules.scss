@@ -234,7 +234,8 @@ section {
 
         .mod_color {
             background-color: var(--color-one);
-            min-height: 75%;
+            //min-height: 75%;
+            flex: 1 1 auto;
         }
         .mod_texture {
             &.--inversed {
