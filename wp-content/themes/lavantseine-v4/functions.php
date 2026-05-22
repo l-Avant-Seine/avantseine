@@ -197,7 +197,7 @@ function get_events() {
 		IntlDateFormatter::FULL,
 		'Europe/Paris',
 		IntlDateFormatter::GREGORIAN,
-		'YY'
+		'YYYY'
 	);
 	//https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax 
 
