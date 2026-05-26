@@ -30,7 +30,7 @@
                     <h2 class="<?php echo $simple ? 'h2_3' : 'h1_2'; ?>"><?php echo $title; ?></h2>
                 </div>
 
-                <div class="mod_nav flex --gap-xs">
+                <div class="mod_nav flex --end --gap-xs">
                     <div class="swiper-btn-prev">
                         <?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
                     </div>
