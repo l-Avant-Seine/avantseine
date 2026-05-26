@@ -71,8 +71,8 @@
 								<div class="flex --gap-m">
 
 									<div>
-										<p class="label_2 --uppercase  mb-small"><?php the_field('noms_principaux'); ?></p>
-										<p class="label_2 mb-small"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></p>
+										<p class="label_2 --uppercase  mb-xsmall"><?php the_field('noms_principaux'); ?></p>
+										<p class="label_2 mb-xsmall"><?php echo get_event_dates($event_first_date, $event_last_date, $event_other_dates, $exhibition); ?></p>
 
 										<?php if( !get_field('hide_booking_btn') ) : ?>
 											<?php if (intval($event_last_date) > $today) : ?>
