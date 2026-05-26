@@ -1,10 +1,22 @@
 
 
 .searchform_outer {
+    position: relative;
 }
 .searchbar {
+    position: absolute;
+    right: 60px;
     transition: all .4s;
     max-width: 500px;
+    overflow: hidden;
+
+    &:not(.closed) {
+        padding: 2px;
+        border: 1px solid black;
+        border-radius: 30px;
+        background-color: white;
+
+    }
     &.closed {
         max-width: 0;
         overflow: hidden;
@@ -14,10 +26,10 @@
         border-radius: 30px;
         border: none;
         padding: 10px;
-      max-width: 200px;
+        max-width: 300px;
     }
+
 }
 
 #searchform_trigger {
-
 }

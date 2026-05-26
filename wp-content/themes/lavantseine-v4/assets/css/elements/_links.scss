@@ -24,10 +24,15 @@ button {
 	line-height: 1.2;
 	font-weight: $book;
 	transition: background-color .3s, color .3s;
-
+	cursor: pointer;
+	
 	&:not(.--nohover):hover {
 		background-color: black;
 		color: white;
+
+		path {
+			fill: white;
+		}
 	}
 
 	&:not(.flex) {

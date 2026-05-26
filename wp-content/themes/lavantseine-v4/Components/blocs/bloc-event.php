@@ -108,7 +108,9 @@
 						</div>
 
 							<div class="item-names txt-right meta">
-								<?php echo get_event_hour( intval($args['date']) ); ?>
+
+							
+								<?php echo isset($args['date']) ? get_event_hour( intval($args['date']) ) : ''; ?>
 
 
 								<?php if ($age && !is_wp_error($age)) { ?>
