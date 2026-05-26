@@ -5,10 +5,17 @@
 }
 .searchbar {
     position: absolute;
-    right: 60px;
     transition: all .4s;
     max-width: 500px;
     overflow: hidden;
+    z-index: 99;
+
+    @include up-to(medium) {
+        right: -120px;
+    }
+    @include at-least(medium) {
+        right: 60px;
+    }
 
     &:not(.closed) {
         padding: 2px;

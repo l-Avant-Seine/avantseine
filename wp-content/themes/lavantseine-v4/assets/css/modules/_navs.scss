@@ -6,6 +6,7 @@
     padding-right: 3vw;
     padding-left: 3vw;
     position: relative;
+    min-height: 100px;
 
     @include up-to(medium) {
         padding-right: 20px;
