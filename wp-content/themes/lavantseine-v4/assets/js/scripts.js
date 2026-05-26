@@ -174,8 +174,9 @@ console.log('HEAD')
     }
 
 
-    const item_opened = document.querySelector('.current-page-parent .sub-menu');
+    const item_opened = document.querySelector('.current-menu-ancestor .sub-menu');
     if(item_opened) item_opened.classList.add('displayed');
+
 
     const parent_items = document.querySelectorAll('.menu-item-has-children > a');
     const sub_menus = document.querySelectorAll('.sub-menu');
@@ -469,4 +470,5 @@ console.log('STEP ACCORDEON')
     checkHeights();
   }); 
 
+  console.log('ENDING STEP')
 })
