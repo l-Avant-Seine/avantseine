@@ -160,7 +160,37 @@ if ( ! function_exists( 'get_event_dates' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'get_event_date' ) ) :
 
+	function get_event_date( $date ) {
+	
+		$date_format = 'D d.m.y';
+		$string = "";
+
+		$string .= date_i18n($date_format, $date );
+
+		//$string .= strftime('%M', $date ) === '00' ? strftime('%kh', $date ) : strftime('%kh%M', $date );
+
+		return $string;
+
+	}
+
+endif;
+
+if ( ! function_exists( 'get_event_hour' ) ) :
+
+	function get_event_hour( $date ) {
+	
+		$hour_format = 'G\hi';
+		$string = "";
+
+		$string .= date_i18n('i', $date ) === '00' ? date_i18n('G\h', $date ) : date_i18n($hour_format, $date );
+
+		return $string;
+
+	}
+
+endif;
 
 
 

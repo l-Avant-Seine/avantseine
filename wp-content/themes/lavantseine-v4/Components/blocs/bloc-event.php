@@ -57,7 +57,7 @@
 										echo "Demain";
 										break;
 									default:
-										echo get_event_dates( intval($args['date']), intval($args['date']) );
+										echo get_event_date( intval($args['date']) );
 								}
 
 							} 
@@ -95,6 +95,10 @@
 						</h3>
 					</div>
 
+				</div>				
+
+				<div>
+
 					<div class="bloc_content flex --hbottom --jstf mb-small">
 
 						<div class="item-names label_1">
@@ -104,6 +108,9 @@
 						</div>
 
 							<div class="item-names txt-right meta">
+								<?php echo get_event_hour( intval($args['date']) ); ?>
+
+
 								<?php if ($age && !is_wp_error($age)) { ?>
 									<p class="meta">
 										<?php
@@ -115,7 +122,6 @@
 							</div>
 
 					</div>
-				</div>				
 
 					<div class="bloc_cover_outer">
 
@@ -138,7 +144,7 @@
 
 						<img class="bloc_img" src="<?php the_post_thumbnail_url('featured-post-thumbnail'); ?>">
 					</div>
-					
+				</div>
 			</div>
 
 		</a>
