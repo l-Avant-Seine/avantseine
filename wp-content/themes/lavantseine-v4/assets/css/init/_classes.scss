@@ -136,14 +136,30 @@ $marge-xxlarge: 240px;
         gap: 80px;
     }
 
+    .s_12col {
+        @include up-to(medium) {
+            width: 100%;
+        }
+    }
+
     .s_6col {
         @include up-to(medium) {
-            width: 50%;
+            width: 48%;
         }
     } 
     .m_3col {
         @include at-least(medium) {
-            width: 25%;
+            width: 23%;
+        }
+    }
+    .m_6col {
+        @include at-least(medium) {
+            width: 48%;
+        }
+    }
+    .l_3col {
+        @include at-least(large) {
+            width: 23%;
         }
     }
 }

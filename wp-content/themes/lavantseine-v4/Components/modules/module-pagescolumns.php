@@ -16,10 +16,10 @@
             <?php endif; ?>
         </div>
         
-        <div class="flex --justf">
+        <div class="flex --justf --wrap --gap-s">
             <?php foreach ( $posts as $key => $post) : setup_postdata( $post ); ?>
 
-                <div class="s_6col m_3col">
+                <div class="s_12col m_6col l_3col">
 
                     <a href="<?php the_permalink(); ?>" class="flex --jstf --col">
 
