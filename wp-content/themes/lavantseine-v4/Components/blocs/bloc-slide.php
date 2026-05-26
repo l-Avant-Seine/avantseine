@@ -82,7 +82,7 @@
 									</div>
 
 									<div class="">
-										<?php if( $logo_festival && $linked) : ?>
+										<?php if( $logo_festival ) : ?>
 											<img src="<?php echo $logo_festival; ?>" class="bloc_festival">
 										<?php endif; ?>
 									</div>
