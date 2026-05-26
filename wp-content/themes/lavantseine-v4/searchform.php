@@ -14,6 +14,6 @@
     </form>
 
     <button id="searchform_trigger" class="btn">
-        <?php get_template_part('Components/svgs/svg', 'plus'); ?>
+        <?php get_template_part('Components/svgs/svg', 'loupe'); ?>
     </button>
 </div>
