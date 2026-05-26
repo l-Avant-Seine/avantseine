@@ -221,9 +221,9 @@ section {
     }
     .mod_title {
         color: var(--color-five);
-        margin-left: 5vw;
-        margin-right: 5vw;
-        margin-bottom: 40px;
+        // margin-left: 5vw;
+        // margin-right: 5vw;
+        // margin-bottom: 40px;
     }
     .mod_bg {
         position: absolute;
@@ -342,7 +342,7 @@ section {
         position: relative;
         // margin-left: 2vw;
         // margin-right: 2vw;
-        padding: 0 5vw;
+        margin: 0 5vw;
         overflow: hidden;
         @include up-to(large) {
             // margin-left: 2vw;
@@ -351,32 +351,21 @@ section {
     }
     .cal-btn-prev,
     .cal-btn-next {
-        position: absolute;
         z-index: 3;
-        height: 100%;
-        width: calc(5vw - 25px);
-        top: 0;
-        //background-color: var(--color-one);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all .3s;
-        padding-top: 40px;
 
         path {
             stroke: white;
-                stroke-width: 2px;
-        }
-        svg {
-            width: 34px;
-            height: 34px;
+            //stroke-width: 2px;
         }
 
         &:hover {
-            background-color: rgba(255,255,255,.4);
             path {
-                stroke: black;
+                //stroke: black;
             }
         }
     }
