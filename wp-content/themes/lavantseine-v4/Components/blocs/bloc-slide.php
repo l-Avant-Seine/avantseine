@@ -62,7 +62,7 @@
 									<a class="block" href="<?php the_permalink(); ?>">
 								<?php endif; ?>
                                 
-									<h2 class="h1 "><?php the_title(); ?></h2>
+									<h2 class="h1 mb-xsmall"><?php the_title(); ?></h2>
 
 								<?php if($linked) : ?>
 									</a>
