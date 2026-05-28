@@ -343,17 +343,17 @@ function get_events() {
 
 		<div class="swiper-calendar">
 
-			<div class="flex --jstf mb-medium">
+			<div class="flex --gap-m mb-medium">
 				<div class="mod_title">
 					<h2 class="h2"><?php echo  $title; ?></h2>
 				</div>
 
-				<div class="cal-nav flex --gap-s">
+				<div class="cal-nav flex --gap-xs">
 					<div class="cal-btn-prev">
-						<?php get_template_part('Components/svgs/svg', 'arrow-left'); ?>
+						<?php get_template_part('Components/svgs/svg', 'arrow-left-short'); ?>
 					</div>
 					<div class="cal-btn-next">
-						<?php get_template_part('Components/svgs/svg', 'arrow'); ?> 
+						<?php get_template_part('Components/svgs/svg', 'arrow-short'); ?> 
 					</div>
 				</div>
 
