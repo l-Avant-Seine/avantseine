@@ -19,9 +19,6 @@ console.log('STEP SWIPER')
   const swiperCover = new Swiper('.swiper-cover', {
     slidesPerView : 1,
     spaceBetween : 0,
-    // autoplay: {
-    //   delay: 4000
-    // },
     loop: true,
     navigation: {
       nextEl: '.swiper-btn-next',
@@ -59,7 +56,7 @@ console.log('STEP SWIPER')
       prevEl: '.swiper-btn-prev',
     },
     breakpoints: {
-      320: {
+      200: {
         slidesPerView : 1.2,
         slidesPerGroup: 1,
       },
@@ -82,7 +79,7 @@ console.log('STEP SWIPER')
       prevEl: '.swiper-btn-prev',
     },
     breakpoints: {
-      320: {
+      200: {
         slidesPerView : 1.2,
         slidesPerGroup: 1,
       },
@@ -107,7 +104,7 @@ console.log('STEP SWIPER')
       prevEl: '.swiper-btn-prev',
     },
     breakpoints: {
-      320: {
+      200: {
         slidesPerView : 1.2,
         slidesPerGroup: 1,
       },
@@ -341,7 +338,7 @@ console.log('STEP ACCORDEON')
                       prevEl: '.cal-btn-prev',
                     },
                     breakpoints: {
-                      320: {
+                      200: {
                         slidesPerView : 1.2,
                         slidesPerGroup: 1,
                       },
@@ -373,7 +370,7 @@ console.log('STEP ACCORDEON')
                       prevEl: '.dates-btn-prev',
                     },
                     breakpoints: {
-                      320: {
+                      200: {
                         slidesPerGroup: 4,
                       },
                       820: {
