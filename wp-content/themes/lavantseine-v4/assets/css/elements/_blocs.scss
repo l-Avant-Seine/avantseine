@@ -68,6 +68,10 @@
 .bloc_event {
     background-color: white;
     
+    .archive_item & {
+        height: 100%;
+    }
+
     a {
         height: 100%;
     }

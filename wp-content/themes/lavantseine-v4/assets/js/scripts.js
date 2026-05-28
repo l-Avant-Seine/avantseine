@@ -264,23 +264,40 @@ console.log('STEP ACCORDEON')
   }
 
 
-  const checkHeights = () => {
+
+    /*
+    * EVENT BLOCS HEIGHTS 
+    */ 
+
+  const checkHeights = ( elements ) => {
 
     let max_height = 0;
-    const blocs = document.querySelectorAll('.swiper-slide .bloc_event')
-    blocs.forEach( el => {
+    elements.forEach( el => {
       el.style.height = 'auto';
       if( el.offsetHeight > max_height ) max_height = el.offsetHeight
     })
 
-    blocs.forEach(el => {
+    elements.forEach(el => {
       el.style.height = `${max_height}px`
     })
   }
 
+  const archive_lists = document.querySelectorAll('.archive_list')
+  archive_lists.forEach( el => {
+    const archive_items = el.querySelectorAll('.archive_item')
+    if( archive_items !== undefined ) {
+      checkHeights( archive_items )
+    }
+  });
 
 
 
+
+
+
+    /*
+    * CALANDAR 
+    */ 
   const calendar = document.querySelector('.mod_calendar');
 
   if( calendar ) {
@@ -385,8 +402,10 @@ console.log('STEP ACCORDEON')
                     }
                   });
 
-
-                  checkHeights()
+                const blocs = document.querySelectorAll('.swiper-calendar .bloc_event')
+                if( blocs !== undefined ) {
+                  checkHeights( blocs )
+                }
 
             }, 1000)
         })
