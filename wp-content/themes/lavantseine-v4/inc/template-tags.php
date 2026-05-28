@@ -237,7 +237,7 @@ if ( ! function_exists( 'custom_taxonomy_list' ) ) :
  *
  * @return void
  */
-	function custom_taxonomy_list( $taxonomy, $orderby = 'date', $order = 'DESC', $limit = '-1', $name, $show_option_all = null ) {
+	function custom_taxonomy_list( $taxonomy, $name, $orderby = 'date', $order = 'DESC', $limit = '-1', $show_option_all = null ) {
 
 			$args = array(
 				'orderby' 	=> $orderby,
@@ -275,7 +275,7 @@ if ( ! function_exists( 'custom_taxonomy_buttons' ) ) :
  *
  * @return void
  */
-	function custom_taxonomy_buttons( $taxonomy, $orderby = 'date', $order = 'DESC', $limit = '-1', $name, $show_option_all = null ) {
+	function custom_taxonomy_buttons( $taxonomy, $name, $orderby = 'date', $order = 'DESC', $limit = '-1', $show_option_all = null ) {
 
 	$discipline = get_query_var( 'discipline' );
 
