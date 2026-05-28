@@ -51,9 +51,9 @@ console.log('STEP SWIPER')
 
   const swiperSpectacles = new Swiper('.swiper-spectacles', {
     slidesPerView : 4,
-    slidesPerGroup: 3,
+    slidesPerGroup: 2,
     spaceBetween : 20,
-    loop: true,
+    loop: false,
     navigation: {
       nextEl: '.swiper-btn-next',
       prevEl: '.swiper-btn-prev',
@@ -69,7 +69,7 @@ console.log('STEP SWIPER')
       },
       1000: {
         slidesPerView : 4,
-        slidesPerGroup: 3,
+        slidesPerGroup: 2,
       }
     }
   });
