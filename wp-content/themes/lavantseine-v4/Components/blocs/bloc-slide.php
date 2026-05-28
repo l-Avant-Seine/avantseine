@@ -93,13 +93,16 @@
                         </div>
 
 
-		<?php $icon_name = ""; $tag_name = ""; foreach($tags as $tag) { 
+		<?php $icon_name = ""; $tag_name = ""; if( $tags) : foreach($tags as $tag) { 
 				$icon_name .= $tag->slug;
 				$tag_name .= $tag->name . ' ';
 		}
 				$image = get_template_directory_uri() . '/assets/img/disciplines/' . $icon_name . '-big.png';  
 		?>
 				<img class="bloc_texture" src="<?php echo $image; ?>">
+
+
+		<?php endif; ?>
 
 		
 </article>
