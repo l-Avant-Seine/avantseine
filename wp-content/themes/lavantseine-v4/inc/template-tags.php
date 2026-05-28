@@ -200,7 +200,7 @@ if ( ! function_exists( 'custom_taxonomy_dropdown' ) ) :
  *
  * @return void
  */
-	function custom_taxonomy_dropdown( $taxonomy, $orderby = 'date', $order = 'DESC', $limit = '-1', $name, $show_option_all = null, $show_option_none = null  ) {
+	function custom_taxonomy_dropdown( $taxonomy, $name, $orderby = 'date', $order = 'DESC', $limit = '-1', $show_option_all = null, $show_option_none = null  ) {
 
 			$args = array(
 				'orderby' 	=> $orderby,
