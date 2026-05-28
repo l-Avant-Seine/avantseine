@@ -11,6 +11,22 @@ console.log('BEGIN')
   $main = document.getElementById('primary');
   $main_nav = document.getElementById('site-navigation');
 
+  /* UTILS */
+
+    const checkHeights = ( elements ) => {
+
+    let max_height = 0;
+    elements.forEach( el => {
+      el.style.height = 'auto';
+      if( el.offsetHeight > max_height ) max_height = el.offsetHeight
+    })
+
+    elements.forEach(el => {
+      el.style.height = `${max_height}px`
+    })
+  }
+
+
 
 console.log('STEP SWIPER')
 
@@ -67,6 +83,16 @@ console.log('STEP SWIPER')
       1000: {
         slidesPerView : 4,
         slidesPerGroup: 2,
+      }
+    },
+    on: {
+      init: function() {
+        console.log('swiper init');
+       
+        const blocs = document.querySelectorAll('.swiper-spectacles .bloc_event')
+                if( blocs !== undefined ) {
+                  checkHeights( blocs )
+                }
       }
     }
   });
@@ -269,18 +295,6 @@ console.log('STEP ACCORDEON')
     * EVENT BLOCS HEIGHTS 
     */ 
 
-  const checkHeights = ( elements ) => {
-
-    let max_height = 0;
-    elements.forEach( el => {
-      el.style.height = 'auto';
-      if( el.offsetHeight > max_height ) max_height = el.offsetHeight
-    })
-
-    elements.forEach(el => {
-      el.style.height = `${max_height}px`
-    })
-  }
 
   const archive_lists = document.querySelectorAll('.archive_list')
   archive_lists.forEach( el => {
