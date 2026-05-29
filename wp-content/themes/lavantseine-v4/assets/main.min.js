@@ -56,6 +56,24 @@ console.log('STEP SWIPER')
               loop: { active: true },
               youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 }
             })
+
+            const sound_trigger = p.previousElementSibling;
+            sound_trigger.addEventListener('click', () => {
+
+              if( sound_trigger.classList.contains('on') ) {
+                console.log('off')
+                player.volume = 0;
+                sound_trigger.classList.remove('on')
+              }
+              else {
+                console.log('off')
+                player.volume = 1;
+                sound_trigger.classList.add('on')
+              }
+              
+            })
+
+            
           });
         }
       }
@@ -494,14 +512,18 @@ console.log('STEP ACCORDEON')
 
       const sound_trigger = document.querySelector('#trigger_sound');
       sound_trigger.addEventListener('click', () => {
+
         if( sound_trigger.classList.contains('on') ) {
+          console.log('off')
           player.volume = 0;
           sound_trigger.classList.remove('on')
         }
         else {
+          console.log('off')
           player.volume = 1;
           sound_trigger.classList.add('on')
         }
+
       })
 
     });

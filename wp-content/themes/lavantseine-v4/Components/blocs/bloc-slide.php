@@ -41,8 +41,7 @@
 
 					<?php elseif( $video && $video !== '' ) : ?>
 						
-						<button id="trigger_sound" class="trigger_sound">
-						</button>
+						<button id="trigger_sound" class="trigger_sound"></button>
 
 						<div class="plyr__video-embed js-player" id="player">
 							  <iframe
