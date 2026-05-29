@@ -111,8 +111,15 @@
 							<div class="item-names txt-right meta">
 
 							
-								<?php echo isset($args['date']) ? get_event_hour( intval($args['date']) ) : ''; ?>
 
+								<?php 
+									if( isset($args['date']) ) {
+										echo get_event_hour( intval($args['date']) );
+									} 
+									else {
+										echo get_event_hours($event_first_date, $event_last_date, $event_other_dates, $exhibition); 
+									} 
+								?>
 
 								<?php if ($age && !is_wp_error($age)) { ?>
 									<p class="meta">
