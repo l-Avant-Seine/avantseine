@@ -72,18 +72,26 @@ console.log('STEP SWIPER')
       prevEl: '.swiper-btn-prev',
     },
     breakpoints: {
-      200: {
-        slidesPerView : 1.2,
-        slidesPerGroup: 1,
-      },
-      760: {
-        slidesPerView : 2.2,
-        slidesPerGroup: 1,
-      },
-      1000: {
-        slidesPerView : 4,
-        slidesPerGroup: 2,
-      }
+                      200: {
+                        slidesPerView : 1.2,
+                        slidesPerGroup: 1,
+                      },
+                      800: {
+                        slidesPerView : 2.2,
+                        slidesPerGroup: 1,
+                      },
+                      1000: {
+                        slidesPerView : 3,
+                        slidesPerGroup: 2,
+                      },
+                      1300: {
+                        slidesPerView : 4,
+                        slidesPerGroup: 3,
+                      },
+                      1900: {
+                        slidesPerView : 5,
+                        slidesPerGroup: 3,
+                      }
     },
     on: {
       init: function() {
@@ -373,11 +381,11 @@ console.log('STEP ACCORDEON')
                         slidesPerView : 1.2,
                         slidesPerGroup: 1,
                       },
-                      600: {
+                      800: {
                         slidesPerView : 2.2,
                         slidesPerGroup: 1,
                       },
-                      900: {
+                      1000: {
                         slidesPerView : 3,
                         slidesPerGroup: 2,
                       },
