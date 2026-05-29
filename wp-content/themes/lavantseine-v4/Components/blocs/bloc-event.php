@@ -90,7 +90,8 @@
 				<div>
 
 					<div class="bloc_title mb-small">
-						<h3 class="h2_2" itemprop="name">	
+						<?php $the_title = get_the_title(); ?>
+						<h3 class="<?php echo strlen($the_title) < 30 ? 'h2_2' : 'h2_2_1'; ?>" itemprop="name">	
 							<?php the_title(); ?>
 						</h3>
 					</div>
@@ -101,7 +102,7 @@
 
 					<div class="bloc_content flex --hbottom --jstf mb-small">
 
-						<div class="item-names label_1">
+						<div class="item-names <?php echo strlen(get_field('noms_principaux')) < 30 ? 'label_1' : 'label_1_1'; ?>">
 							<?php if( get_field('noms_principaux') ) { ?>
 								<?php the_field( 'noms_principaux' ); ?>
 							<?php } ?>	

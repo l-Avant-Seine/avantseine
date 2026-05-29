@@ -97,6 +97,18 @@ h1, h2, h3, h4, h5, h6 {
 		font-size: 2.6rem;
 	}
 }
+.h2_2_1 {
+	font-size: 2.6rem;
+	font-weight: $book;
+	line-height: 1.1;
+	p {
+		font-size: inherit;
+		line-height: inherit;
+	}
+	@include up-to(large) {
+		font-size: 2.2rem;
+	}
+}
 .h2_3 {
 	font-size: 5rem;
 	font-weight: $book;
@@ -202,6 +214,10 @@ p {
 }
 .label_1 {
 	font-size: 1.6rem;
+	text-transform: uppercase;
+}
+.label_1_1 {
+	font-size: 1.4rem;
 	text-transform: uppercase;
 }
 .label_2 {
