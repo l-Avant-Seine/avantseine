@@ -168,6 +168,12 @@ p {
 	iframe {
 		width: 100%;
 	}
+	a {
+		text-decoration: underline;
+		&:hover {
+			color: var(--color-one);
+		}
+	}
 }
 
 .big_typo {
