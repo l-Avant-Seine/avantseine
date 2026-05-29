@@ -385,15 +385,15 @@ console.log('STEP ACCORDEON')
                         slidesPerView : 2.2,
                         slidesPerGroup: 1,
                       },
-                      1000: {
+                      1100: {
                         slidesPerView : 3,
                         slidesPerGroup: 2,
                       },
-                      1300: {
+                      1400: {
                         slidesPerView : 4,
                         slidesPerGroup: 3,
                       },
-                      1900: {
+                      2200: {
                         slidesPerView : 5,
                         slidesPerGroup: 3,
                       }

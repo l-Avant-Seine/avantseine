@@ -3,7 +3,7 @@
 
     <div class="mod_title wrapper --narrow mb-medium">
         <div class="txt-center">
-            <h2 class="h1_2 mb-0"><?php echo $args['title']; ?></h2>
+            <h2 class="h1_2 mb-small"><?php echo $args['title']; ?></h2>
         </div>
 
         <div class="txt-center big_typo">
