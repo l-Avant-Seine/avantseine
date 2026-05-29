@@ -4,6 +4,31 @@
     min-height: 400px;
     background-color: $gray; 
 
+    .trigger_sound {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+        cursor: pointer;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 40px;
+        height: 40px;
+
+        &.on {
+            background-image: url('../assets/img/sound_on.png');
+            &:hover {
+                background-image: url('../assets/img/sound_off.png');
+            }
+        }
+        &:not(.on) {
+            background-image: url('../assets/img/sound_off.png');
+            &:hover {
+                background-image: url('../assets/img/sound_on.png');
+            }
+        }
+
+    }
 
     .wp-post-image {
         width: 100%;
