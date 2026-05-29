@@ -229,7 +229,7 @@
 
 .site-footer {
     position: relative;
-    background-position: center 60%;
+    background-position: center 75%;
     background-repeat: no-repeat;
     background-size: 100% auto;
 
@@ -243,13 +243,13 @@
     }
     .bg_upper {
         background-color: var(--color-four);
-        height: 60%;
-        flex: 0 0 60%;
+        height: 75%;
+        flex: 0 0 75%;
     }
     .bg_lower {
         background-color: var(--color-one);
-        height: 40%;
-        flex: 0 0 40%;
+        height: 25%;
+        flex: 0 0 25%;
     }
 }
 .footer_upper {
