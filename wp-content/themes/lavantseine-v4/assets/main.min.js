@@ -13,17 +13,20 @@ console.log('BEGIN')
 
   /* UTILS */
 
-    const checkHeights = ( elements ) => {
+  const checkHeights = ( elements ) => {
 
-    let max_height = 0;
-    elements.forEach( el => {
-      el.style.height = 'auto';
-      if( el.offsetHeight > max_height ) max_height = el.offsetHeight
-    })
+    if( elements !== undefined ) {
+      let max_height = 0;
+      elements.forEach( el => {
+        el.style.height = 'auto';
+        if( el.offsetHeight > max_height ) max_height = el.offsetHeight
+      })
 
-    elements.forEach(el => {
-      el.style.height = `${max_height}px`
-    })
+      elements.forEach(el => {
+        el.style.height = `${max_height}px`
+      })
+    }
+
   }
 
 
