@@ -106,11 +106,11 @@ console.log('STEP SWIPER')
                         slidesPerGroup: 2,
                       },
                       1300: {
-                        slidesPerView : 4,
+                        slidesPerView : 3,
                         slidesPerGroup: 3,
                       },
                       1900: {
-                        slidesPerView : 5,
+                        slidesPerView : 4,
                         slidesPerGroup: 3,
                       }
     },
@@ -119,9 +119,15 @@ console.log('STEP SWIPER')
         console.log('swiper init');
        
         const blocs = document.querySelectorAll('.swiper-spectacles .bloc_event')
-                if( blocs !== undefined ) {
-                  checkHeights( blocs )
-                }
+        if( blocs !== undefined ) {
+          checkHeights( blocs )
+
+          window.addEventListener("resize", () => {
+            checkHeights( blocs )
+          }); 
+          
+        }
+
       }
     }
   });
@@ -330,6 +336,9 @@ console.log('STEP ACCORDEON')
     const archive_items = el.querySelectorAll('.archive_item')
     if( archive_items !== undefined ) {
       checkHeights( archive_items )
+      window.addEventListener("resize", () => {
+        checkHeights( archive_items )
+      }); 
     }
   });
 
@@ -448,6 +457,9 @@ console.log('STEP ACCORDEON')
                 const blocs = document.querySelectorAll('.swiper-calendar .bloc_event')
                 if( blocs !== undefined ) {
                   checkHeights( blocs )
+                  window.addEventListener("resize", () => {
+                    checkHeights( blocs )
+                  }); 
                 }
 
             }, 1000)
@@ -542,9 +554,6 @@ console.log('STEP ACCORDEON')
   /* EVENTS */
 
   document.addEventListener("scroll", documentIsScrolling, false);
-  window.addEventListener("resize", () => {
-    checkHeights();
-  }); 
 
   console.log('ENDING STEP')
 })
