@@ -272,7 +272,6 @@ console.log('HEAD')
   /* SAISONS ARCHIVES */
 
   const archives_groups = document.querySelectorAll('.archives_group');
-  const archives_groups_not_first = document.querySelectorAll('.archives_group:not(:first-child)');
 
   if(archives_groups) {
     archives_groups.forEach( el => {
@@ -282,20 +281,26 @@ console.log('HEAD')
       const list_height = list.offsetHeight;
       list.style.maxHeight = list_height + 'px';
 
-      // archives_groups_not_first.forEach( a => a.classList.add('small') );
       list.classList.add('small')
       
       title.addEventListener('click', () => {
 
-//        if( title.classList.contains('') ) 
-        const small = document.querySelector('.group_list:not(.small)')
-        if( small ) small.classList.add('small');
+        if( el.classList.contains('open') ) {
+          el.classList.remove('open');
+          el.querySelector('.group_list').classList.add('small')
+        }
+        else {
 
-        el.classList.toggle('open');
-        list.classList.toggle('small');
-        list.scrollIntoView();
+          const small = document.querySelector('.group_list:not(.small)')
+          if( small ) small.classList.add('small');
+
+          el.classList.add('open');
+          el.querySelector('.group_list').classList.remove('small')
+
+          //title.scrollIntoView();
+        }
+
       })
-
     })
   }
 
