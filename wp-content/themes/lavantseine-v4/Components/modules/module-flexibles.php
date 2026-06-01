@@ -98,6 +98,7 @@
                     'title' => get_sub_field('mod_title'),
                     'simple' => get_sub_field('mod_simpledisplay'),
                     'relations' => get_sub_field('mod_relations'),
+                    'auto' => get_sub_field('mod_auto_relations'),
                 );
 
                 get_template_part( 

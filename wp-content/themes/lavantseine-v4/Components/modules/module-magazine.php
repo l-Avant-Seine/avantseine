@@ -2,8 +2,23 @@
     $posts = $args['relations']; 
     $title = $args['title']; 
     $simple = $args['simple']; 
+    $auto = $args['auto']; 
     wp_enqueue_script('swiper');
     wp_enqueue_style('swiper');
+
+    if( $auto ) {
+
+        $args = array(
+            'post_type'          => array('post'),
+            'posts_per_page'    => 8,
+            'orderby'           => 'post_date',
+            'order'            => 'DESC',
+        );
+
+        $posts = get_posts($args);
+
+    }
+
 ?>
 
 <section class="mod_magazine" style="background-image: url('<?php the_field('texture_from_five_to_none', 'option'); ?>')">

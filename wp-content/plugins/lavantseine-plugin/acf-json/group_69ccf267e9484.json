@@ -453,6 +453,48 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6a1d750c45f37",
+                            "label": "Affichage automatique des derniers articles ?",
+                            "name": "mod_auto_relations",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
+                        {
+                            "key": "field_69d3a0be96e9f",
+                            "label": "Affichage \"simple\" ?",
+                            "name": "mod_simpledisplay",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
+                        {
                             "key": "field_69cd150031d17",
                             "label": "Sélectionner les actualités à afficher dans le module",
                             "name": "mod_relations",
@@ -483,27 +525,6 @@
                             "elements": "",
                             "bidirectional": 0,
                             "bidirectional_target": []
-                        },
-                        {
-                            "key": "field_69d3a0be96e9f",
-                            "label": "Affichage \"simple\" ?",
-                            "name": "mod_simpledisplay",
-                            "aria-label": "",
-                            "type": "true_false",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 0,
-                            "allow_in_bindings": 0,
-                            "ui": 0,
-                            "ui_on_text": "",
-                            "ui_off_text": ""
                         }
                     ],
                     "min": "",
@@ -830,5 +851,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1780314364
+    "modified": 1780315478
 }
