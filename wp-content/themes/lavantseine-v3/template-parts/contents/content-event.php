@@ -414,12 +414,12 @@
 
 	            <?php
                 $args = array(
-                    'post_type'             => array('event'),
+                    'post_type'         => array('event'),
                     'posts_per_page'    => 6,
-                    'orderby'                    => 'post_date',
-                    'order'                     => 'DESC',
+                    'orderby'           => 'post_date',
+                    'order'             => 'DESC',
                     'relational_tag'    => $relational_tag->slug,
-                    'post__not_in'        => array($post->ID)
+                    'post__not_in'      => array($post->ID)
                 );
 
                 $related_posts_query = new WP_Query($args);

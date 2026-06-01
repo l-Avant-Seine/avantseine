@@ -112,6 +112,7 @@
                 $data = array (
                     'title' => get_sub_field('mod_title'),
                     'relations' => get_sub_field('mod_relations'),
+                    'by_tags' => get_sub_field('mod_tags_relationnels'),
                     'label' => get_sub_field('mod_label'),
                     'link' => get_sub_field('mod_links'),
                 );

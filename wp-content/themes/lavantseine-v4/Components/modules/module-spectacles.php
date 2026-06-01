@@ -3,9 +3,47 @@
     $title = $args['title'];
     $label = $args['label'];
     $link = $args['link'];
+    $by_tags = $args['by_tags'];
 
     wp_enqueue_script('swiper');
     wp_enqueue_style('swiper');
+
+
+    if( $by_tags ) {
+
+        $relational_tags = wp_get_post_terms($post->ID, 'relational_tag', array('orderby' => 'none',));
+        $tags = [];
+
+
+        if (!empty($relational_tags)) :
+            foreach( $relational_tags as $tag ) {
+                array_push($tags, $tag->slug );
+            }
+        endif;
+
+        $args = array(
+            'post_type'          => array('event'),
+            'posts_per_page'    => -1,
+            'orderby'           => 'post_date',
+            'order'            => 'DESC',
+            'post__not_in'     => array($post->ID),
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'relational_tag',
+                    'field' => 'slug',
+                    'terms' => $tags
+                ),
+            ),
+        );
+
+        $posts = get_posts($args);
+
+    }
+
+
+
+
+
 ?>
 
 

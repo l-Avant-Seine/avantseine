@@ -512,7 +512,7 @@
                 "layout_69d38fd943edd": {
                     "key": "layout_69d38fd943edd",
                     "name": "mod_spectacles",
-                    "label": "Module Spectacles ",
+                    "label": "Module Spectacles (ça devrait vous plaire)",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -546,7 +546,7 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -559,7 +559,7 @@
                         },
                         {
                             "key": "field_69d3901943ee5",
-                            "label": "Lien du boutpn",
+                            "label": "Lien du bouton",
                             "name": "mod_link",
                             "aria-label": "",
                             "type": "page_link",
@@ -567,7 +567,7 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -578,6 +578,27 @@
                             "multiple": 0,
                             "allow_null": 0,
                             "allow_in_bindings": 0
+                        },
+                        {
+                            "key": "field_6a1d6fed83bf9",
+                            "label": "Faire remonter événements par étiquettes \"tags relationnels\"",
+                            "name": "mod_tags_relationnels",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
                         },
                         {
                             "key": "field_69d3903843ee6",
@@ -809,5 +830,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775481540
+    "modified": 1780314364
 }
