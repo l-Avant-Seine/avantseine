@@ -308,7 +308,7 @@ function get_events() {
 						
 						<?php if( $previous_month  !== $current_month_full ) { ?>
 							<div class="swiper-slide month">
-								<div class="inner flex --col --vcentered txt-right">
+								<div class="inner flex --col --vcentered">
 									<span class="h3"><?php echo $current_month_full; ?></span><br>
 									<span class="h3"><?php echo $current_year; ?></span>
 								</div>
