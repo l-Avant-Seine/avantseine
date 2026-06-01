@@ -301,6 +301,13 @@
 
                         </div>
 
+
+                        <?php if ($event_duration) : ?>
+                            <div class="frame_row  flex --gap-s">
+                                <span class='label_0'>Durée : <?php echo $event_duration; ?></span>
+                            </div>
+                        <?php endif; ?>
+
                         <?php if ($services && !is_wp_error($services)) : ?>
                             <div class="frame_row single_services flex --centered --wrap --gap-s">
                                     <?php foreach ($services as $s) {

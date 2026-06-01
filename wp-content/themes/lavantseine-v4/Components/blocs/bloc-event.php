@@ -23,7 +23,6 @@
 		$event_hour = strftime('%M', $event_first_date ) === '00' ? strftime('%kh', $event_first_date ) : strftime('%kh%M', $event_first_date );
 	} 
 
-	$event_duration = get_field( 'eventDetail_duration' );
     $age = get_the_terms(get_the_ID(), 'public');
     $tags = wp_get_post_terms($post_ID, array('discipline'), array("fields" => "all"));
 
