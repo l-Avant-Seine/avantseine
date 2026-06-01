@@ -6,6 +6,13 @@
 	$post = $args['post'];
 	setup_postdata( $post );
 
+	if( is_int($post) ) {
+		$post_ID = $post;
+	}
+	else {
+		$post_ID = $post->ID;
+	}
+
 	$event_dates = get_field( 'eventDetail_dates' );
 	$event_text2 = get_field( 'eventDetail_text2' );
 	$event_first_date = htmlspecialchars( get_field( 'eventDetail_first_date' ) );
@@ -18,7 +25,7 @@
 
 	$event_duration = get_field( 'eventDetail_duration' );
     $age = get_the_terms(get_the_ID(), 'public');
-    $tags = wp_get_post_terms($post, array('discipline'), array("fields" => "all"));
+    $tags = wp_get_post_terms($post_ID, array('discipline'), array("fields" => "all"));
 
 	$today = new DateTime("today"); // This object represents current date/time with time set to midnight
 
@@ -28,6 +35,8 @@
 
 	$event_landscape_media = get_post_meta( get_the_ID(), 'eventMedia_landscape', true );
 	$exhibition = get_field( 'eventDetail_exhibition' );
+
+
 ?>
 
 
@@ -110,8 +119,6 @@
 
 							<div class="item-names txt-right meta">
 
-							
-
 								<?php 
 									if( isset($args['date']) ) {
 										echo get_event_hour( intval($args['date']) );
@@ -162,3 +169,5 @@
 
 
 </article><!-- #event-## -->
+
+<?php wp_reset_postdata(); ; ?>
