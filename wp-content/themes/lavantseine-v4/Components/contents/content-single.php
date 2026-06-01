@@ -86,8 +86,42 @@
 							<div class="mb-medium">
 								<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $post) ); ?>
 							</div>
-						<?php endforeach; ?>
-					<?php endif; ?>
+						<?php endforeach; wp_reset_postdata(); ?>
+
+					<?php else : 
+						$relational_tags = wp_get_post_terms( $post->ID , 'relational_tag',  array('orderby' => 'none' ) );
+						$tags = [];
+
+						if (!empty($relational_tags)) :
+							foreach( $relational_tags as $tag ) {
+								array_push($tags, $tag->slug );
+							}
+						endif;
+
+						$args = array(
+							'post_type'         => array('event'),
+							'posts_per_page'    => 4,
+							'orderby'           => 'post_date',
+							'order'            	=> 'DESC',
+							'tax_query' 		=> array(
+								array(
+									'taxonomy' => 'relational_tag',
+									'field' => 'slug',
+									'terms' => $tags
+								),
+							),
+						);
+
+						$posts = get_posts($args);
+
+						foreach ( $posts as $p ) : ?>
+							<div class="mb-medium">
+								<?php get_template_part('Components/blocs/bloc', 'event', array('post' => $p) ); ?>
+							</div>
+						<?php endforeach; 
+
+
+					endif; ?>
 				</div>
 			</div>
 
