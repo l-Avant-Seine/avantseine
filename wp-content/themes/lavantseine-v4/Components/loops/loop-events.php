@@ -21,8 +21,8 @@
 
 								<h3 class="h2_3 "><?php print strftime('%B %Y', htmlentities( strtotime($month.'/01')) )?></h3>
 
-								<?php if( $previous_month === false && !is_archive() ) { ?>
-									<a href="/saison/2012-2013/" class="btn-inline">Saisons passées</a>
+								<?php if( $previous_month === false && !is_archive() && !is_page_template('page-saisons.php') ) { ?>
+									<a href="/programmation/saisons-passees/" class="btn-inline">Saisons passées</a>
 								<?php } ?>
 							</div>
 
