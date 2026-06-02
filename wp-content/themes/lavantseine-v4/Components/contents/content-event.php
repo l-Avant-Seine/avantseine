@@ -312,7 +312,7 @@
                             <div class="frame_row single_services flex --centered --wrap --gap-s">
                                     <?php foreach ($services as $s) {
                                         $image = get_field('picto', 'services' . '_' . $s->term_id); ?>
-                                        <img src="<?php echo $image; ?>" class="single_servicemedia">
+                                        <img src="<?php echo $image; ?>" alt="<?php echo $s->slug; ?>" class="single_servicemedia">
                                     <?php }; ?>
                             </div>
                         <?php endif; ?>
