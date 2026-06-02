@@ -154,6 +154,22 @@
                     $data
                 );
 
+
+            elseif( get_row_layout() == 'mod_onecol' ): 
+                
+                $data = array (
+                    'title' => get_sub_field('mod_title'),
+                    'intro' => get_sub_field('mod_intro'),
+                    'content' => get_sub_field('mod_content'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'onecol',
+                    $data
+                );
+
+
             endif; 
 
         endwhile;

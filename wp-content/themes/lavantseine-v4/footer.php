@@ -80,7 +80,7 @@
 						    <ul class="no-bullets flex --gap-m --centered">
 						        <?php foreach( $images as $image ): ?>
 						            <li class="logo-item flx-1">
-										<img src="<?php echo $image['sizes']['logo']; ?>" alt="<?php echo $image['alt']; ?>" />
+										<img src="<?php echo $image['sizes']['featured-post-thumbnail']; ?>" alt="<?php echo $image['alt']; ?>" />
 						            </li>
 						        <?php endforeach; ?>
 						    </ul>
