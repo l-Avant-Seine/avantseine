@@ -245,6 +245,8 @@ section {
             flex: 1 1 auto;
         }
         .mod_texture {
+            position: relative;
+            top: -10px;
             &.--inversed {
                 transform: scaleY(-1);
             }
