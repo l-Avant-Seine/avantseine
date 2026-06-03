@@ -291,6 +291,7 @@ section {
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2;
 
             @include up-to(medium) {
                 width: 40px;
@@ -313,6 +314,11 @@ section {
             height: 75px;
             width: auto;
             padding-left: 15px;
+
+            @include up-to(medium) {
+                height: 60px;
+            }
+
             .inner {
                 height: 100%;
                 width: 100%;
@@ -324,6 +330,10 @@ section {
             height: 75px;
             width: auto;
             transition: opacity .3s;
+
+            @include up-to(medium) {
+                height: 60px;
+            }
 
             &:not(.inactive) {
                 cursor: pointer;
