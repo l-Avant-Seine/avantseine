@@ -170,6 +170,23 @@
                 );
 
 
+            elseif( get_row_layout() == 'mod_visual_content' ): 
+                
+                $data = array (
+                    'title' => get_sub_field('mod_title'),
+                    'visuel' => get_sub_field('mod_visuel'),
+                    'content' => get_sub_field('mod_content'),
+                    'label' => get_sub_field('mod_label'),
+                    'link' => get_sub_field('mod_link'),
+                );
+
+                get_template_part( 
+                    'Components/modules/module', 
+                    'visual-content',
+                    $data
+                );
+            
+
             endif; 
 
         endwhile;
