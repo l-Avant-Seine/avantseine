@@ -96,6 +96,7 @@
 		height: 100%;
 		padding: 40px 100px 40px 40px;
 		max-height: 85vh;
+		max-width: 60vw;
 		@include up-to(large) {
 			padding: 60px 20px;
 	    	max-height: 90vh;

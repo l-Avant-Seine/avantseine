@@ -319,7 +319,7 @@
 
 
                         <?php if ( ! empty($partenaires) ) : ?>
-                            <div class="frame_row flex --centered --gap-xs">
+                            <div class="frame_row flex --centered --wrap --gap-xs">
                                 <?php foreach( $partenaires as $p ) : ?>
                                     <img src="<?php echo $p["logo"]?> " class="single_partners_logo">
                                 <?php endforeach; ?>
