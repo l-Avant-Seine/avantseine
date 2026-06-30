@@ -42,7 +42,7 @@ use WpMatomo\User\Sync as UserSync;
 
 class WpMatomo {
 
-	const VERSION = '5.10.2';
+	const VERSION = '5.11.0';
 
 	/**
 	 * @var \WpMatomo\Feature[]
@@ -219,6 +219,7 @@ class WpMatomo {
 			new UserSync(),
 			new \WpMatomo\Referral(),
 			new \WpMatomo\ErrorNotice( self::$settings ),
+			new \WpMatomo\MinimumRequirementsNotice(),
 			new Chart(),
 
 			/*
@@ -257,5 +258,9 @@ class WpMatomo {
 			return null;
 		}
 		return self::$features[ $class_name ];
+	}
+
+	public static function is_feature_active( $class_name ) {
+		return ! empty( self::$features[ $class_name ] );
 	}
 }
