@@ -506,3 +506,8 @@ add_action('init', function () {
 		}
 	}
 add_action('pre_get_posts','search_filter');
+
+
+
+add_filter( 'rest_enabled', '__return_false' );
+add_filter( 'rest_jsonp_enabled', '__return_false' );
