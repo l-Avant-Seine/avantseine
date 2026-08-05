@@ -170,6 +170,7 @@ class API extends Feature {
 			'run'        => 'POST',
 			'send'       => 'POST',
 			'publish'    => 'POST',
+			'set'        => 'POST',
 			'delete'     => 'DELETE',
 			'remove'     => 'DELETE',
 		];
@@ -225,6 +226,7 @@ class API extends Feature {
 		// ensure user is authenticated through WordPress!
 		unset( $_GET['token_auth'] );
 		unset( $_POST['token_auth'] );
+		unset( $params['token_auth'] );
 
 		Bootstrap::do_bootstrap();
 

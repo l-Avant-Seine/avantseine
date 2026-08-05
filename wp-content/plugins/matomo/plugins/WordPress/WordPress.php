@@ -67,9 +67,10 @@ class WordPress extends Plugin
             'Template.header' => 'onHeader',
             'AssetManager.makeNewAssetManagerObject' => 'makeNewAssetManagerObject',
             'ScheduledTasks.shouldExecuteTask' => 'shouldExecuteTask',
+            'SitesManager.shouldPerformEmptySiteCheck' => 'shouldPerformEmptySiteCheck',
             'API.TagManager.getContainerInstallInstructions.end' => 'addInstallInstructions',
             'API.Tour.getChallenges.end' => 'modifyTourChallenges',
-	        'API.ScheduledReports.generateReport.end' => 'onGenerateReportEnd',
+	          'API.ScheduledReports.generateReport.end' => 'onGenerateReportEnd',
             'API.CorePluginsAdmin.getSystemSettings.end' => 'onGetSystemSettingsEnd',
             'API.SitesManager.updateSite' => 'allowUpdateSiteForMeasurableSettings',
             'API.SitesManager.updateSite.end' => 'reDisableSitesAdmin',
@@ -83,8 +84,23 @@ class WordPress extends Plugin
             'Template.jsGlobalVariables' => 'addJsGlobalVariables',
             'API.Request.dispatch' => 'onApiRequestDispatch',
             'API.Request.dispatch.end' => 'onApiRequestDispatchEnd',
+            'UsersManager.deleteUser' => 'onDeleteMatomoUser',
             ProcessedReportInnerCallHooks::PROCESSED_REPORT_INNER_END_EVENT => 'afterProcessedReportInner',
         );
+    }
+
+    /**
+     * Delete login mappings when a Matomo user is deleted.
+     *
+     * @param string $userLogin
+     */
+    public function onDeleteMatomoUser($userLogin)
+    {
+        ( new WpMatomo\User() )->delete_mappings_for_matomo_login($userLogin);
+    }
+
+    public function shouldPerformEmptySiteCheck( &$shouldPerformEmptySiteCheck ) {
+        $shouldPerformEmptySiteCheck = false;
     }
 
     public function onApiRequestDispatch(&$finalParameters, $pluginName, $methodName) {
@@ -558,5 +574,36 @@ class WordPress extends Plugin
         $files[] = "../plugins/WordPress/stylesheets/blogselection.css";
         $files[] = "../plugins/WordPress/vue/src/PluginMeasurableSettings/PluginMeasurableSettings.less";
         $files[] = "../plugins/WordPress/stylesheets/overrides.css";
+
+        // matomo's core StylesheetUIAssetFetcher::addUmdCssFilesIfDetected() only detects vue UMD
+        // bundle stylesheets for plugins located under PIWIK_INCLUDE_PATH . '/plugins'. third party
+        // plugins installed into a custom plugins directory (see MATOMO_PLUGIN_DIRS /
+        // Manager::getPluginsDirectories()) are skipped there, so we add them here instead.
+        foreach (Manager::getInstance()->getLoadedPluginsName() as $pluginName) {
+            $umdCssFile = $this->getCustomPluginDirUmdCssFileIfExists($pluginName);
+            if (null !== $umdCssFile) {
+                $files[] = $umdCssFile;
+            }
+        }
+    }
+
+    public function getCustomPluginDirUmdCssFileIfExists($pluginName)
+    {
+        $pluginDir      = rtrim(Manager::getPluginDirectory($pluginName), '/') . '/';
+        $corePluginsDir = Manager::getPluginsDirectory();
+
+        // core plugins are already handled by Matomo core
+        if (strpos($pluginDir, $corePluginsDir) === 0) {
+            return null;
+        }
+
+        if (!is_file($pluginDir . 'vue/dist/' . $pluginName . '.css')) {
+            return null;
+        }
+
+        // note: the relative path will be resolved correctly to the non-core plugin directory
+        // elsewhere. adding it to the list above just triggers the logic that will ensure
+        // it is loaded in the frontend.
+        return 'plugins/' . $pluginName . '/vue/dist/' . $pluginName . '.css';
     }
 }
